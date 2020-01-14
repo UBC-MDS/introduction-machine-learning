@@ -56,12 +56,12 @@ const Layout = ({ isHome, title, description, children }) => {
                             <footer className={classes.footer}>
                                 <div className={classes.footerContent}>
                                     <section className={classes.footerSection}>
-                                        <H3>About this course</H3>
+                                        <H3>About this Course</H3>
                                         <p>{meta.description}</p>
                                     </section>
 
                                     <section className={classes.footerSection}>
-                                        <H3>About me</H3>
+                                        <H3>About the Program</H3>
                                         {meta.showProfileImage && (
                                             <img
                                                 src="/profile.jpg"

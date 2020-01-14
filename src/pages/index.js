@@ -17,6 +17,20 @@ export default ({ data }) => {
     return (
         <Layout isHome>
             <Logo className={classes.logo} aria-label={siteMetadata.title} />
+
+            <section>
+                <h1 className={classes.subtitle}> DSCI 571 Exploratory Data Visualization</h1>
+                <div className={classes.introduction}>
+                <p>
+         Welcome to DSCI 571!  This course is part of UBC's Mid-Careers Learning program. In this course we hope to introduce you to the basics of different supervised learning models. You will learn about splitting your data, training and predicting with different models and the algorithms behind them.
+    </p>
+    <p>
+        <strong>Course prerequisites:</strong> DSCI 511a. 
+    </p>
+    </div>
+</section>
+
+
             {chapters.map(({ slug, title, description }) => (
                 <section key={slug} className={classes.chapter}>
                     <h2 className={classes.chapterTitle}>
