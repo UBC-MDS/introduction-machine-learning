@@ -195,3 +195,95 @@ Is the prediction a categorical or a numical value?
 </slides>
 
 </exercise>
+
+<exercise id="11" title="Terminology 1">
+
+Which is a synonym for Target? 
+
+<choice>
+<opt text="Predictors" >
+
+Not quite. You may want to have a read through of the definitions in this section. 
+
+</opt>
+
+<opt text="Records">
+
+Not quite. You may want to have a read through of the definitions in this section. 
+
+</opt>
+
+<opt text="Outcomes" correct="true">
+
+Good job!
+
+</opt>
+
+<opt text="Independent variables">
+
+Not quite. You may want to have a read through of the definitions in this section.
+
+</opt>
+
+</choice>
+
+</exercise>
+
+<exercise id="12" title="Terminology 2">
+
+Which is not a synonym for features? 
+
+<choice>
+<opt text="Inputs" >
+
+Inputs is a synonym for features. You may want to have a read through of the definitions in this section. 
+
+</opt>
+
+<opt text="Records" correct="true">
+
+Good job! Records is a synonym for examples, rows and samples
+
+</opt>
+
+<opt text="Predictors" >
+
+Predictors is a synonym for features. You may want to have a read through of the definitions in this section. 
+
+</opt>
+
+<opt text="Independent variables">
+
+Predictors is a synonym for features. You may want to have a read through of the definitions in this section. 
+
+</opt>
+
+</choice>
+
+</exercise>
+
+<exercise id="13" title="Describing a Dataset">
+
+Let's make sure we understand all the components we use in a Dataset for machine learning. 
+
+**Instructions:**
+
+When you run a code exercise for the first time, it could take a bit of time for everything to load. 
+
+**When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
+
+The packages you need will be loaded for you. 
+
+- Print the `canbybar_df` object. 
+- Save the feature names as a list named `candybar_feat`.
+- Save the candybar names in a list named `candybar_names`.
+- Save the dimensions of the dataframe as a tuple named `candybar_dim`.
+
+<codeblock id="01_01">
+
+- Are you sure you are saving `candybar_feat` and `candybar_names` as lists?
+- Did you import the csv with the correct manner?
+
+</codeblock>
+
+</exercise>

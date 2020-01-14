@@ -52,11 +52,12 @@ Notes: Script here
 
 ### Terminology
 
+
 - You will see a lot of variable terminology in machine learning and statistics
 - See the MDS terminology resource [here](https://ubc-mds.github.io/resources_pages/terminology/).
 
 Of particular:
-- **examples** = rows = samples = records = instances (usually denoted by <img src="http://latex.codecogs.com/gif.latex?1+sin(x)" border="0"/>)
+- **examples** = rows = samples = records = instances (usually denoted by **n**)
 - **features** = inputs = predictors = explanatory variables = regressors = independent variables = covariates (usually denoted by **d**)
 - **targets** = outputs = outcomes = response variable = dependent variable = labels (if categorical).
 - **training** = learning = fitting
