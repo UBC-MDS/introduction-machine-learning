@@ -1,5 +1,5 @@
+import numpy as np
 import pandas as pd
-
 dataframe = pd.read_csv('exercises/candybars.csv', header=0, index_col=0)
 
 print(candy_df.head())
