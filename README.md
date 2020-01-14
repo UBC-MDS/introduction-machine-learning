@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/UBC-MDS/MCL-DSCI-571-machine-learning/master)
+
 # Online course starter: Python
 
 This is a starter repo based on the
