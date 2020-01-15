@@ -2,15 +2,15 @@ import numpy as np
 import pandas as pd
 
 
-dataframe = pd.read_csv('data/candybars.csv', header=0, index_col=0)
+candybar_feat = pd.read_csv('data/candybars.csv', header=____, index_col=____)
 
 print(candy_df.head())
 
-candybar_feat = list(candy_df.columns)
+candybar_feat = ____(candy_df.____)
 print(candybar_feat)
 
-candybar_names = list(candy_df.index)
+candybar_names = ____(candy_df.____)
 print(candybar_names)
 
-candybar_dim = candy_df.shape
+candybar_dim = candy_df.____
 print(candybar_dim)
