@@ -1,7 +1,7 @@
 ---
-title: 'Module 4: Data Visualizations in the Wild'
+title: 'Module 4: All about Naive Bayes'
 description:
-  'In this module you will be applying concepts your learned to assess the effectiveness of real worlds examples'
+  'In this module learn about Naive Bayes Classification.'
 prev: /module3
 next: /module5
 type: chapter

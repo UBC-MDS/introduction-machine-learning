@@ -1,7 +1,7 @@
 ---
 title: 'Module 1: Introduction and Decision Trees'
 description:
-  'This chapter will explain the different branches of machine learning and introduce decision trees; a machine learning model used in supervised learning'
+  'This chapter will explain the different branches of machine learning and introduce decision trees; a machine learning model used in supervised learning.'
 prev: module0
 next: /module1
 type: chapter

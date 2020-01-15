@@ -1,7 +1,7 @@
 ---
-title: 'Module 3: From Question to Visualization'
+title: 'Module 3: KNN, loess, Feature Preprocessing'
 description:
-  'This module will teach you about choosing the most appropriate data visualization for the data-type, statistical question being asked and the communication goals'
+  'This module will Introduce you to K-Nearest Neighbours, Loess and how to preprocess features before training your model.'
 prev: /module2
 next: /module4
 type: chapter

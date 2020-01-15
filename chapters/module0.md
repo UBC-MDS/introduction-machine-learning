@@ -1,7 +1,7 @@
 ---
 title: 'Module 0: Welcome to Introduction to Machine Learning'
 description:
-  'Course Introduction and summary of course learning outcomes' 
+  'Course Introduction, summary of course learning outcomes and prerequisite validation.' 
 prev: null
 next: /module1
 type: chapter
