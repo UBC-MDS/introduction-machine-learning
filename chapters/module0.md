@@ -3,7 +3,7 @@ title: 'Module 0: Welcome to Introduction to Machine Learning'
 description:
   'Course Introduction and summary of course learning outcomes' 
 prev: null
-next: /chapter1
+next: /module1
 type: chapter
 id: 1
 ---
