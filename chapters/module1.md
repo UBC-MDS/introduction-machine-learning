@@ -364,7 +364,90 @@ What would we be predicting, a numerical value or categorical?
 </choice>
 </exercise>
 
-<exercise id="16" title="Continue from here " type="slides">
+<exercise id="16" title="Training a Decision Tree using Scikit-learn" type="slides">
 <slides source="chapter1_04">
+</slides>
+</exercise>
+
+<exercise id="17" title="Question ">
+
+Does this statement correspond to the `fit` or the `predict` function:   
+_ Is called first (before the other one)._
+
+<choice>
+<opt text="`fit`" correct="true">
+
+Great job! Training on training data must be done before predicting on new data. 
+
+</opt>
+
+<opt text="`predict`" >
+
+How can the model predict without education first?
+
+</opt>
+</choice>
+</exercise>
+
+<exercise id="18" title="Question ">
+
+Does this statement correspond to the `fit` or the `predict` function:   
+_At least for decision trees, this is where most of the hard work is done._
+
+<choice>
+<opt text="`fit`" correct="true">
+
+Great job! Training is more intensive then predicting for decision trees. 
+
+</opt>
+
+<opt text="`predict`" >
+
+Where do we teach the model? 
+
+</opt>
+</choice>
+</exercise>
+
+<exercise id="19" title="Question ">
+
+Does this statement correspond to the `fit` or the `predict` function:   
+*Only takes `X` as an argument.* 
+
+<choice>
+<opt text="fit">
+
+We need to make sure we give the model the correct labels so it can _learn_. 
+</opt>
+
+<opt text="predict" correct="true">
+
+Great job!
+
+</opt>
+</choice>
+</exercise>
+
+<exercise id="20" title="Question ">
+
+Does this statement correspond to the `fit` or the `predict` function:   
+*In scikit-learn, we can ignore its output.* 
+
+<choice>
+<opt text="fit" correct="true">
+ 
+</opt>
+
+<opt text="predict">
+
+Great job!
+
+</opt>
+</choice>
+</exercise>
+
+
+<exercise id="21" title="Continue from here " type="slides">
+<slides source="chapter1_05">
 </slides>
 </exercise>

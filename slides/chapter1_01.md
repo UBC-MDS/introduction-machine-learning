@@ -57,6 +57,7 @@ img
 ```
 
 ```out
+
  img
 ```
 <img src="module1/alpaca.jpg" alt="This image is in /static" width="20%">
@@ -78,6 +79,7 @@ classify_image(img, 5)
 
 
 ```out
+
 Class, Probability
 llama, 0.68
 Eskimo dog, husky, 0.07
