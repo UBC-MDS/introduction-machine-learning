@@ -6,8 +6,8 @@ candybar_df = pd.read_csv('data/candybars.csv', header=____, index_col=____)
 
 print(candybar_df.head())
 
-candybar_feat = ____(candybar_df.____)
-print(candybar_feat)
+candybar_feats = ____(candybar_df.____)
+print(candybar_feats)
 
 candybar_names = ____(candybar_df.____)
 print(candybar_names)

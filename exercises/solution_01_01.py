@@ -1,15 +1,15 @@
 import numpy as np
 import pandas as pd
 
-candybar_feat = pd.read_csv('data/candybars.csv', header=0, index_col=0)
+candybar_df = pd.read_csv('data/candybars.csv', header=0, index_col=0)
 
-print(candy_df.head())
+print(candybar_df.head())
 
-candybar_feat = list(candy_df.columns)
-print(candybar_feat)
+candybar_feats = list(candybar_df.columns)
+print(candybar_feats)
 
-candybar_names = list(candy_df.index)
+candybar_names = list(candybar_df.index)
 print(candybar_names)
 
-candybar_dim = candy_df.shape
+candybar_dim = candybar_df.shape
 print(candybar_dim)
