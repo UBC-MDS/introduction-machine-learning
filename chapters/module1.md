@@ -363,3 +363,8 @@ What would we be predicting, a numerical value or categorical?
 </opt>
 </choice>
 </exercise>
+
+<exercise id="16" title="Continue from here " type="slides">
+<slides source="chapter1_04">
+</slides>
+</exercise>
