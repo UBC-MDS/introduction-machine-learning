@@ -10,6 +10,7 @@ print(candybar_feats)
 
 candybar_names = list(candybar_df.index)
 print(candybar_names)
+print(len(candybar_names))
 
 candybar_dim = candybar_df.shape
 print(candybar_dim)

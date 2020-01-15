@@ -11,6 +11,7 @@ print(candybar_feats)
 
 candybar_names = ____(candybar_df.____)
 print(candybar_names)
+print(len(candybar_names))
 
 candybar_dim = candybar_df.____
 print(candybar_dim)

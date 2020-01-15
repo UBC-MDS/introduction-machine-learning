@@ -286,4 +286,80 @@ The packages you need will be loaded for you.
 
 </codeblock>
 
+Question: How many features does the data have?
+
+<choice>
+<opt text="9">
+
+This is the total number of columns, not the number of features
+
+</opt>
+
+<opt text="8" correct="true">
+
+Yes! Good job!
+
+</opt>
+
+<opt text="25">
+
+This is not the number of features.
+
+</opt>
+
+<opt text="6">
+
+This is not the number of features.
+
+</opt>
+</choice>
+</exercise>
+
+<exercise id="14" title="Describing a Dataset 2">
+
+Question: How many examples does the data have?
+
+<choice>
+
+<opt text="9">
+
+This is the total number of columns, not the number of examples.
+
+</opt>
+
+<opt text="8" >
+
+This is the not the number of examples.
+
+</opt>
+
+<opt text="25" correct="true">
+
+Well done!
+
+</opt>
+
+<opt text="26">
+This is not the number of examples.
+
+</opt>
+</choice>
+</exercise>
+
+<exercise id="15" title="Describing a Dataset 3">
+Question: Would this be considered classification or regression?
+
+<choice>
+<opt text="Classification" correct="true">
+
+Great job!
+
+</opt>
+
+<opt text="Regression" >
+
+What would we be predicting, a numerical value or categorical?
+
+</opt>
+</choice>
 </exercise>
