@@ -6,6 +6,7 @@ type: slides
 
 Notes: In this module you will be introduced to different machine learning branches and Decision Trees.
 
+
 ---
 
 # Module Learning Outcomes 
@@ -34,6 +35,10 @@ Notes:
 <img src='module1/sup_learning.png' width="700">
 
 Notes: Script here. 
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
 
 ---
 
@@ -57,6 +62,11 @@ img
 <img src="module1/alpaca.jpg" alt="This image is in /static" width="20%">
 
 Notes: Script here. 
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 
 ---
 
@@ -77,6 +87,11 @@ timber wolf, grey wolf, gray wolf, Canis lupus, 0.03
 ```
 
 Notes: Script here. 
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 
 ---
 
@@ -87,8 +102,18 @@ Notes: Script here.
 <img src='module1/unsup_learning.png' width="65%">
 
 Notes: Script here. 
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 ---
 
 # Let's practice!
 
 Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+

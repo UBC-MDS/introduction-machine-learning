@@ -5,6 +5,11 @@ type: slides
 # Tabular data and terminology
 
 Notes: Script to be added
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 
 ---
 
@@ -28,6 +33,11 @@ df
 
 ```
 Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 ---
 
   
@@ -48,6 +58,11 @@ Notes: Script here
 - The cities data was sampled from (http://simplemaps.com/static/demos/resources/us-cities/cities.csv). The election information was collected from Wikipedia.
 
 Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 ---
 
 ### Terminology
@@ -63,6 +78,11 @@ Of particular:
 - **training** = learning = fitting
 
 Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 
 ---
 
@@ -92,9 +112,19 @@ df.shape
 In this data set we have 6 examples of 3 variables (2 features, 1 target).
 
 Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 
 ---
 
 # Let's practice!
 
 Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
