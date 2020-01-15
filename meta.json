@@ -1,5 +1,4 @@
 {
-    "courseId": "course-starter-python",
     "title": "DSCI 571 - Introduction to Machine Learning ",
     "slogan": "Part of UBC's Mid-Career Learning program",
     "description": "Introduction to supervised machine learning, with a focus on classification. K-NN, decision trees, linear classifiers, how to combine models via ensembling: boosting, bagging, random forests. Basic machine learning concepts such as generalization error and overfitting.",

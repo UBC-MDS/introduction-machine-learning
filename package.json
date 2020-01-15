@@ -1,9 +1,10 @@
 {
-    "name": "course-starter-python",
+    "name": "DSCI-571",
     "private": true,
-    "description": "Starter package to build interactive Python courses",
+    "description": "Introduction to supervised machine learning, with a focus on classification. K-NN, decision trees, linear classifiers, how to combine models via ensembling: boosting, bagging, random forests. Basic machine learning concepts such as generalization error and overfitting.",
+    "bio": "The University of British Columbia (UBC) is a comprehensive research-intensive university, consistently ranked among the 40 best universities in the world. The MDS Mid Career Learners program was launched in September 2020 and is offered by  the MDS program who are a collaboration between the UBC Department of Computer Science and Department of Statistics. The Mid Career program involves 5 approximately 30 hour courses each offering a final Project.",
     "version": "0.0.1",
-    "author": "Ines Montani <ines@explosion.ai>",
+    "author": "Hayley Boyce <hayleyfboyce@gmail.com>",
     "main": "main.js",
     "dependencies": {
         "@illinois/react-use-local-storage": "^1.1.0",
@@ -57,7 +58,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/ines/course-starter-python"
+        "url": "https://github.com/UBC-MDS/MCL-DSCI-571-machine-learning"
     },
     "build": {
         "appId": "com.ines.course-starter-python",
