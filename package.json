@@ -61,7 +61,7 @@
         "url": "https://github.com/UBC-MDS/MCL-DSCI-571-machine-learning"
     },
     "build": {
-        "appId": "com.ines.course-starter-python",
+        "appId": "com.ubc-mds.mcl-dsci-571-machine-learning",
         "dmg": {
             "contents": [
                 {
