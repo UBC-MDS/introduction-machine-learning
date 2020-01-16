@@ -453,13 +453,37 @@ You may want to look at the slides and see what each function delivers as an out
 </choice>
 </exercise>
 
+<exercise id="21" title="Building your model">
 
-<exercise id="21" title="Decision Tree Splitting Rules" type="slides">
+Let's try training and prediction our own model. 
+
+**Instructions:**
+
+When you run a code exercise for the first time, it could take a bit of time for everything to load. 
+
+**When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
+
+The packages you need will be loaded for you. 
+
+- Print the `canbybar_df` object. 
+- Save the feature names as a list named `candybar_feat`.
+- Save the candybar names in a list named `candybar_names`.
+- Save the dimensions of the dataframe as a tuple named `candybar_dim`.
+
+<codeblock id="01_21">
+
+- Make sure you are using the correct functions 
+- Are you using the model named `model`?
+
+</codeblock>
+</exercise>
+
+<exercise id="22" title="Decision Tree Splitting Rules" type="slides">
 <slides source="chapter1_05">
 </slides>
 </exercise>
 
-<exercise id="22" title="Building your model">
+<exercise id="23" title="Question?">
 
 Let's try training and prediction our own model. 
 
@@ -478,7 +502,7 @@ The packages you need will be loaded for you.
 
 <codeblock id="01_22">
 
-- make sure you are using the correct functions 
+- Make sure you are using the correct functions 
 - Are you using the model named `model`?
 
 </codeblock>
