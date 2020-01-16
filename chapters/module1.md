@@ -498,7 +498,7 @@ Save your Gini impurity as object `peanut_gini_impurity`
 </codeblock>
 </exercise>
 
-<exercise id="24" title="ML model parameters and hyperparameters " type="slides">
+<exercise id="24" title="ML Model Parameters and Hyperparameters " type="slides">
 <slides source="module1_24">
 </slides>
 </exercise>

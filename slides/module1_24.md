@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# ML model parameters and hyperparameters 
+# ML Model Parameters and Hyperparameters 
 
 Notes: Script to be added
 <html>
@@ -65,7 +65,7 @@ DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='gini',
                        random_state=None, splitter='best')
 ```
 
-Here, `max_depth` is a hyperparameter. There are many, many more! See the output above and[here](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html).
+Here, `max_depth` is a hyperparameter. There are many, many more! See the output above and [here](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html).
 
 Notes: Script here
 <html>
@@ -87,7 +87,7 @@ graphviz.Source(export_graphviz(model,
 
 
 ``` 
-<img src="module1/largetree.png" alt="This image is in /static" width="50%">
+<img src="module1/largetree.png" alt="This image is in /static" width="63%">
 
 
 Notes: Script here
@@ -98,18 +98,24 @@ Notes: Script here
 
 ---
 
-<img src="module1/lat_long.png" alt="This image is in /static" width="50%">
-
-- Let's first calculate the Gini impurity of the full dataset
-
 ```python 
-gini2(3, 3)
+model = DecisionTreeClassifier(max_depth=None).fit(X, y)
+plot_tree(X, y, model)
 ```
 
 ```out 
-0.5
+
+
 ``` 
+<img src="module1/plot_votes.png" alt="This image is in /static" width="50%">
 
+```python 
+model.score(X, y)
+```
+
+```out 
+1.0
+``` 
 Notes: Script here
 <html>
 <audio controls >
@@ -118,25 +124,15 @@ Notes: Script here
 
 ---
 
-- Let's calculate the Gini impurity of the shown split on lon = -97.5
-- We now have 2 groups (on either side of red line) so calculate impurity for each group
-- We add the results together but weight it by the proportion of observations
+<br>   
+<br>
 
-```python 
-gini2(1, 2)*(3/6) + gini2(2, 1)*(3/6)
-```
+<font size="6"> **Question to Ponder Before the Next Lecture**</font>     
 
-```out 
-0.4444444444444445
-```
+<br>
 
-```python 
-gini2(0, 1)*(1/6) + gini2(3, 2)*(5/6)
-```
+<font size="5"> Why not just use a very deep decision tree for every supervised learning problem and get super high accuracy?</font> 
 
-```out 
-0.4
-```
 
 Notes: Script here
 <html>
