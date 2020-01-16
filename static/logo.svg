@@ -3,12 +3,10 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 783.6 351.4" style="enable-background:new 0 0 783.6 351.4;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:0.75;stroke-miterlimit:10;}
-	.st1{font-family:'Arial-Black';}
-	.st2{font-size:115.7202px;}
-	.st3{letter-spacing:1.7;}
+	.st0{fill:#0BB5D4;stroke:#0BB5D4;stroke-width:4;stroke-miterlimit:10;}
+	.st1{font-family:'Avenir-Black';}
+	.st2{font-size:112.4469px;}
+	.st3{letter-spacing:3;}
 </style>
-<image style="overflow:visible;" width="1396" height="633" xlink:href="B31AB18069116288.png"  transform="matrix(0.5625 0 0 0.5625 -0.825 -2.3313)">
-</image>
-<text transform="matrix(0.5837 0 0 1 234.3115 108.2358)"><tspan x="0" y="0" class="st0 st1 st2 st3">DSCI-571</tspan><tspan x="-123.3" y="105" class="st0 st1 st2 st3">Introduction </tspan><tspan x="-386.6" y="210" class="st0 st1 st2 st3">to Machine Learning </tspan></text>
+<text transform="matrix(0.6591 0 0 1 220.3486 94.6465)"><tspan x="0" y="0" class="st0 st1 st2 st3">DSCI-571</tspan><tspan x="-88.2" y="102.7" class="st0 st1 st2 st3">Introduction</tspan><tspan x="-315" y="205.4" class="st0 st1 st2 st3">to Machine Learning</tspan></text>
 </svg>
