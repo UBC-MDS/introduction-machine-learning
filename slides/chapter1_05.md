@@ -21,7 +21,7 @@ Notes: Script to be added
 
 **Decision	Stumps** are simple	decision	tree	with	1	splitting	rule	based	on	thresholding	1	feature.
 
-<img src="tree1.jpg" alt="This image is in /static" width="50%"> 
+<img src="module1/tree1.jpg" alt="This image is in /static" width="50%"> 
 
 Notes: Script here
 <html>
