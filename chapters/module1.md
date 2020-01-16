@@ -10,7 +10,7 @@ id: 1
 
 <exercise id="1" title="Introduction + Supervised vs. Unsupervised learning" type="slides">
 
-<slides source="chapter1_01">
+<slides source="module1_01">
 </slides>
 
 </exercise>
@@ -100,7 +100,7 @@ Since we are clustering animals that are similar and there are no pre-defined gr
 
 <exercise id="5" title="Classification vs. Regression" type="slides">
 
-<slides source="chapter1_02">
+<slides source="module1_05">
 </slides>
 
 </exercise>
@@ -163,9 +163,7 @@ Is the prediction a categorical or a numical value?
 Good job! We are predicting a numerical value (percent grade) and therefore this is an example of regression.
 
 </opt>
-
 </choice>
-
 </exercise>
 
 <exercise id="9" title="Scenario 4: Classification vs. Regression">
@@ -184,14 +182,12 @@ Good job! We are predicting a categorical value (Bike/Not bike) and therefore th
 Is the prediction a categorical or a numical value?
 
 </opt>
-
 </choice>
-
 </exercise>
 
 <exercise id="10" title="Tabular data and Terminology" type="slides">
 
-<slides source="chapter1_03">
+<slides source="module1_10">
 </slides>
 
 </exercise>
@@ -365,7 +361,7 @@ What would we be predicting, a numerical value or categorical?
 </exercise>
 
 <exercise id="16" title="Training a Model using Scikit-learn" type="slides">
-<slides source="chapter1_04">
+<slides source="module1_16">
 </slides>
 </exercise>
 
@@ -472,13 +468,17 @@ When you run a code exercise for the first time, it could take a bit of time for
 </exercise>
 
 <exercise id="22" title="Decision Tree Splitting Rules" type="slides">
-<slides source="chapter1_05">
+<slides source="module1_22">
 </slides>
 </exercise>
 
 <exercise id="23" title="Calculating Gini impurity">
 
-Let's try calculating the Gini impurity using the same function from the module slides. The function has been imported for you
+Let's try calculating the Gini impurity  on our candybar dataset using the same `gini2` function from the module slides. The function has been imported for you. 
+
+Let's make the split on the feature `peanuts` where anything greater than 0.5 is classified as `American`. Remember that you now have 2 groups and you need to calculate the impurity for both groups.  
+
+* Don't forget to take into consideration the porportion of observations in each group!
 
 **Instructions:**
 
@@ -487,16 +487,18 @@ When you run a code exercise for the first time, it could take a bit of time for
 **When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
 
 The packages you need will be loaded for you. 
+Save your Gini impurity as object `peanut_gini_impurity`
 
 <codeblock id="01_23">
 
-- Make sure you are using the correct functions 
-- Are you using the model named `model`?
+- Are you taking into consideration there are 2 gini calculations ( you will have to call `gini2 ` twice)?
+- There are 6 observations of the 16 that have `peanuts` >= 0.5. Of those, 5 are of class `America` and 1 is of class `Canada`. 
+- There are 10 observations of the 16 that have `peanuts` < 0.5. Of, those 3 are of class `America` and 7 is of class `Canada`.
 
 </codeblock>
 </exercise>
 
-<exercise id="23" title="Decision Tree Splitting Rules" type="slides">
-<slides source="chapter1_05">
+<exercise id="24" title="Decision Tree Splitting Rules" type="slides">
+<slides source="module1_24">
 </slides>
 </exercise>
