@@ -478,8 +478,8 @@ The packages you need will be loaded for you.
 
 <codeblock id="01_22">
 
-- Are you sure you are saving `candybar_feat` and `candybar_names` as lists?
-- Did you import the csv with the correct manner?
+- make sure you are using the correct functions 
+- Are you using the model named `model`?
 
 </codeblock>
 </exercise>
