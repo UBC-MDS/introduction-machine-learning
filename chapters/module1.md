@@ -279,7 +279,7 @@ The packages you need will be loaded for you.
 - Save the candybar names in a list named `candybar_names`.
 - Save the dimensions of the dataframe as a tuple named `candybar_dim`.
 
-<codeblock id="01_01">
+<codeblock id="01_13">
 
 - Are you sure you are saving `candybar_feat` and `candybar_names` as lists?
 - Did you import the csv with the correct manner?
