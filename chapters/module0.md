@@ -10,7 +10,7 @@ id: 1
 
 <exercise id="1" title="DSCI-571 Introduction to Machine Learning" type="slides">
 
-<slides source="chapter0_00">
+<slides source="module0_00">
 </slides>
 
 </exercise>

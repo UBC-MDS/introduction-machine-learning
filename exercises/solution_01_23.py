@@ -1,27 +1,42 @@
+import sys
+sys.path.insert(0, 'exercises/')
+
+from gini_impurity import gini2
+
 import numpy as np
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
 
 # Loading in the data
 candybar_df = pd.read_csv('data/candybars.csv', header=0, index_col=0)
 
-print(candybar_df.head())
+# Wranging the data so we only have 2 categories
+candybar_df = candybar_df[candybar_df['available_canada_america']!= "Both"]
 
-# Define X and y
+# Looking at just peanuts and the class of each
+candybar_df_con = candybar_df[['peanuts','available_canada_america']]
+print(candybar_df_con)
 
-X = candybar_df.drop(columns=['available_canada_america'])
-y = candybar_df[['available_canada_america']]
+# Finding the counts of each label for porportions - This will be helpful.  
+print(candybar_df['available_canada_america'].value_counts())
 
-# Creating a model
+# How many observations are there in total? 
+obs_total = 16
 
-model = DecisionTreeClassifier()
-print(model)
+# How many observations have peanuts >= 0.5? 
+obs_peanuts = 6
 
-## Fit your data 
-model.fit(X,y)
+# Of those observations how many are classed as America and Canada? 
 
-## Predict the labels of X
-model.predict(X)
+peanut_america = 5
+peanut_canada = 1
 
-## The model accuracy
-print("The accuracy of the model's prediction is " + "{:.1%}".format(model.score(X,y)))
+# How many observations have peanuts < 0.5? 
+obs_not_peanuts = 10
+
+# Of those observations how many are classed as America and Canada? 
+not_peanut_america = 3
+not_peanut_canada = 7
+
+# Insert the correct values into the equation.
+peanut_gini_impurity = gini2(5, 1)*(6/16) + gini2(3, 7)*(10/16)
+print(peanut_gini_impurity)
