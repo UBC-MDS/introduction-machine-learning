@@ -36,7 +36,7 @@ Notes: Script here
 - Basic idea is to pick a criterion (see [here](https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation)) and then maximize it across possible splits.
 - Common one is Gini impurity
 
-<img src="gini.png" alt="This image is in /static" width="60%"> 
+<img src="module1/gini.png" alt="This image is in /static" width="60%"> 
 
 - **C** is number of classes in target variable
 - **p** is proportion of class **i** in a group
