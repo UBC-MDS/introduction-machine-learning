@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Decision Tree Splitting Rules 
+# ML model parameters and hyperparameters 
 
 Notes: Script to be added
 <html>
@@ -13,15 +13,33 @@ Notes: Script to be added
 
 ---
 
-### Definitions
+- When you call `fit`, a bunch of values get set, like the split variables and split thresholds. 
+- These are called **parameters**
+- But even before calling `fit` on a specific data set, we can set some "knobs" that control the learning.
+- These are called **hyperparameters**
 
-**Decision	Trees**	are	simple	programs	consisting	of:   
-– A	nested	sequence	of	“if-else”	decisions	based	on	the	features (splitting	rules).
-– A	class	label	as	a	return	value	at	the	end	of	each	sequence.
+```python 
+df = pd.read_csv('data/cities_USA.csv', index_col=0)
+X = df.drop(columns=['vote'])
+y = df[['vote']]
+df
+```
 
-**Decision	Stumps** are simple	decision	tree	with	1	splitting	rule	based	on	thresholding	1	feature.
-
-<img src="module1/tree1.jpg" alt="This image is in /static" width="50%"> 
+```out 
+	      lon	          lat	   vote
+1	  -80.162475	  25.692104	 blue
+2	  -80.214360	  25.944083	 blue
+3	  -80.094133	  26.234314	 blue
+4	  -80.248086	  26.291902	 blue
+5	  -81.789963	  26.348035	 blue
+...	    ...	        ...   	 ...
+396	-97.460476	  48.225094	 red
+397	-96.551116	  48.591592	 blue
+398	-166.519855	 53.887114	 red
+399	-163.733617	 67.665859	 red
+400	-145.423115	 68.077395	 red
+400 rows × 3 columns
+```
 
 Notes: Script here
 <html>
@@ -31,15 +49,23 @@ Notes: Script here
 
 ---
 
- ### How do we decide how to split the data? 
+ In scikit-learn, hyperparameters are set in the constructor:
 
-- Basic idea is to pick a criterion (see [here](https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation)) and then maximize it across possible splits.
-- Common one is Gini impurity
+ ```python 
+model = DecisionTreeClassifier(max_depth=3) # this is a "decision stump"
+model.fit(X, y)
+```
 
-<img src="module1/gini.png" alt="This image is in /static" width="60%"> 
+```out 
+DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='gini',
+                       max_depth=3, max_features=None, max_leaf_nodes=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, presort='deprecated',
+                       random_state=None, splitter='best')
+```
 
-- **C** is number of classes in target variable
-- **p** is proportion of class **i** in a group
+Here, `max_depth` is a hyperparameter. There are many, many more! See the output above and[here](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html).
 
 Notes: Script here
 <html>
@@ -50,28 +76,19 @@ Notes: Script here
 ---
 
 ```python
-def gini2(c1, c2):
-    """
-    Calculates the gini impurity for binary class data.
-
-    Parameters
-    ----------
-    c1 : int
-        Number of examples of class 1
-    c2 : int
-        Number of examples of class 2
-
-    Returns
-    -------
-    float
-        The gini impurity
-    """
-    n = c1 + c2  # total examples
-    p1 = c1 / n  # proportion of instance that are class 1
-    p2 = c2 / n  # proportion of instance that are class 2
-    return p1*(1-p1) + p2*(1-p2)  # calculate gini impurity
-    
+dot_data = export_graphviz(model)
+graphviz.Source(export_graphviz(model,
+                                out_file=None,
+                                feature_names=X.columns,
+                                class_names=["red", "blue"],
+                                impurity=True))
 ```
+```out 
+
+
+``` 
+<img src="module1/largetree.png" alt="This image is in /static" width="50%">
+
 
 Notes: Script here
 <html>
