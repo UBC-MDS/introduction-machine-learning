@@ -364,24 +364,25 @@ What would we be predicting, a numerical value or categorical?
 </choice>
 </exercise>
 
-<exercise id="16" title="Training a Decision Tree using Scikit-learn" type="slides">
+<exercise id="16" title="Training a Model using Scikit-learn" type="slides">
 <slides source="chapter1_04">
 </slides>
 </exercise>
 
-<exercise id="17" title="Question ">
+<exercise id="17" title="Fit or Predict 1">
 
 Does this statement correspond to the `fit` or the `predict` function:   
-_ Is called first (before the other one)._
+
+_Is called first (before the other one)._
 
 <choice>
-<opt text="`fit`" correct="true">
+<opt text="Fit" correct="true">
 
 Great job! Training on training data must be done before predicting on new data. 
 
 </opt>
 
-<opt text="`predict`" >
+<opt text="Predict" >
 
 How can the model predict without education first?
 
@@ -389,19 +390,20 @@ How can the model predict without education first?
 </choice>
 </exercise>
 
-<exercise id="18" title="Question ">
+<exercise id="18" title="Fit or Predict 2">
 
-Does this statement correspond to the `fit` or the `predict` function:   
+Does this statement correspond to the `fit` or the `predict` function: 
+
 _At least for decision trees, this is where most of the hard work is done._
 
 <choice>
-<opt text="`fit`" correct="true">
+<opt text="Fit" correct="true">
 
 Great job! Training is more intensive then predicting for decision trees. 
 
 </opt>
 
-<opt text="`predict`" >
+<opt text="Predict" >
 
 Where do we teach the model? 
 
@@ -409,18 +411,20 @@ Where do we teach the model?
 </choice>
 </exercise>
 
-<exercise id="19" title="Question ">
+<exercise id="19" title="Fit or Predict 3">
 
 Does this statement correspond to the `fit` or the `predict` function:   
-*Only takes `X` as an argument.* 
+
+_Only takes `X` as an argument._
 
 <choice>
-<opt text="fit">
+<opt text="Fit">
 
 We need to make sure we give the model the correct labels so it can _learn_. 
+
 </opt>
 
-<opt text="predict" correct="true">
+<opt text="Predict" correct="true">
 
 Great job!
 
@@ -428,26 +432,54 @@ Great job!
 </choice>
 </exercise>
 
-<exercise id="20" title="Question ">
+<exercise id="20" title="Fit or Predict 4">
 
 Does this statement correspond to the `fit` or the `predict` function:   
-*In scikit-learn, we can ignore its output.* 
+
+_In scikit-learn, we can ignore its output._
 
 <choice>
-<opt text="fit" correct="true">
+<opt text="Fit" correct="true">
  
+Great job!
+
 </opt>
 
-<opt text="predict">
+<opt text="Predict">
 
-Great job!
+You may want to look at the slides and see what each function delivers as an output. 
 
 </opt>
 </choice>
 </exercise>
 
 
-<exercise id="21" title="Continue from here " type="slides">
+<exercise id="21" title="Decision Tree Splitting Rules" type="slides">
 <slides source="chapter1_05">
 </slides>
+</exercise>
+
+<exercise id="22" title="Building your model">
+
+Let's try training and prediction our own model. 
+
+**Instructions:**
+
+When you run a code exercise for the first time, it could take a bit of time for everything to load. 
+
+**When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
+
+The packages you need will be loaded for you. 
+
+- Print the `canbybar_df` object. 
+- Save the feature names as a list named `candybar_feat`.
+- Save the candybar names in a list named `candybar_names`.
+- Save the dimensions of the dataframe as a tuple named `candybar_dim`.
+
+<codeblock id="01_22">
+
+- Are you sure you are saving `candybar_feat` and `candybar_names` as lists?
+- Did you import the csv with the correct manner?
+
+</codeblock>
 </exercise>

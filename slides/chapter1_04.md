@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Training a Decision Tree using Scikit-learn
+# Training a Model using Scikit-learn
 
 Notes: Script to be added
 <html>
@@ -178,7 +178,7 @@ graphviz.Source(export_graphviz(model,
 
 ```out
   
-              
+                    
 ```
 
 <img src="tree1.jpg" alt="This image is in /static" width="50%">
@@ -191,6 +191,8 @@ Notes: Script here
 </audio></html>
 
 ---
+
+
 ```python
 X
 ```
@@ -209,7 +211,7 @@ X
 model.predict(X)
 ```
 
-```out   
+```out  
 array(['blue', 'blue', 'red', 'blue', 'blue', 'blue'], dtype=object)
 ````
 
@@ -255,14 +257,6 @@ X
 ````
 
 ```python
-made_up_X[np.newaxis].shape
-```
-
-```out   
-(1, 2)
-```
-
-```python
 made_up_X = np.array([-85, 30])
 model.predict(made_up_X[np.newaxis])
 ```
@@ -270,6 +264,21 @@ model.predict(made_up_X[np.newaxis])
 ```out  
 array(['red'], dtype=object)
 ```
+
+```python
+made_up_X[np.newaxis].shape
+```
+
+```out   
+(1, 2)
+```
+
+Notes: Script here
+<html>
+<audio controls >
+  <source src="572_placeholder_audio.mp3" />
+</audio></html>
+
 ---
 
 # Let's practice!

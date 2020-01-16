@@ -42,6 +42,9 @@ Notes: Script here.
 
 ---
 
+Goal	of	supervised	learning:	
+– Use	data	to	find	a	model	that	outputs	the	right	label	based	on	the	features.
+
 See the magic in practice...
 
 ```python
@@ -58,9 +61,10 @@ img
 
 ```out
 
- img
+       
 ```
 <img src="module1/alpaca.jpg" alt="This image is in /static" width="20%">
+
 
 Notes: Script here. 
 <html>
