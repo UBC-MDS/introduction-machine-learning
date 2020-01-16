@@ -81,7 +81,7 @@ Notes: Script here
 
 ---
 
-<img src="lat_long.png" alt="This image is in /static" width="50%">
+<img src="module1/lat_long.png" alt="This image is in /static" width="50%">
 
 - Let's first calculate the Gini impurity of the full dataset
 

@@ -463,13 +463,6 @@ When you run a code exercise for the first time, it could take a bit of time for
 
 **When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
 
-The packages you need will be loaded for you. 
-
-- Print the `canbybar_df` object. 
-- Save the feature names as a list named `candybar_feat`.
-- Save the candybar names in a list named `candybar_names`.
-- Save the dimensions of the dataframe as a tuple named `candybar_dim`.
-
 <codeblock id="01_21">
 
 - Make sure you are using the correct functions 
@@ -483,9 +476,9 @@ The packages you need will be loaded for you.
 </slides>
 </exercise>
 
-<exercise id="23" title="Question?">
+<exercise id="23" title="Calculating Gini impurity">
 
-Let's try training and prediction our own model. 
+Let's try calculating the Gini impurity using the same function from the module slides. The function has been imported for you
 
 **Instructions:**
 
@@ -495,15 +488,15 @@ When you run a code exercise for the first time, it could take a bit of time for
 
 The packages you need will be loaded for you. 
 
-- Print the `canbybar_df` object. 
-- Save the feature names as a list named `candybar_feat`.
-- Save the candybar names in a list named `candybar_names`.
-- Save the dimensions of the dataframe as a tuple named `candybar_dim`.
-
-<codeblock id="01_22">
+<codeblock id="01_23">
 
 - Make sure you are using the correct functions 
 - Are you using the model named `model`?
 
 </codeblock>
+</exercise>
+
+<exercise id="23" title="Decision Tree Splitting Rules" type="slides">
+<slides source="chapter1_05">
+</slides>
 </exercise>
