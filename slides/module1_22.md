@@ -15,9 +15,12 @@ Notes: Script to be added
 
 ### Definitions
 
-**Decision	Trees**	are	simple	programs	consisting	of:   
+**Decision	Trees**	are	simple	programs	consisting	of:  
+- Decision	trees	allow	sequences	of	splits based	on	multiple	features. 
 – A	nested	sequence	of	“if-else”	decisions	based	on	the	features (splitting	rules).
-– A	class	label	as	a	return	value	at	the	end	of	each	sequence.
+– A	class	label	as	a	return	value	at	the	end	of	each	sequence.  
+– Very	general	class	of	models:	can	get	very	high	accuracy.
+– However,	it’s	computationally	infeasible	to	find	the	best	decision	tree.
 
 **Decision	Stumps** are simple	decision	tree	with	1	splitting	rule	based	on	thresholding	1	feature.
 
