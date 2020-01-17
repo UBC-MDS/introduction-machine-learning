@@ -185,7 +185,7 @@ Is the prediction a categorical or a numical value?
 </choice>
 </exercise>
 
-<exercise id="10" title="Tabular data and Terminology" type="slides">
+<exercise id="10" title="Tabular Data and Terminology" type="slides">
 
 <slides source="module1_10">
 </slides>
@@ -449,7 +449,7 @@ You may want to look at the slides and see what each function delivers as an out
 </choice>
 </exercise>
 
-<exercise id="21" title="Building your model">
+<exercise id="21" title="Building Your Model">
 
 Let's try training and prediction our own model. 
 
