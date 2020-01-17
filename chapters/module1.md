@@ -620,7 +620,7 @@ There can be multiple threshold splits used for the same feature.
 </choice>
 </exercise>
 
-<exercise id="30" title="What Did We Just Learn?" type="slides">
+<exercise id="30" title="What Did we Learn and What to Expect in Assignment 1" type="slides">
 <slides source="module1_30">
 </slides>
 </exercise>
