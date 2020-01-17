@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Let's Touch Base on What we Learned 
+# What Did we Learn and What to Expect in Assignment 1
 
 Notes: Script here
 <html>
@@ -40,6 +40,7 @@ The assigment will help solidify concept such as:
 - graphing decision trees for new data. 
 - Understanding the `fit` and `predict` functions 
 
+Notes: Script here
 <html>
 <audio controls >
   <source src="module0/571_Module0.mp3" />
