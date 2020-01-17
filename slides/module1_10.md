@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Tabular data and terminology
+# Tabular Data and Terminology
 
 Notes: Script to be added
 <html>
@@ -74,10 +74,10 @@ Notes: Script here
 - See the MDS terminology resource [here](https://ubc-mds.github.io/resources_pages/terminology/).
 
 Of particular:
-- **examples** = rows = samples = records = instances (usually denoted by **n**)
-- **features** = inputs = predictors = explanatory variables = regressors = independent variables = covariates (usually denoted by **d**)
-- **targets** = outputs = outcomes = response variable = dependent variable = labels (if categorical).
-- **training** = learning = fitting
+- **Examples** = rows = samples = records = instances (usually denoted by **n**)
+- **Features** = inputs = predictors = explanatory variables = regressors = independent variables = covariates (usually denoted by **d**)
+- **Targets** = outputs = outcomes = response variable = dependent variable = labels (if categorical).
+- **Training** = learning = fitting
 
 Notes: Script here
 <html>
