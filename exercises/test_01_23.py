@@ -22,5 +22,5 @@ def test():
 
     assert round(peanut_gini_impurity, 2)  == 0.37 , "Are you sure you put your values in the correct place?"
     
-    __msg__.good("Well done! You successfully trained the data and predicted labels using a machine learning model!")
+    __msg__.good("Well done! You correctly calculated the Gini impurity")
  
