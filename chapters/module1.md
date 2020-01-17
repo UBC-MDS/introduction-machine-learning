@@ -472,7 +472,7 @@ When you run a code exercise for the first time, it could take a bit of time for
 </slides>
 </exercise>
 
-<exercise id="23" title="Calculating Gini impurity">
+<exercise id="23" title="Calculating Gini Impurity">
 
 Let's try calculating the Gini impurity  on our candybar dataset using the same `gini2` function from the module slides. The function has been imported for you. 
 
@@ -500,5 +500,127 @@ Save your Gini impurity as object `peanut_gini_impurity`
 
 <exercise id="24" title="ML Model Parameters and Hyperparameters " type="slides">
 <slides source="module1_24">
+</slides>
+</exercise>
+
+
+<exercise id="25" title= "Summary Decision Tree Question 1">
+
+What type of tree are Decision Trees?
+
+<choice>
+<opt text= "General Tree" >
+ 
+How are the features split ?  
+
+</opt>
+
+<opt text="Binary Trees (2 children per node)." correct="true">
+
+Nice work!
+
+</opt>
+
+<opt text="AVL Tree (self-balancing binary search tree).">
+
+Does the tree need to be balanced? 
+
+</opt>
+
+</choice>
+</exercise>
+
+<exercise id="26" title="Summary Decision Tree Question 2">
+
+Who choses the features that are split on at each node?
+
+<choice>
+<opt text= "Data Scientist" >
+ 
+Where would we input this information?  
+
+</opt>
+
+<opt text="Model" correct="true">
+
+Great!
+
+</opt>
+
+</choice>
+</exercise>
+
+<exercise id="27" title="Summary Decision Tree Question 3">
+
+What is the depth of a decision stump? 
+
+<choice>
+<opt text= "1" correct="true">
+ 
+You have been paying attention! Nice work! 
+
+</opt>
+
+<opt text="5" >
+
+This is the default max depth of the decision tree classifier not the depth of a decision stump.
+
+</opt>
+
+<opt text="Whatever you set it as" >
+
+Decision stumps are what make up a decision tree, stumps are not a hyperparameter
+
+</opt>
+</choice>
+</exercise>
+
+<exercise id="28" title="Summary Decision Tree Question 4">
+
+Is the following Statement ***True*** or ***False***:
+
+_The standard decision tree algorithm finds the optimal tree given a data set._
+
+<choice>
+<opt text= "True" >
+ 
+For each node the model finds the optimal feature to split on but the nodes are chosen sequentially and it cannot choose the overall optimal tree. 
+
+</opt>
+
+<opt text="False" correct="true">
+
+Great! Just because the model chooses the best feature to split on each node does not mean the total tree is the optimal one! 
+
+</opt>
+
+</choice>
+</exercise>
+
+
+<exercise id="29" title="Summary Decision Tree Question 5">
+
+Is the following Statement ***True*** or ***False***:
+
+_The same feature can be split on multiple times in a tree with depth > 1._
+
+<choice>
+<opt text= "True" correct="true">
+ 
+Super! There can be multiple threshold splits used for the same feature. 
+
+</opt>
+
+<opt text="False" >
+
+There can be multiple threshold splits used for the same feature. 
+
+</opt>
+
+</choice>
+</exercise>
+
+<exercise id="30" title="What Did We Just Learn?" type="slides">
+<slides source="module1_30">
 </slides>
 </exercise>
