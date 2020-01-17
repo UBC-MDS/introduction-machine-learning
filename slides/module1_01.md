@@ -103,7 +103,7 @@ Notes: Script here.
 
 ## Unsupervised learning
 - We have data, but no associated response
-- More on this in **DSCI 563: Unsupervized learning**
+- We will not be covering unsupervised learning in this course and instead put our main focus on supervised
 
 <img src='module1/unsup_learning.png' width="65%">
 
