@@ -598,6 +598,6 @@ There can be multiple threshold splits used for the same feature.
 </exercise>
 
 <exercise id="19" title="What Did We Just Learn?" type="slides">
-<slides source="module1_15">
+<slides source="module1_19">
 </slides>
 </exercise>
