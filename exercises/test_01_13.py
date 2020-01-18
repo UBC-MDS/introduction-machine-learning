@@ -5,7 +5,22 @@ def test():
     # in the meta.json for details.
 
     # If an assertion fails, the message will be displayed
-    assert candybar_feats == ['chocolate', 'peanuts', 'caramel', 'nougat', 'cookie_wafer_rice', 'coconut', 'white_chocolate', 'multi', 'available_canada_america'], "Your features may not be correct, Try putting them in a list and `df.columns` may be useful"
-    assert candybar_names == ['CoffeeCrisp', 'Butterfinger', 'Skor', 'Smarties', 'Twix', 'ReesesPeanutButterCups ', '3Musketeers', 'Kinder Surprise', 'M&Ms', 'Glosettes', 'KitKat', 'Babe Ruth', 'Caramilk', 'Aero', 'Mars', 'Payday', 'Snickers', 'Crunchie', 'Wonderbar ', '100Grand ', 'Take5', 'Whatchamacallits', 'AlmondJoy', 'OhHenry', 'CookiesandCream'], "Your candybar names don't seem correct try putting them in a list and `using df.index`"
-    assert candybar_dim == (25, 9), "Did you load your data correctly? "
-    __msg__.good("Nice work, well done!")
+
+    assert "obs_total = 16" in __solution__ , "Are you counting the total number of observations in the dataset?"
+
+    assert "obs_peanuts = 6" in __solution__ , "Are you counting the number of observations with peanuts >= 0.5?"
+
+    assert "peanut_america = 5" in __solution__ , "Are you counting the number of observations with peanuts >= 0.5 that are labeled America?"
+
+    assert "peanut_canada = 1" in __solution__ , "Are you counting the number of observations with peanuts >= 0.5 that are labeled America"
+
+    assert "obs_not_peanuts = 10" in __solution__ , "Are you counting the number of observations with peanuts < 0.5?"
+
+    assert "not_peanut_america = 3" in __solution__ , "Are you counting the number of observations with peanuts < 0.5 that are labeled America?"
+
+    assert "not_peanut_canada = 7" in __solution__ , "Are you counting the number of observations with peanuts < 0.5 that are labeled Canada?"
+
+    assert round(peanut_gini_impurity, 2)  == 0.37 , "Are you sure you put your values in the correct place?"
+    
+    __msg__.good("Well done! You correctly calculated the Gini impurity")
+ 

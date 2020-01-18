@@ -15,11 +15,14 @@ id: 1
 
 </exercise>
 
-<exercise id="2" title="Scenario 1: Supervised vs. Unsupervised Learning">
+<exercise id="2" title=" Supervised vs. Unsupervised Learning">
 
-Is finding groups of similar properties in a real estate data set an example of supervised learning or unsupervised learning?
+**Given the following scenarios, would each example be considered supervised learning or unsupervised learning?**
 
-<choice>
+**Example:**   
+_Finding groups of similar properties in a real estate data set._
+
+<choice id="1" >
 <opt text="Supervised Learning">
 
 Is there a "true number" of groups of similar properties? Are the groups known and defined?
@@ -34,13 +37,10 @@ Good job! This is an unsupervised learning example.
 
 </choice>
 
-</exercise>
+**Example:**    
+_Is predicting real estate prices based on house features (number of rooms, learning from past sales, etc.) learning from past sales as examples supervised learning or unsupervised learning?_
 
-<exercise id="3" title="Scenario 2: Supervised vs. Unsupervised Learning">
-
-Is predicting real estate prices based on house features (number of rooms, learning from past sales, etc.) learning from past sales as examples supervised learning or unsupervised learning?
-
-<choice>
+<choice id="2">
 <opt text="Supervised Learning" correct="true">
 
 Nice work! Since we have examples with known value of real estate prices, we can use this predict real estate prices for homes we don't know the price on. 
@@ -53,15 +53,12 @@ Do we have true corresponding values of what we are predicting with?
 
 </opt>
 
-</choice>
+</choice >
 
-</exercise>
+**Example:**   
+_Detecting credit card fraud based on examples of fraudulent transactions_
 
-<exercise id="4" title="Scenario 3: Supervised vs. Unsupervised Learning">
-
-Is detecting credit card fraud based on examples of fraudulent transactions an example supervised learning or unsupervised learning?
-
-<choice>
+<choice  id="3">
 <opt text="Supervised Learning" correct= "true">
 
 Great! Since we have examples with labels of "fraudulent" or "not fraudulent", we can detect if transactions with similar features to our examples are of the same nature. 
@@ -76,16 +73,14 @@ Do we have examples of the true corresponding value of what we are predicting?
 
 </choice>
 
-</exercise>
+**Example:**   
+_Idenitfying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc._
 
-<exercise id="4" title="Scenario 4: Supervised vs. Unsupervised Learning">
-
-Is identifying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc. an example supervised learning or unsupervised learning?
-
-<choice>
+<choice  id="4">
 <opt text="Supervised Learning">
 
 Not quite! Do we have predefined know groups that we are classifying?
+
 </opt>
 
 <opt text="Unsupervised Learning" correct="true">
@@ -93,23 +88,26 @@ Not quite! Do we have predefined know groups that we are classifying?
 Since we are clustering animals that are similar and there are no pre-defined groups, this is an example of unsupervised learning.
 
 </opt>
-
 </choice>
 
 </exercise>
 
-<exercise id="5" title="Classification vs. Regression" type="slides">
+<exercise id="3" title="Classification vs. Regression" type="slides">
 
-<slides source="module1_05">
+<slides source="module1_03">
 </slides>
 
 </exercise>
 
-<exercise id="6" title="Scenario 1: Classification vs. Regression">
+<exercise id="4" title="Classification vs. Regression">
 
-Is predicting the price of a house based on features like number of rooms an example of classification or regression?
+**Given the following scenarios, would each example be considered classification or regression?**
 
-<choice>
+
+**Example:**  
+_Predicting the price of a house based on features like number of rooms_
+
+<choice id="1">
 <opt text="Classification">
 
 Is the prediction a categorical or a numical value?
@@ -124,13 +122,10 @@ Good job! We are predicting a numerical value and therefore this is an example o
 
 </choice>
 
-</exercise>
+**Example:**  
+_Predicting if a house will sell or not based on features like the price of the house, number of rooms, etc._
 
-<exercise id="7" title="Scenario 2: Classification vs. Regression">
-
-Is predicting if a house will sell or not based on features like the price of the house, number of rooms, etc. an example of classification or regression?
-
-<choice>
+<choice  id="2">
 <opt text="Classification" correct="true">
 
 Good job! We are predicting a categorical value (Sell/Not Sell) and therefore this is an example of classification.
@@ -145,13 +140,10 @@ Is the prediction a categorical or a numical value?
 
 </choice>
 
-</exercise>
+**Example:**  
+_Predicting your grade in 571 based on past grades._
 
-<exercise id="8" title="Scenario 3: Classification vs. Regression">
-
-Is predicting your grade in DSCI-571 based on past grades. an example of classification or regression?
-
-<choice>
+<choice  id="3">
 <opt text="Classification">
 
 Is the prediction a categorical or a numical value?
@@ -164,13 +156,11 @@ Good job! We are predicting a numerical value (percent grade) and therefore this
 
 </opt>
 </choice>
-</exercise>
 
-<exercise id="9" title="Scenario 4: Classification vs. Regression">
+**Example:**  
+_Predicting whether you should bicycle to work tomorrow based on the weather forecast._
 
-Is predicting whether you should bicycle to work tomorrow based on the weather forecast. an example of classification vs. regression?
-
-<choice>
+<choice  id="4">
 <opt text="Classification" correct="true">
 
 Good job! We are predicting a categorical value (Bike/Not bike) and therefore this is an example of classification.
@@ -185,18 +175,19 @@ Is the prediction a categorical or a numical value?
 </choice>
 </exercise>
 
-<exercise id="10" title="Tabular Data and Terminology" type="slides">
+<exercise id="5" title="Tabular Data and Terminology" type="slides">
 
-<slides source="module1_10">
+<slides source="module1_05">
 </slides>
 
 </exercise>
 
-<exercise id="11" title="Terminology 1">
+<exercise id="6" title="Terminology: Target">
 
-Which is a synonym for Target? 
+Which is a synonym for ***target***? 
 
-<choice>
+<choice  id="1">
+
 <opt text="Predictors" >
 
 Not quite. You may want to have a read through of the definitions in this section. 
@@ -222,14 +213,13 @@ Not quite. You may want to have a read through of the definitions in this sectio
 </opt>
 
 </choice>
-
 </exercise>
 
-<exercise id="12" title="Terminology 2">
+<exercise id="7" title="Terminology: Features">
 
-Which is not a synonym for features? 
+Which is not a synonym for ***features***? 
 
-<choice>
+<choice  id="1">
 <opt text="Inputs" >
 
 Inputs is a synonym for features. You may want to have a read through of the definitions in this section. 
@@ -258,7 +248,7 @@ Predictors is a synonym for features. You may want to have a read through of the
 
 </exercise>
 
-<exercise id="13" title="Describing a Dataset">
+<exercise id="8" title="Describing a Dataset">
 
 Let's make sure we understand all the components we use in a Dataset for machine learning. 
 
@@ -275,16 +265,17 @@ The packages you need will be loaded for you.
 - Save the candybar names in a list named `candybar_names`.
 - Save the dimensions of the dataframe as a tuple named `candybar_dim`.
 
-<codeblock id="01_13">
+<codeblock id="01_08">
 
 - Are you sure you are saving `candybar_feat` and `candybar_names` as lists?
 - Did you import the csv with the correct manner?
 
 </codeblock>
 
-Question: How many features does the data have?
+**Question:**  
+How many features does the data have?
 
-<choice>
+<choice  id="1">
 <opt text="9">
 
 This is the total number of columns, not the number of features
@@ -309,13 +300,11 @@ This is not the number of features.
 
 </opt>
 </choice>
-</exercise>
 
-<exercise id="14" title="Describing a Dataset 2">
+**Question:**   
+ How many examples does the data have?
 
-Question: How many examples does the data have?
-
-<choice>
+<choice  id="2">
 
 <opt text="9">
 
@@ -340,12 +329,11 @@ This is not the number of examples.
 
 </opt>
 </choice>
-</exercise>
 
-<exercise id="15" title="Describing a Dataset 3">
-Question: Would this be considered classification or regression?
+**Question:**   
+Would this be considered classification or regression?
 
-<choice>
+<choice  id="3">
 <opt text="Classification" correct="true">
 
 Great job!
@@ -360,18 +348,19 @@ What would we be predicting, a numerical value or categorical?
 </choice>
 </exercise>
 
-<exercise id="16" title="Training a Model using Scikit-learn" type="slides">
-<slides source="module1_16">
+<exercise id="9" title="Training a Model using Scikit-learn" type="slides">
+<slides source="module1_09">
 </slides>
 </exercise>
 
-<exercise id="17" title="Fit or Predict 1">
+<exercise id="10" title="Fit or Predict">
 
-Does this statement correspond to the `fit` or the `predict` function:   
+**Do the following statements correspond to the `fit` or the `predict` function:**  
 
+**Statement:**   
 _Is called first (before the other one)._
 
-<choice>
+<choice id="1">
 <opt text="Fit" correct="true">
 
 Great job! Training on training data must be done before predicting on new data. 
@@ -384,15 +373,11 @@ How can the model predict without education first?
 
 </opt>
 </choice>
-</exercise>
 
-<exercise id="18" title="Fit or Predict 2">
-
-Does this statement correspond to the `fit` or the `predict` function: 
-
+**Statement:**  
 _At least for decision trees, this is where most of the hard work is done._
 
-<choice>
+<choice id="2">
 <opt text="Fit" correct="true">
 
 Great job! Training is more intensive then predicting for decision trees. 
@@ -405,15 +390,11 @@ Where do we teach the model?
 
 </opt>
 </choice>
-</exercise>
 
-<exercise id="19" title="Fit or Predict 3">
-
-Does this statement correspond to the `fit` or the `predict` function:   
-
+**Statement:**   
 _Only takes `X` as an argument._
 
-<choice>
+<choice id="3">
 <opt text="Fit">
 
 We need to make sure we give the model the correct labels so it can _learn_. 
@@ -426,15 +407,11 @@ Great job!
 
 </opt>
 </choice>
-</exercise>
 
-<exercise id="20" title="Fit or Predict 4">
-
-Does this statement correspond to the `fit` or the `predict` function:   
-
+**Statement:**  
 _In scikit-learn, we can ignore its output._
 
-<choice>
+<choice id="4">
 <opt text="Fit" correct="true">
  
 Great job!
@@ -449,7 +426,7 @@ You may want to look at the slides and see what each function delivers as an out
 </choice>
 </exercise>
 
-<exercise id="21" title="Building Your Model">
+<exercise id="11" title="Building Your Model">
 
 Let's try training and prediction our own model. 
 
@@ -459,7 +436,7 @@ When you run a code exercise for the first time, it could take a bit of time for
 
 **When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
 
-<codeblock id="01_21">
+<codeblock id="01_11">
 
 - Make sure you are using the correct functions 
 - Are you using the model named `model`?
@@ -467,12 +444,12 @@ When you run a code exercise for the first time, it could take a bit of time for
 </codeblock>
 </exercise>
 
-<exercise id="22" title="Decision Tree Splitting Rules" type="slides">
-<slides source="module1_22">
+<exercise id="12" title="Decision Tree Splitting Rules" type="slides">
+<slides source="module1_12">
 </slides>
 </exercise>
 
-<exercise id="23" title="Calculating Gini Impurity">
+<exercise id="13" title="Calculating Gini Impurity">
 
 Let's try calculating the Gini impurity  on our candybar dataset using the same `gini2` function from the module slides. The function has been imported for you. 
 
@@ -489,7 +466,7 @@ When you run a code exercise for the first time, it could take a bit of time for
 The packages you need will be loaded for you. 
 Save your Gini impurity as object `peanut_gini_impurity`
 
-<codeblock id="01_23">
+<codeblock id="01_12">
 
 - Are you taking into consideration there are 2 gini calculations ( you will have to call `gini2 ` twice)?
 - There are 6 observations of the 16 that have `peanuts` >= 0.5. Of those, 5 are of class `America` and 1 is of class `Canada`. 
@@ -498,17 +475,18 @@ Save your Gini impurity as object `peanut_gini_impurity`
 </codeblock>
 </exercise>
 
-<exercise id="24" title="ML Model Parameters and Hyperparameters " type="slides">
-<slides source="module1_24">
+<exercise id="14" title="ML Model Parameters and Hyperparameters " type="slides">
+<slides source="module1_14">
 </slides>
 </exercise>
 
 
-<exercise id="25" title= "Summary Decision Tree Question 1">
+<exercise id="15" title= "Decision Tree - Trees">
 
+**Question:**   
 What type of tree are Decision Trees?
 
-<choice>
+<choice id="1">
 <opt text= "General Tree" >
  
 How are the features split ?  
@@ -528,13 +506,14 @@ Does the tree need to be balanced?
 </opt>
 
 </choice>
+
 </exercise>
 
-<exercise id="26" title="Summary Decision Tree Question 2">
+<exercise id="16" title= "Feature Split Selection">
 
 Who choses the features that are split on at each node?
 
-<choice>
+<choice id="1">
 <opt text= "Data Scientist" >
  
 Where would we input this information?  
@@ -548,13 +527,15 @@ Great!
 </opt>
 
 </choice>
+
 </exercise>
 
-<exercise id="27" title="Summary Decision Tree Question 3">
+<exercise id="17" title= "Decision Stumps">
 
+**Question:**   
 What is the depth of a decision stump? 
 
-<choice>
+<choice id="1">
 <opt text= "1" correct="true">
  
 You have been paying attention! Nice work! 
@@ -575,13 +556,14 @@ Decision stumps are what make up a decision tree, stumps are not a hyperparamete
 </choice>
 </exercise>
 
-<exercise id="28" title="Summary Decision Tree Question 4">
+<exercise id="18" title= "Decision Tree True and False">
 
-Is the following Statement ***True*** or ***False***:
+**Are the following Statements True or False**:
 
+**Statement**    
 _The standard decision tree algorithm finds the optimal tree given a data set._
 
-<choice>
+<choice id="1">
 <opt text= "True" >
  
 For each node the model finds the optimal feature to split on but the nodes are chosen sequentially and it cannot choose the overall optimal tree. 
@@ -595,16 +577,11 @@ Great! Just because the model chooses the best feature to split on each node doe
 </opt>
 
 </choice>
-</exercise>
 
-
-<exercise id="29" title="Summary Decision Tree Question 5">
-
-Is the following Statement ***True*** or ***False***:
-
+**Statement:**     
 _The same feature can be split on multiple times in a tree with depth > 1._
 
-<choice>
+<choice id="2">
 <opt text= "True" correct="true">
  
 Super! There can be multiple threshold splits used for the same feature. 
@@ -620,7 +597,7 @@ There can be multiple threshold splits used for the same feature.
 </choice>
 </exercise>
 
-<exercise id="30" title="What Did we Learn and What to Expect in Assignment 1" type="slides">
-<slides source="module1_30">
+<exercise id="19" title="What Did We Just Learn?" type="slides">
+<slides source="module1_15">
 </slides>
 </exercise>
