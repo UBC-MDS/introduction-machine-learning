@@ -32,7 +32,7 @@ Notes:
 - We wish to find a model function that relates __*X*__ to __*y*__
 - Then use that model function to predict future observations
 
-<img src='sup_learning.png' width="700">
+<img src='module1/sup_learning.png' width="700">
 
 Notes: Script here. 
 <html>
