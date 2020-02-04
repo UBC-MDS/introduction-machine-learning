@@ -26,7 +26,6 @@ obs_total = 16
 obs_peanuts = 6
 
 # Of those observations how many are classed as America and Canada? 
-
 peanut_america = 5
 peanut_canada = 1
 

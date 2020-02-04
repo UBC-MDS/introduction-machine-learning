@@ -26,7 +26,6 @@ obs_total = ____
 obs_peanuts = ____
 
 # Of those observations how many are classed as America and Canada? 
-
 peanut_america = ____
 peanut_canada = ____
 
