@@ -466,7 +466,7 @@ When you run a code exercise for the first time, it could take a bit of time for
 The packages you need will be loaded for you. 
 Save your Gini impurity as object `peanut_gini_impurity`
 
-<codeblock id="01_12">
+<codeblock id="01_13">
 
 - Are you taking into consideration there are 2 gini calculations ( you will have to call `gini2 ` twice)?
 - There are 6 observations of the 16 that have `peanuts` >= 0.5. Of those, 5 are of class `America` and 1 is of class `Canada`. 
