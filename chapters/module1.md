@@ -472,6 +472,7 @@ Save your Gini impurity as object `peanut_gini_impurity`
 - There are 6 observations of the 16 that have `peanuts` >= 0.5. Of those, 5 are of class `America` and 1 is of class `Canada`. 
 - There are 10 observations of the 16 that have `peanuts` < 0.5. Of, those 3 are of class `America` and 7 is of class `Canada`.
 
+
 </codeblock>
 </exercise>
 
