@@ -11,6 +11,11 @@ RUN npm install -g gatsby-cli
 COPY package*.json ./
 RUN npm install
 
+# install git
+RUN apt-get install -y wget
+RUN apt-get install -y make git
+
+RUN git clone https://github.com/lindenb/makefile2graph.git
 
 
 # Build the app
@@ -21,4 +26,5 @@ EXPOSE 8000
 
 # Run the app
 CMD [ "npm", "start" ]
+
 
