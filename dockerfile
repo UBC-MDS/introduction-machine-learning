@@ -1,30 +1,10 @@
 # Docker file for running gatsby without installing node version 10 or Gatsby.
 # Hayley Boyce, February 6th, 2020
 
-# Use ubuntu:latest as base image
-FROM node:10.13-alpine
+FROM node:10
 
-# Install gatsby-cli
-RUN npm install -g gatsby-cli
-
-# Install dependencies
-COPY package*.json ./
-RUN npm install
-
-# install git
-RUN apt-get install -y wget
-RUN apt-get install -y make git
-
-RUN git clone https://github.com/lindenb/makefile2graph.git
-
-
-# Build the app
-RUN npm run dev
-
-# Specify port app runs on
-EXPOSE 8000
-
-# Run the app
-CMD [ "npm", "start" ]
-
-
+# Add the package.json file and build the node_modules folder
+WORKDIR /app
+COPY ./package*.json ./
+RUN mkdir node_modules && npm install
+RUN npm install --global gatsby-cli && gatsby telemetry --disable
