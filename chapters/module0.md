@@ -5,7 +5,7 @@ description:
 prev: null
 next: /module1
 type: chapter
-id: 1
+id: 0
 ---
 
 <exercise id="1" title="DSCI-571 Introduction to Machine Learning" type="slides">
