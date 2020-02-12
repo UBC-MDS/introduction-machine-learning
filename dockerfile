@@ -8,4 +8,4 @@ FROM node:10
 WORKDIR /app
 COPY ./package*.json ./
 RUN mkdir node_modules && npm install
-RUN npm install --global gatsby-cli && gatsby telemetry --disable
+RUN npm install --g gatsby-cli 
