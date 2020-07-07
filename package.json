@@ -52,7 +52,7 @@
     },
     "devDependencies": {
         "browser-monads": "^1.0.0",
-        "electron": "^4.2.0",
+        "electron": "^7.2.4",
         "electron-builder": "^20.40.2",
         "prettier": "^1.16.4"
     },
