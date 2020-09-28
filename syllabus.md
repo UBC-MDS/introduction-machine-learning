@@ -12,7 +12,7 @@
 
 ### Module 2
 
-- Broadly describe how decision tree algorithm works;
+- Broadly describe how decision trees make predictions
 - Use DecisionTreeClassifier and DecisionTreeRegressor to build decision trees using scikit-learn
 - Explain the fit and predict paradigm and use score method of ML models;
 - Explain the concept of decision boundaries;
@@ -22,7 +22,6 @@
 - Split a dataset into train and test sets using train_test_split function;
 
 ### Module 3 
-
 
 - Explain the difference between train, validation, test, and "deployment" data;
 - Identify the difference between training error, validation error, and test error;
