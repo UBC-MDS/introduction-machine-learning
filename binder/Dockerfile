@@ -11,6 +11,7 @@ RUN pip install --no-cache --upgrade pip && \
                            "plotly==4.8.1" \
                            "numpy>=1.11.0,<1.16.4" \
                            "matplotlib==3.*" \
+			   "spacy[lookups]==2.3.0" \
 			   "scikit-learn==0.23.2"
 
 #Install sklearn
