@@ -13,6 +13,9 @@ RUN pip install --no-cache --upgrade pip && \
                            "matplotlib==3.*" \
 			   "scikit-learn==0.23.2"
 
+#Install sklearn
+RUN pip install scikit-learn==0.23.2
+
 # create user with a home directory
 ARG NB_USER
 ARG NB_UID
