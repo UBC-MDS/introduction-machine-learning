@@ -7,7 +7,7 @@
 - Know where to find what in the provided course material.
 - Differentiate between classification and regression problems
 - Explain machine learning terminology such as features, targets, training, and error
-- Use DummyClassifier as a baseline for machine learning problems
+- Use DummyClassifier/ Dummy Regressor as a baseline for machine learning problems
 
 
 ### Module 2
