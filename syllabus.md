@@ -4,7 +4,6 @@
 
 - Be able to explain motivation to study machine learning;
 - Be able to differentiate between supervised and unsupervised learning
-- Know where to find what in the provided course material.
 - Differentiate between classification and regression problems
 - Explain machine learning terminology such as features, targets, training, and error
 - Use DummyClassifier/ Dummy Regressor as a baseline for machine learning problems
