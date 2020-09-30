@@ -1,0 +1,153 @@
+---
+params:
+  dynamictitle: "module1_07"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module1/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from image_classifier import classify_image
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+```
+
+
+type: slides
+
+# Tabular Data and Terminology
+
+Notes: <br>
+
+---
+ 
+
+## Terminology
+
+### Example 1: Tabular data for quiz2 classification problem
+```{python}
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head(4)
+```
+
+### Example 2: Tabular data for the housing price prediction problem
+```{python}
+df = pd.read_csv("data/kc_house_data.csv")
+df = df.drop(["id", "date"], axis=1)
+df.head()
+```
+
+
+Notes: 
+
+
+- How do we effectively represent the input?  
+- In supervised ML we typically work with ***tabular data***.    
+- Rows are ***examples*** 
+- Columns are ***features*** (one of the columns is typically the ***target***). 
+- Features are relevant characteristics of the problem (usually suggested by experts).  
+- To a machine, column names (features) have no meaning. Only feature values and how they vary across examples mean something. 
+
+---
+
+### Terminology
+
+Here is some basic terminology used in ML:
+
+- **examples** = rows = samples = records = instances (usually denoted by $n$)
+- **features** = inputs = predictors = explanatory variables = regressors = independent variables = covariates (usually denoted by $d$) 
+- **targets** = outputs = outcomes = response variable = dependent variable = labels (if categorical).
+- **training** = learning = fitting
+
+<center>
+<img src="/module1/sup-ml-terminology.png" height="1000" width="1000"> 
+</center>
+
+
+Notes: 
+
+You will see a lot of variable terminology in machine learning and statistics. See the MDS terminology resource <a href="https://ubc-mds.github.io/resources_pages/terminology/" target="_blank">here</a>.
+
+
+---
+
+```{python}
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head(4)
+```
+
+
+```{python}
+classification_df.shape
+```
+
+
+Notes: 
+
+In this data set we have 21 examples with 8 variables (7 features, 1 target).
+
+
+---
+
+```{python}
+X = classification_df.drop(["quiz2"], axis=1)
+y = classification_df["quiz2"]
+X.head()
+```
+
+
+```{python}
+y.head()
+```
+
+
+Notes: 
+
+<br>
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

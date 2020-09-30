@@ -1,27 +1,28 @@
 ---
 title: 'Module 0: Welcome to Introduction to Machine Learning'
 description:
-  'Course Introduction, summary of course learning outcomes and prerequisite validation.' 
+  'Course introduction, summary of course learning outcomes and prerequisite validation.' 
 prev: null
 next: /module1
 type: chapter
 id: 0
 ---
 
-<exercise id="1" title="DSCI-571 Introduction to Machine Learning" type="slides">
+<exercise id="1" title=" Introduction to Machine Learning" type="slides,video">
 
-<slides source="module0/module0_00">
+<slides source="module0/module0_00" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
+
 <exercise id="2" title="Prerequisite Confirmation">
 
-Have you taken the prerequisite **DSCI 511a - Programming in Python for Data Science**?
+Have you taken the prerequisite **Programming in Python for Data Science**?
 
 
 <choice>
-<opt text="Yes I have and I am ready to take DSCI-571 Introduction to Machine Learning" correct="true">
+<opt text="Yes I have and I am ready to take Introduction to Machine Learning" correct="true">
 
 Great! Let's get started. Please continue on to Module 1.
 
@@ -35,7 +36,7 @@ We recommend having a solid understanding in coding in Python. If you feel confi
 
 <opt text="I have not and I have little Python coding background">
 
-Please take the course **DSCI 511a - Programming in Python for Data Science** before proceeding onto Module 1.
+Please take the course <a href="https://prog-learn.mds.ubc.ca/" target="_blank">**Programming in Python for Data Science**</a>  before proceeding onto Module 1.
 
 </opt>
 </choice>

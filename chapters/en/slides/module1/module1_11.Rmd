@@ -1,0 +1,111 @@
+---
+params:
+  dynamictitle: "module1_07"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module1/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from image_classifier import classify_image
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+```
+
+
+type: slides
+
+# Baselines: Training a Model using Scikit-learn
+
+Notes: <br>
+
+---
+ 
+### Supervised Learning (Reminder)
+
+- Tabular data → Machine learning algorithm → ML model → new examples → predictions
+
+
+<center>
+<img src="/module1/supervised-learning.png" height="1200" width="1200"> 
+</center>
+
+Notes: 
+
+<br>
+
+---
+
+### Building a simplest machine learning model using `sklearn`
+
+#### Data 
+
+
+
+Notes: 
+
+- Baseline: A simple machine learning algorithm based on simple rules of thumb. For example, 
+    - uniform baseline: generate predictions uniformly at random.
+    - most frequent baseline: always predicts the most frequent label in the training set. 
+- Baselines provide a way to sanity check your machine learning model.  
+
+---
+
+Notes: 
+
+
+
+---
+
+
+Notes: 
+
+<br>
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
+

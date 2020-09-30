@@ -1,0 +1,364 @@
+---
+params:
+  dynamictitle: "module1_01"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module1/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from image_classifier import classify_image
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+```
+
+
+type: slides
+
+# What is Machine Learning 
+
+Notes: <br>
+
+---
+
+## Prevalence of ML
+
+Examples:
+
+<center><img src='/module1/examples.png'  width = "85%" alt="404 image" /></center>
+
+
+Notes: 
+
+Machine learning is used often in our everyday lives. 
+
+Some examples include:
+
+- Voice assistance
+- Google news
+- Recommender Systems
+- Face recognition
+- Auto completion
+- Stock market predictions
+- Character recognition
+- Self driving cars
+- Cancer diagnosis
+- Drug Discovery
+- AlphaGo 
+
+--- 
+
+## What is Machine Learning?
+
+> A field of study that gives computers the ability to learn without being explicitly programmed. 
+<br> -- Arthur Samuel (1959)
+
+
+<center>
+<img src="/module1/traditional-programming-vs-ML.png" height="800" width="800"> 
+</center>
+
+
+Notes: 
+
+ML is a different way to think about problem solving.
+
+---
+
+## Some concrete examples
+
+<br>
+<br>
+
+## Example 1: Predict whether a patient has a liver disease or not
+
+*Do not worry about the code right now. Just focus on the input and output in each example.*
+
+Notes: <br>
+
+---
+
+```{python}
+df = pd.read_csv("data/indian_liver_patient.csv")
+df = df.drop("Gender", axis=1)
+df.loc[df["Dataset"] == 1, "Target"] = "Disease"
+df.loc[df["Dataset"] == 2, "Target"] = "No Disease"
+df = df.drop("Dataset", axis=1)
+train_df, test_df = train_test_split(df, test_size=4, random_state=16)
+train_df.head()
+```
+
+
+Notes: First we obtain our data and wrangle it as necessary. 
+
+---
+
+
+```{python}
+from xgboost import XGBClassifier
+X_train = train_df.drop(columns=['Target'], axis=1)
+y_train = train_df['Target']
+X_test = test_df.drop(columns=['Target'], axis=1)
+y_test = test_df['Target']
+model = XGBClassifier()
+model.fit(X_train, y_train)
+```
+
+
+
+
+Notes: We are building a model and training our model using the labels we already have. Ignore this output here. It's just explaining what's going on in the model which we will explain in the upcoming modules. 
+
+---
+
+```{python}
+pred_df = pd.DataFrame(
+    {"Predicted label": model.predict(X_test).tolist(), "Actual label": y_test.tolist()}
+)
+df_concat = pd.concat([X_test.reset_index(drop=True), pred_df], axis=1)
+df_concat
+```
+
+
+Notes: Next we predict on unseen data using the model we just built. 
+
+---
+
+<br>
+<br>
+<br>
+
+## Example 2: Predict the label of a given image
+
+Notes: <br>
+
+---
+
+##  Predict labels with associated probabilities for unseen images  
+
+```{python eval=FALSE}
+images = glob.glob("test_images/*.*")
+for image in images:
+    img = Image.open(image)
+    img.load()
+    plt.imshow(img)
+    plt.show()
+    df = classify_image(img)
+    print(df.to_string(index=False))
+```
+
+<img src="/module1/module1_01/unnamed-chunk-5-1.png" width="300" />
+
+```out
+  Class  Probability
+      ox     0.869893
+  oxcart     0.065034
+  sorrel     0.028593
+ gazelle     0.010053
+
+```
+
+
+Notes: <br>
+
+---
+
+
+```{python eval=FALSE}
+images = glob.glob("test_images/*.*")
+for image in images:
+    img = Image.open(image)
+    img.load()
+    plt.imshow(img)
+    plt.show()
+    df = classify_image(img)
+    print(df.to_string(index=False))
+```
+
+<img src="/module1/module1_01/unnamed-chunk-5-2.png" width="300" />
+
+```out
+            Class  Probability
+            llama     0.123625
+               ox     0.076333
+           kelpie     0.071548
+ ibex, Capra ibex     0.060569
+
+```
+
+
+Notes: <br>
+
+---
+
+<br>
+<br>
+<br>
+
+## Example 3: Predict sentiment expressed in a movie review (pos/neg)
+*Attribution: The dataset `imdb_master.csv` was obtained from <a href="https://www.kaggle.com/uttam94/imdb-mastercsv" target="_blank">Kaggle</a>*
+
+Notes: <br>
+
+---
+
+```{python cache=TRUE}
+imdb_df = pd.read_csv("data/imdb_master.csv", encoding="ISO-8859-1")
+imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
+imdb_df = imdb_df.drop(["Unnamed: 0", "type"], axis=1)
+train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
+train_df.head()
+```
+
+
+Notes:  First we wrangle our data so that we can train our model.
+
+---
+
+```{python}
+X_train, y_train = train_df['review'], train_df['label']
+X_test, y_test = train_df['review'], train_df['label']
+
+clf = Pipeline(
+    [
+        ("vect", CountVectorizer(max_features=5000)),
+        ("clf", LogisticRegression(max_iter=5000)),
+    ]
+)
+clf.fit(X_train, y_train)
+```
+
+Notes: Next, we build our model.
+
+---
+
+```{python}
+pred_dict = {
+    "reviews": X_test[0:4],
+    "prediction": y_test[0:4],
+    "sentiment_predictions": clf.predict(X_test[0:4]),
+}
+pred_df = pd.DataFrame(pred_dict)
+pred_df.head()
+```
+
+Notes: We then predict on data we haven't seen before using the model we just built. 
+
+---
+
+<br>
+<br>
+<br>
+
+## Example 4: Predict housing prices
+*Attribution: The dataset `imdb_master.csv` was obtained from <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>*
+
+Notes: <br>
+
+---
+
+```{python}
+df = pd.read_csv("data/kc_house_data.csv")
+df.drop(["id", "date"], axis=1, inplace=True)
+train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
+train_df.head()
+```
+
+
+Notes: We wrangle our data just as we did before. 
+
+---
+
+```{python}
+import xgboost as xgb
+from xgboost import XGBRegressor
+
+X_train, y_train = train_df.drop("price", axis=1), train_df["price"]
+X_test, y_test = test_df.drop("price", axis=1), train_df["price"]
+
+model = XGBRegressor()
+model.fit(X_train, y_train)
+```
+
+Notes: We build our model.
+
+---
+
+
+```{python}
+# Predict on unseen examples using the built model  
+pred_df = pd.DataFrame(
+    {"Predicted price": model.predict(X_test[0:4]).tolist(), "Actual price": y_test[0:4].tolist()}
+)
+df_concat = pd.concat([X_test[0:4].reset_index(drop=True), pred_df], axis=1)
+df_concat.head()
+```
+
+
+Notes: And we predict on unseen examples using the built model.
+
+---
+
+## Questions to ponder on 
+
+- What are the inputs and outputs in the examples above? 
+- How are they different compared to traditional programs, for example, calculating factorial of a number? 
+- What and how are we exactly "learning" in the above examples? In the image classification example, does the model have a concept of cats, dogs, and cheetahs? 
+- What would it take to predict the correct label for an example the algorithm has not seen before?  
+- Are we expected to get correct predictions for all possible examples? 
+- How do we measure the success or failure of a machine learning model? In other words, if you want to use these program in the wild, how do you know how reliable it is?  
+- What if the model misclassifies an unseen example? For instance, what if the model incorrectly diagnoses a patient with not having disease when they actually have the disease? Would it be acceptable? What would be the consequences? 
+- Is it useful to know more fine-grained predictions (e.g., probabilities as we saw in Example 2) rather than just a yes or a no?
+
+Notes: <br>
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
+
+
+
+

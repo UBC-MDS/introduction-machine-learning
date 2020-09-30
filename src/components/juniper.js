@@ -24,7 +24,7 @@ class Juniper extends React.Component {
         isolateCells: true,
         useBinder: true,
         storageKey: 'juniper',
-        useStorage: true,
+        useStorage: false,
         storageExpire: 60,
         debug: false,
         msgButton: 'run',

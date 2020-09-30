@@ -1,0 +1,117 @@
+---
+params:
+  dynamictitle: "module1_05"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module1/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from image_classifier import classify_image
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+```
+
+
+type: slides
+
+# Classification vs Regression 
+
+Notes: <br>
+
+---
+ 
+
+## Classification vs. Regression
+
+
+- **Classification problem**: predicting among two or more discrete classes
+    - *Example1*: Predict whether a patient has a liver disease or not
+    - *Example2*: Predict whether a student would get an A+ or not in 571 quiz2.
+
+- **Regression problem**: predicting a continuous (typically, floating-point) value
+    - Example1: Predict housing prices
+    - Example2: Predict a student's score in this course's quiz2.
+
+
+Notes: 
+
+There are wo main kinds of learning problems based on what they are trying to predict.
+
+---
+
+<center>
+<img src="/module1/classification-vs-regression.png" height="1500" width="1500"> 
+</center>
+
+
+Notes: <br>
+
+---
+
+```{python}
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head()
+```
+
+
+Notes:  An example of classification is predicting quiz2 as an `A+` or `not A+`.
+
+---
+
+```{python}
+regression_df = pd.read_csv("data/quiz2-grade-toy-regression.csv")
+regression_df.head()
+```
+
+
+
+Notes:  An example of regression is predicting quiz2 as some numerical value example `90` or `82`.
+
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
