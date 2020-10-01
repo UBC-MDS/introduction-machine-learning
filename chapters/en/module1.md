@@ -27,7 +27,6 @@ id: 1
 <exercise id="2" title="Examples of Machine">
 
 **True or False: The following is an example of machine learning?**
-hi tes
 
 _Diagnosing cancer from Magnetic resonance imaging_
 
@@ -526,15 +525,26 @@ You may want to look at the slides and see what each function delivers as an out
 </choice>
 </exercise>
 
-<exercise id="13" title="Building Your Model">
+<exercise id="13" title="Separating our data">
 
-Let's try training and prediction our own model. 
 
-**Instructions:**
 
-When you run a code exercise for the first time, it could take a bit of time for everything to load. 
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
 
-**When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's split up our data into  our features and target. 
+
+Tasks:     
+- Since we are attempting to predict the country availability of 
+- Save the resulting dataframe as `pokemon_df`.
+- It's a good idea to see what the [delimiter](https://github.com/UBC-MDS/MCL-DSCI-511-programming-in-python/blob/binder/data/pokemon-text.txt) is.
+- Display the first 10 rows of `pokemon_df`.
+
+
 
 <codeblock id="01_13">
 

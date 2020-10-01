@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.dummy import DummyClassifier
 
 # Loading in the data
 candybar_df = pd.read_csv('data/candybars.csv', header=0, index_col=0)
@@ -9,12 +9,11 @@ print(candybar_df.head())
 
 # Define X and y
 
-X = candybar_df.drop(columns=['available_canada_america'])
-y = candybar_df[['available_canada_america']]
-
+X = candybar_df.drop(____)
+y = candybar_df[____]
 # Creating a model
 
-model = DecisionTreeClassifier()
+model = DummyClassifier(____)
 print(model)
 
 ## Fit your data 

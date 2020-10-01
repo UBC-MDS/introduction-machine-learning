@@ -14,7 +14,7 @@ Notes: <br>
     classes
       - *Example1*: Predict whether a patient has a liver disease or not
       - *Example2*: Predict whether a student would get an A+ or not in
-        571 quiz2.
+        this course’s quiz2.
   - **Regression problem**: predicting a continuous (typically,
     floating-point) value
       - Example1: Predict housing prices
@@ -22,8 +22,18 @@ Notes: <br>
 
 Notes:
 
-There are wo main kinds of learning problems based on what they are
-trying to predict.
+There are wo main kinds of supervised learning problems based on what
+they are trying to predict; ***Classification*** and ***Regression***.
+
+**Classification** predicts a target value among two or more discrete
+classes.
+
+For example: - whether a patient has a liver disease or not - whether a
+student would get an A+ or not in this course’s quiz2.
+
+**Regression** predicts a continuous (typically, floating-point) value
+
+For example: - housing prices - student’s score in this course’s quiz2.
 
 ---
 
@@ -33,7 +43,11 @@ trying to predict.
 
 </center>
 
-Notes: <br>
+Notes:
+
+So a classification problem predicts if a student would get an A+ or not
+and a regression problem predicts the student’s actual score of the
+quiz.
 
 ---
 
@@ -51,8 +65,9 @@ classification_df.head()
 4              0                 1    77    83    90    92     85      A+
 ```
 
-Notes: An example of classification is predicting quiz2 as an `A+` or
-`not A+`.
+Notes: Here is an example of what the data looks like in classification.
+Looking at the column `quiz2` which is what we are trying to predict,
+the possible values are `A+` or `not A+`.
 
 ---
 
@@ -70,8 +85,8 @@ regression_df.head()
 4              0                 1    77    83    90    92     85     90
 ```
 
-Notes: An example of regression is predicting quiz2 as some numerical
-value example `90` or `82`.
+Notes: As for Regression, the column `quiz2` contains numerical values,
+like `90` or `82`.
 
 ---
 

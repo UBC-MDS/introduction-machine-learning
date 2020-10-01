@@ -14,7 +14,7 @@ Examples:
 
 <center>
 
-<img src='/module1/examples.png'  width = "90%" alt="404 image" />
+<img src='/module1/examples.png'  width = "85%" alt="404 image" />
 
 </center>
 
@@ -40,8 +40,8 @@ Some examples include:
 
 ## What is Machine Learning?
 
-> A field of study that gives computers the ability to learn without
-> being explicitly programmed. <br> – Arthur Samuel (1959)
+  - A field of study that gives computers the ability to learn without
+    being explicitly programmed.\* <br> – Arthur Samuel (1959)
 
 <center>
 
@@ -51,7 +51,14 @@ Some examples include:
 
 Notes:
 
-ML is a different way to think about problem solving
+So what exactly is machine learning? According to Arthur Samuel an
+American pioneer in the field of computer gaming and artificial
+intelligence, it is:
+
+*“A field of study that gives computers the ability to learn without
+being explicitly programmed.”*
+
+is a different way to think about problem solving.
 
 ---
 
@@ -62,9 +69,13 @@ ML is a different way to think about problem solving
 ## Example 1: Predict whether a patient has a liver disease or not
 
 *Do not worry about the code right now. Just focus on the input and
-output in each example*
+output in each example.*
 
-Notes: <br>
+Notes: To introduce the capabilities of machine learning, we are going
+to show you a few examples.
+
+The first one being the ability to predict whether a patient has a liver
+disease or not.
 
 ---
 
@@ -87,7 +98,8 @@ train_df.head()
 159   50              1.2               0.4                   282                        36                          32             7.2      3.9                         1.1     Disease
 ```
 
-Notes: First we obtain our data and wrangle it as necessary.
+Notes: First we obtain our data on our patients and wrangle it as
+necessary.
 
 ---
 
@@ -112,9 +124,9 @@ XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
               tree_method='exact', validate_parameters=1, verbosity=None)
 ```
 
-Notes: We are building a model and training our model using the labels
-we already have. Ignore this output here. It’s just explaining what’s
-going on in the model which we will explain in the upcoming modules.
+Notes: Next, we building a model and train our model using the labels we
+already have. Ignore this output here. It’s just explaining what’s going
+on in the model which we will explain soon.
 
 ---
 
@@ -134,7 +146,9 @@ df_concat
 3   72              1.7               0.8                   200                        28                          37             6.2      3.0                        0.93         Disease      Disease
 ```
 
-Notes: Next we predict on unseen data using the model we just built.
+Notes: Next we take our model and use it to predict on unseen data. Here
+we can see that our model is predicting an outcome of the patience under
+the `Predicted label` column.
 
 ---
 
@@ -142,7 +156,7 @@ Notes: Next we predict on unseen data using the model we just built.
 
 ## Example 2: Predict the label of a given image
 
-Notes: <br>
+Notes: We can also use it for image recognition.
 
 ---
 
@@ -159,7 +173,7 @@ for image in images:
     print(df.to_string(index=False))
 ```
 
-<img src="/module1/module1_01/unnamed-chunk-5-1.png" width="300" />
+<img src="/module1/module1_01/unnamed-chunk-6-1.png" width="300" />
 
 ``` out
   Class  Probability
@@ -169,7 +183,11 @@ for image in images:
  gazelle     0.010053
 ```
 
-Notes: <br>
+Notes: Here we already have a trained model which has been show
+thousands of images. If we give it images from our own collection, the
+model attempts to make a prediction of the contents of the image. In
+this case the model predicts the animal to be an `ox` with 86%
+probability. That’s not bad.
 
 ---
 
@@ -184,7 +202,7 @@ for image in images:
     print(df.to_string(index=False))
 ```
 
-<img src="/module1/module1_01/unnamed-chunk-5-2.png" width="300" />
+<img src="/module1/module1_01/unnamed-chunk-6-2.png" width="300" />
 
 ``` out
             Class  Probability
@@ -194,7 +212,9 @@ for image in images:
  ibex, Capra ibex     0.060569
 ```
 
-Notes: <br>
+Notes: In this case it’s not so good it’s confident in identifying the
+animal. The model in this case thinks our donkey image, is a llama but
+only with a probability of `0.12`.
 
 ---
 
@@ -205,7 +225,8 @@ Notes: <br>
 *Attribution: The dataset `imdb_master.csv` was obtained from
 <a href="https://www.kaggle.com/uttam94/imdb-mastercsv" target="_blank">Kaggle</a>*
 
-Notes: <br>
+Notes: We also also use machine learning to predict negative or positive
+sentiment expressed in a movie review.
 
 ---
 
@@ -217,8 +238,8 @@ train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
 train_df.head()
 ```
 
-```out
-                                                  review label         file
+``` out
+                                                review label         file
 43020  Just caught it at the Toronto International Fi...   pos   3719_9.txt
 49131  The movie itself made me want to go and call s...   pos  9219_10.txt
 23701  I came across this movie on DVD purely by chan...   pos   8832_9.txt
@@ -226,7 +247,9 @@ train_df.head()
 38521  I loved this film. I first saw it when I was 2...   pos  1091_10.txt
 ```
 
-Notes: First we wrangle our data so that we can train our model
+Notes: First we wrangle our data so that we can train our model. This
+data contains the review as a column and a `label` column which contains
+values of either `pos` or `neg` for positive or negative.
 
 ---
 
@@ -243,12 +266,13 @@ clf = Pipeline(
 clf.fit(X_train, y_train)
 ```
 
-```out
+``` out
 Pipeline(steps=[('vect', CountVectorizer(max_features=5000)),
                 ('clf', LogisticRegression(max_iter=5000))])
 ```
 
-Notes: Next, we build our model
+Notes: Next, we build our model and train on our existing data. Don’t
+worry about the code here.
 
 ---
 
@@ -262,7 +286,7 @@ pred_df = pd.DataFrame(pred_dict)
 pred_df.head()
 ```
 
-```out
+``` out
                                                  reviews prediction sentiment_predictions
 43020  Just caught it at the Toronto International Fi...        pos                   pos
 49131  The movie itself made me want to go and call s...        pos                   pos
@@ -270,16 +294,19 @@ pred_df.head()
 4182   Having seen Carlo Lizzani's documentary on Luc...        neg                   neg
 ```
 
-Notes: We then predict on data we haven’t seen before using the model we
-just built.
+Notes: Once we have our model trained, we can then predict on data we
+haven’t seen before using the model we just built.
 
 ---
 
-<br> <br> <br> \#\# Example 4: Predict housing prices *Attribution: The
-dataset `imdb_master.csv` was obtained from
+<br> <br> <br>
+
+## Example 4: Predict housing prices
+
+*Attribution: The dataset `kc_house_data.csv` was obtained from
 <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>*
 
-Notes: <br>
+Notes: Machine learning can also be used to predict housing prices.
 
 ---
 
@@ -299,7 +326,8 @@ train_df.head()
 3913   357823.0         3       1.50         1240      9196     1.0           0     0          3      8        1240              0      1968             0    98072  47.7562 -122.094           1690       10800
 ```
 
-Notes: We wrangle our data just as we did before.
+Notes: We wrangle our data just as we did before. These data consist of
+the characteristics of houses in King County, USA.
 
 ---
 
@@ -346,7 +374,7 @@ df_concat.head()
 3         3       2.50         1580      1321     2.0           0     2          3      8        1080            500      2014             0    98107  47.6688 -122.402           1530        1357      565091.6250      680000.0
 ```
 
-Notes: And we predict on unseen examples using the built model
+Notes: And we predict on unseen examples using the built model.
 
 ---
 
