@@ -7,6 +7,7 @@
 - Differentiate between classification and regression problems
 - Explain machine learning terminology such as features, targets, training, and error
 - Use DummyClassifier/ Dummy Regressor as a baseline for machine learning problems
+- Explain the fit and predict paradigm and use score method of ML models
 
 
 ### Module 2
