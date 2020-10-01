@@ -234,10 +234,6 @@ accuracy.
 We can see that our model’s accuracy on our quiz2 problem is 0.524 which
 means the error is 0.476.
 
-Notes:
-
-<br>
-
 ---
 
 ## fit and predict paradigms

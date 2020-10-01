@@ -153,7 +153,7 @@ Do we have examples of the true corresponding value of what we are predicting?
 </choice>
 
 **Example:**   
-_Idenitfying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc._
+_Identifying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc._
 
 <choice  id="4">
 <opt text="Supervised Learning" correct="true">
@@ -164,7 +164,7 @@ Nice work.
 
 <opt text="Unsupervised Learning" >
 
-We know what the animal is suppose to be classfied as and we are hoping that with the given features, the model will be able to classify the animal.
+We know what the animal is suppose to be classified as and we are hoping that with the given features, the model will be able to classify the animal.
 
 
 </opt>
@@ -204,12 +204,12 @@ Grouping is also called *clustering* which is an example of unsupervised learnin
 
 
 **Example:**  
-_Predicting the price of a house based on features  such as  number of roomsand the year built._
+_Predicting the price of a house based on features  such as  number of rooms and the year built._
 
 <choice id="1">
 <opt text="Classification">
 
-Is the prediction a categorical or a numical value?
+Is the prediction a categorical or a numerical value?
 
 </opt>
 
@@ -233,7 +233,7 @@ Good job! We are predicting a categorical value (Sell/Not Sell) and therefore th
 
 <opt text="Regression" >
 
-Is the prediction a categorical or a numical value?
+Is the prediction a categorical or a numerical value?
 
 </opt>
 
@@ -245,7 +245,7 @@ _Predicting your grade in this course based on your grade in Programming in Pyth
 <choice  id="3">
 <opt text="Classification">
 
-Is the prediction a categorical or a numical value?
+Is the prediction a categorical or a numerical value?
 
 </opt>
 
@@ -268,22 +268,58 @@ Good job! We are predicting a categorical value (Bike/Not bike) and therefore th
 
 <opt text="Regression">
 
-Is the prediction a categorical or a numical value?
+Is the prediction a categorical or a numerical value?
 
 </opt>
 </choice>
 </exercise>
 
-<exercise id="7" title="Tabular Data and Terminology" type="slides, video">
 
-<slides source="module1/module1_07" shot="0" start="0:006" end="3:39">
+<exercise id="7" title=" Classification vs. Regression Target">
+
+```out
+           name     calories     sugar   water-content  weight  shape
+0         apple       100         3.0          84         100   round
+1        banana       120         4.0          75         120   long
+2    cantaloupe       130         5.0          90        1360   round
+3  dragon-fruit        70         1.5          96         600   round
+4    elderberry       110         2.5          80           5   round 
+5           fig        40         2.0          78          40   oval  
+6         guava        90         3.0          83         450   oval
+7   huckleberry        85         4.0          73           5   round
+8          kiwi        60         4.5          80          76   round
+9         lemon        50         1.0          83          65   oval
+```
+
+Given the target column `shape`, does this represent a **Classification** or a **Regression** problem? 
+
+<choice id="1">
+<opt text="Classification" correct="true">
+
+Nice job! 
+
+</opt>
+
+<opt text="Regression" >
+
+Is the prediction a categorical or a numerical value?
+
+</opt>
+
+</choice>
+</exercise>
+
+
+<exercise id="8" title="Tabular Data and Terminology" type="slides, video">
+
+<slides source="module1/module1_08" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
 
 
-<exercise id="8" title="Terminology: Target">
+<exercise id="9" title="Terminology: Target">
 
 Which is a synonym for ***targets***? 
 
@@ -316,7 +352,7 @@ Not quite. You may want to have a read through of the definitions in this sectio
 </choice>
 </exercise>
 
-<exercise id="9" title="Terminology: Features">
+<exercise id="10" title="Terminology: Features">
 
 Which is **NOT** a synonym for ***features***? 
 
@@ -350,7 +386,7 @@ Predictors is a synonym for features. You may want to have a read through of the
 </exercise>
 
 
-<exercise id="10" title="Describing a Dataset">
+<exercise id="11" title="Describing a Dataset">
 
 Let's make sure we understand all the components we use in a Dataset for machine learning. 
 
@@ -365,11 +401,14 @@ The packages you need will be loaded for you.
 - Print the `canbybar_df` object. 
 - Save the dimensions of the dataframe in an object named `candybar_dim`.
 
-<codeblock id="01_10">
+<codeblock id="01_11">
 
 - Are you using `.shape` to find the dimensions? 
 
 </codeblock>
+
+
+
 
 **Question:**  
 How many features does the data have?
@@ -447,12 +486,43 @@ What would we be predicting, a numerical value or categorical?
 </choice>
 </exercise>
 
-<exercise id="11" title="Baselines: Training a Model using Scikit-learn" type="slides">
-<slides source="module1/module1_11">
+
+<exercise id="12" title="Separating Our Data">
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's split up our the data in the candybars dataframe into our features and target. 
+For this dataframe the features are the columns `chocolate` to `multi` and the target is the column `availability`.
+
+Tasks:     
+
+- Save the columns `chocolate` to `multi` in an object named `X`
+- Since we are attempting to predict the country availability of candy bars, make the column `availability` the target and name the object `y`. 
+
+
+
+<codeblock id="01_12">
+
+- Are you using `.loc[]` to obtain the columns `chocolate` to `multi`?
+- Are you select the column `availability` with single brackets?
+
+</codeblock>
+</exercise>
+
+
+
+
+<exercise id="13" title="Baselines: Training a Model using Scikit-learn" type="slides">
+<slides source="module1/module1_13">
 </slides>
 </exercise>
 
-<exercise id="12" title="Fit or Predict">
+<exercise id="14" title="Fit or Predict">
 
 **Do the following statements correspond to the `fit` or the `predict` function:**  
 
@@ -525,9 +595,45 @@ You may want to look at the slides and see what each function delivers as an out
 </choice>
 </exercise>
 
-<exercise id="13" title="Separating our data">
 
 
+
+<exercise id="15" title="First Step in Building a Model">
+
+Which of the follow, builds a base model?
+
+<choice  id="1">
+<opt text="<code>model = DummyClassifier(strategy='stratified')</code>" correct="true">
+
+Great job! The value `stratified` in the `strategy` argument generates predictions by respecting the training set’s class distribution.
+
+</opt>
+
+<opt text="<code>model = Classifing_dummy(manner='stratified')</code>" >
+
+<The function you are looking for is `DummyClassifier()` and the argument name is not `manner`. 
+
+</opt>
+
+<opt text="<code>model = DummyClassifier(manner='stratified')</code>">
+
+The function is correct but the arument you are looking for is not called `manner`. 
+
+</opt>
+
+<opt text="<code>model = Classifing_dummy(strategy='stratified')</code>" >
+
+The function you are looking for is `DummyClassifier()`.
+
+</opt>
+
+</choice>
+
+</exercise>
+
+
+
+<exercise id="16" title="Building a Module">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -536,17 +642,15 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's split up our data into  our features and target. 
+Let's build a baseline model by using the `DummyClassifier()` function. 
 
 Tasks:     
-- Since we are attempting to predict the country availability of 
-- Save the resulting dataframe as `pokemon_df`.
-- It's a good idea to see what the [delimiter](https://github.com/UBC-MDS/MCL-DSCI-511-programming-in-python/blob/binder/data/pokemon-text.txt) is.
-- Display the first 10 rows of `pokemon_df`.
 
+- Build a baseline model using the `DummyClassifier()` function and `uniform` for the `strategy` argument. Save this in an object named `model`. 
+- fit your model and then predict on the target column. 
+- What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
 
-
-<codeblock id="01_13">
+<codeblock id="01_16">
 
 - Make sure you are using the correct functions 
 - Are you using the model named `model`?
@@ -554,14 +658,8 @@ Tasks:
 </codeblock>
 </exercise>
 
-<exercise id="14" title="Decision Tree Splitting Rules" type="slides">
-<slides source="module1/module1_14">
-</slides>
-</exercise>
 
-
-
-<exercise id="14" title="What Did We Just Learn?" type="slides">
-<slides source="module1_19">
+<exercise id="17" title="What Did We Just Learn?" type="slides">
+<slides source="module1/module1_end">
 </slides>
 </exercise>

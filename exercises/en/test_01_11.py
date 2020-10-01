@@ -5,13 +5,6 @@ def test():
     # in the meta.json for details.
 
     # If an assertion fails, the message will be displayed
-    assert ( 
-        "model.fit(X,y)"  in __solution__
-    ), "Are you sure you used the right functions and parameters?"
-    
-    assert ( 
-        "model.predict(X)"  in __solution__
-    ), "Are you sure you used the right functions and parameters?"
-    
-    __msg__.good("Well done! You successfully trained the data and predicted labels using a machine learning model!")
- 
+    assert candybar_dim == (25, 10), "Did you load your data correctly? "
+    assert( "shape"  in __solution__ ), "Are you sure you used the right functions and parameters?"
+    __msg__.good("Nice work, well done!")
