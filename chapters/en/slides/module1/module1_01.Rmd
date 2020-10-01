@@ -56,7 +56,7 @@ pd.set_option('display.max_rows', 15)
 
 type: slides
 
-# What is Machine Learning 
+# What is Machine Learning?
 
 Notes: <br>
 

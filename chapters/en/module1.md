@@ -1,5 +1,5 @@
 ---
-title: 'Module 1: Introduction and Decision Trees'
+title: 'Module 1: Machine Learning Fundamentals'
 description:
   'This chapter will explain the different branches of machine learning and introduce decision trees; a machine learning model used in supervised learning.'
 prev: module0
@@ -16,7 +16,7 @@ id: 1
 </exercise>
 
 
-<exercise id="1" title="What is Machine Learning" type="slides,video">
+<exercise id="1" title="What is Machine Learning?" type="slides,video">
 
 <slides source="module1/module1_01" shot="3" start="0:003" end="1:54">
 </slides>
@@ -517,8 +517,8 @@ Tasks:
 
 
 
-<exercise id="13" title="Baselines: Training a Model using Scikit-learn" type="slides">
-<slides source="module1/module1_13">
+<exercise id="13" title="Baselines: Training a Model using Scikit-learn" type="slides, video">
+<slides source="module1/module1_13" shot="1" start="0:003" end="1:54">
 </slides>
 </exercise>
 
@@ -659,7 +659,7 @@ Tasks:
 </exercise>
 
 
-<exercise id="17" title="What Did We Just Learn?" type="slides">
-<slides source="module1/module1_end">
+<exercise id="17" title="What Did We Just Learn?" type="slides, video">
+<slides source="module1/module1_end" shot="0" start="0:003" end="1:54">
 </slides>
 </exercise>
