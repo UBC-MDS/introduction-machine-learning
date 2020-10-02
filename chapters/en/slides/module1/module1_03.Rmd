@@ -77,9 +77,12 @@ Notes:
 
 There are different types of machine learning problems and each type uses different models. 
 
-- **Supervised learning (this course)** (<a href="https://support.google.com/a/answer/2368132?hl=en" target="_blank">Gmail spam filtering</a>) which consists of training a model from input data and its corresponding labels to predict new examples.     
+- **Supervised learning (this course)** (<a href="https://support.google.com/a/answer/2368132?hl=en" target="_blank">Gmail spam filtering</a>) which consists of training a model from input data and its corresponding labels to predict new examples.  
+
 - Unsupervised learning (<a href="https://news.google.com/" target="_blank">Google News</a>) which trains a model to try to find patterns in a dataset, typically without any unlabels.
-- Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far" target="_blank">AlphaGo</a>) where afamily of algorithms find suitable actions to take in a given situation in order to maximize a reward. 
+
+- Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far" target="_blank">AlphaGo</a>) where a family of algorithms find suitable actions to take in a given situation in order to maximize a reward. 
+
 - Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf" target="_blank">Amazon item recommendation system</a>) which try to predict the "rating" or "preference" a user would give to an item.    
 
 ---
@@ -92,9 +95,9 @@ There are different types of machine learning problems and each type uses differ
 
 Notes: 
 
-- Training data comprises a set of observations ($X$) and their corresponding targets ($y$). 
-- We wish to find a model function $f$ that relates $X$ to $y$.
-- Then use that model function to predict the labels of new examples. 
+- Training data comprises a set of observations (𝑋) and their corresponding targets (𝑦). 
+- We wish to find a model function (ƒ) that relates 𝑋 to 𝑦.
+- Then, we use that model function to predict the labels of new examples. 
 
 ---
 
@@ -116,7 +119,9 @@ img
 
 Notes: 
 
-The example we saw of classifying images is an example of supervised learning. We give it a image, after training it on data, and have it predict the correct contents. 
+The example we saw of classifying images is an example of supervised learning. 
+
+We give it an image, after training it on data, and have it predict the contents. 
 
 
 ---
@@ -140,13 +145,13 @@ Notes: Here, our model is predicting that the animal in the image is a `llama` w
 
 Notes: 
 
-In unsupervised learning, we have training data consisting of observations ($X$) without any corresponding targets.
+In unsupervised learning, we have training data consisting of observations (𝑋) without any corresponding targets.
 
-Unsupervised learning could be used to group similar things together in $X$. 
+Unsupervised learning could be used to group similar things together in 𝑋. 
 
 In unsupervised learning, We have data, but no associated response. 
 
-We will not be covering unsupervised learning in this course and instead put our main focus on supervised.
+We will not be covering unsupervised learning in this course and instead, put our main focus on supervised.
 
 
 ---
@@ -164,17 +169,17 @@ We will not be covering unsupervised learning in this course and instead put our
 
 Notes: 
 
-There are a number of machine learning libraries available to used but for this course we will be using the `sklearn` library, which is a popular (41.6k stars on Github) Machine Learning library for Python.
+There are several machine learning libraries available to use but for this course, we will be using the `sklearn` library, which is a popular (41.6k stars on Github) Machine Learning library for Python.
 
 ---
 
 ## What we know so far...
 
-- Machine learning is a different paradigm for problem solving.    
+- Machine learning is a different paradigm for problem-solving.    
     - It lets you solve problems that seem "untractable" or “unprogrammable".
-    - It reduces the time you spend programming and helps customizing and scaling your products.     
-- In supervised learning we are given a set of observations ($X$) and their corresponding targets ($y$) and we wish to find a model function $f$ that relates $X$ to $y$.
-- In unsupervised learning, we are given a set of observations ($X$) and we wish to group similar things together in $X$. 
+    - It reduces the time you spend programming and helps customize and scale your products.     
+- In supervised learning, we are given a set of observations (𝑋) and their corresponding targets 𝑦 and we wish to find a model function ƒ that relates 𝑋 to 𝑦.
+- In unsupervised learning, we are given a set of observations (𝑋) and we wish to group similar things together in 𝑋. 
 
 Notes: 
 

@@ -31,12 +31,13 @@ Notes:
 
 How do we effectively represent what we **input** into our model?
 
-In supervised ML we typically work with ***tabular data***.
+In supervised machine learning, we typically work with ***tabular
+data***.
 
   - Rows are ***examples***
 
-  - Columns are ***features*** (one of the columns is typically the
-    ***target***).
+  - Columns are ***features*** and one of the columns is typically the
+    ***target***.
 
   - Features are relevant characteristics of the problem (usually
     suggested by experts).  
@@ -44,14 +45,16 @@ In supervised ML we typically work with ***tabular data***.
   - To a machine, column names (features) have no meaning. Only feature
     values and how they vary across examples mean something.
 
-**training** a model can also be called learning or fitting a model.
+  - **Training** a model can also be called learning or fitting a model.
 
 All of these will be used in the course so it’s important to get
-familiar with the verbiage now.
+familiar with the vocabulary now.
 
 You will see a lot of variable terminology in machine learning and
-statistics. See the MDS terminology resource
-<a href="https://ubc-mds.github.io/resources_pages/terminology/" target="_blank">here</a>.
+statistics and sometimes they can be confusing. See the MDS terminology
+resource
+<a href="https://ubc-mds.github.io/resources_pages/terminology/" target="_blank">here</a>
+to clear up any confusions.
 
 ---
 
@@ -82,8 +85,9 @@ df.shape
 
 Notes:
 
-In this example , there are 18 features and 21613 examples. The target
-in this case is `price`.
+In this example, there are 18 **features** and 21613 **examples**.
+
+The target, in this case, is `price`.
 
 ---
 
@@ -112,8 +116,11 @@ classification_df.shape
 Notes:
 
 Here , there are 7 **features**, which are the columns `ml_experience`
-to `quiz1`. The **target** is `quiz2`. After using `.shape` we can see
-that there are 21 **examples**.
+to `quiz1`.
+
+The **target** is `quiz2`.
+
+After using `.shape` we can see that there are 21 **examples**.
 
 ---
 
@@ -147,14 +154,13 @@ Name: quiz2, dtype: object
 
 Notes:
 
-In order to train a model we need to separate our data into **features**
-and the **target**.
+In order to train a model, we need to separate our data into
+**features** and the **target**.
 
 We save our **features** which are columns `ml_experience` to `quiz1` in
 an object named `X`.
 
-Our **target** which is our `quiz2` column gets saved in a object named
-`y`.
+Our **target** column is `quiz2` and gets saved in an object named `y`.
 
 We will explain why we do this in the next set of slides.
 

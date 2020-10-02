@@ -22,18 +22,21 @@ Notes: <br>
 
 Notes:
 
-There are wo main kinds of supervised learning problems based on what
+There are two main kinds of supervised learning problems based on what
 they are trying to predict; ***Classification*** and ***Regression***.
 
 **Classification** predicts a target value among two or more discrete
 classes.
 
-For example: - whether a patient has a liver disease or not - whether a
-student would get an A+ or not in this course’s quiz2.
+For example:
 
-**Regression** predicts a continuous (typically, floating-point) value
+  - whether a patient has a liver disease or not
+  - whether a student would get an A+ or not in this course’s quiz2.
 
-For example: - housing prices - student’s score in this course’s quiz2.
+**Regression** predicts a continuous (typically, floating-point) value.
+
+For example: - housing prices - the scores of students in this course’s
+quiz2.
 
 ---
 

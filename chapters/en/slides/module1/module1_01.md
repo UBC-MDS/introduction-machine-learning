@@ -31,7 +31,7 @@ Some examples include:
   - Auto completion
   - Stock market predictions
   - Character recognition
-  - Self driving cars
+  - Self-driving cars
   - Cancer diagnosis
   - Drug Discovery
   - AlphaGo
@@ -51,14 +51,15 @@ Some examples include:
 
 Notes:
 
-So what exactly is machine learning? According to Arthur Samuel an
-American pioneer in the field of computer gaming and artificial
-intelligence, it is:
+So what exactly is machine learning?
+
+According to Arthur Samuel, an American pioneer in the field of computer
+gaming and artificial intelligence, it is:
 
 *“A field of study that gives computers the ability to learn without
 being explicitly programmed.”*
 
-is a different way to think about problem solving.
+We see it as a different way to think about problem-solving.
 
 ---
 
@@ -68,13 +69,13 @@ is a different way to think about problem solving.
 
 ## Example 1: Predict whether a patient has a liver disease or not
 
-*Do not worry about the code right now. Just focus on the input and
-output in each example.*
+*In all the the upcoming examples, Don’t worry about the code. Just
+focus on the input and output in each example.*
 
 Notes: To introduce the capabilities of machine learning, we are going
 to show you a few examples.
 
-The first one being the ability to predict whether a patient has a liver
+The first example is being able to predict whether a patient has a liver
 disease or not.
 
 ---
@@ -124,9 +125,11 @@ XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
               tree_method='exact', validate_parameters=1, verbosity=None)
 ```
 
-Notes: Next, we building a model and train our model using the labels we
-already have. Ignore this output here. It’s just explaining what’s going
-on in the model which we will explain soon.
+Notes: Next, we build a model and train our model using the labels we
+already have.
+
+Ignore this output here. It’s just explaining what’s going on in the
+model which we will explain soon.
 
 ---
 
@@ -146,9 +149,10 @@ df_concat
 3   72              1.7               0.8                   200                        28                          37             6.2      3.0                        0.93         Disease      Disease
 ```
 
-Notes: Next we take our model and use it to predict on unseen data. Here
-we can see that our model is predicting an outcome of the patience under
-the `Predicted label` column.
+Notes: Next, we take our model and use it to predict on unseen data.
+
+Here we can see that our model is predicting an outcome of the patients
+under the `Predicted label` column.
 
 ---
 
@@ -183,10 +187,13 @@ for image in images:
  gazelle     0.010053
 ```
 
-Notes: Here we already have a trained model which has been show
-thousands of images. If we give it images from our own collection, the
-model attempts to make a prediction of the contents of the image. In
-this case the model predicts the animal to be an `ox` with 86%
+Notes: Here, we already have a trained model that has been shown
+thousands of images.
+
+If we give it images from our own collection, the model attempts to make
+a prediction of the contents of the image.
+
+In this case, the model predicts the animal to be an `ox` with an 86%
 probability. That’s not bad.
 
 ---
@@ -212,9 +219,11 @@ for image in images:
  ibex, Capra ibex     0.060569
 ```
 
-Notes: In this case it’s not so good it’s confident in identifying the
-animal. The model in this case thinks our donkey image, is a llama but
-only with a probability of `0.12`.
+Notes:
+
+In this case, the model is much less confident in identifying the
+animal. The model gives the highest probability that our donkey image,
+is a llama but only with a probability of `0.12`.
 
 ---
 
@@ -225,7 +234,7 @@ only with a probability of `0.12`.
 *Attribution: The dataset `imdb_master.csv` was obtained from
 <a href="https://www.kaggle.com/uttam94/imdb-mastercsv" target="_blank">Kaggle</a>*
 
-Notes: We also also use machine learning to predict negative or positive
+Notes: We also use machine learning to predict negative or positive
 sentiment expressed in a movie review.
 
 ---
@@ -247,9 +256,11 @@ train_df.head()
 38521  I loved this film. I first saw it when I was 2...   pos  1091_10.txt
 ```
 
-Notes: First we wrangle our data so that we can train our model. This
-data contains the review as a column and a `label` column which contains
-values of either `pos` or `neg` for positive or negative.
+Notes: First we wrangle our data so that we can train our model.
+
+This data contains the review in a column named `review` and a `label`
+column which contains values of either `pos` or `neg` for positive or
+negative.
 
 ---
 
@@ -271,8 +282,9 @@ Pipeline(steps=[('vect', CountVectorizer(max_features=5000)),
                 ('clf', LogisticRegression(max_iter=5000))])
 ```
 
-Notes: Next, we build our model and train on our existing data. Don’t
-worry about the code here.
+Notes: Next, we build our model and train on our existing data.
+
+Again, don’t worry about the code here.
 
 ---
 
@@ -294,8 +306,11 @@ pred_df.head()
 4182   Having seen Carlo Lizzani's documentary on Luc...        neg                   neg
 ```
 
-Notes: Once we have our model trained, we can then predict on data we
+Notes: Once we have our model trained, we can then predict data we
 haven’t seen before using the model we just built.
+
+This we can see that in these 4 observations, the model correctly
+predicts each review’s sentiment.
 
 ---
 
@@ -304,7 +319,7 @@ haven’t seen before using the model we just built.
 ## Example 4: Predict housing prices
 
 *Attribution: The dataset `kc_house_data.csv` was obtained from
-<a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>*
+<a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>.*
 
 Notes: Machine learning can also be used to predict housing prices.
 
@@ -326,8 +341,9 @@ train_df.head()
 3913   357823.0         3       1.50         1240      9196     1.0           0     0          3      8        1240              0      1968             0    98072  47.7562 -122.094           1690       10800
 ```
 
-Notes: We wrangle our data just as we did before. These data consist of
-the characteristics of houses in King County, USA.
+Notes: We wrangle our data just as we did before.
+
+These data consist of the characteristics of houses in King County, USA.
 
 ---
 
@@ -376,13 +392,16 @@ df_concat.head()
 
 Notes: And we predict on unseen examples using the built model.
 
+If we scroll to right, we can compare the actual price of the house and
+the price our model predicted.
+
 ---
 
 ## Questions to ponder on
 
   - What are the inputs and outputs in the examples above?
   - How are they different compared to traditional programs, for
-    example, calculating factorial of a number?
+    example, calculating the factorial of a number?
   - What and how are we exactly “learning” in the above examples? In the
     image classification example, does the model have a concept of cats,
     dogs, and cheetahs?
@@ -391,10 +410,10 @@ Notes: And we predict on unseen examples using the built model.
   - Are we expected to get correct predictions for all possible
     examples?
   - How do we measure the success or failure of a machine learning
-    model? In other words, if you want to use these program in the wild,
+    model? In other words, if you want to use this program in the wild,
     how do you know how reliable it is?  
   - What if the model misclassifies an unseen example? For instance,
-    what if the model incorrectly diagnoses a patient with not having
+    what if the model incorrectly diagnoses a patient with not having a
     disease when they actually have the disease? Would it be acceptable?
     What would be the consequences?
   - Is it useful to know more fine-grained predictions (e.g.,

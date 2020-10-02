@@ -21,7 +21,11 @@ Notes: <br>
 
 Notes:
 
-<br>
+Just to recap what we know, we take tabular data and a machine learning
+algorithm and produce a machine learning model.
+
+We can then take new examples and make predictions on them using this
+model.
 
 ---
 
@@ -35,7 +39,7 @@ Notes:
 
 Notes:
 
-Let’s build a “baseline” simple machine learning algorithm based on
+Let’s build a ***baseline*** simple machine learning algorithm based on
 simple rules of thumb.
 
 For example we can build the following:
@@ -67,7 +71,9 @@ classification_df.head()
 
 Notes:
 
-Let’s take our data. We are going to be working with the quiz2
+Let’s take our data.
+
+For this example, we are going to be working with the quiz2
 classification data that we have seen previously.
 
 ---
@@ -83,11 +89,11 @@ y = classification_df["quiz2"]
 
 Notes:
 
-Our first step in building our model is spliting up our data into the
-features and the target, also known as 𝑋 and 𝑦.
+Our first step in building our model is spliting up our tabular data
+into the features and the target, also known as 𝑋 and 𝑦.
 
-X is all of our features in our data, this is called our ***Feature
-vectors***. y is our target, what we are predicting.
+𝑋 is all of our features in our data, which we also call our ***feature
+vectors***. 𝑦 is our target, which is what we are predicting.
 
 For this problem, all the columns in our dataframe except `quiz2` make
 up our 𝑋 and the `quiz2` column, which is our target make up our 𝑦.
@@ -170,12 +176,12 @@ Notes:
 Now that our model has been train on existing data, we can predict the
 target of examples by calling `predict` on the classifier object.
 
-It’s at this stage, unlike in `.fit()` where the output is important to
+It’s at this stage, unlike in `.fit()`, where the output is important to
 us. It tells us what the model predicts for the observations.
 
 We can see here, that for each observation it’s predicting a value of
 `not A+` which was the most frequent `quiz2` value in the data we gave
-it during the `fit()` stage.
+it during the `.fit()` stage.
 
 We will talk more about `.fit()` and `.predict()` in the next module.
 
@@ -183,8 +189,9 @@ We will talk more about `.fit()` and `.predict()` in the next module.
 
 ## 5\. Scoring your model
 
-In the classification setting, the `score()` function gives the accuracy
-of the model, i.e., proportion of correctly predicted observations.
+In the classification setting, the `.score()` function gives the
+accuracy of the model, i.e., proportion of correctly predicted
+observations.
 
 <center>
 
@@ -231,8 +238,9 @@ of the model, i.e., proportion of correctly predicted.
 Sometimes you will also see people reporting error, which is usually 1 -
 accuracy.
 
-We can see that our model’s accuracy on our quiz2 problem is 0.524 which
-means the error is 0.476.
+We can see that our model’s accuracy on our quiz2 problem is 0.524.
+
+We could also say the error is 0.476.
 
 ---
 
@@ -240,7 +248,7 @@ means the error is 0.476.
 
 The general pattern when we build ML models using `sklearn`:
 
-1.  Creating your 𝑋 and 𝑦 ojects
+1.  Creating your 𝑋 and 𝑦 objects
 2.  `clf` → create a model (here we are naming it `clf`)  
 3.  `clf.fit(X, y)` → train the model
 4.  `clf.predict(X)` → predict using the trained model
@@ -249,6 +257,12 @@ The general pattern when we build ML models using `sklearn`:
 Notes:
 
 When building models, there is a general pattern that we repeat.
+
+1.  Creating your 𝑋 and 𝑦 objects
+2.  `clf` → create a model (here we are naming it `clf`)  
+3.  `clf.fit(X, y)` → train the model
+4.  `clf.predict(X)` → predict using the trained model
+5.  `clf.score(X, y)` → assess the model
 
 ---
 

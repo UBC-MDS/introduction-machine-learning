@@ -74,9 +74,9 @@ No quite sure how this would work, but never say never! Technology is progressin
 
 </opt>
 
-<opt text="I don't think we can use machine learning quite yet to " correct= "true">
+<opt text="False" correct= "true">
 
-Maybe one day we will be able to! Who knows. 
+I don't think we can use machine learning quite yet to. Maybe one day we will be able to! Who knows. 
 
 </opt>
 
@@ -117,7 +117,7 @@ Good job! This is an unsupervised learning example.
 </choice>
 
 **Example:**    
-_predicting real estate prices based on house features (number of rooms,past sales, etc.)_
+_Predicting real estate prices based on house features (number of rooms,past sales, etc.)._
 
 <choice id="2">
 <opt text="Supervised Learning" correct="true">
@@ -652,8 +652,10 @@ Tasks:
 
 <codeblock id="01_16">
 
-- Make sure you are using the correct functions 
+- Make sure you are using the correct functions.
 - Are you using the model named `model`?
+- Are you calling `.fit(X,y)` on your model?
+- Are you using `model.score(X,y)` to find the accuracy?
 
 </codeblock>
 </exercise>
