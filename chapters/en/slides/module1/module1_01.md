@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# What is Machine Learning?
+# What is Supervised Machine Learning?
 
 Notes: <br>
 
@@ -10,11 +10,9 @@ Notes: <br>
 
 ## Prevalence of ML
 
-Examples:
-
 <center>
 
-<img src='/module1/examples.png'  width = "85%" alt="404 image" />
+<img src='/module1/examples.png'  width = "75%" alt="404 image" />
 
 </center>
 
@@ -63,7 +61,7 @@ We see it as a different way to think about problem-solving.
 
 ---
 
-## Some concrete examples
+## Some concrete examples of supervised learning
 
 <br> <br>
 
@@ -81,11 +79,6 @@ disease or not.
 ---
 
 ``` python
-df = pd.read_csv("data/indian_liver_patient.csv")
-df = df.drop("Gender", axis=1)
-df.loc[df["Dataset"] == 1, "Target"] = "Disease"
-df.loc[df["Dataset"] == 2, "Target"] = "No Disease"
-df = df.drop("Dataset", axis=1)
 train_df, test_df = train_test_split(df, test_size=4, random_state=16)
 train_df.head()
 ```
@@ -99,8 +92,8 @@ train_df.head()
 159   50              1.2               0.4                   282                        36                          32             7.2      3.9                         1.1     Disease
 ```
 
-Notes: First we obtain our data on our patients and wrangle it as
-necessary.
+Notes: First we obtain our data from our patients, wrangle it as
+necessary and split it up.
 
 ---
 
@@ -109,20 +102,8 @@ from xgboost import XGBClassifier
 X_train = train_df.drop(columns=['Target'], axis=1)
 y_train = train_df['Target']
 X_test = test_df.drop(columns=['Target'], axis=1)
-y_test = test_df['Target']
 model = XGBClassifier()
 model.fit(X_train, y_train)
-```
-
-```out
-XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
-              colsample_bynode=1, colsample_bytree=1, gamma=0, gpu_id=-1,
-              importance_type='gain', interaction_constraints='',
-              learning_rate=0.300000012, max_delta_step=0, max_depth=6,
-              min_child_weight=1, missing=nan, monotone_constraints='()',
-              n_estimators=100, n_jobs=0, num_parallel_tree=1, random_state=0,
-              reg_alpha=0, reg_lambda=1, scale_pos_weight=1, subsample=1,
-              tree_method='exact', validate_parameters=1, verbosity=None)
 ```
 
 Notes: Next, we build a model and train our model using the labels we
@@ -135,18 +116,18 @@ model which we will explain soon.
 
 ``` python
 pred_df = pd.DataFrame(
-    {"Predicted label": model.predict(X_test).tolist(), "Actual label": y_test.tolist()}
+    {"Predicted label": model.predict(X_test).tolist()}
 )
 df_concat = pd.concat([X_test.reset_index(drop=True), pred_df], axis=1)
 df_concat
 ```
 
 ```out
-   Age  Total_Bilirubin  Direct_Bilirubin  Alkaline_Phosphotase  Alamine_Aminotransferase  Aspartate_Aminotransferase  Total_Protiens  Albumin  Albumin_and_Globulin_Ratio Predicted label Actual label
-0   61              0.7               0.2                   145                        53                          41             5.8      2.7                        0.87         Disease      Disease
-1   42             11.1               6.1                   214                        60                         186             6.9      2.8                        2.80         Disease      Disease
-2   22              0.8               0.2                   198                        20                          26             6.8      3.9                        1.30      No Disease      Disease
-3   72              1.7               0.8                   200                        28                          37             6.2      3.0                        0.93         Disease      Disease
+   Age  Total_Bilirubin  Direct_Bilirubin  Alkaline_Phosphotase  Alamine_Aminotransferase  Aspartate_Aminotransferase  Total_Protiens  Albumin  Albumin_and_Globulin_Ratio Predicted label
+0   61              0.7               0.2                   145                        53                          41             5.8      2.7                        0.87         Disease
+1   42             11.1               6.1                   214                        60                         186             6.9      2.8                        2.80         Disease
+2   22              0.8               0.2                   198                        20                          26             6.8      3.9                        1.30      No Disease
+3   72              1.7               0.8                   200                        28                          37             6.2      3.0                        0.93         Disease
 ```
 
 Notes: Next, we take our model and use it to predict on unseen data.
@@ -164,7 +145,7 @@ Notes: We can also use it for image recognition.
 
 ---
 
-## Predict labels with associated probabilities for unseen images
+## Predict labels with associated probability scores for unseen images
 
 ``` python
 images = glob.glob("test_images/*.*")
@@ -188,13 +169,13 @@ for image in images:
 ```
 
 Notes: Here, we already have a trained model that has been shown
-thousands of images.
+hundreds of thousands of images.
 
 If we give it images from our own collection, the model attempts to make
 a prediction of the contents of the image.
 
-In this case, the model predicts the animal to be an `ox` with an 86%
-probability. That’s not bad.
+In this case, the model predicts the animal to be an `ox` with a
+probability score 86%. That’s not bad.
 
 ---
 
@@ -222,8 +203,8 @@ for image in images:
 Notes:
 
 In this case, the model is much less confident in identifying the
-animal. The model gives the highest probability that our donkey image,
-is a llama but only with a probability of `0.12`.
+animal. The model gives the highest probability score that our donkey
+image, is a llama but only with a value of `0.12`.
 
 ---
 
@@ -240,11 +221,16 @@ sentiment expressed in a movie review.
 ---
 
 ``` python
-imdb_df = pd.read_csv("data/imdb_master.csv", encoding="ISO-8859-1")
-imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
-imdb_df = imdb_df.drop(["Unnamed: 0", "type"], axis=1)
-train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
 train_df.head()
+```
+
+```out
+                                                  review label         file
+43020  Just caught it at the Toronto International Fi...   pos   3719_9.txt
+49131  The movie itself made me want to go and call s...   pos  9219_10.txt
+23701  I came across this movie on DVD purely by chan...   pos   8832_9.txt
+4182   Having seen Carlo Lizzani's documentary on Luc...   neg   2514_4.txt
+38521  I loved this film. I first saw it when I was 2...   pos  1091_10.txt
 ```
 
 ``` out
@@ -266,7 +252,7 @@ negative.
 
 ``` python
 X_train, y_train = train_df['review'], train_df['label']
-X_test, y_test = train_df['review'], train_df['label']
+X_test, y_test = test_df['review'], test_df['label']
 
 clf = Pipeline(
     [
@@ -275,11 +261,6 @@ clf = Pipeline(
     ]
 )
 clf.fit(X_train, y_train)
-```
-
-``` out
-Pipeline(steps=[('vect', CountVectorizer(max_features=5000)),
-                ('clf', LogisticRegression(max_iter=5000))])
 ```
 
 Notes: Next, we build our model and train on our existing data.
@@ -291,7 +272,7 @@ Again, don’t worry about the code here.
 ``` python
 pred_dict = {
     "reviews": X_test[0:4],
-    "prediction": y_test[0:4],
+    "true_sentiment": y_test[0:4],
     "sentiment_predictions": clf.predict(X_test[0:4]),
 }
 pred_df = pd.DataFrame(pred_dict)
@@ -348,25 +329,51 @@ These data consist of the characteristics of houses in King County, USA.
 ---
 
 ``` python
-import xgboost as xgb
-from xgboost import XGBRegressor
 
-X_train, y_train = train_df.drop("price", axis=1), train_df["price"]
-X_test, y_test = test_df.drop("price", axis=1), train_df["price"]
-
-model = XGBRegressor()
-model.fit(X_train, y_train)
+X_train = train_df.drop("price", axis=1)
+X_train.head()
 ```
 
 ```out
-XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=1,
-             colsample_bynode=1, colsample_bytree=1, gamma=0, gpu_id=-1,
-             importance_type='gain', interaction_constraints='',
-             learning_rate=0.300000012, max_delta_step=0, max_depth=6,
-             min_child_weight=1, missing=nan, monotone_constraints='()',
-             n_estimators=100, n_jobs=0, num_parallel_tree=1, random_state=0,
-             reg_alpha=0, reg_lambda=1, scale_pos_weight=1, subsample=1,
-             tree_method='exact', validate_parameters=1, verbosity=None)
+       bedrooms  bathrooms  sqft_living  sqft_lot  floors  waterfront  view  condition  grade  sqft_above  sqft_basement  yr_built  yr_renovated  zipcode      lat     long  sqft_living15  sqft_lot15
+8583          2       1.50         1930      3521     2.0           0     0          3      8        1930              0      1989             0    98007  47.6092 -122.146           1840        3576
+19257         5       2.75         2570     12906     2.0           0     0          3      8        2570              0      1987             0    98075  47.5814 -122.050           2580       12927
+1295          3       1.00         1150      5120     1.0           0     0          4      6         800            350      1946             0    98116  47.5588 -122.392           1220        5120
+15670         8       2.75         2530      4800     2.0           0     0          4      7        1390           1140      1901             0    98112  47.6241 -122.305           1540        4800
+3913          3       1.50         1240      9196     1.0           0     0          3      8        1240              0      1968             0    98072  47.7562 -122.094           1690       10800
+```
+
+``` python
+y_train = train_df["price"]
+y_train.head()
+```
+
+```out
+8583     509000.0
+19257    675000.0
+1295     420000.0
+15670    680000.0
+3913     357823.0
+Name: price, dtype: float64
+```
+
+``` python
+X_test = test_df.drop("price", axis=1)
+y_test = train_df["price"]
+```
+
+Notes:
+
+It’s important that we separate our data from the target column (The `y`
+variables).
+
+---
+
+``` python
+from xgboost import XGBRegressor
+
+model = XGBRegressor()
+model.fit(X_train, y_train)
 ```
 
 Notes: We build our model.
@@ -374,7 +381,6 @@ Notes: We build our model.
 ---
 
 ``` python
-# Predict on unseen examples using the built model  
 pred_df = pd.DataFrame(
     {"Predicted price": model.predict(X_test[0:4]).tolist(), "Actual price": y_test[0:4].tolist()}
 )
@@ -394,33 +400,6 @@ Notes: And we predict on unseen examples using the built model.
 
 If we scroll to right, we can compare the actual price of the house and
 the price our model predicted.
-
----
-
-## Questions to ponder on
-
-  - What are the inputs and outputs in the examples above?
-  - How are they different compared to traditional programs, for
-    example, calculating the factorial of a number?
-  - What and how are we exactly “learning” in the above examples? In the
-    image classification example, does the model have a concept of cats,
-    dogs, and cheetahs?
-  - What would it take to predict the correct label for an example the
-    algorithm has not seen before?  
-  - Are we expected to get correct predictions for all possible
-    examples?
-  - How do we measure the success or failure of a machine learning
-    model? In other words, if you want to use this program in the wild,
-    how do you know how reliable it is?  
-  - What if the model misclassifies an unseen example? For instance,
-    what if the model incorrectly diagnoses a patient with not having a
-    disease when they actually have the disease? Would it be acceptable?
-    What would be the consequences?
-  - Is it useful to know more fine-grained predictions (e.g.,
-    probabilities as we saw in Example 2) rather than just a yes or a
-    no?
-
-Notes: <br>
 
 ---
 

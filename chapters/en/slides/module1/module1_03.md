@@ -60,7 +60,7 @@ uses different models.
 
 <center>
 
-<img src="/module1/supervised-learning.png" height="1000" width="1000">
+<img src="/module1/sup-learning.png" height="1000" width="1000">
 
 </center>
 
@@ -68,7 +68,7 @@ Notes:
 
   - Training data comprises a set of observations (𝑋) and their
     corresponding targets (𝑦).
-  - We wish to find a model function (ƒ) that relates 𝑋 to 𝑦.
+  - We wish to find a model function that relates 𝑋 to 𝑦.
   - Then, we use that model function to predict the labels of new
     examples.
 
@@ -160,13 +160,19 @@ this course, we will be using the `sklearn` library, which is a popular
 ## What we know so far…
 
   - Machine learning is a different paradigm for problem-solving.
+    
       - It lets you solve problems that seem “untractable” or
         “unprogrammable”.
       - It reduces the time you spend programming and helps customize
-        and scale your products.  
+        and scale your products.
+
+  - Machine learning can help either reduce the time humans spend on
+    problem solving or help obtain better results.
+
   - In supervised learning, we are given a set of observations (𝑋) and
-    their corresponding targets 𝑦 and we wish to find a model function ƒ
+    their corresponding targets 𝑦 and we wish to find a model function
     that relates 𝑋 to 𝑦.
+
   - In unsupervised learning, we are given a set of observations (𝑋) and
     we wish to group similar things together in 𝑋.
 

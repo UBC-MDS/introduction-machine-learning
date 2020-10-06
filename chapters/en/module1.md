@@ -16,7 +16,7 @@ id: 1
 </exercise>
 
 
-<exercise id="1" title="What is Machine Learning?" type="slides,video">
+<exercise id="1" title="What is Supervised Machine Learning?" type="slides,video">
 
 <slides source="module1/module1_01" shot="3" start="0:003" end="1:54">
 </slides>
@@ -24,11 +24,11 @@ id: 1
 </exercise>
 
 
-<exercise id="2" title="Examples of Machine">
+<exercise id="2" title="Is it Machine Learning?">
 
 **True or False: The following is an example of machine learning?**
 
-_Diagnosing cancer from Magnetic resonance imaging_
+_Diagnosing cancer from magnetic resonance imaging_
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -76,7 +76,7 @@ No quite sure how this would work, but never say never! Technology is progressin
 
 <opt text="False" correct= "true">
 
-I don't think we can use machine learning quite yet to. Maybe one day we will be able to! Who knows. 
+I don't think we can use machine learning quite yet to do this. Maybe one day we will be able to! Who knows. 
 
 </opt>
 
@@ -156,15 +156,15 @@ Do we have examples of the true corresponding value of what we are predicting?
 _Identifying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc._
 
 <choice  id="4">
-<opt text="Supervised Learning" correct="true">
+<opt text="Supervised Learning">
 
-Nice work.
+We are grouping animals together based on similarity. 
 
 </opt>
 
-<opt text="Unsupervised Learning" >
+<opt text="Unsupervised Learning"  correct="true">
 
-We know what the animal is suppose to be classified as and we are hoping that with the given features, the model will be able to classify the animal.
+Nice work.
 
 
 </opt>
@@ -174,7 +174,7 @@ We know what the animal is suppose to be classified as and we are hoping that wi
 _Grouping articles on different topics from different news sources (something like Google News app)._
 
 
-<choice  id="3">
+<choice  id="5">
 <opt text="Supervised Learning">
 
 Here we do not have a clear "correct" answer and therefor this is an example of unsupervised learning. 
@@ -257,12 +257,12 @@ Good job! We are predicting a numerical value (percent grade) and therefore this
 </choice>
 
 **Example:**  
-_Predicting whether you should bicycle to work tomorrow based on the weather forecast._
+_Predicting a cereal's manufacturer given the nutritional information._
 
 <choice  id="4">
 <opt text="Classification" correct="true">
 
-Good job! We are predicting a categorical value (Bike/Not bike) and therefore this is an example of classification.
+Good job! We are predicting a categorical value and therefore this is an example of classification.
 
 </opt>
 
@@ -337,7 +337,7 @@ Not quite. You may want to have a read through of the definitions in this sectio
 
 </opt>
 
-<opt text="Outcomes" correct="true">
+<opt text="Outputs" correct="true">
 
 Good job!
 
@@ -354,30 +354,30 @@ Not quite. You may want to have a read through of the definitions in this sectio
 
 <exercise id="10" title="Terminology: Features">
 
-Which is **NOT** a synonym for ***features***? 
+Which is a synonym for ***feature***? 
 
 <choice  id="1">
-<opt text="Inputs" >
+<opt text="testers" >
 
-Inputs is a synonym for features. You may want to have a read through of the definitions in this section. 
 
-</opt>
-
-<opt text="Records" correct="true">
-
-Good job! Records is a synonym for examples, rows and samples
 
 </opt>
 
-<opt text="Predictors" >
+<opt text="Input" correct="true">
 
-Predictors is a synonym for features. You may want to have a read through of the definitions in this section. 
+Input is a synonym for features! Well done. 
 
 </opt>
 
-<opt text="Independent variables">
+<opt text="examples >
 
-Predictors is a synonym for features. You may want to have a read through of the definitions in this section. 
+Example is not synonym for features. You may want to have a read through of the definitions in this section. 
+
+</opt>
+
+<opt text="row">
+
+Row is not synonym for features. You may want to have a read through of the definitions in this section. 
 
 </opt>
 
@@ -388,15 +388,18 @@ Predictors is a synonym for features. You may want to have a read through of the
 
 <exercise id="11" title="Describing a Dataset">
 
-Let's make sure we understand all the components we use in a Dataset for machine learning. 
 
-**Instructions:**
 
-When you run a code exercise for the first time, it could take a bit of time for everything to load. 
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
 
-**When you see `____` in a code exercise, replace it with what you assume to be the correct code. Run it and see if it you obtain the desired output. Submit your code to validate if you were correct.**
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
 
-The packages you need will be loaded for you. 
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+
+Let's make sure we understand all the components we use in a dataset for machine learning. The packages you need will be loaded for you. In this example we would be attempting to predict the country availability of candy bars, which makes the column `availability` the target.
 
 - Print the `canbybar_df` object. 
 - Save the dimensions of the dataframe in an object named `candybar_dim`.
@@ -409,18 +412,17 @@ The packages you need will be loaded for you.
 
 
 
-
 **Question:**  
 How many features does the data have?
 
 <choice  id="1">
-<opt text="9">
+<opt text="8">
 
-This is the total number of columns, not the number of features
+This is not the number of features.
 
 </opt>
 
-<opt text="8" correct="true">
+<opt text="9" correct="true">
 
 Yes! Good job!
 
@@ -524,7 +526,7 @@ Tasks:
 
 <exercise id="14" title="Fit or Predict">
 
-**Do the following statements correspond to the `fit` or the `predict` function:**  
+**Do the following statements correspond to the`fit` or the `predict` stage:**  
 
 **Statement:**   
 _Is called first (before the other one)._
@@ -543,27 +545,10 @@ How can the model predict without education first?
 </opt>
 </choice>
 
-**Statement:**  
-_At least for decision trees, this is where most of the hard work is done._
-
-<choice id="2">
-<opt text="Fit" correct="true">
-
-Great job! Training is more intensive then predicting for decision trees. 
-
-</opt>
-
-<opt text="Predict" >
-
-Where do we teach the model? 
-
-</opt>
-</choice>
-
 **Statement:**   
 _Only takes `X` as an argument._
 
-<choice id="3">
+<choice id="2">
 <opt text="Fit">
 
 We need to make sure we give the model the correct labels so it can _learn_. 
@@ -580,7 +565,7 @@ Great job!
 **Statement:**  
 _In scikit-learn, we can ignore its output._
 
-<choice id="4">
+<choice id="3">
 <opt text="Fit" correct="true">
  
 Great job!
@@ -589,7 +574,7 @@ Great job!
 
 <opt text="Predict">
 
-You may want to look at the slides and see what each function delivers as an output. 
+You may want to look at the slides and see what each of these delivers as an output. 
 
 </opt>
 </choice>
@@ -600,30 +585,46 @@ You may want to look at the slides and see what each function delivers as an out
 
 <exercise id="15" title="First Step in Building a Model">
 
-Which of the follow, builds a base model?
+Below is the output of `y.value_counts()`.  
+```out
+Position
+Forward     13
+Defense      7
+Goalie       2
+dtype: int64
+```
+
+
+
+In this scenario, what would a `DummyClassifier(strategy='most_frequent')` model predict on the observation: 
+```
+   No.  Age  Height  Weight  Experience     Salary
+1   83   34     191     210          11  3200000.0
+```
+
 
 <choice  id="1">
-<opt text="<code>model = DummyClassifier(strategy='stratified')</code>" correct="true">
+<opt text="Forward" correct="true">
 
-Great job! The value `stratified` in the `strategy` argument generates predictions by respecting the training set’s class distribution.
-
-</opt>
-
-<opt text="<code>model = Classifing_dummy(manner='stratified')</code>" >
-
-<The function you are looking for is `DummyClassifier()` and the argument name is not `manner`. 
+Great job!
 
 </opt>
 
-<opt text="<code>model = DummyClassifier(manner='stratified')</code>">
+<opt text="Defense" >
 
-The function is correct but the arument you are looking for is not called `manner`. 
+We are using the strategy `most_frequent` which predicts the most frequently occuring value. 
 
 </opt>
 
-<opt text="<code>model = Classifing_dummy(strategy='stratified')</code>" >
+<opt text="Goalie">
 
-The function you are looking for is `DummyClassifier()`.
+We are using the strategy `most_frequent` which predicts the most frequently occuring value. 
+
+</opt>
+
+<opt text="Player" >
+
+We are using the strategy `most_frequent` which predicts the most frequently occuring value. 
 
 </opt>
 
@@ -633,7 +634,7 @@ The function you are looking for is `DummyClassifier()`.
 
 
 
-<exercise id="16" title="Building a Module">
+<exercise id="16" title="Building a Model">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -642,17 +643,131 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's build a baseline model by using the `DummyClassifier()` function. 
+Let's build a baseline model by using `DummyClassifier()`. 
 
 Tasks:     
 
-- Build a baseline model using the `DummyClassifier()` function and `uniform` for the `strategy` argument. Save this in an object named `model`. 
+- Build a baseline model using  `DummyClassifier()`  and `most_frequent` for the `strategy` argument. Save this in an object named `model`. 
 - fit your model and then predict on the target column. 
 - What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
 
 <codeblock id="01_16">
 
-- Make sure you are using the correct functions.
+- Are using `DummyClassifier(strategy="most_frequent")`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X,y)` on your model?
+- Are you using `model.score(X,y)` to find the accuracy?
+
+</codeblock>
+</exercise>
+
+<exercise id="17" title="Baselines: Dummy Regression" type="slides, video">
+<slides source="module1/module1_17" shot="1" start="0:003" end="1:54">
+</slides>
+</exercise>
+
+
+<exercise id="18" title="Dummy Regressors">
+
+When using a regression model, which of the following is not a possible return value from `.score(X,y)` ? 
+
+<choice  id="1">
+<opt text="0.0" >
+
+This is a possible value. This is expected when using a dummy classifier with a `mean` strategy. 
+
+</opt>
+
+<opt text="1.0" >
+
+1.0 is the highest possible value. 
+
+</opt>
+
+<opt text="-0.1">
+
+Negative values are a possible score when using regression classifiers.
+
+</opt>
+
+<opt text="1.5" correct="true">
+
+Great! 1.0 is the highest possible value.
+
+</opt>
+
+</choice>
+
+</exercise>
+
+<exercise id="19" title="Dummy Regressor Scores">
+
+Below are the values for `y` that were used to train  `DummyRegressor(strategy='mean')`:
+```out
+Grade
+0     75
+1     80
+2     90
+3     95
+4     85
+dtype: int64
+```
+
+What value will the model predict for every example?
+
+
+
+<choice  id="1">
+<opt text="80">
+
+Is this the average of all the values?
+
+</opt>
+
+<opt text="90" >
+
+Maybe try calculating the average of all the values.
+
+</opt>
+
+<opt text="85"  correct="true">
+
+Great! It will predict the average of all the values. 
+
+</opt>
+
+<opt text="95" >
+
+This is too high. Have you tried calculating the average of all the values?
+
+</opt>
+
+</choice>
+
+</exercise>
+
+
+
+<exercise id="20" title="Building a Dummy Classifier">
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's build a baseline model by using `DummyRegressor()`. 
+
+Tasks:     
+
+- Build a baseline model using the `DummyRegressor()`  and `mean` for the `strategy` argument. Save this in an object named `model`. 
+- fit your model and then predict on the target column. 
+- What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
+
+<codeblock id="01_20">
+
+- Are using `DummyRegressor(strategy='mean')`?
 - Are you using the model named `model`?
 - Are you calling `.fit(X,y)` on your model?
 - Are you using `model.score(X,y)` to find the accuracy?
@@ -661,7 +776,7 @@ Tasks:
 </exercise>
 
 
-<exercise id="17" title="What Did We Just Learn?" type="slides, video">
+<exercise id="21" title="What Did We Just Learn?" type="slides, video">
 <slides source="module1/module1_end" shot="0" start="0:003" end="1:54">
 </slides>
 </exercise>

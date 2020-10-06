@@ -56,7 +56,7 @@ pd.set_option('display.max_rows', 15)
 
 type: slides
 
-# What is Machine Learning?
+# What is Supervised Machine Learning?
 
 Notes: <br>
 
@@ -64,9 +64,8 @@ Notes: <br>
 
 ## Prevalence of ML
 
-Examples:
 
-<center><img src='/module1/examples.png'  width = "85%" alt="404 image" /></center>
+<center><img src='/module1/examples.png'  width = "75%" alt="404 image" /></center>
 
 
 Notes: 
@@ -112,7 +111,7 @@ We see it as a different way to think about problem-solving.
 
 ---
 
-## Some concrete examples
+## Some concrete examples of supervised learning
 
 <br>
 <br>
@@ -127,7 +126,7 @@ The first example is being able to predict whether a patient has a liver disease
 
 ---
 
-```{python}
+```{python include=FALSE}
 df = pd.read_csv("data/indian_liver_patient.csv")
 df = df.drop("Gender", axis=1)
 df.loc[df["Dataset"] == 1, "Target"] = "Disease"
@@ -138,17 +137,23 @@ train_df.head()
 ```
 
 
-Notes: First we obtain our data on our patients and wrangle it as necessary. 
+```{python}
+train_df, test_df = train_test_split(df, test_size=4, random_state=16)
+train_df.head()
+```
+
+
+Notes: First we obtain our data from our patients, wrangle it as necessary and split it up.
+
 
 ---
 
 
-```{python}
+```{python  results = 'hide'}
 from xgboost import XGBClassifier
 X_train = train_df.drop(columns=['Target'], axis=1)
 y_train = train_df['Target']
 X_test = test_df.drop(columns=['Target'], axis=1)
-y_test = test_df['Target']
 model = XGBClassifier()
 model.fit(X_train, y_train)
 ```
@@ -164,7 +169,7 @@ Ignore this output here.  It's just explaining what's going on in the model whic
 
 ```{python}
 pred_df = pd.DataFrame(
-    {"Predicted label": model.predict(X_test).tolist(), "Actual label": y_test.tolist()}
+    {"Predicted label": model.predict(X_test).tolist()}
 )
 df_concat = pd.concat([X_test.reset_index(drop=True), pred_df], axis=1)
 df_concat
@@ -187,7 +192,7 @@ Notes: We can also use it for image recognition.
 
 ---
 
-##  Predict labels with associated probabilities for unseen images  
+##  Predict labels with associated probability scores for unseen images  
 
 ```{python eval=FALSE}
 images = glob.glob("test_images/*.*")
@@ -213,11 +218,11 @@ for image in images:
 
 
 Notes: 
-Here, we already have a trained model that has been shown thousands of images. 
+Here, we already have a trained model that has been shown hundreds of thousands of images. 
 
 If we give it images from our own collection, the model attempts to make a prediction of the contents of the image. 
 
-In this case, the model predicts the animal to be an `ox` with an 86% probability. That's not bad. 
+In this case, the model predicts the animal to be an `ox` with a probability score 86%. That's not bad. 
 
 ---
 
@@ -247,7 +252,7 @@ for image in images:
 
 Notes: 
 
-In this case, the model is much less confident in identifying the animal. The model gives the highest probability that our donkey image, is a llama but only with a probability of `0.12`. 
+In this case, the model is much less confident in identifying the animal. The model gives the highest probability score that our donkey image, is a llama but only with a value of `0.12`. 
 
 ---
 
@@ -262,13 +267,19 @@ Notes: We also use machine learning to predict negative or positive sentiment ex
 
 ---
 
-```{python eval=FALSE}
+```{python include=FALSE, Eval=FALSE}
 imdb_df = pd.read_csv("data/imdb_master.csv", encoding="ISO-8859-1")
 imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
 imdb_df = imdb_df.drop(["Unnamed: 0", "type"], axis=1)
 train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
+
+```
+
+
+```{python}
 train_df.head()
 ```
+
 ```out
                                                 review label         file
 43020  Just caught it at the Toronto International Fi...   pos   3719_9.txt
@@ -286,7 +297,7 @@ This data contains the review in a column named `review` and a `label` column wh
 
 ```{python eval=FALSE}
 X_train, y_train = train_df['review'], train_df['label']
-X_test, y_test = train_df['review'], train_df['label']
+X_test, y_test = test_df['review'], test_df['label']
 
 clf = Pipeline(
     [
@@ -297,10 +308,6 @@ clf = Pipeline(
 clf.fit(X_train, y_train)
 ```
 
-```out
-Pipeline(steps=[('vect', CountVectorizer(max_features=5000)),
-                ('clf', LogisticRegression(max_iter=5000))])
-```
 
 Notes: Next, we build our model and train on our existing data.
 
@@ -311,7 +318,7 @@ Again, don't worry about the code here.
 ```{python eval=FALSE}
 pred_dict = {
     "reviews": X_test[0:4],
-    "prediction": y_test[0:4],
+    "true_sentiment": y_test[0:4],
     "sentiment_predictions": clf.predict(X_test[0:4]),
 }
 pred_df = pd.DataFrame(pred_dict)
@@ -358,11 +365,32 @@ These data consist of the characteristics of houses in King County, USA.
 ---
 
 ```{python}
-import xgboost as xgb
-from xgboost import XGBRegressor
 
-X_train, y_train = train_df.drop("price", axis=1), train_df["price"]
-X_test, y_test = test_df.drop("price", axis=1), train_df["price"]
+X_train = train_df.drop("price", axis=1)
+X_train.head()
+```
+
+```{python}
+y_train = train_df["price"]
+y_train.head()
+```
+
+```{python}
+X_test = test_df.drop("price", axis=1)
+y_test = train_df["price"]
+```
+
+
+
+Notes: 
+
+It's important that we separate our data from the target column (The `y` variables).
+
+---
+
+
+```{python results = 'hide'}
+from xgboost import XGBRegressor
 
 model = XGBRegressor()
 model.fit(X_train, y_train)
@@ -374,7 +402,6 @@ Notes: We build our model.
 
 
 ```{python}
-# Predict on unseen examples using the built model  
 pred_df = pd.DataFrame(
     {"Predicted price": model.predict(X_test[0:4]).tolist(), "Actual price": y_test[0:4].tolist()}
 )
@@ -386,21 +413,6 @@ df_concat.head()
 Notes: And we predict on unseen examples using the built model.
 
 If we scroll to right, we can compare the actual price of the house and the price our model predicted. 
-
----
-
-## Questions to ponder on 
-
-- What are the inputs and outputs in the examples above? 
-- How are they different compared to traditional programs, for example, calculating the factorial of a number? 
-- What and how are we exactly "learning" in the above examples? In the image classification example, does the model have a concept of cats, dogs, and cheetahs? 
-- What would it take to predict the correct label for an example the algorithm has not seen before?  
-- Are we expected to get correct predictions for all possible examples? 
-- How do we measure the success or failure of a machine learning model? In other words, if you want to use this program in the wild, how do you know how reliable it is?  
-- What if the model misclassifies an unseen example? For instance, what if the model incorrectly diagnoses a patient with not having a disease when they actually have the disease? Would it be acceptable? What would be the consequences? 
-- Is it useful to know more fine-grained predictions (e.g., probabilities as we saw in Example 2) rather than just a yes or a no?
-
-Notes: <br>
 
 ---
 

@@ -26,5 +26,5 @@ def classify_image(img, topn = 4):
     probabilities = torch.nn.functional.softmax(output, dim=1)
     d = {'Class': [classes[idx] for idx in indices[0][:topn]], 
          'Probability': [probabilities[0, idx].item() for idx in indices[0][:topn]]}
-    df = pd.DataFrame(d, columns = ['Class','Probability'])
+    df = pd.DataFrame(d, columns = ['Class','Probability Score'])
     return df

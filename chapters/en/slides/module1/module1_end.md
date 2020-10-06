@@ -15,8 +15,8 @@ Notes:
 
 By the end of the module, students are expected to:
 
-- Be able to explain motivation to study machine learning.
-- Be able to differentiate between supervised and unsupervised learning.
+- Explain motivation to study machine learning.
+- Differentiate between supervised and unsupervised learning.
 - Differentiate between classification and regression problems.
 - Explain machine learning terminology such as features, targets, training, and error.
 - Use DummyClassifier/ Dummy Regressor as a baseline for machine learning problems.

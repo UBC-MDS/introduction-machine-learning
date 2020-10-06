@@ -12,13 +12,9 @@ Notes: <br>
 
 Here is some basic terminology used in ML:
 
-  - **examples** = rows = samples = records = instances (usually denoted
-    by \(n\))
-  - **features** = inputs = predictors = explanatory variables =
-    regressors = independent variables = covariates (usually denoted by
-    \(d\))
-  - **targets** = outputs = outcomes = response variable = dependent
-    variable = labels (if categorical).
+  - **examples** = rows
+  - **features** = inputs
+  - **targets** = outputs
   - **training** = learning = fitting
 
 <center>
@@ -125,7 +121,7 @@ After using `.shape` we can see that there are 21 **examples**.
 ---
 
 ``` python
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 X.head()
 ```

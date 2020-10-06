@@ -65,11 +65,11 @@ Notes: <br>
 ## Classification vs. Regression
 
 
-- **Classification problem**: predicting among two or more discrete classes
+- **Classification problem**: predicting among two or more categories, also known as classes
     - *Example1*: Predict whether a patient has a liver disease or not
-    - *Example2*: Predict whether a student would get an A+ or not in this course's quiz2.
+    - *Example2*: Predict whether the letter grade of a student, (A,B,C,D or F)
 
-- **Regression problem**: predicting a continuous (typically, floating-point) value
+- **Regression problem**: predicting a continuous (in other words, a number) value
     - Example1: Predict housing prices
     - Example2: Predict a student's score in this course's quiz2.
 
