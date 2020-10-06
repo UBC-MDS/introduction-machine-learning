@@ -748,7 +748,7 @@ This is too high. Have you tried calculating the average of all the values?
 
 
 
-<exercise id="20" title="Building a Dummy Classifier">
+<exercise id="20" title="Building a Dummy Regressor">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
