@@ -132,24 +132,30 @@ Save your Gini impurity as object `peanut_gini_impurity`
 <exercise id="17" title= "Decision Tree - Trees">
 
 **Question:**   
-What type of tree are Decision Trees?
+What is the maximum number of children a decision tree can have in a decision tree classifier?
 
 <choice id="1">
-<opt text= "General Tree" >
+<opt text= "1" >
  
-How are the features split ?  
+Is this a decision then? 
 
 </opt>
 
-<opt text="Binary Trees (2 children per node)." correct="true">
+<opt text="2" correct="true">
 
 Nice work!
 
 </opt>
 
-<opt text="AVL Tree (self-balancing binary search tree).">
+<opt text="There is no maximum">
 
-Does the tree need to be balanced? 
+Think about at each node, what are the posibilities?
+
+</opt>
+
+<opt text="0">
+
+A node on decision tree needs can have 0 children but that's not the maximum. 
 
 </opt>
 

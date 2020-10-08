@@ -1,0 +1,20 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="Weight <= 175.5\nsamples = 20\nvalue = [7, 13]\nclass = Defense"] ;
+1 [label="samples = 2\nvalue = [2, 0]\nclass = Forward"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="Experience <= 7.5\nsamples = 18\nvalue = [5, 13]\nclass = Defense"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label="Weight <= 192.5\nsamples = 11\nvalue = [1, 10]\nclass = Defense"] ;
+2 -> 3 ;
+4 [label="samples = 3\nvalue = [1, 2]\nclass = Defense"] ;
+3 -> 4 ;
+5 [label="samples = 8\nvalue = [0, 8]\nclass = Defense"] ;
+3 -> 5 ;
+6 [label="Experience <= 10.5\nsamples = 7\nvalue = [4, 3]\nclass = Forward"] ;
+2 -> 6 ;
+7 [label="samples = 3\nvalue = [3, 0]\nclass = Forward"] ;
+6 -> 7 ;
+8 [label="samples = 4\nvalue = [1, 3]\nclass = Defense"] ;
+6 -> 8 ;
+}

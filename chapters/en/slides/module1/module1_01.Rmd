@@ -62,7 +62,7 @@ Notes: <br>
 
 ---
 
-## Prevalence of ML
+## Prevalence of Machine Learning (ML)
 
 
 <center><img src='/module1/examples.png'  width = "75%" alt="404 image" /></center>
@@ -70,7 +70,7 @@ Notes: <br>
 
 Notes: 
 
-Machine learning is used often in our everyday lives. 
+Machine learning (ML) is used often in our everyday lives. 
 
 Some examples include:
 

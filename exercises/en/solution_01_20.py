@@ -6,24 +6,19 @@ from sklearn.dummy import DummyRegressor
 canucks = pd.read_csv('data/canucks_subbed.csv')
 
 # Define X and y
-
 X = canucks.loc[:, ['No.', 'Age', 'Height',	'Weight', 'Experience']]
 y = canucks['Salary']
 
 # Creating a model
-
 model = DummyRegressor(strategy="mean")
 
-## Fit your data 
-
+# Fit your data 
 model.fit(X,y)
 
-## Predict the labels of X
-
+# Predict the labels of X
 model.predict(X)
 
-## The model accuracy
-
+# The model accuracy
 accuracy = round(model.score(X,y), 2)
 
 accuracy

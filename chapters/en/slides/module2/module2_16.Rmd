@@ -1,0 +1,189 @@
+---
+params:
+  dynamictitle: "module2_16"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module2/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module2/"
+
+```
+
+
+type: slides
+
+# Decision Tree Regressor
+
+Notes: <br>
+
+---
+
+
+
+```{python}
+regression_df = pd.read_csv("data/quiz2-grade-toy-regression.csv")
+regression_df
+```
+
+
+
+Notes: 
+
+We can also use the decision tree algorithm for regression problems. 
+
+Instead of using gini (which we briefly mentioned this in previous slides), we can use <a href="https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation" target="_blank">some other criteria</a>  for splitting. 
+(A common one is mean squared error (MSE) which we will discuss shortly)
+
+`scikit-learn` supports regression using decision trees with `DecisionTreeRegressor()` and the `.fit()` and `.predict()` paradigm that is similar to classification.
+
+Just like when we talked about the baseline Dummy regressor, `.score()` for regression returns somethings called an <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" target="_blank"> 𝑅2  </a>.    
+
+The maximum 𝑅2  is 1 for perfect predictions. 
+It can be negative which is very bad (worse than DummyRegressor). 
+
+--- 
+
+```{python}
+X = regression_df.drop(["quiz2"], axis=1)
+X.head()
+```
+
+```{python}
+y = regression_df["quiz2"]
+y.head()
+```
+
+Notes: 
+
+**Decision Tree Regressor** is built using `DecisionTreeRegressor()` and a similar `.fit()` and `.predict()` paradigms as classification.
+
+We split our data just like we did before into our feature table and our target. 
+
+
+
+---
+
+```{python results = 'hide'}
+from sklearn.tree import DecisionTreeRegressor
+depth = 4
+reg_model = DecisionTreeRegressor(max_depth=depth)
+reg_model.fit(X, y)
+```
+
+
+Notes: 
+
+Instead of importing `DecisionTreeClassifier`, we import `DecisionTreeRegressor`.
+
+We follow the same steps before and can even set hyperparameters as we did in classification. 
+
+Here when we build our constructor, we are specifying a `max_depth` of 4.
+
+---
+
+```{python include=FALSE}
+import graphviz
+dot_data = export_graphviz(reg_model)
+graphviz.Source(
+    export_graphviz(
+        reg_model,
+        out_file=None,
+        feature_names=X.columns,
+        impurity=False
+    )
+    ).render("../../../../static/module2/module2_16a", format='png') 
+```
+
+<center><img src="/module2/module2_16a.png"  width = "680%" alt="404 image" /></center>
+
+    
+Notes: 
+
+
+---
+
+
+```{python}
+reg_model.predict(X.loc[[0]])
+```
+
+```{python}
+predicted_grades = reg_model.predict(X)
+regression_df['predicted_quiz2'] = predicted_grades
+print("R^2 score on the training data:" + str(round(reg_model.score(X,y), 3)))
+```
+
+```{python}
+regression_df.head()
+```
+
+
+
+Notes: 
+
+This time when we predict a single observation, instead of getting a prediction that is a category or class, we are getting a numerical value.
+
+Here we see that the model predicts a grade of 90 for the first observation. 
+
+Let's see how well this model does predicting the entire data.
+
+Since the 𝑅2  value is 1.0,  the model perfectly predicts the outcome of every observation.
+
+This is quite different from what we were getting with a Dummy Classifier which had an 𝑅2  value of 0.
+
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

@@ -1,0 +1,279 @@
+---
+params:
+  dynamictitle: "module2_12"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module2/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module2/"
+
+```
+
+
+type: slides
+
+# Parameters and hyperparameters
+
+Notes: <br>
+
+---
+
+<center><img src="/module2/valves.jpg"  width = "80%" alt="404 image" /></center>
+
+- ***Parameters***:  Derived during training
+- ***Hyperparameters***: Adjustable parameters that can be set before training. 
+
+Notes: 
+
+ When you call `fit`, a bunch of values get set, like the split variables and split thresholds. 
+ 
+- These are called **parameters**.
+
+But even before calling `fit` on a specific data set, we can set some "knobs" that control the learning.
+
+- These are called **hyperparameters**.
+
+---
+
+
+```{python}
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head()
+```
+
+```{python}
+X = classification_df.drop(["quiz2"], axis=1)
+y = classification_df["quiz2"]
+```
+
+```{python results='hide'}
+model = DecisionTreeClassifier(max_depth=1)  
+model.fit(X, y)
+```
+
+
+Notes: 
+
+In scikit-learn, hyperparameters are set in the constructor.
+
+`max_depth`is a hyperparameter that lets us decide and set the maximum depth of the decision tree.
+
+We can set the argument `max_depth=1` in our code so that it builds a ***decision stump***.
+
+
+---
+
+```{python include=FALSE}
+import graphviz
+dot_data = export_graphviz(model)
+graphviz.Source(
+    export_graphviz(
+        model,
+        out_file=None,
+        feature_names=X.columns,
+        class_names=["red", "blue"],
+        impurity=True,
+    )   
+).render("../../../../static/module2/module2_12a", format='png') 
+```
+
+<center><img src="/module2/module2_12a.png"  width = "40%" alt="404 image" /></center>
+
+
+Notes: 
+
+---
+
+```{python}
+model.score(X, y)
+```
+
+```{python results = 'hide'}
+model2 = DecisionTreeClassifier(max_depth=2)  
+model2.fit(X, y)
+```
+
+
+```{python}
+model2.score(X, y)
+```
+
+```{python results = 'hide'}
+model3 = DecisionTreeClassifier(max_depth=4)  
+model3.fit(X, y)
+```
+
+
+```{python}
+model3.score(X, y)
+```
+
+Notes: 
+
+How well does our model score when using setting `max_depth=1`?
+
+Ok, 76% that's not too bad but what happens when we increase the `max_depth` to 2?
+
+It looks like it's increasing! 
+
+Increasing `max_depth` to 4 ,makes the accuracy increase to 95%. 
+
+We can now conclude that as `max_depth` increases, the accuracy of the training data does as well. 
+
+We will introduce in the last slide deck of this module, why having perfect accuracy isn't always the best idea.
+
+---
+
+```{python results='hide'}
+model4 = DecisionTreeClassifier(min_samples_split=2)  
+model4.fit(X, y)
+```
+
+
+Notes: 
+
+Let's explore another different hyperparameter `min_samples_split`. 
+
+`min_samples_split` sets the minimum number of samples required to split an internal node. 
+
+Remember our decision boundaries? This will set a minimum number of observations that need to be on either side of the boundary. 
+
+
+---
+
+
+```{python include=FALSE}
+import graphviz
+dot_data = export_graphviz(model)
+graphviz.Source(
+    export_graphviz(
+        model4,
+        out_file=None,
+        feature_names=X.columns,
+        class_names=["red", "blue"],
+        impurity=True,
+    )   
+).render("../../../../static/module2/module2_12b", format='png') 
+```
+
+<center><img src="/module2/module2_12b.png"  width = "50%" alt="404 image" /></center>
+
+
+Notes: 
+
+---
+
+```{python}
+model4.score(X, y)
+```
+
+
+```{python results='hide'}
+model5 = DecisionTreeClassifier(min_samples_split=4) 
+model5.fit(X, y)
+```
+
+
+```{python}
+model5.score(X,y)
+```
+
+```{python results='hide'}
+model6 = DecisionTreeClassifier(min_samples_split=10) 
+model6.fit(X, y)
+```
+
+
+```{python}
+model6.score(X,y)
+```
+
+
+Notes: 
+
+In this case, as the value of the hyperparameter `min_samples_split` increases, the accuracy decreases.
+
+It's really important to take into consideration that this accuracy is referring to the accuracy of predictions on the same data that we trained our model on.  
+
+---
+
+
+<center><img src="/module2/decisiontree.png"  width = "80%" alt="404 image" /></center>  
+
+<br>
+See this link <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">here</a>  .
+
+Notes: 
+
+There are many other hyperparameters for decision trees you can explore at the link <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">here</a> .
+
+
+---
+
+### To summarize
+
+- **parameters** are automatically learned by the algorithm during training
+- **hyperparameters** are specified based on:
+    - expert knowledge
+    - heuristics, or 
+    - systematic/automated optimization (more on that in the upcoming modules)
+
+Notes: 
+
+<br>
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

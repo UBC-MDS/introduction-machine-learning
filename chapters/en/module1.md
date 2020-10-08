@@ -33,7 +33,7 @@ _Diagnosing cancer from magnetic resonance imaging_
 <choice id="1" >
 <opt text="True"  correct="true">
 
-Great 
+Great!
 
 </opt>
 
@@ -412,7 +412,7 @@ Let's make sure we understand all the components we use in a dataset for machine
 
 
 
-**Question:**  
+**Question 1**  
 How many features does the data have?
 
 <choice  id="1">
@@ -441,7 +441,7 @@ We don't include the index or the target as a feature.
 </opt>
 </choice>
 
-**Question:**   
+**Question 2**   
  How many examples does the data have?
 
 <choice  id="2">
@@ -470,7 +470,7 @@ This is not the number of examples.
 </opt>
 </choice>
 
-**Question:**   
+**Question 3**   
 Would this be considered classification or regression?
 
 <choice  id="3">
@@ -526,7 +526,7 @@ Tasks:
 
 <exercise id="14" title="Fit or Predict">
 
-**Do the following statements correspond to the`fit` or the `predict` stage:**  
+**Do the following statements correspond to the `fit` or the `predict` stage:**  
 
 **Statement:**   
 _Is called first (before the other one)._
@@ -648,7 +648,7 @@ Let's build a baseline model by using `DummyClassifier()`.
 Tasks:     
 
 - Build a baseline model using  `DummyClassifier()`  and `most_frequent` for the `strategy` argument. Save this in an object named `model`. 
-- fit your model and then predict on the target column. 
+- Fit your model and then predict on the target column. 
 - What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
 
 <codeblock id="01_16">
@@ -762,7 +762,7 @@ Let's build a baseline model by using `DummyRegressor()`.
 Tasks:     
 
 - Build a baseline model using the `DummyRegressor()`  and `mean` for the `strategy` argument. Save this in an object named `model`. 
-- fit your model and then predict on the target column. 
+- Fit your model and then predict on the target column. 
 - What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
 
 <codeblock id="01_20">

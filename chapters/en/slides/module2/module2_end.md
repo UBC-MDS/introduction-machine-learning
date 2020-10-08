@@ -17,7 +17,7 @@ By the end of the module, students are expected to:
 
 - Broadly describe how decision trees make predictions.
 - Use `DecisionTreeClassifier()` and `DecisionTreeRegressor()` to build decision trees using scikit-learn.
-- Explain the fit and predict paradigm and use score method of ML models.
+- Explain the `.fit()` and `.predict()` paradigm and use `.score()` method of ML models.
 - Explain the concept of decision boundaries.
 - Explain the different between parameters and hyperparameters.
 - Explain how decision boundaries change with `max_depth`.

@@ -1,6 +1,5 @@
 import pandas as pd
-from sklearn.dummy import DummyClassifier
-
+from sklearn.tree import DecisionTreeClassifier
 
 # Loading in the data
 candybar_df = pd.read_csv('data/candybars.csv')
@@ -10,15 +9,15 @@ X = candybar_df.loc[:, 'chocolate':'multi']
 y = candybar_df['availability']
 
 # Creating a model
-model = DummyClassifier(strategy="most_frequent")
+model = DecisionTreeClassifier(random_state=1)
 
 # Fit your data 
 model.fit(X,y)
 
 # Predict the labels of X
-model.predict(X)
+predicted = model.predict(X)
 
-# The model accuracy
-accuracy = round(model.score(X,y), 2)
 
-accuracy
+# Compare
+pd.concat([candybar_df.loc[:, ['candy bar', 'availability']],
+        pd.Series(predicted, name='predicted')], axis=1)

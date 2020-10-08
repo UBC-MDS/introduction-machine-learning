@@ -1,0 +1,327 @@
+---
+params:
+  dynamictitle: "module2_19"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module2/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module2/"
+
+```
+
+
+type: slides
+
+# Generalization
+
+Notes: <br>
+
+---
+
+### Visualizing model complexity using decision boundaries
+
+```{python}
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df
+```
+
+
+
+
+Notes: 
+
+In the last lecture, we learned about decision boundaries. 
+
+We saw that we could visualize the splitting of decision trees using these boundaries. 
+
+Let's use our familiar quiz2 data back again to build on our decision boundary knowledge.
+
+
+
+--- 
+
+```{python}
+X = classification_df.drop(["quiz2"], axis=1)
+y = classification_df["quiz2"]
+```
+
+```{python}
+X_subset = X[["lab4", "quiz1"]]
+X_subset.head()
+```
+
+
+```{python include=FALSE}
+import graphviz
+def plot_decision_tree(model, name,
+              class_names=["A+", "not A+"] ):
+    return graphviz.Source(
+                export_graphviz(
+                model,
+                out_file=None,
+                feature_names=X_subset.columns,
+                class_names=class_names,
+                impurity=False,
+            )
+    ).render("../../../../static/module2/module2_18" + name, format='png') 
+```
+
+
+
+Notes: 
+
+If we subset our data and look at the 2 features from data named `lab4` and `quiz1` we can see the values the decision tree is splitting on. 
+
+----
+
+```{python results = 'hide'}
+depth = 1
+model = DecisionTreeClassifier(max_depth=depth)
+model.fit(X_subset, y)
+```
+
+```{python include=FALSE}
+plot_decision_tree(model, "a")
+```
+
+<center><img src="/module2/module2_18a.png"  width = "40%" alt="404 image" /></center>
+
+Notes: 
+
+In the following decision tree model, this decision boundary is created by asking one question.
+
+
+
+---
+
+
+```{python  echo=FALSE}
+plt.figure(figsize=(4, 4))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
+plt.title("Decision tree with depth = %d" % (depth))
+```
+
+Notes: 
+
+Here the red region corresponds to the "not A+" class and the blue region corresponds to the "A+" class. 
+
+We can see there is a line separating the red region and the blue region which is called the **decision boundary** of the model.
+
+
+---
+
+```{python results='hide'}
+depth = 2
+model = DecisionTreeClassifier(max_depth=depth)
+model.fit(X_subset, y)
+```
+
+```{python include=FALSE}
+plot_decision_tree(model, 'b')
+```
+
+<center><img src="/module2/module2_18b.png"  width = "40%" alt="404 image" /></center>
+
+Notes: 
+
+Let's see what happens to our decision boundary when we change for different tree heights.
+
+In the following model, this decision boundaries are created by asking two questions. 
+
+
+---
+
+```{python  echo=FALSE}
+plt.figure(figsize=(4, 4))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
+plt.title("Decision tree with depth = %d" % (depth))
+```
+
+
+---
+
+
+```{python results='hide'}
+depth = 3
+model = DecisionTreeClassifier(max_depth=depth)
+model.fit(X_subset, y)
+```
+
+```{python include=FALSE}
+plot_decision_tree(model, 'c')
+```
+
+<center><img src="/module2/module2_18c.png"  width = "60%" alt="404 image" /></center>
+
+
+Notes: 
+
+In the next model, this decision boundaries are created by asking three questions. 
+
+
+---
+
+
+```{python echo=FALSE}
+plt.figure(figsize=(4, 4))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
+plt.title("Decision tree with depth = %d" % (depth))
+```
+
+Notes: 
+
+
+---
+
+```{python results='hide'}
+depth = 10
+model = DecisionTreeClassifier(max_depth=depth)
+model.fit(X_subset, y)
+```
+
+```{python include=FALSE}
+plot_decision_tree(model, 'd')
+```
+
+<center><img src="/module2/module2_18d.png"  width = "40%" alt="404 image" /></center>
+
+
+Notes: 
+
+For this last model, the decision boundaries are created by asking 10 questions.
+
+
+---
+
+```{python  echo=FALSE}
+plt.figure(figsize=(4, 4))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
+plt.title("Decision tree with depth = %d" % (depth))
+```
+
+Notes: 
+
+Our model is becoming more and more specific and sensitive to the training data.
+
+Is this a good thing or a bad thing?
+
+
+---
+
+
+## Fundamental goal of machine learning 
+
+
+<center><img src="/module2/generalization-train.png" width = "60%" alt="404 image" /></center>
+
+Notes: 
+
+The fundamental goal of machine learning is **to generalize beyond what we see in the training examples**.
+
+
+Example: Imagine that a learner sees the following images and corresponding labels.
+
+
+
+---
+
+### Generalizing to unseen data
+
+
+<center><img src="/module2/generalization-predict.png" width = "100%" alt="404 image" /></center>
+
+Notes: 
+
+Now the learner is presented with new images (1 to 4) for prediction. 
+
+What prediction would you expect for each image?   
+
+We want the learner to be able to generalize beyond what it has seen in the training data, but these new examples should be representative of the training data. 
+
+For instance, is it fair to expect the learner to label image 4 correctly?
+
+
+---
+
+
+## Training error versus Generalization error 
+
+- Given a model 𝑀, in ML, people usually talk about two kinds of errors of 𝑀:
+
+1. Error on the training data
+<img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
+    
+2. Error on the entire distribution 𝐷 of data
+<img src="/module2/d_e.gif"  width = "11%" alt="404 image" />
+
+
+Notes:   
+
+This is where the idea of error comes in. 
+
+People usually talk about two kinds of errors in a model. 
+
+1. Error on the training data: $error_{training}(M)$ 
+2. Error on the entire distribution $D$ of data: $error_{D}(M)$
+
+We are interested in the error on the entire distribution, but we do not have access to the entire distribution!
+
+What do we do? 
+
+We will cover this, in the next module. 
+    
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
