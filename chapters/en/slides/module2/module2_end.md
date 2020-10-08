@@ -22,7 +22,6 @@ By the end of the module, students are expected to:
 - Explain the different between parameters and hyperparameters.
 - Explain how decision boundaries change with `max_depth`.
 - Explain the concept of generalization.
-- Split a dataset into train and test sets using `train_test_split()` function.
 
 Notes: 
 
