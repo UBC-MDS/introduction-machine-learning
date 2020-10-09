@@ -118,7 +118,7 @@ learns about the data and sets the *if and else* statements.
 
 <center>
 
-<img src="/module2/dt_quiz2.png"  width = "60%" alt="404 image" />
+<img src="/module2/dt_quiz2.png"  width = "80%" alt="404 image" />
 
 </center>
 
@@ -182,7 +182,7 @@ observation
 
 <center>
 
-<img src="/module2/predict.gif"  width = "90%" alt="404 image" />
+<img src="/module2/predict.gif"  width = "70%" alt="404 image" />
 
 </center>
 

@@ -49,7 +49,7 @@ All our features here have a numerical value. What do we do?
 
 <center>
 
-<img src="/module2/module2_08a.png"  width = "60%" alt="404 image" />
+<img src="/module2/module2_08a.png"  width = "80%" alt="404 image" />
 
 </center>
 
@@ -176,7 +176,7 @@ Notes:
 
 <center>
 
-<img src="/module2/canada-us-border.jpg" width="100%">
+<img src="/module2/canada-us-border.jpg" width="70%">
 
 </center>
 
