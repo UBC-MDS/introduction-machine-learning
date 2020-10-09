@@ -1,5 +1,13 @@
 
 ```{python}
+import pandas as pd
+from display_tree import display_tree
+from sklearn.tree import DecisionTreeClassifier
+```
+
+
+
+```{python}
 hockey = pd.read_csv('data/canucks.csv')
 
 ## Adjusted path 
@@ -33,17 +41,8 @@ from matplotlib import pyplot as plt
 
 
 ```{python}
-depth = 2
-model = DecisionTreeClassifier(max_depth=3)
-model.fit(hockey.loc[:,['Experience','Weight']], hockey['Position'])
-graphviz.Source(
-    export_graphviz(
-        model,
-        out_file=None,
-        feature_names=hockey.loc[:,['Experience','Weight']].columns,
-        class_names=["Forward", "Defense"],
-        impurity=False,
-    )
-).render("../../../../static/module2/module_hockey2", format='png') 
+
+display_tree(hockey.loc[:,['Experience','Weight']].columns, model, "../../../../static/module2/module_hockey")
+
 ```
 

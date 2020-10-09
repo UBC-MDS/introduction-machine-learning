@@ -62,7 +62,7 @@ Notes: <br>
 
 ---
 
-### Recap 
+## Improving the baseline model
 
 
 
@@ -115,23 +115,26 @@ elif class attendance == 1 and lab3 == 1 and lab4 == 1:
 ```
 - How many rules do we need? 
 - How many possible rule combinations could there be, given the existing 7 binary features? 
-It ca get unwieldy pretty quickly.
+It can get unwieldy pretty quickly.
+
+Decision tree gives us a better way to do this!
 
 ---
 
-```{python include=FALSE}
+```{python}
 classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head(3)
+```
+
+
+```{python}
 X = classification_df.drop(["quiz2"], axis=1)
+X.head(3)
+```
+
+```{python}
 y = classification_df["quiz2"]
-```
-
-
-```{python}
-X.head()
-```
-
-```{python}
-y.head()
+y.head(3)
 ```
 
 
@@ -172,7 +175,7 @@ The decision tree models use an algorithm that derives such rules from data in a
 
 ---
 
-## Decision trees Terminology 
+## Decision trees terminology 
 
 
 <center>

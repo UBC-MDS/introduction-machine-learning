@@ -8,7 +8,7 @@ Notes: <br>
 
 ---
 
-### Recap
+## Improving the baseline model
 
 Examples:
 
@@ -66,12 +66,27 @@ concept into a machine learning problem. For example:
 
   - How many rules do we need?
   - How many possible rule combinations could there be, given the
-    existing 7 binary features? It ca get unwieldy pretty quickly.
+    existing 7 binary features? It can get unwieldy pretty quickly.
+
+Decision tree gives us a better way to do this\!
 
 ---
 
 ``` python
-X.head()
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head(3)
+```
+
+```out
+   ml_experience  class_attendance  lab1  lab2  lab3  lab4  quiz1   quiz2
+0              1                 1    92    93    84    91     92      A+
+1              1                 0    94    90    80    83     91  not A+
+2              0                 0    78    85    83    80     80  not A+
+```
+
+``` python
+X = classification_df.drop(["quiz2"], axis=1)
+X.head(3)
 ```
 
 ```out
@@ -79,20 +94,17 @@ X.head()
 0              1                 1    92    93    84    91     92
 1              1                 0    94    90    80    83     91
 2              0                 0    78    85    83    80     80
-3              0                 1    91    94    92    91     89
-4              0                 1    77    83    90    92     85
 ```
 
 ``` python
-y.head()
+y = classification_df["quiz2"]
+y.head(3)
 ```
 
 ```out
 0        A+
 1    not A+
 2    not A+
-3        A+
-4        A+
 Name: quiz2, dtype: object
 ```
 
@@ -145,7 +157,7 @@ data in a principled way.
 
 ---
 
-## Decision trees Terminology
+## Decision trees terminology
 
 <center>
 

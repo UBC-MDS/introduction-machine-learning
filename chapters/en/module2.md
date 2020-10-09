@@ -28,32 +28,32 @@ id: 2
 <exercise id="2" title= "Decision Tree - Trees">
 
 **Question 1**   
-What is the maximum number of children a decision tree node can have in a decision tree classifier?
+What is the top node in a decision tree called? 
 
 <choice id="1">
 
-<opt text="0">
+<opt text="truck">
 
-A node on decision tree needs can have 0 children, however, that's not the maximum possible. 
+Not quite. 
 
 </opt>
 
 
-<opt text= "1" >
+<opt text= "branch" >
  
-Is this a decision then? 
+This appears further down the tree.
 
 </opt>
 
-<opt text="2" correct="true">
+<opt text="root" correct="true">
 
 Nice work!
 
 </opt>
 
-<opt text="There is no maximum">
+<opt text="blossom">
 
-Think about at each node, what are the possibilities?
+That's a pretty name, but that's not what the top of the tree is called.
 
 </opt>
 
@@ -237,7 +237,7 @@ Is the fruit yellow?
 <exercise id="6" title="Decision Trees True/False">
 
 **True or False:**    
-*Decision trees do not consider features in their prediction just like baseline models.*
+*`DecisionTreeClassifier` does not consider features in it's prediction just like `DummyClassifier`*
 
 
 <choice id="1" >
@@ -256,7 +256,7 @@ Decision trees make predictions based on the outcome from conditions determined 
 </choice>
 
 **True or False:**    
-*We need to train our model before predicting with a decision tree.*
+*We need to `.fit` our decision tree model before we call `.predict`.*
 
 <choice id="2">
 <opt text="True" correct="true">
@@ -274,16 +274,16 @@ We must always train our model on the data before prediction.
 </choice >
 
 **True or False:**      
-*Decision trees classifiers can result in more than one prediction.*
+*Decision trees always give the correct answer for a single prediction..*
 
 <choice id="3">
 <opt text="True" >
 
-Decision trees only result in a single prediction.
+Decision trees are not always 100% right.
 
 </opt>
 
-<opt text="False">
+<opt text="False" correct="true">
 
 Great!
 
@@ -311,7 +311,8 @@ Tasks:
 
 - Build a model using `DecisionTreeClassifier()` and make sure to set the `random_state` argument to 1. 
 - Save this in an object named `model`. 
-- Fit your model on the objects `X` and `y` and then predict on the target column `y`. 
+- Fit your model on the objects `X` and `y`.
+- predict on `X` and save the values in an object named `predicted`.
 - Compare the `availability` column to the `predicted` column and answer the multiple-choice questions below. 
 
 <codeblock id="02_07">
@@ -475,7 +476,7 @@ Location was not the splitting feature here!
 
 </opt>
 
-<opt text="<code>water content</code>" correct="true">
+<opt text="<code>water Content</code>" correct="true">
 
 You got it!
 
@@ -491,7 +492,7 @@ Maybe take a look at the diagram a bit closer.
 
 
 **Question 3**      
-On what value is the decision boundary splitting?
+On what value of the above feature is the decision boundary splitting?
  
  <choice  id="3">
 <opt text="<code>90</code>" >
@@ -527,7 +528,7 @@ Cool!
 
 For the following questions, refer to this diagram below.
 
-We are trying to predict a player's in this problem:
+We are trying to predict a player’s position in this problem:
 
 - Blue circles represent defense players
 - Red triangles represent forward players
@@ -641,7 +642,7 @@ Use the plot below to answer the following questions.
 <img src="/module2/hockey_q.png"  width = "60%" alt="404 image">
 </center>
 
-We are trying to predict a player's in this problem:
+We are trying to predict a player's position in this problem:
 
 - Blue circles represent defense players
 - Red triangles represent forward players
@@ -759,7 +760,7 @@ Great.
 **Question 2**   
 *They get set during the training phase.*
 
-<choice id="1">
+<choice id="2">
 <opt text= "Parameters" correct="true">
  
 Nice.
@@ -809,7 +810,7 @@ Tasks:
 
 
 **Question 1**    
-Will increasing the value of `max_depth` make the accuracy of the model increase or decrease?
+Will increasing the value of `max_depth` increase or decrease the accuracy of the model?
 
 <choice id="1" >
 <opt text="Increase"  correct="true">
@@ -834,7 +835,7 @@ Maybe test it out above and see what happens?
 </choice>
 
 **Question 2**    
-Will increasing the value of `min_samples_split` make the accuracy of the model increase or decrease?
+Will increasing the value of `min_samples_split` increase or decrease the accuracy of the model?
 
 <choice id="2" >
 <opt text="Increase" >
@@ -859,7 +860,7 @@ Maybe test it out above and see what happens?
 </choice>
 
 **Question 3**     
-Will increasing the value of `max_depth` and `min_samples_split` make the accuracy of the model increase or decrease?
+Will increasing the value of `max_depth` and `min_samples_split` increase or decrease the accuracy of the model?
 
 <choice id="3" >
 <opt text="Increase" >
@@ -1008,7 +1009,7 @@ Precise models have the highest accuracy for the data that it has seen but what 
 
 </opt>
 
-<opt text="No, it doesn't generalize well to other unseen data" correct="true">
+<opt text="No, it may not generalize well to other unseen data." correct="true">
 
 Great!
 

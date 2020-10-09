@@ -108,7 +108,7 @@ Here when we build our constructor, we are specifying a `max_depth` of
 
 <center>
 
-<img src="/module2/module2_16a.png"  width = "680%" alt="404 image" />
+<img src="/module2/module2_16a.png"  width = "80%" alt="404 image" />
 
 </center>
 

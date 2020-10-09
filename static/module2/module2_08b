@@ -1,8 +1,8 @@
 digraph Tree {
 node [shape=box] ;
-0 [label="lab4 <= 84.5\nsamples = 21\nvalue = [10, 11]\nclass = not A+"] ;
-1 [label="samples = 5\nvalue = [0, 5]\nclass = not A+"] ;
+0 [label="lab4 <= 84.5 A+"] ;
+1 [label="class = not A+"] ;
 0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
-2 [label="samples = 16\nvalue = [10, 6]\nclass = A+"] ;
+2 [label="class = A+"] ;
 0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
 }

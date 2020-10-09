@@ -89,7 +89,7 @@ by asking one question.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-8-1.png" width="672" />
+<img src="/module2/module2_19/unnamed-chunk-7-1.png" width="672" />
 
 Notes:
 
@@ -109,7 +109,7 @@ model.fit(X_subset, y)
 
 <center>
 
-<img src="/module2/module2_18b.png"  width = "40%" alt="404 image" />
+<img src="/module2/module2_18b.png"  width = "50%" alt="404 image" />
 
 </center>
 
@@ -123,7 +123,7 @@ two questions.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-11-1.png" width="672" />
+<img src="/module2/module2_19/unnamed-chunk-10-1.png" width="672" />
 
 ---
 
@@ -146,7 +146,7 @@ questions.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-14-1.png" width="672" />
+<img src="/module2/module2_19/unnamed-chunk-13-1.png" width="672" />
 
 Notes:
 
@@ -160,7 +160,7 @@ model.fit(X_subset, y)
 
 <center>
 
-<img src="/module2/module2_18d.png"  width = "40%" alt="404 image" />
+<img src="/module2/module2_18d.png"  width = "50%" alt="404 image" />
 
 </center>
 
@@ -171,7 +171,7 @@ questions.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-17-1.png" width="672" />
+<img src="/module2/module2_19/unnamed-chunk-16-1.png" width="672" />
 
 Notes:
 

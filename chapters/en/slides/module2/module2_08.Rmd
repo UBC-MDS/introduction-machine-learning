@@ -56,7 +56,7 @@ pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 15)
 
 path = "../../../../static/module2/"
-
+from display_tree import display_tree
 ```
 
 
@@ -100,18 +100,10 @@ import graphviz
 # Trees with continuous features
 model = DecisionTreeClassifier()
 model.fit(X, y)
-graphviz.Source(
-    export_graphviz(
-        model,
-        out_file=None,
-        feature_names=X.columns,
-        class_names=["A+", "not A+"],
-        impurity=False,
-    )
-).render("../../../../static/module2/module2_08a", format='png') 
+display_tree(X.columns, model, "../../../../static/module2/module2_08a")
 ```
 
-<center><img src="/module2/module2_08a.png"  width = "60%" alt="404 image" /></center>
+<center><img src="/module2/module2_08a.png"  width = "80%" alt="404 image" /></center>
 
 Notes: 
 
@@ -140,16 +132,7 @@ model.fit(X_subset, y)
 
 ```{python include=FALSE}
 # Also called a decision stump
-
-graphviz.Source(
-    export_graphviz(
-        model,
-        out_file=None,
-        feature_names=X_subset.columns,
-        class_names=["A+", "not A+"],
-        impurity=False,
-    )
-).render("../../../../static/module2/module2_08b", format='png') 
+display_tree(X_subset.columns, model, "../../../../static/module2/module2_08b")
 ```
 
 <center><img src="/module2/module2_08b.png"  width = "50%" alt="404 image" /></center>
@@ -236,7 +219,7 @@ Notes:
 ## Real boundary between Canada and USA
 
 <center>
-<img src="/module2/canada-us-border.jpg" width="100%"> 
+<img src="/module2/canada-us-border.jpg" width="70%"> 
 </center>
 **Attribution:**  <a href="https://sovereignlimits.com/blog/u-s-canada-border-history-disputes" target="_blank">sovereignlimits.com</a> 
 

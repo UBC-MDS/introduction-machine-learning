@@ -51,6 +51,7 @@ np.set_printoptions(linewidth=400)
 pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 15)
 
+from display_tree import display_tree
 ```
 
 
@@ -144,6 +145,7 @@ X_binary.head()
 ```{python}
 X_binary.head()
 ```
+
 ```{python}
 y.head()
 ```
@@ -164,21 +166,11 @@ In the decision tree algorithm, the fitting stage is where the model learns abou
 
 
 ```{python include =FALSE}
-import graphviz
-
-graphviz.Source(
-    export_graphviz(
-        model,
-        out_file=None,
-        filled = True,
-        feature_names=X.columns,
-        class_names=["not A+", "A+"],
-        rounded = True
-    )
-).render("../../../../static/module2/dt_quiz2", format='png') 
+display_tree(X.columns, model, "../../../../static/module2/dt_quiz2")
 ```
 
-<center><img src="/module2/dt_quiz2.png"  width = "60%" alt="404 image" /></center>
+
+<center><img src="/module2/dt_quiz2.png"  width = "80%" alt="404 image" /></center>
 
 Notes: 
 
@@ -231,7 +223,7 @@ observation = pd.DataFrame(data= [new_ex], columns = ["ml_experience",  "class_a
 observation
 ```
 
-<center><img src="/module2/predict.gif"  width = "90%" alt="404 image" /></center>
+<center><img src="/module2/predict.gif"  width = "70%" alt="404 image" /></center>
 
 Notes: 
 

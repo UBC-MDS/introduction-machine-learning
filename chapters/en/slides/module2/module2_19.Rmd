@@ -56,7 +56,7 @@ pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 15)
 
 path = "../../../../static/module2/"
-
+from display_tree import display_tree
 ```
 
 
@@ -101,21 +101,6 @@ X_subset.head()
 ```
 
 
-```{python include=FALSE}
-import graphviz
-def plot_decision_tree(model, name,
-              class_names=["A+", "not A+"] ):
-    return graphviz.Source(
-                export_graphviz(
-                model,
-                out_file=None,
-                feature_names=X_subset.columns,
-                class_names=class_names,
-                impurity=False,
-            )
-    ).render("../../../../static/module2/module2_18" + name, format='png') 
-```
-
 
 
 Notes: 
@@ -131,7 +116,7 @@ model.fit(X_subset, y)
 ```
 
 ```{python include=FALSE}
-plot_decision_tree(model, "a")
+display_tree(X_subset.columns, model, "../../../../static/module2/module2_18a")
 ```
 
 <center><img src="/module2/module2_18a.png"  width = "40%" alt="404 image" /></center>
@@ -167,10 +152,10 @@ model.fit(X_subset, y)
 ```
 
 ```{python include=FALSE}
-plot_decision_tree(model, 'b')
+display_tree(X_subset.columns, model, "../../../../static/module2/module2_18b")
 ```
 
-<center><img src="/module2/module2_18b.png"  width = "40%" alt="404 image" /></center>
+<center><img src="/module2/module2_18b.png"  width = "50%" alt="404 image" /></center>
 
 Notes: 
 
@@ -198,7 +183,7 @@ model.fit(X_subset, y)
 ```
 
 ```{python include=FALSE}
-plot_decision_tree(model, 'c')
+display_tree(X_subset.columns, model, "../../../../static/module2/module2_18c")
 ```
 
 <center><img src="/module2/module2_18c.png"  width = "60%" alt="404 image" /></center>
@@ -230,10 +215,10 @@ model.fit(X_subset, y)
 ```
 
 ```{python include=FALSE}
-plot_decision_tree(model, 'd')
+display_tree(X_subset.columns, model, "../../../../static/module2/module2_18d")
 ```
 
-<center><img src="/module2/module2_18d.png"  width = "40%" alt="404 image" /></center>
+<center><img src="/module2/module2_18d.png"  width = "50%" alt="404 image" /></center>
 
 
 Notes: 
