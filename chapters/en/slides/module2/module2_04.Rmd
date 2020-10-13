@@ -215,7 +215,7 @@ This model predicts on data it's already seen with 90% accuracy.
 ### How does predict work? 
 
 ```{python include=FALSE}
-new_ex = [1, 0, 1, 1, 0, 1, 0]
+new_ex = [1, 0, 1, 1, 0, 1, 1]
 observation = pd.DataFrame(data= [new_ex], columns = ["ml_experience",  "class_attendance",  "lab1", "lab2", "lab3", "lab4", "quiz1"])
 ```
 

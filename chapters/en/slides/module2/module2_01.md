@@ -64,11 +64,7 @@ concept into a machine learning problem. For example:
         quiz2 == "A+"
     ...
 
-  - How many rules do we need?
-  - How many possible rule combinations could there be, given the
-    existing 7 binary features? It can get unwieldy pretty quickly.
-
-Decision tree gives us a better way to do this\!
+Decision tree gives us a way to do this\!
 
 ---
 
@@ -199,6 +195,24 @@ Using our quiz2 dataset as an example, a tree may look something like
 this.
 
 This tree has a depth of 3.
+
+---
+
+## Decision Stump
+
+<br> <br>
+
+<center>
+
+<img src="/module2/stump.png"  width = "60%" alt="404 image">
+
+</center>
+
+Note:
+
+This tree has a depth of 1.
+
+A decision tree that has a depth of 1 is called a ***Decision stump***.
 
 ---
 

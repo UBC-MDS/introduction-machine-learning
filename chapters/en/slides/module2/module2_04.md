@@ -177,7 +177,7 @@ observation
 
 ```out
    ml_experience  class_attendance  lab1  lab2  lab3  lab4  quiz1
-0              1                 0     1     1     0     1      0
+0              1                 0     1     1     0     1      1
 ```
 
 <center>

@@ -106,6 +106,17 @@ Here when we build our constructor, we are specifying a `max_depth` of
 
 ---
 
+``` python
+display_tree(X.columns, reg_model, "/module2/module2_16a")
+```
+
+```out
+<graphviz.files.Source object at 0x127331910>
+
+/usr/local/lib/python3.8/site-packages/sklearn/tree/_classes.py:1254: FutureWarning: the classes_ attribute is to be deprecated from version 0.22 and will be removed in 0.24.
+  warnings.warn(msg, FutureWarning)
+```
+
 <center>
 
 <img src="/module2/module2_16a.png"  width = "80%" alt="404 image" />

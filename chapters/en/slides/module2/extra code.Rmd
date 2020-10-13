@@ -8,15 +8,20 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 ```{python}
-hockey = pd.read_csv('data/canucks.csv')
+pk = pd.read_csv('data/pokemon.csv')
 
 ## Adjusted path 
 path = "../../../../static/module2/"
-hockey
+pk['legendary'] =  np.where(pk['legendary'] == 1, "Lengend", "Reg")
+pk
 ```
 
 
 ```{python echo=FALSE}
+hockey = pd.read_csv('data/canucks.csv')
+
+## Adjusted path 
+path = "../../../../static/module2/"
 
 hockey = hockey[(hockey['Position'] != 'Goalie') ]
 hockey
@@ -24,13 +29,26 @@ hockey
 
 ```{python}
 
+xmin = hockey['Experience'].min()
+xmax = hockey['Experience'].max()
+ymin = hockey['Weight'].min()
+ymax = hockey['Weight'].max()
 model = DecisionTreeClassifier(max_depth=2)
 model.fit(hockey.loc[:,['Experience','Weight']], hockey['Position'])
 plt.figure(figsize=(4, 4))
-plot_classifier(hockey.loc[:,['Experience','Weight']].to_numpy(), hockey['Position'].to_numpy(), model, ticks=True)
-plt.ylabel("Player's Weight")
-plt.xlabel("Player's Experience")
+plot_classifier(hockey.loc[:,['Experience','Weight']].to_numpy(), hockey['Position'].to_numpy(), model, lims=(0,15,160,230), ticks=True)
+plt.ylabel("Player's Weight", fontsize=15)
+plt.xlabel("Player's Experience", fontsize=15)
+plt.xticks(fontsize= 12)
+plt.yticks(fontsize= 12)
 plt.savefig('hockey_q.png')
+```
+
+```{python}
+hockey['Experience'].min()
+hockey['Experience'].max()
+hockey['Weight'].min()
+hockey['Weight'].max()
 ```
 
 ```{python}
@@ -44,5 +62,25 @@ from matplotlib import pyplot as plt
 
 display_tree(hockey.loc[:,['Experience','Weight']].columns, model, "../../../../static/module2/module_hockey")
 
+```
+
+```{python}
+X= pk.drop(columns = ['deck_no', 'name', 'type', 'legendary', 'total_bs'])
+y = pk['legendary']
+model = DecisionTreeClassifier(max_depth=4)
+model.fit(X,y)
+display_tree(X.columns, model, "../../../../static/module2/pokemon")
+
+```
+
+```{python}
+X_example = np.array([101, 59, 64, 23, 45, 76, 5]).reshape(1,7)
+
+model.predict(X_example)
+```
+
+```{python}
+pokemon_ob = pd.DataFrame(X_example, columns = X.columns)
+pokemon_ob
 ```
 

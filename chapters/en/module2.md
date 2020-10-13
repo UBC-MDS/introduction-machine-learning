@@ -96,7 +96,7 @@ Not in this context.
 </exercise>
 
 
-<exercise id="3" title="Decision Tree outcome">
+<exercise id="3" title="Decision Tree Outcome">
 
 What is the depth of this decision tree? 
 
@@ -792,11 +792,11 @@ Let's build a decision tree classifier using `DecisionTreeClassifier()` but this
 
 Tasks:     
 
-- Build a Decision tree classifier and make sure to set the argument `random_state` to 1. 
+- Build a decision tree classifier and make sure to set the argument `random_state` to 1. 
 - Set the `max_depth` of the tree to 8 and the `min_samples_split` to 4. 
 - Save the model in an object named `hyper_tree`. 
-- Fit your model on the objects `X` and `y` and then predict on the target column `y`. 
-- Save the accuracy of the model rounded to 2 decimal places in a variable named `tree_score`.
+- Fit your model on the objects `X` and `y`.
+- Save the accuracy of the model rounded to 2 decimal places in a variable named `tree_score` and display it.
 
 <codeblock id="02_15">
 
@@ -951,7 +951,7 @@ Tasks:
 - Build a model using `DecisionTreeRegressor()` and make sure to set the argument `random_state` to 1. 
 - Set the `max_depth` of the tree to 5.  
 - Save your model in an object named `reg_tree`.
-- Fit your model on the objects `X` and `y` and then predict on the target column `y`. 
+- Fit your model on the objects `X` and `y` and then predict on `X`. 
 - Save the R^2 score of the model rounded to 2 decimal places in a variable named `tree_score`.
 
 <codeblock id="02_18">
