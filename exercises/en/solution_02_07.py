@@ -8,7 +8,7 @@ candybar_df = pd.read_csv('data/candybars.csv')
 X = candybar_df.loc[:, 'chocolate':'multi']
 y = candybar_df['availability']
 
-# Creating a model
+# Create a model
 model = DecisionTreeClassifier(random_state=1)
 
 # Fit your data 
@@ -16,7 +16,6 @@ model.fit(X,y)
 
 # Predict the labels of X
 predicted = model.predict(X)
-
 
 # Compare
 pd.concat([candybar_df.loc[:, ['candy bar', 'availability']],

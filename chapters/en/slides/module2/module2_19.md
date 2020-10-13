@@ -160,7 +160,7 @@ model.fit(X_subset, y)
 
 <center>
 
-<img src="/module2/module2_18d.png"  width = "50%" alt="404 image" />
+<img src="/module2/module2_18d.png"  width = "45%" alt="404 image" />
 
 </center>
 
@@ -186,7 +186,7 @@ Is this a good thing or a bad thing?
 
 <center>
 
-<img src="/module2/generalization-train.png" width = "60%" alt="404 image" />
+<img src="/module2/generalization-train.png" width = "50%" alt="404 image" />
 
 </center>
 
@@ -234,7 +234,7 @@ correctly?
     <img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
 
 2.  Error on the entire distribution 𝐷 of data
-    <img src="/module2/d_e.gif"  width = "11%" alt="404 image" />
+    <img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
 
 Notes:
 

@@ -312,7 +312,7 @@ Tasks:
 - Build a model using `DecisionTreeClassifier()` and make sure to set the `random_state` argument to 1. 
 - Save this in an object named `model`. 
 - Fit your model on the objects `X` and `y`.
-- predict on `X` and save the values in an object named `predicted`.
+- Predict on `X` and save the values in an object named `predicted`.
 - Compare the `availability` column to the `predicted` column and answer the multiple-choice questions below. 
 
 <codeblock id="02_07">
@@ -330,6 +330,8 @@ Which of the following candy bars did the model incorrectly predict?
 
 <choice id="1" >
 <opt text="Twix"  >
+
+Not this one!
 
 </opt>
 

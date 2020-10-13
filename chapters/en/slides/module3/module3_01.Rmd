@@ -1,0 +1,369 @@
+---
+params:
+  dynamictitle: "module3_01"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module3/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module3/"
+```
+
+
+type: slides
+
+# Data Splitting
+
+Notes: <br>
+
+---
+
+## Recap
+
+### Training error versus Generalization error 
+
+- Given a model 𝑀, in ML, people usually talk about two kinds of errors of 𝑀:
+
+1. Error on the training data
+<img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
+    
+2. Error on the entire distribution 𝐷 of data
+<img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
+
+
+Notes: 
+
+At the end of Module 2, we discussed two kinds of errors in a model. 
+
+1. Error on the training data: $error_{training}(M)$ 
+2. Error on the entire distribution $D$ of data: $error_{D}(M)$
+
+but we do not have access to the entire distribution which is where our interests lie so what do we do? 
+
+
+
+---
+
+## We can approximate generalization error by splitting our data!
+
+
+<center><img src="/module3/splitted.png"  width = "100%" alt="404 image" /></center>
+
+
+
+Notes: 
+
+
+We keep aside some randomly selected portion from the training data.
+
+We pretend that the kept aside data is representative of the real distribution (𝐷) of data. 
+Then we only `fit` a model on the training portion only. 
+We evaluate the trained model on this set-aside data to get a sense of how well the model would be able to generalize.
+
+---
+
+## Simple train and test split
+
+
+<center><img src="/module3/train-test-split.png"  width = "100%" alt="404 image" /></center>
+
+
+Notes: 
+
+The data is shuffled before splitting. 
+
+We then split up our data into 2 separate sections. 
+
+They can be of different sizes. 
+
+---
+
+<center><img src="/module3/split_funct.png"  width = "80%" alt="404 image" /></center>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">*Attribution*</a>
+
+
+Notes: 
+
+We can do this very easily with a tool from Scikit Learn. 
+
+It gives us the versatility to either pass `X` and `y` or a dataframe with both `X` and `y` in it. 
+
+It uses useful arguments such as:
+
+    - `test_size`
+    - `train_size`
+    - `random_state`
+
+---
+
+```{python}
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+cities_df
+```
+
+
+Notes: Let's test it out in action with the Canadian and United States cities data that we saw in module 2.
+
+
+---
+
+```{python}
+X = cities_df.drop(["country"], axis=1)
+X
+```
+
+Notes: First we have our `X` dataframe. 
+
+---
+
+```{python}
+y = cities_df["country"]
+y
+```
+
+
+Notes: Followed by our `y`, target column.
+
+---
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=123
+)
+
+```
+
+```{python}
+X_train.head(3)
+```
+
+
+Notes:
+
+First we import `train_test_split` from `sklearn.model_selection`. 
+
+We split our data and separate our `X` and `y` variables into 4 separate objects that we name:
+
+- `X_train`
+- `X_test`
+- `y_train`
+- `y_test`
+
+
+---
+
+```{python}
+X_test.head(3)
+```
+
+```{python}
+y_train.head(3)
+```
+```{python}
+y_test.head(3)
+```
+
+Notes: 
+
+<br>
+
+---
+
+```{python}
+shape_dict = {"Data portion": ["X", "y", "X_train", "y_train", "X_test", "y_test"],
+    "Shape": [X.shape, y.shape,
+              X_train.shape, y_train.shape,
+              X_test.shape, y_test.shape]}
+
+shape_df = pd.DataFrame(shape_dict)
+shape_df
+```
+
+
+Notes: 
+
+Let's take a look at the shape of each of these dataframes now. 
+
+---
+
+```{python}
+train_df, test_df = train_test_split(cities_df, test_size = 0.2, random_state = 123)
+
+X_train, y_train = train_df.drop(["country"], axis=1), train_df["country"]
+
+X_test, y_test = test_df.drop(["country"], axis=1), test_df["country"]
+
+train_df.head()
+```
+
+
+Notes:
+Sometimes we may want to keep the target in the train split for EDA or for visualization.
+
+That's not a problem. 
+
+We can do this by splitting our `cities_df` dataframe into a train and test dataframe as objects `train_df`, `test_df`, and then separate the features from the target after the fact. 
+
+---
+
+```{python}
+chart_cities = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
+    alt.X('longitude:Q', scale=alt.Scale(domain=[-140, -40])),
+    alt.Y('latitude:Q', scale=alt.Scale(domain=[20, 60])),
+    alt.Color('country:N', scale=alt.Scale(domain=['Canada', 'USA'],
+                                           range=['red', 'blue']))
+)
+chart_cities
+```
+
+```{python include =FALSE}
+chart_cities.save(path + 'chart_cities.png')
+```
+
+<img src="/module3/chart_cities.png" alt="A caption" width="50%" />
+
+Notes:  Now we can plot the data from the training data `train_df`, we can differentiate between the Canadian cities (red) and the United States cities (blue)
+
+---
+
+```{python}
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+# Let's examine the train and test errors with the split now.
+print("Train error: " + str(round(1 - model.score(X_train, y_train), 2)))
+print("Test error: " + str(round(1 - model.score(X_test, y_test), 2)))
+```
+
+
+Notes: 
+
+Now when we examine the train and test error with the split we can see our model does not do as well a job generalizing as we did before. 
+
+Our training error is 0, however, our testing error is 26%.
+
+---
+
+
+### *test_size* and *train_size* arguments
+
+
+```{python}
+train_df, test_df = train_test_split(cities_df, test_size = 0.2, random_state = 123)
+```
+
+```{python}
+shape_dict2 = {"Data portion": ["cities_df", "train_df", "test_df"],
+    "Shape": [cities_df.shape, train_df.shape,
+              test_df.shape]}
+
+shape_df2 = pd.DataFrame(shape_dict2)
+shape_df2
+```
+
+Notes: 
+
+Let's take a closer look at the arguments in the splitting tool. 
+
+When we specify how we want to split the data, we can specify either `test_size` or `train_size`. 
+
+See the documentation <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">here</a>.
+
+There is no hard and fast rule on what split sizes should we use and it depends upon how much data is available to you. 
+
+Some common splits are 90/10, 80/20, 70/30 (training/test).
+
+In the above example, we used an 80/20 split. 
+
+
+
+
+---
+
+### *random_state* argument
+
+
+```{python}
+train_df_rs5, test_df_rs5 = train_test_split(cities_df, test_size = 0.2, random_state = 5)
+```
+
+```{python}
+train_df_rs7, test_df_rs7 = train_test_split(cities_df, test_size = 0.2, random_state = 7)
+```
+
+```{python}
+train_df_rs5.head(3)
+```
+
+```{python}
+train_df_rs7.head(3)
+```
+
+
+
+Notes: 
+
+The data is shuffled before splitting which is a crucial step. 
+The `random_state` argument controls this shuffling. 
+
+In the example above we used `random_state=5` and `random_state=7` and you can see that they contain different observations.
+
+Setting the random_state is useful when you want reproducible results. 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

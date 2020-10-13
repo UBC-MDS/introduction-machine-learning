@@ -153,11 +153,6 @@ features.
 ---
 
 ``` python
-canada = df[df['country'] == 'Canada']
-usa = df[df['country'] == 'USA']
-```
-
-``` python
 chart1 = alt.Chart(df).mark_circle(size=20, opacity=0.6).encode(
     alt.X('longitude:Q', scale=alt.Scale(domain=[-140, -40]), axis=alt.Axis(grid=False)),
     alt.Y('latitude:Q', scale=alt.Scale(domain=[20, 60]), axis=alt.Axis(grid=False)),

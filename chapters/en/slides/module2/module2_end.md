@@ -29,7 +29,7 @@ The assignment will concentrate on the learning objectives as well as building k
 
 ---
 
-# On to Assignment 1!
+# On to Assignment 2!
 
 Notes: 
 

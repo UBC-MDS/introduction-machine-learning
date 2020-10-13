@@ -218,7 +218,7 @@ model.fit(X_subset, y)
 display_tree(X_subset.columns, model, "../../../../static/module2/module2_18d")
 ```
 
-<center><img src="/module2/module2_18d.png"  width = "50%" alt="404 image" /></center>
+<center><img src="/module2/module2_18d.png"  width = "45%" alt="404 image" /></center>
 
 
 Notes: 
@@ -247,7 +247,7 @@ Is this a good thing or a bad thing?
 ## Fundamental goal of machine learning 
 
 
-<center><img src="/module2/generalization-train.png" width = "60%" alt="404 image" /></center>
+<center><img src="/module2/generalization-train.png" width = "50%" alt="404 image" /></center>
 
 Notes: 
 
@@ -287,7 +287,7 @@ For instance, is it fair to expect the learner to label image 4 correctly?
 <img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
     
 2. Error on the entire distribution 𝐷 of data
-<img src="/module2/d_e.gif"  width = "11%" alt="404 image" />
+<img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
 
 
 Notes:   
