@@ -88,8 +88,8 @@ We're going to think about 4 types of errors:
 
 - 𝐸_train  is our training error (or mean train error from cross-validation).
 - 𝐸_valid  is our validation error (or mean validation error from cross-validation).
--𝐸_test  is our test error.
--𝐸_best  is the best possible error we could get for a given problem.
+- 𝐸_test  is our test error.
+- 𝐸_best  is the best possible error we could get for a given problem.
 
 ---
 
@@ -122,7 +122,7 @@ Train error:   0.000
 Validation error:   0.191
 ```
 
-```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '64%'}
+```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '74%'}
 model = DecisionTreeClassifier()
 model.fit(X, y);
 plt.figure(figsize=(4, 4))
@@ -163,7 +163,7 @@ Train error: 0.17
 Validation error: 0.19
 ```
 
-```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '64%'}
+```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '74%'}
 
 model = DecisionTreeClassifier(max_depth=1)
 model.fit(X,y);
@@ -188,7 +188,7 @@ Both train and validation errors are bad and the gap between train and validatio
 
 ---
 
-<center><img src="/module3/over_under.png"  width = "50%" alt="404 image" /></center>
+<center><img src="/module3/over_under.png"  width = "80%" alt="404 image" /></center>
 
 
 Standard question to ask ourselves: 

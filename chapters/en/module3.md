@@ -114,7 +114,7 @@ Not quite but this may be a side effect.
 
 <exercise id="3" title="Decision Tree Outcome">
 
-**True or False?**
+**True or False?**     
 _Splitting your data is randomized and you will get different results each time._
 
 <choice id="1" >
@@ -132,7 +132,7 @@ Great!
 
 </choice>
 
-**True or False**
+**True or False**     
 *When using `train_test_split()`, you must specify both `test_size` and `train_size`.*
 
 <choice id="2">
@@ -213,7 +213,7 @@ Maybe take a closer look?
 
 <exercise id="6" title= "Name that split!">
 
-**Question 1**   
+**Question 1**     
 What data is trained on, predicted on and scored on? 
 
 <choice id="1">
@@ -245,7 +245,7 @@ This should be kept far far away from training and scoring!
 </choice>
 
 
-**Question 2**   
+**Question 2**    
 What is scored multiple times and predicted multiple times but never is fitted?
 
 <choice id="2" >
@@ -276,7 +276,7 @@ This is never scored.
 
 </choice>
 
-**Question 3**   
+**Question 3**    
 What is only ever scored once?
 
 <choice id="3" >
@@ -311,7 +311,7 @@ This is never scored.
 
 <exercise id="7" title="Decision Tree Outcome">
 
-**True or False?**
+**True or False?**      
 _Deployment data is used at the very end and only scored once._
 
 <choice id="1" >
@@ -329,7 +329,7 @@ Nice job.
 
 </choice>
 
-**True or False**
+**True or False**    
 _Validation data is used to help tune hyperparameters._
 
 <choice id="2">
@@ -359,7 +359,7 @@ This is a prime reason for having a validation set.
 <exercise id="9" title= "Cross Validation Questions">
 
 **Question 1**   
-We carry out cross-validation to avoid reusing the same validation set again and again. With 𝑘 -fold cross-validation, you split your 𝑛 examples into 𝑘 folds. For each fold, how many examples do you train on? 
+We carry out cross-validation to avoid reusing the same validation set again and again. With 𝑘-fold cross-validation, you split your 𝑛 examples into 𝑘-folds. For each fold, how many examples do you train on? 
 
 <choice id="1">
 
@@ -391,7 +391,7 @@ This is the number of folds, not examples.
 
 
 **Question 2**   
-With 𝑘-fold cross-validation, you split your 𝑛 examples into 𝑘folds. For each fold, when you are done, you add up the accuracies from each fold and divide by what?
+With 𝑘-fold cross-validation, you split your 𝑛 examples into 𝑘-folds. For each fold, when you are done, you add up the accuracies from each fold and divide by what?
 
 <choice id="2" >
 
@@ -461,8 +461,7 @@ Not this time!
 
 <exercise id="10" title="Cross Validation True or False">
 
-**True or False?**
-
+**True or False?**     
 _𝑘-fold cross-validation calls fit 𝑘 times and predict 𝑘 times._
 
 <choice id="1" >
@@ -480,8 +479,7 @@ How many times are fit and predict called on 1 fold - cross-validation?
 
 </choice>
 
-**True or False**
-
+**True or False**      
 _The goal of cross-validation is to obtain a better estimate of test error than just using a single validation set._
 
 <choice id="2">
@@ -499,8 +497,7 @@ Nailed it!
 
 </choice >
 
-**True or False**
-
+**True or False**       
 _The main disadvantage of using a large $k$ in cross-validation is running time._
 
 <choice id="3">
@@ -518,8 +515,7 @@ Since we need to train multiple times and predict multiple times, it can be very
 
 </choice >
 
-**True or False**
-
+**True or False**       
 _2-fold cross-validation is the same thing as using a validation set that's 50% the size of your training set._
 
 <choice id="4">
@@ -650,7 +646,6 @@ Great!
 </choice>
 
 **Question 3**   
-
 If our model is using a Dummy Classifier for a classification problem with the `strategy=most_frequent`, is our model more likely overfitting or underfitting?
 
 <choice id="3" >
@@ -673,9 +668,8 @@ Great!
 
 <exercise id="15" title="Overfitting and Underfitting True or False">
 
-**True or False?**
-
-_It is possible to construct a problem with 𝐸_train=𝐸_best=𝐸_test=0._
+**True or False?**     
+*It is possible to construct a problem with 𝐸_train=𝐸_best=𝐸_test=0.*
 
 <choice id="1" >
 <opt text="True">  
@@ -692,8 +686,7 @@ Nice job.
 
 </choice>
 
-**True or False**
-
+**True or False**      
 _If our training error is extremely low, that means our model is overfitting._
 
 <choice id="2">
@@ -710,8 +703,7 @@ Nailed it!
 
 </choice >
 
-**True or False**
-
+**True or False**       
 _More "complicated" models are more likely to overfit than "simple" ones._
 
 <choice id="3">
@@ -731,7 +723,32 @@ As we add complexity to our model, it is more likely to overfit.
 
 </exercise>
 
-<exercise id="16" title="Overfitting/Underfitting in Action!">
+<exercise id="16" title="Overfit or Underfit?">
+
+Is the following decision tree more likely to overfit or underfit? 
+
+
+<center><img src="/module3/Q16.png"  width = "80%" alt="404 image" /></center>
+
+
+<choice id="1" >
+<opt text="Overfit"  correct="true">
+
+This model has a high complexity!
+
+</opt>
+
+<opt text= "Underfit" >
+ 
+This model has a high complexity...
+
+</opt>
+
+</choice>
+
+</exercise>
+
+<exercise id="17" title="Overfitting/Underfitting in Action!">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -751,7 +768,7 @@ Tasks:
 - Calculate the mean value of each column and save this in an object named `mean_scores`. 
 - Answer the question below.
 
-<codeblock id="03_16">
+<codeblock id="03_17">
 
 - Are you cross-validating using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)` on your model?
 - Are you saving your dataframe using `pd.DataFrame(scores)`?
@@ -780,18 +797,19 @@ Is the training score higher or lower?
 
 </exercise>
 
-<exercise id="17" title="Fundamental Tradeoff and the Golden Rule" type="slides,video">
+<exercise id="18" title="Fundamental Tradeoff and the Golden Rule" type="slides,video">
 
-<slides source="module3/module3_17" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_18" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
-<exercise id="18" title= "Quick Questions on Tradeoff and Golden Rule">
+<exercise id="19" title= "Quick Questions on Tradeoff and Golden Rule">
 
 **Question 1**   
 If we are hyperparameter tuning, which depth would you select for this model given the graph below? 
 
+(Note: In reality, this model's error seems much too high)
 <center><img src="/module3/chart_pk2.png"  width = "80%" alt="404 image" /></center>
 
 <choice id="1">
@@ -852,10 +870,9 @@ Great!
 
 </exercise>
 
-<exercise id="19" title="True or False ">
+<exercise id="20" title="True or False ">
 
-**True or False?**
-
+**True or False?**    
 _The fundamental tradeoff of ML states that as training error goes down, test error goes up._
 
 <choice id="1" >
@@ -873,8 +890,7 @@ Nice job.
 
 </choice>
 
-**True or False**
-
+**True or False**      
 _A model cannot simultaneously have high bias and high variance._
 
 <choice id="2">
@@ -892,8 +908,7 @@ Nailed it!
 
 </choice >
 
-**True or False**
-
+**True or False**     
 _In supervised learning, the training error is always lower than the validation error._
 
 <choice id="3">
@@ -913,7 +928,7 @@ Nice work!
 
 </exercise>
 
-<exercise id="20" title="Picking your Hyperparameter">
+<exercise id="21" title="Picking your Hyperparameter">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -935,7 +950,7 @@ Tasks:
 - Fit your model on the objects `X_train` and `y_train`.
 - Evaluate the test error of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_error` rounded to 4 decimal places.
 
-<codeblock id="03_17">
+<codeblock id="03_21">
 
 - Are using `DecisionTreeClassifier(max_depth=5)`?
 - Are you using the model named `model`?
@@ -968,7 +983,7 @@ Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03?
 </exercise>
 
 
-<exercise id="21" title="What Did We Just Learn?" type="slides, video">
+<exercise id="22" title="What Did We Just Learn?" type="slides, video">
 <slides source="module3/module3_end" shot="0" start="0:003" end="1:54">
 </slides>
 </exercise>

@@ -14,14 +14,23 @@ from sklearn.model_selection import train_test_split, cross_validate
 pk = pd.read_csv('data/pokemon.csv')
 
 ## Adjusted path 
-path = "../../../../static/module2/"
+path = "../../../../static/module3/"
 pk['legendary'] =  np.where(pk['legendary'] == 1, "Lengend", "Reg")
 pk
 
 X= pk.drop(columns = ['deck_no', 'name', 'type', 'legendary', 'total_bs'])
 y = pk['legendary']
-model = DecisionTreeClassifier(max_depth=4)
-model.fit(X,y)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+model = DecisionTreeClassifier()
+model.fit(X_train,y_train)
+```
+
+```{python}
+
+display_tree(X_train.columns, model, "../../../../static/module2/Q16")
+
 ```
 
 
@@ -169,5 +178,11 @@ bball['height'] = bball['height'].str.split('/ ', expand=True)[[1]].astype('floa
 bball['weight'] = bball['weight'].str.split('/ ', expand=True)[1].str.strip(' kg.').astype('float')
 bball['salary'] = bball['salary'].str.strip('$').astype('float')
 bball.to_csv('bball.csv', index=False)
+bball
+```
+
+
+```{python}
+bball['position'].value_counts() 
 ```
 

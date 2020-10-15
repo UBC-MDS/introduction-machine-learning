@@ -36,8 +36,9 @@ We’re going to think about 4 types of errors:
   - 𝐸\_train is our training error (or mean train error from
     cross-validation).
   - 𝐸\_valid is our validation error (or mean validation error from
-    cross-validation). -𝐸\_test is our test error. -𝐸\_best is the best
-    possible error we could get for a given problem.
+    cross-validation).
+  - 𝐸\_test is our test error.
+  - 𝐸\_best is the best possible error we could get for a given problem.
 
 ---
 
@@ -71,7 +72,7 @@ Train error:   0.000
 Validation error:   0.191
 ```
 
-<img src="/module3/module3_13/unnamed-chunk-3-1.png" width="64%" />
+<img src="/module3/module3_13/unnamed-chunk-3-1.png" width="78%" />
 
 Notes:
 
@@ -112,7 +113,7 @@ Train error: 0.17
 Validation error: 0.19
 ```
 
-<img src="/module3/module3_13/unnamed-chunk-4-1.png" width="64%" />
+<img src="/module3/module3_13/unnamed-chunk-4-1.png" width="78%" />
 
 Notes:
 
@@ -136,7 +137,7 @@ validation error is lower.
 
 <center>
 
-<img src="/module3/over_under.png"  width = "50%" alt="404 image" />
+<img src="/module3/over_under.png"  width = "80%" alt="404 image" />
 
 </center>
 

@@ -1,26 +1,32 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_validate
 
 # Loading in the data
-pokemon = pd.read_csv('data/pokemon.csv')
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
 
 # Define X and y
-X = pokemon.loc[:, 'speed':'capture_rt']
-y = pokemon['legendary']
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
 
 # Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=7)
+    X, y, test_size=0.2, random_state=31)
 
 # Create a model
-model = DecisionTreeClassifier(max_depth=5)
+model = DecisionTreeClassifier()
 
-# Fit your data 
-model.fit(X_train,y_train)
+# Cross validate
+scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
 
-# Score the model on the test set 
-test_error = round(1 - model.score(X_test, y_test), 4)
+# Covert scores into a dataframe
+scores_df = pd.DataFrame(scores)
 
-print("The test error: " + str(test_error))
+# Calculate the mean value of each column
+mean_scores = scores_df.mean()
 
+# Display each score mean value 
+# Remember that in this case "test_score" is actually "validation" score
+
+mean_scores

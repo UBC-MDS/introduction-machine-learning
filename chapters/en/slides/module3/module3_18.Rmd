@@ -266,7 +266,7 @@ Even experts end up breaking it sometimes which leads to misleading results and 
 
 ## Golden rule violation: Example 1  
 
-<center><img src="/module3/golden_rule_violation.png" alt="A caption" width="58%" /></center>
+<center><img src="/module3/golden_rule_violation.png" alt="A caption" width="52%" /></center>
 <a href="https://www.theregister.com/2019/07/03/nature_study_earthquakes/" target="_blank">**Attribution: The A register - Katyanna Quach**</a>
 
 

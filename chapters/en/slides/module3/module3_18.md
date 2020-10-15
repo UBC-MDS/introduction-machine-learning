@@ -130,13 +130,13 @@ depth
 2              0.155011       0.195956      0.085624         0.006376
 3              0.137033       0.195588      0.089631         0.016135
 4              0.093135       0.159926      0.090119         0.006472
-5              0.081152       0.148162      0.078801         0.012076
+5              0.081152       0.154044      0.082789         0.012076
 ...                 ...            ...           ...              ...
 15             0.000000       0.184926      0.080262         0.000000
 16             0.000000       0.190809      0.089655         0.000000
-17             0.000000       0.190809      0.089655         0.000000
+17             0.000000       0.196691      0.101277         0.000000
 18             0.000000       0.190809      0.089655         0.000000
-19             0.000000       0.196691      0.101277         0.000000
+19             0.000000       0.190809      0.089655         0.000000
 
 [19 rows x 4 columns]
 ```
@@ -179,7 +179,7 @@ results_df[results_df['mean_cv_error'] ==results_df['mean_cv_error'].min()]
 ```out
        mean_train_error  mean_cv_error  std_cv_error  std_train_error
 depth                                                                
-5              0.081152       0.148162      0.078801         0.012076
+5              0.081152       0.154044      0.082789         0.012076
 ```
 
 ``` python
@@ -217,10 +217,13 @@ when deployed?
 
 ## The Golden Rule
 
-  - Even though we care the most about test error:  
-    <center>
-    <b>THE TEST DATA CANNOT INFLUENCE THE TRAINING PHASE IN ANY WAY.</b>
-    </center>
+Even though we care the most about test error:  
+
+<center>
+
+<b>THE TEST DATA CANNOT INFLUENCE THE TRAINING PHASE IN ANY WAY.</b>
+
+</center>
 
 <br>
 
@@ -243,7 +246,7 @@ results and a lack of generalization on the real data.
 
 <center>
 
-<img src="/module3/golden_rule_violation.png" alt="A caption" width="70%" />
+<img src="/module3/golden_rule_violation.png" alt="A caption" width="52%" />
 
 </center>
 
@@ -261,7 +264,7 @@ was some overlap in the data used to both train and test the model.*
 
 <center>
 
-<img src="/module3/golden_rule_violation_2.png" alt="A caption" width="70%" />
+<img src="/module3/golden_rule_violation_2.png" alt="A caption" width="77%" />
 
 </center>
 
@@ -295,7 +298,9 @@ vault.
 
 ---
 
-<br> <br> \#\#\# Here is the workflow we’ll generally follow.
+<br> <br>
+
+### Here is the workflow we’ll generally follow.
 
   - **Splitting**: Before doing anything, split the data `X` and `y`
     into `X_train`, `X_test`, `y_train`, `y_test` or `train_df` and
@@ -309,8 +314,8 @@ vault.
 
 Notes:
 
-**Again, there are many subtleties here we’ll discuss the golden rule
-multiple times throughout the course and in the program.**
+Again, there are many subtleties here and we’ll discuss the golden rule
+multiple times throughout the course and in the program.
 
 ---
 

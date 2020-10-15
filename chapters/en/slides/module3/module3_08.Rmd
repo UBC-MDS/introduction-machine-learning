@@ -71,7 +71,8 @@ Notes: <br>
 ## Single split problems
 
 <br>
-
+<br>
+<br>
 <center><img src="/module3/train-valid-test-split.png"  width = "100%" alt="404 image" /></center>
 
 Notes: 
@@ -195,14 +196,24 @@ Notes:
 
 Let us access training and validation scores.  
 
-`scores` is returned as a dictionary but it's much easier to understand if we convert it to a dataframe.
+
 
 
 ---
 
 ```{python}
+scores
+```
+
+```{python}
 pd.DataFrame(scores)
 ```
+
+Notes: 
+
+`scores` is returned as a dictionary but it's much easier to understand if we convert it to a dataframe.
+
+---
 
 ```{python}
 pd.DataFrame(pd.DataFrame(scores).mean())
@@ -244,7 +255,9 @@ What we care about is the **test error**, which tells us how well our model can 
 
 If this test error is "reasonable" we deploy the model which will be used on new unseen examples.
 
-How do we know whether this test error is reasonable? We will discuss this in the next section!
+How do we know whether this test error is reasonable? 
+
+We will discuss this in the next section!
 
 ---
 
