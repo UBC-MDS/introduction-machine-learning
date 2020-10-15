@@ -783,8 +783,9 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Ley's examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.
+Let's examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.
 
+Note that because this dataset is relatively small we must set `n_splits=2`.
 
 Tasks:     
 

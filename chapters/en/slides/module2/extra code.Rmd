@@ -159,3 +159,15 @@ chart1
 ```{python include =FALSE}
 chart1.save(path + 'hyper_pk.png')
 ```
+
+
+```{python}
+bball = pd.read_csv('data/basketball.csv')
+bball['height'].str.split('/ ', expand=True)[[0]]
+bball['weight'].str.split('/ ', expand=True)[0].str.strip(' lbs.')
+bball['height'] = bball['height'].str.split('/ ', expand=True)[[1]].astype('float')
+bball['weight'] = bball['weight'].str.split('/ ', expand=True)[1].str.strip(' kg.').astype('float')
+bball['salary'] = bball['salary'].str.strip('$').astype('float')
+bball.to_csv('bball.csv', index=False)
+```
+
