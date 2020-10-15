@@ -239,7 +239,7 @@ Let's now compare this error with the model's test error.
 
 Is the test error comparable with the cross-validation error?
 
-Do we feel confident that this model would give similar performace when deployed?
+Do we feel confident that this model would give similar performance when deployed?
 
 
 

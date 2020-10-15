@@ -576,7 +576,7 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's use `cross_val_score` on our hockey player dataset.
+Let's use `cross_validate` on a pokemon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
 
 Tasks:     
 
@@ -609,7 +609,7 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's use `cross_validate` on our hockey player dataset now.
+Let's use `cross_validate` on our pokemon dataset that we saw in the previous exercises.  
 
 Tasks:     
 
@@ -783,7 +783,8 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's split our data using `train_test_split()` on our candy bars dataset.
+Ley's examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.
+
 
 Tasks:     
 
@@ -795,7 +796,7 @@ Tasks:
 - Evaluate the accuracy of the model using score on `X_train` and `y_train` save the values in an object named `train_score`.
 - Repeat the above action but this time evaluate the accuracy of the model using score on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
 
-<codeblock id="03_04">
+<codeblock id="03_16">
 
 - Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)`? 
 - Are using `DecisionTreeClassifier()`?
@@ -971,8 +972,64 @@ Nice work!
 </exercise>
 
 
+<exercise id="20" title="Picking your Hyperparameter">
 
-<exercise id="20" title="What Did We Just Learn?" type="slides, video">
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+You obtained the following plot when hyperparameter tuning:
+
+<center><img src="/module3/hyper_pk.png"  width = "80%" alt="404 image" /></center>
+
+How well does your model do on the test data?
+
+Tasks:     
+
+- Build a model using `DecisionTreeClassifier()` using the optimal `max_depth`. 
+- Save this in an object named `model`. 
+- Fit your model on the objects `X_train` and `y_train`.
+- Evaluate the test error of the model using score on `X_test` and `y_test` and save the values in an object named `test_error` rounded to 4 decimal places.
+
+<codeblock id="03_17">
+
+- Are using `DecisionTreeClassifier(max_depth=5)`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X_train, y_train)` on your model?
+- Are you scoring your model using `model.score(X_test, y_test)`?
+- Are your rounding to 4 decimal places?
+- Are you calculating `test_error` as  `round(1 - model.score(X_test, y_test), 4)` )
+
+</codeblock>
+
+
+
+**Question 1**    
+Is the test error comparable with the cross-validation error that we obtained?
+
+<choice id="1" >
+<opt text="Yes"   correct="true">
+
+Nice job! 
+
+</opt>
+
+<opt text="No">
+
+Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03.
+
+</opt>
+
+</choice>
+
+</exercise>
+
+
+
+<exercise id="21" title="What Did We Just Learn?" type="slides, video">
 <slides source="module3/module3_end" shot="0" start="0:003" end="1:54">
 </slides>
 </exercise>
