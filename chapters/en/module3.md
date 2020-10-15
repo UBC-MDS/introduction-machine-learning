@@ -1,7 +1,7 @@
 ---
 title: 'Module 3: Splitting, Cross-Validation and the Fundamental Tradeoff'
 description:
-  'This module will introduce you to why and how we split our data into a training and a test test, how cross validation works on our training data. We will explain the fundamental trade off as well as the golden rule of machine learning. '
+  'This module will introduce you to why and how we split our data and, how cross-validation works on our training data. We will explain the fundamental tradeoff as well as the golden rule of machine learning. '
 prev: /module2
 next: /module4
 type: chapter
@@ -15,14 +15,12 @@ id: 3
 
 </exercise>
 
-
 <exercise id="1" title="Splitting Data" type="slides,video">
 
 <slides source="module3/module3_01" shot="3" start="0:003" end="1:54">
 </slides>
 
 </exercise>
-
 
 <exercise id="2" title= "Splitting our data">
 
@@ -37,7 +35,6 @@ One of these may be right.
 
 </opt>
 
-
 <opt text= "Practice and testing data" >
  
 One of these may be right.
@@ -50,7 +47,7 @@ Nice work!
 
 </opt>
 
-<opt text="Fiting and predicting data">
+<opt text="Fitting and predicting data">
 
 These are not the "official" names.
 
@@ -59,13 +56,12 @@ These are not the "official" names.
 </choice>
 
 
-
 **Question 2**   
 When do we split our data?
 
 <choice id="2" >
 
-<opt text="At the very begining, before we explore our data." correct="true">
+<opt text="At the very beginning, before we explore our data." correct="true">
 
 Great!
 
@@ -73,10 +69,9 @@ Great!
 
 <opt text="After we explore our data, but before we make our model.">
 
-It's important that we split our data before we do anything else.
+We must split our data before we do anything else.
 
 </opt>
-
 
 <opt text="After we train our model.">
 
@@ -108,17 +103,15 @@ Great!
 
 </opt>
 
-
 <opt text="To decreasing training time.">
 
-No quite but this may be a side effect. 
+Not quite but this may be a side effect. 
 
 </opt>
 
 </choice>
 
 </exercise>
-
 
 <exercise id="3" title="Decision Tree Outcome">
 
@@ -162,7 +155,6 @@ Nice work!
 
 </exercise>
 
-
 <exercise id="4" title="Splitting Data in Action">
 
 **Instructions:**    
@@ -181,8 +173,8 @@ Tasks:
 - Build a model using `DecisionTreeClassifier()`. 
 - Save this in an object named `model`. 
 - Fit your model on the objects `X_train` and `y_train`.
-- Evaluate the accuracy of the model using score on `X_train` and `y_train` save the values in an object named `train_score`.
-- Repeat the above action but this time evaluate the accuracy of the model using score on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
+- Evaluate the accuracy of the model using `.score()` on `X_train` and `y_train` save the values in an object named `train_score`.
+- Repeat the above action but this time evaluate the accuracy of the model using `.score()` on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
 
 <codeblock id="03_04">
 
@@ -195,9 +187,8 @@ Tasks:
 </codeblock>
 
 
-
 **Question 1**    
-Which split performes better?
+Which split performs better?
 
 <choice id="1" >
 <opt text="Training Data"   correct="true">
@@ -208,14 +199,13 @@ Nice job!
 
 <opt text="Testing Data">
 
-Great! The model predicted this one incorrectly.
+Maybe take a closer look?
 
 </opt>
 
 </choice>
 
 </exercise>
-
 
 <exercise id="5" title="Train, Validation and Test Split" type="slides,video">
 
@@ -236,7 +226,6 @@ What data is trained on, predicted on and scored on?
 Great! It's the only data that the model trains on.
 
 </opt>
-
 
 <opt text= "Validation" >
  
@@ -259,18 +248,16 @@ This should be kept far far away from training and scoring!
 </choice>
 
 
-
 **Question 2**   
-What is scored multiple times and predicted on multiple times but never is fitted?
+What is scored multiple times and predicted multiple times but never is fitted?
 
 <choice id="2" >
 
 <opt text="Train" >
 
-This data gets fitted, so it can't be trainning data.
+This data gets fitted, so it can't be training data.
 
 </opt>
-
 
 <opt text="Validate" correct="true">
 
@@ -283,7 +270,6 @@ Great!
 It's a better idea to do it as soon as possible.
 
 </opt>
-
 
 <opt text="Deployment">
 
@@ -305,7 +291,6 @@ This data gets scored many times.
 
 </opt>
 
-
 <opt text="Validate" >
 
 This gets scored multiple times. 
@@ -318,7 +303,6 @@ You got it!
 
 </opt>
 
-
 <opt text="Deployment">
 
 This is never scored. 
@@ -328,7 +312,6 @@ This is never scored.
 </choice>
 
 </exercise>
-
 
 <exercise id="7" title="Decision Tree Outcome">
 
@@ -392,7 +375,6 @@ Remember that we leave a portion of the examples out to validate on.
 
 </opt>
 
-
 <opt text= "𝑛/𝑘" >
  
 This is how many examples are in 1 fold but not necessarily trained on.
@@ -407,12 +389,11 @@ Great!
 
 <opt text="𝑘">
 
-This is the number of folds not examples. 
+This is the number of folds, not examples. 
 
 </opt>
 
 </choice>
-
 
 
 **Question 2**   
@@ -422,7 +403,7 @@ With 𝑘-fold cross-validation, you split your 𝑛 examples into 𝑘folds. Fo
 
 <opt text="𝑛"  >
 
-This is the number of examples. We would get a very low score if we divided  by this. 
+This is the number of examples. We would get a very low score if we divided by this. 
 
 </opt>
 
@@ -462,7 +443,6 @@ There must have been some positive value for k.
 
 </opt>
 
-
 <opt text="1" >
 
 How many items are there in the array?
@@ -475,7 +455,6 @@ Great work!
 
 </opt>
 
-
 <opt text="8" >
 
 Not this time!
@@ -486,12 +465,11 @@ Not this time!
 
 </exercise>
 
-
 <exercise id="10" title="Cross Validation True or False">
 
 **True or False?**
 
-_𝑘-fold cross validation calls fit 𝑘 times and predict 𝑘 times._
+_𝑘-fold cross-validation calls fit 𝑘 times and predict 𝑘 times._
 
 <choice id="1" >
 <opt text="True" correct="true">  
@@ -502,7 +480,7 @@ Fit and predict are both called k times!
 
 <opt text="False" >
 
-How many times are fit and predict called on 1 fold - cross validation?
+How many times are fit and predict called on 1 fold - cross-validation?
 
 </opt>
 
@@ -540,7 +518,7 @@ Nailed it!
 
 <opt text="False" >
 
-Since we need to train multiple times and predict multiple times, it can be very time consuming.
+Since we need to train multiple times and predict multiple times, it can be very time-consuming.
 
 </opt>
 
@@ -548,7 +526,7 @@ Since we need to train multiple times and predict multiple times, it can be very
 
 **True or False**
 
-_2-fold cross validation is the same thing as using a validation set that's 50% the size of your training set._
+_2-fold cross-validation is the same thing as using a validation set that's 50% the size of your training set._
 
 <choice id="4">
 <opt text="True" >
@@ -576,25 +554,22 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's use `cross_validate` on a pokemon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
+Let's use `cross_validate()` on a Pokémon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
 
 Tasks:     
 
 - Split the `X` and `y` dataframes into 4 objects: `X_train`, `X_test`, `y_train`, `y_test`. 
-- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=7`. 
+- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=33`. 
 - Build a model using `DecisionTreeClassifier()`. 
 - Save this in an object named `model`. 
-- Fit your model on the objects `X_train` and `y_train`.
-- Evaluate the accuracy of the model using score on `X_train` and `y_train` save the values in an object named `train_score`.
-- Repeat the above action but this time evaluate the accuracy of the model using score on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
+- Cross-validate using `cross_val_score()` on the objects `X_train` and `y_train` and with 6 folds (`cv=6`) and save these scores in an object named `cv_score`. 
 
 <codeblock id="03_11">
 
-- Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)`? 
+- Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=33)`? 
 - Are using `DecisionTreeClassifier()`?
 - Are you using the model named `model`?
-- Are you calling `.fit(X_train, y_train)` on your model?
-- Are you scoring your model using `model.score(X_train, y_train)` and `model.score(X_test, y_test)`?
+- Are you cross-validating using `cross_val_score(model, X_train, y_train, cv=6)` on your model?
 
 </codeblock>
 
@@ -609,25 +584,23 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's use `cross_validate` on our pokemon dataset that we saw in the previous exercises.  
+Let's use `cross_validate()` on our Pokémon dataset that we saw in the previous exercises.  
 
 Tasks:     
 
-- Split the `X` and `y` dataframes into 4 objects: `X_train`, `X_test`, `y_train`, `y_test`. 
-- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=7`. 
 - Build a model using `DecisionTreeClassifier()`. 
 - Save this in an object named `model`. 
-- Fit your model on the objects `X_train` and `y_train`.
-- Evaluate the accuracy of the model using score on `X_train` and `y_train` save the values in an object named `train_score`.
-- Repeat the above action but this time evaluate the accuracy of the model using score on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
+- Cross-validate using `cross_validate()` on the objects `X_train` and `y_train` making sure to specify 10 folds and `return_train_score=True`.
+- Convert the scores into a dataframe and save it in an object named `scores_df`.
+- Calculate the mean value of each column and save this in an object named `mean_scores`. 
 
 <codeblock id="03_12">
 
-- Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)`? 
 - Are using `DecisionTreeClassifier()`?
 - Are you using the model named `model`?
-- Are you calling `.fit(X_train, y_train)` on your model?
-- Are you scoring your model using `model.score(X_train, y_train)` and `model.score(X_test, y_test)`?
+- Are you cross-validating using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)` on your model?
+- Are you saving your dataframe using `pd.DataFrame(scores)`?
+- Are you using `.mean()` to calculate the mean of each column in `scores_df`?
 
 </codeblock>
 
@@ -639,7 +612,6 @@ Tasks:
 </slides>
 
 </exercise>
-
 
 <exercise id="14" title= "Is it Overfitting or Underfitting?">
 
@@ -654,7 +626,6 @@ Great! This time we are talking about accuracy instead of error.
 
 </opt>
 
-
 <opt text= "Underfitting" >
  
 Did you catch on that we are discussing accuracy instead of error?
@@ -662,9 +633,7 @@ Did you catch on that we are discussing accuracy instead of error?
 </opt>
 
 
-
 </choice>
-
 
 
 **Question 2**   
@@ -678,19 +647,17 @@ Since our train error is still quite high, this would not be overfitting.
 
 </opt>
 
-
 <opt text= "Underfitting" correct="true">
  
 Great!
 
 </opt>
 
-
 </choice>
 
 **Question 3**   
 
-If our model is using a Dummy Classifier for a classification problem with the `strategy=most_frequent`, it our model more likely overfitting or underfitting?
+If our model is using a Dummy Classifier for a classification problem with the `strategy=most_frequent`, is our model more likely overfitting or underfitting?
 
 <choice id="3" >
 
@@ -699,7 +666,6 @@ If our model is using a Dummy Classifier for a classification problem with the `
 We are using a model that isn't complex and could be improved, this may be pointing to underfitting. 
 
 </opt>
-
 
 <opt text= "Underfitting" correct="true">
  
@@ -710,7 +676,6 @@ Great!
 </choice>
 
 </exercise>
-
 
 <exercise id="15" title="Overfitting and Underfitting True or False">
 
@@ -751,7 +716,6 @@ Nailed it!
 
 </choice >
 
-
 **True or False**
 
 _More "complicated" models are more likely to overfit than "simple" ones._
@@ -771,7 +735,6 @@ As we add complexity to our model, it is more likely to overfit.
 
 </choice >
 
-
 </exercise>
 
 <exercise id="16" title="Overfitting/Underfitting in Action!">
@@ -785,43 +748,37 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 
 Let's examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.
 
-Note that because this dataset is relatively small we must set `n_splits=2`.
+This time we are looking at a new data set that contains the basketball players in the NBA. We are only going to use the players with a position of Guard (G) or Forward (F). 
 
 Tasks:     
 
-- Split the `X` and `y` dataframes into 4 objects: `X_train`, `X_test`, `y_train`, `y_test`. 
-- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=7`. 
-- Build a model using `DecisionTreeClassifier()`. 
-- Save this in an object named `model`. 
-- Fit your model on the objects `X_train` and `y_train`.
-- Evaluate the accuracy of the model using score on `X_train` and `y_train` save the values in an object named `train_score`.
-- Repeat the above action but this time evaluate the accuracy of the model using score on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
+- Cross-validate using `cross_validate()` on the objects `X_train` and `y_train` making sure to specify 10 folds and `return_train_score=True`.
+- Convert the scores into a dataframe and save it in an object named `scores_df`.
+- Calculate the mean value of each column and save this in an object named `mean_scores`. 
+- Answer the question below.
 
 <codeblock id="03_16">
 
-- Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)`? 
-- Are using `DecisionTreeClassifier()`?
-- Are you using the model named `model`?
-- Are you calling `.fit(X_train, y_train)` on your model?
-- Are you scoring your model using `model.score(X_train, y_train)` and `model.score(X_test, y_test)`?
+- Are you cross-validating using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)` on your model?
+- Are you saving your dataframe using `pd.DataFrame(scores)`?
+- Are you using `.mean()` to calculate the mean of each column in `scores_df`?
 
 </codeblock>
-
 
 
 **Question 1**    
 Is this model overfitting or underfitting?
 
 <choice id="1" >
-<opt text="Training Data"   correct="true">
+<opt text="Overfitting"   correct="true">
 
 Nice job! 
 
 </opt>
 
-<opt text="Testing Data">
+<opt text="Underfitting">
 
-Great! The model predicted this one incorrectly.
+Is the training score higher or lower?
 
 </opt>
 
@@ -836,14 +793,12 @@ Great! The model predicted this one incorrectly.
 
 </exercise>
 
-
 <exercise id="18" title= "Quick Questions on Tradeoff and Golden Rule">
 
 **Question 1**   
 If we are hyperparameter tuning, which depth would you select for this model given the graph below? 
 
 <center><img src="/module3/chart_pk2.png"  width = "80%" alt="404 image" /></center>
-
 
 <choice id="1">
 
@@ -853,13 +808,11 @@ Where is the cross-validation error the lowest?
 
 </opt>
 
-
 <opt text= "4" >
  
 Where is the cross-validation error the lowest?
 
 </opt>
-
 
 <opt text= "6" correct="true">
  
@@ -873,9 +826,7 @@ Where is the cross-validation error the lowest?
 
 </opt>
 
-
 </choice>
-
 
 
 **Question 2**   
@@ -891,7 +842,6 @@ This actually must be used in the training phase.
 
 </opt>
 
-
 <opt text= "Validation" >
  
 Not this time. 
@@ -904,11 +854,9 @@ Great!
 
 </opt>
 
-
 </choice>
 
 </exercise>
-
 
 <exercise id="19" title="True or False ">
 
@@ -919,7 +867,7 @@ _The fundamental tradeoff of ML states that as training error goes down, test er
 <choice id="1" >
 <opt text="True">  
 
-The fundamental tradeoff of ML states:  As  model complexity ↑,     𝐸_train ↓     but 𝐸valid−𝐸train  tend to ↑. 
+The fundamental tradeoff of ML states:  As model complexity ↑,     𝐸_train ↓     but 𝐸_valid−𝐸_train  tend to ↑. 
 
 </opt>
 
@@ -938,7 +886,7 @@ _A model cannot simultaneously have high bias and high variance._
 <choice id="2">
 <opt text="True">
 
-Variance and Bias are not mutually exclusive. 
+Variance and bias are not mutually exclusive. 
 
 </opt>
 
@@ -950,7 +898,6 @@ Nailed it!
 
 </choice >
 
-
 **True or False**
 
 _In supervised learning, the training error is always lower than the validation error._
@@ -958,7 +905,7 @@ _In supervised learning, the training error is always lower than the validation 
 <choice id="3">
 <opt text="True" >
 
-Although generally this is the case, it's possible for validation error to be lower.
+Although this is the case often, validation error can be lower.
 
 </opt>
 
@@ -971,7 +918,6 @@ Nice work!
 </choice >
 
 </exercise>
-
 
 <exercise id="20" title="Picking your Hyperparameter">
 
@@ -993,7 +939,7 @@ Tasks:
 - Build a model using `DecisionTreeClassifier()` using the optimal `max_depth`. 
 - Save this in an object named `model`. 
 - Fit your model on the objects `X_train` and `y_train`.
-- Evaluate the test error of the model using score on `X_test` and `y_test` and save the values in an object named `test_error` rounded to 4 decimal places.
+- Evaluate the test error of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_error` rounded to 4 decimal places.
 
 <codeblock id="03_17">
 
@@ -1001,11 +947,10 @@ Tasks:
 - Are you using the model named `model`?
 - Are you calling `.fit(X_train, y_train)` on your model?
 - Are you scoring your model using `model.score(X_test, y_test)`?
-- Are your rounding to 4 decimal places?
+- Are you rounding to 4 decimal places?
 - Are you calculating `test_error` as  `round(1 - model.score(X_test, y_test), 4)` )
 
 </codeblock>
-
 
 
 **Question 1**    
@@ -1020,7 +965,7 @@ Nice job!
 
 <opt text="No">
 
-Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03.
+Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03?
 
 </opt>
 
@@ -1029,8 +974,8 @@ Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03.
 </exercise>
 
 
-
 <exercise id="21" title="What Did We Just Learn?" type="slides, video">
 <slides source="module3/module3_end" shot="0" start="0:003" end="1:54">
 </slides>
 </exercise>
+

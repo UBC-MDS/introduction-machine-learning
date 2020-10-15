@@ -6,11 +6,9 @@ from sklearn.model_selection import cross_validate
 # Loading in the data
 pokemon = pd.read_csv('data/pokemon.csv')
 
-# Define X and y
 X = pokemon.loc[:, 'speed':'capture_rt']
 y = pokemon['legendary']
 
-# Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=7)
 
@@ -20,7 +18,7 @@ model = DecisionTreeClassifier()
 # Cross validate
 scores = cross_validate(model, X, y, cv=10, return_train_score=True)
 
-# Covert scores into a dataframe
+# Convert scores into a dataframe
 scores_df = pd.DataFrame(scores)
 
 # Calculate the mean value of each column
