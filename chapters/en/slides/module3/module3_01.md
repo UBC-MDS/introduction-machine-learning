@@ -47,10 +47,13 @@ Notes:
 
 We keep aside some randomly selected portion from the training data.
 
+We `fit` (train) a model on the training portion only.
+
+We `score` (assess) the trained model on this set aside data to get a
+sense of how well the model would be able to generalize.
+
 We pretend that the kept aside data is representative of the real
-distribution (𝐷) of data. Then we only `fit` a model on the training
-portion only. We evaluate the trained model on this set-aside data to
-get a sense of how well the model would be able to generalize.
+distribution (𝐷) of data.
 
 ---
 
@@ -68,7 +71,10 @@ The data is shuffled before splitting.
 
 We then split up our data into 2 separate sections.
 
-They can be of different sizes.
+The picture shows an 80%-20% split of a toy dataset with 10 examples.
+
+Usually when we do machine learning we split the data before doing
+anything and put the test data in an imaginary chest lock.
 
 ---
 
@@ -321,13 +327,30 @@ States cities (blue)
 ``` python
 model = DecisionTreeClassifier()
 model.fit(X_train, y_train)
-
-# Let's examine the train and test errors with the split now.
 ```
 
 ```out
 DecisionTreeClassifier()
 ```
+
+Notes:
+
+Now when we examine the train and test error with the split we can see
+our model does not do as well a job generalizing as we did before.
+
+Our training error is 0, however, our testing error is 26%.
+
+---
+
+<center>
+
+<img src="/module3/module3_01a.png"  width = "60%" alt="404 image" />
+
+</center>
+
+Notes:
+
+---
 
 ``` python
 print("Train error: " + str(round(1 - model.score(X_train, y_train), 2)))
@@ -342,15 +365,23 @@ print("Test error: " + str(round(1 - model.score(X_test, y_test), 2)))
 ```
 
 ```out
-Test error: 0.26
+Test error: 0.24
 ```
 
 Notes:
+
+Let’s examine the train and test accuracies with the split now.
 
 Now when we examine the train and test error with the split we can see
 our model does not do as well a job generalizing as we did before.
 
 Our training error is 0, however, our testing error is 26%.
+
+---
+
+<img src="/module3/module3_01/unnamed-chunk-17-1.png" width="1536" />
+
+Notes:
 
 ---
 

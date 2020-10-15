@@ -24,13 +24,22 @@ We’ve talked about how it’s beneficial to the generalization of our
 model to split our data into a `train` and a `test` set so we can see
 how well the model performs on data it has not seen.
 
-We’ve also talked about hyperparameters.
+We’ve also talked about hyperparameter tuning.
 
-Sometimes it’s a good idea to have a separate data for tuning the
-hyperparameters of a model so that we obtain a model that generalizes in
-the best possible way.
+We do not want to use the test set for this because in that case it will
+no longer truly be “unseen data”.
 
-This data is called the ***validation*** set.
+It’s a good idea to have separate data for tuning the hyperparameters of
+a model that is not the test test so that we obtain a model that
+generalizes in the best possible way.
+
+This additional data split is called the ***validation*** set.
+
+So we actually want to split our dataset into 3 splits: train,
+validation, and test.
+
+We can use the validation data for model tuning (e.g. selecting
+hyperparameters) and the test data for a final, “pure” model assessment.
 
 ---
 

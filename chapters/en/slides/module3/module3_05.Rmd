@@ -79,12 +79,17 @@ Notes:
 
 We've talked about how it's beneficial to the generalization of our model to split our data into a `train` and a `test` set so we can see how well the model performs on data it has not seen.
 
-We've also talked about hyperparameters.
+We've also talked about hyperparameter tuning.
 
-Sometimes it's a good idea to have a separate data for tuning the hyperparameters of a model so that we obtain a model that generalizes in the best possible way.
+We do not want to use the test set for this because in that case it will no longer truly be "unseen data".
 
-This data is called the ***validation*** set. 
+It's a good idea to have separate data for tuning the hyperparameters of a model that is not the test test so that we obtain a model that generalizes in the best possible way.
 
+This additional data split is called the ***validation*** set. 
+
+So we actually want to split our dataset into 3 splits: train, validation, and test.
+
+We can use the validation data for model tuning (e.g. selecting hyperparameters) and the test data for a final, "pure" model assessment.
 
 ---
 
@@ -136,6 +141,7 @@ We use validation and test errors as proxies for deployment error, and we hope t
 So, if our model does well on the validation and test data, we hope it will do well on deployment data.
 
 
+
 ---
 
 |         | `fit` | `score` | `predict` |
@@ -145,7 +151,7 @@ So, if our model does well on the validation and test data, we hope it will do w
 | Test    |       |  once   | once         |
 | Deployment    |       |       | ✔️         |
 
-You can typically expect  **𝐸_𝑡𝑟𝑎𝑖𝑛<𝐸_𝑣𝑎𝑙𝑖𝑑𝑎𝑡𝑖𝑜𝑛<_𝐸_𝑡𝑒𝑠𝑡<𝐸_𝑑𝑒𝑝𝑙𝑜𝑦𝑚𝑒𝑛𝑡**. 
+We can typically expect  **𝐸_𝑡𝑟𝑎𝑖𝑛<𝐸_𝑣𝑎𝑙𝑖𝑑𝑎𝑡𝑖𝑜𝑛<_𝐸_𝑡𝑒𝑠𝑡<𝐸_𝑑𝑒𝑝𝑙𝑜𝑦𝑚𝑒𝑛𝑡**. 
 
 
 

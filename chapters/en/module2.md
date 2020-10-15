@@ -236,7 +236,7 @@ Is the fruit yellow?
 
 <exercise id="6" title="Decision Trees True/False">
 
-**True or False:**    
+**True or False**    
 *`DecisionTreeClassifier` does not consider features in it's prediction just like `DummyClassifier`*
 
 
@@ -255,7 +255,7 @@ Decision trees make predictions based on the outcome from conditions determined 
 
 </choice>
 
-**True or False:**    
+**True or False**    
 *We need to `.fit` our decision tree model before we call `.predict`.*
 
 <choice id="2">
@@ -273,7 +273,7 @@ We must always train our model on the data before prediction.
 
 </choice >
 
-**True or False:**      
+**True or False**      
 *Decision trees always give the correct answer for a single prediction..*
 
 <choice id="3">

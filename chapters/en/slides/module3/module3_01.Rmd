@@ -56,6 +56,8 @@ pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 15)
 
 path = "../../../../static/module3/"
+
+from display_tree import display_tree
 ```
 
 
@@ -105,9 +107,11 @@ Notes:
 
 We keep aside some randomly selected portion from the training data.
 
+We `fit` (train) a model on the training portion only. 
+
+We `score` (assess) the trained model on this set aside data to get a sense of how well the model would be able to generalize.
+
 We pretend that the kept aside data is representative of the real distribution (𝐷) of data. 
-Then we only `fit` a model on the training portion only. 
-We evaluate the trained model on this set-aside data to get a sense of how well the model would be able to generalize.
 
 ---
 
@@ -119,11 +123,14 @@ We evaluate the trained model on this set-aside data to get a sense of how well 
 
 Notes: 
 
+
 The data is shuffled before splitting. 
 
 We then split up our data into 2 separate sections. 
 
-They can be of different sizes. 
+The picture shows an 80%-20% split of a toy dataset with 10 examples. 
+
+Usually when we do machine learning we split the data before doing anything and put the test data in an imaginary chest lock. 
 
 ---
 
@@ -282,9 +289,6 @@ Notes:  Now we can plot the data from the training data `train_df`, we can diffe
 model = DecisionTreeClassifier()
 model.fit(X_train, y_train)
 
-# Let's examine the train and test errors with the split now.
-print("Train error: " + str(round(1 - model.score(X_train, y_train), 2)))
-print("Test error: " + str(round(1 - model.score(X_test, y_test), 2)))
 ```
 
 
@@ -296,6 +300,53 @@ Our training error is 0, however, our testing error is 26%.
 
 ---
 
+```{python include=FALSE}
+display_tree(X.columns, model, "../../../../static/module3/module3_01a")
+```
+
+<center><img src="/module3/module3_01a.png"  width = "60%" alt="404 image" /></center>
+
+Notes:
+
+
+---
+
+
+```{python}
+print("Train error: " + str(round(1 - model.score(X_train, y_train), 2)))
+print("Test error: " + str(round(1 - model.score(X_test, y_test), 2)))
+```
+
+Notes:
+
+Let's examine the train and test accuracies with the split now.
+
+Now when we examine the train and test error with the split we can see our model does not do as well a job generalizing as we did before. 
+
+Our training error is 0, however, our testing error is 26%.
+
+---
+
+```{python echo=FALSE}
+model.fit(X_train, y_train);
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1);
+plt.title("decision tree model on the training data");
+plot_classifier(X_train, y_train, model, ticks=True, ax=plt.gca())
+plt.xlabel("longitude")
+plt.ylabel("lattitude")
+plt.subplot(1, 2, 2);
+plt.title("decision tree model on the test data")
+plot_classifier(X_test, y_test, model, ticks=True, ax=plt.gca())
+plt.xlabel("longitude")
+plt.ylabel("lattitude")
+```
+
+Notes: 
+
+
+
+---
 
 ### *test_size* and *train_size* arguments
 
@@ -321,7 +372,7 @@ When we specify how we want to split the data, we can specify either `test_size`
 
 See the documentation <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">here</a>.
 
-There is no hard and fast rule on what split sizes should we use and it depends upon how much data is available to you. 
+There is no hard and fast rule on the split sizes should we use and it depends upon how much data is available to us 
 
 Some common splits are 90/10, 80/20, 70/30 (training/test).
 
@@ -358,9 +409,9 @@ Notes:
 The data is shuffled before splitting which is a crucial step. 
 The `random_state` argument controls this shuffling. 
 
-In the example above we used `random_state=5` and `random_state=7` and you can see that they contain different observations.
+In the example above we used `random_state=5` and `random_state=7` and we can see that they contain different observations.
 
-Setting the random_state is useful when you want reproducible results. 
+Setting the random_state is useful when we want reproducible results. 
 
 ---
 
