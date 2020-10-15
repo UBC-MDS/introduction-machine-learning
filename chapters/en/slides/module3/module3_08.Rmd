@@ -62,7 +62,7 @@ from display_tree import display_tree
 
 type: slides
 
-# Cross validation
+# Cross-validation
 
 Notes: <br>
 
@@ -78,7 +78,7 @@ Notes:
 
 We saw that it's necessary to split our data into multiple different sets/splits but is having a single train and validation split optimal? 
 
-The problem with having a single train/validation split is that now we are using only a portion of our data for training and onlu a portion for validation. 
+The problem with having a single train/validation split is that now we are using only a portion of our data for training and only a portion for validation. 
 
 If our dataset is small we might end up with a tiny training and/or validation set.
 
@@ -97,7 +97,7 @@ Notes:
 
 We use something called ***cross-validation*** or ***𝑘-fold cross-validation*** as a solution to this problem.. 
 
-Cross Validation helps us use all of our data for training/validation!
+Cross-validation helps us use all of our data for training/validation!
 
 Cross-validation consists of splitting the data into k-folds ( 𝑘>2 , often  𝑘=10 ).  In the picture below  𝑘=4 .
 
@@ -109,12 +109,12 @@ It's better to notice the variation in the scores across folds.
 
 We can get a more "robust" measure of error on unseen data.
 
-The main disadvantage here is that this is slower, which is a problem for bigger data sets / more complex models.
+The main disadvantage here is that this is slower, which is a problem for bigger datasets / more complex models.
 
 
 ---
 
-## Cross validation using scikit-learn
+## Cross-validation using scikit-learn
 
 
 ```{python}
@@ -193,7 +193,7 @@ Notes:
 
 `cross_val_score()` is the simpler scikit-learn function for cross-validation.
 
-Let's us access training and validation scores.  
+Let us access training and validation scores.  
 
 `scores` is returned as a dictionary but it's much easier to understand if we convert it to a dataframe.
 
@@ -214,7 +214,7 @@ Using `cross_validate()` instead of `cross_val_score()` gives us more informatio
 
 `cross_val_score()` was just returning that last column, but here we get the time spent and the training scores.
 
-We can calculate the mean of each column for the total 10 folds.
+We can calculate the mean of each column on the 10 folds.
 
 It's a bit unfortunate that they call it "test_score" in scikit-learn; for us this is a validation score.
 

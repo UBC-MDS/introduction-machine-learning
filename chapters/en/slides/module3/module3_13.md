@@ -10,15 +10,15 @@ Notes: <br>
 
 We’re going to think about 4 types of errors:
 
-  - **𝐸\_train**: is your training error (or mean train error from
+  - **𝐸\_train**: is our training error (or mean train error from
     cross-validation).
-  - **𝐸\_valid** is your validation error (or mean validation error from
+  - **𝐸\_valid** is our validation error (or mean validation error from
     cross-validation).
-  - **𝐸\_test** is your test error.
-  - **𝐸\_best** is the best possible error you could get for a given
+  - **𝐸\_test** is our test error.
+  - **𝐸\_best** is the best possible error we could get for a given
     problem.
 
-Question: Why is 𝐸\_best\>0 ?
+Question: Why is 𝐸\_best\>0?
 
 Notes:
 
@@ -26,18 +26,18 @@ We’ve talked about the different types of splits but we’ve only briefly
 discussed error and the different types of error that we receive when
 building models.
 
-We saw in cross validation that there was train and validation error and
+We saw in cross-validation that there was train and validation error and
 image if they did not align with each other.
 
-How do you diagnose the problem?
+How do we diagnose the problem?
 
 We’re going to think about 4 types of errors:
 
-  - 𝐸\_train is your training error (or mean train error from
+  - 𝐸\_train is our training error (or mean train error from
     cross-validation).
-  - 𝐸\_valid is your validation error (or mean validation error from
-    cross-validation). -𝐸\_test is your test error. -𝐸\_best is the best
-    possible error you could get for a given problem.
+  - 𝐸\_valid is our validation error (or mean validation error from
+    cross-validation). -𝐸\_test is our test error. -𝐸\_best is the best
+    possible error we could get for a given problem.
 
 ---
 
@@ -52,7 +52,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 Notes:
 
-Let’s bring back our Canadian and United States cities data to help
+Let’s bring back our Canadian and United States cities’ data to help
 explain the concepts of overfitting and underfitting.
 
 ---
@@ -75,16 +75,16 @@ Validation error:   0.191
 
 Notes:
 
-Using decision tree with no specified max\_depth, we can explain the
+Using a decision tree with no specified max\_depth, we can explain the
 phenomenon is called ***overfitting***.
 
 Overfitting is when our model fits the training data well and therefore
-the training error is low, however the model does not generalize to the
+the training error is low, however, the model does not generalize to the
 validation set as well and the validation error is much higher.
 
-The Train error is low but validation error is much higher.
+The Train error is low but the validation error is much higher.
 
-The gap between train and validation error is bigger.
+The gap between the train and validation error is bigger.
 
 A standard overfitting scenario would be:
 **𝐸\_train\<𝐸\_best\<𝐸\_valid**
@@ -93,7 +93,7 @@ If 𝐸\_train is low, then we are in an overfitting scenario. It is fairly
 common to have at least a bit of this
 
 𝐸\_valid cannot be smaller than 𝐸\_best basically by definition. In
-reality you won’t have them equal.
+reality, we won’t have them equal.
 
 ---
 
@@ -116,11 +116,11 @@ Validation error: 0.19
 
 Notes:
 
-Using decision tree with a max\_depth of 1, we can explain the
+Using a decision tree with a max\_depth of 1, we can explain the
 phenomenon is called ***underfitting***.
 
-Underfitting is when our model is too simple (DecisionTreeClassifier
-with max\_depth=1 or DummyClassifier).
+Underfitting is when our model is too simple (`DecisionTreeClassifier`
+with max\_depth=1 or `DummyClassifier`).
 
 The model doesn’t capture the patterns in the training data and the
 training error is not that low.
@@ -140,16 +140,16 @@ validation error is lower.
 
 </center>
 
-Standard question to ask yourself: ***Which of these scenarios am I
+Standard question to ask ourselves: ***Which of these scenarios am I
 in?***
 
-### How can you figure this out?
+### How can we figure this out?
 
-You can’t see 𝐸\_best but you can see 𝐸\_train and 𝐸\_test.
+We can’t see 𝐸\_best but we can see 𝐸\_train and 𝐸\_test.
 
   - If they are very far apart → more likely **overfitting**.
       - Try decreasing model complexity.
-  - If they are very close together → underfitting regime.
+  - If they are very close together → more likely **underfitting**.
       - Try increasing model complexity.
 
 Notes:

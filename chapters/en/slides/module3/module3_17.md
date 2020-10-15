@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# The fundamental tradoff and the golden rule
+# The fundamental tradeoff and the golden rule
 
 Notes: <br>
 
@@ -20,7 +20,7 @@ Notes: <br>
 
 Notes:
 
-Befor going further, let’s just remind ourselves on the different
+Before going further, let’s just remind ourselves of the different
 possible errors.
 
 ---
@@ -89,7 +89,7 @@ So how do we deal with this?
 
 How do we avoid both underfitting and overfitting?
 
-First let’s bring in our data again.
+First, let’s bring in our data again.
 
 We are using our family Canada and US cities data.
 
@@ -130,13 +130,13 @@ depth
 2              0.155011       0.195956      0.085624         0.006376
 3              0.137033       0.195588      0.089631         0.016135
 4              0.093135       0.159926      0.090119         0.006472
-5              0.081152       0.154044      0.082789         0.012076
+5              0.081152       0.148162      0.078801         0.012076
 ...                 ...            ...           ...              ...
-15             0.000000       0.196691      0.101277         0.000000
-16             0.000000       0.196691      0.101277         0.000000
+15             0.000000       0.184926      0.080262         0.000000
+16             0.000000       0.190809      0.089655         0.000000
 17             0.000000       0.190809      0.089655         0.000000
-18             0.000000       0.196691      0.101277         0.000000
-19             0.000000       0.190809      0.089655         0.000000
+18             0.000000       0.190809      0.089655         0.000000
+19             0.000000       0.196691      0.101277         0.000000
 
 [19 rows x 4 columns]
 ```
@@ -179,7 +179,7 @@ results_df[results_df['mean_cv_error'] ==results_df['mean_cv_error'].min()]
 ```out
        mean_train_error  mean_cv_error  std_cv_error  std_train_error
 depth                                                                
-5              0.081152       0.154044      0.082789         0.012076
+5              0.081152       0.148162      0.078801         0.012076
 ```
 
 ``` python
@@ -210,8 +210,8 @@ Let’s now compare this error with the model’s test error.
 
 Is the test error comparable with the cross-validation error?
 
-Do we feel confident that this model would give similar performace when
-deployed?
+Do we feel confident that this model would give a similar performance
+when deployed?
 
 ---
 
@@ -235,7 +235,7 @@ We have to be very careful not to violate it while developing our ML
 pipeline.
 
 Even experts end up breaking it sometimes which leads to misleading
-results and lack of generalization on the real data.
+results and a lack of generalization on the real data.
 
 ---
 
@@ -278,7 +278,7 @@ allow.*
 
 ---
 
-## How can we avoid violating golden rule?
+## How can we avoid violating the golden rule?
 
 <br> <br> <br>
 

@@ -12,30 +12,32 @@ Notes: <br>
 
 ### Training error versus Generalization error
 
-  - Given a model 𝑀, in ML, people usually talk about two kinds of
-    errors of 𝑀:
+  - Given a model 𝑀, in Machine Learning (ML), people usually talk about
+    two kinds of errors of 𝑀:
 
 <!-- end list -->
 
 1.  Error on the training data
-    <img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
+    <img src="/module2/trainning_e.gif"  width = "12%" alt="404 image" />
 
 2.  Error on the entire distribution 𝐷 of data
     <img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
 
 Notes:
 
-At the end of Module 2, we discussed two kinds of errors in a model.
+At the end of module 2, we discussed two kinds of errors in a model.
 
 1.  Error on the training data: \(error_{training}(M)\)
 2.  Error on the entire distribution \(D\) of data: \(error_{D}(M)\)
 
-but we do not have access to the entire distribution which is where our
+But we do not have access to the entire distribution which is where our
 interests lie so what do we do?
 
 ---
 
 ## We can approximate generalization error by splitting our data\!
+
+<br> <br>
 
 <center>
 
@@ -49,7 +51,7 @@ We keep aside some randomly selected portion from the training data.
 
 We `fit` (train) a model on the training portion only.
 
-We `score` (assess) the trained model on this set aside data to get a
+We `score` (assess) the trained model on this set-aside data to get a
 sense of how well the model would be able to generalize.
 
 We pretend that the kept aside data is representative of the real
@@ -58,6 +60,8 @@ distribution (𝐷) of data.
 ---
 
 ## Simple train and test split
+
+<br> <br>
 
 <center>
 
@@ -73,7 +77,7 @@ We then split up our data into 2 separate sections.
 
 The picture shows an 80%-20% split of a toy dataset with 10 examples.
 
-Usually when we do machine learning we split the data before doing
+Usually, when we do machine learning we split the data before doing
 anything and put the test data in an imaginary chest lock.
 
 ---
@@ -95,9 +99,9 @@ with both `X` and `y` in it.
 
 It uses useful arguments such as:
 
-    - `test_size`
-    - `train_size`
-    - `random_state`
+  - `test_size`
+  - `train_size`
+  - `random_state`
 
 ---
 
@@ -183,8 +187,7 @@ from sklearn.model_selection import train_test_split
 
 # Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=123
-)
+    X, y, test_size=0.2, random_state=123)
 ```
 
 ``` python
@@ -312,15 +315,14 @@ chart_cities = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
     alt.X('longitude:Q', scale=alt.Scale(domain=[-140, -40])),
     alt.Y('latitude:Q', scale=alt.Scale(domain=[20, 60])),
     alt.Color('country:N', scale=alt.Scale(domain=['Canada', 'USA'],
-                                           range=['red', 'blue']))
-)
+                                           range=['red', 'blue'])))
 chart_cities
 ```
-<img src="/module3/chart_cities.png" alt="A caption" width="50%" />
+<img src="/module3/chart_cities.png" alt="A caption" width="63%" />
 
 Notes: Now we can plot the data from the training data `train_df`, we
 can differentiate between the Canadian cities (red) and the United
-States cities (blue)
+States cities (blue).
 
 ---
 
@@ -335,16 +337,13 @@ DecisionTreeClassifier()
 
 Notes:
 
-Now when we examine the train and test error with the split we can see
-our model does not do as well a job generalizing as we did before.
-
-Our training error is 0, however, our testing error is 26%.
+We can build our model and fit our data.
 
 ---
 
 <center>
 
-<img src="/module3/module3_01a.png"  width = "60%" alt="404 image" />
+<img src="/module3/module3_01a.png"  width = "83%" alt="404 image" />
 
 </center>
 
@@ -365,7 +364,7 @@ print("Test error: " + str(round(1 - model.score(X_test, y_test), 2)))
 ```
 
 ```out
-Test error: 0.24
+Test error: 0.29
 ```
 
 Notes:
@@ -375,13 +374,16 @@ Let’s examine the train and test accuracies with the split now.
 Now when we examine the train and test error with the split we can see
 our model does not do as well a job generalizing as we did before.
 
-Our training error is 0, however, our testing error is 26%.
+Our training error is 0, however, our testing error is 0.26.
 
 ---
 
-<img src="/module3/module3_01/unnamed-chunk-17-1.png" width="1536" />
+<img src="/module3/module3_01/unnamed-chunk-17-1.png" width="105%" />
 
 Notes:
+
+The plot above shows the boundaries from the tree trained on training
+data and the test data.
 
 ---
 
@@ -417,8 +419,8 @@ When we specify how we want to split the data, we can specify either
 See the documentation
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">here</a>.
 
-There is no hard and fast rule on what split sizes should we use and it
-depends upon how much data is available to you.
+There is no hard and fast rule on the split sizes should we use and it
+depends upon how much data is available to us
 
 Some common splits are 90/10, 80/20, 70/30 (training/test).
 
@@ -464,9 +466,9 @@ The data is shuffled before splitting which is a crucial step. The
 `random_state` argument controls this shuffling.
 
 In the example above we used `random_state=5` and `random_state=7` and
-you can see that they contain different observations.
+we can see that they contain different observations.
 
-Setting the random\_state is useful when you want reproducible results.
+Setting the random\_state is useful when we want reproducible results.
 
 ---
 

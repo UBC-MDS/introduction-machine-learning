@@ -88,7 +88,6 @@ It's a better idea to do it as soon as possible.
 </choice>
 
 **Question 3**   
-
 Why do we split our data?
 
 <choice id="3" >
@@ -116,7 +115,6 @@ Not quite but this may be a side effect.
 <exercise id="3" title="Decision Tree Outcome">
 
 **True or False?**
-
 _Splitting your data is randomized and you will get different results each time._
 
 <choice id="1" >
@@ -135,8 +133,7 @@ Great!
 </choice>
 
 **True or False**
-
-_When using `train_test_split()`, you must specify both `test_size` and `train_size`._
+*When using `train_test_split()`, you must specify both `test_size` and `train_size`.*
 
 <choice id="2">
 <opt text="True" >
@@ -280,7 +277,6 @@ This is never scored.
 </choice>
 
 **Question 3**   
-
 What is only ever scored once?
 
 <choice id="3" >
@@ -316,7 +312,6 @@ This is never scored.
 <exercise id="7" title="Decision Tree Outcome">
 
 **True or False?**
-
 _Deployment data is used at the very end and only scored once._
 
 <choice id="1" >
@@ -335,7 +330,6 @@ Nice job.
 </choice>
 
 **True or False**
-
 _Validation data is used to help tune hyperparameters._
 
 <choice id="2">

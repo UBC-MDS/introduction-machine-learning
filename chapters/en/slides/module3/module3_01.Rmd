@@ -73,10 +73,10 @@ Notes: <br>
 
 ### Training error versus Generalization error 
 
-- Given a model 𝑀, in ML, people usually talk about two kinds of errors of 𝑀:
+- Given a model 𝑀, in Machine Learning (ML), people usually talk about two kinds of errors of 𝑀:
 
 1. Error on the training data
-<img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
+<img src="/module2/trainning_e.gif"  width = "12%" alt="404 image" />
     
 2. Error on the entire distribution 𝐷 of data
 <img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
@@ -84,12 +84,12 @@ Notes: <br>
 
 Notes: 
 
-At the end of Module 2, we discussed two kinds of errors in a model. 
+At the end of module 2, we discussed two kinds of errors in a model. 
 
 1. Error on the training data: $error_{training}(M)$ 
 2. Error on the entire distribution $D$ of data: $error_{D}(M)$
 
-but we do not have access to the entire distribution which is where our interests lie so what do we do? 
+But we do not have access to the entire distribution which is where our interests lie so what do we do? 
 
 
 
@@ -97,6 +97,8 @@ but we do not have access to the entire distribution which is where our interest
 
 ## We can approximate generalization error by splitting our data!
 
+<br>
+<br>
 
 <center><img src="/module3/splitted.png"  width = "100%" alt="404 image" /></center>
 
@@ -109,7 +111,7 @@ We keep aside some randomly selected portion from the training data.
 
 We `fit` (train) a model on the training portion only. 
 
-We `score` (assess) the trained model on this set aside data to get a sense of how well the model would be able to generalize.
+We `score` (assess) the trained model on this set-aside data to get a sense of how well the model would be able to generalize.
 
 We pretend that the kept aside data is representative of the real distribution (𝐷) of data. 
 
@@ -117,6 +119,8 @@ We pretend that the kept aside data is representative of the real distribution (
 
 ## Simple train and test split
 
+<br>
+<br>
 
 <center><img src="/module3/train-test-split.png"  width = "100%" alt="404 image" /></center>
 
@@ -130,7 +134,7 @@ We then split up our data into 2 separate sections.
 
 The picture shows an 80%-20% split of a toy dataset with 10 examples. 
 
-Usually when we do machine learning we split the data before doing anything and put the test data in an imaginary chest lock. 
+Usually, when we do machine learning we split the data before doing anything and put the test data in an imaginary chest lock. 
 
 ---
 
@@ -146,9 +150,9 @@ It gives us the versatility to either pass `X` and `y` or a dataframe with both 
 
 It uses useful arguments such as:
 
-    - `test_size`
-    - `train_size`
-    - `random_state`
+- `test_size`
+- `train_size`
+- `random_state`
 
 ---
 
@@ -187,9 +191,7 @@ from sklearn.model_selection import train_test_split
 
 # Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=123
-)
-
+    X, y, test_size=0.2, random_state=123)
 ```
 
 ```{python}
@@ -270,8 +272,7 @@ chart_cities = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
     alt.X('longitude:Q', scale=alt.Scale(domain=[-140, -40])),
     alt.Y('latitude:Q', scale=alt.Scale(domain=[20, 60])),
     alt.Color('country:N', scale=alt.Scale(domain=['Canada', 'USA'],
-                                           range=['red', 'blue']))
-)
+                                           range=['red', 'blue'])))
 chart_cities
 ```
 
@@ -279,9 +280,9 @@ chart_cities
 chart_cities.save(path + 'chart_cities.png')
 ```
 
-<img src="/module3/chart_cities.png" alt="A caption" width="50%" />
+<img src="/module3/chart_cities.png" alt="A caption" width="63%" />
 
-Notes:  Now we can plot the data from the training data `train_df`, we can differentiate between the Canadian cities (red) and the United States cities (blue)
+Notes:  Now we can plot the data from the training data `train_df`, we can differentiate between the Canadian cities (red) and the United States cities (blue).
 
 ---
 
@@ -294,9 +295,7 @@ model.fit(X_train, y_train)
 
 Notes: 
 
-Now when we examine the train and test error with the split we can see our model does not do as well a job generalizing as we did before. 
-
-Our training error is 0, however, our testing error is 26%.
+We can build our model and fit our data.
 
 ---
 
@@ -304,7 +303,7 @@ Our training error is 0, however, our testing error is 26%.
 display_tree(X.columns, model, "../../../../static/module3/module3_01a")
 ```
 
-<center><img src="/module3/module3_01a.png"  width = "60%" alt="404 image" /></center>
+<center><img src="/module3/module3_01a.png"  width = "83%" alt="404 image" /></center>
 
 Notes:
 
@@ -323,11 +322,11 @@ Let's examine the train and test accuracies with the split now.
 
 Now when we examine the train and test error with the split we can see our model does not do as well a job generalizing as we did before. 
 
-Our training error is 0, however, our testing error is 26%.
+Our training error is 0, however, our testing error is 0.26.
 
 ---
 
-```{python echo=FALSE}
+```{python echo=FALSE,  out.width = '105%'}
 model.fit(X_train, y_train);
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1);
@@ -343,6 +342,9 @@ plt.ylabel("lattitude")
 ```
 
 Notes: 
+
+
+The plot above shows the boundaries from the tree trained on training data and the test data.
 
 
 

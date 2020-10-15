@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Cross validation
+# Cross-validation
 
 Notes: <br>
 
@@ -24,7 +24,7 @@ We saw that it’s necessary to split our data into multiple different
 sets/splits but is having a single train and validation split optimal?
 
 The problem with having a single train/validation split is that now we
-are using only a portion of our data for training and onlu a portion for
+are using only a portion of our data for training and only a portion for
 validation.
 
 If our dataset is small we might end up with a tiny training and/or
@@ -50,7 +50,7 @@ Notes:
 We use something called ***cross-validation*** or ***𝑘-fold
 cross-validation*** as a solution to this problem..
 
-Cross Validation helps us use all of our data for training/validation\!
+Cross-validation helps us use all of our data for training/validation\!
 
 Cross-validation consists of splitting the data into k-folds ( 𝑘\>2 ,
 often 𝑘=10 ). In the picture below 𝑘=4 .
@@ -64,11 +64,11 @@ It’s better to notice the variation in the scores across folds.
 We can get a more “robust” measure of error on unseen data.
 
 The main disadvantage here is that this is slower, which is a problem
-for bigger data sets / more complex models.
+for bigger datasets / more complex models.
 
 ---
 
-## Cross validation using scikit-learn
+## Cross-validation using scikit-learn
 
 ``` python
 df = pd.read_csv("data/canada_usa_cities.csv")
@@ -131,7 +131,7 @@ array([0.76470588, 0.82352941, 0.70588235, 0.94117647, 0.82352941, 0.82352941, 0
 Notes:
 
 We can change the number of folds too. Now, when we change it to 10, we
-get 10 different scores
+get 10 different scores.
 
 ---
 
@@ -145,7 +145,7 @@ scores
 ```
 
 ```out
-{'fit_time': array([0.00220394, 0.00187182, 0.00186992, 0.00209212, 0.00202441, 0.00237799, 0.0022459 , 0.00207806, 0.00216293, 0.00210214]), 'score_time': array([0.00145507, 0.00139809, 0.00212693, 0.00145793, 0.00181079, 0.00168109, 0.00144506, 0.00144625, 0.00141811, 0.00159478]), 'test_score': array([0.57142857, 0.38095238, 0.42857143, 0.66666667, 1.        , 1.        , 0.85714286, 0.9047619 , 1.        , 0.9       ]), 'train_score': array([0.89361702, 0.88829787, 0.93617021, 0.92021277, 0.86702128, 0.86702128, 0.88829787, 0.87234043, 0.86702128, 0.88888889])}
+{'fit_time': array([0.00258493, 0.00194001, 0.00305104, 0.00276184, 0.002141  , 0.00287104, 0.00263596, 0.00236583, 0.00234509, 0.00221801]), 'score_time': array([0.00159812, 0.00159097, 0.00197196, 0.00201106, 0.00173998, 0.00204182, 0.00169015, 0.00173116, 0.00158501, 0.00167108]), 'test_score': array([0.57142857, 0.38095238, 0.42857143, 0.66666667, 1.        , 1.        , 0.85714286, 0.95238095, 1.        , 0.9       ]), 'train_score': array([0.89361702, 0.88829787, 0.93617021, 0.92021277, 0.86702128, 0.86702128, 0.88829787, 0.87234043, 0.86702128, 0.88888889])}
 ```
 
 Notes:
@@ -153,7 +153,7 @@ Notes:
 `cross_val_score()` is the simpler scikit-learn function for
 cross-validation.
 
-Let’s us access training and validation scores.
+Let us access training and validation scores.
 
 `scores` is returned as a dictionary but it’s much easier to understand
 if we convert it to a dataframe.
@@ -166,16 +166,16 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002204    0.001455    0.571429     0.893617
-1  0.001872    0.001398    0.380952     0.888298
-2  0.001870    0.002127    0.428571     0.936170
-3  0.002092    0.001458    0.666667     0.920213
-4  0.002024    0.001811    1.000000     0.867021
-5  0.002378    0.001681    1.000000     0.867021
-6  0.002246    0.001445    0.857143     0.888298
-7  0.002078    0.001446    0.904762     0.872340
-8  0.002163    0.001418    1.000000     0.867021
-9  0.002102    0.001595    0.900000     0.888889
+0  0.002585    0.001598    0.571429     0.893617
+1  0.001940    0.001591    0.380952     0.888298
+2  0.003051    0.001972    0.428571     0.936170
+3  0.002762    0.002011    0.666667     0.920213
+4  0.002141    0.001740    1.000000     0.867021
+5  0.002871    0.002042    1.000000     0.867021
+6  0.002636    0.001690    0.857143     0.888298
+7  0.002366    0.001731    0.952381     0.872340
+8  0.002345    0.001585    1.000000     0.867021
+9  0.002218    0.001671    0.900000     0.888889
 ```
 
 ``` python
@@ -184,9 +184,9 @@ pd.DataFrame(pd.DataFrame(scores).mean())
 
 ```out
                     0
-fit_time     0.002103
-score_time   0.001583
-test_score   0.770952
+fit_time     0.002491
+score_time   0.001763
+test_score   0.775714
 train_score  0.888889
 ```
 
@@ -198,7 +198,7 @@ information.
 `cross_val_score()` was just returning that last column, but here we get
 the time spent and the training scores.
 
-We can calculate the mean of each column for the total 10 folds.
+We can calculate the mean of each column on the 10 folds.
 
 It’s a bit unfortunate that they call it “test\_score” in scikit-learn;
 for us this is a validation score.

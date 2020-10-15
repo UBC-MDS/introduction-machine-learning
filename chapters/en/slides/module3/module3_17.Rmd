@@ -62,7 +62,7 @@ from display_tree import display_tree
 
 type: slides
 
-# The fundamental tradoff and the golden rule
+# The fundamental tradeoff and the golden rule
 
 Notes: <br>
 
@@ -77,7 +77,7 @@ Notes: <br>
 
 Notes:
 
-Befor going further, let's just remind ourselves on the different possible errors. 
+Before going further, let's just remind ourselves of the different possible errors. 
 
 ---
 
@@ -87,7 +87,7 @@ Befor going further, let's just remind ourselves on the different possible error
 <br>
 <br>
 
-### As  model complexity ↑,     𝐸_train ↓     but 𝐸_valid−𝐸_train  tend to ↑.
+### As model complexity ↑,     𝐸_train ↓     but 𝐸_valid−𝐸_train  tend to ↑.
 
 
 Notes: 
@@ -140,9 +140,9 @@ Notes:
 
 So how do we deal with this? 
 
-How do we  avoid both underfitting and overfitting?
+How do we avoid both underfitting and overfitting?
 
-First let's bring in our data again. 
+First, let's bring in our data again. 
 
 We are using our family Canada and US cities data.
 
@@ -239,7 +239,7 @@ Let's now compare this error with the model's test error.
 
 Is the test error comparable with the cross-validation error?
 
-Do we feel confident that this model would give similar performance when deployed?
+Do we feel confident that this model would give a similar performance when deployed?
 
 
 
@@ -260,7 +260,7 @@ Even though we care the most about test error **THE TEST DATA CANNOT INFLUENCE T
 
 We have to be very careful not to violate it while developing our ML pipeline. 
 
-Even experts end up breaking it sometimes which leads to misleading results and lack of generalization on the real data. 
+Even experts end up breaking it sometimes which leads to misleading results and a lack of generalization on the real data. 
 
 ---
 
@@ -287,7 +287,7 @@ Notes:
 
 ---
 
-## How can we avoid violating golden rule? 
+## How can we avoid violating the golden rule? 
 
 <br>
 <br>

@@ -7,7 +7,6 @@ output:
     variant: gfm
 ---
 
-
 ```{r setup, include=FALSE}
 ## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
 library(rmarkdown)
@@ -29,7 +28,6 @@ output_format(knitr = knitr_opts,
 library(reticulate)
 
 ```
-
 
 ```{python include=FALSE}
 import pandas as pd
@@ -60,7 +58,6 @@ path = "../../../../static/module3/"
 from display_tree import display_tree
 ```
 
-
 type: slides
 
 # Overfitting and underfitting
@@ -76,15 +73,14 @@ We're going to think about 4 types of errors:
 - **𝐸_test**  is our test error.
 - **𝐸_best**  is the best possible error we could get for a given problem.
 
-Question: Why is  𝐸_best>0 ?
-
+Question: Why is  𝐸_best>0?
 
 
 Notes: 
 
 We've talked about the different types of splits but we've only briefly discussed error and the different types of error that we receive when building models. 
 
-We saw in cross validation that there was train and validation error and image if they did not align with each other.
+We saw in cross-validation that there was train and validation error and image if they did not align with each other.
 
 How do we diagnose the problem? 
 
@@ -108,12 +104,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 Notes: 
 
-Let's bring back our Canadian and United States cities data to help explain the concepts of overfitting and underfitting.
+Let's bring back our Canadian and United States cities' data to help explain the concepts of overfitting and underfitting.
  
 ---
 
 ## Overfitting
-
 
 ```python
 model = DecisionTreeClassifier()
@@ -129,7 +124,7 @@ Validation error:   0.191
 
 ```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '64%'}
 model = DecisionTreeClassifier()
-model.fit(X,y);
+model.fit(X, y);
 plt.figure(figsize=(4, 4))
 plot_classifier(X.to_numpy(), y.to_numpy(), model)
 plt.title("Decision tree with no max_depth")
@@ -137,19 +132,19 @@ plt.title("Decision tree with no max_depth")
 
 Notes: 
 
-Using decision tree with no specified max_depth, we can explain the phenomenon is called ***overfitting***. 
+Using a decision tree with no specified max_depth, we can explain the phenomenon is called ***overfitting***. 
 
-Overfitting is when our model fits the training data well and therefore the training error is low, however the model does not generalize to the validation set as well and the validation error is much higher. 
+Overfitting is when our model fits the training data well and therefore the training error is low, however, the model does not generalize to the validation set as well and the validation error is much higher. 
 
-The Train error is low but validation error is much higher.
+The Train error is low but the validation error is much higher.
 
-The gap between train and validation error is bigger.
+The gap between the train and validation error is bigger.
 
 A standard overfitting scenario would be: **𝐸_train<𝐸_best<𝐸_valid**
 
 If 𝐸_train is low, then we are in an overfitting scenario. It is fairly common to have at least a bit of this
  
-𝐸_valid  cannot be smaller than  𝐸_best  basically by definition. In reality we won't have them equal.
+𝐸_valid  cannot be smaller than  𝐸_best  basically by definition. In reality, we won't have them equal.
 
 ---
 
@@ -177,12 +172,11 @@ plot_classifier(X.to_numpy(), y.to_numpy(), model)
 plt.title("Decision tree with max_depth=1")
 ```
 
-
 Notes: 
 
-Using decision tree with a max_depth of 1, we can explain the phenomenon is called ***underfitting***. 
+Using a decision tree with a max_depth of 1, we can explain the phenomenon is called ***underfitting***. 
 
-Underfitting is when our model is too simple (DecisionTreeClassifier with max_depth=1 or DummyClassifier). 
+Underfitting is when our model is too simple (`DecisionTreeClassifier` with max_depth=1 or `DummyClassifier`). 
 
 The model doesn't capture the patterns in the training data and the training error is not that low.
 
@@ -192,15 +186,12 @@ Both train and validation errors are bad and the gap between train and validatio
 
 **𝐸_best<𝐸_train≲𝐸_valid**
 
-
 ---
-
 
 <center><img src="/module3/over_under.png"  width = "50%" alt="404 image" /></center>
 
 
-
-Standard question to ask ourself: 
+Standard question to ask ourselves: 
 ***Which of these scenarios am I in?***
 
 ### How can we figure this out?
@@ -210,10 +201,8 @@ We can't see 𝐸_best but we can see 𝐸_train and 𝐸_test.
 - If they are very far apart → more likely **overfitting**.     
     - Try decreasing model complexity.
 
-
-- If they are very close together → underfitting regime.  
+- If they are very close together → more likely **underfitting**.  
     - Try increasing model complexity.
-
 
 Notes: 
 
