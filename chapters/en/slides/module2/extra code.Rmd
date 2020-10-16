@@ -3,20 +3,42 @@
 import pandas as pd
 from display_tree import display_tree
 from sklearn.tree import DecisionTreeClassifier
+import numpy as np
+from plot_classifier import plot_classifier
+from sklearn.model_selection import train_test_split, cross_validate 
 ```
 
 
 
 ```{python}
-hockey = pd.read_csv('data/canucks.csv')
+pk = pd.read_csv('data/pokemon.csv')
 
 ## Adjusted path 
-path = "../../../../static/module2/"
-hockey
+path = "../../../../static/module3/"
+pk['legendary'] =  np.where(pk['legendary'] == 1, "Lengend", "Reg")
+pk
+
+X= pk.drop(columns = ['deck_no', 'name', 'type', 'legendary', 'total_bs'])
+y = pk['legendary']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+model = DecisionTreeClassifier()
+model.fit(X_train,y_train)
+```
+
+```{python}
+
+display_tree(X_train.columns, model, "../../../../static/module2/Q16")
+
 ```
 
 
 ```{python echo=FALSE}
+hockey = pd.read_csv('data/canucks.csv')
+
+## Adjusted path 
+path = "../../../../static/module2/"
 
 hockey = hockey[(hockey['Position'] != 'Goalie') ]
 hockey
@@ -24,13 +46,26 @@ hockey
 
 ```{python}
 
-model = DecisionTreeClassifier(max_depth=2)
+xmin = hockey['Experience'].min()
+xmax = hockey['Experience'].max()
+ymin = hockey['Weight'].min()
+ymax = hockey['Weight'].max()
+model = DecisionTreeClassifier(max_depth=3)
 model.fit(hockey.loc[:,['Experience','Weight']], hockey['Position'])
 plt.figure(figsize=(4, 4))
-plot_classifier(hockey.loc[:,['Experience','Weight']].to_numpy(), hockey['Position'].to_numpy(), model, ticks=True)
-plt.ylabel("Player's Weight")
-plt.xlabel("Player's Experience")
+plot_classifier(hockey.loc[:,['Experience','Weight']].to_numpy(), hockey['Position'].to_numpy(), model, lims=(0,15,160,230), ticks=True)
+plt.ylabel("Player's Weight", fontsize=15)
+plt.xlabel("Player's Experience", fontsize=15)
+plt.xticks(fontsize= 12)
+plt.yticks(fontsize= 12)
 plt.savefig('hockey_q.png')
+```
+
+```{python}
+hockey['Experience'].min()
+hockey['Experience'].max()
+hockey['Weight'].min()
+hockey['Weight'].max()
 ```
 
 ```{python}
@@ -42,7 +77,112 @@ from matplotlib import pyplot as plt
 
 ```{python}
 
-display_tree(hockey.loc[:,['Experience','Weight']].columns, model, "../../../../static/module2/module_hockey")
+display_tree(hockey.loc[:,['Experience','Weight']].columns, model, "../../../../static/module2/module_hockey2")
 
+```
+
+```{python}
+X= pk.drop(columns = ['deck_no', 'name', 'type', 'legendary', 'total_bs'])
+y = pk['legendary']
+model = DecisionTreeClassifier(max_depth=4)
+model.fit(X,y)
+display_tree(X.columns, model, "../../../../static/module2/pokemon")
+
+```
+
+```{python}
+X_example = np.array([101, 59, 64, 23, 45, 76, 5]).reshape(1,7)
+
+model.predict(X_example)
+```
+
+```{python}
+pokemon_ob = pd.DataFrame(X_example, columns = X.columns)
+pokemon_ob
+```
+
+
+```{python}
+df = pd.read_csv("data/canada_usa_cities.csv")
+X = df.drop(["country"], axis=1)
+y = df["country"]
+depth=1
+model = DecisionTreeClassifier(max_depth=depth)
+model.fit(X,y)
+plt.figure(figsize=(4, 4))
+plot_classifier(X.to_numpy(), y.to_numpy(), model)
+plt.title("Decision tree with depth = %d" % (depth))
+```
+```{python}
+pk
+```
+
+```{python}
+pk = pd.read_csv('data/pokemon.csv')
+pk
+## Adjusted path 
+path = "../../../../static/module3/"
+
+X= pk.drop(columns = ['name', 'deck_no', 'total_bs', 'type', 'gen', 'legendary', 'defense', 'sp_attack','sp_defense', 'attack'])
+y = pk['legendary']
+X
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+```
+
+```{python}
+results_dict = {"depth": [], "mean_train_error": [], "mean_cv_error": [], "std_cv_error" : [], "std_train_error":[]}
+param_grid = {"max_depth": np.arange(1, 20)}
+
+for depth in param_grid["max_depth"]:
+    model = DecisionTreeClassifier(max_depth=depth)
+    scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["depth"].append(depth)
+    results_dict["mean_cv_error"].append(np.mean(1 - scores["test_score"]))
+    results_dict["mean_train_error"].append(np.mean(1 - scores["train_score"]))
+    results_dict["std_cv_error"].append((1-scores["test_score"]).std())
+    results_dict["std_train_error"].append((1-scores["train_score"]).std())
+
+results_df = pd.DataFrame(results_dict)
+results_df = results_df.set_index("depth")
+```
+
+
+```{python}
+source = results_df.reset_index().melt(id_vars=['depth'] , 
+                              value_vars=['mean_train_error', 'mean_cv_error'], 
+                              var_name='plot', value_name='Error')
+source
+```
+
+
+```{python}
+chart1 = alt.Chart(source).mark_line().encode(
+    alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
+    alt.Y('Error:Q'),
+    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_error', 'mean_cv_error'],
+                                           range=['teal', 'gold'])))
+chart1
+```
+
+```{python include =FALSE}
+chart1.save(path + 'hyper_pk.png')
+```
+
+
+```{python}
+bball = pd.read_csv('data/basketball.csv')
+bball['height'].str.split('/ ', expand=True)[[0]]
+bball['weight'].str.split('/ ', expand=True)[0].str.strip(' lbs.')
+bball['height'] = bball['height'].str.split('/ ', expand=True)[[1]].astype('float')
+bball['weight'] = bball['weight'].str.split('/ ', expand=True)[1].str.strip(' kg.').astype('float')
+bball['salary'] = bball['salary'].str.strip('$').astype('float')
+bball.to_csv('bball.csv', index=False)
+bball
+```
+
+
+```{python}
+bball['position'].value_counts() 
 ```
 

@@ -131,7 +131,21 @@ Here when we build our constructor, we are specifying a `max_depth` of 4.
 
 ---
 
-```{python }
+```{python include=FALSE, eval = FALSE}
+import graphviz
+dot_data = export_graphviz(model)
+graphviz.Source(
+    export_graphviz(
+        model4,
+        out_file=None,
+        feature_names=X.columns,
+        class_names=["red", "blue"],
+        impurity=True,
+    )   
+).render("../../../../static/module2/module2_16a", format='png') 
+```
+
+```{python include=FALSE, eval = FALSE}
 display_tree(X.columns, reg_model, "../../../../static/module2/module2_16a")
 ```
 

@@ -96,7 +96,7 @@ Not in this context.
 </exercise>
 
 
-<exercise id="3" title="Decision Tree outcome">
+<exercise id="3" title="Decision Tree Outcome">
 
 What is the depth of this decision tree? 
 
@@ -236,7 +236,7 @@ Is the fruit yellow?
 
 <exercise id="6" title="Decision Trees True/False">
 
-**True or False:**    
+**True or False**    
 *`DecisionTreeClassifier` does not consider features in it's prediction just like `DummyClassifier`*
 
 
@@ -255,7 +255,7 @@ Decision trees make predictions based on the outcome from conditions determined 
 
 </choice>
 
-**True or False:**    
+**True or False**    
 *We need to `.fit` our decision tree model before we call `.predict`.*
 
 <choice id="2">
@@ -273,7 +273,7 @@ We must always train our model on the data before prediction.
 
 </choice >
 
-**True or False:**      
+**True or False**      
 *Decision trees always give the correct answer for a single prediction..*
 
 <choice id="3">
@@ -312,7 +312,7 @@ Tasks:
 - Build a model using `DecisionTreeClassifier()` and make sure to set the `random_state` argument to 1. 
 - Save this in an object named `model`. 
 - Fit your model on the objects `X` and `y`.
-- predict on `X` and save the values in an object named `predicted`.
+- Predict on `X` and save the values in an object named `predicted`.
 - Compare the `availability` column to the `predicted` column and answer the multiple-choice questions below. 
 
 <codeblock id="02_07">
@@ -330,6 +330,8 @@ Which of the following candy bars did the model incorrectly predict?
 
 <choice id="1" >
 <opt text="Twix"  >
+
+Not this one!
 
 </opt>
 
@@ -792,11 +794,11 @@ Let's build a decision tree classifier using `DecisionTreeClassifier()` but this
 
 Tasks:     
 
-- Build a Decision tree classifier and make sure to set the argument `random_state` to 1. 
+- Build a decision tree classifier and make sure to set the argument `random_state` to 1. 
 - Set the `max_depth` of the tree to 8 and the `min_samples_split` to 4. 
 - Save the model in an object named `hyper_tree`. 
-- Fit your model on the objects `X` and `y` and then predict on the target column `y`. 
-- Save the accuracy of the model rounded to 2 decimal places in a variable named `tree_score`.
+- Fit your model on the objects `X` and `y`.
+- Save the accuracy of the model rounded to 2 decimal places in a variable named `tree_score` and display it.
 
 <codeblock id="02_15">
 
@@ -951,7 +953,7 @@ Tasks:
 - Build a model using `DecisionTreeRegressor()` and make sure to set the argument `random_state` to 1. 
 - Set the `max_depth` of the tree to 5.  
 - Save your model in an object named `reg_tree`.
-- Fit your model on the objects `X` and `y` and then predict on the target column `y`. 
+- Fit your model on the objects `X` and `y` and then predict on `X`. 
 - Save the R^2 score of the model rounded to 2 decimal places in a variable named `tree_score`.
 
 <codeblock id="02_18">

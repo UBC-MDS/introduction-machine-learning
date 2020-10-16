@@ -9,7 +9,7 @@ candybar_df = pd.read_csv('data/candybars.csv')
 X = candybar_df.loc[:, 'chocolate':'multi']
 y = candybar_df['availability']
 
-# Creating a model
+# Create a model
 model = ____
 
 # Fit your data 

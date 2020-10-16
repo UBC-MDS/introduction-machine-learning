@@ -9,7 +9,7 @@ canucks = pd.read_csv('data/canucks_subbed.csv')
 X = canucks.loc[:, ['No.', 'Age', 'Height',	'Weight', 'Experience']]
 y = canucks['Salary']
 
-# Creating a model
+# Create a model
 model = DummyRegressor(strategy="mean")
 
 # Fit your data 

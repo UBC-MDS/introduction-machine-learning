@@ -8,7 +8,7 @@ candybar_df = pd.read_csv('data/candybars.csv')
 X = candybar_df.loc[:, 'chocolate':'multi']
 y = candybar_df['availability']
 
-# Creating a model
+# Create a model
 ____ = ____
 
 # Fit your data 
@@ -16,7 +16,6 @@ ____.____
 
 # Predict the labels of X
 ____ = ____.____
-
 
 # Compare 
 pd.concat([candybar_df.loc[:, ['candy bar', 'availability']],
