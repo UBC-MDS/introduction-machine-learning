@@ -5,6 +5,7 @@ def test():
     # in the meta.json for details.
 
     # If an assertion fails, the message will be displayed
+    assert 'candybar_dim' in __solution__, "Make sure you are naming your solution 'candybar_dim'."
     assert candybar_dim == (25, 10), "Did you load your data correctly? "
-    assert( "shape"  in __solution__ ), "Are you sure you used the right functions and parameters?"
+    assert "shape"  in __solution__, "Are you sure you used the right functions and parameters?"
     __msg__.good("Nice work, well done!")
