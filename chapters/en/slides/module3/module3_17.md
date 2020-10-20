@@ -10,18 +10,22 @@ Notes: <br>
 
 ## Reminder:
 
-  - **𝐸\_train**: is our training error (or mean train error from
+  - **score\_train**: is our training score (or mean train score from
     cross-validation).
-  - **𝐸\_valid** is our validation error (or mean validation error from
-    cross-validation).
-  - **𝐸\_test** is our test error.
-  - **𝐸\_best** is the best possible error we could get for a given
-    problem.
+
+<br>
+
+  - **score\_valid** is our validation score (or mean validation score
+    from cross-validation).
+
+<br>
+
+  - **score\_test** is our test score.
 
 Notes:
 
 Before going further, let’s just remind ourselves of the different
-possible errors.
+possible scores
 
 ---
 
@@ -29,7 +33,7 @@ possible errors.
 
 <br> <br> <br>
 
-### As model complexity ↑, 𝐸\_train ↓ but 𝐸\_valid−𝐸\_train tend to ↑.
+### As model complexity ↑, Score\_train ↑ and Score\_train − Score\_valid tend to ↑.
 
 Notes:
 
@@ -48,35 +52,11 @@ This is **overfitting**.
 
 ---
 
-## Bias vs variance tradeoff
-
-<center>
-
-<img src="/module3/darts_overfitting.png"  width = "50%" alt="404 image" />
-
-</center>
-
-<a href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank">**Attribution:
-University of Washington - Pedro Domingos**</a>
-
-Notes:
-
-This fundamental trade-off is also called the ***bias/variance
-tradeoff***.
-
-**Bias** → the tendency to consistently learn the same wrong thing (high
-bias means underfitting).
-
-**Variance** → the tendency to learn random things irrespective of the
-real signal (high variance means overfitting).
-
----
-
 ## How to pick a model that would generalize better?
 
 ``` python
 df = pd.read_csv("data/canada_usa_cities.csv")
-X = df.drop(["country"], axis=1)
+X = df.drop(columns=["country"])
 y = df["country"]
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -96,20 +76,16 @@ We are using our family Canada and US cities data.
 ---
 
 ``` python
-results_dict = {"depth": [], "mean_train_error": [], "mean_cv_error": [], "std_cv_error" : [], "std_train_error":[]}
-param_grid = {"max_depth": np.arange(1, 20)}
+results_dict = {"depth": list(), "mean_train_score": list(), "mean_cv_score": list()}
 
-for depth in param_grid["max_depth"]:
+for depth in range(1,20):
     model = DecisionTreeClassifier(max_depth=depth)
     scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
     results_dict["depth"].append(depth)
-    results_dict["mean_cv_error"].append(np.mean(1 - scores["test_score"]))
-    results_dict["mean_train_error"].append(np.mean(1 - scores["train_score"]))
-    results_dict["std_cv_error"].append((1-scores["test_score"]).std())
-    results_dict["std_train_error"].append((1-scores["train_score"]).std())
+    results_dict["mean_cv_score"].append(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
 
 results_df = pd.DataFrame(results_dict)
-results_df = results_df.set_index("depth")
 ```
 
 Notes:
@@ -124,21 +100,20 @@ results_df
 ```
 
 ```out
-       mean_train_error  mean_cv_error  std_cv_error  std_train_error
-depth                                                                
-1              0.165651       0.190074      0.084735         0.008808
-2              0.155011       0.195956      0.085624         0.006376
-3              0.137033       0.195588      0.089631         0.016135
-4              0.093135       0.159926      0.090119         0.006472
-5              0.081152       0.154044      0.082789         0.012076
-...                 ...            ...           ...              ...
-15             0.000000       0.184926      0.080262         0.000000
-16             0.000000       0.190809      0.089655         0.000000
-17             0.000000       0.196691      0.101277         0.000000
-18             0.000000       0.190809      0.089655         0.000000
-19             0.000000       0.190809      0.089655         0.000000
+    depth  mean_train_score  mean_cv_score
+0       1          0.834349       0.809926
+1       2          0.844989       0.804044
+2       3          0.862967       0.804412
+3       4          0.906865       0.840074
+4       5          0.918848       0.845956
+..    ...               ...            ...
+14     15          1.000000       0.815074
+15     16          1.000000       0.803309
+16     17          1.000000       0.803309
+17     18          1.000000       0.803309
+18     19          1.000000       0.809191
 
-[19 rows x 4 columns]
+[19 rows x 3 columns]
 ```
 
 Notes:
@@ -146,20 +121,20 @@ Notes:
 ---
 
 ``` python
-source = results_df.reset_index().melt(id_vars=['depth'] , 
-                              value_vars=['mean_train_error', 'mean_cv_error'], 
-                              var_name='plot', value_name='Error')
+source = results_df.melt(id_vars=['depth'] , 
+                              value_vars=['mean_train_score', 'mean_cv_score'], 
+                              var_name='plot', value_name='score')
 ```
 
 ``` python
 chart1 = alt.Chart(source).mark_line().encode(
     alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
-    alt.Y('Error:Q'),
-    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_error', 'mean_cv_error'],
+    alt.Y('score:Q'),
+    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_score', 'mean_cv_score'],
                                            range=['teal', 'gold'])))
 chart1
 ```
-<img src="/module3/chart1.png" alt="A caption" width="65%" />
+<img src="/module3/chart1.png" alt="A caption" width="60%" />
 
 Notes:
 
@@ -173,32 +148,33 @@ error.
 ---
 
 ``` python
-results_df[results_df['mean_cv_error'] ==results_df['mean_cv_error'].min()]
+results_df.sort_values('mean_cv_score', ascending=False).iloc[0]
 ```
 
 ```out
-       mean_train_error  mean_cv_error  std_cv_error  std_train_error
-depth                                                                
-5              0.081152       0.154044      0.082789         0.012076
+depth               5.000000
+mean_train_score    0.918848
+mean_cv_score       0.845956
+Name: 4, dtype: float64
 ```
 
 ``` python
-best_depth = results_df[results_df['mean_cv_error'] ==results_df['mean_cv_error'].min()].index[0]
+best_depth = results_df.sort_values('mean_cv_score', ascending=False).iloc[0]['mean_cv_score']
 best_depth
 ```
 
 ```out
-5
+0.8459558823529412
 ```
 
 ``` python
 model = DecisionTreeClassifier(max_depth=best_depth)
 model.fit(X_train, y_train);
-print("Error on test set:" + str(round(1 - model.score(X_test, y_test))))
+print("Score on test set: " + str(round(model.score(X_test, y_test), 2)))
 ```
 
 ```out
-Error on test set:0
+Score on test set: 0.67
 ```
 
 Notes:
@@ -227,7 +203,7 @@ Even though we care the most about test error:
 
 <br>
 
-<img src="/module3/gavel.png" alt="A caption" width="90%" />
+<img src="/module3/gavel.png" alt="A caption" width="70%" />
 
 Notes:
 
@@ -264,7 +240,7 @@ was some overlap in the data used to both train and test the model.*
 
 <center>
 
-<img src="/module3/golden_rule_violation_2.png" alt="A caption" width="77%" />
+<img src="/module3/golden_rule_violation_2.png" alt="A caption" width="60%" />
 
 </center>
 

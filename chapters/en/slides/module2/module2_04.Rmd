@@ -129,7 +129,7 @@ We get an error! We forgot the crucial step of fitting our model.
 
 ```{python include=FALSE}
 classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 

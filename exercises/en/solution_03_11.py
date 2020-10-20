@@ -18,8 +18,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = DecisionTreeClassifier()
 
 # Cross validate
-cv_score = cross_val_score(model, X_train, y_train, cv=6)
-cv_score
+cv_scores = cross_val_score(model, X_train, y_train, cv=6)
+cv_scores
 
 
 

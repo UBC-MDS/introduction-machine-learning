@@ -91,7 +91,7 @@ Let's use our familiar quiz2 data back again to build on our decision boundary k
 --- 
 
 ```{python}
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 
@@ -279,27 +279,26 @@ For instance, is it fair to expect the learner to label image 4 correctly?
 ---
 
 
-## Training error versus Generalization error 
+## Training score versus Generalization score 
 
-- Given a model 𝑀, in ML, people usually talk about two kinds of errors of 𝑀:
+- Given a model in ML, people usually talk about two kinds of accuracies (scores):
 
-1. Error on the training data
-<img src="/module2/trainning_e.gif"  width = "11%" alt="404 image" />
+1. Accuracy on the training data
     
-2. Error on the entire distribution 𝐷 of data
-<img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
+2. Accuracy on the entire distribution of data
 
 
 Notes:   
 
-This is where the idea of error comes in. 
+This is where the model accuracy comes in. 
 
-People usually talk about two kinds of errors in a model. 
+People usually talk about two kinds of accuracies (scores) in machine learning:
 
-1. Error on the training data: $error_{training}(M)$ 
-2. Error on the entire distribution $D$ of data: $error_{D}(M)$
+1. Accuracy on the training data
+    
+2. Accuracy on the entire distribution of data
 
-We are interested in the error on the entire distribution, but we do not have access to the entire distribution!
+We are interested in the accuracy on the entire distribution, but we do not have access to the entire distribution!
 
 What do we do? 
 

@@ -70,19 +70,14 @@ Notes: <br>
 
 ## Reminder: 
 
-- **score_train**:  is our training score (or mean train score from cross-validation).
-
-<br>
-
-- **score_valid**  is our validation score (or mean validation score from cross-validation).
-
-<br>
-
-- **score_test**  is our test score.
+- **𝐸_train**:  is our training error (or mean train error from cross-validation).
+- **𝐸_valid**  is our validation error (or mean validation error from cross-validation).
+- **𝐸_test**  is our test error.
+- **𝐸_best**  is the best possible error we could get for a given problem.
 
 Notes:
 
-Before going further, let's just remind ourselves of the different possible scores 
+Before going further, let's just remind ourselves of the different possible errors. 
 
 ---
 
@@ -92,7 +87,7 @@ Before going further, let's just remind ourselves of the different possible scor
 <br>
 <br>
 
-### As model complexity ↑, Score_train ↑   and Score_train − Score_valid tend to ↑.
+### As model complexity ↑,     𝐸_train ↓     but 𝐸_valid−𝐸_train  tend to ↑.
 
 
 Notes: 
@@ -110,12 +105,28 @@ This is **overfitting**.
 
 ---
 
+## Bias vs variance tradeoff
+
+<center><img src="/module3/darts_overfitting.png"  width = "50%" alt="404 image" /></center>
+ 
+<a href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank">**Attribution: University of Washington - Pedro Domingos**</a>
+
+Notes: 
+
+This fundamental trade-off is also called the ***bias/variance tradeoff***.
+
+**Bias**  →  the tendency to consistently learn the same wrong thing (high bias means underfitting).
+
+**Variance**  →  the tendency to learn random things irrespective of the real signal (high variance means overfitting).
+
+---
+
 ## How to pick a model that would generalize better?
 
 
 ```{python}
 df = pd.read_csv("data/canada_usa_cities.csv")
-X = df.drop(columns=["country"])
+X = df.drop(["country"], axis=1)
 y = df["country"]
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -141,17 +152,20 @@ We are using our family Canada and US cities data.
 ---
 
 ```{python}
-results_dict = {"depth": list(), "mean_train_score": list(), "mean_cv_score": list()}
+results_dict = {"depth": [], "mean_train_error": [], "mean_cv_error": [], "std_cv_error" : [], "std_train_error":[]}
+param_grid = {"max_depth": np.arange(1, 20)}
 
-for depth in range(1,20):
+for depth in param_grid["max_depth"]:
     model = DecisionTreeClassifier(max_depth=depth)
     scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
     results_dict["depth"].append(depth)
-    results_dict["mean_cv_score"].append(scores["test_score"].mean())
-    results_dict["mean_train_score"].append(scores["train_score"].mean())
+    results_dict["mean_cv_error"].append(np.mean(1 - scores["test_score"]))
+    results_dict["mean_train_error"].append(np.mean(1 - scores["train_score"]))
+    results_dict["std_cv_error"].append((1-scores["test_score"]).std())
+    results_dict["std_train_error"].append((1-scores["train_score"]).std())
 
 results_df = pd.DataFrame(results_dict)
-
+results_df = results_df.set_index("depth")
 ```
 
 Notes: 
@@ -170,17 +184,17 @@ Notes:
 ---
 
 ```{python}
-source = results_df.melt(id_vars=['depth'] , 
-                              value_vars=['mean_train_score', 'mean_cv_score'], 
-                              var_name='plot', value_name='score')
+source = results_df.reset_index().melt(id_vars=['depth'] , 
+                              value_vars=['mean_train_error', 'mean_cv_error'], 
+                              var_name='plot', value_name='Error')
 ```
 
 
 ```{python}
 chart1 = alt.Chart(source).mark_line().encode(
     alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
-    alt.Y('score:Q'),
-    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_score', 'mean_cv_score'],
+    alt.Y('Error:Q'),
+    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_error', 'mean_cv_error'],
                                            range=['teal', 'gold'])))
 chart1
 ```
@@ -189,7 +203,7 @@ chart1
 chart1.save(path + 'chart1.png')
 ```
 
-<img src="/module3/chart1.png" alt="A caption" width="60%" />
+<img src="/module3/chart1.png" alt="A caption" width="65%" />
 
 
 
@@ -205,8 +219,8 @@ A common practice is to pick the model with minimum cross-validation error.
 ---
 
 ```{python}
-results_df.sort_values('mean_cv_score', ascending=False).iloc[0]
-best_depth = results_df.sort_values('mean_cv_score', ascending=False).iloc[0]['mean_cv_score']
+results_df[results_df['mean_cv_error'] ==results_df['mean_cv_error'].min()]
+best_depth = results_df[results_df['mean_cv_error'] ==results_df['mean_cv_error'].min()].index[0]
 best_depth
 ```
 
@@ -214,7 +228,7 @@ best_depth
 ```{python}
 model = DecisionTreeClassifier(max_depth=best_depth)
 model.fit(X_train, y_train);
-print("Score on test set: " + str(round(model.score(X_test, y_test), 2)))
+print("Error on test set:" + str(round(1 - model.score(X_test, y_test))))
 ```
 
 Notes: 
@@ -238,7 +252,7 @@ Even though we care the most about test error:
 
 <br>
 
-<img src="/module3/gavel.png" alt="A caption" width="70%" />
+<img src="/module3/gavel.png" alt="A caption" width="90%" />
 
 Notes: 
 
@@ -252,7 +266,7 @@ Even experts end up breaking it sometimes which leads to misleading results and 
 
 ## Golden rule violation: Example 1  
 
-<center><img src="/module3/golden_rule_violation.png" alt="A caption" width="52%" /></center>
+<center><img src="/module3/golden_rule_violation.png" alt="A caption" width="58%" /></center>
 <a href="https://www.theregister.com/2019/07/03/nature_study_earthquakes/" target="_blank">**Attribution: The A register - Katyanna Quach**</a>
 
 
@@ -264,7 +278,7 @@ Notes:
 
 ## Golden rule violation: Example 2  
 
-<center><img src="/module3/golden_rule_violation_2.png" alt="A caption" width="60%" /></center>
+<center><img src="/module3/golden_rule_violation_2.png" alt="A caption" width="77%" /></center>
 <a href="https://www.technologyreview.com/2015/06/04/72951/why-and-how-baidu-cheated-an-artificial-intelligence-test/" target="_blank">**Attribution:MIT Technology Review- Tom Simonite**</a>
 
 Notes: 

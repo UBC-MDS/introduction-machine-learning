@@ -8,43 +8,44 @@ Notes: <br>
 
 ---
 
-We’re going to think about 4 types of errors:
+We’re going to think about 3 types of errors:
 
-  - **𝐸\_train**: is our training error (or mean train error from
+  - **score\_train**: is our training score (or mean train score from
     cross-validation).
-  - **𝐸\_valid** is our validation error (or mean validation error from
-    cross-validation).
-  - **𝐸\_test** is our test error.
-  - **𝐸\_best** is the best possible error we could get for a given
-    problem.
 
-Question: Why is 𝐸\_best\>0?
+<br>
+
+  - **score\_valid** is our validation score (or mean validation score
+    from cross-validation).
+
+<br>
+
+  - **score\_test** is our test score.
 
 Notes:
 
 We’ve talked about the different types of splits but we’ve only briefly
-discussed error and the different types of error that we receive when
+discussed scores and the different types of scores that we receive when
 building models.
 
-We saw in cross-validation that there was train and validation error and
-image if they did not align with each other.
+We saw in cross-validation that there was train and validation scores
+and what happens if they did not align with each other.
 
 How do we diagnose the problem?
 
-We’re going to think about 4 types of errors:
+We’re going to think about 3 types of scores:
 
-  - 𝐸\_train is our training error (or mean train error from
+  - **score\_train**: is our training score (or mean train score from
     cross-validation).
-  - 𝐸\_valid is our validation error (or mean validation error from
-    cross-validation).
-  - 𝐸\_test is our test error.
-  - 𝐸\_best is the best possible error we could get for a given problem.
+  - **score\_valid** is our validation score (or mean validation score
+    from cross-validation).
+  - **score\_test** is our test score
 
 ---
 
 ``` python
 df = pd.read_csv("data/canada_usa_cities.csv")
-X = df.drop(["country"], axis=1)
+X = df.drop(columns=["country"])
 y = df["country"]
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -63,16 +64,16 @@ explain the concepts of overfitting and underfitting.
 ``` python
 model = DecisionTreeClassifier()
 scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
-print("Train error:   %0.3f" % (1 - np.mean(scores["train_score"])))
-print("Validation error:   %0.3f" % (1 - np.mean(scores["test_score"])))
+print("Train score: " + str(round(scores["train_score"].mean(), 2)))
+print("Validation score: " + str(round(scores["test_score"].mean(), 2)))
 ```
 
 ``` out
-Train error:   0.000
-Validation error:   0.191
+Train score: 1.0
+Validation score: 0.81
 ```
 
-<img src="/module3/module3_13/unnamed-chunk-3-1.png" width="78%" />
+<img src="/module3/module3_13/unnamed-chunk-3-1.png" width="70%" />
 
 Notes:
 
@@ -80,21 +81,18 @@ Using a decision tree with no specified max\_depth, we can explain the
 phenomenon is called ***overfitting***.
 
 Overfitting is when our model fits the training data well and therefore
-the training error is low, however, the model does not generalize to the
-validation set as well and the validation error is much higher.
+the training score is high, however, the model does not generalize to
+the validation set as well and the validation error is much higher.
 
-The Train error is low but the validation error is much higher.
+The Train score is high but the validation score is much lower.
 
-The gap between the train and validation error is bigger.
+The gap between the train and validation scores is bigger.
 
 A standard overfitting scenario would be:
-**𝐸\_train\<𝐸\_best\<𝐸\_valid**
+**Score\_train\>\>Score\_valid**
 
-If 𝐸\_train is low, then we are in an overfitting scenario. It is fairly
-common to have at least a bit of this
-
-𝐸\_valid cannot be smaller than 𝐸\_best basically by definition. In
-reality, we won’t have them equal.
+If **Score\_train** is high, then we are in an overfitting scenario. It
+is fairly common to have at least a bit of this.
 
 ---
 
@@ -104,16 +102,16 @@ reality, we won’t have them equal.
 model = DecisionTreeClassifier(max_depth=1)
 
 scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
-print("Train error: " + str(round(1 - np.mean(scores["train_score"]),2)))
-print("Validation error: "  + str(round(1 - np.mean(scores["test_score"]),2)))
+print("Train score: " + str(round(scores["train_score"].mean(), 2)))
+print("Validation score: " + str(round(scores["test_score"].mean(), 2)))
 ```
 
 ``` out
-Train error: 0.17
-Validation error: 0.19
+Train score: 0.83
+Validation score: 0.81
 ```
 
-<img src="/module3/module3_13/unnamed-chunk-4-1.png" width="78%" />
+<img src="/module3/module3_13/unnamed-chunk-4-1.png" width="70%" />
 
 Notes:
 
@@ -124,14 +122,15 @@ Underfitting is when our model is too simple (`DecisionTreeClassifier`
 with max\_depth=1 or `DummyClassifier`).
 
 The model doesn’t capture the patterns in the training data and the
-training error is not that low.
+training score is not that high.
 
-The model doesn’t fit the data well and hence 𝐸\_train≲𝐸\_valid.
+The model doesn’t fit the data well and hence
+**Score\_valid≲Score\_train**.
 
-Both train and validation errors are bad and the gap between train and
-validation error is lower.
+Both train and validation scores are bad and the gap between train and
+validation scores is lower.
 
-**𝐸\_best\<𝐸\_train≲𝐸\_valid**
+**\<Score\_valid≲Score\_train**
 
 ---
 
@@ -146,7 +145,7 @@ in?***
 
 ### How can we figure this out?
 
-We can’t see 𝐸\_best but we can see 𝐸\_train and 𝐸\_test.
+Score\_train and Score\_valid.
 
   - If they are very far apart → more likely **overfitting**.
       - Try decreasing model complexity.

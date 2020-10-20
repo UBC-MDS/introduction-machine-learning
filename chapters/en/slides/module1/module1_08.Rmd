@@ -101,7 +101,7 @@ You will see a lot of variable terminology in machine learning and statistics an
 ### Example 1: Tabular data for the housing price prediction problem
 ```{python}
 df = pd.read_csv("data/kc_house_data.csv")
-df = df.drop(["id", "date"], axis=1)
+df = df.drop(columns=["id", "date"])
 df.head(3)
 
 ```

@@ -14,7 +14,7 @@ Notes: <br>
 
 <center>
 
-<img src="/module3/train-valid-test-split.png"  width = "100%" alt="404 image" />
+<img src="/module3/train-test-split.png"  width = "100%" alt="404 image" />
 
 </center>
 
@@ -55,14 +55,9 @@ hyperparameters) and the test data for a final, “pure” model assessment.
 
 <br>
 
-  - **Train**: data where we access to the target and train our model
-    with by passing these into `fit`.
-  - **Validation**: data where we have access to the target values, but
-    unlike the training data, we only use this for hyperparameter tuning
-    and model assessment; we don’t pass these into `fit`.
-  - **Test**: data where we have access to the target values, but in
-    this case, unlike training and validation data, we neither use it in
-    training nor hyperparameter optimization
+  - **Train**: Used to `fit` our models.
+  - **Validation**: Used to assess our model during model tuning.
+  - **Test**: Unseen data used for a final assessment.
 
 Notes:
 
@@ -102,9 +97,9 @@ deals with the data in the wild.
 We will use “deployment” to refer to this data, where we do **not** have
 access to the target values.
 
-Deployment error is the thing we *really* care about.
+Deployment score is the thing we *really* care about.
 
-We use validation and test errors as proxies for deployment error, and
+We use validation and test scores as proxies for deployment score, and
 we hope they are similar.
 
 So, if our model does well on the validation and test data, we hope it
@@ -118,9 +113,6 @@ will do well on deployment data.
 | Validation |       | ✔️      | ✔️        |
 | Test       |       | once    | once      |
 | Deployment |       |         | ✔️        |
-
-We can typically expect
-<b>𝐸\_𝑡𝑟𝑎𝑖𝑛\<𝐸\_𝑣𝑎𝑙𝑖𝑑𝑎𝑡𝑖𝑜𝑛\<\_𝐸\_𝑡𝑒𝑠𝑡\<𝐸\_𝑑𝑒𝑝𝑙𝑜𝑦𝑚𝑒𝑛𝑡<b>.
 
 Notes:
 

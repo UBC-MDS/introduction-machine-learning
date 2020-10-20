@@ -49,7 +49,7 @@ very bad (worse than DummyRegressor).
 ---
 
 ``` python
-X = regression_df.drop(["quiz2"], axis=1)
+X = regression_df.drop(columns=["quiz2"])
 X.head()
 ```
 

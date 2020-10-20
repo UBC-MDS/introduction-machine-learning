@@ -128,10 +128,10 @@ The first example is being able to predict whether a patient has a liver disease
 
 ```{python include=FALSE}
 df = pd.read_csv("data/indian_liver_patient.csv")
-df = df.drop("Gender", axis=1)
+df = df.drop(columns=["Gender"])
 df.loc[df["Dataset"] == 1, "Target"] = "Disease"
 df.loc[df["Dataset"] == 2, "Target"] = "No Disease"
-df = df.drop("Dataset", axis=1)
+df = df.drop(columns=["Dataset"])
 train_df, test_df = train_test_split(df, test_size=4, random_state=16)
 train_df.head()
 ```
@@ -151,9 +151,9 @@ Notes: First we obtain our data from our patients, wrangle it as necessary and s
 
 ```{python  results = 'hide'}
 from xgboost import XGBClassifier
-X_train = train_df.drop(columns=['Target'], axis=1)
+X_train = train_df.drop(columns=['Target'])
 y_train = train_df['Target']
-X_test = test_df.drop(columns=['Target'], axis=1)
+X_test = test_df.drop(columns=['Target'])
 model = XGBClassifier()
 model.fit(X_train, y_train)
 ```
@@ -270,7 +270,7 @@ Notes: We also use machine learning to predict negative or positive sentiment ex
 ```{python include=FALSE, Eval=FALSE}
 imdb_df = pd.read_csv("data/imdb_master.csv", encoding="ISO-8859-1")
 imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
-imdb_df = imdb_df.drop(["Unnamed: 0", "type"], axis=1)
+imdb_df = imdb_df.drop(columns=["Unnamed: 0", "type"])
 train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
 
 ```
@@ -352,7 +352,7 @@ Notes: Machine learning can also be used to predict housing prices.
 
 ```{python}
 df = pd.read_csv("data/kc_house_data.csv")
-df.drop(["id", "date"], axis=1, inplace=True)
+df = df.drop(columns=["id", "date"])
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
 train_df.head()
 ```
@@ -366,7 +366,7 @@ These data consist of the characteristics of houses in King County, USA.
 
 ```{python}
 
-X_train = train_df.drop("price", axis=1)
+X_train = train_df.drop(columns=["price"])
 X_train.head()
 ```
 
@@ -376,7 +376,7 @@ y_train.head()
 ```
 
 ```{python}
-X_test = test_df.drop("price", axis=1)
+X_test = test_df.drop(columns=["price"])
 y_test = train_df["price"]
 ```
 

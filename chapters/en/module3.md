@@ -96,9 +96,9 @@ Why do we split our data?
 
 </opt>
 
-<opt text="to help us generalize our model better." correct="true">
+<opt text="to help us generalize our model better." >
 
-Great!
+Getting warmer but not quite. 
 
 </opt>
 
@@ -108,6 +108,14 @@ Not quite but this may be a side effect.
 
 </opt>
 
+
+<opt text="To help us assess how well our model generalizes." correct="true">
+
+Great!
+
+</opt>
+
+
 </choice>
 
 </exercise>
@@ -115,7 +123,7 @@ Not quite but this may be a side effect.
 <exercise id="3" title="Decision Tree Outcome">
 
 **True or False?**     
-_Splitting your data is randomized and you will get different results each time._
+_If you don't set random_state, splitting your data is randomized and you will get different results each time._
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -185,7 +193,7 @@ Tasks:
 
 
 **Question 1**    
-Which split performs better?
+On which split does the decision tree perform better?
 
 <choice id="1" >
 <opt text="Training Data"   correct="true">
@@ -311,7 +319,7 @@ This is never scored.
 
 <exercise id="7" title="Decision Tree Outcome">
 
-**True or False?**      
+**True or False**      
 _Deployment data is used at the very end and only scored once._
 
 <choice id="1" >
@@ -359,29 +367,29 @@ This is a prime reason for having a validation set.
 <exercise id="9" title= "Cross Validation Questions">
 
 **Question 1**   
-We carry out cross-validation to avoid reusing the same validation set again and again. With 𝑘-fold cross-validation, you split your 𝑛 examples into 𝑘-folds. For each fold, how many examples do you train on? 
+We carry out cross-validation to avoid reusing the same validation set again and again. Let's say you do a 10-fold cross-validation on 1000 examples. For each fold, how many examples do you train on? 
 
 <choice id="1">
 
-<opt text="𝑛"  >
+<opt text="1000"  >
 
 Remember that we leave a portion of the examples out to validate on. 
 
 </opt>
 
-<opt text= "𝑛/𝑘" >
+<opt text= "100" >
  
 This is how many examples are in 1 fold but not necessarily trained on.
 
 </opt>
 
-<opt text="𝑛 - 𝑛/𝑘 &nbsp;  or &nbsp;  𝑛(𝑘-1)/𝑘" correct="true">
+<opt text="900" correct="true">
 
 Great!
 
 </opt>
 
-<opt text="𝑘">
+<opt text="10">
 
 This is the number of folds, not examples. 
 
@@ -391,29 +399,29 @@ This is the number of folds, not examples.
 
 
 **Question 2**   
-With 𝑘-fold cross-validation, you split your 𝑛 examples into 𝑘-folds. For each fold, when you are done, you add up the accuracies from each fold and divide by what?
+With a 10-fold cross-validation, you split 1000 examples into 10-folds. For each fold, when you are done, you add up the accuracies from each fold and divide by what?
 
 <choice id="2" >
 
-<opt text="𝑛"  >
+<opt text="1000"  >
 
 This is the number of examples. We would get a very low score if we divided by this. 
 
 </opt>
 
-<opt text= "𝑛/𝑘" >
+<opt text= "100" >
  
 This is how many examples are in 1 fold.
 
 </opt>
 
-<opt text="𝑛 - 𝑛/𝑘    &nbsp;  or &nbsp;   𝑛(𝑘-1)/𝑘" correct="true">
+<opt text="900" >
 
 This is the number of examples we are training on.
 
 </opt>
 
-<opt text="𝑘">
+<opt text="10" correct="true">
 
 Nice!
 
@@ -480,25 +488,25 @@ How many times are fit and predict called on 1 fold - cross-validation?
 </choice>
 
 **True or False**      
-_The goal of cross-validation is to obtain a better estimate of test error than just using a single validation set._
+_The goal of cross-validation is to obtain a better estimate of test score than just using a single validation set._
 
 <choice id="2">
-<opt text="True" >
+<opt text="True" correct="true">
 
-The goal of cross-validation is to train on more examples while still tuning your hyperparameters.
+Nailed it!
 
 </opt>
 
-<opt text="False" correct="true">
+<opt text="False" >
 
-Nailed it!
+We use cross validation to estimate our test score better. 
 
 </opt>
 
 </choice >
 
 **True or False**       
-_The main disadvantage of using a large $k$ in cross-validation is running time._
+_The main disadvantage of using a large 𝑘 in cross-validation is running time._
 
 <choice id="3">
 <opt text="True" correct="true">
@@ -510,24 +518,6 @@ Nailed it!
 <opt text="False" >
 
 Since we need to train multiple times and predict multiple times, it can be very time-consuming.
-
-</opt>
-
-</choice >
-
-**True or False**       
-_2-fold cross-validation is the same thing as using a validation set that's 50% the size of your training set._
-
-<choice id="4">
-<opt text="True" >
-
-Since we are training on both splits, it's not quite the same. 
-
-</opt>
-
-<opt text="False" correct="true">
-
-Nice work!
 
 </opt>
 
@@ -549,10 +539,10 @@ Let's use `cross_validate()` on a Pokémon dataset that we've used before in <a 
 Tasks:     
 
 - Split the `X` and `y` dataframes into 4 objects: `X_train`, `X_test`, `y_train`, `y_test`. 
-- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=33`. 
+- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=33` (the random state here is for testing purposes so we all get the same split). 
 - Build a model using `DecisionTreeClassifier()`. 
 - Save this in an object named `model`. 
-- Cross-validate using `cross_val_score()` on the objects `X_train` and `y_train` and with 6 folds (`cv=6`) and save these scores in an object named `cv_score`. 
+- Cross-validate using `cross_val_score()` on the objects `X_train` and `y_train` and with 6 folds (`cv=6`) and save these scores in an object named `cv_scores`. 
 
 <codeblock id="03_11">
 
@@ -612,13 +602,13 @@ If our train accuracy is much higher than our test accuracy, is our model overfi
 
 <opt text="Overfitting"  correct="true">
 
-Great! This time we are talking about accuracy instead of error. 
+Great! 
 
 </opt>
 
 <opt text= "Underfitting" >
  
-Did you catch on that we are discussing accuracy instead of error?
+Underfitting would occur if our training accuracy was low. 
 
 </opt>
 
@@ -627,13 +617,13 @@ Did you catch on that we are discussing accuracy instead of error?
 
 
 **Question 2**   
-If our train error and our test error are both high and relatively similar in value, is our model overfitting or underfitting? 
+If our train accuracy and our test accuracy are both low and relatively similar in value, is our model overfitting or underfitting? 
 
 <choice id="2" >
 
 <opt text="Overfitting"  >
 
-Since our train error is still quite high, this would not be overfitting. 
+Since our train accuracy is still quite low, this would not be overfitting. 
 
 </opt>
 
@@ -668,37 +658,21 @@ Great!
 
 <exercise id="15" title="Overfitting and Underfitting True or False">
 
-**True or False?**     
-*It is possible to construct a problem with 𝐸_train=𝐸_best=𝐸_test=0.*
-
-<choice id="1" >
-<opt text="True">  
-
-If you know a way, then let the world know!
-
-</opt>
-
-<opt text="False" correct="true">
-
-Nice job.
-
-</opt>
-
-</choice>
 
 **True or False**      
-_If our training error is extremely low, that means our model is overfitting._
+_All models will either overfit or underfit._
 
 <choice id="2">
 <opt text="True">
 
-Just because it's low, does not necessarily mean that the model is overfitting
+Not all models will overfit or underfit. 
 
 </opt>
 
 <opt text="False"  correct="true">
 
 Nailed it!
+
 </opt>
 
 </choice >
@@ -723,32 +697,8 @@ As we add complexity to our model, it is more likely to overfit.
 
 </exercise>
 
-<exercise id="16" title="Overfit or Underfit?">
 
-Is the following decision tree more likely to overfit or underfit? 
-
-
-<center><img src="/module3/Q16.png"  width = "80%" alt="404 image" /></center>
-
-
-<choice id="1" >
-<opt text="Overfit"  correct="true">
-
-This model has a high complexity!
-
-</opt>
-
-<opt text= "Underfit" >
- 
-This model has a high complexity...
-
-</opt>
-
-</choice>
-
-</exercise>
-
-<exercise id="17" title="Overfitting/Underfitting in Action!">
+<exercise id="16" title="Overfitting/Underfitting in Action!">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -759,7 +709,13 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 
 Let's examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.
 
-This time we are looking at a new data set that contains the basketball players in the NBA. We are only going to use the players with a position of Guard (G) or Forward (F). 
+This time we are looking at a new data set that contains the basketball players in the NBA. We are only going to use the players with a position of Guard (G) or Forward (F).  We will be using features height, weight and salary to try to predict the player's position, Guard or Forward.  
+
+Let's take a quick look at it before diving in. 
+
+<codeblock id="basketball">
+
+</codeblock>
 
 Tasks:     
 
@@ -768,7 +724,7 @@ Tasks:
 - Calculate the mean value of each column and save this in an object named `mean_scores`. 
 - Answer the question below.
 
-<codeblock id="03_17">
+<codeblock id="03_16">
 
 - Are you cross-validating using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)` on your model?
 - Are you saving your dataframe using `pd.DataFrame(scores)`?
@@ -777,7 +733,7 @@ Tasks:
 </codeblock>
 
 
-**Question 1**    
+**Question**    
 Is this model overfitting or underfitting?
 
 <choice id="1" >
@@ -797,32 +753,31 @@ Is the training score higher or lower?
 
 </exercise>
 
-<exercise id="18" title="Fundamental Tradeoff and the Golden Rule" type="slides,video">
+<exercise id="17" title="Fundamental Tradeoff and the Golden Rule" type="slides,video">
 
-<slides source="module3/module3_18" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_17" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
-<exercise id="19" title= "Quick Questions on Tradeoff and Golden Rule">
+<exercise id="18" title= "Quick Questions on Tradeoff and Golden Rule">
 
 **Question 1**   
 If we are hyperparameter tuning, which depth would you select for this model given the graph below? 
 
-(Note: In reality, this model's error seems much too high)
-<center><img src="/module3/chart_pk2.png"  width = "80%" alt="404 image" /></center>
+<center><img src="/module3/Q16_2.png"  width = "80%" alt="404 image" /></center>
 
 <choice id="1">
 
 <opt text="1"  >
 
-Where is the cross-validation error the lowest?
+Where is the cross-validation score the highest?
 
 </opt>
 
 <opt text= "4" >
  
-Where is the cross-validation error the lowest?
+Where is the cross-validation score the highest?
 
 </opt>
 
@@ -834,7 +789,7 @@ Great!
 
 <opt text= "19" >
  
-Where is the cross-validation error the lowest?
+Where is the cross-validation score the highest?
 
 </opt>
 
@@ -854,12 +809,6 @@ This actually must be used in the training phase.
 
 </opt>
 
-<opt text= "Validation" >
- 
-Not this time. 
-
-</opt>
-
 <opt text= "Test" correct="true">
  
 Great!
@@ -870,57 +819,66 @@ Great!
 
 </exercise>
 
-<exercise id="20" title="True or False ">
+<exercise id="19" title="Training and Testing Questions">
 
-**True or False?**    
-_The fundamental tradeoff of ML states that as training error goes down, test error goes up._
+**Question 1**   
+
+The fundamental tradeoff of ML states that as model complexity increases ...
 
 <choice id="1" >
-<opt text="True">  
 
-The fundamental tradeoff of ML states:  As model complexity ↑,     𝐸_train ↓     but 𝐸_valid−𝐸_train  tend to ↑. 
+<opt text="Test score decreases."  >
+
+Actually the test score is not taken into consideration here. 
 
 </opt>
 
-<opt text="False" correct="true">
+<opt text= "Train score decreases.">
+ 
+ Quite the oposite in fact!
 
-Nice job.
+</opt>
+
+<opt text= "Train score increases." correct="true">
+ 
+Great!
+
+</opt>
+
+<opt text= "Test score increases." >
+ 
+Try not to think about the the test score here. 
 
 </opt>
 
 </choice>
 
-**True or False**      
-_A model cannot simultaneously have high bias and high variance._
+**Question 2**     
+*In supervised learning, the training score is _________ higher than the validation score.*
 
 <choice id="2">
-<opt text="True">
+<opt text="Always" >
 
-Variance and bias are not mutually exclusive. 
-
-</opt>
-
-<opt text="False"  correct="true">
-
-Nailed it!
+Although this is the case often, validation score can be higher.
 
 </opt>
 
-</choice >
+<opt text="Ususally"  correct="true">
 
-**True or False**     
-_In supervised learning, the training error is always lower than the validation error._
-
-<choice id="3">
-<opt text="True" >
-
-Although this is the case often, validation error can be lower.
+Nice work! Sometimes and often but not always!
 
 </opt>
 
-<opt text="False"  correct="true">
+<opt text="Sometimes">
 
-Nice work!
+Maybe a bit more than sometimes.
+
+</opt>
+
+
+<opt text="Never" >
+
+We've seen cases where this true!
 
 </opt>
 
@@ -928,7 +886,7 @@ Nice work!
 
 </exercise>
 
-<exercise id="21" title="Picking your Hyperparameter">
+<exercise id="20" title="Picking your Hyperparameter">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -937,33 +895,112 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-You obtained the following plot when hyperparameter tuning:
+Let's take a look at the basketball dataset we saw in exercise 16. We will again be using features height, weight and salary and a target column `position`..  This time , however, let's cross-validate on different values for max_depth so we can set this hyperparameter and build a final model that best generalizes on our test set. 
 
-<center><img src="/module3/hyper_pk.png"  width = "80%" alt="404 image" /></center>
+First let's see which hyperparameter is the most optimal. 
 
-How well does your model do on the test data?
+Tasks:     
+
+- Fill in the code below. 
+- We are first loading in our `bball.csv` dataset and assigning our features to `X` and our target `position` to and object named `y`. 
+- Fill in the code so that it split the dataset into `X_train`, `X_test`, `y_train`, `y_test`. Make sure to use a 20% test set and a `random_state=33` so we can verify you solution.
+- Next, fill in the code so that a `for` loop does the following:
+
+  1. iterates over the values 1-20.
+    - Builds a decision tree classifier with a `max_depth` equal to each iteration.
+    - Uses `cross_validate` on the model with a `cv=10` and `return_train_score=True`.
+    - Appends the depth value to the `depth` list in the dictionary `results_dict`.
+    - Appends the `test_score` to the `mean_cv_score` list in the dictionary. 
+    - Appends the `train_score` to the `mean_train_score` list in the dictionary. 
+- We have given you code that wrangles this dictionary and transforms it into a state ready for plotting.
+- Finish off by filling in the blank to create a line graph that plots the train and validation scores for each depth value. 
+(Note: we have edited the limits of the y-axis so it's easier to read)
+
+<codeblock id="03_20a">
+
+- Are you using `train_test_split()` to split the data?
+- Are you splitting with either `test_size=0.2` or `train_size=0.8`? 
+- Are you setting your `random_state=33` inside `train_test_split()`?
+- Are you using `DecisionTreeClassifier(max_depth=depth)` to build the model?
+- Are you using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)`?
+- Are you using `alt.Chart(results_df).mark_line()` to create your plot?
+
+</codeblock>
+
+**Question 1**    
+To which depth would you set your `max_depth` hyperparameter?
+
+<choice id="1" >
+<opt text="1" >
+
+There are other depth values that have a higher score that at this value. 
+
+</opt>
+
+<opt text="4" correct="true">
+
+Nice work. This is where the score is at the highest for the validation set. 
+
+</opt>
+
+<opt text="8"   >
+
+Are you sure this is the depth with the highest score possible?
+
+</opt>
+
+<opt text="17">
+
+Are you sure this is the depth with the highest score possible?
+
+</opt>
+
+</choice>
+
+
+**Question 2**    
+Are we obeying the golden rule of machine learing?
+
+<choice id="2" >
+<opt text="Yes" correct="true">
+
+Yes, the test data have not influenced the training in anyway!
+
+</opt>
+
+<opt text="No" >
+
+Have we touched the test data yet?
+
+</opt>
+
+
+</choice>
+
+
+Now that we have found a suitable value for max_depth let's build a new model and let this hyperparameter value. How well does your model do on the test data?
 
 Tasks:     
 
 - Build a model using `DecisionTreeClassifier()` using the optimal `max_depth`. 
 - Save this in an object named `model`. 
 - Fit your model on the objects `X_train` and `y_train`.
-- Evaluate the test error of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_error` rounded to 4 decimal places.
+- Evaluate the test score of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_score` rounded to 4 decimal places.
 
-<codeblock id="03_21">
+<codeblock id="03_20b">
 
 - Are using `DecisionTreeClassifier(max_depth=5)`?
 - Are you using the model named `model`?
 - Are you calling `.fit(X_train, y_train)` on your model?
 - Are you scoring your model using `model.score(X_test, y_test)`?
 - Are you rounding to 4 decimal places?
-- Are you calculating `test_error` as  `round(1 - model.score(X_test, y_test), 4)` )
+- Are you calculating `test_score` as  `round(model.score(X_test, y_test), 4)` )
 
 </codeblock>
 
 
 **Question 1**    
-Is the test error comparable with the cross-validation error that we obtained?
+Is the test score comparable with the cross-validation score that we obtained?
 
 <choice id="1" >
 <opt text="Yes"   correct="true">
@@ -974,7 +1011,7 @@ Nice job!
 
 <opt text="No">
 
-Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03?
+Wouldn't you say within 3% is comparable here?
 
 </opt>
 
@@ -983,7 +1020,7 @@ Wouldn't you say ~0.02 is similar to the validation error in the graph of 0.03?
 </exercise>
 
 
-<exercise id="22" title="What Did We Just Learn?" type="slides, video">
+<exercise id="21" title="What Did We Just Learn?" type="slides, video">
 <slides source="module3/module3_end" shot="0" start="0:003" end="1:54">
 </slides>
 </exercise>

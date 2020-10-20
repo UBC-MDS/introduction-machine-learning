@@ -10,32 +10,34 @@ Notes: <br>
 
 ## Recap
 
-### Training error versus Generalization error
+### Training score versus generalization score
 
-  - Given a model 𝑀, in Machine Learning (ML), people usually talk about
-    two kinds of errors of 𝑀:
+  - Given a model, in Machine Learning (ML), people usually talk about
+    two kinds of scores (accuracies):
 
 <!-- end list -->
 
-1.  Error on the training data
-    <img src="/module2/trainning_e.gif"  width = "12%" alt="404 image" />
+1.  Score on the training data
 
-2.  Error on the entire distribution 𝐷 of data
-    <img src="/module2/d_e.gif"  width = "9%" alt="404 image" />
+<br>
+
+2.  Score on the entire distribution of data
 
 Notes:
 
-At the end of module 2, we discussed two kinds of errors in a model.
+At the end of module 2, we discussed two kinds of scores (accuracies) in
+a model:
 
-1.  Error on the training data: \(error_{training}(M)\)
-2.  Error on the entire distribution \(D\) of data: \(error_{D}(M)\)
+1.  Score on the training data
+
+2.  Score on the entire distribution of data
 
 But we do not have access to the entire distribution which is where our
 interests lie so what do we do?
 
 ---
 
-## We can approximate generalization error by splitting our data\!
+## We can approximate generalization accuracy by splitting our data\!
 
 <br> <br>
 
@@ -133,7 +135,7 @@ cities data that we saw in module 2.
 ---
 
 ``` python
-X = cities_df.drop(["country"], axis=1)
+X = cities_df.drop(columns=["country"])
 X
 ```
 
@@ -283,9 +285,9 @@ Let’s take a look at the shape of each of these dataframes now.
 ``` python
 train_df, test_df = train_test_split(cities_df, test_size = 0.2, random_state = 123)
 
-X_train, y_train = train_df.drop(["country"], axis=1), train_df["country"]
+X_train, y_train = train_df.drop(columns=["country"]), train_df["country"]
 
-X_test, y_test = test_df.drop(["country"], axis=1), test_df["country"]
+X_test, y_test = test_df.drop(columns=["country"]), test_df["country"]
 
 train_df.head()
 ```
@@ -343,7 +345,33 @@ We can build our model and fit our data.
 
 <center>
 
-<img src="/module3/module3_01a.png"  width = "83%" alt="404 image" />
+<img src="/module3/module3_01_small.png"  width = "78%" alt="404 image" />
+
+</center>
+
+Notes:
+
+<br>
+
+---
+
+<br> <br> <br>
+
+<center>
+
+<img src="/module3/boundary_tree.png"  width = "100%" alt="404 image" />
+
+</center>
+
+Notes:
+
+<br>
+
+---
+
+<center>
+
+<img src="/module3/module3_01a.png"  width = "78%" alt="404 image" />
 
 </center>
 
@@ -352,33 +380,33 @@ Notes:
 ---
 
 ``` python
-print("Train error: " + str(round(1 - model.score(X_train, y_train), 2)))
+print("Train score: " + str(round(model.score(X_train, y_train), 2)))
 ```
 
 ```out
-Train error: 0.0
+Train score: 1.0
 ```
 
 ``` python
-print("Test error: " + str(round(1 - model.score(X_test, y_test), 2)))
+print("Test score: " + str(round(model.score(X_test, y_test), 2)))
 ```
 
 ```out
-Test error: 0.29
+Test score: 0.71
 ```
 
 Notes:
 
-Let’s examine the train and test accuracies with the split now.
+Let’s examine the train and test scores with the split now.
 
-Now when we examine the train and test error with the split we can see
-our model does not do as well a job generalizing as we did before.
+We can see our model does not do as well a job generalizing as we did
+before.
 
-Our training error is 0, however, our testing error is 0.26.
+Our training score is 1, however, our testing score is 0.71.
 
 ---
 
-<img src="/module3/module3_01/unnamed-chunk-17-1.png" width="105%" />
+<img src="/module3/module3_01/unnamed-chunk-19-1.png" width="105%" />
 
 Notes:
 

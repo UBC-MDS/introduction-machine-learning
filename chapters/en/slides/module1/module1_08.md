@@ -60,7 +60,7 @@ to clear up any confusions.
 
 ``` python
 df = pd.read_csv("data/kc_house_data.csv")
-df = df.drop(["id", "date"], axis=1)
+df = df.drop(columns=["id", "date"])
 df.head(3)
 ```
 

@@ -99,9 +99,9 @@ necessary and split it up.
 
 ``` python
 from xgboost import XGBClassifier
-X_train = train_df.drop(columns=['Target'], axis=1)
+X_train = train_df.drop(columns=['Target'])
 y_train = train_df['Target']
-X_test = test_df.drop(columns=['Target'], axis=1)
+X_test = test_df.drop(columns=['Target'])
 model = XGBClassifier()
 model.fit(X_train, y_train)
 ```
@@ -308,7 +308,7 @@ Notes: Machine learning can also be used to predict housing prices.
 
 ``` python
 df = pd.read_csv("data/kc_house_data.csv")
-df.drop(["id", "date"], axis=1, inplace=True)
+df = df.drop(columns=["id", "date"])
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
 train_df.head()
 ```
@@ -330,7 +330,7 @@ These data consist of the characteristics of houses in King County, USA.
 
 ``` python
 
-X_train = train_df.drop("price", axis=1)
+X_train = train_df.drop(columns=["price"])
 X_train.head()
 ```
 
@@ -358,7 +358,7 @@ Name: price, dtype: float64
 ```
 
 ``` python
-X_test = test_df.drop("price", axis=1)
+X_test = test_df.drop(columns=["price"])
 y_test = train_df["price"]
 ```
 

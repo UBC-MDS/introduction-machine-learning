@@ -19,7 +19,7 @@ node [shape=box] ;
 6 -> 8 ;
 9 [label="class = A+"] ;
 8 -> 9 ;
-10 [label="lab3 <= 95.0\nclass = A+"] ;
+10 [label="lab1 <= 96.5\nclass = A+"] ;
 8 -> 10 ;
 11 [label="class = not A+"] ;
 10 -> 11 ;

@@ -105,7 +105,7 @@ For this example, we are going to be working with the quiz2 regression data that
 𝑦  → Target
 
 ```{python}
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 
