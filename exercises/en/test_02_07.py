@@ -9,4 +9,7 @@ def test():
     assert model.get_params()['random_state'] == 1, "Make sure you are settting the model's 'random_state' to 1."
     assert 'model.fit' in __solution__, "Make sure you are using the '.fit()' function to fit 'X' and 'y'."
     assert 'model.predict(X)' in __solution__, "Make sure you are using the model to predict on 'X'."
+    assert list(predicted).count('Canada') == 6, "Your predicted values are incorrect. Are you fitting the model properly?"
+    assert list(predicted).count('Both') == 8, "Your predicted values are incorrect. Are you fitting the model properly?"
+    assert list(predicted).count('America') == 11, "Your predicted values are incorrect. Are you fitting the model properly?"
     __msg__.good("Nice work, well done!")
