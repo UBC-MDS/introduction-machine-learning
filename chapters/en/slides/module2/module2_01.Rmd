@@ -125,7 +125,7 @@ classification_df.head(3)
 
 
 ```{python}
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 X.head(3)
 ```
 

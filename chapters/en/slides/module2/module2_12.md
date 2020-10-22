@@ -47,7 +47,7 @@ classification_df.head()
 ```
 
 ``` python
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 

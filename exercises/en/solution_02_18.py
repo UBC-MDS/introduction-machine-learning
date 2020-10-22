@@ -9,7 +9,7 @@ X = canucks.loc[:, ['No.', 'Age', 'Height', 'Weight', 'Experience']]
 y = canucks['Salary']
 
 # Create a model
-reg_tree = DecisionTreeClassifier(random_state=1, max_depth=8, )
+reg_tree = DecisionTreeClassifier(random_state=1, max_depth=8)
 
 # Fit your data 
 reg_tree.fit(X,y)

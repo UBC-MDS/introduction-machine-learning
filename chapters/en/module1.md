@@ -1,5 +1,5 @@
 ---
-title: 'Module 1: Machine Learning Fundamentals'
+title: 'Module 1: Machine Learning Terminology'
 description:
   'This chapter will explain the different branches of machine learning and introduce decision trees; a machine learning model used in supervised learning.'
 prev: module0

@@ -105,28 +105,12 @@ This is **overfitting**.
 
 ---
 
-## Bias vs variance tradeoff
-
-<center><img src="/module3/darts_overfitting.png"  width = "50%" alt="404 image" /></center>
- 
-<a href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank">**Attribution: University of Washington - Pedro Domingos**</a>
-
-Notes: 
-
-This fundamental trade-off is also called the ***bias/variance tradeoff***.
-
-**Bias**  →  the tendency to consistently learn the same wrong thing (high bias means underfitting).
-
-**Variance**  →  the tendency to learn random things irrespective of the real signal (high variance means overfitting).
-
----
-
 ## How to pick a model that would generalize better?
 
 
 ```{python}
 df = pd.read_csv("data/canada_usa_cities.csv")
-X = df.drop(["country"], axis=1)
+X = df.drop(columns=["country"])
 y = df["country"]
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -153,11 +137,11 @@ We are using our family Canada and US cities data.
 
 ```{python}
 results_dict = {"depth": [], "mean_train_error": [], "mean_cv_error": [], "std_cv_error" : [], "std_train_error":[]}
-param_grid = {"max_depth": np.arange(1, 20)}
 
-for depth in param_grid["max_depth"]:
+for depth in range(1, 20):
     model = DecisionTreeClassifier(max_depth=depth)
     scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+    for item in results_dict.items()
     results_dict["depth"].append(depth)
     results_dict["mean_cv_error"].append(np.mean(1 - scores["test_score"]))
     results_dict["mean_train_error"].append(np.mean(1 - scores["train_score"]))

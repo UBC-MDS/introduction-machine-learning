@@ -108,7 +108,7 @@ Each fold gives a score and we usually average our 𝑘 results.
 
 It's better to notice the variation in the scores across folds.  
 
-We can get a more "robust" measure of error on unseen data.
+We can get a more "robust" score on unseen data.
 
 The main disadvantage here is that this is slower, which is a problem for bigger datasets / more complex models.
 
@@ -120,7 +120,7 @@ The main disadvantage here is that this is slower, which is a problem for bigger
 
 ```{python}
 df = pd.read_csv("data/canada_usa_cities.csv")
-X = df.drop(["country"], axis=1)
+X = df.drop(columns=["country"])
 y = df["country"]
 ```
 
@@ -169,7 +169,12 @@ We can see the output is a list of validation scores in each fold.
 ---
 
 ```{python}
-cross_val_score(model, X_train, y_train, cv=10)
+cv_scores = cross_val_score(model, X_train, y_train, cv=10)
+cv_scores
+```
+
+```{python}
+cv_scores.mean()
 ```
 
 
@@ -216,7 +221,15 @@ Notes:
 ---
 
 ```{python}
-pd.DataFrame(pd.DataFrame(scores).mean())
+pd.DataFrame(scores).mean()
+```
+
+```{python}
+cross_val_score(model, X_train, y_train, cv=10).mean()
+```
+
+```{python}
+pd.DataFrame(scores).std()
 ```
 
 Notes: 
@@ -229,6 +242,10 @@ We can calculate the mean of each column on the 10 folds.
 
 It's a bit unfortunate that they call it "test_score" in scikit-learn; for us this is a validation score.
 
+We can see the mean from this is similar to the mean from `cross_val_score()`.
+
+Normally we calculate the mean cross-validation score but sometimes it would be useful to look at the range and standar deviation of the folds. 
+
 ---
 
 ### Our typical supervised learning set up is as follows: 
@@ -239,8 +256,8 @@ It's a bit unfortunate that they call it "test_score" in scikit-learn; for us th
 2. We split our data into `X_train, y_train, X_test, y_test`.
 3. Hyperparameter optimization using cross-validation on `X_train` and `y_train`. 
 4. We assess the best model using  `X_test` and `y_test`.
-5. The **test error** tells us how well our model generalizes.
-6. If the **test error** is reasonable, we deploy the model.
+5. The **test score** tells us how well our model generalizes.
+6. If the **test score** is reasonable, we deploy the model.
 
 
 Notes: 
@@ -251,11 +268,11 @@ We split the data into train and test portions: `X_train, y_train, X_test, y_tes
 We carry out hyperparameter optimization using cross-validation on the train portion: `X_train` and `y_train`. 
 
 We assess our best performing model on the test portion: `X_test` and `y_test`.  
-What we care about is the **test error**, which tells us how well our model can be generalized.
+What we care about is the **test score**, which tells us how well our model can be generalized.
 
-If this test error is "reasonable" we deploy the model which will be used on new unseen examples.
+If this test score is "reasonable" we deploy the model which will be used on new unseen examples.
 
-How do we know whether this test error is reasonable? 
+How do we know whether this test score is reasonable? 
 
 We will discuss this in the next section!
 

@@ -53,7 +53,7 @@ data that we have seen previously.
 𝑋 → Feature vectors <br> 𝑦 → Target
 
 ``` python
-X = classification_df.drop(["quiz2"], axis=1)
+X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 
