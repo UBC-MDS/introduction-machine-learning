@@ -38,21 +38,27 @@
 - Discuss the difference between parametric and non-parametric machine learning models.
 
 ### Module 5 
+- Imputation 
+- Scaling 
+- Pipeline 
 
 - Identify when to implement feature transformations such as imputation, scaling, and one-hot encoding in a machine learning model development pipeline;
 - Use sklearn for applying them on your dataset;
 - Discuss golden rule in the context of feature transformations;
 - Use sklearn.pipeline.Pipeline to build a preliminary machine learning pipeline.
 
-### Module 6 
+## Module 6 
+- Categorical variables -> one-hot, Ordinal encoding 
+- ColumnTransformer
+
+
+
+### Module 7
 
 - Explain the need for hyperparameter optimization
 - Carry out hyperparameter optimization using sklearn's GridSearchCV and RandomizedSearchCV
 - Explain optimization bias
 - Identify and reason when to trust and not trust reported accuracies
-
-## Module 7 
-
 - precision and recall 
 - Data inbalance 
 - MAPE? 
