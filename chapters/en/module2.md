@@ -1,7 +1,7 @@
 ---
 title: 'Module 2: Decision Trees'
 description:
-  'This chapter will teach you about decision trees and how they make predictions.'
+  'This chapter will teach introduce the decision tree model are and how it make predictions.'
 prev: /module1
 next: /module3
 type: chapter

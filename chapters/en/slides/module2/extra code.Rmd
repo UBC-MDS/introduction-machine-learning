@@ -22,8 +22,8 @@ X= pk.drop(columns = ['deck_no', 'name', 'type', 'legendary', 'total_bs'])
 y = pk['legendary']
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=7)
-model = DecisionTreeClassifier()
+    X, y, test_size=0.2, random_state=5335)
+model = DecisionTreeClassifier(max_depth=4)
 model.fit(X_train,y_train)
 ```
 
@@ -31,6 +31,11 @@ model.fit(X_train,y_train)
 
 display_tree(X_train.columns, model, "../../../../static/module2/Q16")
 
+```
+```{python}
+X_example = np.array([133, 101, 52, 23, 74, 12, 5]).reshape(1,7)
+
+model.predict(X_example)
 ```
 
 
@@ -118,55 +123,78 @@ pk
 ```
 
 ```{python}
-pk = pd.read_csv('data/pokemon.csv')
+pk = pd.read_csv('data/spotify.csv').dropna()
 pk
 ## Adjusted path 
-path = "../../../../static/module3/"
+path = "../../../../static/module4/"
 
-X= pk.drop(columns = ['name', 'deck_no', 'total_bs', 'type', 'gen', 'legendary', 'defense', 'sp_attack','sp_defense', 'attack'])
-y = pk['legendary']
+X= pk.drop(columns = ['Unnamed: 0', 'song_title', 'song_title','artist', 'target'])
+y = pk['target']
 X
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=7)
 ```
 
+
 ```{python}
-results_dict = {"depth": [], "mean_train_error": [], "mean_cv_error": [], "std_cv_error" : [], "std_train_error":[]}
-param_grid = {"max_depth": np.arange(1, 20)}
+bball = pd.read_csv('bball.csv')
 
-for depth in param_grid["max_depth"]:
-    model = DecisionTreeClassifier(max_depth=depth)
-    scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
-    results_dict["depth"].append(depth)
-    results_dict["mean_cv_error"].append(np.mean(1 - scores["test_score"]))
-    results_dict["mean_train_error"].append(np.mean(1 - scores["train_score"]))
-    results_dict["std_cv_error"].append((1-scores["test_score"]).std())
-    results_dict["std_train_error"].append((1-scores["train_score"]).std())
+## Adjusted path 
+path = "../../../../static/module4/"
 
-results_df = pd.DataFrame(results_dict)
-results_df = results_df.set_index("depth")
+bball['height']= bball['height']*100
+bball['weight']= (bball['weight']*2.20462).round(2)
+bball = bball[(bball['position'] == 'F') | (bball['position'] == 'G') ]
+bball
 ```
 
 
 ```{python}
-source = results_df.reset_index().melt(id_vars=['depth'] , 
-                              value_vars=['mean_train_error', 'mean_cv_error'], 
-                              var_name='plot', value_name='Error')
+
+X= bball[['height', 'weight']]
+y = bball['position']
+
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=7)
+```
+
+```{python}
+
+from sklearn.neighbors import KNeighborsClassifier
+results_dict = {"n_neighbors": [], "mean_train_score": [], "mean_cv_score": []}
+
+
+for K in range(1,30):
+    knn100 = KNeighborsClassifier(n_neighbors=K)
+    scores = cross_validate(knn100, X_train, y_train.to_numpy(), return_train_score = True)
+    results_dict["n_neighbors"].append(K)
+    results_dict["mean_cv_score"].append(np.mean(scores["test_score"]))
+    results_dict["mean_train_score"].append(np.mean(scores["train_score"]))
+
+results_df = pd.DataFrame(results_dict)
+results_df
+scores
+```
+
+
+```{python}
+source = results_df.melt(id_vars=['n_neighbors'] , 
+                              value_vars=['mean_train_score', 'mean_cv_score'], 
+                              var_name='plot', value_name='score')
 source
 ```
 
 
 ```{python}
 chart1 = alt.Chart(source).mark_line().encode(
-    alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
-    alt.Y('Error:Q'),
-    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_error', 'mean_cv_error'],
+    alt.X('n_neighbors:Q', axis=alt.Axis(title="n_neighbors")),
+    alt.Y('score:Q', scale=alt.Scale(domain=[.82, 1.00])),
+    alt.Color('plot:N', scale=alt.Scale(domain=['mean_train_score', 'mean_cv_score'],
                                            range=['teal', 'gold'])))
 chart1
 ```
 
 ```{python include =FALSE}
-chart1.save(path + 'hyper_pk.png')
+chart1.save(path + 'Q18a.png')
 ```
 
 

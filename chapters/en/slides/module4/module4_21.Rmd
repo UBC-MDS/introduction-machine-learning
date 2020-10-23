@@ -1,0 +1,238 @@
+---
+params:
+  dynamictitle: "module4_18"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module3/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import cross_validate
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module4/"
+```
+
+
+type: slides
+
+# 𝑘 -Nearest Neighbours Regressor
+
+Notes: <br>
+
+---
+
+## Regression with  𝑘 -nearest neighbours ( 𝑘 -NNs)
+
+
+
+```{python}
+np.random.seed(0)
+n = 50
+X_1 = np.linspace(0,2,n)+np.random.randn(n)*0.01
+X = pd.DataFrame(X_1[:,None], columns=['length'])
+X.head()
+```
+
+```{python}
+y = np.random.randn(n,1) + X_1[:,None]*5
+y = pd.DataFrame(y, columns=['weight'])
+y.head()
+```
+
+
+
+Notes: 
+
+We can solve regression problems with  𝑘 -nearest neighbours algorithm as well. 
+
+In KNN regression we take the average of the  𝑘 -nearest neighbours.
+
+Let's say we have a toy dataset with a single feature and 50 examples.
+
+For this we are going to make up a dataset. Let's say our feature is the length of a snake 🐍 and we want to predict the weight of it. 
+
+(You do not need to worry about the code here)
+
+---
+
+```{python}
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+
+```
+
+```{python}
+source = pd.concat([X_train, y_train], axis=1)
+
+scatter = alt.Chart(source, width=500, height=300).mark_point(filled=True, color='green').encode(
+    alt.X('length:Q'),
+    alt.Y('weight:Q'))
+
+scatter
+```
+
+```{python include =FALSE}
+scatter.save(path + 'snakes.png')
+```
+
+<br>
+<center><img src="/module4/snakes.png" alt="A caption" width="60%" /></center>
+
+
+Notes:
+
+Let's split up our data so we do not break the golden rule of machine learning.
+
+Then we can plot our training data. 
+
+
+---
+
+```{python}
+from sklearn.neighbors import KNeighborsRegressor
+```
+
+```{python}
+knnr = KNeighborsRegressor(n_neighbors=1, weights="uniform")
+knnr.fit(X_train,y_train);
+```
+
+```{python}
+predicted = knnr.predict(X_train)
+predicted[:5]
+```
+
+```{python}
+knnr.score( X_train, y_train)  
+```
+
+
+
+Notes: 
+
+Let's first import  `KNeighborsRegressor`.
+
+We train as we are used to and predict, this time expecting a numerical value as as target. 
+
+When we score it, we get 100% training score and you'll see why in the graph next. 
+
+---
+
+<br>
+<center><img src="/module4/snakes_1.png" alt="A caption" width="80%" /></center>
+
+Notes: 
+
+---
+
+```{python}
+knnr = KNeighborsRegressor(n_neighbors=10, weights="uniform")
+knnr.fit(X_train, y_train);
+```
+
+```{python}
+knnr.score(X_train, y_train)
+```
+
+
+
+<center><img src="/module4/snakes_10.png" alt="A caption" width="70%" /></center>
+
+Notes: 
+
+Let's see what happens when we use 𝑘=10.
+
+Our accuracy decreases on our training data and we can see that our gold line is not intersecting all the points and is not as close to the actual value like before. 
+
+---
+
+## Using weighted distances
+
+```{python}
+knnr = KNeighborsRegressor(n_neighbors=10, weights="distance")
+knnr.fit(X_train, y_train);
+```
+
+```{python}
+knnr.score(X_train, y_train)
+```
+
+<center><img src="/module4/snakes_weighted.png" alt="A caption" width="65%" /></center>
+
+Notes: 
+
+
+
+---
+
+## Pros and Cons of 𝑘 -Nearest Neighbours
+
+### Pros:
+
+- Easy to understand, interpret.
+- Simply hyperparameter  𝑘 (`n_neighbors`)controlling the fundamental tradeoff.
+- Can learn very complex functions given enough data.
+- Lazy learning: Takes no time to `fit`
+
+<br>
+
+### Cons:
+
+- Can be potentially be VERY slow during prediction time. 
+- Often not that great test accuracy compared to the modern approaches.
+- You should scale your features. We'll be looking into it in the next lecture. 
+
+Notes: 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

@@ -1,0 +1,270 @@
+---
+params:
+  dynamictitle: "module4_18"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module3/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import cross_validate
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module4/"
+```
+
+
+type: slides
+
+# Choosing K (n_neighbors)
+
+Notes: <br>
+
+---
+
+```{python}
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+X = cities_df.drop(columns=["country"])
+y = cities_df["country"]
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.1, random_state=123)
+```
+
+```{python}
+model = KNeighborsClassifier(n_neighbors=1)
+model.fit(X_train, y_train.to_numpy());
+```
+
+
+```{python}
+model.score(X_train,y_train)
+```
+
+Notes: 
+
+In the last section we saw we could build a `KNeighborsClassifier` in a similar way to how we've built other models. 
+
+The primary hyperparameter of the model is `n_neighbors` ( 𝑘 )  which decides how many neighbours should vote during prediction? 
+
+What happens when we play around with `n_neighbors`?
+
+Are we more likely to overfit with a low `n_neighbors` or a high `n_neighbors`?
+
+Let's examine the effect of the hyperparameter on our cities data. 
+
+
+---
+
+```{python}
+k = 1
+knn1 = KNeighborsClassifier(n_neighbors=k)
+scores = cross_validate(knn1, X_train, y_train, return_train_score = True)
+pd.DataFrame(scores)
+```
+
+```{python}
+k = 100
+knn100 = KNeighborsClassifier(n_neighbors=k)
+scores = cross_validate(knn100, X_train, y_train, return_train_score = True)
+pd.DataFrame(scores)
+```
+
+Notes: 
+
+---
+
+```{python echo=FALSE}
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1)
+knn1.fit(X_train, y_train);
+plt.title("n_neighbors = 1")
+plt.ylabel("latitude")
+plt.xlabel("longitude")
+plot_classifier(X_train, y_train, knn1, ax=plt.gca(), ticks=True)
+
+
+plt.subplot(1, 2, 2)
+plt.title("n_neighbors = 100")
+knn100.fit(X_train, y_train);
+plt.ylabel("latitude")
+plt.xlabel("longitude")
+plot_classifier(X_train, y_train, knn100, ax=plt.gca(), ticks=True)
+
+```
+
+Notes: 
+
+---
+
+### How to choose `n_neighbors`?
+
+```{python}
+results_dict = {"n_neighbors": list(), "mean_train_score": list(), "mean_cv_score": list()}
+
+for k in range(1,50,5):
+    knn = KNeighborsClassifier(n_neighbors=k)
+    scores = cross_validate(knn, X_train, y_train, return_train_score = True)
+    results_dict["n_neighbors"].append(k)
+    results_dict["mean_cv_score"].append(np.mean(scores["test_score"]))
+    results_dict["mean_train_score"].append(np.mean(scores["train_score"]))
+
+results_df = pd.DataFrame(results_dict)
+results_df
+```
+
+
+
+Notes: 
+
+`n_neighbors` is a hyperparameter.
+
+We can use hyperparameter optimization to choose `n_neighbors`.
+
+
+---
+
+```{python include =FALSE}
+
+plotting_source = results_df.melt(id_vars='n_neighbors', 
+                                  value_vars=['mean_train_score', 'mean_cv_score'], 
+                                  var_name='score_type' ,
+                                  value_name= 'accuracy' )
+                                  
+                                  
+K_plot = alt.Chart(plotting_source, width=500, height=300).mark_line().encode(
+    alt.X('n_neighbors:Q'),
+    alt.Y('accuracy:Q', scale=alt.Scale(domain=[.67, 1.00])),
+    alt.Color('score_type:N')
+).properties(title="Accuracies of n_neighbors for KNeighborsClassifier")
+
+
+```
+
+```{python include =FALSE}
+K_plot.save(path + 'K_plot.png')
+```
+
+<br>
+<center><img src="/module4/K_plot.png" alt="A caption" width="80%" /></center>
+
+
+Notes: 
+
+---
+
+
+```{python}
+sorted_results_df = results_df.sort_values("mean_cv_score", ascending = False)
+sorted_results_df
+```
+
+```{python}
+best_k = sorted_results_df.iloc[0,0]
+best_k
+```
+
+Notes: 
+
+---
+
+```{python}
+knn = KNeighborsClassifier(n_neighbors=best_k)
+knn.fit(X_train, y_train);
+print("Test accuracy:", round(knn.score(X_test, y_test), 3))
+```
+
+
+Notes: 
+
+---
+
+### Curse of dimensionality
+
+
+<br>
+<center><img src="/module4/K_plot.png" alt="A caption" width="80%" /></center>
+
+Notes:
+
+As we increase the number of dimensions our success at predicting decreases. This is called ` Curse of dimensionality`.
+
+This affects all learners but especially bad for nearest-neighbour. 
+
+𝑘 -NN usually works well when the number of dimensions, is small but things fall apart quickly as  the number of dimensions goes up.
+
+If there are many irrelevant attributes,  𝑘 -NN is hopelessly confused because all of them contribute to finding similarity between examples.
+
+With enough irrelevant attributes the accidental similarity swamps out meaningful similarity and  𝑘 -NN is no better than random guessing.
+
+
+---
+
+### Other useful arguments of `KNeighborsClassifier`
+
+
+<center><img src="/module4/knn.png" alt="A caption" width="80%" /></center>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html" target="_blank">**Attribution** </a>  
+
+
+
+
+
+Notes: 
+
+There are many different arguments to use with `KNeighborsClassifier`, one of them being `weights`. 
+
+`weights` allows us to assign higher weight to the examples which are closer to the query example.
+
+We will explore this in the practice exercises coming up!
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

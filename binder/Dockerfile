@@ -14,9 +14,6 @@ RUN pip install --no-cache --upgrade pip && \
 			   "spacy[lookups]==2.3.0" \
 			   "scikit-learn==0.23.2"
 
-#Install sklearn
-RUN pip install scikit-learn==0.23.2
-
 # create user with a home directory
 ARG NB_USER
 ARG NB_UID

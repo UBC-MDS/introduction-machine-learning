@@ -1,7 +1,7 @@
 ---
 title: 'Module 3: Splitting, Cross-Validation and the Fundamental Tradeoff'
 description:
-  'This module will introduce you to why and how we split our data and, how cross-validation works on our training data. We will explain the fundamental tradeoff as well as the golden rule of machine learning. '
+  'This module will introduce why and how we split our data and, how cross-validation works on training data. We will explain 2 important concepts in machine learning: the fundamental tradeoff and the golden rule. '
 prev: /module2
 next: /module4
 type: chapter
@@ -10,7 +10,7 @@ id: 3
 
 <exercise id="0" title="Module Learning Outcomes"  type="slides, video">
 
-<slides source="module2/module2_00" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_00" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
@@ -902,7 +902,7 @@ First let's see which hyperparameter is the most optimal.
 Tasks:     
 
 - Fill in the code below. 
-- We are first loading in our `bball.csv` dataset and assigning our features to `X` and our target `position` to and object named `y`. 
+- We are first loading in our `bball.csv` dataset and assigning our features to `X` and our target `position` to an object named `y`. 
 - Fill in the code so that it split the dataset into `X_train`, `X_test`, `y_train`, `y_test`. Make sure to use a 20% test set and a `random_state=33` so we can verify you solution.
 - Next, fill in the code so that a `for` loop does the following:
 
@@ -933,7 +933,7 @@ To which depth would you set your `max_depth` hyperparameter?
 <choice id="1" >
 <opt text="1" >
 
-There are other depth values that have a higher score that at this value. 
+There are other depth values that have a higher cross-validation score that at this value. 
 
 </opt>
 
@@ -945,13 +945,13 @@ Nice work. This is where the score is at the highest for the validation set.
 
 <opt text="8"   >
 
-Are you sure this is the depth with the highest score possible?
+Are you sure this is the depth with the highest cross-validation score possible?
 
 </opt>
 
 <opt text="17">
 
-Are you sure this is the depth with the highest score possible?
+Are you sure this is the depth with the highest cross-validation score possible?
 
 </opt>
 
@@ -1000,7 +1000,7 @@ Tasks:
 
 
 **Question 1**    
-Is the test score comparable with the cross-validation score that we obtained?
+Is the test score comparable with the cross-validation score that we obtained in the first part?
 
 <choice id="1" >
 <opt text="Yes"   correct="true">
