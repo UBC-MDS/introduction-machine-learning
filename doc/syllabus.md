@@ -35,12 +35,17 @@
 - Broadly describe how KNNs use distances
 - Discuss the effect of using a small/large value of the hyperparameter $K$ when using the KNN algorithm.
 - Explain the general idea of SVM with RBF kernel.
-- Discuss the difference between parametric and non-parametric machine learning models.
+SVM ( faster-> doesn't use all examples just key examples, Faster in predict, slower in train (in comparison to KNN)) 
 
 ### Module 5 
+
 - Imputation 
 - Scaling 
 - Pipeline 
+- Explain the need for hyperparameter optimization
+- Carry out hyperparameter optimization using sklearn's GridSearchCV and RandomizedSearchCV
+- Explain optimization bias (one slide -> after optimization check test set just in case score is too high) 
+
 
 - Identify when to implement feature transformations such as imputation, scaling, and one-hot encoding in a machine learning model development pipeline;
 - Use sklearn for applying them on your dataset;
@@ -55,9 +60,6 @@
 
 ### Module 7
 
-- Explain the need for hyperparameter optimization
-- Carry out hyperparameter optimization using sklearn's GridSearchCV and RandomizedSearchCV
-- Explain optimization bias
 - Identify and reason when to trust and not trust reported accuracies
 - precision and recall 
 - Data inbalance 
