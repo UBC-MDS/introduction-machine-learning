@@ -136,7 +136,7 @@ We are using our family Canada and US cities data.
 ---
 
 ```{python}
-results_dict = {"depth": [], "mean_train_error": [], "mean_cv_error": [], "std_cv_error" : [], "std_train_error":[]}
+results_dict = {"depth": list(), "mean_train_error": list(), "mean_cv_error": list(), "std_cv_error" : [], "std_train_error":[]}
 
 for depth in range(1, 20):
     model = DecisionTreeClassifier(max_depth=depth)

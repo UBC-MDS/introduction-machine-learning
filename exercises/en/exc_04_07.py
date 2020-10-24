@@ -9,16 +9,20 @@ X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'
 y = pokemon_df['legendary']
 
 
-# Subtract the two first pokemon feature vectors and save it in an object name sub_pk
+# Subtract the two first pokemon feature vectors
+# Save it in an object name sub_pk
 ____ = ____
 
-# Square the difference and save it in an object named sq_sub_pk
+# Square the difference 
+# Save it in an object named sq_sub_pk
 ____ = ____
 
-# Sum the squared difference from each dimension and save the result in an object named sss_pk
+# Sum the squared difference from each dimension 
+# Save the result in an object named sss_pk
 ____ = ____
 
-# Finally, take the square root of the entire calculation and save it in an object named pk_distance
+# Finally, take the square root of the entire calculation 
+# Save it in an object named pk_distance
 ____ = ____
 
 ____

@@ -41,11 +41,13 @@ the test example.
 
 <center>
 
-<img src="/module4/book_rec.png"  width = "70%" alt="404 image" />
+<img src="/module4/book_rec.png"  width = "90%" alt="404 image" />
 
 </center>
 
 Notes:
+
+Examples of Analogy-based algorithms include:
 
   - <a href="https://www.hertasecurity.com/en" target="_blank">Herta’s
     High-tech Facial Recognition</a>
@@ -96,6 +98,8 @@ Let’s look at our Canadian and United States cities.
 
 How many dimensions (features) are there in this cities data?
 
+If you said 2, then you are off to a good start.
+
 ---
 
 ``` python
@@ -110,6 +114,8 @@ cities_plot
 <img src="/module4/cities_plot.png" alt="A caption" width="50%" />
 
 Notes:
+
+We can visualize these 2 dimensions in a 2D graph.
 
 ---
 
@@ -129,8 +135,6 @@ grades_df.head()
 4              0                 1    77    83    90    92     85      A+
 ```
 
-The number of features in the grades dataset:
-
 ``` python
 X = grades_df.drop(columns=['quiz2'])
 X.shape[1]
@@ -145,6 +149,9 @@ Notes:
 Recall the quiz dataset that we’ve seem a few times?
 
 How many dimensions (features) would this dataset have?
+
+The number of features in the grades dataset can be checked using
+`.shape`.
 
 ---
 
@@ -171,6 +178,19 @@ hard to visualize.
 
 **Feature vector**: a vector composed of feature values associated with
 an example.
+
+``` python
+train_df.head()
+```
+
+```out
+     longitude  latitude country
+160   -76.4813   44.2307  Canada
+127   -81.2496   42.9837  Canada
+169   -66.0580   45.2788  Canada
+188   -73.2533   45.3057  Canada
+187   -67.9245   47.1652  Canada
+```
 
 An example feature vector from the cities dataset:
 

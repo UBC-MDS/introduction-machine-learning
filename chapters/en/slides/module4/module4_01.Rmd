@@ -93,15 +93,17 @@ An intuitive way to classify the test example is by finding the most "similar" e
 
 - Recommendation systems 
 
-<center><img src="/module4/book_rec.png"  width = "70%" alt="404 image" /></center>
+<center><img src="/module4/book_rec.png"  width = "90%" alt="404 image" /></center>
 
 
 Notes: 
 
+Examples of Analogy-based algorithms include:
+
 - <a href="https://www.hertasecurity.com/en" target="_blank">Herta's High-tech Facial Recognition</a>
-    - Feature vectors for human faces 
-    - 𝑘-NN to identify which face is on their watch list
-    
+  - Feature vectors for human faces 
+  - 𝑘-NN to identify which face is on their watch list
+  
 - Recommendation systems 
 
 ---
@@ -135,6 +137,8 @@ Let's look at our Canadian and United States cities.
 
 How many dimensions (features) are there in this cities data? 
 
+If you said 2, then you are off to a good start. 
+
 ---
 
 ```{python}
@@ -156,6 +160,8 @@ cities_plot.save(path + 'cities_plot.png')
 
 Notes: 
 
+We can visualize these 2 dimensions in a 2D graph. 
+
 ---
 
 ### Dimensions
@@ -165,7 +171,7 @@ grades_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
 grades_df.head()
 ```
 
-The number of features in the grades dataset:
+
 ```{python}
 X = grades_df.drop(columns=['quiz2'])
 X.shape[1]
@@ -177,6 +183,8 @@ Notes:
 Recall the quiz dataset that we've seem a few times?
 
 How many dimensions (features) would this dataset have? 
+
+The number of features in the grades dataset can be checked using `.shape`. 
 
 
 ---
@@ -204,6 +212,11 @@ In ML, usually we deal with high dimensional problems where examples are hard to
 ### Feature vectors 
 
 **Feature vector**: a vector composed of feature values associated with an example.
+
+```{python}
+train_df.head()
+```
+
 
 An example feature vector from the cities dataset:
 ```{python}

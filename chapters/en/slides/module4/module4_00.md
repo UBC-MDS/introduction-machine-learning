@@ -4,14 +4,13 @@ type: slides
 
 # Module Learning Outcomes
 
-'This module will introduce you to 𝑘-nearest neighbours and how to calculate the Euclidean distance between points.
+Notes:
+This module will introduce you to 𝑘-nearest neighbours and SVM's with an RBF kernel and how to calculate the Euclidean distance between points.
 
 
 ---
 
 # Module Learning Outcomes
-
-By the end of the module, students are expected to:
 
 By the end of the module, students are expected to:
 

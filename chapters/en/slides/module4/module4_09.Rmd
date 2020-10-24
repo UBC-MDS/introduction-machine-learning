@@ -73,6 +73,7 @@ cities_df = pd.read_csv("data/canada_usa_cities.csv")
 train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
 train_df.head(3)
 ```
+
 ```{python}
 dists = euclidean_distances(train_df[["latitude", "longitude"]])
 dists
@@ -86,7 +87,6 @@ Notes:
 
 Now that we know how to calculate the Euclidean distance between examples, let see how close all the cities are to all other cities in the dataset. 
 
-Let's look at distances from all cities to all other cities.
 
 ---
 
@@ -104,7 +104,8 @@ pd.DataFrame(dists).loc[:5,:5]
 Notes: 
 
 It's important that we use the `fill_diagonal()` tool to replace all the diagonal entries which is the distance from a city to itself. 
-It makes sense that there those entries have a distance of  0 but if we are trying to find the city with the minimum distance, we would never be getting the closest neighbour and instead be getting itself each time. 
+
+It makes sense that there those entries have a distance of 0 but if we are trying to find the city with the minimum distance, we would never be getting the closest neighbour and instead be getting itself each time. 
 
 This is why we "fill diagonal" entries with a very large number, infinity in fact. 
 
@@ -123,7 +124,7 @@ dists[0][:5]
 ```
 
 
-Notes: Next, let's look at the distances between City 0 and some other cities. 
+Notes: Next, let's look at the distances between City 0 and the first 5 cities in the dataframe. 
 
 ---
 
@@ -147,7 +148,8 @@ dists[0][157]
 
 Notes: 
 
-We can find the closest city to city 0 with  <a href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html" target="_blank">`np.argmin`</a> .      
+We can find the closest city to city 0 with  <a href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html" target="_blank">`np.argmin`</a>.
+
 The closest city from city 0 is city 157 in the training dataframe.  
 
 It's feature vector tells us that it's city 96 (of the whole dataset)  and is located at longitude -76.3019 and latitude 44.211 in country Canada. 
@@ -168,12 +170,13 @@ dists = euclidean_distances(train_df[["longitude", "latitude"]], query_point)
 dists[0:5]
 ```
 
-We can find the city closest to the query point [[-80, 25]] is:
+We can find the city closest to the query point (-80, 25) using:
 
 ```{python}
 np.argmin(dists)
 ```
-with a distance of:
+
+The distance between the query point and closest city is:
 ```{python}
 dists[np.argmin(dists)].item()
 ```
@@ -215,7 +218,7 @@ In fact, we can extend it to arrays ("vectors") of any length.
 
 ```{python}
 pokemon_df = pd.read_csv("data/pokemon.csv")
-X= pokemon_df.drop(columns=['name', 'type', 'legendary'])
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
 y = pokemon_df[['legendary']]
 X_train, X_test, y_train,  y_test = train_test_split(X, y, test_size=0.2, random_state=123)
 
@@ -224,7 +227,7 @@ X_train.head()
 
 Note:
 
-Let's look at our pokemon data. 
+Let's look at our pokemon data which will have 7 dimensions.
 
 ---
 
@@ -232,27 +235,27 @@ Let's look at our pokemon data.
 dists = euclidean_distances(X_train[:3])
 dists
 ```
-The distance between pokemon 0 and pokemon 2 is:
+
 ```{python}
 dists[0,2]
 ```
-We can find the most similar Pokemon from our training data to the Pokemon 1 from the test set by:
 
 ```{python}
 nn = NearestNeighbors(n_neighbors=1)
 nn.fit(X_train);
 nn.kneighbors(X_test.iloc[[1]])
 ```
+
 ```{python}
 X_test.to_numpy().shape
 ```
 Notes:
+
+The distance between pokemon 0 and pokemon 2  can be found with `dists[0,2]`. 
  
+We can find the most similar Pokemon from our training data to the Pokemon 1 from the test set using `NearestNeighbors` from the Sklearn package. 
  
 ---
-
-Find the 5 most similar Pokemon in the training data to test Pokemon 1:
-
 
 ```python
 nn = NearestNeighbors(n_neighbors=5)
@@ -271,9 +274,13 @@ X_test.iloc[1].shape
 ```{python}
 X_test.iloc[[1]].shape
 ```
+
 ```{python}
+nn = NearestNeighbors(n_neighbors=5)
+nn.fit(X_train);
 nn.kneighbors(X_test.iloc[[1]])
 ```
+
 
 
 Notes: 
@@ -282,9 +289,9 @@ We can also find the 5 most similar Pokemon in the training data to test Pokemon
 
 We need to be careful though. 
 
-A numpy array with shape (9,) is 1 dimensional where as (1, 9) is 2 dimensional which is what `kneighbors()` needs as an imput. 
+A numpy array with shape (9,) is 1 dimensional where as (1, 9) is 2 dimensional which is what `kneighbors()` needs as an input. 
 
-Now we can see that the top 5 most similar pokemon are 364,361,590 and 97 with their respective distances of 45.83, 81.88, 82.70 84.91, and 85.08.
+Now we can see the top 5 most similar pokemon.
 
 ---
 

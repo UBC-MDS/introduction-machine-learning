@@ -21,7 +21,7 @@ model = DecisionTreeClassifier(max_depth=4)
 model.fit(X_train,y_train)
 
 # Score the model on the test set 
-test_error = round(model.score(X_test, y_test), 4)
+test_score = round(model.score(X_test, y_test), 4)
 
-print("The test error: " + str(test_error))
+print("The test score: " + str(test_score))
 

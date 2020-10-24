@@ -21,13 +21,13 @@ Notes:
 Now we know how to measure distance and find examples that are closest
 to a point but how can that be translated into a predictive model?
 
-Here is some toy data for binary classification.
+Here is a toy data for binary classification.
 
 We want to predict the point in grey.
 
 An intuitive way to do this is predict the grey point using the same
 label as the next “closest” point (𝑘 = 1) We would predict a target of 1
-(orange) in this case
+(orange) in this case.
 
 ---
 
@@ -85,8 +85,9 @@ Notes:
 
 Let’s return to a smaller version of our cities data now.
 
-Here we have a single point we are calling `one_city`. It’s the green
-triangle we see in the plot.
+Here we have a single point we are calling `one_city`.
+
+It’s the green triangle we see in the plot.
 
 ---
 
@@ -133,7 +134,7 @@ array(['Canada'], dtype=object)
 
 Notes:
 
-What about with the nearest 3 cities(𝑘 = 1)?
+What about with the nearest 3 cities(𝑘 = 3)?
 
 This is still predicting Canada since the majority of the 3 nearest
 points to the green triangle are “Canadian”.

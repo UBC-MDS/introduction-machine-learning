@@ -196,6 +196,8 @@ K_plot.save(path + 'K_plot.png')
 
 Notes: 
 
+Here we see that when `n_neighbors` is equal to 11, the cross validation score is the highest. 
+
 ---
 
 
@@ -211,6 +213,8 @@ best_k
 
 Notes: 
 
+We can confirm this when we sort the scores. 
+
 ---
 
 ```{python}
@@ -222,21 +226,29 @@ print("Test accuracy:", round(knn.score(X_test, y_test), 3))
 
 Notes: 
 
+Now when we build our model with `n_neighbors=11` we can hope that our test accuracy will be optimized.
+
 ---
 
-### Curse of dimensionality
+## Curse of dimensionality
 
 
+<br> 
 <br>
-<center><img src="/module4/K_plot.png" alt="A caption" width="80%" /></center>
+
+### As dimensions ↑, score  ↓ 
+
+- 𝑘 -NN usually works well when the number of dimensions is small.
+
+
 
 Notes:
 
-As we increase the number of dimensions our success at predicting decreases. This is called ` Curse of dimensionality`.
+As we increase the number of dimensions, our success at predicting decreases. This is called ` Curse of dimensionality`.
 
-This affects all learners but especially bad for nearest-neighbour. 
+This affects all learners but it's especially bad for nearest-neighbour. 
 
-𝑘 -NN usually works well when the number of dimensions, is small but things fall apart quickly as  the number of dimensions goes up.
+𝑘 -NN usually works well when the number of dimensions is small but things fall apart quickly as  the number of dimensions goes up.
 
 If there are many irrelevant attributes,  𝑘 -NN is hopelessly confused because all of them contribute to finding similarity between examples.
 
@@ -261,7 +273,7 @@ There are many different arguments to use with `KNeighborsClassifier`, one of th
 
 `weights` allows us to assign higher weight to the examples which are closer to the query example.
 
-We will explore this in the practice exercises coming up!
+We will explore this in the assignment!
 
 ---
 

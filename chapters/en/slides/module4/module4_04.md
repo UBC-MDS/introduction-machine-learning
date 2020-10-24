@@ -38,6 +38,8 @@ cities_viz = alt.Chart(train_df, width=500, height=300).mark_circle(size=20, opa
 )
 cities_viz
 ```
+<img src="/module4/cities_viz.png" alt="A caption" width="66%" />
+
 Notes:
 
 ---

@@ -51,8 +51,8 @@ In KNN regression we take the average of the 𝑘 -nearest neighbours.
 
 Let’s say we have a toy dataset with a single feature and 50 examples.
 
-For this we are going to make up a dataset. Let’s say our feature is the
-length of a snake 🐍 and we want to predict the weight of it.
+For this, we are going to make up a dataset. Let’s say our feature is
+the length of a snake 🐍 and we want to predict the weight of it.
 
 (You do not need to worry about the code here)
 
@@ -75,7 +75,7 @@ scatter
 
 <center>
 
-<img src="/module4/snakes.png" alt="A caption" width="65%" />
+<img src="/module4/snakes.png" alt="A caption" width="60%" />
 
 </center>
 
@@ -122,11 +122,11 @@ Notes:
 
 Let’s first import `KNeighborsRegressor`.
 
-We train as we are used to and predict, this time expecting a numerical
-value as as target.
+We train our model just like before and predict, this time expecting a
+numerical value as as target.
 
 When we score it, we get 100% training score and you’ll see why in the
-graph next.
+next graph.
 
 ---
 
@@ -194,9 +194,15 @@ knnr.score(X_train, y_train)
 
 Notes:
 
+We can also specify our `weights` parameter so that points that are
+closer, have add more meaning to the prediction than points that are
+further away.
+
 ---
 
 ## Pros and Cons of 𝑘 -Nearest Neighbours
+
+<br> <br>
 
 ### Pros:
 

@@ -54,11 +54,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.005135    0.006065    0.710526          1.0
-1  0.002487    0.004327    0.684211          1.0
-2  0.002892    0.003584    0.842105          1.0
-3  0.002392    0.003065    0.702703          1.0
-4  0.003728    0.004863    0.837838          1.0
+0  0.002153    0.003714    0.710526          1.0
+1  0.002121    0.003117    0.684211          1.0
+2  0.002946    0.003146    0.842105          1.0
+3  0.002122    0.003537    0.702703          1.0
+4  0.003075    0.003059    0.837838          1.0
 ```
 
 ``` python
@@ -70,11 +70,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002510    0.004677    0.605263     0.600000
-1  0.002595    0.004294    0.605263     0.600000
-2  0.002046    0.003519    0.605263     0.600000
-3  0.002013    0.004244    0.594595     0.602649
-4  0.003045    0.003967    0.594595     0.602649
+0  0.002028    0.005173    0.605263     0.600000
+1  0.001985    0.003950    0.605263     0.600000
+2  0.002251    0.003188    0.605263     0.600000
+3  0.002479    0.003489    0.594595     0.602649
+4  0.002128    0.003904    0.594595     0.602649
 ```
 
 Notes:
@@ -135,6 +135,9 @@ We can use hyperparameter optimization to choose `n_neighbors`.
 
 Notes:
 
+Here we see that when `n_neighbors` is equal to 11, the cross validation
+score is the highest.
+
 ---
 
 ``` python
@@ -167,6 +170,8 @@ best_k
 
 Notes:
 
+We can confirm this when we sort the scores.
+
 ---
 
 ``` python
@@ -181,26 +186,27 @@ Test accuracy: 0.905
 
 Notes:
 
+Now when we build our model with `n_neighbors=11` we can hope that our
+test accuracy will be optimized.
+
 ---
 
-### Curse of dimensionality
+## Curse of dimensionality
 
-<br>
+<br> <br>
 
-<center>
+### As dimensions ↑, score ↓
 
-<img src="/module4/K_plot.png" alt="A caption" width="80%" />
-
-</center>
+  - 𝑘 -NN usually works well when the number of dimensions is small.
 
 Notes:
 
-As we increase the number of dimensions our success at predicting
+As we increase the number of dimensions, our success at predicting
 decreases. This is called `Curse of dimensionality`.
 
-This affects all learners but especially bad for nearest-neighbour.
+This affects all learners but it’s especially bad for nearest-neighbour.
 
-𝑘 -NN usually works well when the number of dimensions, is small but
+𝑘 -NN usually works well when the number of dimensions is small but
 things fall apart quickly as the number of dimensions goes up.
 
 If there are many irrelevant attributes, 𝑘 -NN is hopelessly confused
@@ -230,7 +236,7 @@ one of them being `weights`.
 `weights` allows us to assign higher weight to the examples which are
 closer to the query example.
 
-We will explore this in the practice exercises coming up\!
+We will explore this in the assignment\!
 
 ---
 

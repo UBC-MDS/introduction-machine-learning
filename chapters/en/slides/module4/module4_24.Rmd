@@ -1,0 +1,312 @@
+---
+params:
+  dynamictitle: "module4_24"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module4/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.model_selection import train_test_split, cross_validate
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module4/"
+```
+
+
+type: slides
+
+# Suport Vector Machines (SVMs) with RBF kernel
+
+Notes: <br>
+
+---
+
+```{python}
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
+train_df.head()
+X_train, y_train = train_df.drop(columns=['country']), train_df['country']
+X_test, y_test = test_df.drop(columns=['country']), test_df['country']
+```
+
+```{python}
+train_df.head()
+```
+
+Notes: 
+
+Another popular similarity-based algorithm is Support Vector Machines (SVM).
+
+SVMs use a different similarity metric which is called a "kernel" in SVM land. 
+
+We are going to concentrate on the specific kernel called Radial Basis Functions (RBFs).
+
+Let's bring back our trusty cities dataset again before introducing it. 
+
+
+---
+
+
+```{python}
+cities_plot = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
+    alt.X('longitude:Q', scale=alt.Scale(domain=[-140, -40])),
+    alt.Y('latitude:Q', scale=alt.Scale(domain=[20, 60])),
+    alt.Color('country:N', scale=alt.Scale(domain=['Canada', 'USA'],
+                                           range=['red', 'blue'])))
+cities_plot
+```
+
+```{python include =FALSE}
+cities_plot.save(path + 'cities_plot.png')
+```
+
+<img src="/module4/cities_plot.png" alt="A caption" width="70%" />
+
+
+
+Notes: 
+
+---
+
+```{python}
+from sklearn.svm import SVC
+```
+
+
+```{python}
+svm = SVC(gamma=0.01)
+svm.fit(X_train, y_train)
+scores = cross_validate(svm, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores)
+```
+```{python}
+svm_cv_score = scores['test_score'].mean()
+svm_cv_score
+```
+
+
+Notes: 
+
+We must first import the necessary library and then we can get to model building in the same fashion as we did before.  
+
+Here we are importing the `SVC` tool from the `sklearn.svm` library. 
+
+For now, just ignore gamma input argument in `SVC()` we will get to that soon. 
+
+
+---
+
+```{python}
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
+X_train, y_train = train_df.drop(columns=['country']), train_df['country']
+X_test, y_test = test_df.drop(columns=['country']), test_df['country']
+```
+
+
+```{python include=FALSE}
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier()
+knn.fit(X_train, y_train);
+scores = cross_validate(knn, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+
+```{python echo=FALSE, fig.width = 10, fig.height = 8,  out.width = '100%'}
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1)
+plt.title("SVC")
+plot_classifier(X_train, y_train, svm, ax=plt.gca())
+plt.subplot(1, 2, 2)
+plt.title("KNN with k = 5")
+plot_classifier(X_train, y_train, knn, ax=plt.gca())
+```
+
+
+Notes: 
+
+if we plot the decision boundaries of the SVM model and compare it to K-Nearest Neighbours we can see some similarities. 
+
+You can think of SVM with RBF kernel as "smooth KNN". 
+
+---
+
+### SVMs
+
+```{python}
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train);
+scores = cross_validate(knn, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+```{python}
+knn_cv_score = scores['test_score'].mean().round(3)
+knn_cv_score
+```
+
+```{python}
+svm_cv_score.round(3)
+```
+
+Notes: 
+
+Superficially, SVMs are more like weighted 𝑘-NNs.
+
+A test example is a positive if on average it looks more like positive examples than the negative examples. 
+
+The primary difference between 𝑘 -NNs and SVMs is that 
+  - Unlike 𝑘 -NNs, SVMs only remember the key examples (support vectors). So it's more efficient than 𝑘 -NN. 
+  
+If we compare the scores from the 𝑘-NN model using `n_neighbors=5` and the scores from the SVM model we get similar results. 
+
+---
+
+## SVM Regressor 
+
+
+```{python}
+from sklearn.svm import SVR
+```
+
+
+
+Notes:
+
+It should come to no surprise that we can also use SVM models for regression problems as well.
+
+We need to make sure to import SVR from the svm sklearn library. 
+
+
+---
+
+<br>
+<br>
+
+### Hyperparameters of SVM are:
+
+    - `gamma`
+    - `C`
+    
+
+
+Notes: 
+
+We are not going to go into detail about the meaning behind these parameters but you should be able to explain how they effect training and testing scores (The fundamental trade-off). 
+
+If you wish to learn more on these you can reference <a href="https://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html" target="_blank">Scikit-learn`'s explanation of RBF SVM parameters</a>.
+
+
+
+---
+
+### Relation of gamma and the fundamental trade-off
+
+`gamma` controls the complexity of a model, just like other hyperparameters we've seen.
+
+- As  gamma  ↑, complexity  ↑
+- As  gamma  ↓, complexity ↓
+
+<br>
+<br>
+<br>
+
+```{python  echo=FALSE, fig.width = 20, fig.height = 12,  out.width = '100%'}
+plt.figure(figsize=(16, 4))
+for i in range(4):
+    plt.subplot(1, 4, i + 1)
+    gamma = 10.0 ** (i - 3)
+    rbf_svm = SVC(gamma=gamma)
+    rbf_svm.fit(X_train, y_train)
+    plt.title("gamma = %s" % gamma);
+    plot_classifier(X_train, y_train, rbf_svm, ax=plt.gca(), show_data=False)
+```
+
+
+Notes: 
+
+---
+
+### Relation of C and the fundamental trade-off
+
+C also affects the fundamental tradeoff.
+
+- As  C  ↑, complexity  ↑
+- As  C  ↓, complexity ↓
+
+<br>
+<br>
+<br>
+
+```{python  echo=FALSE, fig.width = 20, fig.height = 16,  out.width = '100%'}
+plt.figure(figsize=(16, 4))
+for i in range(4):
+    plt.subplot(1, 4, i + 1)
+    C = 10.0 ** (i - 1)
+    rbf_svm = SVC(C=C, gamma=0.01)
+    rbf_svm.fit(X_train, y_train)
+    plt.title("C = %s" % C);
+    plot_classifier(X_train, y_train, rbf_svm, ax=plt.gca(), show_data=False)
+    
+```
+
+
+Notes: 
+
+Best validation scores requires a hyperparameter search between both of these to balance the fundamental tradeoff.
+
+We will learn how to search over multiple hyperparameters at a time in the next module. 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
