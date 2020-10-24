@@ -273,7 +273,6 @@ There are many different arguments to use with `KNeighborsClassifier`, one of th
 
 `weights` allows us to assign higher weight to the examples which are closer to the query example.
 
-We will explore this in the assignment!
 
 ---
 
