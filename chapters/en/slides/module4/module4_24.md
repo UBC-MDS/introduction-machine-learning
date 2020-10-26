@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Suport Vector Machines (SVMs) with RBF kernel
+# Support Vector Machines (SVMs) with RBF kernel
 
 Notes: <br>
 
@@ -90,11 +90,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002475    0.001863    0.823529     0.842105
-1  0.002193    0.001641    0.823529     0.842105
-2  0.002276    0.001592    0.727273     0.858209
-3  0.002139    0.001501    0.787879     0.843284
-4  0.002365    0.001569    0.939394     0.805970
+0  0.002515    0.001924    0.823529     0.842105
+1  0.002436    0.001685    0.823529     0.842105
+2  0.002300    0.001855    0.727273     0.858209
+3  0.002372    0.001578    0.787879     0.843284
+4  0.002304    0.002460    0.939394     0.805970
 ```
 
 ``` python
@@ -113,8 +113,8 @@ building in the same fashion as we did before.
 
 Here we are importing the `SVC` tool from the `sklearn.svm` library.
 
-For now, just ignore gamma input argument in `SVC()` we will get to that
-soon.
+For now, just ignore the gamma input argument in `SVC()` we will get to
+that soon.
 
 ---
 
@@ -147,11 +147,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002127    0.003631    0.852941     0.849624
-1  0.001961    0.002833    0.764706     0.834586
-2  0.002604    0.003050    0.727273     0.850746
-3  0.002732    0.003185    0.787879     0.858209
-4  0.002307    0.003468    0.878788     0.813433
+0  0.003493    0.005040    0.852941     0.849624
+1  0.003333    0.005256    0.764706     0.834586
+2  0.002325    0.003102    0.727273     0.850746
+3  0.002131    0.002962    0.787879     0.858209
+4  0.002079    0.002968    0.878788     0.813433
 ```
 
 ``` python
@@ -175,8 +175,8 @@ Notes:
 
 Superficially, SVMs are more like weighted 𝑘-NNs.
 
-A test example is a positive if on average it looks more like positive
-examples than the negative examples.
+A test example is positive if on average it looks more like positive
+examples than negative examples.
 
 The primary difference between 𝑘 -NNs and SVMs is that - Unlike 𝑘 -NNs,
 SVMs only remember the key examples (support vectors). So it’s more
@@ -195,10 +195,10 @@ from sklearn.svm import SVR
 
 Notes:
 
-It should come to no surprise that we can also use SVM models for
-regression problems as well.
+It should come as no surprise that we can use SVM models for regression
+problems as well.
 
-We need to make sure to import SVR from the svm sklearn library.
+We need to make sure to import SVR from the SVM sklearn library.
 
 ---
 
@@ -212,7 +212,7 @@ We need to make sure to import SVR from the svm sklearn library.
 Notes:
 
 We are not going to go into detail about the meaning behind these
-parameters but you should be able to explain how they effect training
+parameters but you should be able to explain how they affect training
 and testing scores (The fundamental trade-off).
 
 If you wish to learn more on these you can reference
@@ -250,8 +250,8 @@ C also affects the fundamental tradeoff.
 
 Notes:
 
-Best validation scores requires a hyperparameter search between both of
-these to balance the fundamental tradeoff.
+Obtaining opimal validation scores require a hyperparameter search
+between both of these to balance the fundamental tradeoff.
 
 We will learn how to search over multiple hyperparameters at a time in
 the next module.

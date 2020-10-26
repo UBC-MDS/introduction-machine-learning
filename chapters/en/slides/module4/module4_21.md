@@ -123,9 +123,9 @@ Notes:
 Let’s first import `KNeighborsRegressor`.
 
 We train our model just like before and predict, this time expecting a
-numerical value as as target.
+numerical value as a target.
 
-When we score it, we get 100% training score and you’ll see why in the
+When we score it, we get a 100% training score and you’ll see why in the
 next graph.
 
 ---
@@ -167,7 +167,7 @@ Let’s see what happens when we use 𝑘=10.
 
 Our accuracy decreases on our training data and we can see that our gold
 line is not intersecting all the points and is not as close to the
-actual value like before.
+actual value as before.
 
 ---
 
@@ -195,8 +195,8 @@ knnr.score(X_train, y_train)
 Notes:
 
 We can also specify our `weights` parameter so that points that are
-closer, have add more meaning to the prediction than points that are
-further away.
+closer, have more meaning to the prediction than points that are further
+away.
 
 ---
 
@@ -216,7 +216,7 @@ further away.
 
 ### Cons:
 
-  - Can be potentially be VERY slow during prediction time.
+  - Can potentially be VERY slow during prediction time.
   - Often not that great test accuracy compared to the modern
     approaches.
   - You should scale your features. We’ll be looking into it in the next

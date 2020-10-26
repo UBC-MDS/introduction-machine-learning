@@ -30,7 +30,7 @@ model.score(X_train,y_train)
 
 Notes:
 
-In the last section we saw we could build a `KNeighborsClassifier` in a
+In the last section, we saw we could build a `KNeighborsClassifier` in a
 similar way to how we’ve built other models.
 
 The primary hyperparameter of the model is `n_neighbors` ( 𝑘 ) which
@@ -54,11 +54,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002412    0.003959    0.710526          1.0
-1  0.002313    0.003195    0.684211          1.0
-2  0.002552    0.003055    0.842105          1.0
-3  0.002301    0.004043    0.702703          1.0
-4  0.002231    0.003038    0.837838          1.0
+0  0.002126    0.002967    0.710526          1.0
+1  0.001914    0.002832    0.684211          1.0
+2  0.002251    0.003003    0.842105          1.0
+3  0.001999    0.002947    0.702703          1.0
+4  0.001939    0.002898    0.837838          1.0
 ```
 
 ``` python
@@ -70,18 +70,18 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002054    0.005572    0.605263     0.600000
-1  0.001988    0.004277    0.605263     0.600000
-2  0.002049    0.003675    0.605263     0.600000
-3  0.002463    0.003555    0.594595     0.602649
-4  0.002556    0.003211    0.594595     0.602649
+0  0.002031    0.004490    0.605263     0.600000
+1  0.001971    0.003255    0.605263     0.600000
+2  0.002035    0.003082    0.605263     0.600000
+3  0.001947    0.003104    0.594595     0.602649
+4  0.001933    0.003082    0.594595     0.602649
 ```
 
 Notes:
 
 ---
 
-<img src="/module3/module4_18/unnamed-chunk-7-1.png" width="1536" />
+<img src="/module3/module4_17/unnamed-chunk-7-1.png" width="1536" />
 
 Notes:
 
@@ -135,7 +135,7 @@ We can use hyperparameter optimization to choose `n_neighbors`.
 
 Notes:
 
-Here we see that when `n_neighbors` is equal to 11, the cross validation
+Here we see that when `n_neighbors` is equal to 11, the cross-validation
 score is the highest.
 
 ---
@@ -202,7 +202,7 @@ test accuracy will be optimized.
 Notes:
 
 As we increase the number of dimensions, our success at predicting
-decreases. This is called `Curse of dimensionality`.
+decreases. This is called the “Curse of dimensionality”.
 
 This affects all learners but it’s especially bad for nearest-neighbour.
 
@@ -212,7 +212,7 @@ things fall apart quickly as the number of dimensions goes up.
 If there are many irrelevant attributes, 𝑘 -NN is hopelessly confused
 because all of them contribute to finding similarity between examples.
 
-With enough irrelevant attributes the accidental similarity swamps out
+With enough irrelevant attributes, the accidental similarity swamps out
 meaningful similarity and 𝑘 -NN is no better than random guessing.
 
 ---
@@ -233,7 +233,7 @@ Notes:
 There are many different arguments to use with `KNeighborsClassifier`,
 one of them being `weights`.
 
-`weights` allows us to assign higher weight to the examples which are
+`weights` allows us to assign a higher weight to the examples which are
 closer to the query example.
 
 ---

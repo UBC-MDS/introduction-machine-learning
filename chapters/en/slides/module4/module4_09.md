@@ -164,9 +164,8 @@ We can find the closest city to city 0 with
 
 The closest city from city 0 is city 157 in the training dataframe.
 
-It’s feature vector tells us that it’s city 96 (of the whole dataset)
-and is located at longitude -76.3019 and latitude 44.211 in country
-Canada.
+Its feature vector tells us that it’s city 96 (of the whole dataset) and
+is located at longitude -76.3019 and latitude 44.211 in country Canada.
 
 That’s 0.18 units away from city 0.
 
@@ -236,7 +235,7 @@ nn.kneighbors([[-80, 25]])
 
 Notes:
 
-You can do the same thing using sklearn’s NearestNeighbors function and
+You can do the same thing using Sklearn’s NearestNeighbors function and
 we get the same thing\!
 
 All this matches our intuition of “distance” in the real world.
@@ -313,9 +312,8 @@ Notes:
 The distance between pokemon 0 and pokemon 2 can be found with
 `dists[0,2]`.
 
-We can find the most similar Pokemon from our training data to the
-Pokemon 1 from the test set using `NearestNeighbors` from the Sklearn
-package.
+We can find the most similar Pokemon from our training data to Pokemon 1
+from the test set using `NearestNeighbors` from the Sklearn package.
 
 ---
 
@@ -364,7 +362,7 @@ Pokemon 1.
 
 We need to be careful though.
 
-A numpy array with shape (9,) is 1 dimensional where as (1, 9) is 2
+A numpy array with shape (9,) is 1 dimensional whereas (1, 9) is 2
 dimensional which is what `kneighbors()` needs as an input.
 
 Now we can see the top 5 most similar pokemon.

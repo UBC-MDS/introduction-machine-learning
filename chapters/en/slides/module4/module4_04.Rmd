@@ -78,7 +78,7 @@ train_df.head()
 
 Notes: 
 
-Let's return to to the cities dataset that we have been working with. 
+Let's return to the cities dataset that we have been working with. 
 
 
 ---

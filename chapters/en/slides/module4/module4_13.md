@@ -25,7 +25,7 @@ Here is a toy data for binary classification.
 
 We want to predict the point in grey.
 
-An intuitive way to do this is predict the grey point using the same
+An intuitive way to do this is to predict the grey point using the same
 label as the next “closest” point (𝑘 = 1) We would predict a target of 1
 (orange) in this case.
 

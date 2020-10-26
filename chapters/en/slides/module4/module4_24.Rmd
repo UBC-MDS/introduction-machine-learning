@@ -62,7 +62,7 @@ path = "../../../../static/module4/"
 
 type: slides
 
-# Suport Vector Machines (SVMs) with RBF kernel
+# Support Vector Machines (SVMs) with RBF kernel
 
 Notes: <br>
 
@@ -138,7 +138,7 @@ We must first import the necessary library and then we can get to model building
 
 Here we are importing the `SVC` tool from the `sklearn.svm` library. 
 
-For now, just ignore gamma input argument in `SVC()` we will get to that soon. 
+For now, just ignore the gamma input argument in `SVC()` we will get to that soon. 
 
 
 ---
@@ -201,7 +201,7 @@ Notes:
 
 Superficially, SVMs are more like weighted 𝑘-NNs.
 
-A test example is a positive if on average it looks more like positive examples than the negative examples. 
+A test example is positive if on average it looks more like positive examples than negative examples. 
 
 The primary difference between 𝑘 -NNs and SVMs is that 
   - Unlike 𝑘 -NNs, SVMs only remember the key examples (support vectors). So it's more efficient than 𝑘 -NN. 
@@ -221,9 +221,9 @@ from sklearn.svm import SVR
 
 Notes:
 
-It should come to no surprise that we can also use SVM models for regression problems as well.
+It should come as no surprise that we can use SVM models for regression problems as well.
 
-We need to make sure to import SVR from the svm sklearn library. 
+We need to make sure to import SVR from the SVM sklearn library. 
 
 
 ---
@@ -240,7 +240,7 @@ We need to make sure to import SVR from the svm sklearn library.
 
 Notes: 
 
-We are not going to go into detail about the meaning behind these parameters but you should be able to explain how they effect training and testing scores (The fundamental trade-off). 
+We are not going to go into detail about the meaning behind these parameters but you should be able to explain how they affect training and testing scores (The fundamental trade-off). 
 
 If you wish to learn more on these you can reference <a href="https://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html" target="_blank">Scikit-learn`'s explanation of RBF SVM parameters</a>.
 
@@ -301,7 +301,7 @@ for i in range(4):
 
 Notes: 
 
-Best validation scores requires a hyperparameter search between both of these to balance the fundamental tradeoff.
+Obtaining opimal validation scores require a hyperparameter search between both of these to balance the fundamental tradeoff.
 
 We will learn how to search over multiple hyperparameters at a time in the next module. 
 

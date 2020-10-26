@@ -1,6 +1,6 @@
 ---
 params:
-  dynamictitle: "module4_18"
+  dynamictitle: "module4_17"
 title: "`r params$dynamictitle`"
 output: 
   md_document:
@@ -88,7 +88,7 @@ model.score(X_train,y_train)
 
 Notes: 
 
-In the last section we saw we could build a `KNeighborsClassifier` in a similar way to how we've built other models. 
+In the last section, we saw we could build a `KNeighborsClassifier` in a similar way to how we've built other models. 
 
 The primary hyperparameter of the model is `n_neighbors` ( 𝑘 )  which decides how many neighbours should vote during prediction? 
 
@@ -196,7 +196,7 @@ K_plot.save(path + 'K_plot.png')
 
 Notes: 
 
-Here we see that when `n_neighbors` is equal to 11, the cross validation score is the highest. 
+Here we see that when `n_neighbors` is equal to 11, the cross-validation score is the highest. 
 
 ---
 
@@ -244,15 +244,15 @@ Now when we build our model with `n_neighbors=11` we can hope that our test accu
 
 Notes:
 
-As we increase the number of dimensions, our success at predicting decreases. This is called ` Curse of dimensionality`.
+As we increase the number of dimensions, our success at predicting decreases. This is called the "Curse of dimensionality".
 
 This affects all learners but it's especially bad for nearest-neighbour. 
 
-𝑘 -NN usually works well when the number of dimensions is small but things fall apart quickly as  the number of dimensions goes up.
+𝑘 -NN usually works well when the number of dimensions is small but things fall apart quickly as the number of dimensions goes up.
 
 If there are many irrelevant attributes,  𝑘 -NN is hopelessly confused because all of them contribute to finding similarity between examples.
 
-With enough irrelevant attributes the accidental similarity swamps out meaningful similarity and  𝑘 -NN is no better than random guessing.
+With enough irrelevant attributes, the accidental similarity swamps out meaningful similarity and  𝑘 -NN is no better than random guessing.
 
 
 ---
@@ -271,7 +271,7 @@ Notes:
 
 There are many different arguments to use with `KNeighborsClassifier`, one of them being `weights`. 
 
-`weights` allows us to assign higher weight to the examples which are closer to the query example.
+`weights` allows us to assign a higher weight to the examples which are closer to the query example.
 
 
 ---

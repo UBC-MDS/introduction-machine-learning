@@ -25,7 +25,7 @@ train_df.head()
 
 Notes:
 
-Let’s return to to the cities dataset that we have been working with.
+Let’s return to the cities dataset that we have been working with.
 
 ---
 
@@ -154,17 +154,17 @@ Notes:
 
 This is called the ***Euclidean distance***.
 
-We could skip the 4 steps and instead use a toll from the `sklearn`
+We could skip the 4 steps and instead use a tool from the `sklearn`
 library.
 
 ---
 
-This may look familiar. That’s because when we are in 2 dimensions it
-takes on the equation:
+This calculation may look familiar. That’s because when we are in 2
+dimensions it takes on the equation:
 
 <center>
 
-<img src="/module4/pythagoras.gif"  width = "20%" alt="404 image" />
+<img src="/module4/eq2.png"  width = "20%" alt="404 image" />
 
 </center>
 
@@ -187,7 +187,7 @@ the equation:
 
 <center>
 
-<img src="/module4/eq3.png"  width = "25%" alt="404 image" />
+<img src="/module4/eq3.png"  width = "45%" alt="404 image" />
 
 </center>
 
@@ -195,7 +195,7 @@ For vectors in 4-dimensional space:
 
 <center>
 
-<img src="/module4/eq4.png"  width = "35%" alt="404 image" />
+<img src="/module4/eq4.png"  width = "55%" alt="404 image" />
 
 </center>
 

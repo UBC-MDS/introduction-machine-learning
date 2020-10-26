@@ -68,7 +68,7 @@ Examples of Analogy-based algorithms include:
 Notes:
 
 To understand analogy-based algorithms it’s useful to think of data as
-points in a high dimensional space.
+points in a high-dimensional space.
 
   - Our `X` represents the problem in terms of relevant **features**
     with one dimension for each **feature** (column).
@@ -146,7 +146,7 @@ X.shape[1]
 
 Notes:
 
-Recall the quiz dataset that we’ve seem a few times?
+Recall the quiz dataset that we’ve seen a few times?
 
 How many dimensions (features) would this dataset have?
 
@@ -159,7 +159,7 @@ The number of features in the grades dataset can be checked using
 
 Dimensions:
 
-  - Dimensions≈20 : Low dimensional
+  - Dimensions≈20: Low dimensional
   - Dimensions≈1000: Medium dimensional
   - Dimensions≈100,000: High dimensional
 
