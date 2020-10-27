@@ -409,7 +409,7 @@ Close but you have the target value in the feature vector.
 
 </exercise>
 
-<exercise id="11" title="Distance True or False">
+<exercise id="11" title="Nearest Neighbours True or False">
 
 **True or False**     
 _Similar to decision trees, k-NNs finds a small set of good features._

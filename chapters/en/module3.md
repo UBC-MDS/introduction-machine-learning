@@ -1,7 +1,7 @@
 ---
 title: 'Module 3: Splitting, Cross-Validation and the Fundamental Tradeoff'
 description:
-  'This module will introduce why and how we split our data and, how cross-validation works on training data. We will explain 2 important concepts in machine learning: the fundamental tradeoff and the golden rule. '
+  'This module will introduce why and how we split our data as well as how cross-validation works on training data. In addition, we will explain two important concepts in machine learning: the fundamental tradeoff and the golden rule. '
 prev: /module2
 next: /module4
 type: chapter

@@ -1,0 +1,200 @@
+---
+params:
+  dynamictitle: "module5_05"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module5/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module5/"
+```
+
+
+type: slides
+
+# Preprocessing with imputation
+
+Notes: <br>
+
+---
+
+## Case study: California housing prices
+
+```{python}
+housing_df = pd.read_csv("data/housing.csv")
+train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
+
+train_df.head()
+```
+ We are using the data that can be <a href="https://www.kaggle.com/harrywang/housing" target="_blank">downloaded here</a>. 
+This dataset is a modified version of the California Housing dataset available from: <a href="https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html" target="_blank">Luís Torgo's University of Porto website</a>.
+
+
+
+
+
+Notes: 
+
+For the next few slide decks we are going to be using a dataset exploring the prices of homes in California to demonstrate feature transformation techniques. 
+
+The task is to predict median house values in Californian districts, given a number of features from these districts. 
+
+We can see here thatome column values are mean/median while others are totals or not completely clear. 
+
+
+---
+
+```{python}
+train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"])
+test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"])
+
+train_df = train_df.assign(bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"])
+test_df = test_df.assign(bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"])
+
+train_df = train_df.assign(population_per_household = train_df["population"]/train_df["households"])
+test_df = test_df.assign(population_per_household = test_df["population"]/test_df["households"])
+
+train_df.head()
+```
+
+
+Notes: 
+
+Let's add some new features to the dataset which could help predict the target: `median_house_value`.
+
+### When is it OK to do things before splitting? 
+
+Here it would have been OK to add new features before splitting because we are not using any global information in the data but only looking at one row at a time. 
+
+But just to be safe and to avoid accidentally breaking the golden rule, it's better to do it after splitting. 
+
+**Question**: Should we remove `total_rooms`, `total_bedrooms`, and `population` columns? 
+
+Probably, but let's keep them in for now. You could experiment with removing them and examine whether results change. 
+
+
+---
+
+## Exploratory Data Analysis (EDA)
+
+```{python}
+train_df.head()
+```
+
+
+
+
+
+Notes: 
+
+---
+
+```{python}
+train_df.info()
+```
+
+```{python}
+train_df.describe()
+```
+
+Notes: 
+
+
+
+---
+
+
+Notes: 
+
+---
+
+<center><img src="/module2/module2_12b.png"  width = "50%" alt="404 image" /></center>
+
+
+Notes: 
+
+---
+
+
+---
+
+Notes: 
+
+There are many other hyperparameters for decision trees you can explore at the link <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">here</a> .
+
+
+---
+
+Notes: 
+
+<br>
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
