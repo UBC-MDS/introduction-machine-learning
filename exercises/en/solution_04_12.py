@@ -13,7 +13,7 @@ X_train = train_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legend
 y_train = train_df['legendary']
 
 # The Snoodles query point
-query_point = [[53, 77, 43, 69, 80, 57, 379, 3]]
+query_point = [[53, 77, 43, 69, 80, 57, 379]]
 
 # Create a model and name it nn (make sure you are finding the single closest pokemon)
 nn = NearestNeighbors(n_neighbors=1)

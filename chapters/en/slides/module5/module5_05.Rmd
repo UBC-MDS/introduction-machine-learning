@@ -126,7 +126,7 @@ Notes:
 
 Let's add some new features to the dataset which could help predict the target: `median_house_value`.
 
-### When is it OK to do things before splitting? 
+**When is it OK to do things before splitting?**
 
 Here it would have been OK to add new features before splitting because we are not using any global information in the data but only looking at one row at a time. 
 
@@ -142,58 +142,217 @@ Probably, but let's keep them in for now. You could experiment with removing the
 ## Exploratory Data Analysis (EDA)
 
 ```{python}
-train_df.head()
+train_df.info()
 ```
-
-
-
 
 
 Notes: 
 
+Here we see that we have all columns with Dtype `float64` except for `ocean_proximity` which appears categorical. 
+
+It looks like  the `total_bedrooms` column has some missing values.
+
+
 ---
 
-```{python}
-train_df.info()
-```
+
 
 ```{python}
 train_df.describe()
 ```
+```{python}
+housing_df["total_bedrooms"].isnull().sum()
+```
 
 Notes: 
 
+This was the same column we used to engineer the `bedrooms_per_household` column and it look like it's been effected as well. 
+
+---
+
+### So what do we do? 
+
+
+```{python}
+X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
+y_train = train_df["median_house_value"]
+
+X_test = test_df.drop(columns=["median_house_value", "ocean_proximity"])
+y_test = test_df["median_house_value"]
+```
+
+
+```python
+knn = KNeighborsRegressor()
+knn.fit(X_train, y_train)
+```
+```out
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+```
+
+Notes: 
+
+First we are going to drop the categorical variable `ocean_proximity`.  
+
+Right now we only know how to build models with numerical data. We will come back to categorical variables in module 6. 
+
+But what do we do about the null values? Can we run a model with them? 
+
+We can see that the classifier is not able to deal with missing values (NaNs).
+
+What are possible ways to deal with the problem? 
 
 
 ---
+
+## Dropping
+
+
+```{python}
+housing_df["total_bedrooms"].isnull().sum()
+```
+
+```{python}
+X_train.shape
+```
+
+```{python}
+X_train_no_nan = X_train.dropna()
+y_train_no_nan = y_train.dropna()
+```
+
+```{python}
+X_train_no_nan.shape
+```
+
 
 
 Notes: 
 
+We could drop the rows but we'd need to do the same in our test set.
+
+That also doesn't help us if we get a missing value in deployment. What do we do then? 
+
+Furthermore, what if the missing values don't occur at random and we're systematically dropping certain data?
+
+This is not a great solution, especially if there's a lot of missing values.
+
 ---
 
-<center><img src="/module2/module2_12b.png"  width = "50%" alt="404 image" /></center>
+## Dropping a column
+
+```{python}
+X_train.shape
+```
+
+```{python}
+X_train_no_col = X_train.dropna(axis=1)
+```
+
+```{python}
+X_train_no_col.shape
+```
+
+Notes:
+
+One can also drop all columns with missing values.
+
+This generally throws away a lot of information, because you lose a whole column just for 1 missing value.
+But I might drop a column if it's 99.9% missing values, for example.
+
+
+---
+
+## Imputation
+
+**Imputation**: Imputation means inventing values for the missing data.
+
+
+```{python}
+from sklearn.impute import SimpleImputer
+```
+
+
+We can impute missing values in:
+
+- **Categorical columns**: with the most frequent value.
+- **Numeric columns**:  with the mean or median of the column.    
+
+Notes: 
+
+`SimpleImputer` is a **transformer** in `sklearn` which can deal with this problem. 
+
+We can going to concentrate on numeric columns in this section and address categorical preprocessing in Module 6. 
+
+---
+
+```{python}
+X_train.sort_values('total_bedrooms').tail(10)
+```
 
 
 Notes: 
 
+Let's take a look at the some of the examples with `NaN` values in `total_bedrooms`. 
+
+Here we see that index `7763` has a `NaN` value for `total_bedrooms` and `bedrooms_per_household`.
+
 ---
 
+```{python}
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train);
+X_train_imp = imputer.transform(X_train)
+X_test_imp = imputer.transform(X_test)
+```
 
----
+```{python}
+X_train_imp
+```
+
+
 
 Notes: 
 
-There are many other hyperparameters for decision trees you can explore at the link <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">here</a> .
+Let's input our data and instead of dropping the examples likes replace the`fit` and `transform` steps that we saw earlier. We do not need to fit on our target column this time. 
 
+Let's check whether the NaN values have been replaced or not.
+
+Note that `imputer.transform` returns an `numpy` array and not a dataframe.
 
 ---
+
+```{python}
+df = pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)
+df.loc[[7763]]
+```
+```{python}
+X_train.loc[[7763]]
+```
 
 Notes: 
 
-<br>
+We can fix that a bit using the column index from  `X_train` and transforming it into a dataframe. 
+
+Now we can see our example 7763 no longer has an `NaN` value for `total_bedrooms` and `bedrooms_per_household`. 
 
 ---
+
+```{python}
+knn = KNeighborsRegressor();
+knn.fit(X_train_imp, y_train)
+knn.score(X_train_imp, y_train)
+```
+
+
+Notes: 
+
+Can we train on the data with the new data `X_train_imp`?  
+
+Yes! 
+
+---
+
 
 # Let’s apply what we learned!
 

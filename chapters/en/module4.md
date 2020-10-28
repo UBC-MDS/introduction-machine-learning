@@ -44,7 +44,7 @@ Use the following dataframe named `garden` to answer the next two questions.
 **Question 1**  
 
 We are trying to predict if each example is either a fruit or a vegetable. 
-How many dimensions would the dataset have?
+What would be the dimension of feature vectors in this problem?
 
 <choice id="1">
 
@@ -147,9 +147,9 @@ Nice work!
 </choice >
 
 **True or False**     
-*A dataset with 50 dimensions is considered low dimensional.*
+*A dataset with 10 dimensions is considered low dimensional.*
 
-<choice id="2">
+<choice id="3">
 <opt text="True" correct="true">
 
 Well done!
@@ -177,58 +177,14 @@ Dimensions up to 1000 are considered "low".
 
 **Question 1**     
 
-Given the following 2 feature vectors, which equation would calculate the Euclidean distance?
+Given the following 2 feature vectors, what is the Euclidean distance between the following two feature vectors?
 
 ```
-array([7, 0, 22, 11])
+u = np.array([5, 0, 22, -11])
+v = np.array([-1, 0, 19, -9])
 ```
-
-```
-array([1, 0, 19, 9])
-```
-
-A) <img src="/module4/eq1.png"  width = "13%" alt="404 image" />
-
-B) <img src="/module4/eq2.png"  width = "25%" alt="404 image" />
-
-C) <img src="/module4/eq3.png"  width = "40%" alt="404 image" />
-
-D) <img src="/module4/eq4.png"  width = "50%" alt="404 image" />
-
 
 <choice id="1">
-
-<opt text="A">
-
-Not quite. 
-
-</opt>
-
-<opt text= "B" >
- 
-How many numbers are you performing subtraction on?
-
-</opt>
-
-<opt text="C" >
-
-How many features are in each vector?
-
-</opt>
-
-<opt text="D"  correct="true">
-
-Nice work.
-
-</opt>
-
-</choice>
-
-**Question 2**   
-
-What is the distance between the 2 vectors?
-
-<choice id="2" >
 
 <opt text="49"  >
 
@@ -256,12 +212,51 @@ Close but you have the target value in the feature vector.
 
 </choice>
 
+**Question 2**  
+
+We have collected a third vector `w`. 
+
+```
+u = np.array([5, 0, 22, -11])
+v = np.array([-1, 0, 19, -9])
+w = np.array([0, 1, 17, -4])
+```
+
+Which two vectors are most similar among `u`, `v`, and `w`?
+
+<choice id="2" >
+
+<opt text="u and w"  >
+
+The distance between `u` and `w` is 10. Have you checked the other yet?
+</opt>
+
+<opt text="u and v" correct="true">
+
+The distance between `u` and `v` is 7. Have you checked the other yet?
+
+</opt>
+
+<opt text="v and w" correct="true">
+
+Nice work!
+
+</opt>
+
+<opt text="They are equally distanced from one another">
+
+The distance between `u` and `w` is 10 and the distance between `u` and `v` is 7 so they cannot be the same distance from one another.
+
+</opt>
+
+</choice>
+
 </exercise>
 
 <exercise id="6" title="Distance True or False">
 
 **True or False**     
-_Distance will always have a positive value._
+_Euclidean distance will always have a positive value.._
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -280,7 +275,7 @@ Take a look at the equation we use to calculate Euclidean distance.
 
 </exercise>
 
-<exercise id="7" title='Calculating Euclidean Distance by "Hand"'>
+<exercise id="7" title='Calculating Euclidean Distance step by step'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -293,7 +288,7 @@ Let's calculate the Euclidean distance between 2 examples in the Pokémon datase
 
 Tasks:     
 
-- Subtract the two first Pokémon feature vectors and save it in an object named `sub_pk`.
+- Subtract the first two pokemon feature vectors and save the result in an object named `sub_pk`.
 - Square the difference and save it in an object named `sq_sub_pk`.
 - Sum the squared difference from each dimension and save the result in an object named `sss_pk`.
 - Finally, take the square root of the entire calculation and save it in an object named `pk_distance`.
@@ -345,7 +340,7 @@ Tasks:
 
 **Question 1**  
 
-What would happen if we didn't use `fill_diagonal()` when trying to find the closest example to an existing one?
+In the slides we calculated distances between all points in the training data using `sklearn`'s `euclidean_distances` function. What would happen if we didn't use `fill_diagonal()`?
 
 <choice id="1">
 
@@ -412,25 +407,25 @@ Close but you have the target value in the feature vector.
 <exercise id="11" title="Nearest Neighbours True or False">
 
 **True or False**     
-_Similar to decision trees, k-NNs finds a small set of good features._
+_When finding the nearest neighbour in a dataset using `kneighbors()` from the `sklearn` library, we must `fit`  the data first._
 
 <choice id="1" >
-<opt text="True"  >
+<opt text="True"  correct="true" >
 
-K-NNs use all the features!
+Great work!
 
 </opt>
 
-<opt text="False" correct="true" >
+<opt text="False" >
 
-Great work!
+Take a look at the code in the lecture slides to refresh!
 
 </opt>
 
 </choice>
 
 **True or False**     
-_Finding the distances to a query point takes double the time as finding the nearest neighbour._
+_Calculating the distances between an example and a query point takes twice as long as calculating the distances between two examples._
 
 <choice id="2" >
 <opt text="True"  >
@@ -458,12 +453,12 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's calculate the closet Pokémon in the training set to a Snoodle (our made-up Pokémon!
+Let's calculate the closet Pokémon in the training set to a Snoodle (our made-up Pokémon)!
 
 Snoodle	has the following feature vector. 
 
 ```out
-[[53,  77,  43,  69,  80,  57,  379,  3]]
+[[53,  77,  43,  69,  80,  57,  379]]
 ```
 Which Pokémon in the training set, most resembles a Snoodle?
 
@@ -476,7 +471,6 @@ Tasks:
 
 <codeblock id="04_12">
 
-- Are you importing ?
 - Are you using ` NearestNeighbors(n_neighbors=1)`?
 - Are you using `nn.fit(X_train)`?
 - Are you using `nn.kneighbors(query_point)` ?
@@ -571,6 +565,24 @@ Nice work.
 <opt text="False" >
 
 You can't assign `n_neighbors` to a value greater than the possible number of examples in the training set. 
+
+</opt>
+
+</choice>
+
+**True or False**     
+_Similar to decision trees, k-NNs finds a small set of good features._
+
+<choice id="3" >
+<opt text="True"  >
+
+K-NNs use all the features!
+
+</opt>
+
+<opt text="False" correct="true" >
+
+Great work!
 
 </opt>
 
