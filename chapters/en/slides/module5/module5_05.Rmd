@@ -170,7 +170,7 @@ This was the same column we used to engineer the `bedrooms_per_household` column
 
 ---
 
-### So what do we do? 
+### What happens?
 
 
 ```{python}

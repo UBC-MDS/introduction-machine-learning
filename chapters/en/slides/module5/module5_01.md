@@ -102,19 +102,6 @@ Mean validation score 0.57
 ```
 
 ``` python
-pd.DataFrame(scores)
-```
-
-```out
-   fit_time  score_time  test_score  train_score
-0  0.000736    0.000535    0.571429     0.571429
-1  0.000523    0.000345    0.571429     0.571429
-2  0.000500    0.000335    0.571429     0.571429
-3  0.000537    0.000341    0.571429     0.571429
-4  0.000870    0.000501    0.571429     0.571429
-```
-
-``` python
 knn = KNeighborsClassifier()
 scores = cross_validate(knn, X_train, y_train, return_train_score=True)
 print('Mean validation score', scores['test_score'].mean().round(2))
@@ -122,19 +109,6 @@ print('Mean validation score', scores['test_score'].mean().round(2))
 
 ```out
 Mean validation score 0.5
-```
-
-``` python
-pd.DataFrame(scores)
-```
-
-```out
-   fit_time  score_time  test_score  train_score
-0  0.002476    0.003965    0.489796     0.688776
-1  0.002257    0.003342    0.530612     0.678571
-2  0.003239    0.003775    0.530612     0.698980
-3  0.002449    0.003501    0.530612     0.704082
-4  0.002109    0.003740    0.408163     0.724490
 ```
 
 Notes:
@@ -219,33 +193,11 @@ So what do we do about this?
 Well, we have to scale the columns they they are all using a similar
 range of values\!
 
-Luckily Sklearn has tools for this.
+Luckily Sklearn has tools called \***transformers** for this.
 
 ---
 
-## Scaling
-
-| Approach      | What it does          | How to update 𝑋 (but see below\!)                  | sklearn implementation                                                                                         |
-| ------------- | --------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Normalization | sets range to \[0,1\] | `X -= np.min(X,axis=0)`<br>`X /= np.max(X,axis=0)` | [`MinMaxScaler()`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html), |
-| "             | Standardization       | sets sample mean to 0, s.d. to 1                   | `X -= np.mean(X,axis=0)`<br>`X /=  np.std(X,axis=0)`                                                           |
-
-There are all sorts of articles on this; see,
-e.g. [here](http://www.dataminingblog.com/standardization-vs-normalization/)
-and
-[here](https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc).
-
-Notes:
-
-There are different ways to scales.
-
-2 popular options are called Normalization and Standardization. We are
-not going to explain in detail what is going on behind these tools but
-more so on how to implement them.
-
----
-
-## `scikit-learn`’s [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+## Transformers: Scaling example
 
 ``` python
 from sklearn.preprocessing import StandardScaler
@@ -279,7 +231,11 @@ pd.DataFrame(X_train_scaled, columns = X_train.columns).head()
 
 Notes:
 
-We’ll be concentrating on `scikit-learn`’s
+One form of preprocessing we can do is ***scaling*** we will talk about
+this is more details to come but for now just take a look at the tools
+we are using.
+
+We’ll be using on `scikit-learn`’s
 [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html),
 which is a `transformer`.
 
@@ -335,7 +291,7 @@ to pass it just to be consistent with usual usage of `sklearn`’s `fit`
 method.
 
 You can also carry out fitting and transforming in one call using
-`fit_transform`. But be mindful to use it only on the train split and
+`fit_transform`, but be mindful to use it only on the train split and
 **not** on the test split.
 
 ---
@@ -350,19 +306,19 @@ KNeighborsClassifier()
 ```
 
 ``` python
-print('Train score: %0.3f' %(knn_unscaled.score(X_train, y_train)))
+print('Train score: ', (knn_unscaled.score(X_train, y_train).round(2)))
 ```
 
 ```out
-Train score: 0.706
+Train score:  0.71
 ```
 
 ``` python
-print('Test score: %0.3f' %(knn_unscaled.score(X_test, y_test)))
+print('Test score: ', (knn_unscaled.score(X_test, y_test).round(2)))
 ```
 
 ```out
-Test score: 0.452
+Test score:  0.45
 ```
 
 ``` python
@@ -375,19 +331,19 @@ KNeighborsClassifier()
 ```
 
 ``` python
-print('Train score: %0.3f' %(knn_scaled.score(X_train_scaled, y_train)))
+print('Train score: ', (knn_scaled.score(X_train_scaled, y_train).round(2)))
 ```
 
 ```out
-Train score: 0.939
+Train score:  0.94
 ```
 
 ``` python
-print('Test score: %0.3f' %(knn_scaled.score(X_test_scaled, y_test)))
+print('Test score: ', (knn_scaled.score(X_test_scaled, y_test).round(2)))
 ```
 
 ```out
-Test score: 0.887
+Test score:  0.89
 ```
 
 Notes:

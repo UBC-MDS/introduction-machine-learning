@@ -164,8 +164,8 @@ class SlideDeck extends React.Component {
                         config: 'TeX-AMS_HTML-full', // See http://docs.mathjax.org/en/latest/config-files.html
                         // pass other options into `MathJax.Hub.Config()`
                         tex2jax: {
-                            inlineMath: [['$', '$'], ["\(", "\)"]],
-                            displayMath: [['$$', '$$'], ["\[", "\]"]],
+                            inlineMath: [['$', '$'], ["(", ")"]],
+                            displayMath: [['$$', '$$'], ["[", "]"]],
                             balanceBraces: true,
                             processEscapes: false,
                             processRefs: true,

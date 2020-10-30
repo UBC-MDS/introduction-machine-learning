@@ -1,7 +1,7 @@
 ---
 title: 'Module 3: Splitting, Cross-Validation and the Fundamental Tradeoff'
 description:
-  'This module will introduce why and how we split our data as well as how cross-validation works on training data. In addition, we will explain two important concepts in machine learning: the fundamental tradeoff and the golden rule. '
+  'In this module, we  will introduce why and how we split our data as well as how cross-validation works on training data. We will also explain two important concepts in machine learning: the fundamental tradeoff and the golden rule. '
 prev: /module2
 next: /module4
 type: chapter
@@ -24,7 +24,7 @@ id: 3
 
 <exercise id="2" title= "Splitting our data">
 
-**Question 1**   
+**Question 1**    
 What are the 2 main groups we split our data into?
 
 <choice id="1">
@@ -56,7 +56,7 @@ These are not the "official" names.
 </choice>
 
 
-**Question 2**   
+**Question 2**    
 When do we split our data?
 
 <choice id="2" >
@@ -122,7 +122,7 @@ Great!
 
 <exercise id="3" title="Decision Tree Outcome">
 
-**True or False?**     
+**True or False?**      
 _If you don't set random_state, splitting your data is randomized and you will get different results each time._
 
 <choice id="1" >
@@ -140,7 +140,7 @@ Great!
 
 </choice>
 
-**True or False**     
+**True or False**      
 *When using `train_test_split()`, you must specify both `test_size` and `train_size`.*
 
 <choice id="2">
@@ -192,7 +192,7 @@ Tasks:
 </codeblock>
 
 
-**Question 1**    
+**Question**    
 On which split does the decision tree perform better?
 
 <choice id="1" >
@@ -221,7 +221,7 @@ Maybe take a closer look?
 
 <exercise id="6" title= "Name that split!">
 
-**Question 1**     
+**Question 1**      
 What data is trained on, predicted on and scored on? 
 
 <choice id="1">
@@ -253,7 +253,7 @@ This should be kept far far away from training and scoring!
 </choice>
 
 
-**Question 2**    
+**Question 2**     
 What is scored multiple times and predicted multiple times but never is fitted?
 
 <choice id="2" >
@@ -284,7 +284,7 @@ This is never scored.
 
 </choice>
 
-**Question 3**    
+**Question 3**     
 What is only ever scored once?
 
 <choice id="3" >
@@ -398,7 +398,7 @@ This is the number of folds, not examples.
 </choice>
 
 
-**Question 2**   
+**Question 2**    
 With a 10-fold cross-validation, you split 1000 examples into 10-folds. For each fold, when you are done, you add up the accuracies from each fold and divide by what?
 
 <choice id="2" >
@@ -429,7 +429,7 @@ Nice!
 
 </choice>
 
-**Question 3**   
+**Question 3**    
 
 ```out
 array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
@@ -635,7 +635,7 @@ Great!
 
 </choice>
 
-**Question 3**   
+**Question 3**     
 If our model is using a Dummy Classifier for a classification problem with the `strategy=most_frequent`, is our model more likely overfitting or underfitting?
 
 <choice id="3" >
@@ -762,7 +762,7 @@ Is the training score higher or lower?
 
 <exercise id="18" title= "Quick Questions on Tradeoff and Golden Rule">
 
-**Question 1**   
+**Question 1**    
 If we are hyperparameter tuning, which depth would you select for this model given the graph below? 
 
 <center><img src="/module3/Q16_2.png"  width = "80%" alt="404 image" /></center>
@@ -1002,7 +1002,7 @@ Tasks:
 **Question 1**    
 Is the test score comparable with the cross-validation score that we obtained in the first part?
 
-<choice id="1" >
+<choice id="3" >
 <opt text="Yes"   correct="true">
 
 Nice job! 

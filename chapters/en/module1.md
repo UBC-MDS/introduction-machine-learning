@@ -1,7 +1,7 @@
 ---
 title: 'Module 1: Machine Learning Terminology'
 description:
-  'This chapter will explain the different branches of machine learning and introduce decision trees; a machine learning model used in supervised learning.'
+  'In this module, we will explain the different branches of machine learning and introduce the steps needed to build a model by constructing baseline models.'
 prev: module0
 next: /module2
 type: chapter
@@ -26,8 +26,7 @@ id: 1
 
 <exercise id="2" title="Is it Machine Learning?">
 
-**True or False: The following is an example of machine learning?**
-
+**True or False: The following is an example of machine learning?**      
 _Diagnosing cancer from magnetic resonance imaging_
 
 <choice id="1" >
@@ -45,8 +44,7 @@ Machine Learning can be use to attempt to diagnose cancer.
 
 </choice>
 
-**True or False: The following is an example of machine learning?**
-
+**True or False: The following is an example of machine learning?**       
 _Classifying images containing animals_
 
 <choice id="2">
@@ -64,7 +62,7 @@ If you look at example 2, in the slides you'll see the code we used to do this.
 
 </choice >
 
-**True or False: The following is an example of machine learning?**   
+**True or False: The following is an example of machine learning?**       
 _Blowing out a candle_
 
 <choice  id="3">
@@ -203,7 +201,7 @@ Grouping is also called *clustering* which is an example of unsupervised learnin
 <exercise id="6" title="Classification vs. Regression">
 
 
-**Example:**  
+**Example:**       
 _Predicting the price of a house based on features  such as  number of rooms and the year built._
 
 <choice id="1">
@@ -221,7 +219,7 @@ Good job! We are predicting a numerical value and therefore this is an example o
 
 </choice>
 
-**Example:**  
+**Example:**     
 _Predicting if a house will sell or not based on features like the price of the house, number of rooms, etc._
 
 <choice  id="2">
@@ -239,7 +237,7 @@ Is the prediction a categorical or a numerical value?
 
 </choice>
 
-**Example:**  
+**Example:**       
 _Predicting your grade in this course based on your grade in Programming in Python for Data Science._
 
 <choice  id="3">
@@ -256,7 +254,7 @@ Good job! We are predicting a numerical value (percent grade) and therefore this
 </opt>
 </choice>
 
-**Example:**  
+**Example:**       
 _Predicting a cereal's manufacturer given the nutritional information._
 
 <choice  id="4">
@@ -359,7 +357,7 @@ Which is a synonym for ***feature***?
 <choice  id="1">
 <opt text="testers" >
 
-
+This, unfortunately, is not in the Machine learning vocabulary. 
 
 </opt>
 
@@ -369,7 +367,7 @@ Input is a synonym for features! Well done.
 
 </opt>
 
-<opt text="examples >
+<opt text="examples">
 
 Example is not synonym for features. You may want to have a read through of the definitions in this section. 
 
@@ -412,7 +410,7 @@ Let's make sure we understand all the components we use in a dataset for machine
 
 
 
-**Question 1**  
+**Question 1**       
 How many features does the data have?
 
 <choice  id="1">
@@ -441,7 +439,9 @@ We don't include the index or the target as a feature.
 </opt>
 </choice>
 
-**Question 2**   
+
+
+**Question 2**      
  How many examples does the data have?
 
 <choice  id="2">
@@ -470,7 +470,7 @@ This is not the number of examples.
 </opt>
 </choice>
 
-**Question 3**   
+**Question 3**     
 Would this be considered classification or regression?
 
 <choice  id="3">
@@ -528,7 +528,7 @@ Tasks:
 
 **Do the following statements correspond to the `fit` or the `predict` stage:**  
 
-**Statement:**   
+**Statement:**      
 _Is called first (before the other one)._
 
 <choice id="1">
@@ -545,7 +545,7 @@ How can the model predict without education first?
 </opt>
 </choice>
 
-**Statement:**   
+**Statement:**     
 _Only takes `X` as an argument._
 
 <choice id="2">
@@ -562,7 +562,7 @@ Great job!
 </opt>
 </choice>
 
-**Statement:**  
+**Statement:**    
 _In scikit-learn, we can ignore its output._
 
 <choice id="3">

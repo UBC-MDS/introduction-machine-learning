@@ -153,14 +153,12 @@ Intuition: To predict whether a particular player is a pointguard ('G') or a for
 dummy = DummyClassifier(strategy="most_frequent")
 scores = cross_validate(dummy, X_train, y_train, return_train_score=True)
 print('Mean validation score', scores['test_score'].mean().round(2))
-pd.DataFrame(scores)
 ```
 
 ```{python}
 knn = KNeighborsClassifier()
 scores = cross_validate(knn, X_train, y_train, return_train_score=True)
 print('Mean validation score', scores['test_score'].mean().round(2))
-pd.DataFrame(scores)
 ```
 
 
@@ -219,29 +217,12 @@ So what do we do about this?
 
 Well, we have to scale the columns they they are all using a similar range of values! 
 
-Luckily Sklearn has tools for this. 
+Luckily Sklearn has tools called ***transformers** for this. 
 
 ---
 
-## Scaling 
+## Transformers: Scaling example
 
-| Approach | What it does | How to update 𝑋 (but see below!) | sklearn implementation |
-|---------|------------|-----------------------|----------------|
-| Normalization | sets range to [0,1]   | `X -= np.min(X,axis=0)`<br>`X /= np.max(X,axis=0)` | [`MinMaxScaler()`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html),
-    "| Standardization | sets sample mean to 0, s.d. to 1   | `X -= np.mean(X,axis=0)`<br>`X /=  np.std(X,axis=0)` | [`StandardScaler()`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler) |
-
-There are all sorts of articles on this; see, e.g. [here](http://www.dataminingblog.com/standardization-vs-normalization/) and [here](https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc).
-
-
-Notes: 
-
-There are different ways to scales. 
-
-2 popular options are called Normalization and Standardization. We are not going to explain in detail what is going on behind these tools but more so on how to implement them. 
-
----
-
-## `scikit-learn`'s [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
 
 ```{python}
 from sklearn.preprocessing import StandardScaler
@@ -259,7 +240,9 @@ pd.DataFrame(X_train_scaled, columns = X_train.columns).head()
 
 Notes: 
 
-We'll be concentrating on `scikit-learn`'s [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html), which is a `transformer`.  
+One form of preprocessing we can do is ***scaling*** we will talk about this is more details to come but for now just take a look at the tools we are using. 
+
+We'll be using  on `scikit-learn`'s [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html), which is a `transformer`.  
 
  For now, try to only focus on the syntax.
  
@@ -300,28 +283,28 @@ transformer.fit_transform(X_train)
 
 Notes:
 
-Suppose  we have a named `model` which is either a  classification or regression model. 
+Suppose we have a named `model` which is either a  classification or regression model. 
 
 We can compare it with  `transformer` which is a transformer used to change the input representation like to scales numeric features.
 
 You can pass `y_train` in `fit` but it's usually ignored. It allows you to pass it just to be consistent with usual usage of `sklearn`'s `fit` method.   
 
-You can also carry out fitting and transforming in one call using `fit_transform`. But be mindful to use it only on the train split and **not** on the test split. 
+You can also carry out fitting and transforming in one call using `fit_transform`, but be mindful to use it only on the train split and **not** on the test split. 
 
 ---
 
 ```{python}
 knn_unscaled = KNeighborsClassifier();
 knn_unscaled.fit(X_train, y_train)
-print('Train score: %0.3f' %(knn_unscaled.score(X_train, y_train)))
-print('Test score: %0.3f' %(knn_unscaled.score(X_test, y_test)))
+print('Train score: ', (knn_unscaled.score(X_train, y_train).round(2)))
+print('Test score: ', (knn_unscaled.score(X_test, y_test).round(2)))
 ```
 
 ```{python}
 knn_scaled = KNeighborsClassifier();
 knn_scaled.fit(X_train_scaled, y_train)
-print('Train score: %0.3f' %(knn_scaled.score(X_train_scaled, y_train)))
-print('Test score: %0.3f' %(knn_scaled.score(X_test_scaled, y_test)))
+print('Train score: ', (knn_scaled.score(X_train_scaled, y_train).round(2)))
+print('Test score: ', (knn_scaled.score(X_test_scaled, y_test).round(2)))
 ```
 
 
@@ -337,7 +320,7 @@ We am not carrying out cross-validation here for a reason that that we'll look i
 
 We are being a bit sloppy here by using the test set several times for teaching purposes. 
 
-But when you build an ML pipeline, please do assessment on the test set only once.  
+But when you build an ML models, you should only assess the test set once.  
 
 ---
 

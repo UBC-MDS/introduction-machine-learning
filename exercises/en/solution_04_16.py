@@ -28,5 +28,5 @@ train_score = model.score(X_train, y_train)
 # Score your model on the test set using score and save it in an object named test_score
 test_score = model.score(X_test, y_test)
 
-print("The training score is", train_score)
-print("The test score is", test_score)
+print("The training score is", train_score.round(4))
+print("The test score is", test_score.round(4))
