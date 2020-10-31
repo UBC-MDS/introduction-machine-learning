@@ -23,15 +23,6 @@ By the end of the module, students are expected to:
 - Explain optimization bias.
 
 
-
-
-Discuss golden rule in the context of feature transformations;
-
-
-
-
-
-
 Notes: 
 
 <br>

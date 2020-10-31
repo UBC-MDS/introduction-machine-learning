@@ -34,7 +34,7 @@ knn.score(X_train_scaled, y_train).round(3)
 Notes:
 
 We left off with our scaled data and calculating our training score,
-however in the last module we saw that cross validation is a better way
+however in the last module we saw that cross-validation is a better way
 to get a realistic assessment of the model.
 
 ---
@@ -49,28 +49,28 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.010759    0.219712    0.710905     0.803734
-1  0.010186    0.213276    0.706893     0.803212
-2  0.010320    0.225002    0.711039     0.803030
-3  0.010631    0.230174    0.695769     0.806275
-4  0.010250    0.159390    0.697941     0.805146
+0  0.010401    0.215052    0.710905     0.803734
+1  0.009705    0.192826    0.706893     0.803212
+2  0.009347    0.200187    0.711039     0.803030
+3  0.010269    0.207631    0.695769     0.806275
+4  0.009671    0.152955    0.697941     0.805146
 ```
 
 Notes:
 
 Let’s try cross-validation with transformed data.
 
-**Do you see any problem here?**
+**Is there a problem here?**
 
 Are we applying `fit_transform` on the train portion and `transform` on
-validation portion in each fold?
+the validation portion in each fold?
 
-Here you might be allowing information from the validation set to
+Here we might be allowing information from the validation set to
 **leak** into the training step.
 
-You need to apply the **SAME** preprocessing steps to train/validation.
+We need to apply the **SAME** preprocessing steps to train/validation.
 
-With many different transformations and cross validation the code gets
+With many different transformations and cross-validation, the code gets
 unwieldy very quickly.
 
 That makes it likely to make mistakes and “leak” information.
@@ -114,7 +114,7 @@ Training score:  0.81
 ```
 
 ``` python
-print("Test score: ",  knn.score(X_test_scaled, y_test).round(2))
+print("Test score: ", knn.score(X_test_scaled, y_test).round(2))
 ```
 
 ```out
@@ -190,19 +190,23 @@ Here we are scaling the train and test splits together.
 The golden rule says that the test data shouldn’t influence the training
 in any way.
 
-With this approach we are using the information from the test split when
-we `fit` the scaler and calculate the mean, as we are passing the
-combined `X_train` and `X_test` to it. So it’s **violation** of the
+With this approach, we are using the information from the test split
+when we `fit` the scaler and calculate the mean, as we are passing the
+combined `X_train` and `X_test` to it. So, it’s **violation** of the
 golden rule.
 
 ---
 
-<br> <br> \#\#\# So what can we do?
+<br> <br>
+
+### So, what can we do?
 
 We can create a
 <a href="ttps://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html" target="_blank">scikit-learn
-Pipeline\</a\! Pipelines allows you to define a “pipeline” of
-transformers with a final estimator.
+Pipeline</a>\!
+
+Pipelines allow us to define a “pipeline” of transformers with a final
+estimator.
 
 ---
 
@@ -217,8 +221,8 @@ pipe = Pipeline(
     steps=[
         ("imputer", SimpleImputer(strategy="median")),
         ("scaler", StandardScaler()),
-        ("reg", KNeighborsRegressor()),
-    ]
+        ("reg", KNeighborsRegressor())
+        ]
 )
 ```
 
@@ -255,26 +259,31 @@ array([122460., 115220., 216940., ..., 240420., 254500.,  60420.])
 
 Notes:
 
+Then we fit the `pipe` object and pass in `X_train, y_train`
+
 Notice that we are passing `X_train` and **not** the imputed or scaled
 data here.
 
-When you call `fit` the pipeline is carrying out the following steps:
+When we call `fit` the pipeline is carrying out the following steps:
 
-  - Fit `SimpleImputer` on `X_train`
+  - Fit `SimpleImputer` on `X_train`.
   - Transform `X_train` using the fit `SimpleImputer` to create
-    `X_train_imp`
-  - Fit `StandardScaler` on `X_train_imp`
+    `X_train_imp`.
+  - Fit `StandardScaler` on `X_train_imp`.
   - Transform `X_train_imp` using the fit `StandardScaler` to create
-    `X_train_imp_scaled`
+    `X_train_imp_scaled`.
   - Fit the model (`KNeighborsRegressor` in our case) on
-    `X_train_imp_scaled`
+    `X_train_imp_scaled`.
 
-Note that we are passing original data to `predict` as well. This time
-the pipeline is carrying out following steps: - Transform `X_train`
-using the fit `SimpleImputer` to create `X_train_imp` - Transform
-`X_train_imp` using the fit `StandardScaler` to create
-`X_train_imp_scaled` - Predict using the fit model
-(`KNeighborsRegressor` in our case) on `X_train_imp_scaled`.
+Take note that we are passing original data to `predict` as well. This
+time the pipeline is carrying out the following steps:
+
+  - Transform `X_train` using the fit `SimpleImputer` to create
+    `X_train_imp`.
+  - Transform `X_train_imp` using the fit `StandardScaler` to create
+    `X_train_imp_scaled`.
+  - Predict using the fit model (`KNeighborsRegressor` in our case) on
+    `X_train_imp_scaled`.
 
 It is not fitting any of the data this time.
 
@@ -282,7 +291,7 @@ It is not fitting any of the data this time.
 
 <center>
 
-<img src="/module5/pipeline.png"  width = "900%" alt="404 image" />
+<img src="/module5/pipeline.png" width = "90%" alt="404 image" />
 
 </center>
 
@@ -290,9 +299,9 @@ It is not fitting any of the data this time.
 
 Notes:
 
-Here is a schematic assuming you have two transformers.
+Here is a schematic assuming we have two transformers.
 
-One thing that is awesome With pipeline is that we can’t make the
+One thing that is awesome with pipelines is that we can’t make the
 mistakes we showed earlier.
 
 We call fit on the train split and score on the test split, it’s clean.
@@ -309,11 +318,11 @@ pd.DataFrame(scores_processed)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.029308    0.216813    0.710414     0.804595
-1  0.028554    0.236912    0.707372     0.801949
-2  0.026477    0.217431    0.711692     0.802860
-3  0.028051    0.236540    0.696720     0.806192
-4  0.028258    0.200305    0.705319     0.813508
+0  0.027879    0.211544    0.710414     0.804595
+1  0.025381    0.198470    0.707372     0.801949
+2  0.025110    0.203800    0.711692     0.802860
+3  0.025258    0.205728    0.696720     0.806192
+4  0.025116    0.173713    0.705319     0.813508
 ```
 
 Notes:
@@ -322,7 +331,7 @@ Remember what cross-validation does - it calls fit and score.
 
 Now we’re calling fit on the pipeline, not just the 𝑘-NN regressor.
 
-So the transformers and the 𝑘-NN model are refit again on each fold.
+So, the transformers and the 𝑘-NN model are refit again on each fold.
 
 The pipeline applies the `fit_transform` on the train portion of the
 data and only `transform` on the validation portion in each fold.
@@ -336,8 +345,8 @@ pd.DataFrame(scores_processed).mean()
 ```
 
 ```out
-fit_time       0.028130
-score_time     0.221600
+fit_time       0.025749
+score_time     0.198651
 test_score     0.706303
 train_score    0.805821
 dtype: float64
@@ -350,8 +359,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       0.001774
-score_time     0.000753
+fit_time       0.001327
+score_time     0.000559
 test_score    -0.055115
 train_score   -0.054611
 dtype: float64
@@ -359,7 +368,7 @@ dtype: float64
 
 Notes:
 
-And we can also see that the preprocessed scored are much better than
+And we can also see that the preprocessed scores are much better than
 our dummy regressor which has negative ones\!
 
 ---

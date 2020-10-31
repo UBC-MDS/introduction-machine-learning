@@ -4,7 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import ____
 
 
 # Loading in the data
@@ -23,25 +23,34 @@ X_train, X_test, y_train, y_test = train_test_split(
 bb_pipe = Pipeline(
             steps=[("imputer", SimpleImputer(strategy="median")),
                    ("scaler", StandardScaler()),
-                   ("knn", KNeighborsClassifier()),
-                ])
+                   ("knn", KNeighborsClassifier())])
 
 # Build a grid of the parameters you wish to search. 
-param_grid = {
-    "knn__n_neighbors" : [1, 5, 10, 20, 30, 40, 50],
-    "knn__weights" : ['uniform', 'distance']
-}
+____ = ____
+
+# Conduct grid search with 10 fold cross-validation
+____ = ____
+
+# Fit your pipeline with grid search 
+____.____
 
 
-grid_search = GridSearchCV(bb_pipe, param_grid, verbose=2, n_jobs=-1)
+# Save the best hyperparameter values in an object named `best_hyperparams`
+____ = ____
 
-grid_search.fit(X_train, y_train)
+# Print best_hyperparams
+____
 
+# Create a new model using the best parameters found in grid search
+# Save this model as best_model_pipe
+____ = ____
 
-best_hyperparams = grid_search.best_params_
+# Train the model
+____.____
 
+# Score your model on the test set 
+# Save your results in an object named `bb_test_score`
+____ = ____
 
-best_model_pipe = random_search.best_estimator_
-best_model_pipe.fit(X_train, y_train)
-
-best_model_pipe.score(X_test, y_test)
+# Display your score 
+____

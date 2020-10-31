@@ -1,6 +1,6 @@
 ---
 params:
-  dynamictitle: "module5_01"
+  dynamictitle: "module5_08"
 title: "`r params$dynamictitle`"
 output: 
   md_document:
@@ -76,191 +76,206 @@ path = "../../../../static/module5/"
 
 
 type: slides
-
-# Case Study: Preprocessing with Scaling 
-
+ 
+# Case Study: Preprocessing with Scaling
+ 
 Notes: <br>
-
+ 
 ---
-
+ 
 ```python
 knn_unscaled = KNeighborsClassifier();
 knn_unscaled.fit(X_train, y_train)
 print('Train score: ', (knn_unscaled.score(X_train, y_train).round(2)))
 print('Test score: ', (knn_unscaled.score(X_test, y_test).round(2)))
 ```
-
+ 
 ```out
 KNeighborsClassifier()
 Train score:  0.71
 Test score:  0.45
 ```
-
+ 
 ```python
 knn_scaled = KNeighborsClassifier();
 knn_scaled.fit(X_train_scaled, y_train)
 print('Train score: ', (knn_scaled.score(X_train_scaled, y_train).round(2)))
 print('Test score: ', (knn_scaled.score(X_test_scaled, y_test).round(2)))
 ```
-
+ 
 ```out
 KNeighborsClassifier()
 Train score:  0.94
 Test score:  0.89
 ```
-
-
-Notes: 
-
-We've seen why scaling in important when we were using our basketball dataset in the first section of this module. 
-
-In this section we are going to dive a little deeper into the process and the transformer option.  
-
+ 
+ 
+Notes:
+ 
+We've seen why scaling is important when we were using our basketball dataset in the first section of this module.
+ 
+In this section, we are going to dive a little deeper into the process and the transformer options. 
+ 
 ---
-
-## Scaling 
-
-
+ 
+## Scaling
+ 
+ 
 <center><img src="/module5/scaling-data.png"  width = "90%" alt="404 image" /></center>
 <a href="https://amueller.github.io/COMS4995-s19/slides/aml-05-preprocessing/#8" target="_blank">Attribution</a>
-
-
-Notes: 
-
+ 
+ 
+Notes:
+ 
 This problem affects a large number of ML methods.
-
+ 
 There are a number of approaches to this problem.
-
-We are going to look into two most popular ones; `MinMaxScaler` and `StandardScaler`. 
-
+ 
+We are going to look at two popular ones; `MinMaxScaler` and `StandardScaler`.
+ 
 ---
-
-
+ 
+ 
 | Approach | What it does | How to update 𝑋 (but see below!) | sklearn implementation |
 |---------|------------|-----------------------|----------------|
-| Normalization | sets range to [0,1]   | `X -= np.min(X,axis=0)`<br>`X /= np.max(X,axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html" target="_blank">`MinMaxScaler()`</a> | 
-| Standardization | sets sample mean to 0, s.d. to 1   | `X -= np.mean(X,axis=0)`<br>`X /=  np.std(X,axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" target="_blank">`StandardScaler()`</a>|
-
+| Normalization | sets range to [0,1]   | `X -= np.min(X, axis=0)`<br>`X /= np.max(X, axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html" target="_blank">`MinMaxScaler()`</a> |
+| Standardization | sets sample mean to 0, s.d. to 1   | `X -= np.mean(X, axis=0)`<br>`X /=  np.std(X, axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" target="_blank">`StandardScaler()`</a>|
+ 
 There are all sorts of articles on this: see
 <a href="http://www.dataminingblog.com/standardization-vs-normalization/" target="_blank">here</a>
 and <a href="https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc" target="_blank">here</a>.
-
-Notes: 
-
-We are going to look into two most popular ones.  
-
+ 
+Notes:
+ 
+<br>
+ 
 ---
-
+ 
 ```{python include = FALSE}
-
+ 
 housing_df = pd.read_csv("data/housing.csv")
 train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
-
+ 
 train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"])
 test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"])
-
+ 
 train_df = train_df.assign(bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"])
 test_df = test_df.assign(bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"])
-
+ 
 train_df = train_df.assign(population_per_household = train_df["population"]/train_df["households"])
 test_df = test_df.assign(population_per_household = test_df["population"]/test_df["households"])
-
+ 
 X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
 y_train = train_df["median_house_value"]
-
+ 
 X_test = test_df.drop(columns=["median_house_value", "ocean_proximity"])
 y_test = test_df["median_house_value"]
-
+ 
 imputer = SimpleImputer(strategy="median")
 imputer.fit(X_train)
 X_train_imp = imputer.transform(X_train)
 X_test_imp = imputer.transform(X_test)
-
-
+ 
+ 
 ```
-
+ 
 ```{python}
 pd.DataFrame(X_train_imp, columns=X_train.columns, index=X_train.index).head()
 ```
-
+ 
 ```{python}
 from sklearn.preprocessing import StandardScaler
 ```
-
+ 
 ```{python}
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train_imp)
 X_test_scaled = scaler.transform(X_test_imp)
 pd.DataFrame(X_train_scaled, columns=X_train.columns, index=X_train.index).head()
 ```
+ 
+ 
+Notes: Let's bring in our imputed data that we processed in the last slide deck.
+ 
+We've seen the `StandardScaler()` function earlier but let's see what the transformed data looks like.
 
-
-Notes: Let's bring in our imputated data that we processed in the last slide deck. 
-
-We've seen the `StandardScaler()` function earlier but let's see what the transformed data looks like. 
-
+Now we can compare our training score with scaled and unscaled data and see a noticeable difference between the two!
+ 
+ 
 ---
-
-
+ 
+**Unscaled data**
 ```{python}
 knn = KNeighborsRegressor()
 knn.fit(X_train_imp, y_train);
 knn.score(X_train_imp, y_train).round(3)
 ```
-
-
+ 
+ **Scaled data**
 ```{python}
 knn = KNeighborsRegressor()
 knn.fit(X_train_scaled, y_train);
 knn.score(X_train_scaled, y_train).round(3)
 ```
+ 
+ 
+Notes:
+ 
+How about our training scores? 
 
-
-Notes: 
-
-Now we can compare our training score with scaled and unscaled data and see a noticable difference between the two!
-
-
+Just using scaled column values increases the training score by 30%!
+ 
 ---
-
+ 
 ```{python}
 from sklearn.preprocessing import MinMaxScaler
 ```
-
-
+ 
+ 
 ```{python}
 scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train_imp)
 X_test_scaled = scaler.transform(X_test_imp)
 pd.DataFrame(X_train_scaled, columns=X_train.columns, index=X_train.index).head()
 ```
+ 
+Notes:
 
-Notes: 
-
+Let's now explore `MinMaxScaler`. 
+ 
 Looking at the data after transforming it with `MinMaxScaler()` we see this time there are no negative values.
-
+ 
 ---
+ 
 
+**Unscaled data**
+```{python}
+knn = KNeighborsRegressor()
+knn.fit(X_train_imp, y_train);
+knn.score(X_train_imp, y_train).round(3)
+```
+ 
+**Scaled data**
 ```{python}
 knn = KNeighborsRegressor()
 knn.fit(X_train_scaled, y_train);
 knn.score(X_train_scaled, y_train).round(3)
 ```
+ 
 
-
-Notes: 
-
-Again similar to `StandardScaler` there is a big difference in the KNN training performance after scaling the data. 
-
-But we saw last week that training score doesn't tell us much. 
-
+Notes:
+ 
+Again, similar to `StandardScaler` there is a big difference in the KNN training performance after scaling the data.
+ 
+But we saw last week that the training score doesn't tell us much.
+ 
 We should look at the cross-validation score.
-
-Let's take a look at that in the next section. 
-
-
+ 
+Let's take a look at that in the next section.
+ 
+ 
 ---
-
+ 
 # Let’s apply what we learned!
-
+ 
 Notes: <br>

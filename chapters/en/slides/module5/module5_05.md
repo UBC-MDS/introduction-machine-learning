@@ -28,35 +28,35 @@ train_df.head()
 
 We are using the data that can be
 <a href="https://www.kaggle.com/harrywang/housing" target="_blank">downloaded
-here</a>. This dataset is a modified version of the California Housing
-dataset available from:
+here</a>.
+
+This dataset is a modified version of the California Housing dataset
+available from:
 <a href="https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html" target="_blank">Luís
 Torgo’s University of Porto website</a>.
 
 Notes:
 
-For the next few slide decks we are going to be using a dataset
+For the next few slide decks, we are going to be using a dataset
 exploring the prices of homes in California to demonstrate feature
 transformation techniques.
 
 The task is to predict median house values in Californian districts,
-given a number of features from these districts.
+given several features from these districts.
 
-We can see here thatome column values are mean/median while others are
+We can see here that some column values are mean/median while others are
 totals or not completely clear.
 
 ---
 
 ``` python
-train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"])
-test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"])
-
-train_df = train_df.assign(bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"])
-test_df = test_df.assign(bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"])
-
-train_df = train_df.assign(population_per_household = train_df["population"]/train_df["households"])
-test_df = test_df.assign(population_per_household = test_df["population"]/test_df["households"])
-
+train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
+                           bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
+                           population_per_household = train_df["population"]/train_df["households"])
+                           
+test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
+                         bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
+                         population_per_household = test_df["population"]/test_df["households"])
 train_df.head()
 ```
 
@@ -86,7 +86,7 @@ it’s better to do it after splitting.
 **Question**: Should we remove `total_rooms`, `total_bedrooms`, and
 `population` columns?
 
-Probably, but let’s keep them in for now. You could experiment with
+Probably, but let’s keep them in for now. You could experiment by
 removing them and examine whether results change.
 
 ---
@@ -122,10 +122,11 @@ memory usage: 2.0+ MB
 
 Notes:
 
-Here we see that we have all columns with Dtype `float64` except for
+Here we see that we have all columns with dtype `float64` except for
 `ocean_proximity` which appears categorical.
 
-It looks like the `total_bedrooms` column has some missing values.
+It looks like the `total_bedrooms` and `bedrooms_per_household` columns
+have some missing values.
 
 ---
 
@@ -155,13 +156,12 @@ housing_df["total_bedrooms"].isnull().sum()
 
 Notes:
 
-This was the same column we used to engineer the
-`bedrooms_per_household` column and it look like it’s been effected as
-well.
+Looks like the data is missing 207 values for `total_bedrooms` and
+therefore the same amount for `bedrooms_per_household`.
 
 ---
 
-### So what do we do?
+### What happens?
 
 ``` python
 X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
@@ -182,9 +182,9 @@ ValueError: Input contains NaN, infinity or a value too large for dtype('float64
 
 Notes:
 
-First we are going to drop the categorical variable `ocean_proximity`.
+First, we are going to drop the categorical variable `ocean_proximity`.
 
-Right now we only know how to build models with numerical data. We will
+Right now, we only know how to build models with numerical data. We will
 come back to categorical variables in module 6.
 
 But what do we do about the null values? Can we run a model with them?
@@ -192,7 +192,7 @@ But what do we do about the null values? Can we run a model with them?
 We can see that the classifier is not able to deal with missing values
 (NaNs).
 
-What are possible ways to deal with the problem?
+What are the possible ways to deal with the problem?
 
 ---
 
@@ -268,9 +268,9 @@ Notes:
 
 One can also drop all columns with missing values.
 
-This generally throws away a lot of information, because you lose a
-whole column just for 1 missing value. But I might drop a column if it’s
-99.9% missing values, for example.
+This generally throws away a lot of information, because we lose a whole
+column just for 1 missing value. But I might drop a column if it’s 99.9%
+missing values, for example.
 
 ---
 
@@ -292,7 +292,7 @@ Notes:
 `SimpleImputer` is a **transformer** in `sklearn` which can deal with
 this problem.
 
-We can going to concentrate on numeric columns in this section and
+We are going to concentrate on numeric columns in this section and
 address categorical preprocessing in Module 6.
 
 ---
@@ -317,11 +317,11 @@ X_train.sort_values('total_bedrooms').tail(10)
 
 Notes:
 
-Let’s take a look at the some of the examples with `NaN` values in
+Let’s take a look at some of the examples with `NaN` values in
 `total_bedrooms`.
 
-Here we see that index `7763` has a `NaN` value for `total_bedrooms` and
-`bedrooms_per_household`.
+Here we see that the index `7763` has a `NaN` value for `total_bedrooms`
+and `bedrooms_per_household`.
 
 ---
 
@@ -348,20 +348,18 @@ array([[-117.75      ,   34.04      ,   22.        , ...,    4.89700997,    1.05
 
 Notes:
 
-Let’s input our data and instead of dropping the examples likes replace
-the`fit` and `transform` steps that we saw earlier. We do not need to
-fit on our target column this time.
+Let’s input our data and instead of dropping the examples, let’s use the
+`fit` and `transform` steps that we saw earlier.
 
-Let’s check whether the NaN values have been replaced or not.
+We do not need to fit on our target column this time.
 
-Note that `imputer.transform` returns an `numpy` array and not a
-dataframe.
+Note that `imputer.transform` returns a NumPy array and not a dataframe.
 
 ---
 
 ``` python
-df = pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)
-df.loc[[7763]]
+X_train_imp_df = pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)
+X_train_imp_df.loc[[7763]]
 ```
 
 ```out
@@ -380,10 +378,12 @@ X_train.loc[[7763]]
 
 Notes:
 
+Let’s check whether the `NaN` values have been replaced or not.
+
 We can fix that a bit using the column index from `X_train` and
 transforming it into a dataframe.
 
-Now we can see our example 7763 no longer has an `NaN` value for
+Now we can see our example 7763 no longer has any `NaN` values for
 `total_bedrooms` and `bedrooms_per_household`.
 
 ---

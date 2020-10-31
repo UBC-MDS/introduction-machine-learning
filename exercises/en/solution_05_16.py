@@ -22,8 +22,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 bb_pipe = Pipeline(
             steps=[("imputer", SimpleImputer(strategy="median")),
                    ("scaler", StandardScaler()),
-                   ("clf", KNeighborsClassifier()),
-                ])
+                   ("knn", KNeighborsClassifier())])
 
 # Cross-validate on the pipeline steps using X_train and y_train
 # Save the results in an object named cross_scores

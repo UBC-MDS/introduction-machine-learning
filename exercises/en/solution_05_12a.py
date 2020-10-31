@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import ____
+from sklearn.preprocessing import StandardScaler
 
 
 # Loading in the data
@@ -17,22 +17,21 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=7)
 
 # Build the transformer and name it bb_scaler
-____ = ____
+ss_scaler = StandardScaler()
 
 # Fit and transform the data X_train
 # Save the transformed feature vectors in objects named X_train_scaled
-____ = ____
-
+X_train_scaled = ss_scaler.fit_transform(X_train)
 
 # Transform X_test and save it in an object named X_test_scaled
-____ = ____
+X_test_scaled = ss_scaler.transform(X_test)
 
 # Build a KNN classifier and name it knn
-____ = ____
+knn = KNeighborsClassifier()
 
 # Fit your model on the newly scaled training data
-____.____
+knn.fit(X_train_scaled, y_train)
 
 # Save the training score to 3 decimal places in an object named ss_score
-____ = ____
-____
+ss_score = knn.score(X_train_scaled, y_train).round(3)
+ss_score

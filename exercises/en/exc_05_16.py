@@ -19,17 +19,13 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=7)
 
 # Build a pipeline named bb_pipe
-bb_pipe = Pipeline(
-            steps=[("imputer", SimpleImputer(strategy="median")),
-                   ("scaler", StandardScaler()),
-                   ("reg", KNeighborsClassifier()),
-                ])
+____ = ____(steps=[____])
 
 # Cross-validate on the pipeline steps using X_train and y_train
 # Save the results in an object named cross_scores
-cross_scores = cross_validate(bb_pipe, X_train, y_train, return_train_score=True)
+____ = ____
 
 # Transform cross_scores to a dataframe and take the mean of each column
 # Save the result in an object named mean_scores
-mean_scores = pd.DataFrame(cross_scores).mean()
-mean_scores
+____ = ____
+____

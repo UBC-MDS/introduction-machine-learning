@@ -1,7 +1,7 @@
 ---
 title: 'Module 5: Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization'
 description:
-  'In this model, we will concentrate on the steps that need to be taken before building a model. Preperation through imputation and scaling is an important steps of model building and can be done using tools such as pipelines. Next, we will explore automated hyperparameter optimization.'
+  'In this model, we will concentrate on the steps that need to be taken before building a model. Preparation through imputation and scaling is an important step of model building and can be done using tools such as pipelines. Next, we will explore automated hyperparameter optimization.'
 prev: /module4
 next: /module6
 type: chapter
@@ -15,7 +15,7 @@ id: 5
 
 </exercise>
 
-<exercise id="1" title="Why Preprocessing is Important" type="slides,video">
+<exercise id="1" title="The Importance of Preprocessing" type="slides,video">
 
 <slides source="module5/module5_01" shot="3" start="0:003" end="1:54">
 </slides>
@@ -31,7 +31,7 @@ Which model will still produce meaningful predictions with different scaled colu
 
 <opt text="Decision Trees" correct="true">
 
-You are right! Decision Trees visit a single feature at a time unlike 𝑘-NN models, which calculate distances using all the features together. 
+You are right! Decision Trees visit a single feature at a time, unlike 𝑘-NN models, which calculate distances using the features all together. 
 
 </opt>
 
@@ -43,13 +43,13 @@ Fantastic!
 
 <opt text="Dummy Classifier" >
 
-Although this classifier is unaffected by different values in the feature columns, this is because this model isn't taking the feature values into it's prediction at all! This model is only predicting based on the primary target in the training set. 
+Although this classifier is unaffected by different values in the feature columns, this is because this model isn't taking the feature values into its prediction at all! This model is only predicting based on the primary target in the training set. 
 
 </opt>
 
 <opt text="SVM">
 
-This works in a similar way to 𝑘-NN where distance is calculated and features are observe together and not independently of each other. 
+This works in a similar way to 𝑘-NN, where distance is calculated and features are observed together and not independently of each other. 
 
 </opt>
 
@@ -59,7 +59,7 @@ This works in a similar way to 𝑘-NN where distance is calculated and features
 *Complete the following statement*  
 Preprocessing is done ____.  
 
-<choice id="1" >
+<choice id="2" >
 
 <opt text="To the model before training">
 
@@ -81,7 +81,7 @@ It's not done to the model or after training.
 
 <opt text="To the data after training the model" >
 
-You are half right but it's not done after training the model. 
+You are half right, but it's not done after training the model. 
 
 </opt>
 
@@ -92,7 +92,7 @@ You are half right but it's not done after training the model.
 <exercise id="3" title="Motivation True and False">
 
 **True or False**     
-_Columns will lower magnitudes compare to columns with higher magnitudes contribute are less important when making predictions._
+_Columns will lower magnitudes compared to columns with higher magnitudes are less important when making predictions._
 
 <choice id="1" >
 <opt text="True"  >
@@ -110,7 +110,7 @@ Great! Just because a feature has smaller values does not mean it's less informa
 </choice>
 
 **True or False**     
-*A model less sensitive to the scale makes it more robust.*
+*A model less sensitive to the scale of the data makes it more robust.*
 
 <choice id="2">
 <opt text="True"  correct="true">
@@ -129,9 +129,7 @@ Models that are more sensitive to scale can be problematic.
 
 </exercise>
 
-
 <exercise id="4" title="Preprocessing Questions">
-
 
 **Question 1**     
 `StandardScaler` is a type of what?
@@ -163,7 +161,6 @@ Nice work!
 </opt>
 
 </choice>
-
 
 **Question 2**     
 What data does `StandardScaler` alter?
@@ -206,10 +203,8 @@ We need to scale our data though!
 
 <exercise id="6" title= "Imputation">
 
-
 **Question 1**     
-When do we need to imputate our data?
-
+When do we need to impute our data?
 
 <choice id="1">
 
@@ -225,15 +220,15 @@ Great!
 
 </opt>
 
-<opt text="Before we build all model." >
+<opt text="Before we build all models." >
 
 Not necessarily. It depends on the data we have. 
 
 </opt>
 
-<opt text="As a percaution to make sure our model is more robust.">
+<opt text="As a precaution to make sure our model is more robust.">
 
-We will not be able to fit our model without imputation and so it's not not quite a precaution. 
+We will not be able to fit our model without imputation and so it's not quite a precaution. 
 
 </opt>
 
@@ -250,19 +245,19 @@ What if it's a column that substantially helps the prediction?
 
 </opt>
 
-<opt text="Yes, if the mojority of the values are missing from the column" correct="true">
+<opt text="Yes, if the majority of the values are missing from the column" correct="true">
 
 Great!
 
 </opt>
 
-<opt text="No droping the column will not solve the issue. ">
+<opt text=" No, dropping the column will not solve the issue. ">
 
-Dropping the column may solve the issue, however we could be losing a lot of important information. 
+Dropping the column may solve the issue, however, we could be losing a lot of important information. 
 
 </opt>
 
-<opt text="No, Never drop a column from the data.">
+<opt text="No, never drop a column from the data.">
 
 Dropping a column can sometimes be an appropriate method of removing `NaN` values. 
 
@@ -272,7 +267,7 @@ Dropping a column can sometimes be an appropriate method of removing `NaN` value
 
 </exercise>
 
-<exercise id="6" title="Imputation True or False">
+<exercise id="7" title="Imputation True or False">
 
 **True or False**     
 _`SimpleImputer` is a type of transformer._
@@ -292,14 +287,13 @@ Is our data transforming?
 
 </choice>
 
-
 **True or False**     
 _We can use `SimpleImputer` to impute values that are missing from numerical and categorical columns._
 
 <choice id="2" >
 <opt text="True"  correct="true">
 
-Yes! We are can use `SimpleImputer` to impute both numerical and categorical columns.
+Yes! We can use `SimpleImputer` to impute both numerical and categorical columns.
 
 </opt>
 
@@ -313,7 +307,7 @@ This is true and we will touch on categorical columns in the next module!
 
 </exercise>
 
-<exercise id="7" title='Imputing in Action'>
+<exercise id="8" title='Imputing in Action'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -324,8 +318,7 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 
 Let's take a look at a modified version of our basketball player dataset.  
 
-
-First let's take a look at if and/or where we are missing any values 
+First, let's take a look at if and/or where we are missing any values.
 
 Tasks:     
 
@@ -333,13 +326,12 @@ Tasks:
 - Using some of the skills we learned in the previous <a href="https://prog-learn.mds.ubc.ca/en/module8" target="_blank">course</a> find the number of rows that contains missing values and save the total number of examples with missing values in an object named `num_nan`.       
 *Hint: `.any(axis=1)` may come in handy here.* 
 
-<codeblock id="05_07a">
+<codeblock id="05_08a">
 
 - Are you using `X_train.info()`?
 - Are you using `X_train.isnull().any(axis=1).sum()`?
 
 </codeblock>
-
 
 
 Now that we've identified the columns with missing values, let's use `SimpleImputer` to replace the missing value. 
@@ -351,24 +343,23 @@ Tasks:
 - Transform `X_train_imp` into a dataframe using the column and index labels from `X_train` and save it as `X_train_imp_df`.
 - Check if `X_train_imp_df`  still has missing values.
 
-<codeblock id="05_07b">
-
+<codeblock id="05_08b">
 
 
 </codeblock>
 
 </exercise>
 
-<exercise id="8" title="Case Study: Preprocessing with Scaling" type="slides,video">
-<slides source="module5/module5_08" shot="0" start="0:006" end="3:39">
+<exercise id="9" title="Case Study: Preprocessing with Scaling" type="slides,video">
+<slides source="module5/module5_09" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
-<exercise id="9" title= "Name that Scaling Method!">
+<exercise id="10" title= "Name that Scaling Method!">
 
 **Question 1**    
-Which scaling method will not produce negative values?
+Which scaling method will never produce negative values?
 
 <choice id="1">
 
@@ -378,7 +369,7 @@ This is a transformation to replace `NaN` values.
 
 </opt>
 
-<opt text= "Normalization."  correct="true" >
+<opt text= "Normalization"  correct="true" >
  
 Perfect!
 
@@ -386,7 +377,7 @@ Perfect!
 
 <opt text="Standardization" >
 
-This method will infact produce negative values around a mean of 0. 
+This method will in fact produce negative values around a mean of 0. 
 
 </opt>
 
@@ -399,7 +390,7 @@ Although normalization is correct, standardization is not.
 </choice>
 
 **Question 2**    
-Which scaling method will not produce values greater than 1?
+Which scaling method will never produce values greater than 1?
 
 <choice id="2" >
 
@@ -409,7 +400,7 @@ This is a transformation to replace `NaN` values.
 
 </opt>
 
-<opt text= "Normalization."  correct="true" >
+<opt text= "Normalization"  correct="true" >
  
 Perfect!
 
@@ -423,12 +414,11 @@ This method can produce values greater than 1 depending on the standard deviatio
 
 <opt text="Both Normalization and Standardization" >
 
-Although normalization is correct, standardization is can produce values greater than 1. 
+Although normalization is correct, standardization can produce values greater than 1. 
 
 </opt>
 
 </choice>
-
 
 **Question 3**    
 Which scaling method will produce values where the range depends on the values in the data?
@@ -441,7 +431,7 @@ This is a transformation to replace `NaN` values.
 
 </opt>
 
-<opt text= "Normalization."  >
+<opt text= "Normalization"  >
  
 The range for values that have undergone Normalization will be 1.
 
@@ -449,7 +439,7 @@ The range for values that have undergone Normalization will be 1.
 
 <opt text="Standardization" correct="true" >
 
-This method's range depends on the standard deviation on the data. 
+This method's range depends on the standard deviation of the data. 
 
 </opt>
 
@@ -463,7 +453,7 @@ This time Standardization is correct but Normalization is not.
 
 </exercise>
 
-<exercise id="10" title="Scaling True or False">
+<exercise id="11" title="Scaling True or False">
 
 **True or False**     
 _Scaling is a form of transformation._
@@ -489,7 +479,7 @@ _Scaling will always increase your training score._
 <choice id="2" >
 <opt text="True"  >
 
-Scaling usually helps, but it is not guaranteed increase training score. 
+Scaling usually helps, but it is not guaranteed to increase the training score. 
 
 </opt>
 
@@ -503,7 +493,7 @@ Great work!
 
 </exercise>
 
-<exercise id="11" title='Practing Scaling'>
+<exercise id="12" title='Practicing Scaling'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -512,9 +502,9 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Now that we have a basketball dataset that no longer is missing any values, let's scales the features. 
+Now that we have a basketball dataset that no longer is missing any values, let's scale the features. 
 
-First let's scales using standardization. 
+First, let's scale using standardization. 
 
 Tasks:     
 
@@ -526,8 +516,7 @@ Tasks:
 - Fit your model on the newly scaled training data.
 - Save the training score to 3 decimal places in an object named `ss_score`.
 
-
-<codeblock id="05_11a">
+<codeblock id="05_12a">
 
 - Are you importing `StandardScaler`?
 - Are you using `ss_scaler.fit_transform(X_train)`?
@@ -538,7 +527,6 @@ Tasks:
 - To obtain the training score are you using `knn.score(X_train_scaled, y_train).round(3)`?
 
 </codeblock>
-
 
 
 Let's try this again but this time, let's use normalization. 
@@ -553,7 +541,7 @@ Tasks:
 - Fit your model on the newly scaled training data.
 - Save the training score to 3 decimal places in an object named `mm_score`.
 
-<codeblock id="05_11b">
+<codeblock id="05_12b">
 
 - Are you using `mm_scaler.fit_transform(X_train)`?
 - Are you using `model.fit(X_train, y_train.to_numpy())`?
@@ -571,13 +559,13 @@ Which scaling transformation results in a better training score?
 <choice id="1" >
 <opt text="Standardization" >
 
-Did standardization obtain a score greater than than normalization? 
+Did standardization obtain a score greater than normalization? 
 
 </opt>
 
 <opt text="Normalization">
 
-Was the score for normalization truely greater than that with normalization?
+Was the score for normalization truly greater than that with normalization?
 
 </opt>
 
@@ -591,14 +579,13 @@ Great! They both scored  0.902 to 3 decimal places.
 
 </exercise>
 
-<exercise id="12" title="Case Study: Pipelines" type="slides,video">
-<slides source="module5/module5_12" shot="0" start="0:006" end="3:39">
+<exercise id="13" title="Case Study: Pipelines" type="slides,video">
+<slides source="module5/module5_13" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
-
-<exercise id="13" title= "Pipeline Questions">
+<exercise id="14" title= "Pipeline Questions">
 
 **Question 1**   
 Which of the following steps cannot be used in a pipeline?
@@ -664,7 +651,7 @@ Think of why we cannot mix the data together...
 
 </exercise>
 
-<exercise id="14" title="Pipeline True or False">
+<exercise id="15" title="Pipeline True or False">
 
 **True or False**     
 _We have to be careful of the order we put each transformation and model in a pipeline._
@@ -678,7 +665,7 @@ Great!
 
 <opt text="False" >
 
-We need to make sure that the steps we would use outside a pipeline is reflected within it. 
+We need to make sure that the steps we would use outside a pipeline are reflected within it. 
 
 </opt>
 
@@ -704,7 +691,7 @@ Great work!
 
 </exercise>
 
-<exercise id="15" title='Applying Pipelines'>
+<exercise id="16" title='Applying Pipelines'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -713,24 +700,21 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Using our trusty basketball let's imputate, scale and fit a model using a pipeline as see the results. 
-
-First let's scales using standardization. 
+Using our trusty basketball let's impute, scale and fit a model using a pipeline to see the results. 
 
 Tasks:     
 
 - Import the necessary library for building a pipeline.
-- Build a pipeline named `bb_pipe` it should imputate using `SimpleImputer` and a "median" strategy, scale using `StandardScaler` and build a `KNeighborsClassifier`.
+- Build a pipeline named `bb_pipe` it should impute using `SimpleImputer` and a "median" strategy, scale using `StandardScaler` and build a `KNeighborsClassifier`.
 - Cross-validate on `bb_pipe` using `X_train` and `y_train` and save the results in an object named `cross_scores`.
 - Transform `cross_scores` to a dataframe, take the mean of each column and save the result in an object named mean_scores.
 
-
-<codeblock id="05_15">
+<codeblock id="05_16">
 
 - Are you importing `Pipeline`?
 - Are you using `SimpleImputer(strategy="median")` as the first step in the pipeline?
 - Are you using `StandardScaler()` as a second step in the pipeline?
-- Are you using `KNeighborsClassifier()` as the thirs step in the pipeline?
+- Are you using `KNeighborsClassifier()` as the third step in the pipeline?
 - Are you using `cross_validate(bb_pipe, X_train, y_train, return_train_score=True)` to cross-validate?
 - Are you using `pd.DataFrame(cross_scores).mean()` to see your results?
 
@@ -738,18 +722,16 @@ Tasks:
 
 </exercise>
 
-
-<exercise id="16" title="Automated Hyperparameter Optimization" type="slides,video">
-<slides source="module5/module5_16" shot="0" start="0:006" end="3:39">
+<exercise id="17" title="Automated Hyperparameter Optimization" type="slides,video">
+<slides source="module5/module5_17" shot="0" start="0:006" end="3:39">
 </slides>
 
 </exercise>
 
-<exercise id="17" title= "Exhaustive Or Randomized Grid Search">
-
+<exercise id="18" title= "Exhaustive or Randomized Grid Search">
 
 **Question 1**  
-Which method will attempt to find the optimal hyperparameter for the data by searching every combination possible of hyperparameter values given.
+Which method will attempt to find the optimal hyperparameter for the data by searching every combination possible of hyperparameter values given?
 
 <choice id="1">
 
@@ -767,38 +749,38 @@ We specify the model in the pipeline as the final step.
 
 <opt text="Both" >
 
-One of these Search types  is correct but not both. 
+One of these search types is correct but not both. 
 
 </opt>
 
 </choice>
 
 **Question 2**    
-Which method is generally the faster?
+Which method is generally faster?
 
 <choice id="2" >
 
-<opt text="Exhaustive Grid Search" correct="true">
+<opt text="Exhaustive grid search">
 
-Exhaustive Grid Search picks the best result more often than not and in a fraction of the time it takes GridSearchCV.
+Randomized grid search picks the best result more often than not and in a fraction of the time that it takes exhaustive grid search.
 
 </opt>
 
-<opt text= "Randomize Grid Search"   >
+<opt text= "Randomize grid search"   correct="true" >
  
-Exhaustive Grid Search is much faster than GridSearchCV.
+Randomized grid search can be much faster than exhaustive grid search.
 
 </opt>
 
 <opt text="Both are relatively fast" >
 
-Exhaustive Grid Search is much faster than GridSearchCV.
+Randomize grid search can be  much faster than exhaustive grid search.
 
 </opt>
 
 </exercise>
 
-<exercise id="18" title="Hyperparameter Quick Questions">
+<exercise id="19" title="Hyperparameter Quick Questions">
 
 **Question 1**     
 _If I want to search for the most optimal hyperparameter values among 3 different hyperparameters each with 3 different values how many trials of cross-validation would be needed?_
@@ -806,7 +788,7 @@ _If I want to search for the most optimal hyperparameter values among 3 differen
 <choice id="1" >
 <opt text="6"  >
 
-Each hyperparameter would be checked with each value. The caculation would be 3 * 3 * 3. 
+Each hyperparameter would be checked with each value. The calculation would be 3 * 3 * 3. 
 
 </opt>
 
@@ -819,26 +801,26 @@ Each hyperparameter would be checked with each value. The calculation would be  
 <opt text="27" correct="true">
 
 Each hyperparameter would be checked with each value. The calculation would be  3 * 3 * 3. 
-In this case it would be 3^3 =27 
+In this case, it would be 3 * 3 * 3 =27 
 
 </opt>
 
 <opt text="81" >
 
-Each hyperparameter would be checked with each value. The calculation would be number_hyperparameters ^ (number_of_searching_values). 
+Each hyperparameter would be checked with each value. The calculation would be  3 * 3 * 3. 
+
 
 </opt>
-
 
 </choice>
 
 **True or False**     
-_Gridsearch can only be used for multiple hyperparameters._
+_Automated hyperparameter optimization can only be used for multiple hyperparameters._
 
 <choice id="2" >
 <opt text="True"  >
 
-Greidsearch can be used for a single parameter too, however now it's just searching in 1 dimension. 
+Grid search can be used for a single parameter too, however now it's just searching in 1 dimension. 
 
 </opt>
 
@@ -852,7 +834,7 @@ Great work!
 
 </exercise>
 
-<exercise id="19" title='Using RandomGridSearch in Action!'>
+<exercise id="20" title='Using Automated Hyperparameter Optimization in Action!'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -861,35 +843,132 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Using our trusty basketball let's imputate, scale and fit a model using a pipeline as see the results. 
-
-First let's scales using standardization. 
+Now that we have built a pipeline in the last interactive exercises, let's pair that with grid search to optimize our hyperparameters. 
 
 Tasks:     
 
-- Import the necessary library for building a pipeline.
-- Build a pipeline named `bb_pipe` it should imputate using `SimpleImputer` and a "median" strategy, scale using `StandardScaler` and build a `KNeighborsClassifier`.
-- Cross-validate on `bb_pipe` using `X_train` and `y_train` and save the results in an object named `cross_scores`.
+- Import the necessary grid search libraries. 
+- Using the pipeline provided, create a grid of parameters to search over named `param_grid`. Search over the values 1, 5, 10, 20, 30, 40, and 50 for the hyperparameter `n_neighbors` and 'uniform' and 'distance' for the hyperparameter `weights` (make sure to call them appropriately). 
+- Use `GridSearchCV` to hyper-parameter tune using cross-validate equal to 10 folds. Make sure to specify the arguments `verbose=1` and `n_jobs=-1`. Name the object grid_search. 
 - Transform `cross_scores` to a dataframe, take the mean of each column and save the result in an object named mean_scores.
+- Find the best hyperparameter values and save them in an object named `best_hyperparams`. Make sure to print these results.
+- Create a new model using the best parameters found in grid search and save this model as `best_model_pipe`. Don't forget to train it after.
+- Lastly, score your model on the test set and save your results in an object named `bb_test_score`.
 
-
-<codeblock id="05_15">
+<codeblock id="05_20">
 
 - Are you importing `Pipeline`?
-- Are you using `SimpleImputer(strategy="median")` as the first step in the pipeline?
-- Are you using `StandardScaler()` as a second step in the pipeline?
-- Are you using `KNeighborsClassifier()` as the thirs step in the pipeline?
-- Are you using `cross_validate(bb_pipe, X_train, y_train, return_train_score=True)` to cross-validate?
-- Are you using `pd.DataFrame(cross_scores).mean()` to see your results?
+- Are you specifying `knn__n_neighbors` and `knn__weights` in `param_grid` and specifying the hyperparameter values in a list?
+- Are you using `GridSearchCV(bb_pipe, param_grid, cv=10, verbose=1, n_jobs=-1)` and remembering to fit it?
+- Are you using `grid_search.best_params_` to find the most optimal hyperparameter values?
+- Are you using `grid_search.best_estimator_` to build the model with these optimal hyperparameters?
+- Are you using training `best_model_pipe
+- Are you using `best_model_pipe.score(X_test, y_test)` to calculate your test score?
 
 </codeblock>
 
+**Question 1**  
+How many times is a model trained in the problem above?
+
+<choice id="1">
+
+<opt text= "9"  >
+ 
+Think multiplications instead of addition.
+
+</opt>
+
+<opt text="14" >
+
+This is how many times cross-validation is called. 
+
+</opt>
+
+<opt text="140">
+
+You are extremely close but what about fitting the new model?
+
+</opt>
+
+<opt text="141"  correct="true">
+
+Great! We cannot forget the model we made for our test set!
+
+</opt>
+
+</choice>
+
+**Question 2**  
+What was the optimal value for the hyperparameter `weights`? 
+
+<choice id="2">
+
+<opt text="uniform"  correct="true">
+
+Great! 
+
+</opt>
+
+<opt text= "distance"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+</choice>
+
+**Question 3**  
+What is the optimal value for the hyperparameter `n_neighbors`? 
+
+<choice id="3">
+
+<opt text= "1"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+<opt text= "5"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+<opt text= "10"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+<opt text= "20"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+<opt text= "30"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+<opt text="40"  correct="true">
+
+You got it!
+
+</opt>
+
+<opt text= "50"  >
+ 
+Are you sure? Take a look at what `grid_search.best_params_` returns.
+
+</opt>
+
+</choice>
+
 </exercise>
 
-
-
-<exercise id="20" title="What Did We Just Learn?" type="slides, video">
+<exercise id="21" title="What Did We Just Learn?" type="slides, video">
 <slides source="module5/module5_end" shot="0" start="0:003" end="1:54">
 </slides>
-</exercise>
 
