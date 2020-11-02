@@ -159,52 +159,6 @@ library.
 
 ---
 
-This calculation may look familiar. That’s because when we are in 2
-dimensions it takes on the equation:
-
-<center>
-
-<img src="/module4/eq2.png"  width = "20%" alt="404 image" />
-
-</center>
-
-<br>
-
-<center>
-
-<img src="/module4/pythag.png"  width = "70%" alt="404 image" />
-
-</center>
-
-Notes:
-
-This is Pythagorean Theorem.
-
----
-
-For vectors in 3-dimensional space, the Euclidean distance then follows
-the equation:
-
-<center>
-
-<img src="/module4/eq3.png"  width = "45%" alt="404 image" />
-
-</center>
-
-For vectors in 4-dimensional space:
-
-<center>
-
-<img src="/module4/eq4.png"  width = "55%" alt="404 image" />
-
-</center>
-
-And so on\!
-
-Notes:
-
----
-
 # Let’s apply what we learned\!
 
 Notes: <br>

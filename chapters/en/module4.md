@@ -271,7 +271,7 @@ Take a look at the equation we use to calculate Euclidean distance.
 
 </exercise>
 
-<exercise id="7" title='Calculating Euclidean Distance step by step'>
+<exercise id="7" title='Calculating Euclidean Distance Step by Step'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -1018,7 +1018,7 @@ We've used K-Nearest Neighbours to classify Pokémon from the Pokémon dataset s
 
 Tasks:     
 
-- Create an `SVM` model with `gamma` equal to 0.1 and `C` equal to 10cand name it `model`.
+- Create an `SVM` model with `gamma` equal to 0.1 and `C` equal to 10 then name the model `model`.
 - Train your model on `X_train` and `y_train` (Hint: you may want to use `.to_numpy()`).
 - Score your model on the training set using `.score()` and save it in an object named `train_score`.
 - Score your model on the test set using `.score()` and save it in an object named `test_score`.
@@ -1047,9 +1047,11 @@ We got around .80 with 𝑘-NN, do you think that this is close enough?
 
 It seems like we have some hyperparameters to tune and/or this may not be the best model for us this time.
 
-</opt>
+</opt>x
 
 </choice>
+
+The results may be explained because of of the fact we are not scaling our column values. We will be covering this in the next model!
 
 </exercise>
 
