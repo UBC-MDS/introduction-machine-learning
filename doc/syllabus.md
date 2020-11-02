@@ -1,6 +1,6 @@
 ## Introduction to Machine Learning 
 
-### Module 1
+## Module 1
 
 By the end of the module, students are expected to:
 
@@ -11,7 +11,7 @@ By the end of the module, students are expected to:
 - Use DummyClassifier/ Dummy Regressor as a baseline for machine learning problems.
 - Explain the `.fit()` and `.predict()` paradigm and use `.score()` method of ML models.
 
-### Module 2
+## Module 2
 
 By the end of the module, students are expected to:
 
@@ -23,7 +23,7 @@ By the end of the module, students are expected to:
 - Explain how decision boundaries change with `max_depth`.
 - Explain the concept of generalization.
 
-### Module 3 
+## Module 3 
 
 By the end of the module, students are expected to:
 
@@ -34,7 +34,7 @@ By the end of the module, students are expected to:
 - Explain overfitting, underfitting, and the fundamental tradeoff.
 - State the golden rule and identify the scenarios when it's violated.
 
-### Module 4 
+## Module 4 
 
 By the end of the module, students are expected to:
 
@@ -47,7 +47,7 @@ By the end of the module, students are expected to:
 - Broadly describe the relation of `gamma` and `C` hyperparameters with the fundamental tradeoff.
 
 
-### Module 5 
+## Module 5 
 
 By the end of the module, students are expected to:
 
@@ -66,7 +66,7 @@ By the end of the module, students are expected to:
 
 
 
-### Module 7
+## Module 7
 
 - Identify and reason when to trust and not trust reported accuracies
 - precision and recall 
