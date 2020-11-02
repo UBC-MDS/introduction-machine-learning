@@ -11,7 +11,7 @@ def test():
     assert 'DecisionTreeClassifier' in __solution__, "Make sure you are specifying a 'DecisionTreeClassifier'."
     assert "max_depth=depth" in __solution__, "Make sure you are specifying the depth in each iteration."
     assert "return_train_score" in __solution__, "Make sure you are retaining the training score using the 'return_train_score' function."
-    assert 'cv=10' in __solution__, "Make sure you are doing 6-fold cross validation."
+    assert 'cv=10' in __solution__, "Make sure you are doing 10-fold cross validation."
     assert 'mark_line()' in __solution__, "Make sure you are plotting a line graph."
     assert "alt.Chart(results_df)" in __solution__, "Make sure you plotting the results dataframe."
     assert "alt.Y" in __solution__, "Make sure you are plotting the score on the y-axis."
