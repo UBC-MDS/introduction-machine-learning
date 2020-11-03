@@ -15,12 +15,11 @@ This module will introduce you to 𝑘-nearest neighbours and SVM's with an RBF 
 By the end of the module, students are expected to:
 
 - Identify when to implement feature transformations such as imputation and scaling.
-- Apply `sklearn.pipeline.Pipeline` to build a preliminary machine learning pipeline.
+- Apply `sklearn.pipeline.Pipeline` to build a machine learning pipeline.
 - Use `sklearn` for applying numerical feature transformations on the data.
 - Discuss the golden rule in the context of feature transformations.
-- Use `sklearn.pipeline.Pipeline` to build a preliminary machine learning pipeline.
 - Carry out hyperparameter optimization using `sklearn`'s `GridSearchCV` and `RandomizedSearchCV`.
-- Explain optimization bias.
+- Explain overfitting on the validation set.
 
 
 Notes: 

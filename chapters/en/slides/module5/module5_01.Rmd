@@ -178,14 +178,14 @@ two_players = X_train.sample(2, random_state=42)
 two_players
 ```
 ```{python}
-euclidean_distances(two_players)
+euclidean_distances(two_players)[1,0]
 ```
 ```{python}
 two_players_subset = two_players[["salary"]]
 two_players_subset
 ```
 ```{python}
-euclidean_distances(two_players_subset)
+euclidean_distances(two_players_subset)[1,0]
 ```
  
  

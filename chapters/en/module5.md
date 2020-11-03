@@ -41,12 +41,6 @@ Fantastic!
 
 </opt>
 
-<opt text="Dummy Classifier" >
-
-Although this classifier is unaffected by different values in the feature columns, this is because this model isn't taking the feature values into its prediction at all! This model is only predicting based on the primary target in the training set. 
-
-</opt>
-
 <opt text="SVM">
 
 This works in a similar way to 𝑘-NN, where distance is calculated and features are observed together and not independently of each other. 
@@ -235,7 +229,7 @@ We will not be able to fit our model without imputation and so it's not quite a 
 </choice>
 
 **Question 2**   
-If we have `NaN` values in our data, can we simply drop the column missing the data?
+If we have `NaN` values in our data, should we simply drop the column missing the data?
 
 <choice id="2" >
 

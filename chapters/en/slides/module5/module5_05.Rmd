@@ -112,10 +112,14 @@ We can see here that some column values are mean/median while others are totals 
 train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
                            bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
                            population_per_household = train_df["population"]/train_df["households"])
-                           
+                        
 test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
                          bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
                          population_per_household = test_df["population"]/test_df["households"])
+                         
+train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
+test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
+
 train_df.head()
 ```
 
@@ -129,9 +133,8 @@ Here it would have been OK to add new features before splitting because we are n
 
 But just to be safe and to avoid accidentally breaking the golden rule, it's better to do it after splitting. 
 
-**Question**: Should we remove `total_rooms`, `total_bedrooms`, and `population` columns? 
+Next, we remove the columns `total_rooms`, `total_bedrooms`, and `population`.
 
-Probably, but let's keep them in for now. You could experiment by removing them and examine whether results change. 
 
 ---
 
@@ -145,7 +148,7 @@ Notes:
 
 Here we see that we have all columns with dtype `float64` except for `ocean_proximity` which appears categorical. 
 
-It looks like the `total_bedrooms` and `bedrooms_per_household` columns have some missing values.
+It looks like the `bedrooms_per_household` columns have some missing values.
 
 ---
 
@@ -155,13 +158,13 @@ It looks like the `total_bedrooms` and `bedrooms_per_household` columns have som
 train_df.describe()
 ```
 ```{python}
-housing_df["total_bedrooms"].isnull().sum()
+train_df["bedrooms_per_household"].isnull().sum()
 
 ```
 
 Notes: 
 
-Looks like the data is missing 207 values for `total_bedrooms` and therefore the same amount for `bedrooms_per_household`.
+Looks like the training data is missing 185 values for `bedrooms_per_household`.
 
 ---
 
@@ -200,7 +203,7 @@ What are the possible ways to deal with the problem?
 ## Dropping
 
 ```{python}
-housing_df["total_bedrooms"].isnull().sum()
+train_df["bedrooms_per_household"].isnull().sum()
 ```
 
 ```{python}
@@ -264,7 +267,7 @@ from sklearn.impute import SimpleImputer
 We can impute missing values in:
 
 - **Categorical columns**: with the most frequent value.
-- **Numeric columns**: with the mean or median of the column.    
+- **Numeric columns**: with the mean or median of the column or a constant of our choosing.
 
 Notes: 
 
@@ -275,7 +278,7 @@ We are going to concentrate on numeric columns in this section and address categ
 ---
 
 ```{python}
-X_train.sort_values('total_bedrooms').tail(10)
+X_train.sort_values('bedrooms_per_household').tail(10)
 ```
 
 Notes: 

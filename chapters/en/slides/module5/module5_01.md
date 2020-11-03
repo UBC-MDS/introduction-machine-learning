@@ -134,12 +134,11 @@ two_players
 ```
 
 ``` python
-euclidean_distances(two_players)
+euclidean_distances(two_players)[1,0]
 ```
 
 ```out
-array([[     0.        , 117133.00184683],
-       [117133.00184683,      0.        ]])
+117133.00184682972
 ```
 
 ``` python
@@ -154,12 +153,11 @@ two_players_subset
 ```
 
 ``` python
-euclidean_distances(two_players_subset)
+euclidean_distances(two_players_subset)[1,0]
 ```
 
 ```out
-array([[     0., 117133.],
-       [117133.,      0.]])
+117133.0
 ```
 
 Notes:
