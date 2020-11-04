@@ -73,12 +73,17 @@ and `quiz1` we can see the values the decision tree is splitting on.
 ``` python
 depth = 1
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
+```
+
+```out
+0.7142857142857143
 ```
 
 <center>
 
-<img src="/module2/module2_18a.png"  width = "40%" alt="404 image" />
+<img src="/module2/module2_18a.png"  width = "30%" alt="404 image" />
 
 </center>
 
@@ -89,7 +94,13 @@ by asking one question.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-7-1.png" width="672" />
+<center>
+
+<img src="/module2/module2_18a.png"  width = "25%" alt="404 image" />
+
+</center>
+
+<img src="/module2/module2_19/unnamed-chunk-7-1.png" width="65%" style="display: block; margin: auto;" />
 
 Notes:
 
@@ -104,12 +115,17 @@ which is called the **decision boundary** of the model.
 ``` python
 depth = 2
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
+```
+
+```out
+0.8095238095238095
 ```
 
 <center>
 
-<img src="/module2/module2_18b.png"  width = "50%" alt="404 image" />
+<img src="/module2/module2_18b.png"  width = "30%" alt="404 image" />
 
 </center>
 
@@ -123,19 +139,30 @@ two questions.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-10-1.png" width="672" />
+<center>
+
+<img src="/module2/module2_18b.png"  width = "25%" alt="404 image" />
+
+</center>
+
+<img src="/module2/module2_19/unnamed-chunk-10-1.png" width="65%" style="display: block; margin: auto;" />
 
 ---
 
 ``` python
-depth = 3
+depth = 4
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
+```
+
+```out
+0.9523809523809523
 ```
 
 <center>
 
-<img src="/module2/module2_18c.png"  width = "60%" alt="404 image" />
+<img src="/module2/module2_18c.png"  width = "40%" alt="404 image" />
 
 </center>
 
@@ -146,7 +173,15 @@ questions.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-13-1.png" width="672" />
+``` python
+model.score(X_subset, y)
+```
+
+```out
+0.9523809523809523
+```
+
+<img src="/module2/module2_19/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Notes:
 
@@ -155,7 +190,12 @@ Notes:
 ``` python
 depth = 10
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
+```
+
+```out
+1.0
 ```
 
 <center>
@@ -171,14 +211,20 @@ questions.
 
 ---
 
-<img src="/module2/module2_19/unnamed-chunk-16-1.png" width="672" />
+``` python
+model.score(X_subset, y)
+```
+
+```out
+1.0
+```
+
+<img src="/module2/module2_19/unnamed-chunk-18-1.png" width="65%" style="display: block; margin: auto;" />
 
 Notes:
 
-Our model is becoming more and more specific and sensitive to the
-training data.
-
-Is this a good thing or a bad thing?
+Our model has 0% error\!\! But it’s also becoming more and more specific
+and sensitive to the training data. Is it good or bad?
 
 ---
 

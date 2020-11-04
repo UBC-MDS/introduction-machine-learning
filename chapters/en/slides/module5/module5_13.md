@@ -9,16 +9,54 @@ Notes: <br>
 ---
 
 ``` python
+
+housing_df = pd.read_csv("data/housing.csv")
+
+ 
+housing_df = housing_df.assign(rooms_per_household = housing_df["total_rooms"]/housing_df["households"],
+                           bedrooms_per_household = housing_df["total_bedrooms"]/housing_df["households"],
+                           population_per_household = housing_df["population"]/housing_df["households"])
+                        
+                         
+housing_df = housing_df.drop(columns=['total_rooms', 'total_bedrooms', 'population',  "ocean_proximity"])  
+ 
+ 
+train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
+X_train = train_df.drop(columns=["median_house_value"])
+y_train = train_df["median_house_value"]
+ 
+X_test = test_df.drop(columns=["median_house_value"])
+y_test = test_df["median_house_value"]
+
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train)
+```
+
+```out
+SimpleImputer(strategy='median')
+```
+
+``` python
+X_train_imp = imputer.transform(X_train)
+X_test_imp = imputer.transform(X_test)
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train_imp)
+X_test_scaled = scaler.transform(X_test_imp)
+X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns, index = X_train.index)
+```
+
+``` python
 X_train_scaled.head()
 ```
 
 ```out
-       longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-6051    0.908140 -0.743917           -0.526078     0.143120        0.235339    1.026092    0.266135      -0.389736            -0.210591               -0.083813                  0.126398
-20113  -0.002057  1.083123           -0.923283    -1.049510       -0.969959   -1.206672   -1.253312      -0.198924             4.726412               11.166631                 -0.050132
-14289   1.218207 -1.352930            1.380504     0.329670        0.549764    0.024896    0.542873      -0.635239            -0.273606               -0.025391                 -0.099240
-13665   1.128188 -0.753286           -0.843842    -0.459154       -0.626949   -0.463877   -0.561467       0.714077             0.122307               -0.280310                  0.010183
-14471   1.168196 -1.287344           -0.843842     1.343085        2.210026    4.269688    2.500924      -1.059242            -0.640266               -0.190617                  0.126808
+       longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+6051    0.908140 -0.743917           -0.526078    0.266135      -0.389736            -0.210591               -0.083813                  0.126398
+20113  -0.002057  1.083123           -0.923283   -1.253312      -0.198924             4.726412               11.166631                 -0.050132
+14289   1.218207 -1.352930            1.380504    0.542873      -0.635239            -0.273606               -0.025391                 -0.099240
+13665   1.128188 -0.753286           -0.843842   -0.561467       0.714077             0.122307               -0.280310                  0.010183
+14471   1.168196 -1.287344           -0.843842    2.500924      -1.059242            -0.640266               -0.190617                  0.126808
 ```
 
 ``` python
@@ -28,7 +66,7 @@ knn.score(X_train_scaled, y_train).round(3)
 ```
 
 ```out
-0.809
+0.798
 ```
 
 Notes:
@@ -49,11 +87,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.010401    0.215052    0.710905     0.803734
-1  0.009705    0.192826    0.706893     0.803212
-2  0.009347    0.200187    0.711039     0.803030
-3  0.010269    0.207631    0.695769     0.806275
-4  0.009671    0.152955    0.697941     0.805146
+0  0.013815    0.229562    0.696373     0.794236
+1  0.007775    0.149533    0.684447     0.791467
+2  0.007995    0.164354    0.695532     0.789436
+3  0.007940    0.207644    0.679478     0.793243
+4  0.008333    0.104992    0.680657     0.794820
 ```
 
 Notes:
@@ -110,7 +148,7 @@ print("Training score: ", knn.score(X_train_scaled, y_train).round(2))
 ```
 
 ```out
-Training score:  0.81
+Training score:  0.8
 ```
 
 ``` python
@@ -118,7 +156,7 @@ print("Test score: ", knn.score(X_test_scaled, y_test).round(2))
 ```
 
 ```out
-Test score:  0.72
+Test score:  0.7
 ```
 
 Notes:
@@ -141,7 +179,7 @@ X_train_imp.shape, X_test_imp.shape
 ```
 
 ```out
-((18576, 11), (2064, 11))
+((18576, 8), (2064, 8))
 ```
 
 ``` python
@@ -153,7 +191,7 @@ XX.shape
 ```
 
 ```out
-(20640, 11)
+(20640, 8)
 ```
 
 ``` python
@@ -170,7 +208,7 @@ print('Train score: ', (knn.score(XX_train, y_train).round(2))) # Misleading sco
 ```
 
 ```out
-Train score:  0.81
+Train score:  0.8
 ```
 
 ``` python
@@ -178,7 +216,7 @@ print('Test score: ', (knn.score(XX_test, y_test).round(2))) # Misleading score
 ```
 
 ```out
-Test score:  0.73
+Test score:  0.71
 ```
 
 Notes:
@@ -217,13 +255,11 @@ from sklearn.pipeline import Pipeline
 ```
 
 ``` python
-pipe = Pipeline(
-    steps=[
+pipe = Pipeline([
         ("imputer", SimpleImputer(strategy="median")),
         ("scaler", StandardScaler()),
         ("reg", KNeighborsRegressor())
-        ]
-)
+])
 ```
 
 Notes:
@@ -249,12 +285,17 @@ Pipeline(steps=[('imputer', SimpleImputer(strategy='median')),
                 ('scaler', StandardScaler()), ('reg', KNeighborsRegressor())])
 ```
 
-``` python
-pipe.predict(X_train) 
-```
+What’s happening:
 
-```out
-array([122460., 115220., 216940., ..., 240420., 254500.,  60420.])
+``` python
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train)
+X_train_imp = imputer.transform(X_train)
+scaler = StandardScaler()
+scaler.fit(X_train_imp)
+X_train_imp_scaled = scaler.transform(X_train_imp)
+knn = KNeighborsRegressor()
+knn.fit(X_train_imp_scaled)
 ```
 
 Notes:
@@ -275,8 +316,26 @@ When we call `fit` the pipeline is carrying out the following steps:
   - Fit the model (`KNeighborsRegressor` in our case) on
     `X_train_imp_scaled`.
 
-Take note that we are passing original data to `predict` as well. This
-time the pipeline is carrying out the following steps:
+---
+
+``` python
+pipe.predict(X_train) 
+```
+
+```out
+array([126500., 117380., 187700., ..., 259500., 308120.,  60860.])
+```
+
+``` python
+X_train_imp = imputer.transform(X_train)
+X_train_imp_scaled = scaler.transform(X_train_imp)
+knn.predict(X_train_imp_scaled)
+```
+
+Notes:
+
+Take note that when we are passing original data to `predict` the
+following steps are carrying out:
 
   - Transform `X_train` using the fit `SimpleImputer` to create
     `X_train_imp`.
@@ -291,7 +350,7 @@ It is not fitting any of the data this time.
 
 <center>
 
-<img src="/module5/pipeline.png" width = "90%" alt="404 image" />
+<img src="/module5/pipeline.png" width = "70%" alt="404 image" />
 
 </center>
 
@@ -318,11 +377,11 @@ pd.DataFrame(scores_processed)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.027879    0.211544    0.710414     0.804595
-1  0.025381    0.198470    0.707372     0.801949
-2  0.025110    0.203800    0.711692     0.802860
-3  0.025258    0.205728    0.696720     0.806192
-4  0.025116    0.173713    0.705319     0.813508
+0  0.027209    0.214491    0.693883     0.792395
+1  0.029683    0.220961    0.685017     0.789108
+2  0.022865    0.189954    0.694409     0.787796
+3  0.020839    0.181590    0.677055     0.792444
+4  0.020695    0.145121    0.714494     0.823421
 ```
 
 Notes:
@@ -345,10 +404,10 @@ pd.DataFrame(scores_processed).mean()
 ```
 
 ```out
-fit_time       0.025749
-score_time     0.198651
-test_score     0.706303
-train_score    0.805821
+fit_time       0.024258
+score_time     0.190423
+test_score     0.692972
+train_score    0.797033
 dtype: float64
 ```
 
@@ -359,8 +418,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       0.001327
-score_time     0.000559
+fit_time       0.001806
+score_time     0.000780
 test_score    -0.055115
 train_score   -0.054611
 dtype: float64

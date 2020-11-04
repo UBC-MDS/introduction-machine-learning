@@ -109,17 +109,18 @@ If we subset our data and look at the 2 features from data named `lab4` and `qui
 
 ----
 
-```{python results = 'hide'}
+```{python}
 depth = 1
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
 ```
 
 ```{python include=FALSE}
 display_tree(X_subset.columns, model, "../../../../static/module2/module2_18a")
 ```
 
-<center><img src="/module2/module2_18a.png"  width = "40%" alt="404 image" /></center>
+<center><img src="/module2/module2_18a.png"  width = "30%" alt="404 image" /></center>
 
 Notes: 
 
@@ -129,11 +130,16 @@ In the following decision tree model, this decision boundary is created by askin
 
 ---
 
+<center><img src="/module2/module2_18a.png"  width = "25%" alt="404 image" /></center>
 
-```{python  echo=FALSE}
+```{python  echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '65%', fig.align='center'}
 plt.figure(figsize=(4, 4))
-plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
-plt.title("Decision tree with depth = %d" % (depth))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model, ticks=True, lims=(70,101,70,101))
+plt.xticks(fontsize= 20);
+plt.yticks(fontsize= 20);
+plt.xlabel('lab4', fontsize=20);
+plt.ylabel('quiz1', fontsize=20);
+plt.title("Decision tree with depth = %d" % (depth), fontsize=24)
 ```
 
 Notes: 
@@ -145,17 +151,18 @@ We can see there is a line separating the red region and the blue region which i
 
 ---
 
-```{python results='hide'}
+```{python}
 depth = 2
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
 ```
 
 ```{python include=FALSE}
 display_tree(X_subset.columns, model, "../../../../static/module2/module2_18b")
 ```
 
-<center><img src="/module2/module2_18b.png"  width = "50%" alt="404 image" /></center>
+<center><img src="/module2/module2_18b.png"  width = "30%" alt="404 image" /></center>
 
 Notes: 
 
@@ -166,27 +173,35 @@ In the following model, this decision boundaries are created by asking two quest
 
 ---
 
-```{python  echo=FALSE}
+
+<center><img src="/module2/module2_18b.png"  width = "25%" alt="404 image" /></center>
+
+```{python  echo=FALSE,    fig.width = 13, fig.height = 9,  out.width = '65%', fig.align='center'}
 plt.figure(figsize=(4, 4))
-plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
-plt.title("Decision tree with depth = %d" % (depth))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model, ticks=True, lims=(70,101,70,101))
+plt.xticks(fontsize= 20);
+plt.yticks(fontsize= 20);
+plt.xlabel('lab4', fontsize=20);
+plt.ylabel('quiz1', fontsize=20);
+plt.title("Decision tree with depth = %d" % (depth), fontsize=24)
 ```
 
 
 ---
 
 
-```{python results='hide'}
-depth = 3
+```{python }
+depth = 4
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
 ```
 
 ```{python include=FALSE}
 display_tree(X_subset.columns, model, "../../../../static/module2/module2_18c")
 ```
 
-<center><img src="/module2/module2_18c.png"  width = "60%" alt="404 image" /></center>
+<center><img src="/module2/module2_18c.png"  width = "40%" alt="404 image" /></center>
 
 
 Notes: 
@@ -196,11 +211,18 @@ In the next model, this decision boundaries are created by asking three question
 
 ---
 
+```{python}
+model.score(X_subset, y)
+```
 
-```{python echo=FALSE}
+```{python echo=FALSE, fig.width = 13, fig.height = 9,  out.width = '70%', fig.align='center'}
 plt.figure(figsize=(4, 4))
-plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
-plt.title("Decision tree with depth = %d" % (depth))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model, ticks=True, lims=(70,101,70,101))
+plt.xticks(fontsize= 20);
+plt.yticks(fontsize= 20);
+plt.xlabel('lab4', fontsize=20);
+plt.ylabel('quiz1', fontsize=20);
+plt.title("Decision tree with depth = %d" % (depth), fontsize=24)
 ```
 
 Notes: 
@@ -208,10 +230,11 @@ Notes:
 
 ---
 
-```{python results='hide'}
+```{python}
 depth = 10
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
+model.score(X_subset, y)
 ```
 
 ```{python include=FALSE}
@@ -228,17 +251,25 @@ For this last model, the decision boundaries are created by asking 10 questions.
 
 ---
 
-```{python  echo=FALSE}
+```{python}
+model.score(X_subset, y)
+```
+
+```{python  echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '65%', fig.align='center'}
 plt.figure(figsize=(4, 4))
-plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
-plt.title("Decision tree with depth = %d" % (depth))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model, ticks=True, lims=(70,101,70,101))
+plt.xticks(fontsize= 20);
+plt.yticks(fontsize= 20);
+plt.xlabel('lab4', fontsize=20);
+plt.ylabel('quiz1', fontsize=20);
+plt.title("Decision tree with depth = %d" % (depth), fontsize=24)
 ```
 
 Notes: 
 
-Our model is becoming more and more specific and sensitive to the training data.
-
-Is this a good thing or a bad thing?
+Our model has 0% error!!
+But it's also becoming more and more specific and sensitive to the training data.
+Is it good or bad?
 
 
 ---

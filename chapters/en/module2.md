@@ -17,7 +17,7 @@ id: 2
 </exercise>
 
 
-<exercise id="1" title=" Introducing Decision Tree Classifiers" type="slides,video">
+<exercise id="1" title=" Introducing Decision Trees" type="slides,video">
 
 <slides source="module2/module2_01" shot="3" start="0:003" end="1:54">
 </slides>

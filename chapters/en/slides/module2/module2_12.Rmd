@@ -96,10 +96,25 @@ X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 
+
+
+
+Notes: 
+
+
+
+---
+
 ```{python results='hide'}
 model = DecisionTreeClassifier(max_depth=1)  
-model.fit(X, y)
+model.fit(X, y);
 ```
+
+```{python include=FALSE}
+display_tree(X.columns, model, "../../../../static/module2/module2_12a")
+```
+
+<center><img src="/module2/module2_12a.png"  width = "33%" alt="404 image" /></center>
 
 
 Notes: 
@@ -113,24 +128,45 @@ We can set the argument `max_depth=1` in our code so that it builds a ***decisio
 
 ---
 
-```{python include=FALSE}
-display_tree(X.columns, model, "../../../../static/module2/module2_12a")
+
+
+```{python results='hide'}
+model2 = DecisionTreeClassifier(max_depth=2)  
+model2.fit(X, y);
 ```
 
-<center><img src="/module2/module2_12a.png"  width = "40%" alt="404 image" /></center>
+```{python include=FALSE}
+display_tree(X.columns, model2, "../../../../static/module2/module2_depth2")
+```
+
+<center><img src="/module2/module2_depth2.png"  width = "33%" alt="404 image" /></center>
 
 
 Notes: 
 
 ---
 
-```{python}
-model.score(X, y)
+
+
+```{python results='hide'}
+model3 = DecisionTreeClassifier(max_depth=3)  
+model3.fit(X, y);
 ```
 
-```{python results = 'hide'}
-model2 = DecisionTreeClassifier(max_depth=2)  
-model2.fit(X, y)
+```{python include=FALSE}
+display_tree(X.columns, model3, "../../../../static/module2/module2_depth3")
+```
+
+<center><img src="/module2/module2_depth3.png"  width = "45%" alt="404 image" /></center>
+
+
+Notes: 
+
+---
+
+
+```{python}
+model.score(X, y)
 ```
 
 
@@ -138,15 +174,19 @@ model2.fit(X, y)
 model2.score(X, y)
 ```
 
-```{python results = 'hide'}
-model3 = DecisionTreeClassifier(max_depth=4)  
-model3.fit(X, y)
+```{python}
+model3.score(X, y)
 ```
 
 
 ```{python}
-model3.score(X, y)
+model4 = DecisionTreeClassifier(max_depth=5)  
+model4.fit(X, y);
+model4.score(X, y)
 ```
+
+
+
 
 Notes: 
 
@@ -156,7 +196,7 @@ Ok, 76% that's not too bad but what happens when we increase the `max_depth` to 
 
 It looks like it's increasing! 
 
-Increasing `max_depth` to 4 ,makes the accuracy increase to 95%. 
+Increasing `max_depth` to 3 ,makes the accuracy increase to 95%. 
 
 We can now conclude that as `max_depth` increases, the accuracy of the training data does as well. 
 
@@ -165,8 +205,8 @@ We will introduce in the last slide deck of this module, why having perfect accu
 ---
 
 ```{python results='hide'}
-model4 = DecisionTreeClassifier(min_samples_split=2)  
-model4.fit(X, y)
+model5 = DecisionTreeClassifier(min_samples_split=2)  
+model5.fit(X, y);
 ```
 
 
@@ -187,16 +227,16 @@ import graphviz
 dot_data = export_graphviz(model)
 graphviz.Source(
     export_graphviz(
-        model4,
+        model5,
         out_file=None,
         feature_names=X.columns,
-        class_names=["red", "blue"],
+         class_names=["A+", "Not A+"],
         impurity=True,
     )   
 ).render("../../../../static/module2/module2_12b", format='png') 
 ```
 
-<center><img src="/module2/module2_12b.png"  width = "50%" alt="404 image" /></center>
+<center><img src="/module2/module2_12b.png"  width = "44%" alt="404 image" /></center>
 
 
 Notes: 
@@ -204,29 +244,63 @@ Notes:
 ---
 
 ```{python}
-model4.score(X, y)
+model5.score(X, y)
 ```
 
+Notes: 
 
-```{python results='hide'}
-model5 = DecisionTreeClassifier(min_samples_split=4) 
-model5.fit(X, y)
-```
+---
 
 
 ```{python}
-model5.score(X,y)
-```
-
-```{python results='hide'}
-model6 = DecisionTreeClassifier(min_samples_split=10) 
-model6.fit(X, y)
-```
-
-
-```{python}
+model6 = DecisionTreeClassifier(min_samples_split=4) 
+model6.fit(X, y);
 model6.score(X,y)
 ```
+```{python include=FALSE}
+import graphviz
+dot_data = export_graphviz(model)
+graphviz.Source(
+    export_graphviz(
+        model6,
+        out_file=None,
+        feature_names=X.columns,
+        class_names=["A+", "Not A+"],
+        impurity=True,
+    )   
+).render("../../../../static/module2/module2_12min4", format='png') 
+```
+
+<center><img src="/module2/module2_12min4.png"  width = "35%" alt="404 image" /></center>
+
+
+
+Notes: 
+
+---
+
+```{python}
+model7 = DecisionTreeClassifier(min_samples_split=10) 
+model7.fit(X, y);
+model7.score(X,y)
+```
+
+```{python include=FALSE}
+import graphviz
+dot_data = export_graphviz(model)
+graphviz.Source(
+    export_graphviz(
+        model7,
+        out_file=None,
+        feature_names=X.columns,
+        class_names=["A+", "Not A+"],
+        impurity=True,
+    )   
+).render("../../../../static/module2/module2_12min10", format='png') 
+```
+
+<center><img src="/module2/module2_12min10.png"  width = "28%" alt="404 image" /></center>
+
 
 
 Notes: 
@@ -238,7 +312,7 @@ It's really important to take into consideration that this accuracy is referring
 ---
 
 
-<center><img src="/module2/decisiontree.png"  width = "80%" alt="404 image" /></center>  
+<center><img src="/module2/decisiontree.png"  width = "70%" alt="404 image" /></center>  
 
 <br>
 See this link <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">here</a>  .

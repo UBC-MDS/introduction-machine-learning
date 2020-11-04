@@ -332,7 +332,7 @@ Now that we've identified the columns with missing values, let's use `SimpleImpu
 
 Tasks:     
 - Import the necessary library.
-- Using `SimpleImputer`, replace the null values in the training and testing dataset with the medium value in each column.
+- Using `SimpleImputer`, replace the null values in the training and testing dataset with the median value in each column.
 - Save your transformed data in objects named `train_X_imp` and `test_X_imp` respectively. 
 - Transform `X_train_imp` into a dataframe using the column and index labels from `X_train` and save it as `X_train_imp_df`.
 - Check if `X_train_imp_df`  still has missing values.
@@ -363,13 +363,13 @@ This is a transformation to replace `NaN` values.
 
 </opt>
 
-<opt text= "Normalization"  correct="true" >
+<opt text= "Normalization (<code>MinMaxScaler</code>)"  correct="true" >
  
 Perfect!
 
 </opt>
 
-<opt text="Standardization" >
+<opt text="Standardization (<code>StandardScaler</code>)" >
 
 This method will in fact produce negative values around a mean of 0. 
 
@@ -394,13 +394,13 @@ This is a transformation to replace `NaN` values.
 
 </opt>
 
-<opt text= "Normalization"  correct="true" >
+<opt text= "Normalization (<code>MinMaxScaler</code>)"  correct="true" >
  
 Perfect!
 
 </opt>
 
-<opt text="Standardization" >
+<opt text="Standardization (<code>StandardScaler</code>)" >
 
 This method can produce values greater than 1 depending on the standard deviation of the values. 
 
@@ -417,7 +417,7 @@ Although normalization is correct, standardization can produce values greater th
 **Question 3**    
 Which scaling method will produce values where the range depends on the values in the data?
 
-<choice id="2" >
+<choice id="3" >
 
 <opt text="Imputation">
 
@@ -425,13 +425,13 @@ This is a transformation to replace `NaN` values.
 
 </opt>
 
-<opt text= "Normalization"  >
+<opt text= "Normalization (<code>MinMaxScaler</code>)"  >
  
 The range for values that have undergone Normalization will be 1.
 
 </opt>
 
-<opt text="Standardization" correct="true" >
+<opt text="Standardization (<code>StandardScaler</code>)" correct="true" >
 
 This method's range depends on the standard deviation of the data. 
 
@@ -521,55 +521,6 @@ Tasks:
 - To obtain the training score are you using `knn.score(X_train_scaled, y_train).round(3)`?
 
 </codeblock>
-
-
-Let's try this again but this time, let's use normalization. 
-
-Tasks:     
-
-- Import the necessary library for normalization.
-- Build the transformer and name it `mm_scaler`.
-- Fit and transform the data `X_train` and save the transformed feature vectors in objects named `X_train_scaled`.
-- Transform `X_test` and save it in an object named `X_test_scaled`.
-- Build a KNN classifier and name it `knn`.
-- Fit your model on the newly scaled training data.
-- Save the training score to 3 decimal places in an object named `mm_score`.
-
-<codeblock id="05_12b">
-
-- Are you using `mm_scaler.fit_transform(X_train)`?
-- Are you using `model.fit(X_train, y_train.to_numpy())`?
-- Are you using `mm_scaler.transform(X_test)`?
-- Are you using `pd.DataFrame(X_train_scaled, columns=X_train.columns)` to create your dataframe?
-- Are you using `KNeighborsClassifier()` to create your model?
-- Are you using `knn.fit(X_train_scaled, y_train)` to train your data?
-- To obtain the training score are you using `knn.score(X_train_scaled, y_train).round(3)`?
-
-</codeblock>
-
-**Question**    
-Which scaling transformation results in a better training score?
-
-<choice id="1" >
-<opt text="Standardization" >
-
-Did standardization obtain a score greater than normalization? 
-
-</opt>
-
-<opt text="Normalization">
-
-Was the score for normalization truly greater than that with normalization?
-
-</opt>
-
-<opt text="They obtained the same score" correct="true">
-
-Great! They both scored  0.902 to 3 decimal places. 
-
-</opt>
-
-</choice>
 
 </exercise>
 
@@ -729,13 +680,13 @@ Which method will attempt to find the optimal hyperparameter for the data by sea
 
 <choice id="1">
 
-<opt text="Exhaustive Grid Search"  correct="true">
+<opt text="Exhaustive Grid Search (<code>GridSearchCV</code>)"  correct="true">
 
 We show an example of this in the slides.
 
 </opt>
 
-<opt text= "Randomize Grid Search"  >
+<opt text= "Randomized Grid Search (<code>RandomizedSearchCV</code>)"  >
  
 We specify the model in the pipeline as the final step. 
 
@@ -750,25 +701,25 @@ One of these search types is correct but not both.
 </choice>
 
 **Question 2**    
-Which method is generally faster?
+Which one gives you fine-grained control over the amount of time spent searching?
 
 <choice id="2" >
 
-<opt text="Exhaustive grid search">
+<opt text="Exhaustive Grid Search (<code>GridSearchCV</code>)">
 
-Randomized grid search picks the best result more often than not and in a fraction of the time that it takes exhaustive grid search.
+Randomized grid search picks the best result more often than not and we get control over the amount of interations that occur.
 
 </opt>
 
-<opt text= "Randomize grid search"   correct="true" >
+<opt text= "Randomized Grid Search (<code>RandomizedSearchCV</code>)"   correct="true" >
  
-Randomized grid search can be much faster than exhaustive grid search.
+Great!
 
 </opt>
 
 <opt text="Both are relatively fast" >
 
-Randomize grid search can be  much faster than exhaustive grid search.
+Randomize grid search can be much faster than exhaustive grid search since we can pick the amount of interations that occur.
 
 </opt>
 
@@ -846,7 +797,6 @@ Tasks:
 - Use `GridSearchCV` to hyper-parameter tune using cross-validate equal to 10 folds. Make sure to specify the arguments `verbose=1` and `n_jobs=-1`. Name the object grid_search. 
 - Transform `cross_scores` to a dataframe, take the mean of each column and save the result in an object named mean_scores.
 - Find the best hyperparameter values and save them in an object named `best_hyperparams`. Make sure to print these results.
-- Create a new model using the best parameters found in grid search and save this model as `best_model_pipe`. Don't forget to train it after.
 - Lastly, score your model on the test set and save your results in an object named `bb_test_score`.
 
 <codeblock id="05_20">
@@ -855,9 +805,7 @@ Tasks:
 - Are you specifying `knn__n_neighbors` and `knn__weights` in `param_grid` and specifying the hyperparameter values in a list?
 - Are you using `GridSearchCV(bb_pipe, param_grid, cv=10, verbose=1, n_jobs=-1)` and remembering to fit it?
 - Are you using `grid_search.best_params_` to find the most optimal hyperparameter values?
-- Are you using `grid_search.best_estimator_` to build the model with these optimal hyperparameters?
-- Are you using training `best_model_pipe
-- Are you using `best_model_pipe.score(X_test, y_test)` to calculate your test score?
+- Are you using `grid_search.score(X_test, y_test)` to calculate your test score?
 
 </codeblock>
 
@@ -878,15 +826,15 @@ This is how many times cross-validation is called.
 
 </opt>
 
-<opt text="140">
+<opt text="140"   correct="true">
 
-You are extremely close but what about fitting the new model?
+Great!
 
 </opt>
 
-<opt text="141"  correct="true">
+<opt text="141">
 
-Great! We cannot forget the model we made for our test set!
+Are you counting somewhere where we are not?
 
 </opt>
 

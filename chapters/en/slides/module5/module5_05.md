@@ -53,20 +53,24 @@ totals or not completely clear.
 train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
                            bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
                            population_per_household = train_df["population"]/train_df["households"])
-                           
+                        
 test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
                          bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
                          population_per_household = test_df["population"]/test_df["households"])
+                         
+train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
+test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
+
 train_df.head()
 ```
 
 ```out
-       longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  median_house_value ocean_proximity  rooms_per_household  bedrooms_per_household  population_per_household
-6051     -117.75     34.04                22.0       2948.0           636.0      2600.0       602.0         3.1250            113600.0          INLAND             4.897010                1.056478                  4.318937
-20113    -119.57     37.94                17.0        346.0           130.0        51.0        20.0         3.4861            137500.0          INLAND            17.300000                6.500000                  2.550000
-14289    -117.13     32.74                46.0       3355.0           768.0      1457.0       708.0         2.6604            170100.0      NEAR OCEAN             4.738701                1.084746                  2.057910
-13665    -117.31     34.02                18.0       1634.0           274.0       899.0       285.0         5.2139            129300.0          INLAND             5.733333                0.961404                  3.154386
-14471    -117.23     32.88                18.0       5566.0          1465.0      6303.0      1458.0         1.8580            205000.0      NEAR OCEAN             3.817558                1.004801                  4.323045
+       longitude  latitude  housing_median_age  households  median_income  median_house_value ocean_proximity  rooms_per_household  bedrooms_per_household  population_per_household
+6051     -117.75     34.04                22.0       602.0         3.1250            113600.0          INLAND             4.897010                1.056478                  4.318937
+20113    -119.57     37.94                17.0        20.0         3.4861            137500.0          INLAND            17.300000                6.500000                  2.550000
+14289    -117.13     32.74                46.0       708.0         2.6604            170100.0      NEAR OCEAN             4.738701                1.084746                  2.057910
+13665    -117.31     34.02                18.0       285.0         5.2139            129300.0          INLAND             5.733333                0.961404                  3.154386
+14471    -117.23     32.88                18.0      1458.0         1.8580            205000.0      NEAR OCEAN             3.817558                1.004801                  4.323045
 ```
 
 Notes:
@@ -83,11 +87,8 @@ one row at a time.
 But just to be safe and to avoid accidentally breaking the golden rule,
 it’s better to do it after splitting.
 
-**Question**: Should we remove `total_rooms`, `total_bedrooms`, and
-`population` columns?
-
-Probably, but let’s keep them in for now. You could experiment by
-removing them and examine whether results change.
+Next, we remove the columns `total_rooms`, `total_bedrooms`, and
+`population`.
 
 ---
 
@@ -100,24 +101,21 @@ train_df.info()
 ```out
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 18576 entries, 6051 to 19966
-Data columns (total 13 columns):
+Data columns (total 10 columns):
  #   Column                    Non-Null Count  Dtype  
 ---  ------                    --------------  -----  
  0   longitude                 18576 non-null  float64
  1   latitude                  18576 non-null  float64
  2   housing_median_age        18576 non-null  float64
- 3   total_rooms               18576 non-null  float64
- 4   total_bedrooms            18391 non-null  float64
- 5   population                18576 non-null  float64
- 6   households                18576 non-null  float64
- 7   median_income             18576 non-null  float64
- 8   median_house_value        18576 non-null  float64
- 9   ocean_proximity           18576 non-null  object 
- 10  rooms_per_household       18576 non-null  float64
- 11  bedrooms_per_household    18391 non-null  float64
- 12  population_per_household  18576 non-null  float64
-dtypes: float64(12), object(1)
-memory usage: 2.0+ MB
+ 3   households                18576 non-null  float64
+ 4   median_income             18576 non-null  float64
+ 5   median_house_value        18576 non-null  float64
+ 6   ocean_proximity           18576 non-null  object 
+ 7   rooms_per_household       18576 non-null  float64
+ 8   bedrooms_per_household    18391 non-null  float64
+ 9   population_per_household  18576 non-null  float64
+dtypes: float64(9), object(1)
+memory usage: 1.6+ MB
 ```
 
 Notes:
@@ -125,8 +123,8 @@ Notes:
 Here we see that we have all columns with dtype `float64` except for
 `ocean_proximity` which appears categorical.
 
-It looks like the `total_bedrooms` and `bedrooms_per_household` columns
-have some missing values.
+It looks like the `bedrooms_per_household` columns have some missing
+values.
 
 ---
 
@@ -135,29 +133,29 @@ train_df.describe()
 ```
 
 ```out
-          longitude      latitude  housing_median_age   total_rooms  total_bedrooms    population    households  median_income  median_house_value  rooms_per_household  bedrooms_per_household  population_per_household
-count  18576.000000  18576.000000        18576.000000  18576.000000    18391.000000  18576.000000  18576.000000   18576.000000        18576.000000         18576.000000            18391.000000              18576.000000
-mean    -119.565888     35.627966           28.622255   2635.749677      538.229786   1428.578165    500.061100       3.862552       206292.067991             5.426067                1.097516                  3.052349
-std        1.999622      2.134658           12.588307   2181.789934      421.805266   1141.664801    383.044313       1.892491       115083.856175             2.512319                0.486266                 10.020873
-min     -124.350000     32.540000            1.000000      2.000000        1.000000      3.000000      1.000000       0.499900        14999.000000             0.846154                0.333333                  0.692308
-25%     -121.790000     33.930000           18.000000   1449.000000      296.000000    788.000000    280.000000       2.560225       119400.000000             4.439360                1.005888                  2.430323
-50%     -118.490000     34.250000           29.000000   2127.000000      435.000000   1167.000000    410.000000       3.527500       179300.000000             5.226415                1.048860                  2.818868
-75%     -118.010000     37.710000           37.000000   3145.000000      647.000000   1727.000000    606.000000       4.736900       263600.000000             6.051620                1.099723                  3.283921
-max     -114.310000     41.950000           52.000000  39320.000000     6445.000000  35682.000000   6082.000000      15.000100       500001.000000           141.909091               34.066667               1243.333333
+          longitude      latitude  housing_median_age    households  median_income  median_house_value  rooms_per_household  bedrooms_per_household  population_per_household
+count  18576.000000  18576.000000        18576.000000  18576.000000   18576.000000        18576.000000         18576.000000            18391.000000              18576.000000
+mean    -119.565888     35.627966           28.622255    500.061100       3.862552       206292.067991             5.426067                1.097516                  3.052349
+std        1.999622      2.134658           12.588307    383.044313       1.892491       115083.856175             2.512319                0.486266                 10.020873
+min     -124.350000     32.540000            1.000000      1.000000       0.499900        14999.000000             0.846154                0.333333                  0.692308
+25%     -121.790000     33.930000           18.000000    280.000000       2.560225       119400.000000             4.439360                1.005888                  2.430323
+50%     -118.490000     34.250000           29.000000    410.000000       3.527500       179300.000000             5.226415                1.048860                  2.818868
+75%     -118.010000     37.710000           37.000000    606.000000       4.736900       263600.000000             6.051620                1.099723                  3.283921
+max     -114.310000     41.950000           52.000000   6082.000000      15.000100       500001.000000           141.909091               34.066667               1243.333333
 ```
 
 ``` python
-housing_df["total_bedrooms"].isnull().sum()
+train_df["bedrooms_per_household"].isnull().sum()
 ```
 
 ```out
-207
+185
 ```
 
 Notes:
 
-Looks like the data is missing 207 values for `total_bedrooms` and
-therefore the same amount for `bedrooms_per_household`.
+Looks like the training data is missing 185 values for
+`bedrooms_per_household`.
 
 ---
 
@@ -199,11 +197,11 @@ What are the possible ways to deal with the problem?
 ## Dropping
 
 ``` python
-housing_df["total_bedrooms"].isnull().sum()
+train_df["bedrooms_per_household"].isnull().sum()
 ```
 
 ```out
-207
+185
 ```
 
 ``` python
@@ -211,7 +209,7 @@ X_train.shape
 ```
 
 ```out
-(18576, 11)
+(18576, 8)
 ```
 
 ``` python
@@ -224,7 +222,7 @@ X_train_no_nan.shape
 ```
 
 ```out
-(18391, 11)
+(18391, 8)
 ```
 
 Notes:
@@ -249,7 +247,7 @@ X_train.shape
 ```
 
 ```out
-(18576, 11)
+(18576, 8)
 ```
 
 ``` python
@@ -261,7 +259,7 @@ X_train_no_col.shape
 ```
 
 ```out
-(18576, 9)
+(18576, 7)
 ```
 
 Notes:
@@ -285,7 +283,8 @@ from sklearn.impute import SimpleImputer
 We can impute missing values in:
 
   - **Categorical columns**: with the most frequent value.
-  - **Numeric columns**: with the mean or median of the column.
+  - **Numeric columns**: with the mean or median of the column or a
+    constant of our choosing.
 
 Notes:
 
@@ -298,21 +297,21 @@ address categorical preprocessing in Module 6.
 ---
 
 ``` python
-X_train.sort_values('total_bedrooms').tail(10)
+X_train.sort_values('bedrooms_per_household').tail(10)
 ```
 
 ```out
-       longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-18786    -122.42     40.44                16.0        994.0             NaN       495.0       181.0         2.1875             5.491713                     NaN                  2.734807
-17923    -121.97     37.35                30.0       1955.0             NaN       999.0       386.0         4.6328             5.064767                     NaN                  2.588083
-16880    -122.39     37.59                32.0       4497.0             NaN      1846.0       715.0         6.1323             6.289510                     NaN                  2.581818
-4309     -118.32     34.09                44.0       2666.0             NaN      2297.0       726.0         1.6760             3.672176                     NaN                  3.163912
-538      -122.28     37.78                29.0       5154.0             NaN      3741.0      1273.0         2.5762             4.048704                     NaN                  2.938727
-4591     -118.28     34.06                42.0       2472.0             NaN      3795.0      1179.0         1.2254             2.096692                     NaN                  3.218830
-19485    -120.98     37.66                10.0        934.0             NaN       401.0       255.0         0.9336             3.662745                     NaN                  1.572549
-6962     -118.05     33.99                38.0       1619.0             NaN       886.0       357.0         3.7328             4.535014                     NaN                  2.481793
-14970    -117.01     32.74                31.0       3473.0             NaN      2098.0       677.0         2.6973             5.129985                     NaN                  3.098966
-7763     -118.10     33.91                36.0        726.0             NaN       490.0       130.0         3.6389             5.584615                     NaN                  3.769231
+       longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+18786    -122.42     40.44                16.0       181.0         2.1875             5.491713                     NaN                  2.734807
+17923    -121.97     37.35                30.0       386.0         4.6328             5.064767                     NaN                  2.588083
+16880    -122.39     37.59                32.0       715.0         6.1323             6.289510                     NaN                  2.581818
+4309     -118.32     34.09                44.0       726.0         1.6760             3.672176                     NaN                  3.163912
+538      -122.28     37.78                29.0      1273.0         2.5762             4.048704                     NaN                  2.938727
+4591     -118.28     34.06                42.0      1179.0         1.2254             2.096692                     NaN                  3.218830
+19485    -120.98     37.66                10.0       255.0         0.9336             3.662745                     NaN                  1.572549
+6962     -118.05     33.99                38.0       357.0         3.7328             4.535014                     NaN                  2.481793
+14970    -117.01     32.74                31.0       677.0         2.6973             5.129985                     NaN                  3.098966
+7763     -118.10     33.91                36.0       130.0         3.6389             5.584615                     NaN                  3.769231
 ```
 
 Notes:
@@ -363,8 +362,8 @@ X_train_imp_df.loc[[7763]]
 ```
 
 ```out
-      longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-7763     -118.1     33.91                36.0        726.0           435.0       490.0       130.0         3.6389             5.584615                 1.04886                  3.769231
+      longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+7763     -118.1     33.91                36.0       130.0         3.6389             5.584615                 1.04886                  3.769231
 ```
 
 ``` python
@@ -372,8 +371,8 @@ X_train.loc[[7763]]
 ```
 
 ```out
-      longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-7763     -118.1     33.91                36.0        726.0             NaN       490.0       130.0         3.6389             5.584615                     NaN                  3.769231
+      longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+7763     -118.1     33.91                36.0       130.0         3.6389             5.584615                     NaN                  3.769231
 ```
 
 Notes:
@@ -402,7 +401,7 @@ knn.score(X_train_imp, y_train)
 ```
 
 ```out
-0.5085407150708963
+0.5609808539232339
 ```
 
 Notes:

@@ -15,14 +15,6 @@ node [shape=box] ;
 2 -> 6 ;
 7 [label="class = not A+"] ;
 6 -> 7 ;
-8 [label="lab2 <= 94.5\nclass = A+"] ;
+8 [label="class = A+"] ;
 6 -> 8 ;
-9 [label="class = A+"] ;
-8 -> 9 ;
-10 [label="lab3 <= 95.0\nclass = A+"] ;
-8 -> 10 ;
-11 [label="class = not A+"] ;
-10 -> 11 ;
-12 [label="class = A+"] ;
-10 -> 12 ;
 }

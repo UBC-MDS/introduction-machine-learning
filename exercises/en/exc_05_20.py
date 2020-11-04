@@ -34,19 +34,11 @@ ____ = ____
 # Fit your pipeline with grid search 
 ____.____
 
-
 # Save the best hyperparameter values in an object named `best_hyperparams`
 ____ = ____
 
 # Print best_hyperparams
 ____
-
-# Create a new model using the best parameters found in grid search
-# Save this model as best_model_pipe
-____ = ____
-
-# Train the model
-____.____
 
 # Score your model on the test set 
 # Save your results in an object named `bb_test_score`

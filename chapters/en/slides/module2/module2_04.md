@@ -104,7 +104,7 @@ Name: quiz2, dtype: object
 ```
 
 ``` python
-model.fit(X_binary, y)
+model.fit(X_binary, y);
 ```
 
 Notes:
@@ -118,7 +118,7 @@ learns about the data and sets the *if and else* statements.
 
 <center>
 
-<img src="/module2/dt_quiz2.png"  width = "80%" alt="404 image" />
+<img src="/module2/dt_quiz2.png"  width = "70%" alt="404 image" />
 
 </center>
 
@@ -138,13 +138,11 @@ new_example
 0              1                 0     1     1     0     0      0
 ```
 
-``` python
-print("Prediction for example:" + (model.predict(new_example)[0]))
-```
+<center>
 
-```out
-Prediction for example:not A+
-```
+<img src="/module2/dt_quiz2.png"  width = "50%" alt="404 image" />
+
+</center>
 
 Notes:
 
@@ -152,6 +150,14 @@ Now that the model is fitted, we will be able to predict using the built
 model.
 
 ---
+
+``` python
+(model.predict(new_example)[0])
+```
+
+```out
+'not A+'
+```
 
 ``` python
 model.score(X_binary, y)
@@ -182,7 +188,7 @@ observation
 
 <center>
 
-<img src="/module2/predict.gif"  width = "70%" alt="404 image" />
+<img src="/module2/predict2_slow.gif"  width = "70%" alt="404 image" />
 
 </center>
 
@@ -205,7 +211,7 @@ ignores all other features.
 ### How does fit work
 
   - Which features are most useful for classification?
-  - Minimize **impurity** at each question
+  - Minimize **impurity** at each question/node
   - Common criteria to minimize impurity
       - Gini Index
       - Information gain

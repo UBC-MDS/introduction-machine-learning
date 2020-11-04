@@ -70,17 +70,17 @@ Notes: <br>
 
 ```{python}
 classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
-classification_df.head()
+classification_df.head(3)
 ```
 
 ```{python}
 X = classification_df.drop(columns=["quiz2"])
-X.head()
+X.head(3)
 ```
 
-```{python include=FALSE}
+```{python}
 y = classification_df["quiz2"]
-
+y.head(3)
 ```
 
 
@@ -95,15 +95,30 @@ All our features here have a numerical value. What do we do?
 
 --- 
 
+```{python}
+from sklearn.tree import DecisionTreeClassifier
+```
+
+```{python}
+model = DecisionTreeClassifier()
+model.fit(X, y)
+```
+
+
+Notes: 
+
+
+--- 
+
 ```{python include=FALSE}
 import graphviz
 # Trees with continuous features
 model = DecisionTreeClassifier()
-model.fit(X, y)
+model.fit(X, y);
 display_tree(X.columns, model, "../../../../static/module2/module2_08a")
 ```
 
-<center><img src="/module2/module2_08a.png"  width = "80%" alt="404 image" /></center>
+<center><img src="/module2/module2_08a.png"  width = "65%" alt="404 image" /></center>
 
 Notes: 
 
@@ -127,7 +142,7 @@ For the next example let's consider a subset of the data with only two features.
 ```{python results='hide'}
 depth = 1
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
 ```
 
 ```{python include=FALSE}
@@ -149,10 +164,16 @@ Here we can look at this ***decision stump*** which will show us where the first
 
 ---
 
-```{python echo=FALSE}
+<center><img src="/module2/module2_08b.png"  width = "20%" alt="404 image" /></center>
+
+```{python echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '60%', fig.align='center'}
 plt.figure(figsize=(4, 4))
-plot_classifier(X_subset.to_numpy(), y.to_numpy(), model)
-plt.title("Decision tree with depth = %d" %(depth))
+plot_classifier(X_subset.to_numpy(), y.to_numpy(), model, ticks=True, lims=(70,101,70,101))
+plt.xticks(fontsize= 20);
+plt.yticks(fontsize= 20);
+plt.xlabel('lab4', fontsize=20);
+plt.ylabel('quiz1', fontsize=20);
+plt.title("Decision tree with depth = %d" % (depth), fontsize=24)
 ```
 
 

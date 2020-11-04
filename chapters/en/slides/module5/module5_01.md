@@ -265,11 +265,6 @@ X_test_predictions = model.predict(X_test)
 ``` python
 transformer.fit(X_train, [y_train])
 X_train_transformed = transformer.transform(X_train)
-X_test_transformed = transformer.transform(X_test)
-```
-
-``` python
-transformer.fit_transform(X_train)
 ```
 
 Notes:
@@ -296,15 +291,12 @@ knn_unscaled.fit(X_train, y_train);
 print('Train score: ', (knn_unscaled.score(X_train, y_train).round(2)))
 ```
 
-```out
-Train score:  0.71
-```
-
 ``` python
 print('Test score: ', (knn_unscaled.score(X_test, y_test).round(2)))
 ```
 
-```out
+``` out
+Train score:  0.71
 Test score:  0.45
 ```
 
@@ -314,15 +306,12 @@ knn_scaled.fit(X_train_scaled, y_train);
 print('Train score: ', (knn_scaled.score(X_train_scaled, y_train).round(2)))
 ```
 
-```out
-Train score:  0.94
-```
-
 ``` python
 print('Test score: ', (knn_scaled.score(X_test_scaled, y_test).round(2)))
 ```
 
-```out
+``` out
+Train score:  0.94
 Test score:  0.89
 ```
 

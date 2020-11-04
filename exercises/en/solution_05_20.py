@@ -37,23 +37,15 @@ grid_search = GridSearchCV(bb_pipe, param_grid, cv=10, verbose=1, n_jobs=-1)
 # Fit your pipeline with grid search 
 grid_search.fit(X_train, y_train)
 
-
 # Save the best hyperparameter values in an object named best_hyperparams
 best_hyperparams = grid_search.best_params_
 
 # Print best_hyperparams
 print(best_hyperparams)
 
-# Create a new model using the best parameters found in grid search
-# Save this model as best_model_pipe
-best_model_pipe = grid_search.best_estimator_
-
-# Train the model
-best_model_pipe.fit(X_train, y_train)
-
 # Score your model on the test set 
 # Save your results in an object named `bb_test_score`
-bb_test_score = best_model_pipe.score(X_test, y_test)
+bb_test_score = grid_search.score(X_test, y_test)
 
 # Display your score 
 bb_test_score

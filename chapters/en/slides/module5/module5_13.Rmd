@@ -82,24 +82,24 @@ Notes: <br>
 
 ---
 
-```{python include = FALSE}
+```{python}
 
 housing_df = pd.read_csv("data/housing.csv")
+
+ 
+housing_df = housing_df.assign(rooms_per_household = housing_df["total_rooms"]/housing_df["households"],
+                           bedrooms_per_household = housing_df["total_bedrooms"]/housing_df["households"],
+                           population_per_household = housing_df["population"]/housing_df["households"])
+                        
+                         
+housing_df = housing_df.drop(columns=['total_rooms', 'total_bedrooms', 'population',  "ocean_proximity"])  
+ 
+ 
 train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
-
-train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"])
-test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"])
-
-train_df = train_df.assign(bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"])
-test_df = test_df.assign(bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"])
-
-train_df = train_df.assign(population_per_household = train_df["population"]/train_df["households"])
-test_df = test_df.assign(population_per_household = test_df["population"]/test_df["households"])
-
-X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
+X_train = train_df.drop(columns=["median_house_value"])
 y_train = train_df["median_house_value"]
-
-X_test = test_df.drop(columns=["median_house_value", "ocean_proximity"])
+ 
+X_test = test_df.drop(columns=["median_house_value"])
 y_test = test_df["median_house_value"]
 
 imputer = SimpleImputer(strategy="median")
@@ -111,6 +111,8 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train_imp)
 X_test_scaled = scaler.transform(X_test_imp)
 X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns, index = X_train.index)
+
+
 
 ```
 
@@ -248,13 +250,11 @@ from sklearn.pipeline import Pipeline
 ```
 
 ```{python}
-pipe = Pipeline(
-    steps=[
+pipe = Pipeline([
         ("imputer", SimpleImputer(strategy="median")),
         ("scaler", StandardScaler()),
         ("reg", KNeighborsRegressor())
-        ]
-)
+])
 ```
 
 Notes: 
@@ -275,9 +275,18 @@ All the earlier steps should be **transformers**.
 pipe.fit(X_train, y_train)
 ```
 
-```{python}
-pipe.predict(X_train) 
+What's happening:
+```python
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train)
+X_train_imp = imputer.transform(X_train)
+scaler = StandardScaler()
+scaler.fit(X_train_imp)
+X_train_imp_scaled = scaler.transform(X_train_imp)
+knn = KNeighborsRegressor()
+knn.fit(X_train_imp_scaled)
 ```
+
 
 Notes: 
 
@@ -293,7 +302,23 @@ When we call `fit` the pipeline is carrying out the following steps:
 - Transform `X_train_imp` using the fit `StandardScaler` to create `X_train_imp_scaled`.
 - Fit the model (`KNeighborsRegressor` in our case) on `X_train_imp_scaled`.
 
-Take note that we are passing original data to `predict` as well. This time the pipeline is carrying out the following steps:
+
+---
+
+```{python}
+pipe.predict(X_train) 
+```
+
+```python
+X_train_imp = imputer.transform(X_train)
+X_train_imp_scaled = scaler.transform(X_train_imp)
+knn.predict(X_train_imp_scaled)
+```
+
+
+Notes:
+
+Take note that when we are passing original data to `predict` the following steps are carrying out:
 
 - Transform `X_train` using the fit `SimpleImputer` to create `X_train_imp`.
 - Transform `X_train_imp` using the fit `StandardScaler` to create `X_train_imp_scaled`.
@@ -301,9 +326,10 @@ Take note that we are passing original data to `predict` as well. This time the 
 
 It is not fitting any of the data this time. 
 
+
 ---
 
-<center><img src="/module5/pipeline.png" width = "90%" alt="404 image" /></center>
+<center><img src="/module5/pipeline.png" width = "70%" alt="404 image" /></center>
 <a href="https://amueller.github.io/COMS4995-s20/slides/aml-04-preprocessing/#18" target="_blank">Attribution</a> 
 
 Notes: 

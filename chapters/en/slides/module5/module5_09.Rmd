@@ -121,7 +121,7 @@ In this section, we are going to dive a little deeper into the process and the t
 ## Scaling
  
  
-<center><img src="/module5/scaling-data.png"  width = "90%" alt="404 image" /></center>
+<center><img src="/module5/scaling-data.png"  width = "75%" alt="404 image" /></center>
 <a href="https://amueller.github.io/COMS4995-s19/slides/aml-05-preprocessing/#8" target="_blank">Attribution</a>
  
  
@@ -156,14 +156,16 @@ Notes:
 housing_df = pd.read_csv("data/housing.csv")
 train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
  
-train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"])
-test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"])
- 
-train_df = train_df.assign(bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"])
-test_df = test_df.assign(bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"])
- 
-train_df = train_df.assign(population_per_household = train_df["population"]/train_df["households"])
-test_df = test_df.assign(population_per_household = test_df["population"]/test_df["households"])
+train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
+                           bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
+                           population_per_household = train_df["population"]/train_df["households"])
+                        
+test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
+                         bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
+                         population_per_household = test_df["population"]/test_df["households"])
+                         
+train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
+test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
  
 X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
 y_train = train_df["median_house_value"]
@@ -205,19 +207,27 @@ Now we can compare our training score with scaled and unscaled data and see a no
 ---
  
 **Unscaled data**
-```{python}
+```{python results = 'hide'}
 knn = KNeighborsRegressor()
 knn.fit(X_train_imp, y_train);
-knn.score(X_train_imp, y_train).round(3)
+print(knn.score(X_train_imp, y_train).round(3))
+print(knn.score(X_test_imp, y_test).round(3))
 ```
- 
+```out
+0.561
+0.32
+```
  **Scaled data**
-```{python}
+```{python results = 'hide'}
 knn = KNeighborsRegressor()
 knn.fit(X_train_scaled, y_train);
-knn.score(X_train_scaled, y_train).round(3)
+print(knn.score(X_train_scaled, y_train).round(3))
+print(knn.score(X_test_scaled, y_test).round(3))
 ```
- 
+ ```out
+0.798
+0.712
+ ```
  
 Notes:
  
@@ -249,19 +259,28 @@ Looking at the data after transforming it with `MinMaxScaler()` we see this time
  
 
 **Unscaled data**
-```{python}
+```{python results='hide'}
 knn = KNeighborsRegressor()
 knn.fit(X_train_imp, y_train);
-knn.score(X_train_imp, y_train).round(3)
+print(knn.score(X_train_imp, y_train).round(3))
+print(knn.score(X_test_imp, y_test).round(3))
 ```
- 
+```out
+0.561
+0.32
+```
+
 **Scaled data**
-```{python}
+```{python results='hide'}
 knn = KNeighborsRegressor()
 knn.fit(X_train_scaled, y_train);
-knn.score(X_train_scaled, y_train).round(3)
+print(knn.score(X_train_scaled, y_train).round(3))
+print(knn.score(X_test_scaled, y_test).round(3))
 ```
- 
+```out
+0.801
+0.723
+```
 
 Notes:
  

@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Decision Tree Classifiers
+# Introducing decision trees
 
 Notes: <br>
 
@@ -22,11 +22,22 @@ Notes:
 
 So we have built a baseline model, but can we do better than that?
 
+We’re going to bring back this data set that we saw previously which is
+the classification dataset for whether or not a student will get an A+
+on the second quiz given that there are multiple other columns here.
+
 If you are asked to write a program to predict whether a student gets an
 A+ or not in quiz2, how would you go for it?
 
-Before we go forward, let’s try to make things a little simpler and
-binarize the input data.
+In our dummy model we only predicted the most occurring value in this
+Quiz 2 column on our new test data, so for example, if A+ was most
+occurring, then on any new test data, it would just predict A+ no matter
+what all of these other column values were.
+
+We have all of these features that we could use to help with our
+predictions. To make things initially more understandable, we are going
+to change our dataset a little bit so they are expressed in binary
+values. 1 = yes and 0 = no or 1=A+ 0=Not A+.
 
 ---
 
@@ -56,7 +67,16 @@ about we have a rule-based algorithm with several *if/else*
 statements?  
 We learned about conditions and *if/else* statements in module 5 of
 ***Programming in Python for Data Science***, now let’s incorporate this
-concept into a machine learning problem. For example:
+concept into a machine learning problem.
+
+Looking at the first example we have `class_attendance=1` and `quiz1=1`
+as well. That gives us in our training data an A+ as the target. We
+could write a rule where if `class_attendance=1` and `quiz1=1` we
+predict quiz2 =A+ since there are no other examples in the data.
+
+In our next example, we could make an if-else statement where
+`class_attendance=1` and `lab3=1` and `lab4=1` then quiz2=A+ since there
+are no other examples in this dataset.
 
     if class attendance == 1 and quiz1 == 1:
         quiz2 == "A+"
@@ -64,7 +84,11 @@ concept into a machine learning problem. For example:
         quiz2 == "A+"
     ...
 
-Decision tree gives us a way to do this\!
+We can continue making these rules until we have many rules.
+
+Since we have 7 features each with 2 possibilities, the total possible
+different rules could be 128 different statements but neither of us
+wants to write all these, which is where decision trees come into play.
 
 ---
 
@@ -130,11 +154,13 @@ X_binary.head()
 
 Notes:
 
-Now let’s binarize the features in `X` as we discussed. We can see that
-each column now only has a value of either `0` or `1`.
+Now let’s binarize the features in `X` as we discussed. Don’t worry too
+much about this code.
 
-Now we have our data in a preferred way, how do we make predictions with
-the `if`/`else` statements we talked about?
+We can see that each column now only has a value of either `0` or `1`.
+
+Now that we have this data in a preferred way we can try and make our
+predictions with rules and that’s where our decision trees come in.
 
 ---
 
@@ -163,23 +189,21 @@ data in a principled way.
 
 Note:
 
-A tree is a type of structure with branches and nodes that is an
-effective way to visualize the process of decision making.
+Before we go forward with learning about decision tree classifiers and
+aggressors we need to understand the structure of a decision tree. Here
+is the key terminology that you will have to know:
 
-A tree begins at the top which is called the ***root***.
-
-Each decision is called a ***node*** and they are connected by
-***branches***.
+  - **Root**: Where we start making our conditions.
+  - **Branch**: A branch connects to the next node (statement). Each
+    branch represents either true or false.
+  - **Internal node**: conditions within the tree.  
+  - **Leaf**: the value predicted from the conditions.
+  - **Tree depth**: The longest path from the root to a leaf.
 
 With the decision tree algorithm in machine learning, the tree can have
 at most two **nodes** resulting from it, also known as **children**.
 
-A Decision Tree that only results in 2 children for each node takes on a
-specific named called a **Binary Decision Tree**.
-
-The maximum depth of a tree is somewhat like the “height” or how “tall”
-a tree stands. It refers to the length of the longest path from a root
-to a leaf.
+This tree would have a depth of 2.
 
 ---
 
@@ -195,6 +219,8 @@ Using our quiz2 dataset as an example, a tree may look something like
 this.
 
 This tree has a depth of 3.
+
+Trees do not need to be balanced.
 
 ---
 
@@ -212,7 +238,7 @@ Note:
 
 This tree has a depth of 1.
 
-A decision tree that has a depth of 1 is called a ***Decision stump***.
+A decision tree that has a depth of 1 is called a ***decision stump***.
 
 ---
 

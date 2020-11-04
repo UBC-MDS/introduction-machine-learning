@@ -48,7 +48,7 @@ and the transformer options.
 
 <center>
 
-<img src="/module5/scaling-data.png"  width = "90%" alt="404 image" />
+<img src="/module5/scaling-data.png"  width = "75%" alt="404 image" />
 
 </center>
 
@@ -86,12 +86,12 @@ pd.DataFrame(X_train_imp, columns=X_train.columns, index=X_train.index).head()
 ```
 
 ```out
-       longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-6051     -117.75     34.04                22.0       2948.0           636.0      2600.0       602.0         3.1250             4.897010                1.056478                  4.318937
-20113    -119.57     37.94                17.0        346.0           130.0        51.0        20.0         3.4861            17.300000                6.500000                  2.550000
-14289    -117.13     32.74                46.0       3355.0           768.0      1457.0       708.0         2.6604             4.738701                1.084746                  2.057910
-13665    -117.31     34.02                18.0       1634.0           274.0       899.0       285.0         5.2139             5.733333                0.961404                  3.154386
-14471    -117.23     32.88                18.0       5566.0          1465.0      6303.0      1458.0         1.8580             3.817558                1.004801                  4.323045
+       longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+6051     -117.75     34.04                22.0       602.0         3.1250             4.897010                1.056478                  4.318937
+20113    -119.57     37.94                17.0        20.0         3.4861            17.300000                6.500000                  2.550000
+14289    -117.13     32.74                46.0       708.0         2.6604             4.738701                1.084746                  2.057910
+13665    -117.31     34.02                18.0       285.0         5.2139             5.733333                0.961404                  3.154386
+14471    -117.23     32.88                18.0      1458.0         1.8580             3.817558                1.004801                  4.323045
 ```
 
 ``` python
@@ -106,12 +106,12 @@ pd.DataFrame(X_train_scaled, columns=X_train.columns, index=X_train.index).head(
 ```
 
 ```out
-       longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-6051    0.908140 -0.743917           -0.526078     0.143120        0.235339    1.026092    0.266135      -0.389736            -0.210591               -0.083813                  0.126398
-20113  -0.002057  1.083123           -0.923283    -1.049510       -0.969959   -1.206672   -1.253312      -0.198924             4.726412               11.166631                 -0.050132
-14289   1.218207 -1.352930            1.380504     0.329670        0.549764    0.024896    0.542873      -0.635239            -0.273606               -0.025391                 -0.099240
-13665   1.128188 -0.753286           -0.843842    -0.459154       -0.626949   -0.463877   -0.561467       0.714077             0.122307               -0.280310                  0.010183
-14471   1.168196 -1.287344           -0.843842     1.343085        2.210026    4.269688    2.500924      -1.059242            -0.640266               -0.190617                  0.126808
+       longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+6051    0.908140 -0.743917           -0.526078    0.266135      -0.389736            -0.210591               -0.083813                  0.126398
+20113  -0.002057  1.083123           -0.923283   -1.253312      -0.198924             4.726412               11.166631                 -0.050132
+14289   1.218207 -1.352930            1.380504    0.542873      -0.635239            -0.273606               -0.025391                 -0.099240
+13665   1.128188 -0.753286           -0.843842   -0.561467       0.714077             0.122307               -0.280310                  0.010183
+14471   1.168196 -1.287344           -0.843842    2.500924      -1.059242            -0.640266               -0.190617                  0.126808
 ```
 
 Notes: Let’s bring in our imputed data that we processed in the last
@@ -130,11 +130,16 @@ see a noticeable difference between the two\!
 ``` python
 knn = KNeighborsRegressor()
 knn.fit(X_train_imp, y_train);
-knn.score(X_train_imp, y_train).round(3)
+print(knn.score(X_train_imp, y_train).round(3))
 ```
 
-```out
-0.509
+``` python
+print(knn.score(X_test_imp, y_test).round(3))
+```
+
+``` out
+0.561
+0.32
 ```
 
 **Scaled data**
@@ -142,11 +147,16 @@ knn.score(X_train_imp, y_train).round(3)
 ``` python
 knn = KNeighborsRegressor()
 knn.fit(X_train_scaled, y_train);
-knn.score(X_train_scaled, y_train).round(3)
+print(knn.score(X_train_scaled, y_train).round(3))
 ```
 
-```out
-0.809
+``` python
+print(knn.score(X_test_scaled, y_test).round(3))
+```
+
+``` out
+0.798
+0.712
 ```
 
 Notes:
@@ -169,12 +179,12 @@ pd.DataFrame(X_train_scaled, columns=X_train.columns, index=X_train.index).head(
 ```
 
 ```out
-       longitude  latitude  housing_median_age  total_rooms  total_bedrooms  population  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
-6051    0.657371  0.159405            0.411765     0.074928        0.098541    0.072788    0.098832       0.181039             0.028717                0.021437                  0.002918
-20113   0.476096  0.573858            0.313725     0.008749        0.020019    0.001345    0.003124       0.205942             0.116642                0.182806                  0.001495
-14289   0.719124  0.021254            0.882353     0.085279        0.119025    0.040752    0.116264       0.148998             0.027594                0.022275                  0.001099
-13665   0.701195  0.157279            0.333333     0.041508        0.042365    0.025113    0.046703       0.325099             0.034645                0.018619                  0.001981
-14471   0.709163  0.036132            0.333333     0.141513        0.227188    0.176574    0.239599       0.093661             0.021064                0.019905                  0.002922
+       longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household
+6051    0.657371  0.159405            0.411765    0.098832       0.181039             0.028717                0.021437                  0.002918
+20113   0.476096  0.573858            0.313725    0.003124       0.205942             0.116642                0.182806                  0.001495
+14289   0.719124  0.021254            0.882353    0.116264       0.148998             0.027594                0.022275                  0.001099
+13665   0.701195  0.157279            0.333333    0.046703       0.325099             0.034645                0.018619                  0.001981
+14471   0.709163  0.036132            0.333333    0.239599       0.093661             0.021064                0.019905                  0.002922
 ```
 
 Notes:
@@ -191,11 +201,16 @@ this time there are no negative values.
 ``` python
 knn = KNeighborsRegressor()
 knn.fit(X_train_imp, y_train);
-knn.score(X_train_imp, y_train).round(3)
+print(knn.score(X_train_imp, y_train).round(3))
 ```
 
-```out
-0.509
+``` python
+print(knn.score(X_test_imp, y_test).round(3))
+```
+
+``` out
+0.561
+0.32
 ```
 
 **Scaled data**
@@ -203,11 +218,16 @@ knn.score(X_train_imp, y_train).round(3)
 ``` python
 knn = KNeighborsRegressor()
 knn.fit(X_train_scaled, y_train);
-knn.score(X_train_scaled, y_train).round(3)
+print(knn.score(X_train_scaled, y_train).round(3))
 ```
 
-```out
-0.807
+``` python
+print(knn.score(X_test_scaled, y_test).round(3))
+```
+
+``` out
+0.801
+0.723
 ```
 
 Notes:
