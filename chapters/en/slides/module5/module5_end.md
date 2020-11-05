@@ -15,13 +15,13 @@ Notes:
 
 By the end of the module, students are expected to:
 
-- Explain the notion of similarity-based algorithms.
-- Broadly describe how 𝑘-NNs use distances.
-- Describe the effect of using a small/large value of the hyperparameter 𝑘 when using the 𝑘-NN algorithm.
-- Describe the curse of dimensionality.
-- Explain the general idea of SVMs with RBF kernel.
-- Compare and contract 𝑘-NNs and SVM RBFs. 
-- Broadly describe the relation of `gamma` and `C` hyperparameters with the fundamental tradeoff.
+- Identify when to implement feature transformations such as imputation and scaling.
+- Apply `sklearn.pipeline.Pipeline` to build a machine learning pipeline.
+- Use `sklearn` for applying numerical feature transformations on the data.
+- Discuss the golden rule in the context of feature transformations.
+- Carry out hyperparameter optimization using `sklearn`'s `GridSearchCV` and `RandomizedSearchCV`.
+- Explain overfitting on the validation set.
+
 
 
 Notes: 
@@ -30,7 +30,7 @@ The assignment will concentrate on the learning objectives as well as building k
 
 ---
 
-# On to Assignment 4!
+# On to Assignment 5!
 
 Notes: 
 

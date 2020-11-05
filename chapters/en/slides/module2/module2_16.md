@@ -88,9 +88,12 @@ target.
 
 ``` python
 from sklearn.tree import DecisionTreeRegressor
+```
+
+``` python
 depth = 4
 reg_model = DecisionTreeRegressor(max_depth=depth)
-reg_model.fit(X, y)
+reg_model.fit(X, y);
 ```
 
 Notes:
@@ -108,13 +111,26 @@ Here when we build our constructor, we are specifying a `max_depth` of
 
 <center>
 
-<img src="/module2/module2_16a.png"  width = "80%" alt="404 image" />
+<img src="/module2/module2_16a.png"  width = "68%" alt="404 image" />
 
 </center>
 
 Notes:
 
+This time when we predict a single observation, instead of getting a
+prediction that is a category or class, we are getting a numerical
+value.
+
 ---
+
+``` python
+X.loc[[0]]
+```
+
+```out
+   ml_experience  class_attendance  lab1  lab2  lab3  lab4  quiz1
+0              1                 1    92    93    84    91     92
+```
 
 ``` python
 reg_model.predict(X.loc[[0]])
@@ -124,9 +140,16 @@ reg_model.predict(X.loc[[0]])
 array([90.])
 ```
 
+Notes:
+
+Here we see that the model predicts a grade of 90 for the first
+observation.
+
+---
+
 ``` python
 predicted_grades = reg_model.predict(X)
-regression_df['predicted_quiz2'] = predicted_grades
+regression_df = regression_df.assign(predicted_quiz2 = predicted_grades)
 print("R^2 score on the training data:" + str(round(reg_model.score(X,y), 3)))
 ```
 
@@ -149,17 +172,11 @@ regression_df.head()
 
 Notes:
 
-This time when we predict a single observation, instead of getting a
-prediction that is a category or class, we are getting a numerical
-value.
-
-Here we see that the model predicts a grade of 90 for the first
-observation.
-
 Let’s see how well this model does predicting the entire data.
 
-Since the 𝑅2 value is 1.0, the model perfectly predicts the outcome of
-every observation.
+We talked in Module 1 how we use a measurement called 𝑅2 to measure the
+score of regression models. In this case the 𝑅2 score is 1.0, meaning
+the model perfectly predicts the outcome of every observation.
 
 This is quite different from what we were getting with a Dummy
 Classifier which had an 𝑅2 value of 0.

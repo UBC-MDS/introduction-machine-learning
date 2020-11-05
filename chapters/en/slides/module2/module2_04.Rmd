@@ -152,7 +152,7 @@ y.head()
 
 
 ```{python results='hide'}
-model.fit(X_binary, y)
+model.fit(X_binary, y);
 ```
 
 
@@ -170,7 +170,7 @@ display_tree(X.columns, model, "../../../../static/module2/dt_quiz2")
 ```
 
 
-<center><img src="/module2/dt_quiz2.png"  width = "80%" alt="404 image" /></center>
+<center><img src="/module2/dt_quiz2.png"  width = "70%" alt="404 image" /></center>
 
 Notes: 
 
@@ -182,10 +182,8 @@ Let's take a look at what our tree looks like. We can see all the nodes of the t
 new_example
 ```
 
+<center><img src="/module2/dt_quiz2.png"  width = "50%" alt="404 image" /></center>
 
-```{python}
-print("Prediction for example:" + (model.predict(new_example)[0]))
-```
 
 
 Notes: 
@@ -193,6 +191,11 @@ Notes:
 Now that the model is fitted, we will be able to predict using the built model.
 
 ---
+
+
+```{python}
+(model.predict(new_example)[0])
+```
 
 
 ```{python}
@@ -223,7 +226,7 @@ observation = pd.DataFrame(data= [new_ex], columns = ["ml_experience",  "class_a
 observation
 ```
 
-<center><img src="/module2/predict.gif"  width = "70%" alt="404 image" /></center>
+<center><img src="/module2/predict2_slow.gif"  width = "70%" alt="404 image" /></center>
 
 Notes: 
 
@@ -242,7 +245,7 @@ The model only considers the features which are in the learned tree and ignores 
 ### How does fit work 
 
 - Which features are most useful for classification? 
-- Minimize **impurity** at each question
+- Minimize **impurity** at each question/node
 - Common criteria to minimize impurity 
     - Gini Index
     - Information gain 

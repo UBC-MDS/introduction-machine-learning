@@ -1,5 +1,5 @@
 ---
-title: 'Module 4: Similarity-based Approaches to Supervised Learning'
+title: 'Module 4: Similarity-Based Approaches to Supervised Learning'
 description:
   'In this module, we will cover similarity-based models 𝑘-Nearest Neighbours (also known as 𝑘-NNs) and Support Vector Machines (SVMs with an RBF kernel).'
 prev: /module3
@@ -41,8 +41,7 @@ Use the following dataframe named `garden` to answer the next two questions.
 9      0        0        40          83                65        fruit
 ```
 
-**Question 1**  
-
+**Question 1**     
 We are trying to predict if each example is either a fruit or a vegetable. 
 What would be the dimension of feature vectors in this problem?
 
@@ -75,7 +74,6 @@ You may be including the index and target column `fruit_veg`.
 </choice>
 
 **Question 2**   
-
 Which of the following would be the feature vector for example 0. 
 
 <choice id="2" >
@@ -175,8 +173,7 @@ Dimensions up to 1000 are considered "low".
 <exercise id="5" title= "Calculating Distances">
 
 
-**Question 1**     
-
+**Question 1**      
 Given the following 2 feature vectors, what is the Euclidean distance between the following two feature vectors?
 
 ```
@@ -212,8 +209,7 @@ Close but you have the target value in the feature vector.
 
 </choice>
 
-**Question 2**  
-
+**Question 2**    
 We have collected a third vector `w`. 
 
 ```
@@ -275,7 +271,7 @@ Take a look at the equation we use to calculate Euclidean distance.
 
 </exercise>
 
-<exercise id="7" title='Calculating Euclidean Distance step by step'>
+<exercise id="7" title='Calculating Euclidean Distance Step by Step'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -338,8 +334,7 @@ Tasks:
 
 <exercise id="10" title= "Finding Neighbours Questions">
 
-**Question 1**  
-
+**Question 1**    
 In the slides we calculated distances between all points in the training data using `sklearn`'s `euclidean_distances` function. What would happen if we didn't use `fill_diagonal()`?
 
 <choice id="1">
@@ -370,8 +365,7 @@ We would get an example but it would be the wrong one.
 
 </choice>
 
-**Question 2**   
-
+**Question 2**     
 How many dimension does the input vector for `kneighbors()` need to be?
 
 <choice id="2" >
@@ -479,7 +473,7 @@ Tasks:
 </codeblock>
 </exercise>
 
-<exercise id="13" title="𝑘 -Nearest Neighbours (𝑘-NNs) Classifier" type="slides,video">
+<exercise id="13" title="𝑘-Nearest Neighbours (𝑘-NNs) Classifier" type="slides,video">
 <slides source="module4/module4_13" shot="0" start="0:006" end="3:39">
 </slides>
 
@@ -491,8 +485,7 @@ Consider this toy dataset:
 
 <center><img src="/module4/Q14.png"  width = "40%" alt="404 image" /></center>
 
-**Question 1**  
-
+**Question 1**   
 If 𝑘=1 , what would you predict for &nbsp; &nbsp;   <img src="/module4/ans14.png"  width = "8%" alt="404 image" /> &nbsp;&nbsp;&nbsp;?
 
 <choice id="1">
@@ -509,8 +502,7 @@ Right, the point (2, 2) is the closest to (0, 0) and it is categorized as 1.
 
 </choice>
 
-**Question 2**  
-
+**Question 2**     
 If  𝑘=3 , what would you predict for &nbsp; &nbsp;   <img src="/module4/ans14.png"  width = "8%" alt="404 image" /> &nbsp;&nbsp;&nbsp;?
 
 <choice id="2" >
@@ -532,7 +524,7 @@ The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0). Which label is m
 
 </exercise>
 
-<exercise id="15" title="K-NN Classifiers True or False">
+<exercise id="15" title="𝑘-NN Classifiers True or False">
 
 **True or False**     
 _The classification of the closest neighbour to the test example always contributes the most to the prediction._
@@ -571,12 +563,12 @@ You can't assign `n_neighbors` to a value greater than the possible number of ex
 </choice>
 
 **True or False**     
-_Similar to decision trees, k-NNs finds a small set of good features._
+_Similar to decision trees, 𝑘-NNs finds a small set of good features._
 
 <choice id="3" >
 <opt text="True"  >
 
-K-NNs use all the features!
+𝑘-NNs use all the features!
 
 </opt>
 
@@ -590,7 +582,7 @@ Great work!
 
 </exercise>
 
-<exercise id="16" title='Predicting with a KNN-Classifier'>
+<exercise id="16" title='Predicting with a 𝑘-NN-Classifier'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -625,14 +617,13 @@ Tasks:
 
 </exercise>
 
-<exercise id="18" title= "Choosing K for Your Model">
+<exercise id="18" title= "Choosing 𝑘 for Your Model">
 
 Consider this graph:
 
 <center><img src="/module4/Q18a.png"  width = "80%" alt="404 image" /></center>
 
-**Question 1**  
-
+**Question 1**     
 What value of `n_neighbors` would you choose to train your model on? 
 
 <choice id="1">
@@ -669,33 +660,32 @@ You shouldn't pick the highest `n_neighbors` without the cv-score being the high
 
 </choice>
 
-**Question 2**  
-
-Up to which value of `n_neighbors` is there overfitting?
+**Question 2**     
+At what of  𝑘 is the largest gap between the train and validation score?
 
 <choice id="2">
 
-<opt text="The model never overfits">
+<opt text="1" correct="true">
 
-When the training score is greater than the CV score, the model is overfitting.
+Training score is much higher than the validation score here!
 
 </opt>
 
-<opt text= "12" >
+<opt text= "4" >
  
-There is overfitting still occurring after this value. 
+Are there values where the validation score is lower?
 
 </opt>
 
-<opt text= "26" >
+<opt text= "17" >
  
-Is the training score greater than the CV score after this value?
+Are there values where the validation score is lower and the training score is higher?
 
 </opt>
 
-<opt text= "29" correct="true">
+<opt text= "29" >
 
-Now it appears that the model is underfitting! 
+The gap between validation score and training score is actually quite small here!
 
 </opt>
 
@@ -703,7 +693,7 @@ Now it appears that the model is underfitting!
 
 </exercise>
 
-<exercise id="19" title="Curse of Dimensionality and Choosing K True or False">
+<exercise id="19" title="Curse of Dimensionality and Choosing 𝑘 True or False">
 
 **True or False**     
 _With  𝑘 -NN, setting the hyperparameter  𝑘  to larger values typically increase training score._
@@ -762,7 +752,7 @@ Fill in the code for  a `for` loop that does the following:
 - iterates over the values 1-50 in increments of 5.
 - Builds a  `KNeighborsClassifier` model with `n_neighbors` equal to each iteration.
 - Uses `cross_validate` on the model with a `cv=10` and `return_train_score=True`.
-- Appends the k value to the `n_neighbors` list in the dictionary `results_dict`.
+- Appends the 𝑘 value to the `n_neighbors` list in the dictionary `results_dict`.
 - Appends the `test_score` to the `mean_cv_score` list in the dictionary. 
 - Appends the `train_score` to the `mean_train_score` list in the dictionary. 
 
@@ -783,7 +773,7 @@ Finish off by filling in the blank to create a line graph that plots the train a
 
 
 **Question 1**    
-To which depth would you set your `n_neighbors` hyperparameter?
+What value would you pick for the hyperparameter `n_neighbors`?
 
 <choice id="1" >
 <opt text="1" >
@@ -814,7 +804,7 @@ Are you sure this is the n_neighbors with the highest cross-validation score pos
 
 Tasks:     
 
-Now that we have found a suitable value for `n_neighbors`, let's build a new model and let this hyperparameter value. How well does your model do on the test data?
+Now that we have found a suitable value for `n_neighbors`, let’s build a new model with this hyperparameter value. How well does your model do on the test data?
 
 Tasks:     
 
@@ -842,15 +832,14 @@ Tasks:
 
 </exercise>
 
-<exercise id="22" title= "Choosing K for Your Model">
+<exercise id="22" title= "Regression Questions">
 
 Consider this toy dataset:
 
 <center><img src="/module4/Q14.png"  width = "40%" alt="404 image" /></center>
 
-**Question 1**  
-
-If 𝑘=1 , what would you predict for &nbsp; &nbsp;   <img src="/module4/ans14.png"  width = "8%" alt="404 image" /> &nbsp;&nbsp;&nbsp; if we were doing regression rather than classification?
+**Question 1**      
+If  𝑘=3 , what would you predict for &nbsp; &nbsp;   <img src="/module4/ans14.png"  width = "8%" alt="404 image" /> &nbsp;&nbsp;&nbsp; if we were doing regression rather than classification?
 
 <choice id="1">
 
@@ -864,26 +853,32 @@ The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0) and so we must ta
  
 The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0) and so we must take the average of all the values.
 
+</opt>
+
 <opt text= "1/3"  correct="true" >
  
 You got it!
 
+</opt>
+
 <opt text= "3">
  
 We must take the average of the 3 nearest examples. 
+
+</opt>
 
 </choice>
 
 **Question 2**  
 
 **True or False**     
-_K-NN with Regression can only be done in a 1-dimensional space._
+_𝑘-NN with Regression can only be done in a 1-dimensional space._
 
 <choice id="2" >
 
 <opt text="True"  >
 
-K-NN can be done with just as many dimensions as classification
+𝑘-NN can be done with just as many dimensions as classification
 
 </opt>
 
@@ -898,7 +893,7 @@ Nice work.
 
 </exercise>
 
-<exercise id="23" title='Building a KNN-Regressor'>
+<exercise id="23" title='Building a 𝑘-NN-Regressor'>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -943,15 +938,14 @@ Tasks:
 
 </exercise>
 
-<exercise id="25" title= "Testing your RBF Knowledge">
+<exercise id="25" title= "Testing your SVM RBF  Knowledge">
 
 These two boundary plots were made using SVM with an RBF kernel and the other with K-Nearest Neighbours. 
 <center><img src="/module4/Q25.png"  width = "90%" alt="404 image" /></center>
 
 <br>
 
-**Question 1**  
-
+**Question 1**    
 Which plot more likely visualizes the boundaries of the SVM model?
 
 <choice id="1">
@@ -973,11 +967,11 @@ Nice
 
 <exercise id="26" title="SVM True or False">
 
-**True or False**     
+**True or False**      
 _In Scikit Learn’s SVC classifier, large values of gamma tend to result in higher training score but probably lower validation score._
 
 <choice id="1" >
-<opt text="True “correct="true">
+<opt text="True" correct="true">
 
 Great work!
 
@@ -1024,7 +1018,7 @@ We've used K-Nearest Neighbours to classify Pokémon from the Pokémon dataset s
 
 Tasks:     
 
-- Create an `SVM` model with `gamma` equal to 0.1 and `C` equal to 10cand name it `model`.
+- Create an `SVM` model with `gamma` equal to 0.1 and `C` equal to 10 then name the model `model`.
 - Train your model on `X_train` and `y_train` (Hint: you may want to use `.to_numpy()`).
 - Score your model on the training set using `.score()` and save it in an object named `train_score`.
 - Score your model on the test set using `.score()` and save it in an object named `test_score`.
@@ -1039,13 +1033,13 @@ Tasks:
 
 </codeblock>
 
-**Question 1**    
-Does this model give similar results to K-NN?
+**Question**    
+Does this model give similar results to 𝑘-NN?
 
 <choice id="1" >
 <opt text="Yes" >
 
-We got around .80 with K-NN, do you think that this is close enough?
+We got around .80 with 𝑘-NN, do you think that this is close enough?
 
 </opt>
 
@@ -1053,9 +1047,11 @@ We got around .80 with K-NN, do you think that this is close enough?
 
 It seems like we have some hyperparameters to tune and/or this may not be the best model for us this time.
 
-</opt>
+</opt>x
 
 </choice>
+
+The results may be explained because of of the fact we are not scaling our column values. We will be covering this in the next model!
 
 </exercise>
 

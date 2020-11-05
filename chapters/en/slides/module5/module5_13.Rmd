@@ -1,0 +1,384 @@
+---
+params:
+  dynamictitle: "module5_12"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module5/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import StandardScaler
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module5/"
+```
+
+
+type: slides
+
+# Case Study: Pipelines
+
+Notes: <br>
+
+---
+
+```{python}
+
+housing_df = pd.read_csv("data/housing.csv")
+
+ 
+housing_df = housing_df.assign(rooms_per_household = housing_df["total_rooms"]/housing_df["households"],
+                           bedrooms_per_household = housing_df["total_bedrooms"]/housing_df["households"],
+                           population_per_household = housing_df["population"]/housing_df["households"])
+                        
+                         
+housing_df = housing_df.drop(columns=['total_rooms', 'total_bedrooms', 'population',  "ocean_proximity"])  
+ 
+ 
+train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
+X_train = train_df.drop(columns=["median_house_value"])
+y_train = train_df["median_house_value"]
+ 
+X_test = test_df.drop(columns=["median_house_value"])
+y_test = test_df["median_house_value"]
+
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train)
+X_train_imp = imputer.transform(X_train)
+X_test_imp = imputer.transform(X_test)
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train_imp)
+X_test_scaled = scaler.transform(X_test_imp)
+X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns, index = X_train.index)
+
+
+
+```
+
+```{python}
+X_train_scaled.head()
+```
+```{python}
+knn = KNeighborsRegressor()
+knn.fit(X_train_scaled, y_train);
+knn.score(X_train_scaled, y_train).round(3)
+```
+
+Notes: 
+
+We left off with our scaled data and calculating our training score, however in the last module we saw that cross-validation is a better way to get a realistic assessment of the model. 
+
+---
+
+### How to carry out cross-validation? 
+
+```{python}
+knn = KNeighborsRegressor()
+scores = cross_validate(knn, X_train_scaled, y_train, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+Notes: 
+
+Let's try cross-validation with transformed data. 
+
+**Is there a problem here?**
+
+Are we applying `fit_transform` on the train portion and `transform` on the validation portion in each fold?  
+
+Here we might be allowing information from the validation set to **leak** into the training step.
+
+We need to apply the **SAME** preprocessing steps to train/validation.
+
+With many different transformations and cross-validation, the code gets unwieldy very quickly. 
+
+That makes it likely to make mistakes and "leak" information.
+
+Before we look at the right approach to this, it's important to look at the wrong approaches and understand why we cannot perform cross-validation in such ways. 
+
+---
+
+### Bad methodology 1: Scaling the data separately
+
+```{python}
+scaler = StandardScaler();
+scaler.fit(X_train_imp);
+X_train_scaled = scaler.transform(X_train_imp)
+```
+
+```{python results='Hide'}
+# Creating a separate object for scaling test data - Not a good idea.
+scaler = StandardScaler();
+scaler.fit(X_test_imp); # Calling fit on the test data - Yikes! 
+X_test_scaled = scaler.transform(X_test_imp) # Transforming the test data using the scaler fit on test data ... Bad! 
+```
+
+```{python}
+knn = KNeighborsRegressor()
+knn.fit(X_train_scaled, y_train);
+print("Training score: ", knn.score(X_train_scaled, y_train).round(2))
+print("Test score: ", knn.score(X_test_scaled, y_test).round(2))
+```
+
+Notes: 
+
+***What is wrong with this approach?***
+
+Although we are keeping our test data separate from our training data, by scaling the train and test splits separately, this is problematic since we are using two different `StandardScaler` objects. 
+
+This is bad because we want to apply the same transformation on the training and test splits.  
+
+---
+
+### Bad methodology 2: Scaling the data together
+
+```{python}
+X_train_imp.shape, X_test_imp.shape
+```
+
+```{python}
+# Join the train and test sets back together
+X_train_imp_df = pd.DataFrame(X_train_imp,columns=X_train.columns, index=X_train.index)
+X_test_imp_df = pd.DataFrame(X_test_imp,columns=X_test.columns, index=X_test.index)
+XX = pd.concat([X_train_imp_df, X_test_imp_df], axis = 0) ## Don't do it! 
+XX.shape 
+```
+```{python}
+scaler = StandardScaler()
+scaler.fit(XX);
+XX_scaled = scaler.transform(XX) 
+XX_train, XX_test = XX_scaled[:18576], XX_scaled[18576:]
+```
+
+```{python}
+knn = KNeighborsRegressor()
+knn.fit(XX_train, y_train);
+print('Train score: ', (knn.score(XX_train, y_train).round(2))) # Misleading score
+print('Test score: ', (knn.score(XX_test, y_test).round(2))) # Misleading score
+```
+
+Notes: 
+
+***What is wrong with this second approach?***
+
+Here we are scaling the train and test splits together.
+
+The golden rule says that the test data shouldn't influence the training in any way. 
+
+With this approach, we are using the information from the test split when we `fit` the scaler and calculate the mean, as we are passing the combined `X_train` and `X_test` to it. So, it's **violation** of the golden rule.  
+
+ 
+ 
+---
+
+<br>
+<br>
+
+### So, what can we do? 
+
+ We can create a <a href="ttps://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html" target="_blank">scikit-learn Pipeline</a>!   
+ 
+ Pipelines allow us to define a "pipeline" of transformers with a final estimator.
+
+---
+
+## Let's see it in action
+
+```{python}
+from sklearn.pipeline import Pipeline
+```
+
+```{python}
+pipe = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler()),
+        ("reg", KNeighborsRegressor())
+])
+```
+
+Notes: 
+
+We can combine preprocessing and model with a pipeline. 
+
+Here is a simple example.
+
+We are passing in a list of steps.
+
+The last step should be a **model/classifier/regressor**.
+
+All the earlier steps should be **transformers**.
+
+---
+
+```{python}
+pipe.fit(X_train, y_train)
+```
+
+What's happening:
+```python
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train)
+X_train_imp = imputer.transform(X_train)
+scaler = StandardScaler()
+scaler.fit(X_train_imp)
+X_train_imp_scaled = scaler.transform(X_train_imp)
+knn = KNeighborsRegressor()
+knn.fit(X_train_imp_scaled)
+```
+
+
+Notes: 
+
+Then we fit the `pipe` object and pass in `X_train, y_train`
+
+Notice that we are passing `X_train` and **not** the imputed or scaled data here. 
+
+When we call `fit` the pipeline is carrying out the following steps:
+
+- Fit `SimpleImputer` on `X_train`.
+- Transform `X_train` using the fit `SimpleImputer` to create `X_train_imp`.
+- Fit `StandardScaler` on `X_train_imp`.
+- Transform `X_train_imp` using the fit `StandardScaler` to create `X_train_imp_scaled`.
+- Fit the model (`KNeighborsRegressor` in our case) on `X_train_imp_scaled`.
+
+
+---
+
+```{python}
+pipe.predict(X_train) 
+```
+
+```python
+X_train_imp = imputer.transform(X_train)
+X_train_imp_scaled = scaler.transform(X_train_imp)
+knn.predict(X_train_imp_scaled)
+```
+
+
+Notes:
+
+Take note that when we are passing original data to `predict` the following steps are carrying out:
+
+- Transform `X_train` using the fit `SimpleImputer` to create `X_train_imp`.
+- Transform `X_train_imp` using the fit `StandardScaler` to create `X_train_imp_scaled`.
+- Predict using the fit model (`KNeighborsRegressor` in our case) on `X_train_imp_scaled`. 
+
+It is not fitting any of the data this time. 
+
+
+---
+
+<center><img src="/module5/pipeline.png" width = "70%" alt="404 image" /></center>
+<a href="https://amueller.github.io/COMS4995-s20/slides/aml-04-preprocessing/#18" target="_blank">Attribution</a> 
+
+Notes: 
+
+Here is a schematic assuming we have two transformers.
+
+One thing that is awesome with pipelines is that we can't make the mistakes we showed earlier.
+
+We call fit on the train split and score on the test split, it's clean.
+We can't accidentally re-fit the preprocessor on the test data like we did last time.
+It automatically makes sure the same transformations are applied to train and test.
+
+---
+
+```{python}
+scores_processed = cross_validate(pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores_processed)
+```
+
+Notes: 
+
+Remember what cross-validation does - it calls fit and score.
+
+Now we're calling fit on the pipeline, not just the 𝑘-NN regressor.
+
+So, the transformers and the 𝑘-NN model are refit again on each fold.
+
+The pipeline applies the `fit_transform` on the train portion of the data and only `transform` on the validation portion in each fold.   
+
+This is how to avoid the Golden Rule violation!
+
+---
+
+```{python}
+pd.DataFrame(scores_processed).mean()
+```
+
+```{python}
+dummy = DummyRegressor(strategy="median")
+scores = cross_validate(dummy, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores).mean()
+```
+
+Notes: 
+
+And we can also see that the preprocessed scores are much better than our dummy regressor which has negative ones! 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

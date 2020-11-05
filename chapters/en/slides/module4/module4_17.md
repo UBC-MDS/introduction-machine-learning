@@ -54,11 +54,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002126    0.002967    0.710526          1.0
-1  0.001914    0.002832    0.684211          1.0
-2  0.002251    0.003003    0.842105          1.0
-3  0.001999    0.002947    0.702703          1.0
-4  0.001939    0.002898    0.837838          1.0
+0  0.002236    0.003549    0.710526          1.0
+1  0.002906    0.003267    0.684211          1.0
+2  0.002144    0.003159    0.842105          1.0
+3  0.002196    0.003577    0.702703          1.0
+4  0.002560    0.003156    0.837838          1.0
 ```
 
 ``` python
@@ -70,11 +70,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002031    0.004490    0.605263     0.600000
-1  0.001971    0.003255    0.605263     0.600000
-2  0.002035    0.003082    0.605263     0.600000
-3  0.001947    0.003104    0.594595     0.602649
-4  0.001933    0.003082    0.594595     0.602649
+0  0.002094    0.003380    0.605263     0.600000
+1  0.002404    0.003301    0.605263     0.600000
+2  0.002407    0.003191    0.605263     0.600000
+3  0.001930    0.003043    0.594595     0.602649
+4  0.001950    0.003051    0.594595     0.602649
 ```
 
 Notes:
@@ -191,18 +191,21 @@ test accuracy will be optimized.
 
 ---
 
-## Curse of dimensionality
+### Curse of dimensionality
 
-<br> <br>
-
-### As dimensions ↑, score ↓
+<br>
 
   - 𝑘 -NN usually works well when the number of dimensions is small.
 
-Notes:
+<br> <br>
 
-As we increase the number of dimensions, our success at predicting
-decreases. This is called the “Curse of dimensionality”.
+<center>
+
+<img src="/module4/skull.png" alt="A caption" width="70%" />
+
+</center>
+
+Notes:
 
 This affects all learners but it’s especially bad for nearest-neighbour.
 

@@ -10,7 +10,7 @@ Notes: <br>
 
 ``` python
 classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
-classification_df.head()
+classification_df.head(3)
 ```
 
 ```out
@@ -18,13 +18,11 @@ classification_df.head()
 0              1                 1    92    93    84    91     92      A+
 1              1                 0    94    90    80    83     91  not A+
 2              0                 0    78    85    83    80     80  not A+
-3              0                 1    91    94    92    91     89      A+
-4              0                 1    77    83    90    92     85      A+
 ```
 
 ``` python
 X = classification_df.drop(columns=["quiz2"])
-X.head()
+X.head(3)
 ```
 
 ```out
@@ -32,8 +30,18 @@ X.head()
 0              1                 1    92    93    84    91     92
 1              1                 0    94    90    80    83     91
 2              0                 0    78    85    83    80     80
-3              0                 1    91    94    92    91     89
-4              0                 1    77    83    90    92     85
+```
+
+``` python
+y = classification_df["quiz2"]
+y.head(3)
+```
+
+```out
+0        A+
+1    not A+
+2    not A+
+Name: quiz2, dtype: object
 ```
 
 Notes:
@@ -47,9 +55,26 @@ All our features here have a numerical value. What do we do?
 
 ---
 
+``` python
+from sklearn.tree import DecisionTreeClassifier
+```
+
+``` python
+model = DecisionTreeClassifier()
+model.fit(X, y)
+```
+
+```out
+DecisionTreeClassifier()
+```
+
+Notes:
+
+---
+
 <center>
 
-<img src="/module2/module2_08a.png"  width = "80%" alt="404 image" />
+<img src="/module2/module2_08a.png"  width = "65%" alt="404 image" />
 
 </center>
 
@@ -83,7 +108,7 @@ features.
 ``` python
 depth = 1
 model = DecisionTreeClassifier(max_depth=depth)
-model.fit(X_subset, y)
+model.fit(X_subset, y);
 ```
 
 <center>
@@ -107,7 +132,13 @@ the first feature (`lab4`) makes a divide between an `A+` and `Not A+`.
 
 ---
 
-<img src="/module2/module2_08/unnamed-chunk-9-1.png" width="672" />
+<center>
+
+<img src="/module2/module2_08b.png"  width = "20%" alt="404 image" />
+
+</center>
+
+<img src="/module2/module2_08/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" />
 
 Notes:
 

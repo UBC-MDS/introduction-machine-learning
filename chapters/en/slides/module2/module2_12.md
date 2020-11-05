@@ -51,10 +51,20 @@ X = classification_df.drop(columns=["quiz2"])
 y = classification_df["quiz2"]
 ```
 
+Notes:
+
+---
+
 ``` python
 model = DecisionTreeClassifier(max_depth=1)  
-model.fit(X, y)
+model.fit(X, y);
 ```
+
+<center>
+
+<img src="/module2/module2_12a.png"  width = "33%" alt="404 image" />
+
+</center>
 
 Notes:
 
@@ -68,9 +78,29 @@ We can set the argument `max_depth=1` in our code so that it builds a
 
 ---
 
+``` python
+model2 = DecisionTreeClassifier(max_depth=2)  
+model2.fit(X, y);
+```
+
 <center>
 
-<img src="/module2/module2_12a.png"  width = "40%" alt="404 image" />
+<img src="/module2/module2_depth2.png"  width = "33%" alt="404 image" />
+
+</center>
+
+Notes:
+
+---
+
+``` python
+model3 = DecisionTreeClassifier(max_depth=3)  
+model3.fit(X, y);
+```
+
+<center>
+
+<img src="/module2/module2_depth3.png"  width = "45%" alt="404 image" />
 
 </center>
 
@@ -87,11 +117,6 @@ model.score(X, y)
 ```
 
 ``` python
-model2 = DecisionTreeClassifier(max_depth=2)  
-model2.fit(X, y)
-```
-
-``` python
 model2.score(X, y)
 ```
 
@@ -100,16 +125,21 @@ model2.score(X, y)
 ```
 
 ``` python
-model3 = DecisionTreeClassifier(max_depth=4)  
-model3.fit(X, y)
-```
-
-``` python
 model3.score(X, y)
 ```
 
 ```out
 0.9523809523809523
+```
+
+``` python
+model4 = DecisionTreeClassifier(max_depth=5)  
+model4.fit(X, y);
+model4.score(X, y)
+```
+
+```out
+1.0
 ```
 
 Notes:
@@ -121,7 +151,7 @@ Ok, 76% that’s not too bad but what happens when we increase the
 
 It looks like it’s increasing\!
 
-Increasing `max_depth` to 4 ,makes the accuracy increase to 95%.
+Increasing `max_depth` to 3 ,makes the accuracy increase to 95%.
 
 We can now conclude that as `max_depth` increases, the accuracy of the
 training data does as well.
@@ -132,8 +162,8 @@ perfect accuracy isn’t always the best idea.
 ---
 
 ``` python
-model4 = DecisionTreeClassifier(min_samples_split=2)  
-model4.fit(X, y)
+model5 = DecisionTreeClassifier(min_samples_split=2)  
+model5.fit(X, y);
 ```
 
 Notes:
@@ -150,7 +180,7 @@ observations that need to be on either side of the boundary.
 
 <center>
 
-<img src="/module2/module2_12b.png"  width = "50%" alt="404 image" />
+<img src="/module2/module2_12b.png"  width = "44%" alt="404 image" />
 
 </center>
 
@@ -159,38 +189,52 @@ Notes:
 ---
 
 ``` python
-model4.score(X, y)
+model5.score(X, y)
 ```
 
 ```out
 1.0
 ```
 
-``` python
-model5 = DecisionTreeClassifier(min_samples_split=4) 
-model5.fit(X, y)
-```
+Notes:
+
+---
 
 ``` python
-model5.score(X,y)
+model6 = DecisionTreeClassifier(min_samples_split=4) 
+model6.fit(X, y);
+model6.score(X,y)
 ```
 
 ```out
 0.9523809523809523
 ```
 
-``` python
-model6 = DecisionTreeClassifier(min_samples_split=10) 
-model6.fit(X, y)
-```
+<center>
+
+<img src="/module2/module2_12min4.png"  width = "35%" alt="404 image" />
+
+</center>
+
+Notes:
+
+---
 
 ``` python
-model6.score(X,y)
+model7 = DecisionTreeClassifier(min_samples_split=10) 
+model7.fit(X, y);
+model7.score(X,y)
 ```
 
 ```out
 0.9047619047619048
 ```
+
+<center>
+
+<img src="/module2/module2_12min10.png"  width = "28%" alt="404 image" />
+
+</center>
 
 Notes:
 
@@ -205,7 +249,7 @@ trained our model on.
 
 <center>
 
-<img src="/module2/decisiontree.png"  width = "80%" alt="404 image" />
+<img src="/module2/decisiontree.png"  width = "70%" alt="404 image" />
 
 </center>
 

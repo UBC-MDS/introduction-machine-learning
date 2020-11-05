@@ -1,7 +1,7 @@
 ---
 title: 'Module 2: Decision Trees'
 description:
-  'This chapter will introduce the decision tree model, the structure and how it make predictions.'
+  'In this module, we will introduce the decision tree model. We will explain the structure of decision trees and the process it take to make predictions.'
 prev: /module1
 next: /module3
 type: chapter
@@ -17,7 +17,7 @@ id: 2
 </exercise>
 
 
-<exercise id="1" title=" Introducing Decision Tree Classifiers" type="slides,video">
+<exercise id="1" title=" Introducing Decision Trees" type="slides,video">
 
 <slides source="module2/module2_01" shot="3" start="0:003" end="1:54">
 </slides>
@@ -27,7 +27,7 @@ id: 2
 
 <exercise id="2" title= "Decision Tree - Trees">
 
-**Question 1**   
+**Question 1**      
 What is the top node in a decision tree called? 
 
 <choice id="1">
@@ -61,7 +61,7 @@ That's a pretty name, but that's not what the top of the tree is called.
 
 
 
-**Question 2**   
+**Question 2**      
 What are the nodes in a decision tree?
 
 <choice id="2" >
@@ -156,7 +156,7 @@ Using the following Decision tree for the next 2 questions:
 </center>
 
 
-**Question 1**   
+**Question 1**      
  Given the features:
  
  ```out
@@ -195,7 +195,7 @@ Great!
 </choice>
 
 
-**Question 2**   
+**Question 2**      
  Given the features:
  
  ```out
@@ -236,7 +236,7 @@ Is the fruit yellow?
 
 <exercise id="6" title="Decision Trees True/False">
 
-**True or False**    
+**True or False**     
 *`DecisionTreeClassifier` does not consider features in it's prediction just like `DummyClassifier`*
 
 
@@ -255,7 +255,7 @@ Decision trees make predictions based on the outcome from conditions determined 
 
 </choice>
 
-**True or False**    
+**True or False**     
 *We need to `.fit` our decision tree model before we call `.predict`.*
 
 <choice id="2">
@@ -273,7 +273,7 @@ We must always train our model on the data before prediction.
 
 </choice >
 
-**True or False**      
+**True or False**       
 *Decision trees always give the correct answer for a single prediction..*
 
 <choice id="3">
@@ -325,7 +325,7 @@ Tasks:
 
 
 
-**Question 1**    
+**Question 1**     
 Which of the following candy bars did the model incorrectly predict?
 
 <choice id="1" >
@@ -356,7 +356,7 @@ This candy bar was correctly predicted by the model.
 
 </choice>
 
-**Question 2**    
+**Question 2**      
 What should have been the correct prediction for the candy bar above?
 
 <choice id="2">
@@ -381,7 +381,7 @@ You got it!
 
 </choice >
 
-**Question 3**     
+**Question 3**      
 How many in total did the model incorrectly predict? 
 
 <choice id="3">
@@ -431,7 +431,7 @@ For the following questions, refer to this diagram:
 </center>
 
 
-**Question 1**    
+**Question 1**      
 What is the diagram displaying?
 
 <choice  id="1">
@@ -462,7 +462,7 @@ Not quite the right word.
 </choice>
 
 
-**Question 2**      
+**Question 2**        
 On which feature is the decision boundary splitting?
  
  <choice  id="2">
@@ -493,7 +493,7 @@ Maybe take a look at the diagram a bit closer.
 </choice>
 
 
-**Question 3**      
+**Question 3**        
 On what value of the above feature is the decision boundary splitting?
  
  <choice  id="3">
@@ -541,8 +541,7 @@ We are trying to predict a player’s position in this problem:
 
 
 
-**Question 1**    
-
+**Question 1**      
 What are the two features used in this decision tree classifier? 
 
 <choice  id="1">
@@ -573,7 +572,7 @@ One of these is correct. Take a look at the x-axis.
 </choice>
 
 
-**Question 2**      
+**Question 2**       
 What is the splitting value for the feature on the x-axis?
  
  <choice  id="2">
@@ -650,7 +649,7 @@ We are trying to predict a player's position in this problem:
 - Red triangles represent forward players
 
 
-**Question**     
+**Question**       
 Given this plot, which tree diagram is best represented by the decision boundaries? 
 
 A)  <center>
@@ -710,7 +709,7 @@ Great!
 
 </choice>
 
-**Question 2**   
+**Question 2**    
 What is the depth of a decision stump? 
 
 <choice id="2">
@@ -740,7 +739,7 @@ Decision stumps are what make up a decision tree, stumps are not a hyperparamete
 For the following statements, state if it corresponds to a Parameter or Hyperparameter.
 
 
-**Question 1**   
+**Question 1**     
 *The builder of the model can set them.*
 
 <choice id="1">
@@ -759,7 +758,7 @@ Great.
 </choice>
 
 
-**Question 2**   
+**Question 2**     
 *They get set during the training phase.*
 
 <choice id="2">
@@ -811,7 +810,7 @@ Tasks:
 
 
 
-**Question 1**    
+**Question 1**      
 Will increasing the value of `max_depth` increase or decrease the accuracy of the model?
 
 <choice id="1" >
@@ -836,7 +835,7 @@ Maybe test it out above and see what happens?
 
 </choice>
 
-**Question 2**    
+**Question 2**      
 Will increasing the value of `min_samples_split` increase or decrease the accuracy of the model?
 
 <choice id="2" >
@@ -861,7 +860,7 @@ Maybe test it out above and see what happens?
 
 </choice>
 
-**Question 3**     
+**Question 3**       
 Will increasing the value of `max_depth` and `min_samples_split` increase or decrease the accuracy of the model?
 
 <choice id="3" >
@@ -897,7 +896,7 @@ Right! It's hard to say since increasing `max_depth` will increase the accuracy 
 
 <exercise id="17" title= "Regression with Decision Tree True or False">
 
-**True or False**      
+**True or False**       
 *`.score()` is calculated in the same way for regressions problems as for classification problems.*
   
 
@@ -965,7 +964,7 @@ Tasks:
 
 </codeblock>
 
-**Question**    
+**Question**     
 Given the value of the regression model's score, which model does better?
 
 <choice id="1" >

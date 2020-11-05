@@ -22,19 +22,19 @@ Have you taken the prerequisite **Programming in Python for Data Science**?
 
 
 <choice>
-<opt text="Yes I have and I am ready to take Introduction to Machine Learning" correct="true">
+<opt text="Yes I have and I am ready to take Introduction to Machine Learning." correct="true">
 
 Great! Let's get started. Please continue on to Module 1.
 
 </opt>
 
-<opt text="I have not taken the prerequisite but I'm feeling confident that I know python well enough" correct="true">
+<opt text="I have not taken the prerequisite but I'm feeling confident that I know python well enough." correct="true">
 
 We recommend having a solid understanding in coding in Python. If you feel confident in your knowledge feel free to continue on to Module 1. 
 
 </opt>
 
-<opt text="I have not and I have little Python coding background">
+<opt text="I have not and I have little Python coding background.">
 
 Please take the course <a href="https://prog-learn.mds.ubc.ca/" target="_blank">**Programming in Python for Data Science**</a>  before proceeding onto Module 1.
 

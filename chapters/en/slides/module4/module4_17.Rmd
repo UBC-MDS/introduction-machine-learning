@@ -230,21 +230,23 @@ Now when we build our model with `n_neighbors=11` we can hope that our test accu
 
 ---
 
-## Curse of dimensionality
+### Curse of dimensionality
 
 
 <br> 
-<br>
-
-### As dimensions ↑, score  ↓ 
 
 - 𝑘 -NN usually works well when the number of dimensions is small.
+
+<br>
+<br>
+
+
+<center><img src="/module4/skull.png" alt="A caption" width="70%" /></center>
 
 
 
 Notes:
 
-As we increase the number of dimensions, our success at predicting decreases. This is called the "Curse of dimensionality".
 
 This affects all learners but it's especially bad for nearest-neighbour. 
 

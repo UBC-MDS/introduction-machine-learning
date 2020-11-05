@@ -29,7 +29,7 @@ export default ({ lang = 'en' }) => {
                                         <p>
                                         <center>
                                         Welcome to Introduction to Machine Learning!
-                                        This course is part of the  <u><strong><a href="https://extendedlearning.ubc.ca/programs/key-capabilities-data-science" target="_blank" >Key Capabilities for Data Science program</a></strong></u> and covers topics related to machine learning; a topic  closely related to artificial intelligence (AI), data science, and statistics.
+                                        This course is part of the  <u><strong><a href="https://extendedlearning.ubc.ca/programs/key-capabilities-data-science">Key Capabilities for Data Science program</a></strong></u> and covers topics related to machine learning; a topic  closely related to artificial intelligence (AI), data science, and statistics.
                                         This course covers the data science perspective on the introductory concepts in machine learning, with a focus on making predictions.
                                         Not only does it cover different models such as K-NN, decision trees and linear classifiers, but it also tackles important concepts needed to prepare and preprocess data before building them. 
                                         No course would be complete without knowing how to read the results. We cover different ways to evaluate your model and when to question your results. 
@@ -37,7 +37,7 @@ export default ({ lang = 'en' }) => {
                                         </center>
                                         </p>
                                         <p>
-                                        <strong>Course prerequisites:</strong>  <u><a href="https://prog-learn.mds.ubc.ca/" target="_blank" >Programming in Python for Data Science</a></u> 
+                                        <strong>Course prerequisites:</strong>  <u><a href="https://prog-learn.mds.ubc.ca/">Programming in Python for Data Science</a></u> 
                         </p>
                              </div>
                     </section>

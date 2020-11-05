@@ -18,7 +18,7 @@ Notes: <br>
 
 <br> <br>
 
-### Now
+### Now …
 
 **Preprocessing**: Transforming input data into a format a machine
 learning model can use and understand.
@@ -31,9 +31,10 @@ So far we have seen:
   - ML fundamentals (train-validation-test split, cross-validation, the
     fundamental tradeoff, the golden rule)
 
-Are we ready to do machine learning on real-world datasets? - Very often
-real-world datasets need to be transformed or ***preprocessed*** before
-we use them to build ML models.
+Are we ready to do machine learning on real-world datasets?
+
+Very often real-world datasets need to be transformed or
+***preprocessed*** before we use them to build ML models.
 
 ---
 
@@ -76,11 +77,11 @@ X_train.head()
 Notes:
 
 In module 3, we used a portion of the basketball dataset to predict a
-players position using `DecisionTreeClassifier`.
+player’s position using `DecisionTreeClassifier`.
 
-Can we use 𝑘-NN classifier for this task?
+Can we use a 𝑘-NN classifier for this task?
 
-Intuition: To predict whether a particular player is a pointguard (‘G’)
+Intuition: To predict whether a particular player is a point guard (‘G’)
 or a forward (‘F’) (query point)
 
   - Find the players that are closest to the query point
@@ -102,19 +103,6 @@ Mean validation score 0.57
 ```
 
 ``` python
-pd.DataFrame(scores)
-```
-
-```out
-   fit_time  score_time  test_score  train_score
-0  0.000736    0.000535    0.571429     0.571429
-1  0.000523    0.000345    0.571429     0.571429
-2  0.000500    0.000335    0.571429     0.571429
-3  0.000537    0.000341    0.571429     0.571429
-4  0.000870    0.000501    0.571429     0.571429
-```
-
-``` python
 knn = KNeighborsClassifier()
 scores = cross_validate(knn, X_train, y_train, return_train_score=True)
 print('Mean validation score', scores['test_score'].mean().round(2))
@@ -124,23 +112,10 @@ print('Mean validation score', scores['test_score'].mean().round(2))
 Mean validation score 0.5
 ```
 
-``` python
-pd.DataFrame(scores)
-```
-
-```out
-   fit_time  score_time  test_score  train_score
-0  0.002476    0.003965    0.489796     0.688776
-1  0.002257    0.003342    0.530612     0.678571
-2  0.003239    0.003775    0.530612     0.698980
-3  0.002449    0.003501    0.530612     0.704082
-4  0.002109    0.003740    0.408163     0.724490
-```
-
 Notes:
 
 First, let’s see what scores we get if we simply predict the most
-occuring position in the dataset using our dummy classifier.
+occurring position in the dataset using our dummy classifier.
 
 Now if we build our 𝑘-NN classifier we determine that it gets even
 *worse* scores\! Why?
@@ -159,12 +134,11 @@ two_players
 ```
 
 ``` python
-euclidean_distances(two_players)
+euclidean_distances(two_players)[1,0]
 ```
 
 ```out
-array([[     0.        , 117133.00184683],
-       [117133.00184683,      0.        ]])
+117133.00184682972
 ```
 
 ``` python
@@ -179,17 +153,16 @@ two_players_subset
 ```
 
 ``` python
-euclidean_distances(two_players_subset)
+euclidean_distances(two_players_subset)[1,0]
 ```
 
 ```out
-array([[     0., 117133.],
-       [117133.,      0.]])
+117133.0
 ```
 
 Notes:
 
-Let’s have a look at just 2 players as calculate the distance between
+Let’s have a look at just 2 players and calculate the distance between
 them.
 
 We can see the distance between player 285 and 236 is 117133.00184683.
@@ -198,14 +171,13 @@ What happens if we only consider the `salary` column though?
 
 It looks like we get almost the same distance\!
 
-The distance is completely dominated by the the features with larger
-values.
+The distance is completely dominated by the features with larger values.
 
 The features with smaller values are being ignored.
 
 Does it matter?
 
-  - Yes\! Scale is based on how data was collected.
+  - Yes\! The scale is based on how data was collected.
   - Features on a smaller scale can be highly informative and there is
     no good reason to ignore them.
   - We want our model to be robust and not sensitive to the scale.
@@ -214,48 +186,24 @@ Was this a problem for decision trees?
 
   - No. In decision trees we ask questions on one feature at a time.
 
-So what do we do about this?
+So, what do we do about this?
 
-Well, we have to scale the columns they they are all using a similar
-range of values\!
+Well, we have to scale the columns so they are all using a similar range
+of values\!
 
-Luckily Sklearn has tools for this.
-
----
-
-## Scaling
-
-| Approach      | What it does          | How to update 𝑋 (but see below\!)                  | sklearn implementation                                                                                         |
-| ------------- | --------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Normalization | sets range to \[0,1\] | `X -= np.min(X,axis=0)`<br>`X /= np.max(X,axis=0)` | [`MinMaxScaler()`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html), |
-| "             | Standardization       | sets sample mean to 0, s.d. to 1                   | `X -= np.mean(X,axis=0)`<br>`X /=  np.std(X,axis=0)`                                                           |
-
-There are all sorts of articles on this; see,
-e.g. [here](http://www.dataminingblog.com/standardization-vs-normalization/)
-and
-[here](https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc).
-
-Notes:
-
-There are different ways to scales.
-
-2 popular options are called Normalization and Standardization. We are
-not going to explain in detail what is going on behind these tools but
-more so on how to implement them.
+Luckily Sklearn has tools called ***transformers*** for this.
 
 ---
 
-## `scikit-learn`’s [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+## Transformers: Scaling example
 
 ``` python
 from sklearn.preprocessing import StandardScaler
 ```
 
-<br>
-
 ``` python
-scaler = StandardScaler()    # Create feature transformer object
-scaler.fit(X_train) # fitting the transformer on the train split 
+scaler = StandardScaler()   # Create feature transformer object
+scaler.fit(X_train); # Fitting the transformer on the train split
 ```
 
 ```out
@@ -263,8 +211,8 @@ StandardScaler()
 ```
 
 ``` python
-X_train_scaled = scaler.transform(X_train) # transforming the train split
-X_test_scaled = scaler.transform(X_test) # transforming the test split
+X_train_scaled = scaler.transform(X_train) # Transforming the train split
+X_test_scaled = scaler.transform(X_test) # Transforming the test split
 pd.DataFrame(X_train_scaled, columns = X_train.columns).head()
 ```
 
@@ -279,7 +227,11 @@ pd.DataFrame(X_train_scaled, columns = X_train.columns).head()
 
 Notes:
 
-We’ll be concentrating on `scikit-learn`’s
+One form of preprocessing we can do is ***scaling*** we will talk about
+this in more detail to come but for now just take a look at the tools we
+are using.
+
+We’ll be using `sklearn`’s
 [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html),
 which is a `transformer`.
 
@@ -287,24 +239,22 @@ For now, try to only focus on the syntax.
 
 We’ll talk about scaling in a bit.
 
-1.  Create feature transformer object. this is done in a similar way to
-    how we create a model.
+1.  Create a feature transformer object. This is done in a similar way
+    to how we create a model.
 2.  Fitting the transformer on the train split
 3.  Transform the train split using `.transform()`
-4.  Then tranform the test split.
+4.  Then transform the test split.
 
-<!-- end list -->
+`sklearn` uses `fit` and `transform` paradigms for feature
+transformations. (In model building it was `fit` and `predict` or
+`score`)
 
-  - `sklearn` uses `fit` and `transform` paradigms for feature
-    transformations. (In model building it was `fit` and `predict` or
-    `score`)
-  - We `fit` the transformer on the train split and then `transform` the
-    train split as well as the test split.
-  - We apply the same transformations on the test split.
+We `fit` the transformer on the train split and then `transform` the
+train split as well as the test split.
 
 ---
 
-## Scikit learn’s *predict* vs *transform*
+## Sklearn’s *predict* vs *transform*
 
 ``` python
 model.fit(X_train, y_train)
@@ -315,11 +265,6 @@ X_test_predictions = model.predict(X_test)
 ``` python
 transformer.fit(X_train, [y_train])
 X_train_transformed = transformer.transform(X_train)
-X_test_transformed = transformer.transform(X_test)
-```
-
-``` python
-transformer.fit_transform(X_train)
 ```
 
 Notes:
@@ -328,86 +273,63 @@ Suppose we have a named `model` which is either a classification or
 regression model.
 
 We can compare it with `transformer` which is a transformer used to
-change the input representation like to scales numeric features.
+change the input representation like to scale numeric features.
 
-You can pass `y_train` in `fit` but it’s usually ignored. It allows you
-to pass it just to be consistent with usual usage of `sklearn`’s `fit`
+We can pass `y_train` in `fit` but it’s usually ignored. It allows us to
+pass it just to be consistent with the usual usage of `sklearn`’s `fit`
 method.
 
-You can also carry out fitting and transforming in one call using
-`fit_transform`. But be mindful to use it only on the train split and
-**not** on the test split.
+We can also carry out fitting and transforming in one call using
+`fit_transform`, but we must be mindful to use it only on the train
+split and **not** on the test split.
 
 ---
 
 ``` python
-knn_unscaled = KNeighborsClassifier();
-knn_unscaled.fit(X_train, y_train)
-```
-
-```out
-KNeighborsClassifier()
+knn_unscaled = KNeighborsClassifier()
+knn_unscaled.fit(X_train, y_train);
+print('Train score: ', (knn_unscaled.score(X_train, y_train).round(2)))
 ```
 
 ``` python
-print('Train score: %0.3f' %(knn_unscaled.score(X_train, y_train)))
+print('Test score: ', (knn_unscaled.score(X_test, y_test).round(2)))
 ```
 
-```out
-Train score: 0.706
-```
-
-``` python
-print('Test score: %0.3f' %(knn_unscaled.score(X_test, y_test)))
-```
-
-```out
-Test score: 0.452
+``` out
+Train score:  0.71
+Test score:  0.45
 ```
 
 ``` python
-knn_scaled = KNeighborsClassifier();
-knn_scaled.fit(X_train_scaled, y_train)
-```
-
-```out
-KNeighborsClassifier()
+knn_scaled = KNeighborsClassifier()
+knn_scaled.fit(X_train_scaled, y_train);
+print('Train score: ', (knn_scaled.score(X_train_scaled, y_train).round(2)))
 ```
 
 ``` python
-print('Train score: %0.3f' %(knn_scaled.score(X_train_scaled, y_train)))
+print('Test score: ', (knn_scaled.score(X_test_scaled, y_test).round(2)))
 ```
 
-```out
-Train score: 0.939
-```
-
-``` python
-print('Test score: %0.3f' %(knn_scaled.score(X_test_scaled, y_test)))
-```
-
-```out
-Test score: 0.887
+``` out
+Train score:  0.94
+Test score:  0.89
 ```
 
 Notes:
 
-Do you expect `DummyClassifier` results to change after scaling the
-data?
-
 Let’s check whether scaling makes any difference for 𝑘-NNs.
 
 The scores with scaled data are better compared to the unscaled data in
-case of 𝑘-NNs.
+the case of 𝑘-NNs.
 
-We am not carrying out cross-validation here for a reason that that
-we’ll look into soon.
+We are not carrying out cross-validation here for a reason that we’ll
+look into soon.
 
 We are being a bit sloppy here by using the test set several times for
 teaching purposes.
 
-But when you build an ML pipeline, please do assessment on the test set
-only once.
+But when we build any ML models, we should only assess the test set
+once.
 
 ---
 
