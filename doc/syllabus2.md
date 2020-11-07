@@ -63,7 +63,7 @@ By the end of the module, students are expected to:
 ## Module 6 
 - Categorical variables -> one-hot, Ordinal encoding 
 - ColumnTransformer
-
+- Count vectorizor/ text classification (lecture 5? in 571) (SVM for text classification)
 
 
 ## Module 7
@@ -75,11 +75,18 @@ By the end of the module, students are expected to:
 
 ## Module 8 
 
-- Text classification? 
 - Explain the general intuition behind linear models
 - Explain the predict paradigm of linear models
 - Use scikit-learn's LogisticRegression classifier
 - Use fit, predict, predict_proba
 - Use coef_ to interpret the model weights
 - Explain the advantages and limitations of linear classifiers
+
+
+1. Linear regression 
+1. Coef_
+1. LogisticRegression 
+1. `predict_proba` 
+
+
 
