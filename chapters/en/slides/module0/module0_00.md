@@ -14,7 +14,7 @@ By the end of the course, students are expected to be able to:
 - Describe supervised learning and identify what kind of tasks it is suitable for.
 - Explain common machine learning concepts such as classification and regression, training and testing, overfitting, parameters and hyperparameters, and the golden rule.
 - Identify when and why to apply data pre-processing techniques such as scaling and one-hot encoding.
-- Describe at a high level how common machine learning algorithms work, including decision trees, and $k$-nearest neighbours.
+- Describe at a high level how common machine learning algorithms work, including decision trees, and 𝑘-nearest neighbours.
 - Use Python and the scikit-learn package to develop an end-to-end supervised machine learning pipeline.
  
 

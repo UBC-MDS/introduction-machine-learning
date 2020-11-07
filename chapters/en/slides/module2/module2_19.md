@@ -34,13 +34,13 @@ classification_df
 
 Notes:
 
-In the last lecture, we learned about decision boundaries.
+In the last slide deck, we learned about decision boundaries.
 
 We saw that we could visualize the splitting of decision trees using
 these boundaries.
 
-Let’s use our familiar quiz2 data back again to build on our decision
-boundary knowledge.
+Let’s use our familiar quiz2 data classification dataset back again to
+build on our decision boundary knowledge.
 
 ---
 
@@ -65,8 +65,14 @@ X_subset.head()
 
 Notes:
 
+Let’s start off and get our `X` and `Y` objects.
+
+In this case, in order to visualize our decision boundaries, we are just
+going to look at 2 columns so that we can visualize in 2 dimensions.
+
 If we subset our data and look at the 2 features from data named `lab4`
-and `quiz1` we can see the values the decision tree is splitting on.
+and `quiz1` we can see the values the decision tree is splitting on in a
+graph.
 
 ---
 
@@ -89,8 +95,15 @@ model.score(X_subset, y)
 
 Notes:
 
-In the following decision tree model, this decision boundary is created
-by asking one question.
+Let’s build our model now.
+
+We’re going to build a decision tree classifier and set the `max_depth`
+hyperparameter to 1 to create a decision stop.
+
+In this decision tree there is only 1 split.
+
+When we score it on data that it’s already seen we get an accuracy of
+71.4%.
 
 ---
 
@@ -100,15 +113,16 @@ by asking one question.
 
 </center>
 
-<img src="/module2/module2_19/unnamed-chunk-7-1.png" width="65%" style="display: block; margin: auto;" />
+<img src="/module2/module2_19/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" />
 
 Notes:
 
-Here the red region corresponds to the “not A+” class and the blue
-region corresponds to the “A+” class.
+Plotting the values of `lab4` and `quiz1`, we see the red region
+corresponds to the “not A+” class and the blue region corresponds to the
+“A+” class.
 
-We can see there is a line separating the red region and the blue region
-which is called the **decision boundary** of the model.
+The decision boundary separating the red region and the blue region is
+at the model split where `lab4=84.5`.
 
 ---
 
@@ -131,11 +145,13 @@ model.score(X_subset, y)
 
 Notes:
 
-Let’s see what happens to our decision boundary when we change for
-different tree heights.
+Let’s see what happens to our decision boundaries when we change for a
+maximum tree depth of 2.
 
-In the following model, this decision boundaries are created by asking
-two questions.
+In the following model, the decision boundaries are created by asking
+two questions and we can see 2 splits now.
+
+Our score here has increased from 71.4% to 81%.
 
 ---
 
@@ -145,7 +161,12 @@ two questions.
 
 </center>
 
-<img src="/module2/module2_19/unnamed-chunk-10-1.png" width="65%" style="display: block; margin: auto;" />
+<img src="/module2/module2_19/unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;" />
+
+Notes:
+
+When we graph it, we can now see 2 boundaries. One where `quiz1` equals
+83.5 and another where `lab4` equals 84.5.
 
 ---
 
@@ -168,8 +189,13 @@ model.score(X_subset, y)
 
 Notes:
 
-In the next model, this decision boundaries are created by asking three
-questions.
+Now let’s continue on making a new model with a hyperparameter
+`max_depth` equal to 4.
+
+Our score now has shot up to 95% and we have multiple splits now.
+
+Six splits can be seen with 3 on the `quiz1` feature and the other 3 on
+the `lab4` feature.
 
 ---
 
@@ -181,9 +207,14 @@ model.score(X_subset, y)
 0.9523809523809523
 ```
 
-<img src="/module2/module2_19/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="/module2/module2_19/unnamed-chunk-14-1.png" width="50%" style="display: block; margin: auto;" />
 
 Notes:
+
+Here we can see our boundaries are getting more complex.
+
+We can see our 6 decision boundaries, 3 on our x-axis `lab4` and 3 on
+our y-axis `quiz1`.
 
 ---
 
@@ -200,14 +231,17 @@ model.score(X_subset, y)
 
 <center>
 
-<img src="/module2/module2_18d.png"  width = "45%" alt="404 image" />
+<img src="/module2/module2_18d.png"  width = "36%" alt="404 image" />
 
 </center>
 
 Notes:
 
-For this last model, the decision boundaries are created by asking 10
-questions.
+Now, what happens when we have a `max_depth` of 10?
+
+Things are getting much more complicated now.
+
+Our model now has a score of 100%.
 
 ---
 
@@ -223,8 +257,9 @@ model.score(X_subset, y)
 
 Notes:
 
-Our model has 0% error\!\! But it’s also becoming more and more specific
-and sensitive to the training data. Is it good or bad?
+The model is now more specific and sensitive to the training data.
+
+Do you think that’s going to be helpful for us?
 
 ---
 
@@ -232,17 +267,31 @@ and sensitive to the training data. Is it good or bad?
 
 <center>
 
-<img src="/module2/generalization-train.png" width = "50%" alt="404 image" />
+<img src="/module2/generalization-train.png" width = "42%" alt="404 image" />
 
 </center>
 
 Notes:
 
-The fundamental goal of machine learning is **to generalize beyond what
+In machine learning the fundamental goal is **to generalize beyond what
 we see in the training examples**.
 
-Example: Imagine that a learner sees the following images and
-corresponding labels.
+We are only given a sample of the data and do not have the full
+distribution.
+
+Using the training data, we want to come up with a reasonable model that
+will perform well on some unseen examples.
+
+At the end of the day, we want to deploy models that make reasonable
+predictions on unseen data
+
+Example: Imagine that a learner sees the following images as training
+data and corresponding labels.
+
+She is trying to predict the labels of the image on the right after
+learning from the images from the training dataset on the left.
+
+She’s given 2 cats and 2 dogs in the training data.
 
 ---
 
@@ -256,25 +305,25 @@ corresponding labels.
 
 Notes:
 
-Now the learner is presented with new images (1 to 4) for prediction.
+Now the learner is presented with new images.
 
-What prediction would you expect for each image?
+Would you expect her to be able to correctly identify each image?
 
-We want the learner to be able to generalize beyond what it has seen in
-the training data, but these new examples should be representative of
-the training data.
+She likely will be able to identify the first three but what about the
+4th one? It’s unlikely.
 
-For instance, is it fair to expect the learner to label image 4
-correctly?
+The point here is that we want this learning to be able to generalize
+beyond what it sees here and be able to predict and predict labels for
+the new examples.
+
+These new examples should be representative of the training data.
 
 ---
 
 ## Training score versus Generalization score
 
-  - Given a model in ML, people usually talk about two kinds of
-    accuracies (scores):
-
-<!-- end list -->
+Given a model in machine learning, people usually talk about two kinds
+of accuracies (scores):
 
 1.  Accuracy on the training data
 
@@ -282,19 +331,35 @@ correctly?
 
 Notes:
 
-This is where the model accuracy comes in.
+We saw with depth 10 we could get perfect accuracy of 1 but what makes
+ML hard is that we only have access to a sample and not the full data
+distribution.
 
-People usually talk about two kinds of accuracies (scores) in machine
-learning:
+For example, in our toy quiz 2 classification problem we only had 21
+examples and 7 features so there could be many more possible examples.
 
-1.  Accuracy on the training data
+We were expected to make a reasonable model that made reasonable
+predictions with only 21 examples from several possible options.
 
-2.  Accuracy on the entire distribution of data
+The question is when we get an accuracy of 1, on limited data, can we
+really trust the training accuracy?
 
-We are interested in the accuracy on the entire distribution, but we do
-not have access to the entire distribution\!
+Would you deploy this model and expect it to perform reasonably on
+unseen examples? Probably not.
 
-What do we do?
+This is why in machine learning people usually talk about 2 types of
+scores.
+
+Scores on the training data and score on the entire distribution.
+
+We are really interested in the score on the entire distribution because
+at the end of the day we want our model to perform well on unseen
+examples.
+
+But the problem is that we do not have access to the distribution and
+only the limited training data that is given to us.
+
+So, what do we do?
 
 We will cover this, in the next module.
 

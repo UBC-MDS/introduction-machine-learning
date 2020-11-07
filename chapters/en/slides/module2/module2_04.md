@@ -16,8 +16,11 @@ Notes: <br>
 
 Notes:
 
-Now that we know the structure of a decision tree, let’s build a
-decision tree model.
+Now we know the structure of decision trees, let’s build a decision tree
+models, specifically a classifier.
+
+We can use the exact same steps we did with our dummy classifier model
+to build decision tree models with Scikit learn.
 
 ---
 
@@ -109,10 +112,12 @@ model.fit(X_binary, y);
 
 Notes:
 
-We need to make sure that we `.fit()` our model before we `.predict()`.
+We need to make sure that we `fit` our model before we `predict`. In the
+decision tree algorithm, the fitting stage is where the model learns
+about the data and sets the if-else statements.
 
-In the decision tree algorithm, the fitting stage is where the model
-learns about the data and sets the *if and else* statements.
+Here are the features saved in an object named `X_binary` and our target
+labels is `y`. Now we can `fit` our model.
 
 ---
 
@@ -124,8 +129,16 @@ learns about the data and sets the *if and else* statements.
 
 Notes:
 
-Let’s take a look at what our tree looks like. We can see all the nodes
-of the tree and what the root condition is.
+Let’s take a look at what our tree looks like.
+
+We can see all the nodes of the tree and what the root condition is.
+
+In this case, our root condition is whether or not `lab4` is greater or
+equal to 0.5.
+
+Since we are using binary data, if `lab4` equals 0 for an example, then
+it’s going to be going down the left branch and if it equal `1` it will
+go down the right branch.
 
 ---
 
@@ -146,8 +159,16 @@ new_example
 
 Notes:
 
-Now that the model is fitted, we will be able to predict using the built
-model.
+Using this tree, and the rules it’s set, let’s try and predict the
+outcome of the example `new_example`.
+
+Starting with `lab4` we can go down the left branch since it has a value
+of 0 and the condition is true.`class_attendence` equals 0 so again we
+go down the left branch.
+
+`lab3` and `quiz1` are also both 0 and so we take the left branch at
+each of these nodes leaving us at a leave with a prediction value of
+‘Not A+\`.
 
 ---
 
@@ -194,14 +215,15 @@ observation
 
 Notes:
 
-Let’s discuss how predict works.
-
-We have a learned tree and a test example.
+Let’s try again with a new tree and the animation below.
 
 Let’s start at the top of the tree and ask binary questions at each node
 and follow the appropriate path in the tree.
 
-Once you are at a leaf node, you have the prediction.
+Here we go down the right branch from the root of the tree since
+`class_attendence` does not equal 1, next we take the left branch at the
+next node since `quiz1==1` is true and that drops us off at the leaf
+where the model would predict `quiz2` to be an A+.
 
 The model only considers the features which are in the learned tree and
 ignores all other features.

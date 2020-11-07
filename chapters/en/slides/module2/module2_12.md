@@ -53,6 +53,11 @@ y = classification_df["quiz2"]
 
 Notes:
 
+Let’s first bring in the classification quiz 2 grades dataset that we’ve
+seen before.
+
+We are going to set our `X` object and our `y` object.
+
 ---
 
 ``` python
@@ -76,6 +81,13 @@ depth of the decision tree.
 We can set the argument `max_depth=1` in our code so that it builds a
 ***decision stump***.
 
+We have control over how deep the decision tree will be.
+
+Our decision tree here has 1 decision boundary.
+
+For any values of `lab_3` less than or equal to 83.5, our model will
+predict `Not A+` and values greater than this will be predicted as `A+`.
+
 ---
 
 ``` python
@@ -91,6 +103,10 @@ model2.fit(X, y);
 
 Notes:
 
+We can do the same thing, this time using a `max _depth` equal to 2 and
+now we can see our decision tree has a depth of 2 with 2 decision
+boundaries; On `lab3` at 83.5 and another on `quiz1` at 83.5.
+
 ---
 
 ``` python
@@ -105,6 +121,9 @@ model3.fit(X, y);
 </center>
 
 Notes:
+
+We can do this again for `max_depth=3` with a total of 4 different
+splits.
 
 ---
 
@@ -144,20 +163,24 @@ model4.score(X, y)
 
 Notes:
 
-How well does our model score when using setting `max_depth=1`?
+Now we see what the trees look, let’s see how they score.
 
-Ok, 76% that’s not too bad but what happens when we increase the
+How well does our `model1` score which uses hyperparameter max\_depth=1?
+Ok, 76% that’s not too bad but what’s the score of `model2` which had a
 `max_depth` to 2?
 
 It looks like it’s increasing\!
 
-Increasing `max_depth` to 3 ,makes the accuracy increase to 95%.
+Increasing `max_depth` to 3, increases the model’s accuracy to 95%.
 
-We can now conclude that as `max_depth` increases, the accuracy of the
-training data does as well.
+Finally, if we make a new model with `max_depth=5` our model gets a
+score of 100%.
 
-We will introduce in the last slide deck of this module, why having
-perfect accuracy isn’t always the best idea.
+We see here that as `max_depth` increases, the accuracy of the training
+data does as well.
+
+Doing this isn’t always the best idea and we’ll explain this a little
+bit later on.
 
 ---
 
@@ -171,10 +194,12 @@ Notes:
 Let’s explore another different hyperparameter `min_samples_split`.
 
 `min_samples_split` sets the minimum number of samples required to split
-an internal node.
+an internal node. Remember our decision boundaries?
 
-Remember our decision boundaries? This will set a minimum number of
-observations that need to be on either side of the boundary.
+This hyperparameter will set a minimum number of observations that need
+to be on either side of the boundary.
+
+Let’s test it out first by setting `min_samples_split =2`.
 
 ---
 
@@ -185,6 +210,21 @@ observations that need to be on either side of the boundary.
 </center>
 
 Notes:
+
+This time we are going to look at the number of samples on each side of
+the boundary.
+
+Since our dataset starts with 21 samples, we can see we have 21 samples
+at the root node.
+
+This gets split up to 6 on the left branch and 15 on the right.
+
+This means that the tree will continue to split the examples so long as
+there are at least 2 samples to split up.
+
+Some of these nodes have more than the minimum split value and do not
+split, but that’s likely because splitting is not needed since all the
+values are classified to the same class.
 
 ---
 
@@ -197,6 +237,10 @@ model5.score(X, y)
 ```
 
 Notes:
+
+What kind of score is obtained on the data the model was trained on?
+
+It looks like the model is 100 % accurate\!
 
 ---
 
@@ -218,6 +262,16 @@ model6.score(X,y)
 
 Notes:
 
+What happens when we increase this hyperparameter to 4 now?
+
+We see that the score went from 100 percent accuracy to 95 percent.
+
+If we look at our decision tree, we can see it’s a little bit smaller.
+
+It now has a depth of 4 instead of 5. The bottom node on the far right
+originally split into 2 when we had `min_samples_split` of 2 but now it
+stops and classes both samples as `A+` now.
+
 ---
 
 ``` python
@@ -238,12 +292,15 @@ model7.score(X,y)
 
 Notes:
 
-In this case, as the value of the hyperparameter `min_samples_split`
-increases, the accuracy decreases.
+Let’s set `min_samples_split` now to 10 and see what happens.
 
-It’s really important to take into consideration that this accuracy is
-referring to the accuracy of predictions on the same data that we
-trained our model on.
+The model’s score decreases from 95% to 90 percent and our tree looks
+like it’s lost a branch.
+
+The node with 4 samples no longer is split.
+
+So unlike `max_depth`, when we increase the `min_samples_split`
+hyperparameter, the score of the data the model has seen, decreases.
 
 ---
 
@@ -259,8 +316,8 @@ trained our model on.
 
 Notes:
 
-There are many other hyperparameters for decision trees you can explore
-at the link
+There are many other hyperparameters for decision trees that you can
+explore at the link
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">here</a>
 .
 
@@ -278,7 +335,13 @@ at the link
 
 Notes:
 
-<br>
+Let’s summarize what we know so far:
+
+Parameters are chosen during training and hyperparameters are specified
+by us before training.
+
+They can also be chosen by automated optimization which we will cover in
+module 5.
 
 ---
 
