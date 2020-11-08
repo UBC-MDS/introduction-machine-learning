@@ -4,7 +4,9 @@ type: slides
 
 # Module Learning Outcomes
 
-'This module will introduce why and how we split our data into a training and a test test and how cross validation works on our training data. We will  also explain the fundamental trade off as well as the golden rule of machine learning.
+Notes:
+
+This module will introduce why and how we split our data into a training and a test test and how cross validation works on our training data. We will also explain the fundamental trade off as well as the golden rule of machine learning.
 
 
 ---
