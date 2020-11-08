@@ -272,13 +272,12 @@ imdb_df = pd.read_csv("data/imdb_master.csv", encoding="ISO-8859-1")
 imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
 imdb_df = imdb_df.drop(columns=["Unnamed: 0", "type"])
 train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
-
 ```
 
-
-```{python}
+```{python eval=FALSE}
 train_df.head()
 ```
+
 
 ```out
                                                 review label         file
@@ -295,7 +294,7 @@ This data contains the review in a column named `review` and a `label` column wh
 
 ---
 
-```{python eval=FALSE}
+```{python }
 X_train, y_train = train_df['review'], train_df['label']
 X_test, y_test = test_df['review'], test_df['label']
 
@@ -315,7 +314,7 @@ Again, don't worry about the code here.
 
 ---
 
-```{python eval=FALSE}
+```{python}
 pred_dict = {
     "reviews": X_test[0:4],
     "true_sentiment": y_test[0:4],
@@ -323,14 +322,6 @@ pred_dict = {
 }
 pred_df = pd.DataFrame(pred_dict)
 pred_df.head()
-```
-
-```out
-                                                 reviews prediction sentiment_predictions
-43020  Just caught it at the Toronto International Fi...        pos                   pos
-49131  The movie itself made me want to go and call s...        pos                   pos
-23701  I came across this movie on DVD purely by chan...        pos                   pos
-4182   Having seen Carlo Lizzani's documentary on Luc...        neg                   neg
 ```
 
 Notes: Once we have our model trained, we can then predict data we haven't seen before using the model we just built. 

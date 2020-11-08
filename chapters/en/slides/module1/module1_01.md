@@ -224,15 +224,6 @@ sentiment expressed in a movie review.
 train_df.head()
 ```
 
-```out
-                                                  review label         file
-43020  Just caught it at the Toronto International Fi...   pos   3719_9.txt
-49131  The movie itself made me want to go and call s...   pos  9219_10.txt
-23701  I came across this movie on DVD purely by chan...   pos   8832_9.txt
-4182   Having seen Carlo Lizzani's documentary on Luc...   neg   2514_4.txt
-38521  I loved this film. I first saw it when I was 2...   pos  1091_10.txt
-```
-
 ``` out
                                                 review label         file
 43020  Just caught it at the Toronto International Fi...   pos   3719_9.txt
@@ -263,6 +254,11 @@ clf = Pipeline(
 clf.fit(X_train, y_train)
 ```
 
+```out
+Pipeline(steps=[('vect', CountVectorizer(max_features=5000)),
+                ('clf', LogisticRegression(max_iter=5000))])
+```
+
 Notes: Next, we build our model and train on our existing data.
 
 Again, don’t worry about the code here.
@@ -279,12 +275,12 @@ pred_df = pd.DataFrame(pred_dict)
 pred_df.head()
 ```
 
-``` out
-                                                 reviews prediction sentiment_predictions
-43020  Just caught it at the Toronto International Fi...        pos                   pos
-49131  The movie itself made me want to go and call s...        pos                   pos
-23701  I came across this movie on DVD purely by chan...        pos                   pos
-4182   Having seen Carlo Lizzani's documentary on Luc...        neg                   neg
+```out
+                                                 reviews true_sentiment sentiment_predictions
+34622  I love horror movies that brings out a real am...            neg                   pos
+1163   It seems that some viewers assume that the onl...            neg                   neg
+7637   I have seen this film 3 times. Mostly because ...            neg                   neg
+7045   For weeks I had been looking forward to seeing...            neg                   neg
 ```
 
 Notes: Once we have our model trained, we can then predict data we
