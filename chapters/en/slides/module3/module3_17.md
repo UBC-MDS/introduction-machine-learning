@@ -108,8 +108,8 @@ results_df
 4       5          0.918848       0.845956
 ..    ...               ...            ...
 14     15          1.000000       0.815074
-15     16          1.000000       0.803309
-16     17          1.000000       0.803309
+15     16          1.000000       0.809191
+16     17          1.000000       0.809191
 17     18          1.000000       0.803309
 18     19          1.000000       0.809191
 
@@ -134,7 +134,7 @@ chart1 = alt.Chart(source).mark_line().encode(
                                            range=['teal', 'gold'])))
 chart1
 ```
-<img src="/module3/chart1.png" alt="A caption" width="60%" />
+<img src="/module3/chart1.png" alt="A caption" width="55%" />
 
 Notes:
 
@@ -203,7 +203,7 @@ Even though we care the most about test error:
 
 <br>
 
-<img src="/module3/gavel.png" alt="A caption" width="70%" />
+<img src="/module3/gavel.png" alt="A caption" width="50%" />
 
 Notes:
 
@@ -244,8 +244,8 @@ was some overlap in the data used to both train and test the model.*
 
 </center>
 
-<a href="https://www.technologyreview.com/2015/06/04/72951/why-and-how-baidu-cheated-an-artificial-intelligence-test/" target="_blank">**Attribution:MIT
-Technology Review- Tom Simonite**</a>
+<a href="https://www.technologyreview.com/2015/06/04/72951/why-and-how-baidu-cheated-an-artificial-intelligence-test/" target="_blank">**Attribution:
+MIT Technology Review- Tom Simonite**</a>
 
 Notes:
 

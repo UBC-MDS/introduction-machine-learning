@@ -125,7 +125,7 @@ Train score: 1.0
 Validation score: 0.81
 ```
 
-```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '70%'}
+```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '55%'}
 model = DecisionTreeClassifier()
 model.fit(X, y);
 plt.figure(figsize=(4, 4))
@@ -165,7 +165,7 @@ Train score: 0.83
 Validation score: 0.81
 ```
 
-```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '70%'}
+```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '55%'}
 
 model = DecisionTreeClassifier(max_depth=1)
 model.fit(X,y);
@@ -186,7 +186,7 @@ The model doesn't fit the data well and hence **Score_valid≲Score_train**.
  
 Both train and validation scores are bad and the gap between train and validation scores is lower.
 
-**<Score_valid≲Score_train**
+**Score_valid≲Score_train**
 
 ---
 
@@ -198,7 +198,7 @@ Standard question to ask ourselves:
 
 ### How can we figure this out?
 
-Score_train and Score_valid.
+***Score_train*** and ***Score_valid***.
 
 - If they are very far apart → more likely **overfitting**.     
     - Try decreasing model complexity.

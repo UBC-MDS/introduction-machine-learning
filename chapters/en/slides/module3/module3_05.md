@@ -85,7 +85,7 @@ We lock it in a “vault” until we’re ready to evaluate.
 
 <center>
 
-<img src="/module3/deployment.jpg"  width = "100%" alt="404 image" />
+<img src="/module3/deployment.jpg"  width = "90%" alt="404 image" />
 
 </center>
 

@@ -12,10 +12,8 @@ Notes: <br>
 
 ### Training score versus generalization score
 
-  - Given a model, in Machine Learning (ML), people usually talk about
-    two kinds of scores (accuracies):
-
-<!-- end list -->
+Given a model, in Machine Learning (ML), people usually talk about two
+kinds of scores (accuracies):
 
 1.  Score on the training data
 
@@ -320,7 +318,7 @@ chart_cities = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
                                            range=['red', 'blue'])))
 chart_cities
 ```
-<img src="/module3/chart_cities.png" alt="A caption" width="63%" />
+<img src="/module3/chart_cities.png" alt="A caption" width="60%" />
 
 Notes: Now we can plot the data from the training data `train_df`, we
 can differentiate between the Canadian cities (red) and the United
@@ -330,11 +328,7 @@ States cities (blue).
 
 ``` python
 model = DecisionTreeClassifier()
-model.fit(X_train, y_train)
-```
-
-```out
-DecisionTreeClassifier()
+model.fit(X_train, y_train);
 ```
 
 Notes:
@@ -371,7 +365,7 @@ Notes:
 
 <center>
 
-<img src="/module3/module3_01a.png"  width = "78%" alt="404 image" />
+<img src="/module3/module3_01a.png"  width = "75%" alt="404 image" />
 
 </center>
 

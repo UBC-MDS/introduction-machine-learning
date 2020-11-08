@@ -73,7 +73,7 @@ Train score: 1.0
 Validation score: 0.81
 ```
 
-<img src="/module3/module3_13/unnamed-chunk-3-1.png" width="70%" />
+<img src="/module3/module3_13/unnamed-chunk-3-1.png" width="55%" />
 
 Notes:
 
@@ -111,7 +111,7 @@ Train score: 0.83
 Validation score: 0.81
 ```
 
-<img src="/module3/module3_13/unnamed-chunk-4-1.png" width="70%" />
+<img src="/module3/module3_13/unnamed-chunk-4-1.png" width="55%" />
 
 Notes:
 
@@ -130,7 +130,7 @@ The model doesn’t fit the data well and hence
 Both train and validation scores are bad and the gap between train and
 validation scores is lower.
 
-**\<Score\_valid≲Score\_train**
+**Score\_valid≲Score\_train**
 
 ---
 
@@ -145,7 +145,7 @@ in?***
 
 ### How can we figure this out?
 
-Score\_train and Score\_valid.
+***Score\_train*** and ***Score\_valid***.
 
   - If they are very far apart → more likely **overfitting**.
       - Try decreasing model complexity.
