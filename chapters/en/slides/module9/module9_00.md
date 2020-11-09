@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Congratulations on completing Programming in Python for Data Science!
+# Congratulations on completing Introduction to Machine Learning !
 
 Notes: 
 
@@ -23,11 +23,8 @@ Notes:
 
 ## Attribution
 
-- Material from UBC's [DSCI 511: Python Programming for Data Science](https://pages.github.ubc.ca/MDS-2020-21/DSCI_511_py-prog_students/README.html) by <a href="https://www.tomasbeuzen.com/" target="_blank"> Tom Beuzen</a>
-
-- The cereal dataset:[80 Cereals](https://www.kaggle.com/crawford/80-cereals/)”(c) by [Chris Crawford](https://www.linkedin.com/in/crawforc3/) is licensed
-under [Creative Commons Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0/)
-
+- Material from UBC's <a href="https://github.com/UBC-MDS/DSCI_571_sup-learn-1" target="_blank">DSCI 571: Supervised Learning I</a> by <a href="https://kvarada.github.io/" target="_blank">Varada Kolhatkar</a>
+- Materials derived from slides originally created by <a href="https://www.cs.ubc.ca/~schmidtm/" target="_blank"> Mark Schmidt</a>  .
 
 Notes: 
 
@@ -45,6 +42,7 @@ Special thanks must be attributed to the following individuals and organizations
 - <a href="https://betatim.github.io/" target="_blank">Tim Head</a>  
 - <a href="https://ines.io/" target="_blank">Ines Montani</a> 
 - <a href="https://joelostblom.com/" target="_blank">Joel Ostblom</a> 
+- <a href="https://www.tiffanytimbers.com/" target="_blank"> Tiffany Timbers</a> 
 - <a href="https://www.linkedin.com/in/elijah-willie-203845b9/?originalSubdomain=ca" target="_blank">Elijah Willie</a>
 
 - The Master of Data Science Program at UBC
@@ -61,19 +59,21 @@ Notes:
 <br>
 
 ### Mike Gebart
+
 - Website: <a href="https://www.mikegelbart.com/" target="_blank">www.mikegelbart.com</a> 
 - Twitter: <a href="https://twitter.com/mikegelbart" target="_blank">@MikeGelbart</a> 
 <br>
 <br>
 
-### Tiffany Timbers 
+### Varada Kolhatkar 
 
-- Website: <a href="https://www.tiffanytimbers.com/" target="_blank">www.tiffanytimbers.com</a> 
-- Twitter: <a href="https://twitter.com/TiffanyTimbers" target="_blank">@TiffanyTimbers</a> 
+- Website: <a href="https://kvarada.github.io/" target="_blank">https://kvarada.github.io/</a> 
+- Twitter: <a href="https://twitter.com/varadakolhatkar" target="_blank">@varadakolhatkar</a> 
 <br>
 <br>
 
 ### Hayley Boyce 
+
 - Website: <a href="https://www.hayleyfboyce.com" target="_blank">www.hayleyfboyce.com</a>
 - Twitter: <a href="https://twitter.com/hayleyfboyce" target="_blank">@HayleyFBoyce</a> 
 
