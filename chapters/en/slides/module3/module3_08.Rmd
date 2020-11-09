@@ -189,7 +189,7 @@ from sklearn.model_selection import cross_validate
 ```
 
 ```{python}
-scores = cross_validate(model, X, y, cv=10, return_train_score=True)
+scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
 scores
 ```
 
