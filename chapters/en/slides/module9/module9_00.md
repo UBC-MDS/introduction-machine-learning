@@ -24,7 +24,8 @@ Notes:
 ## Attribution
 
 - Material from UBC's <a href="https://github.com/UBC-MDS/DSCI_571_sup-learn-1" target="_blank">DSCI 571: Supervised Learning I</a> by <a href="https://kvarada.github.io/" target="_blank">Varada Kolhatkar</a>
-- Materials derived from slides originally created by <a href="https://www.cs.ubc.ca/~schmidtm/" target="_blank"> Mark Schmidt</a>  .
+- Materials derived from slides originally created by <a href="https://www.cs.ubc.ca/~schmidtm/" target="_blank"> Mark Schmidt</a>.
+- - Material from UBC's <a href="https://github.com/UBC-CS/cpsc330" target="_blank">CPSC330 course</a> by <a href="www.mikegelbart.com" target="_blank">Mike Gelbart</a>
 
 Notes: 
 
@@ -58,7 +59,7 @@ Notes:
 
 <br>
 
-### Mike Gebart
+### Mike Gelbart
 
 - Website: <a href="https://www.mikegelbart.com/" target="_blank">www.mikegelbart.com</a> 
 - Twitter: <a href="https://twitter.com/mikegelbart" target="_blank">@MikeGelbart</a> 
