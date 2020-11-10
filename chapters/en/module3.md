@@ -17,7 +17,7 @@ id: 3
 
 <exercise id="1" title="Splitting Data" type="slides,video">
 
-<slides source="module3/module3_01" shot="3" start="0:003" end="1:54">
+<slides source="module3/module3_01" shot="1" start="81:142" end="95:08">
 </slides>
 
 </exercise>
@@ -214,7 +214,7 @@ Maybe take a closer look?
 
 <exercise id="5" title="Train, Validation and Test Split" type="slides,video">
 
-<slides source="module3/module3_05" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_05" shot="1" start="95:151" end="99:20">
 </slides>
 
 </exercise>
@@ -359,7 +359,7 @@ This is a prime reason for having a validation set.
 
 <exercise id="8" title="Cross Validation" type="slides,video">
 
-<slides source="module3/module3_08" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_08" shot="1" start="99:261" end="109:192">
 </slides>
 
 </exercise>
@@ -588,7 +588,7 @@ Tasks:
 
 <exercise id="13" title="Underfitting and Overfitting" type="slides,video">
 
-<slides source="module3/module3_13" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_13" shot="1" start="109:26" end="116:261">
 </slides>
 
 </exercise>
@@ -755,7 +755,7 @@ Is the training score higher or lower?
 
 <exercise id="17" title="Fundamental Tradeoff and the Golden Rule" type="slides,video">
 
-<slides source="module3/module3_17" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_17" shot="1" start="116:311" end="125:39">
 </slides>
 
 </exercise>
