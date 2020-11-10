@@ -452,7 +452,7 @@ Let's calculate the closet Pokémon in the training set to a Snoodle (our made-u
 Snoodle	has the following feature vector. 
 
 ```out
-[[53,  77,  43,  69,  80,  57,  379]]
+[[53,  77,  43,  69,  80,  57,  5]]
 ```
 Which Pokémon in the training set, most resembles a Snoodle?
 
@@ -910,7 +910,7 @@ We did the same process of cross validation and scoring as we did before but we 
 
 This model didn't end up having a clear best score when we hyperparameter tuned but in the end, we decided to use `n_neighbors=12`.
 
-Let's build a KNeighborsRegressor with this hyperparameter value and see how well does your model do on the test data?
+Let's build a `KNeighborsRegressor` with this hyperparameter value and see how well your model does on the test data.
 
 Tasks:     
 
@@ -1037,21 +1037,19 @@ Tasks:
 Does this model give similar results to 𝑘-NN?
 
 <choice id="1" >
-<opt text="Yes" >
+<opt text="Yes"  correct="true">
 
-We got around .80 with 𝑘-NN, do you think that this is close enough?
+We got around .9 with 𝑘-NN as well!
 
 </opt>
 
-<opt text="No" correct="true">
+<opt text="No">
 
-It seems like we have some hyperparameters to tune and/or this may not be the best model for us this time.
+We got a score around 0.9 with 𝑘-NN .
 
 </opt>x
 
 </choice>
-
-The results may be explained because of of the fact we are not scaling our column values. We will be covering this in the next model!
 
 </exercise>
 

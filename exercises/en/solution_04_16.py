@@ -9,11 +9,11 @@ pokemon_df = pd.read_csv('data/pokemon.csv')
 train_df, test_df = train_test_split(pokemon_df, test_size=0.2, random_state=123)
 
 # Define X and y for the training set
-X_train = train_df.drop(columns = ['deck_no', 'name', 'type', 'legendary'])
+X_train = train_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
 y_train = train_df['legendary']
 
 # Define X and y for the test set 
-X_test = test_df.drop(columns = ['deck_no', 'name', 'type', 'legendary'])
+X_test = test_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
 y_test = test_df['legendary']
 
 # Create a KNeighborsClassifier model with n_neighbors equal to 5 and name it model

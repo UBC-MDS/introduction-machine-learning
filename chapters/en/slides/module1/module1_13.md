@@ -15,7 +15,7 @@ Notes: <br>
 
 <center>
 
-<img src="/module1/sup-learning.png" height="1200" width="1200">
+<img src="/module1/sup-learning.png"  alt="A caption" width="80%" />
 
 </center>
 
@@ -247,7 +247,7 @@ Sometimes you will also see people reporting error, which is usually
 </center>
 
 ``` python
-print("The accuracy of the model on the training data: %0.3f" %(dummy_clf.score(X, y)))
+print("The accuracy of the model on the training data:", (dummy_clf.score(X, y).round(3)))
 ```
 
 ```out
@@ -255,7 +255,7 @@ The accuracy of the model on the training data: 0.524
 ```
 
 ``` python
-print("The error of the model on the training data: %0.3f" %(1 - dummy_clf.score(X, y)))
+print("The error of the model on the training data:", (1 - dummy_clf.score(X, y)).round(3))
 ```
 
 ```out

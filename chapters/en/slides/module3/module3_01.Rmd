@@ -366,12 +366,12 @@ model.fit(X_train, y_train);
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1);
 plt.title("Decision tree model on the training data");
-plot_classifier(X_train, y_train, model, ticks=True, ax=plt.gca())
+plot_classifier(X_train, y_train, model, ticks=True, ax=plt.gca(),  lims=(-115,-55,25,60))
 plt.xlabel("longitude")
 plt.ylabel("lattitude")
 plt.subplot(1, 2, 2);
 plt.title("Decision tree model on the test data")
-plot_classifier(X_test, y_test, model, ticks=True, ax=plt.gca())
+plot_classifier(X_test, y_test, model, ticks=True, ax=plt.gca(),  lims=(-115,-55,25,60))
 plt.xlabel("longitude")
 plt.ylabel("lattitude")
 ```

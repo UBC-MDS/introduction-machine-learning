@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 pokemon_df = pd.read_csv('data/pokemon.csv')
 
 # Define X and y
-X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary', 'capture_rt'])
-y = pokemon_df['capture_rt']
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
 
 # Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(

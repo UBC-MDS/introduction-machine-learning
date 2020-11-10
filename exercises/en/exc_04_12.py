@@ -10,10 +10,9 @@ train_df, test_df = train_test_split(pokemon_df, test_size=0.2, random_state=123
 
 # Define X and y for the training
 X_train = train_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
-y_train = train_df['legendary']
 
 # The Snoodles query point
-query_point = [[53, 77, 43, 69, 80, 57, 379]]
+query_point = [[53, 77, 43, 69, 80, 57, 5]]
 
 # Create a model and name it nn (make sure you are finding the single closest pokemon)
 ____ = ____

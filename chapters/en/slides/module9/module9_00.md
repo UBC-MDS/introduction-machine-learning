@@ -25,7 +25,7 @@ Notes:
 
 - Material from UBC's <a href="https://github.com/UBC-MDS/DSCI_571_sup-learn-1" target="_blank">DSCI 571: Supervised Learning I</a> by <a href="https://kvarada.github.io/" target="_blank">Varada Kolhatkar</a>.
 - Material from UBC's <a href="https://github.com/UBC-CS/cpsc330" target="_blank">CPSC330 course</a> by <a href="www.mikegelbart.com" target="_blank">Mike Gelbart</a>.
-- Materials derived from slides originally created by <a href="https://www.cs.ubc.ca/~schmidtm/" target="_blank"> Mark Schmidt</a>.
+- Material originally from UBC's <a href="https://www.cs.ubc.ca/~schmidtm/Courses/340-F19/" target="_blank">CPSC340 course/a>  by <a href="https://www.cs.ubc.ca/~schmidtm/" target="_blank"> Mark Schmidt</a>.
 
 
 Notes: 

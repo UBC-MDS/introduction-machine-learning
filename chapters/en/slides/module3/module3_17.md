@@ -107,11 +107,11 @@ results_df
 3       4          0.906865       0.840074
 4       5          0.918848       0.845956
 ..    ...               ...            ...
-14     15          1.000000       0.815074
+14     15          1.000000       0.809191
 15     16          1.000000       0.809191
-16     17          1.000000       0.809191
-17     18          1.000000       0.803309
-18     19          1.000000       0.809191
+16     17          1.000000       0.803309
+17     18          1.000000       0.809191
+18     19          1.000000       0.803309
 
 [19 rows x 3 columns]
 ```
@@ -159,12 +159,12 @@ Name: 4, dtype: float64
 ```
 
 ``` python
-best_depth = results_df.sort_values('mean_cv_score', ascending=False).iloc[0]['mean_cv_score']
+best_depth = results_df.sort_values('mean_cv_score', ascending=False).iloc[0]['depth']
 best_depth
 ```
 
 ```out
-0.8459558823529412
+5.0
 ```
 
 ``` python
@@ -174,7 +174,7 @@ print("Score on test set: " + str(round(model.score(X_test, y_test), 2)))
 ```
 
 ```out
-Score on test set: 0.67
+Score on test set: 0.81
 ```
 
 Notes:
@@ -203,7 +203,11 @@ Even though we care the most about test error:
 
 <br>
 
-<img src="/module3/gavel.png" alt="A caption" width="50%" />
+<center>
+
+<img src="/module3/gavel.png" alt="A caption" width="65%" />
+
+</center>
 
 Notes:
 

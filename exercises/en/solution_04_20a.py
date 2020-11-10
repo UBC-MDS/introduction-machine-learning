@@ -34,7 +34,7 @@ results_df = pd.DataFrame(results_dict).melt(id_vars=['n_neighbors'],
 # Create a chart that plots depth vs score
 chart1 = alt.Chart(results_df).mark_line().encode(
          alt.X('n_neighbors:Q', axis=alt.Axis(title="Number of Neighbours")),
-         alt.Y('score:Q', scale=alt.Scale(domain=[.80, 1.00])), 
+         alt.Y('score:Q', scale=alt.Scale(domain=[.95, 1.00])), 
          alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
                                                      'mean_cv_score'],
                                              range=['teal', 'gold'])))

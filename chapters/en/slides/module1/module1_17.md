@@ -168,15 +168,15 @@ In fact, the model predicts the same value for all the observations.
 
 ## 5\. Scoring your model
 
-In the regression setting, `.score()` gives the \(R^2\) of the model,
+In the regression setting, `.score()` gives the R^2 of the model,
 i.e. the coefficient of determination of the prediction.
 
 ``` python
-print("The accuracy of the model on the training data: %0.3f" %(dummy_reg.score(X, y)))
+print("The accuracy of the model on the training data:", (dummy_reg.score(X, y)).round(3))
 ```
 
 ```out
-The accuracy of the model on the training data: 0.000
+The accuracy of the model on the training data: 0.0
 ```
 
 Notes:
