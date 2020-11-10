@@ -18,7 +18,7 @@ id: 1
 
 <exercise id="1" title="What is Supervised Machine Learning?" type="slides,video">
 
-<slides source="module1/module1_01" shot="3" start="0:003" end="1:54">
+<slides source="module1/module1_01" shot="1" start="0:003" end="07:12">
 </slides>
 
 </exercise>
@@ -85,7 +85,7 @@ I don't think we can use machine learning quite yet to do this. Maybe one day we
 
 <exercise id="3" title="Types of Machine Learning" type="slides,video">
 
-<slides source="module1/module1_03" shot="0" start="0:006" end="3:39">
+<slides source="module1/module1_03" shot="1" start="07:18" end="12:365">
 </slides>
 
 </exercise>
@@ -193,7 +193,7 @@ Grouping is also called *clustering* which is an example of unsupervised learnin
 
 <exercise id="5" title="Classification vs. Regression" type="slides,video">
 
-<slides source="module1/module1_05" shot="0" start="0:006" end="3:39">
+<slides source="module1/module1_05" shot="1" start="12:46" end="15:06">
 </slides>
 
 </exercise>
@@ -310,7 +310,7 @@ Is the prediction a categorical or a numerical value?
 
 <exercise id="8" title="Tabular Data and Terminology" type="slides, video">
 
-<slides source="module1/module1_08" shot="0" start="0:006" end="3:39">
+<slides source="module1/module1_08" shot="1" start="15:13" end="18:21">
 </slides>
 
 </exercise>
@@ -520,7 +520,7 @@ Tasks:
 
 
 <exercise id="13" title="Baselines: Training a Model using Scikit-learn" type="slides, video">
-<slides source="module1/module1_13" shot="1" start="0:003" end="1:54">
+<slides source="module1/module1_13" shot="1" start="18:28" end="24:52">
 </slides>
 </exercise>
 
@@ -662,7 +662,7 @@ Tasks:
 </exercise>
 
 <exercise id="17" title="Baselines: Dummy Regression" type="slides, video">
-<slides source="module1/module1_17" shot="1" start="0:003" end="1:54">
+<slides source="module1/module1_17" shot="1" start="24:59" end="29:05">
 </slides>
 </exercise>
 

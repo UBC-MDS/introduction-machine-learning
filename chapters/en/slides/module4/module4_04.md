@@ -8,6 +8,37 @@ Notes: <br>
 
 ---
 
+## Distance between vectors
+
+**Euclidean distance**: Euclidean distance is a measure of the true
+straight line distance between two points in Euclidean
+space.(<a href="https://hlab.stanford.edu/brian/euclidean_distance_in.html" target="_blank">source
+</a>)
+
+The Euclidean distance between vectors
+
+<img src="/module4/u.png" alt="A caption" width="18%" />  
+and
+
+<img src="/module4/v.png" alt="A caption" width="18%" />
+
+is defined as:
+
+<br> <br>
+
+<center>
+
+<img src="/module4/eq_euc.png" alt="A caption" width="45%" />
+
+</center>
+
+Notes:
+
+A common way to calculate the distance between vectors is calculating
+the Euclidean distance.
+
+---
+
 ``` python
 cities_df = pd.read_csv("data/canada_usa_cities.csv")
 train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
