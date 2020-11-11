@@ -107,7 +107,7 @@ cities_plot
 cities_plot.save(path + 'cities_plot.png')
 ```
 
-<img src="/module4/cities_plot.png" alt="A caption" width="70%" />
+<img src="/module4/cities_plot.png" alt="A caption" width="60%" />
 
 
 
@@ -122,7 +122,6 @@ from sklearn.svm import SVC
 
 ```{python}
 svm = SVC(gamma=0.01)
-svm.fit(X_train, y_train)
 scores = cross_validate(svm, X_train, y_train, return_train_score=True)
 pd.DataFrame(scores)
 ```
@@ -161,6 +160,7 @@ pd.DataFrame(scores)
 
 
 ```{python echo=FALSE, fig.width = 10, fig.height = 8,  out.width = '100%'}
+svm.fit(X_train, y_train)
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
 plt.title("SVC")

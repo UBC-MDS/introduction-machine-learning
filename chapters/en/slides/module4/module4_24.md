@@ -64,7 +64,7 @@ cities_plot = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
                                            range=['red', 'blue'])))
 cities_plot
 ```
-<img src="/module4/cities_plot.png" alt="A caption" width="70%" />
+<img src="/module4/cities_plot.png" alt="A caption" width="60%" />
 
 Notes:
 
@@ -76,25 +76,17 @@ from sklearn.svm import SVC
 
 ``` python
 svm = SVC(gamma=0.01)
-svm.fit(X_train, y_train)
-```
-
-```out
-SVC(gamma=0.01)
-```
-
-``` python
 scores = cross_validate(svm, X_train, y_train, return_train_score=True)
 pd.DataFrame(scores)
 ```
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002515    0.001924    0.823529     0.842105
-1  0.002436    0.001685    0.823529     0.842105
-2  0.002300    0.001855    0.727273     0.858209
-3  0.002372    0.001578    0.787879     0.843284
-4  0.002304    0.002460    0.939394     0.805970
+0  0.002941    0.002157    0.823529     0.842105
+1  0.002589    0.001599    0.823529     0.842105
+2  0.002295    0.001790    0.727273     0.858209
+3  0.002511    0.001731    0.787879     0.843284
+4  0.002653    0.001537    0.939394     0.805970
 ```
 
 ``` python
@@ -125,6 +117,10 @@ X_train, y_train = train_df.drop(columns=['country']), train_df['country']
 X_test, y_test = test_df.drop(columns=['country']), test_df['country']
 ```
 
+```out
+SVC(gamma=0.01)
+```
+
 <img src="/module4/module4_24/unnamed-chunk-11-1.png" width="100%" />
 
 Notes:
@@ -147,11 +143,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.003493    0.005040    0.852941     0.849624
-1  0.003333    0.005256    0.764706     0.834586
-2  0.002325    0.003102    0.727273     0.850746
-3  0.002131    0.002962    0.787879     0.858209
-4  0.002079    0.002968    0.878788     0.813433
+0  0.002019    0.003087    0.852941     0.849624
+1  0.002339    0.003306    0.764706     0.834586
+2  0.002121    0.003092    0.727273     0.850746
+3  0.001995    0.002880    0.787879     0.858209
+4  0.002351    0.003285    0.878788     0.813433
 ```
 
 ``` python

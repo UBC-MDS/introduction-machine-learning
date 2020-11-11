@@ -460,59 +460,6 @@ Notes:
 For randomize gridsearch we can search over a range of continuous values instead of discrete values like in `GridSearchCV()`. 
 
 
-
----
-
-## Randomized hyperparameter optimization
-
-### Advantages of `RandomizedSearchCV`
-
-- Faster compared to `GridSearchCV`.
-- Adding parameters that do not influence the performance does not affect efficiency.
-- In general, many people recommend using `RandomizedSearchCV` over `GridSearchCV`. 
-
-<center><img src="/module5/randomsearch_bergstra.png"  width = "80%" alt="404 image" /></center>
-<a href="http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf" target="_blank">Source: Bergstra and Bengio, Random Search for Hyper-Parameter Optimization, JMLR 2012</a>
-
-
-Notes: 
-
-The yellow on the left shows how our scores are going to change when we vary the unimportant hyperparameter.
-
-The green on the top shows how our scores are going to change when we vary the important hyperparameter.
-
-We don't know in advance which hyperparameters are important for our problem.
-
-In the left figure, 6 of the 9 searches are useless because they are only varying the unimportant parameter.
-
-In the right figure, all 9 searches are useful.
-
-
----
-
-<br>
-<br>
-<br>
-
-<center><img src="/module5/optimization_bias.png"  width = "60%" alt="404 image" /></center>
-
-
-Notes:
-
-What we can see here is that:
-
-) cross-validation score is too optimistic vs. test score.
-
-The cross-validation scores are too optimistic versus the test score. 
-
-The cross-validation score curve is very bumpy, due to the smaller data set.
-
-The best values of max_df are different if you look at cv vs. test.
-
-Thus, not only can we not trust the cv scores, we also cannot trust cv's ability to choose of the best hyperparameters.
-
-But we don't have a lot of better alternatives, unfortunately, if we have a small dataset.
-
 ---
 
 ## How different do they score? 
@@ -578,6 +525,31 @@ Consider a multiple-choice (a,b,c,d) "test" with 10 questions:
     - But it’s still non-zero and growing if you over-use your validation set!  
 
 Notes: 
+
+---
+
+<br>
+<br>
+<br>
+
+<center><img src="/module5/optimization_bias.png"  width = "60%" alt="404 image" /></center>
+
+
+Notes:
+
+What we can see here is that:
+
+) cross-validation score is too optimistic vs. test score.
+
+The cross-validation scores are too optimistic versus the test score. 
+
+The cross-validation score curve is very bumpy, due to the smaller data set.
+
+The best values of max_df are different if you look at cv vs. test.
+
+Thus, not only can we not trust the cv scores, we also cannot trust cv's ability to choose of the best hyperparameters.
+
+But we don't have a lot of better alternatives, unfortunately, if we have a small dataset.
 
 ---
 

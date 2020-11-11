@@ -93,7 +93,7 @@ It’s the green triangle we see in the plot.
 
 <center>
 
-<img src="/module4/point.png"  width = "70%" alt="404 image" />
+<img src="/module4/point.png"  width = "60%" alt="404 image" />
 
 </center>
 
@@ -118,7 +118,7 @@ of **Canada** (red) in this case.
 
 <center>
 
-<img src="/module4/point.png"  width = "70%" alt="404 image" />
+<img src="/module4/point.png"  width = "60%" alt="404 image" />
 
 </center>
 

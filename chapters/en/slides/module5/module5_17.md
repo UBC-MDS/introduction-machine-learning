@@ -166,7 +166,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.4s
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.5s
 [Parallel(n_jobs=-1)]: Done  80 out of  80 | elapsed:    1.5s finished
 ```
 
@@ -260,7 +260,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 [Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
-[Parallel(n_jobs=1)]: Done  80 out of  80 | elapsed:    1.0s finished
+[Parallel(n_jobs=1)]: Done  80 out of  80 | elapsed:    0.8s finished
 ```
 
 Notes:
@@ -435,7 +435,7 @@ random_search.score(X_test, y_test)
 ```
 
 ```out
-0.8095238095238095
+0.8333333333333334
 ```
 
 Notes:
@@ -477,7 +477,7 @@ random_gs.best_params_
 ```
 
 ```out
-{'svc__C': 16.926499494006897, 'svc__gamma': 0.5208118860986155}
+{'svc__C': 76.89920365010788, 'svc__gamma': 6.0582080406577195}
 ```
 
 ``` python
@@ -485,7 +485,7 @@ random_gs.best_score_
 ```
 
 ```out
-0.8286764705882353
+0.7867647058823529
 ```
 
 ``` python
@@ -493,80 +493,13 @@ random_gs.score(X_test, y_test)
 ```
 
 ```out
-0.8333333333333334
+0.7380952380952381
 ```
 
 Notes:
 
 For randomize gridsearch we can search over a range of continuous values
 instead of discrete values like in `GridSearchCV()`.
-
----
-
-## Randomized hyperparameter optimization
-
-### Advantages of `RandomizedSearchCV`
-
-  - Faster compared to `GridSearchCV`.
-  - Adding parameters that do not influence the performance does not
-    affect efficiency.
-  - In general, many people recommend using `RandomizedSearchCV` over
-    `GridSearchCV`.
-
-<center>
-
-<img src="/module5/randomsearch_bergstra.png"  width = "80%" alt="404 image" />
-
-</center>
-
-<a href="http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf" target="_blank">Source:
-Bergstra and Bengio, Random Search for Hyper-Parameter Optimization,
-JMLR 2012</a>
-
-Notes:
-
-The yellow on the left shows how our scores are going to change when we
-vary the unimportant hyperparameter.
-
-The green on the top shows how our scores are going to change when we
-vary the important hyperparameter.
-
-We don’t know in advance which hyperparameters are important for our
-problem.
-
-In the left figure, 6 of the 9 searches are useless because they are
-only varying the unimportant parameter.
-
-In the right figure, all 9 searches are useful.
-
----
-
-<br> <br>
-
-<center>
-
-<img src="/module5/optimization_bias.png"  width = "60%" alt="404 image" />
-
-</center>
-
-Notes:
-
-What we can see here is that:
-
-) cross-validation score is too optimistic vs. test score.
-
-The cross-validation scores are too optimistic versus the test score.
-
-The cross-validation score curve is very bumpy, due to the smaller data
-set.
-
-The best values of max\_df are different if you look at cv vs. test.
-
-Thus, not only can we not trust the cv scores, we also cannot trust cv’s
-ability to choose of the best hyperparameters.
-
-But we don’t have a lot of better alternatives, unfortunately, if we
-have a small dataset.
 
 ---
 
@@ -585,7 +518,7 @@ random_search.score(X_test, y_test)
 ```
 
 ```out
-0.8095238095238095
+0.8333333333333334
 ```
 
 Notes:
@@ -656,6 +589,35 @@ Consider a multiple-choice (a,b,c,d) “test” with 10 questions:
         validation set\!
 
 Notes:
+
+---
+
+<br> <br> <br>
+
+<center>
+
+<img src="/module5/optimization_bias.png"  width = "60%" alt="404 image" />
+
+</center>
+
+Notes:
+
+What we can see here is that:
+
+) cross-validation score is too optimistic vs. test score.
+
+The cross-validation scores are too optimistic versus the test score.
+
+The cross-validation score curve is very bumpy, due to the smaller data
+set.
+
+The best values of max\_df are different if you look at cv vs. test.
+
+Thus, not only can we not trust the cv scores, we also cannot trust cv’s
+ability to choose of the best hyperparameters.
+
+But we don’t have a lot of better alternatives, unfortunately, if we
+have a small dataset.
 
 ---
 
