@@ -67,7 +67,7 @@ Notes: <br>
 
 - **Classification problem**: predicting among two or more categories, also known as classes
     - *Example1*: Predict whether a patient has a liver disease or not
-    - *Example2*: Predict whether the letter grade of a student, (A,B,C,D or F)
+    - *Example2*: Predict whether the letter grade of a student (A,B,C,D or F)
 
 - **Regression problem**: predicting a continuous (in other words, a number) value
     - Example1: Predict housing prices

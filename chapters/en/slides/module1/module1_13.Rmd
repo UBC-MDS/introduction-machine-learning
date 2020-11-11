@@ -85,8 +85,9 @@ We can then take new examples and make predictions on them using this model.
 <br>
 <br>
 <br>
-Baseline model:
- **most frequent baseline**: always predicts the most frequent label in the training set.
+Baseline model:          
+
+**most frequent baseline**: always predicts the most frequent label in the training set.
 
 
 
@@ -94,7 +95,7 @@ Notes:
 
 Let's build a ***baseline*** simple machine learning algorithm based on simple rules of thumb. 
 
-We are going to build a  most frequent baseline model which always predicts the most frequent label in the training set. 
+We are going to build a most frequent baseline model which always predicts the most frequent label in the training set. 
 
 Baselines provide a way to sanity check your machine learning model.  
 

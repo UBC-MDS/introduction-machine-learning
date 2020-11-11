@@ -19,7 +19,7 @@ id: 2
 
 <exercise id="1" title=" Introducing Decision Trees" type="slides,video">
 
-<slides source="module2/module2_01" shot="1" start="29:1207" end="38:49">
+<slides source="module2/module2_01" shot="1" start="28:541" end="38:33">
 </slides>
 
 </exercise>
@@ -140,7 +140,7 @@ Not quite so deep.
 
 <exercise id="4" title="Building a Decision Tree Classifier" type="slides,video">
 
-<slides source="module2/module2_04" shot="1" start="38:532" end="45:27">
+<slides source="module2/module2_04" shot="1" start="38:37" end="45:091">
 </slides>
 
 </exercise>
@@ -417,7 +417,7 @@ Did you find one that we didn't?
 
 <exercise id="8" title="Decision Trees with Continuous Features" type="slides,video">
 
-<slides source="module2/module2_08" shot="1" start="45:302" end="52:55">
+<slides source="module2/module2_08" shot="1" start="45:131" end="52:38">
 </slides>
 
 </exercise>
@@ -684,7 +684,7 @@ Nice work!
 
 <exercise id="12" title="Parameters and Hyperparameters" type="slides,video">
 
-<slides source="module2/module2_12" shot="1" start="53:002" end="64:242">
+<slides source="module2/module2_12" shot="1" start="52:431" end="64:08">
 </slides>
 
 </exercise>
@@ -889,7 +889,7 @@ Right! It's hard to say since increasing `max_depth` will increase the accuracy 
 
 <exercise id="16" title="Decision Tree Regressor" type="slides,video">
 
-<slides source="module2/module2_16" shot="1" start="64:271" end="69:54">
+<slides source="module2/module2_16" shot="1" start="64:10" end="69:37">
 </slides>
 
 </exercise>
@@ -986,7 +986,7 @@ You got it!
 
 <exercise id="19" title="Generalization" type="slides,video">
 
-<slides source="module2/module2_19" shot="1" start="70:012" end="81:05">
+<slides source="module2/module2_19" shot="1" start="69:441" end="80:50">
 </slides>
 
 </exercise>

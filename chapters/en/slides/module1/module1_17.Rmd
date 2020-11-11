@@ -67,8 +67,9 @@ Notes: <br>
 <br>
 <br>
 <br>
-Baseline model:
- **Averge target value**: always predicts the mean of the training set.
+Baseline model:                   
+
+**Averge target value**: always predicts the mean of the training set.
 
 
 

@@ -18,7 +18,7 @@ id: 1
 
 <exercise id="1" title="What is Supervised Machine Learning?" type="slides,video">
 
-<slides source="module1/module1_01" shot="1" start="0:003" end="07:112">
+<slides source="module1/module1_01" shot="1" start="0:003" end="07:12">
 </slides>
 
 </exercise>
@@ -662,7 +662,7 @@ Tasks:
 </exercise>
 
 <exercise id="17" title="Baselines: Dummy Regression" type="slides, video">
-<slides source="module1/module1_17" shot="1" start="24:582" end="29:042">
+<slides source="module1/module1_17" shot="1" start="24:582" end="28:4718">
 </slides>
 </exercise>
 
