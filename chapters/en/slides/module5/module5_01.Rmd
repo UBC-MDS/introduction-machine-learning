@@ -149,7 +149,7 @@ Intuition: To predict whether a particular player is a point guard ('G') or a fo
  
 ---
  
-### Geometric view of tabular data and dimensions
+### Dummy Classifier
  
 ```{python}
 dummy = DummyClassifier(strategy="most_frequent")

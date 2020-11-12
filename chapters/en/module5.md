@@ -17,7 +17,7 @@ id: 5
 
 <exercise id="1" title="The Importance of Preprocessing" type="slides,video">
 
-<slides source="module5/module5_01" shot="3" start="0:003" end="1:54">
+<slides source="module5/module5_01" shot="2" start="41:1307" end="52:1116">
 </slides>
 
 </exercise>
@@ -190,7 +190,7 @@ We need to scale our data though!
 </exercise>
 
 <exercise id="5" title="Case Study: Preprocessing with Imputation" type="slides,video">
-<slides source="module5/module5_05" shot="0" start="0:006" end="3:39">
+<slides source="module5/module5_05" shot="2" start="52:1627" end="62:0219">
 </slides>
 
 </exercise>
@@ -345,7 +345,7 @@ Tasks:
 </exercise>
 
 <exercise id="9" title="Case Study: Preprocessing with Scaling" type="slides,video">
-<slides source="module5/module5_09" shot="0" start="0:006" end="3:39">
+<slides source="module5/module5_09" shot="2" start="62:0804" end="68:5814">
 </slides>
 
 </exercise>
@@ -525,7 +525,7 @@ Tasks:
 </exercise>
 
 <exercise id="13" title="Case Study: Pipelines" type="slides,video">
-<slides source="module5/module5_13" shot="0" start="0:006" end="3:39">
+<slides source="module5/module5_13" shot="2" start="69:0327" end="86:0008">
 </slides>
 
 </exercise>
@@ -555,7 +555,7 @@ This is a transformation that can be added as a starting step in a pipeline.
 
 </opt>
 
-<opt text="Data Splitting"  correct="true">
+<opt text="Data splitting"  correct="true">
 
 We need to split our data into the training and testing splits *before* putting it into a pipeline. 
 
@@ -668,7 +668,7 @@ Tasks:
 </exercise>
 
 <exercise id="17" title="Automated Hyperparameter Optimization" type="slides,video">
-<slides source="module5/module5_17" shot="0" start="0:006" end="3:39">
+<slides source="module5/module5_17" shot="2" start="86:0524" end="110:0525">
 </slides>
 
 </exercise>

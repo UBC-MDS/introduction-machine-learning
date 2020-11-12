@@ -123,7 +123,7 @@ scatter.save(path + 'snakes.png')
 ```
 
 <br>
-<center><img src="/module4/snakes.png" alt="A caption" width="60%" /></center>
+<center><img src="/module4/snakes.png" alt="A caption" width="50%" /></center>
 
 
 Notes:
@@ -183,7 +183,7 @@ knnr.score(X_train, y_train)
 
 
 
-<center><img src="/module4/snakes_10.png" alt="A caption" width="70%" /></center>
+<center><img src="/module4/snakes_10.png" alt="A caption" width="55%" /></center>
 
 Notes: 
 
@@ -204,7 +204,7 @@ knnr.fit(X_train, y_train);
 knnr.score(X_train, y_train)
 ```
 
-<center><img src="/module4/snakes_weighted.png" alt="A caption" width="65%" /></center>
+<center><img src="/module4/snakes_weighted.png" alt="A caption" width="55%" /></center>
 
 Notes: 
 

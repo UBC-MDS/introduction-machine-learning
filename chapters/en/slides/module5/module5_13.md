@@ -9,44 +9,6 @@ Notes: <br>
 ---
 
 ``` python
-
-housing_df = pd.read_csv("data/housing.csv")
-
- 
-housing_df = housing_df.assign(rooms_per_household = housing_df["total_rooms"]/housing_df["households"],
-                           bedrooms_per_household = housing_df["total_bedrooms"]/housing_df["households"],
-                           population_per_household = housing_df["population"]/housing_df["households"])
-                        
-                         
-housing_df = housing_df.drop(columns=['total_rooms', 'total_bedrooms', 'population',  "ocean_proximity"])  
- 
- 
-train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
-X_train = train_df.drop(columns=["median_house_value"])
-y_train = train_df["median_house_value"]
- 
-X_test = test_df.drop(columns=["median_house_value"])
-y_test = test_df["median_house_value"]
-
-imputer = SimpleImputer(strategy="median")
-imputer.fit(X_train)
-```
-
-```out
-SimpleImputer(strategy='median')
-```
-
-``` python
-X_train_imp = imputer.transform(X_train)
-X_test_imp = imputer.transform(X_test)
-
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train_imp)
-X_test_scaled = scaler.transform(X_test_imp)
-X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns, index = X_train.index)
-```
-
-``` python
 X_train_scaled.head()
 ```
 
@@ -87,11 +49,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.013815    0.229562    0.696373     0.794236
-1  0.007775    0.149533    0.684447     0.791467
-2  0.007995    0.164354    0.695532     0.789436
-3  0.007940    0.207644    0.679478     0.793243
-4  0.008333    0.104992    0.680657     0.794820
+0  0.008430    0.172872    0.696373     0.794236
+1  0.008192    0.163651    0.684447     0.791467
+2  0.007991    0.181362    0.695532     0.789436
+3  0.008897    0.172819    0.679478     0.793243
+4  0.009800    0.120611    0.680657     0.794820
 ```
 
 Notes:
@@ -201,6 +163,22 @@ XX_scaled = scaler.transform(XX)
 XX_train, XX_test = XX_scaled[:18576], XX_scaled[18576:]
 ```
 
+Notes:
+
+***What is wrong with this second approach?***
+
+Here we are scaling the train and test splits together.
+
+The golden rule says that the test data shouldn’t influence the training
+in any way.
+
+With this approach, we are using the information from the test split
+when we `fit` the scaler and calculate the mean, as we are passing the
+combined `X_train` and `X_test` to it. So, it’s **violation** of the
+golden rule.
+
+---
+
 ``` python
 knn = KNeighborsRegressor()
 knn.fit(XX_train, y_train);
@@ -219,19 +197,7 @@ print('Test score: ', (knn.score(XX_test, y_test).round(2))) # Misleading score
 Test score:  0.71
 ```
 
-Notes:
-
-***What is wrong with this second approach?***
-
-Here we are scaling the train and test splits together.
-
-The golden rule says that the test data shouldn’t influence the training
-in any way.
-
-With this approach, we are using the information from the test split
-when we `fit` the scaler and calculate the mean, as we are passing the
-combined `X_train` and `X_test` to it. So, it’s **violation** of the
-golden rule.
+Notes: <br>
 
 ---
 
@@ -377,11 +343,11 @@ pd.DataFrame(scores_processed)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.027209    0.214491    0.693883     0.792395
-1  0.029683    0.220961    0.685017     0.789108
-2  0.022865    0.189954    0.694409     0.787796
-3  0.020839    0.181590    0.677055     0.792444
-4  0.020695    0.145121    0.714494     0.823421
+0  0.022225    0.182393    0.693883     0.792395
+1  0.021052    0.170285    0.685017     0.789108
+2  0.022449    0.178411    0.694409     0.787796
+3  0.022472    0.179049    0.677055     0.792444
+4  0.020763    0.147359    0.714494     0.823421
 ```
 
 Notes:
@@ -404,8 +370,8 @@ pd.DataFrame(scores_processed).mean()
 ```
 
 ```out
-fit_time       0.024258
-score_time     0.190423
+fit_time       0.021792
+score_time     0.171499
 test_score     0.692972
 train_score    0.797033
 dtype: float64
@@ -418,8 +384,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       0.001806
-score_time     0.000780
+fit_time       0.001353
+score_time     0.000700
 test_score    -0.055115
 train_score   -0.054611
 dtype: float64

@@ -90,7 +90,7 @@ or a forward (‘F’) (query point)
 
 ---
 
-### Geometric view of tabular data and dimensions
+### Dummy Classifier
 
 ``` python
 dummy = DummyClassifier(strategy="most_frequent")

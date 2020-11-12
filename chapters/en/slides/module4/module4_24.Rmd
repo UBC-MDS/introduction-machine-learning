@@ -125,6 +125,7 @@ svm = SVC(gamma=0.01)
 scores = cross_validate(svm, X_train, y_train, return_train_score=True)
 pd.DataFrame(scores)
 ```
+
 ```{python}
 svm_cv_score = scores['test_score'].mean()
 svm_cv_score
@@ -183,7 +184,6 @@ You can think of SVM with RBF kernel as "smooth KNN".
 
 ```{python}
 knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(X_train, y_train);
 scores = cross_validate(knn, X_train, y_train, return_train_score=True)
 pd.DataFrame(scores)
 ```

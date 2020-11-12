@@ -82,7 +82,7 @@ Notes: <br>
 
 ---
 
-```{python}
+```{python include =FALSE}
 
 housing_df = pd.read_csv("data/housing.csv")
 
@@ -90,10 +90,8 @@ housing_df = pd.read_csv("data/housing.csv")
 housing_df = housing_df.assign(rooms_per_household = housing_df["total_rooms"]/housing_df["households"],
                            bedrooms_per_household = housing_df["total_bedrooms"]/housing_df["households"],
                            population_per_household = housing_df["population"]/housing_df["households"])
-                        
                          
 housing_df = housing_df.drop(columns=['total_rooms', 'total_bedrooms', 'population',  "ocean_proximity"])  
- 
  
 train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
 X_train = train_df.drop(columns=["median_house_value"])
@@ -103,7 +101,7 @@ X_test = test_df.drop(columns=["median_house_value"])
 y_test = test_df["median_house_value"]
 
 imputer = SimpleImputer(strategy="median")
-imputer.fit(X_train)
+imputer.fit(X_train);
 X_train_imp = imputer.transform(X_train)
 X_test_imp = imputer.transform(X_test)
 
@@ -111,8 +109,6 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train_imp)
 X_test_scaled = scaler.transform(X_test_imp)
 X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns, index = X_train.index)
-
-
 
 ```
 
@@ -211,12 +207,7 @@ XX_scaled = scaler.transform(XX)
 XX_train, XX_test = XX_scaled[:18576], XX_scaled[18576:]
 ```
 
-```{python}
-knn = KNeighborsRegressor()
-knn.fit(XX_train, y_train);
-print('Train score: ', (knn.score(XX_train, y_train).round(2))) # Misleading score
-print('Test score: ', (knn.score(XX_test, y_test).round(2))) # Misleading score
-```
+
 
 Notes: 
 
@@ -231,6 +222,19 @@ With this approach, we are using the information from the test split when we `fi
  
  
 ---
+
+```{python}
+knn = KNeighborsRegressor()
+knn.fit(XX_train, y_train);
+print('Train score: ', (knn.score(XX_train, y_train).round(2))) # Misleading score
+print('Test score: ', (knn.score(XX_test, y_test).round(2))) # Misleading score
+```
+
+
+Notes: 
+<br>
+
+----
 
 <br>
 <br>

@@ -241,7 +241,7 @@ Now when we build our model with `n_neighbors=11` we can hope that our test accu
 <br>
 
 
-<center><img src="/module4/skull.png" alt="A caption" width="70%" /></center>
+<center><img src="/module4/skull.png" alt="A caption" width="60%" /></center>
 
 
 

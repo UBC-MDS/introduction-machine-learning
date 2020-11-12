@@ -101,7 +101,7 @@ It’s the green triangle we see in the plot.
 from sklearn.neighbors import KNeighborsClassifier
 
 neigh = KNeighborsClassifier(n_neighbors=1)
-neigh.fit(X_train, y_train.to_numpy());
+neigh.fit(X_train, y_train);
 neigh.predict(one_city.drop(columns=["country"]))
 ```
 
@@ -124,7 +124,7 @@ of **Canada** (red) in this case.
 
 ``` python
 neigh = KNeighborsClassifier(n_neighbors=3)
-neigh.fit(X_train, y_train.to_numpy());
+neigh.fit(X_train, y_train);
 neigh.predict(one_city.drop(columns=["country"]))
 ```
 
@@ -149,7 +149,7 @@ points to the green triangle are “Canadian”.
 
 ``` python
 neigh = KNeighborsClassifier(n_neighbors=9)
-neigh.fit(X_train, y_train.to_numpy());
+neigh.fit(X_train, y_train);
 neigh.predict(one_city.drop(columns=["country"]))
 ```
 
@@ -168,7 +168,7 @@ are “USA” cities.
 
 ``` python
 model = KNeighborsClassifier(n_neighbors=1)
-model.fit(X_train, y_train.to_numpy());
+model.fit(X_train, y_train);
 ```
 
 ``` python

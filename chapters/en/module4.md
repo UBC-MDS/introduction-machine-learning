@@ -17,7 +17,7 @@ id: 4
 
 <exercise id="1" title="Terminology" type="slides,video">
 
-<slides source="module4/module4_01" shot="3" start="0:003" end="1:54">
+<slides source="module4/module4_01" shot="2" start="0:002" end="6:28">
 </slides>
 
 </exercise>
@@ -165,7 +165,7 @@ Dimensions up to 1000 are considered "low".
 </exercise>
 
 <exercise id="4" title="Distances" type="slides,video">
-<slides source="module4/module4_04" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_04" shot="2" start="06:3324" end="11:18">
 </slides>
 
 </exercise>
@@ -327,7 +327,7 @@ Tasks:
 </exercise>
 
 <exercise id="9" title="Finding the Nearest Neighbour" type="slides,video">
-<slides source="module4/module4_09" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_09" shot="2" start="11:22" end="17:0708">
 </slides>
 
 </exercise>
@@ -474,7 +474,7 @@ Tasks:
 </exercise>
 
 <exercise id="13" title="𝑘-Nearest Neighbours (𝑘-NNs) Classifier" type="slides,video">
-<slides source="module4/module4_13" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_13" shot="2" start="17:102" end="21:2605">
 </slides>
 
 </exercise>
@@ -612,7 +612,7 @@ Tasks:
 </exercise>
 
 <exercise id="17" title="Choosing 𝑘 (n_neighbors)" type="slides,video">
-<slides source="module4/module4_17" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_17" shot="2" start="21:2905" end="29:2625">
 </slides>
 
 </exercise>
@@ -827,7 +827,7 @@ Tasks:
 </exercise>
 
 <exercise id="21" title="𝑘 -Nearest Neighbours Regressor" type="slides,video">
-<slides source="module4/module4_21" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_21" shot="2" start="29:3123" end="35:1228">
 </slides>
 
 </exercise>
@@ -933,7 +933,7 @@ Tasks:
 </exercise>
 
 <exercise id="24" title="Support Vector Machines (SVMs) with RBF Kernel" type="slides,video">
-<slides source="module4/module4_24" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_24" shot="2" start="35:1610" end="41:0523">
 </slides>
 
 </exercise>

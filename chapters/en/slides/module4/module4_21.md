@@ -52,7 +52,7 @@ In KNN regression we take the average of the 𝑘 -nearest neighbours.
 Let’s say we have a toy dataset with a single feature and 50 examples.
 
 For this, we are going to make up a dataset. Let’s say our feature is
-the length of a snake 🐍 and we want to predict the weight of it.
+the length of a snake and we want to predict the weight of it.
 
 (You do not need to worry about the code here)
 
@@ -75,7 +75,7 @@ scatter
 
 <center>
 
-<img src="/module4/snakes.png" alt="A caption" width="60%" />
+<img src="/module4/snakes.png" alt="A caption" width="50%" />
 
 </center>
 
@@ -157,7 +157,7 @@ knnr.score(X_train, y_train)
 
 <center>
 
-<img src="/module4/snakes_10.png" alt="A caption" width="70%" />
+<img src="/module4/snakes_10.png" alt="A caption" width="55%" />
 
 </center>
 
@@ -188,7 +188,7 @@ knnr.score(X_train, y_train)
 
 <center>
 
-<img src="/module4/snakes_weighted.png" alt="A caption" width="65%" />
+<img src="/module4/snakes_weighted.png" alt="A caption" width="55%" />
 
 </center>
 
