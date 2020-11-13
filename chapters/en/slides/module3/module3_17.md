@@ -25,7 +25,9 @@ Notes: <br>
 Notes:
 
 Before going further, let’s just remind ourselves of the different
-possible scores
+possible scores.
+
+The training score, the validation score and the test score.
 
 ---
 
@@ -37,18 +39,31 @@ possible scores
 
 Notes:
 
-If your model is very simple, like `DummyClassifier()`, then you won’t
-really learn any “specific patterns” of the training set, but your model
-won’t be very good in general.
+We are going to talk about the fundamental tradeoff of supervised
+learning. We’ve already danced around this topic which involves the
+concepts of overfitting and underfitting.
+
+If our model is very simple, like `DummyClassifier()`, or a Decision
+tree with a `max_depth` of 1 then we won’t really learn any “specific
+patterns” of the training set, we will only learn some general trend.
 
 This is **underfitting**.
 
-If your model is very complex, like a
-`DecisionTreeClassifier(max_depth=None)`, then you will learn unreliable
+If our model is very complex, like a
+`DecisionTreeClassifier(max_depth=None)`, then we will learn unreliable
 patterns that get every single training example correct, but there will
 be a huge gap between training error and validation error.
 
 This is **overfitting**.
+
+The trade-off is there is a tension between these two concepts. When we
+underfit less, we overfit more.
+
+As we increase model complexity, our training score increases (overfit
+more, underfit less) **but** the trade-off is that the gap between the
+training data and the test data will also increase.
+
+The question is how will the validation score react?
 
 ---
 
@@ -65,13 +80,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 Notes:
 
-So how do we deal with this?
+How do we approach this?
 
-How do we avoid both underfitting and overfitting?
-
-First, let’s bring in our data again.
-
-We are using our family Canada and US cities data.
+Let’s go back to our cities data as an example.
 
 ---
 
@@ -90,8 +101,11 @@ results_df = pd.DataFrame(results_dict)
 
 Notes:
 
-Here is a typical workflow to pick the best hyperparameters with a
-systematic search over some possible hyperparameter values.
+First, let’s fit a decision tree classifier for different max\_depth
+values ranging from 1 to 19.
+
+We are going to run `cross_validate()` and set `return_train_score=True`
+so we can observe both the train and validation scores.
 
 ---
 
@@ -109,14 +123,17 @@ results_df
 ..    ...               ...            ...
 14     15          1.000000       0.809191
 15     16          1.000000       0.809191
-16     17          1.000000       0.803309
+16     17          1.000000       0.809191
 17     18          1.000000       0.809191
-18     19          1.000000       0.803309
+18     19          1.000000       0.809191
 
 [19 rows x 3 columns]
 ```
 
 Notes:
+
+The results show our train and validation scores for each `max_depth`
+value.
 
 ---
 
@@ -138,12 +155,24 @@ chart1
 
 Notes:
 
-So which hyperparameter do we choose?
+This plot shows that as we increase our depth (increase our complexity)
+our training data increases.
 
-There are many subtleties here and there is no perfect answer.
+We can also see that as we increase our depth, we overfit more, and the
+gap between the train score and validation score also increases.
 
-A common practice is to pick the model with minimum cross-validation
-error.
+We can see that there is a spot where the gap is the smallest while
+still producing a decent validation score. Somewhat of a “sweet spot” if
+you will. In the plot, this would be around `max_depth` is 5.
+
+In summary, at the beginning when our model is simple and underfitting,
+increasing our model complexity is a good idea since that will cause us
+to underfit less and overfit, not that much more. But as we continue to
+increase our complexity, the trade-off is more evident and overfitting
+occurs more without increasing the validation score so much.
+
+Commonly, we look at the cross-validation score and pick the
+hyperparameter with the highest cross-validation score.
 
 ---
 
@@ -179,21 +208,19 @@ Score on test set: 0.81
 
 Notes:
 
-Let’s pick `depth=5` which is where the mean cross-validation error is
-at a minimum.
+Let’s pick `max_depth=5` which is where the mean cross-validation score
+is at a maximum.
 
 Let’s now compare this error with the model’s test error.
 
-Is the test error comparable with the cross-validation error?
-
-Do we feel confident that this model would give a similar performance
-when deployed?
+We can take this `max_depth=5` build a new classifier and assess our
+model on the test set.
 
 ---
 
 ## The Golden Rule
 
-Even though we care the most about test error:  
+Even though we care the most about test score:  
 
 <center>
 
@@ -211,14 +238,23 @@ Even though we care the most about test error:
 
 Notes:
 
-Even though we care the most about test error **THE TEST DATA CANNOT
-INFLUENCE THE TRAINING PHASE IN ANY WAY**.
+Now that we’ve covered the fundamental tradeoff, we want to discuss the
+\***Golden rule of Machine Learning** which is that the test data cannot
+influence the training phase in any way.
 
-We have to be very careful not to violate it while developing our ML
-pipeline.
+It’s important to always separate our test data and not call it until
+the very end.
 
-Even experts end up breaking it sometimes which leads to misleading
-results and a lack of generalization on the real data.
+This sounds easy enough, but there are many ways where it can be
+violated (even to the best of us).
+
+It is surprisingly hard to adhere to as we get into more sophisticated
+machine learning.  
+The problem is when this happens, the test data influences our training
+and the test data is no longer unseen data and so the test score will be
+too optimistic.
+
+Then our model will not work well when we deploy it.
 
 ---
 
@@ -237,6 +273,11 @@ Notes:
 
 *… He attempted to reproduce the research, and found a major flaw: there
 was some overlap in the data used to both train and test the model.*
+
+There have been several cases in the news where this occurs.
+
+In this example, an author of a scientific paper was accused of mixing
+the training and testing data by accident.
 
 ---
 
@@ -259,6 +300,8 @@ admitted that it used multiple email accounts to test its code roughly
 200 times in just under six months – over four times what the rules
 allow.*
 
+And in other cases, people have been accused of intentionally.
+
 ---
 
 ## How can we avoid violating the golden rule?
@@ -273,8 +316,13 @@ allow.*
 
 Notes:
 
-Recall that when we split data, we put our test set in an imaginary
-vault.
+How can we avoid this?
+
+The most important thing is when splitting the data, we lock it away and
+keep it separate from the training data.
+
+Before we do anything, we should split our data and not bring it back
+until the end of our model building.
 
 ---
 
@@ -294,8 +342,9 @@ vault.
 
 Notes:
 
-Again, there are many subtleties here and we’ll discuss the golden rule
-multiple times throughout the course and in the program.
+Here we return to our workflow showing the steps of how we can build
+models which always starts with splitting our data right away and only
+using the test set at the very end.
 
 ---
 

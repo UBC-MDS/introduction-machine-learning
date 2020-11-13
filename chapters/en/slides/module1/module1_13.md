@@ -4,7 +4,10 @@ type: slides
 
 # Baselines: Training a Model using Scikit-learn
 
-Notes: <br>
+Notes:
+
+Let’s build our very first and very simple machine learning model called
+the baseline model.
 
 ---
 
@@ -21,28 +24,33 @@ Notes: <br>
 
 Notes:
 
-Just to recap what we know, we take tabular data and a machine learning
-algorithm and produce a machine learning model.
+To recap what we have seen so far in supervised machine learning we are
+given some training data.
 
-We can then take new examples and make predictions on them using this
-model.
+We separate our data into features (`X`) and target (`y`), we feed it to
+our learning algorithm, then the learning algorithm learns some function
+which we call our machine learning model and we use this to predict the
+target on unseen test examples.
 
 ---
 
 ### Building a simplest machine learning model using sklearn
 
-<br> <br> <br> Baseline model: **most frequent baseline**: always
-predicts the most frequent label in the training set.
+<br> <br> <br> Baseline model:
+
+**most frequent baseline**: always predicts the most frequent label in
+the training set.
 
 Notes:
 
-Let’s build a ***baseline*** simple machine learning algorithm based on
-simple rules of thumb.
+Let’s build a baseline, a simple machine learning algorithm based on
+simple rules.
 
 We are going to build a most frequent baseline model which always
-predicts the most frequent label in the training set.
+predicts the most frequently labeled in the training set.
 
-Baselines provide a way to sanity check your machine learning model.
+We make baseline models not to use for prediction purposes, but as a
+reference point when we are building other more sophisticated models.
 
 ---
 
@@ -69,6 +77,9 @@ Let’s take our data.
 For this example, we are going to be working with the quiz2
 classification data that we have seen previously.
 
+In this dataset, we have 7 features with our target column being `quiz2`
+which has 2 possible values; `A+` or `Not A+`.
+
 ---
 
 ## 1\. Create 𝑋 and 𝑦
@@ -82,7 +93,9 @@ y = classification_df["quiz2"]
 
 Notes:
 
-Our first step in building our model is spliting up our tabular data
+Whenever we build models, there are several important steps involved.
+
+Our first step in building our model is splitting up our tabular data
 into the features and the target, also known as 𝑋 and 𝑦.
 
 𝑋 is all of our features in our data, which we also call our ***feature
@@ -90,8 +103,6 @@ table***. 𝑦 is our target, which is what we are predicting.
 
 For this problem, all the columns in our dataframe except `quiz2` make
 up our 𝑋 and the `quiz2` column, which is our target make up our 𝑦.
-
-<br>
 
 ---
 
@@ -110,16 +121,18 @@ dummy_clf = DummyClassifier(strategy="most_frequent")
 
 Notes:
 
-In order to make our baseline model, we need to import the necessary
-library.
+Our next step is creating a model object.
 
-We spoke about the Scikit Learn package in the last slide deck.
+To make our baseline model, we need to import the necessary library.
+
+We spoke about the Scikit Learn package in the last slide deck and we
+are using the same package to build our baseline model.
 
 Here we are importing `DummyClassifier()` which will be used to create
 our baseline model.
 
 We specify in the `strategy` argument `most_frequent` which means our
-model will always predicts the most frequent label in the training set.
+model will always predict the most frequent label in the training set.
 
 Here we are naming our model `dummy_clf`.
 
@@ -133,14 +146,11 @@ dummy_clf.fit(X, y)
 
 Notes:
 
-Once we have picked and named our model, we give it data to train on.
+Next, we fit the classifier.
 
-The model’s “learning” is carried out when we call `fit` on the
-classifier object.
-
-In a lot of models, the fitting (also know as the training) stage takes
-the longest and is where most of the work occurs. This isn’t always the
-case but it is in a lot of them.
+When we call fit on our model object, the actual learning happens. In
+our simple model there is not much to learn and in this case, will only
+learn what the most frequent label is in our training data.
 
 ---
 
@@ -171,20 +181,11 @@ array(['not A+'], dtype='<U6')
 
 Notes:
 
-Now that our model has been trained on existing data, we can predict the
-targets.
+Once we have our learned model, the next thing we can do is predict
+using it\!
 
-We are going to try to predict on data that the model has already seen.
-In this case `X`, was used to in the fitting stage. This will change
-very soon.
-
-Let’s first see what the model predicted for a single observation.
-
-We can see here, that for observation 0, it’s predicting a value of `not
-A+`.
-
-This was the most frequent `quiz2` value in the data that we gave it
-during the `.fit()` stage.
+First, we will predict a single observation. We call our model
+`dummy_clf` on the object and we get a prediction of `Not A+` for it.
 
 ---
 
@@ -219,8 +220,14 @@ array(['not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'no
 
 Notes:
 
+We can also predict on many examples.
+
+Here, we are predicting on all of `X`.
+
 And if we see the predictions for all the observations in `X`, the model
 predicts a value of `not A+` for each one.
+
+That’s because `Not A+` is the most frequent label in our training set.
 
 We will talk more about `.fit()` and `.predict()` in the next module.
 
@@ -264,19 +271,19 @@ The error of the model on the training data: 0.476
 
 Notes:
 
-Its at this point where we can see how well our baseline model predicts
+It’s at this point where we can see how well our baseline model predicts
 the `quiz2` value.
 
 In ML models, very often it is not possible to get 100% accuracy. How do
-you check how well your model is doing?
+we check how well our model is doing?
 
 In the classification setting, `score()` gives the accuracy of the
-model, i.e., proportion of correctly predicted.
+model, i.e., the proportion of correctly predicted examples.
 
-Sometimes you will also see people reporting error, which is usually 1 -
+Sometimes we will also see people reporting error, which is usually 1 -
 accuracy.
 
-We can see that our model’s accuracy on our quiz2 problem is 0.524.
+We can see that our model’s accuracy on our `quiz2` problem is 0.524.
 
 We could also say the error is 0.476.
 
@@ -296,13 +303,15 @@ The general pattern when we build ML models using `sklearn`:
 
 Notes:
 
-When building models, there is a general pattern that we repeat.
+To summarize, here are the steps we follow when building machine
+learning models using `sklearn`.
 
-1.  Creating your 𝑋 and 𝑦 objects
-2.  `clf` → create a model (here we are naming it `clf`)  
-3.  `clf.fit(X, y)` → train the model
-4.  `clf.predict(X)` → predict using the trained model
-5.  `clf.score(X, y)` → assess the model
+1.  Create our 𝑋 and 𝑦 objects
+2.  Create our model object ( in this case, we created a dummy
+    classifier)
+3.  Fit our model
+4.  Assess our model
+5.  Predict on new examples using this model.
 
 ---
 

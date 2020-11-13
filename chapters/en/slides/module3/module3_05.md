@@ -26,8 +26,10 @@ how well the model performs on data it has not seen.
 
 We’ve also talked about hyperparameter tuning.
 
-We do not want to use the test set for this because in that case, it
-will no longer truly be “unseen data”.
+The question is, what dataset do we use if we want to tune our model?
+
+We do not want to use the test set for this because if we do so, this
+data will no longer truly be “unseen data”.
 
 It’s a good idea to have separate data for tuning the hyperparameters of
 a model that is not the test set so that we obtain a model that
@@ -61,8 +63,12 @@ hyperparameters) and the test data for a final, “pure” model assessment.
 
 Notes:
 
-Before going forward, it’s important that you know that there isn’t a
-good consensus on the terminology of what is validation and what is test
+This diagram shows that first we split our data into train and test sets
+just like we’ve done before but then we go further and split the
+training set into train and validation sets.
+
+Before going forward, it’s important to know that there isn’t a good
+consensus on the terminology of what is validation and what is test
 data.
 
 We will try to use “validation” to refer to data where we have access to
@@ -91,11 +97,17 @@ We lock it in a “vault” until we’re ready to evaluate.
 
 Notes:
 
-After we build and finalize a model, we deploy it, and then the model
-deals with the data in the wild.
+The last character in the story is the deployment data.
+
+After we build and finalize a model, we deploy it, and then the model is
+used with data in the wild.
 
 We will use “deployment” to refer to this data, where we do **not** have
 access to the target values.
+
+The whole point of doing supervised learning is we want to predict
+something which we do not know the answer to, so we do not have the
+target values and we only have the features.
 
 Deployment score is the thing we *really* care about.
 
@@ -116,7 +128,18 @@ will do well on deployment data.
 
 Notes:
 
-<br>
+This table shows what functions from `sklearn` we can use on the
+different datasets.
+
+  - The training data can be called with `fit`, `score` and `predict`\!
+  - The validation data can only be assessed with `score` and `predict`.
+    (`score` typically uses predict in order to predict the labels and
+    score comparing with the true labels)
+  - The test data is similar to validation data except that we only call
+    `score` and `predict` a single time.
+  - The deployment data cannot call `score` since we do not have the
+    correct labels to compare it with so we can only call `predict` to
+    find our predicted labels.
 
 ---
 

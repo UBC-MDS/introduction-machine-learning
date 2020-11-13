@@ -85,6 +85,9 @@ If our dataset is small we might end up with a tiny training and/or validation s
 
 We might also be unlucky with our splits such that they don't align well or don't well represent our test data.
 
+It would be nice to have more data on which to train and validate. 
+
+
 ---
 
 ## So what do we do? 
@@ -96,21 +99,32 @@ We might also be unlucky with our splits such that they don't align well or don'
 
 Notes: 
 
-We use something called ***cross-validation*** or ***𝑘-fold cross-validation*** as a solution to this problem.. 
 
-Cross-validation helps us use all of our data for training/validation!
+Here we will introduce something called **cross-validation** or ***𝑘-fold cross-validation*** which attempts to get the best of both worlds. 
 
-Cross-validation consists of splitting the data into k-folds ( 𝑘>2 , often  𝑘=10 ).  In the picture below  𝑘=4 .
+We still have the test set here at the bottom locked away that we will not touch until the end. 
 
-Each "fold" gets a turn at being the validation set.
+Instead of splitting our training set and simply chopping it into train and validation sets, we do something more complicated that allows us to validate more accurately and not be over-reliant on the random dividing into the training and validation sets. 
 
-Each fold gives a score and we usually average our 𝑘 results. 
+Doing this could lead to us either being lucky or unlucky with the splitting, causing extremely accurate or very poor scores. 
+
+Cross-validation consists of splitting the data into k-folds ( 𝑘>2, often 𝑘=10 ). In the picture below 𝑘=4.
+
+Each "fold" gets a turn at being the validation set. And the other folds are used as the training set. 
+
+Then we use a new fold as the validation set and the rest now become the training set. 
+
+This is repeated until every fold has an opportunity to act as the validation set. 
+
+Each round will produce a score so after 𝑘-fold cross-validation, it will produce 𝑘 scores. 
+We usually average over the 𝑘 results. 
 
 It's better to notice the variation in the scores across folds.  
 
 We can get a more "robust" score on unseen data.
 
-The main disadvantage here is that this is slower, which is a problem for bigger datasets / more complex models.
+The main disadvantage here is that this as K increases the longer it takes to run the code, which is a problem for bigger datasets / more complex models.
+
 
 
 ---
@@ -152,17 +166,26 @@ cv_score
 
 Notes: 
 
-First we import `cross_val_score` from `sklearn.model_selection`.
+First, we import `cross_val_score` from `sklearn.model_selection` which is gonna take care of the cross-validation for us.
+
+Conveniently we don’t need to do the splitting into folds ourselves and the functions we use from these libraries will help us with that. 
 
 We create our decision tree model.
 
-We use `cross_val_score()` and specify the model and the training features and target as arguments. We also specify `cv` which determines the cross-validation splitting strategy or how many "folds" there are.
+We use `cross_val_score()` and specify the model and the training features and target as arguments.
+
+We also specify `cv` which determines the cross-validation splitting strategy or how many "folds" there are.
 
 Here we are saying there at 5 folds on the data. 
 
-In each fold, it fits the model on the training portion and scores on the validation portion.
+For each fold, the model is fitted on the training portion and scores on the validation portion.
 
-We can see the output is a list of validation scores in each fold.
+The output of `cross_val_score()` is the validation score for each fold. 
+
+Typically an average of the scores can be taken to produce a single measure of how the model is doing but it can be useful to look at the individual scores to observe the variation among them. 
+
+If the scores are all quite different, that may make us question our model more. 
+
 
 
 
@@ -182,6 +205,9 @@ Notes:
 
 We can change the number of folds too. Now, when we change it to 10, we get 10 different scores.
 
+When we average these we get a mean score of 0.84. 
+
+
 ---
 
 ```{python}
@@ -197,9 +223,22 @@ scores
 
 Notes: 
 
-`cross_val_score()` is the simpler scikit-learn function for cross-validation.
+We just talked about `cross_val_score()` which is the simpler scikit-learn function for cross-validation.
+
+`cross_validate()` is a more informative function for cross-validation. 
 
 Let us access training and validation scores.  
+
+We call `cross_validate()` with the argument `return_train_score` which will output the training score as well as the other information. 
+
+The output of ``cross_validate()` is a dictionary so we change it to a pandas dataframe to make it easier to read. 
+
+The 10 rows are the 10 folds of cross-validation. 
+
+The `test_score` column is the “validation score” which is the same thing that is outputted from the `cross_val_score()` function. 
+
+The new training score is output since we set the argument `return_train_score` to True and then we have the fit and score time it takes to execute. 
+
 
 
 
@@ -234,17 +273,12 @@ pd.DataFrame(scores).std()
 
 Notes: 
 
-Using `cross_validate()` instead of `cross_val_score()` gives us more information. 
+We can calculate the mean cross-validation score by taking the mean of the `test_score` column. 
 
-`cross_val_score()` was just returning that last column, but here we get the time spent and the training scores.
+This is the same as taking the mean of the output from `cross_val_score()`. 
 
-We can calculate the mean of each column on the 10 folds.
+Normally we calculate the mean cross-validation score but sometimes it would be useful to look at the range and standard deviation of the folds as it helps assess how consistent the model is. 
 
-It's a bit unfortunate that they call it "test_score" in scikit-learn; for us this is a validation score.
-
-We can see the mean from this is similar to the mean from `cross_val_score()`.
-
-Normally we calculate the mean cross-validation score but sometimes it would be useful to look at the range and standar deviation of the folds. 
 
 ---
 
@@ -261,20 +295,16 @@ Normally we calculate the mean cross-validation score but sometimes it would be 
 
 
 Notes: 
-We are given training data with features `X` and target `y`.
 
-We split the data into train and test portions: `X_train, y_train, X_test, y_test`.
+This brings us to our standard set of steps or workflow for supervised learning. 
 
-We carry out hyperparameter optimization using cross-validation on the train portion: `X_train` and `y_train`. 
+1. We are given the dataset with our `X` and `y`. 
+2. We split our data into our `X_train`, `y_train`, `X_test`, y_test`.
+3. We try different models and hyperparameter optimization.
+4. We then build the best model based on the results.
+5. When we have our favourite model, we assess our model with our `X_test`, y_test`.
+6. If we are happy with these scores, we deploy our model into practice.  
 
-We assess our best performing model on the test portion: `X_test` and `y_test`.  
-What we care about is the **test score**, which tells us how well our model can be generalized.
-
-If this test score is "reasonable" we deploy the model which will be used on new unseen examples.
-
-How do we know whether this test score is reasonable? 
-
-We will discuss this in the next section!
 
 ---
 

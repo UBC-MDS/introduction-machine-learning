@@ -78,9 +78,16 @@ Here is some basic terminology used in ML:
 
 Notes: 
 
-How do we effectively represent what we **input** into our model?
+In the supervised machine learning paradigm, we have input data and an output. We feed our input to a machine learning algorithm. 
 
-In supervised machine learning,  we typically work with ***tabular data***.    
+The question is how do we effectively represent this input?
+
+Is there a specific required format for our data so that we can pass it to machine learning algorithms. 
+- YES! In supervised machine learning, we typically work with **tabular data**. 
+
+Here is a toy example of tabular data. 
+
+The task here is to predict the `quiz2` grade given all this information. 
 
 - Rows are ***examples*** 
 - Columns are ***features*** and one of the columns is typically the ***target***. 
@@ -115,9 +122,13 @@ df.shape
 
 Notes: 
 
-In this example, there are 18 **features** and 21613 **examples**.
+Let's look at some examples of terminology:  
 
-The target, in this case, is `price`.
+Let's go back to our housing price prediction problems. 
+In this particular example, there are 18 features and 21613 examples.
+
+Our target column is the `price` column. 
+
 
 
 ---
@@ -135,11 +146,12 @@ classification_df.shape
 
 Notes: 
 
-Here , there are 7 **features**, which are the columns `ml_experience` to `quiz1`. 
+Here is another example.
 
-The **target** is `quiz2`. 
+This is our toy quiz2 classification data. The target here is `quiz2`. Our task is to predict whether a student gets an A+ or not A+ in quiz2. 
 
-After using `.shape` we can see that there are 21 **examples**. 
+Since this is a toy dataset. We only have 21 examples and 7 different features with our target column being `quiz2`.
+
 
 
 ---
@@ -158,11 +170,11 @@ y.head()
 
 Notes: 
 
-In order to train a model, we need to separate our data into **features** and the **target**. 
+In order to train a model, we need to separate our data into features and the target. 
 
-We save our **features** which are columns `ml_experience` to `quiz1` in an object named `X`. 
+We save our features which are columns `ml_experience` to `quiz1` in an object named `X`. 
 
-Our **target**  column is `quiz2`  and gets saved in an object named `y`. 
+Our target  column is `quiz2`  and gets saved in an object named `y`. 
 
 We will explain why we do this in the next set of slides. 
 

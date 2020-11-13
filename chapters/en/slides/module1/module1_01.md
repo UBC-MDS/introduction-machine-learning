@@ -18,21 +18,25 @@ Notes: <br>
 
 Notes:
 
-Machine learning (ML) is used often in our everyday lives.
+You may not know it, but machine learning (ML) is all around you.
 
 Some examples include:
 
   - Voice assistance
   - Google news
-  - Recommender Systems
+  - Recommender systems
   - Face recognition
   - Auto completion
   - Stock market predictions
   - Character recognition
   - Self-driving cars
   - Cancer diagnosis
-  - Drug Discovery
-  - AlphaGo
+  - Drug discovery
+
+The best AlphaGo player in the world is not human anymore.
+
+AlphaGo, a machine learning-based system from Google, is the world’s
+best player at the moment.
 
 ---
 
@@ -49,15 +53,26 @@ Some examples include:
 
 Notes:
 
-So what exactly is machine learning?
+What exactly is machine learning? There is no clear consensus on the
+definition of machine learning. But here is a popular definition by
+Artur Samuel who was one of the pioneers of machine learning and
+artificial intelligence.
 
-According to Arthur Samuel, an American pioneer in the field of computer
-gaming and artificial intelligence, it is:
+Arthur Samuel said that machine learning is *“A field of study that
+gives computers the ability to learn without being explicitly
+programmed.”*
 
-*“A field of study that gives computers the ability to learn without
-being explicitly programmed.”*
+Machine learning is a different way to think about problem-solving.
+Usually, when we write a program we’re thinking logically and
+mathematically. Here is how a traditional program looks like. We are
+given input and an algorithm and we produce an output.
 
-We see it as a different way to think about problem-solving.
+Instead, in the machine learning paradigm, we’re given data and some
+output and our machine learning algorithm returns a program. we can use
+this program to predict the output for some unseen input.
+
+In this paradigm, we’re making observations about an uncertain world and
+thinking about it statistically.
 
 ---
 
@@ -70,11 +85,15 @@ We see it as a different way to think about problem-solving.
 *In all the the upcoming examples, Don’t worry about the code. Just
 focus on the input and output in each example.*
 
-Notes: To introduce the capabilities of machine learning, we are going
-to show you a few examples.
+Notes:
 
-The first example is being able to predict whether a patient has a liver
-disease or not.
+Before we start let’s look at some concrete examples of supervised
+machine learning.
+
+Our first example is predicting whether a patient has a liver disease or
+not.
+
+For now, ignore the code and only focus on input and output.
 
 ---
 
@@ -92,8 +111,15 @@ train_df.head()
 159   50              1.2               0.4                   282                        36                          32             7.2      3.9                         1.1     Disease
 ```
 
-Notes: First we obtain our data from our patients, wrangle it as
-necessary and split it up.
+Notes:
+
+Usually, for supervised machine learning, we are provided data in a
+tabular form.
+
+We have columns full of data and a special “target” column which is what
+we are trying to predict.
+
+We pass this to a machine learning algorithm.
 
 ---
 
@@ -106,11 +132,15 @@ model = XGBClassifier()
 model.fit(X_train, y_train)
 ```
 
-Notes: Next, we build a model and train our model using the labels we
-already have.
+Notes:
 
-Ignore this output here. It’s just explaining what’s going on in the
-model which we will explain soon.
+Next, we build a model and train our model using the labels we already
+have.
+
+Ignore this output here.
+
+It’s just explaining what’s going on in the model which we will explain
+soon.
 
 ---
 
@@ -130,10 +160,16 @@ df_concat
 3   72              1.7               0.8                   200                        28                          37             6.2      3.0                        0.93         Disease
 ```
 
-Notes: Next, we take our model and use it to predict on unseen data.
+Notes:
 
-Here we can see that our model is predicting an outcome of the patients
-under the `Predicted label` column.
+Then, given new unseen input, we can apply our learned model to predict
+the target for the input.
+
+In this case, we can imagine that a new patient arrives and we want to
+predict if the patient has a disease or not.
+
+Given the patient’s information, our model predicts if the patient has
+the disease or not.
 
 ---
 
@@ -141,7 +177,9 @@ under the `Predicted label` column.
 
 ## Example 2: Predict the label of a given image
 
-Notes: We can also use it for image recognition.
+Notes:
+
+Our second example is predicting the label of a given image.
 
 ---
 
@@ -168,14 +206,20 @@ for image in images:
  gazelle     0.010053
 ```
 
-Notes: Here, we already have a trained model that has been shown
-hundreds of thousands of images.
+Notes:
 
-If we give it images from our own collection, the model attempts to make
-a prediction of the contents of the image.
+Here we use a machine learning model trained on millions of images and
+their labels.
 
-In this case, the model predicts the animal to be an `ox` with a
-probability score 86%. That’s not bad.
+We are applying our model to predict the labels of unseen images.
+
+In this particular case, our unseen image is that of an ox.
+
+When we apply our trained model on this image, it gives us some
+predictions and their associated probability scores.
+
+So in this particular case, the model predicted that the image was that
+of an ox with a confidence of 0.869.
 
 ---
 
@@ -202,9 +246,11 @@ for image in images:
 
 Notes:
 
-In this case, the model is much less confident in identifying the
-animal. The model gives the highest probability score that our donkey
-image, is a llama but only with a value of `0.12`.
+Our second unseen image contains some donkeys.
+
+In this case, when we apply our mode to the image, The model predicts
+that it contains a llama. That being said, the probability score here is
+only 0.123.
 
 ---
 
@@ -215,8 +261,10 @@ image, is a llama but only with a value of `0.12`.
 *Attribution: The dataset `imdb_master.csv` was obtained from
 <a href="https://www.kaggle.com/uttam94/imdb-mastercsv" target="_blank">Kaggle</a>*
 
-Notes: We also use machine learning to predict negative or positive
-sentiment expressed in a movie review.
+Notes:
+
+Our third example is about predicting sentiment expressed in movie
+reviews.
 
 ---
 
@@ -283,11 +331,10 @@ pred_df.head()
 7045   For weeks I had been looking forward to seeing...            neg                   neg
 ```
 
-Notes: Once we have our model trained, we can then predict data we
-haven’t seen before using the model we just built.
+Notes:
 
-This we can see that in these 4 observations, the model correctly
-predicts each review’s sentiment.
+Once we have the model, we can use this to predict the sentiment
+expressed in new movie reviews.
 
 ---
 
@@ -298,7 +345,9 @@ predicts each review’s sentiment.
 *Attribution: The dataset `kc_house_data.csv` was obtained from
 <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>.*
 
-Notes: Machine learning can also be used to predict housing prices.
+Notes:
+
+Example 4 is about predicting housing prices.
 
 ---
 
@@ -318,9 +367,19 @@ train_df.head()
 3913   357823.0         3       1.50         1240      9196     1.0           0     0          3      8        1240              0      1968             0    98072  47.7562 -122.094           1690       10800
 ```
 
-Notes: We wrangle our data just as we did before.
+Notes:
 
-These data consist of the characteristics of houses in King County, USA.
+In this particular case, our data contains attributes associated with
+properties
+
+For example, our attributes consist of the number of bedrooms, the
+number of bathrooms, etc.
+
+Our special column which we call our “target column” is the price for
+the corresponding property.
+
+Note that this price column here contains continuous values and not
+discrete values as we saw in our previous examples.
 
 ---
 
@@ -372,7 +431,9 @@ model = XGBRegressor()
 model.fit(X_train, y_train)
 ```
 
-Notes: We build our model.
+Notes:
+
+Again we use this data to train our machine learning model.
 
 ---
 
@@ -392,10 +453,16 @@ df_concat.head()
 3         3       2.50         1580      1321     2.0           0     2          3      8        1080            500      2014             0    98107  47.6688 -122.402           1530        1357      565091.6250      680000.0
 ```
 
-Notes: And we predict on unseen examples using the built model.
+Notes:
 
-If we scroll to right, we can compare the actual price of the house and
-the price our model predicted.
+And once we have our trained model, we apply it to predict the price
+associated with new home properties.
+
+When we pass new properties into the model we get a predicted price for
+those properties.
+
+And note again that our predicted prices here are continuous numbers and
+not discrete values
 
 ---
 

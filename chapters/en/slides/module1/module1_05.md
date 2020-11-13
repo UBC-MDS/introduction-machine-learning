@@ -4,7 +4,10 @@ type: slides
 
 # Classification vs Regression
 
-Notes: <br>
+Notes:
+
+There are two main kinds of supervised learning problems based on what
+they are trying to predict; ***Classification*** and ***Regression***.
 
 ---
 
@@ -13,29 +16,28 @@ Notes: <br>
   - **Classification problem**: predicting among two or more categories,
     also known as classes
       - *Example1*: Predict whether a patient has a liver disease or not
-      - *Example2*: Predict whether the letter grade of a student,
+      - *Example2*: Predict whether the letter grade of a student
         (A,B,C,D or F)
   - **Regression problem**: predicting a continuous (in other words, a
     number) value
       - Example1: Predict housing prices
-      - Example2: Predict a student’s score in this course’s quiz2.
+      - Example2: Predict a student’s score in this course’s quiz2
 
 Notes:
 
-There are two main kinds of supervised learning problems based on what
-they are trying to predict; ***Classification*** and ***Regression***.
-
-**Classification** predicts a target value among two or more discrete
-classes.
+In **Classification** problems we predict target value among two or more
+known categories.
 
 For example:
 
-  - whether a patient has a liver disease or not
-  - whether a student would get an A+ or not in this course’s quiz2.
+  - Whether a patient has a liver disease or not (2 possible target
+    values)
+  - The letter grade of a student: A, B, C, D or F. ( There are 5
+    categories)
 
 **Regression** predicts a continuous (typically, floating-point) value.
 
-For example: - housing prices - the scores of students in this course’s
+For example: - Housing prices - The scores of students in this course’s
 quiz2.
 
 ---
@@ -48,9 +50,15 @@ quiz2.
 
 Notes:
 
-So a classification problem predicts if a student would get an A+ or not
-and a regression problem predicts the student’s actual score of the
-quiz.
+Here are examples of classification and regression problems.
+
+As we said before in a classification problem the target has discrete
+categories. In this example, our target has only two possible values; A+
+or not A+. Our goal is to predict if a student will get a value of A+ or
+not A+.
+
+In Regression problems, we are predicting each student’s grade, so the
+target here which is quiz2 contains the actual students’ score.
 
 ---
 
@@ -68,9 +76,13 @@ classification_df.head()
 4              0                 1    77    83    90    92     85      A+
 ```
 
-Notes: Here is an example of what the data looks like in classification.
-Looking at the column `quiz2` which is what we are trying to predict,
-the possible values are `A+` or `not A+`.
+Notes:
+
+We have created two toy datasets for classification and regression and
+this is our toy dataset for classification.
+
+We can see in the first example, the target here is `quiz2` and contains
+only 2 possible values; A+ or not A+.
 
 ---
 
@@ -88,8 +100,11 @@ regression_df.head()
 4              0                 1    77    83    90    92     85     90
 ```
 
-Notes: As for Regression, the column `quiz2` contains numerical values,
-like `90` or `82`.
+Notes:
+
+On the other hand, in the regression problem, the target column (
+‘quiz2`) contains the actual scores so we have continuous values in
+our`quiz2\` column.
 
 ---
 

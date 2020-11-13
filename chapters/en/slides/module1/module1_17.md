@@ -4,14 +4,17 @@ type: slides
 
 # Dummy Regression
 
-Notes: <br>
+Notes:
+
+Let’s build a baseline model for our regression problem.
 
 ---
 
 ### Building a baseline regression model
 
-<br> <br> <br> Baseline model: **Averge target value**: always predicts
-the mean of the training set.
+<br> <br> <br> Baseline model:
+
+**Averge target value**: always predicts the mean of the training set.
 
 Notes:
 
@@ -41,10 +44,9 @@ classification_df.head()
 
 Notes:
 
-Let’s bring in our regression problem data now.
+To demonstrate this we are going to bring in our toy regression dataset.
 
-For this example, we are going to be working with the quiz2 regression
-data that we have seen previously.
+As a reminder, the task here is to protect our `quiz2` score.
 
 ---
 
@@ -62,8 +64,6 @@ Notes:
 Just like before, we separate our data into the feature table and the
 target, also known as 𝑋 and 𝑦.
 
-<br>
-
 ---
 
 ## 2\. Create a regressor object
@@ -80,6 +80,8 @@ dummy_reg = DummyRegressor(strategy="mean")
 ```
 
 Notes:
+
+Next, we create our regressor object.
 
 This time instead of importing `DummyClassifier()`, we import
 `DummyRegessor` which will be used to create our baseline regression
@@ -100,8 +102,13 @@ dummy_reg.fit(X, y)
 
 Notes:
 
-Once we have created and named our regressor, we give it data to train
-on.
+The next step is fitting our regressor.
+
+As usual, we call fit on our dummy regressor and we pass `X` and `y`
+into `fit()`.
+
+Our dummy regressor is a very simple model and all it is going to learn
+here is the mean prediction from the training data.
 
 ---
 
@@ -130,10 +137,13 @@ array([86.28571429])
 
 Notes:
 
-Since our model has been trained on existing data, we can predict the
-targets.
+Now that we have trained our regressor, we can use it to predict targets
+for new examples.
 
-For observation 2, the model predicts a value of `86.29`
+First, let’s try to predict the target value for a single observation.
+
+When we call `predict` on `dummy_reg` with this observation. We get a
+prediction of 86.285.
 
 ---
 
@@ -162,7 +172,9 @@ array([86.28571429, 86.28571429, 86.28571429, 86.28571429, 86.28571429, 86.28571
 
 Notes:
 
-In fact, the model predicts the same value for all the observations.
+We can predict on the full dataset `X` and when we do so, we get the
+value of 86.285 for every example. This makes sense because the
+prediction is the mean of the target column.
 
 ---
 
@@ -181,13 +193,16 @@ The accuracy of the model on the training data: 0.0
 
 Notes:
 
-The best possible score for any model is 1.0 and it can be a negative
-(because the model can be arbitrarily worse).
+Now let’s try to assess our model.
 
-We will talk about this value further in the course, but for now, all
-you need to know is that for dummy regressors, the output of `.score()`
-when using a dummy regressor with a `strategy` argument value of `mean`,
-will be 0.0.
+In the case of regression, `score` gives something called an R^2 to
+assess our model.
+
+We will not be going into that much detail on it now but the best
+possible score for any model is 1.0 and for dummy classifiers, it is
+around 0.
+
+This can also be a negative (because the model can be arbitrarily worse)
 
 ---
 

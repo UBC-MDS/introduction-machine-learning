@@ -47,15 +47,12 @@ interests lie so what do we do?
 
 Notes:
 
-We keep aside some randomly selected portion from the training data.
+What we do is we keep a randomly selected portion of our data aside we
+call that the testing data.
 
-We `fit` (train) a model on the training portion only.
-
-We `score` (assess) the trained model on this set-aside data to get a
-sense of how well the model would be able to generalize.
-
-We pretend that the kept aside data is representative of the real
-distribution (𝐷) of data.
+We do our fitting on the training data and then we can assess the model
+on this testing data which we’re using to be representative of the whole
+distribution of the data.
 
 ---
 
@@ -71,14 +68,16 @@ distribution (𝐷) of data.
 
 Notes:
 
-The data is shuffled before splitting.
+The data needs to be shuffled before splitting since our data could be
+in a specific order and if we took the last part as our test set we
+wouldn’t have a random sample of our data.
 
-We then split up our data into 2 separate sections.
+So first we shuffle and then split the rows of the data into 2 sections.
 
-The picture shows an 80%-20% split of a toy dataset with 10 examples.
+Here the training portion in green and the test portion in red.
 
-Usually, when we do machine learning we split the data before doing
-anything and put the test data in an imaginary chest lock.
+The lock and key icon on the test set symbolizes that we don’t want to
+touch it until the end.
 
 ---
 
@@ -92,10 +91,14 @@ anything and put the test data in an imaginary chest lock.
 
 Notes:
 
-We can do this very easily with a tool from Scikit Learn.
+We can do this very easily with the `train_test_split` function Scikit
+Learn.
 
-It gives us the versatility to either pass `X` and `y` or a dataframe
-with both `X` and `y` in it.
+This function allows us to split the data like we just discussed and it
+also does the shuffling for us.
+
+There are two ways of using it: Pass in a dataframe and then it does the
+split Pass in `X` and `y` and it will then split these both separately.
 
 It uses useful arguments such as:
 
@@ -154,7 +157,11 @@ X
 [209 rows x 2 columns]
 ```
 
-Notes: First we have our `X` dataframe.
+Notes:
+
+We’re gonna separate our `X` and `y`.
+
+The `X` in this case is `longitude` and `latitude`.
 
 ---
 
@@ -178,7 +185,10 @@ y
 Name: country, Length: 209, dtype: object
 ```
 
-Notes: Followed by our `y`, target column.
+Notes:
+
+And the `y` is the country that we’re going to try to predict for each
+city.
 
 ---
 
@@ -205,13 +215,17 @@ Notes:
 
 First we import `train_test_split` from `sklearn.model_selection`.
 
-We split our data and separate our `X` and `y` variables into 4 separate
-objects that we name:
+And then we are going to pass in the `X` and the `y` to give us the 4
+separate objects that we name:
 
   - `X_train`
   - `X_test`
   - `y_train`
   - `y_test`
+
+This gives us a look at what `X_train` looks like as we can see that
+it’s been shuffled because the index is out of order and it contains
+our 2 columns `longitude` and `latitude`.
 
 ---
 
@@ -250,7 +264,17 @@ Name: country, dtype: object
 
 Notes:
 
-<br>
+We can look at the other object as well.
+
+Here we have `X_test`, `y_train`, `y_test`, and as expected, the `y`
+objects contain the countries.
+
+The function keeps the original index and we can see that the index is
+not in order anymore due to the shuffling.
+
+But the first 3 tests examples 172.175.181 in the `X` objects map to the
+same test example in the `y` object which makes sense since they
+correspond to each other.
 
 ---
 
@@ -278,6 +302,19 @@ Notes:
 
 Let’s take a look at the shape of each of these dataframes now.
 
+The code is less important here and instead let’s focus our attention on
+the output.
+
+`X` started as being 209 rows and 2 columns (`longitude` and
+`latitude`).
+
+`y` started as the same 209 rows but being only one dimensional.
+
+After the splitting, 167 of the examples went to the training set and 42
+of the examples went to the test set.
+
+The `X` only 2 have 2 columns and the `y` is 1 dimensional.
+
 ---
 
 ``` python
@@ -299,14 +336,21 @@ train_df.head()
 187   -67.9245   47.1652  Canada
 ```
 
-Notes: Sometimes we may want to keep the target in the train split for
-EDA or for visualization.
+Notes:
 
-That’s not a problem.
+Sometimes we want to split first into the training and testing datasets
+and then we can split these 2 objects after into the feature and target
+objects.
+
+The earlier to split the data the better and this is a great way to
+split as well.
 
 We can do this by splitting our `cities_df` dataframe into a train and
 test dataframe as objects `train_df`, `test_df`, and then separate the
 features from the target after the fact.
+
+Sometimes we may want to keep the target in the train split for EDA or
+for visualization.
 
 ---
 
@@ -320,9 +364,13 @@ chart_cities
 ```
 <img src="/module3/chart_cities.png" alt="A caption" width="60%" />
 
-Notes: Now we can plot the data from the training data `train_df`, we
-can differentiate between the Canadian cities (red) and the United
-States cities (blue).
+Notes:
+
+This plot shows the `train_df` object.
+
+This is another reason why splitting with the target and features
+together can be useful as it can visually show what’s going on and
+potentially provide some insights into our analysis.
 
 ---
 
@@ -333,7 +381,8 @@ model.fit(X_train, y_train);
 
 Notes:
 
-We can build our model and fit our data.
+We can build our model here by constructing a decision tree classifier
+and fitting it.
 
 ---
 
@@ -345,7 +394,7 @@ We can build our model and fit our data.
 
 Notes:
 
-<br>
+The model corresponds to the following tree.
 
 ---
 
@@ -359,7 +408,38 @@ Notes:
 
 Notes:
 
-<br>
+For example, we see here, if the `latitude` is less than 42.9. and say
+it’s the `latitude` is also less than 42.096, the model predicts `USA`
+etc.
+
+Here we have the decision tree on the left and a picture of it on the
+right that corresponds to the decision boundaries.
+
+The first split corresponds to the `latitude` column using a threshold
+of 42.9.
+
+if `latitude` is greater than 42.9, then the model will be predicting
+above the horizontal line that lines upright with 42.9 on the y-axis
+which is the `latitude` axis.
+
+And if the statement is true and `latitude` is less than 42.9. The
+prediction corresponds to the bottom half of this plot.
+
+We see here that the bottom half is splitting again but both sides are
+being predicted as `USA` making the entire bottom half of the plot red,
+corresponding to `USA` predictions.
+
+It doesn’t completely make sense to split and then predict the same
+thing on both sides but the reason why this occurs as it could be useful
+if we decide to have a deeper tree.
+
+On the other hand, if we have `latitude` greater than 42.9, this
+corresponds to the upper half of the plot. The second split on this is
+on the `longitude` feature.
+
+This is the vertical line here. Now anything less than -130.017 on the
+x-axis is predicted as `USA` and anything greater is predicted as
+`Canada`.
 
 ---
 
@@ -370,6 +450,15 @@ Notes:
 </center>
 
 Notes:
+
+So here is the deeper tree.
+
+Now the second split on the left side makes sense because it gets split
+again on `latitude` and we see that there is a `Canada` class and a
+`USA` class.
+
+This tree is too large to go into detail but feel free to take a moment
+to look at it.
 
 ---
 
@@ -386,17 +475,19 @@ print("Test score: " + str(round(model.score(X_test, y_test), 2)))
 ```
 
 ```out
-Test score: 0.71
+Test score: 0.74
 ```
 
 Notes:
 
-Let’s examine the train and test scores with the split now.
+For this tree, the training score is giving us a score of 1.0 and the
+test score is only 0.71.
 
-We can see our model does not do as well a job generalizing as we did
-before.
+On the training data, our model predicts well but how will it do on data
+it hasn’t seen yet?
 
-Our training score is 1, however, our testing score is 0.71.
+We simulate this by using our test set and here we see that our model
+does not do quite as well as 100% in this case.
 
 ---
 
@@ -404,8 +495,38 @@ Our training score is 1, however, our testing score is 0.71.
 
 Notes:
 
-The plot above shows the boundaries from the tree trained on training
-data and the test data.
+And so here’s a picture of that deeper decision tree and its decision
+boundaries.
+
+On the left and the right, we have the same boundaries But different
+data being shown.
+
+What’s important to see here is that the model is getting 100 percent
+accuracy on the training data so every time we have a red training
+sample, the coloring there’s also read meaning we correctly predicted
+it.
+
+Every time we have a blue training sample meaning a Canadian city the
+background coloring there is also blue meaning we predicted it
+correctly.
+
+In order to get 100 percent accuracy, the model ends up being extremely
+specific.
+
+We can see this long blue horizontal section which the model is
+predicting contains Canadian cities.
+
+We know that’s not true and quite silly since there is no small thin
+section of Canada slicing the US in half.
+
+That the model got over complicated on the training data and this
+doesn’t generalize to the test data well.
+
+In the plot on the right, we can see some red triangles in the blue area
+and that is the model making mistakes which explains the 71% accuracy.
+
+We see that although the model does well on the training data, it does
+not do well on unseen data.
 
 ---
 
@@ -433,7 +554,8 @@ shape_df2
 
 Notes:
 
-Let’s take a closer look at the arguments in the splitting tool.
+Let’s take a look at the arguments in the `.train_test_split()`
+function.
 
 When we specify how we want to split the data, we can specify either
 `test_size` or `train_size`.
@@ -447,6 +569,11 @@ depends upon how much data is available to us
 Some common splits are 90/10, 80/20, 70/30 (training/test).
 
 In the above example, we used an 80/20 split.
+
+The trade-off is that the more training data we have the more
+information we have to train our model on, but also the more test data
+we have, the better we can assess our model afterward, hence it is a
+difficult choice to make.
 
 ---
 
@@ -484,13 +611,21 @@ train_df_rs7.head(3)
 
 Notes:
 
-The data is shuffled before splitting which is a crucial step. The
-`random_state` argument controls this shuffling.
+The other argument we will focus on is the `random_state` argument.
+
+The data is shuffled before splitting which is a crucial step.
+
+The `random_state` argument controls this shuffling.
+
+Without this argument set, each time we split our data, it will be split
+in a different way.
+
+We set this to add a component of reproducibility to our code and if we
+set it with a `random_state` when we run our code again it will produce
+the same result.
 
 In the example above we used `random_state=5` and `random_state=7` and
 we can see that they contain different observations.
-
-Setting the random\_state is useful when we want reproducible results.
 
 ---
 
