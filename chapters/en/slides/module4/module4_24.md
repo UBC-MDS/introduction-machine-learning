@@ -52,7 +52,7 @@ land.
 We are going to concentrate on the specific kernel called Radial Basis
 Functions (RBFs).
 
-Let’s bring back our trusty cities dataset again before introducing it.
+Let’s bring back our trusty cities dataset again.
 
 ---
 
@@ -68,6 +68,9 @@ cities_plot
 
 Notes:
 
+Here is our data plotted once again with the red dots representing
+Canadian cities and the blue ones represent American cities.
+
 ---
 
 ``` python
@@ -82,11 +85,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.005892    0.002173    0.823529     0.842105
-1  0.002843    0.002166    0.823529     0.842105
-2  0.002919    0.003491    0.727273     0.858209
-3  0.003288    0.002440    0.787879     0.843284
-4  0.002813    0.001566    0.939394     0.805970
+0  0.004112    0.002512    0.823529     0.842105
+1  0.002991    0.001782    0.823529     0.842105
+2  0.002817    0.001793    0.727273     0.858209
+3  0.003096    0.002116    0.787879     0.843284
+4  0.002477    0.001941    0.939394     0.805970
 ```
 
 ``` python
@@ -100,6 +103,10 @@ svm_cv_score
 
 Notes:
 
+In this course, we are not going into detail about how support vector
+machine classifiers or regressor works but more so on how to use it with
+Scikit-learn.
+
 We must first import the necessary library and then we can get to model
 building in the same fashion as we did before.
 
@@ -107,6 +114,9 @@ Here we are importing the `SVC` tool from the `sklearn.svm` library.
 
 For now, just ignore the gamma input argument in `SVC()` we will get to
 that soon.
+
+After building our model and performing cross-validation, we can see
+that the mean accuracy is 0.820.
 
 ---
 
@@ -125,10 +135,10 @@ SVC(gamma=0.01)
 
 Notes:
 
-if we plot the decision boundaries of the SVM model and compare it to
-K-Nearest Neighbours we can see some similarities.
-
-You can think of SVM with RBF kernel as “smooth KNN”.
+If we plot over the support vector machine classifier along with the
+𝑘-Nearest Neighbours classifier, we can see that the support vector
+machine classifier is a smoothed version of the 𝑘-Nearest Neighbours
+classifier.
 
 ---
 
@@ -142,11 +152,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002108    0.003235    0.852941     0.849624
-1  0.002758    0.003423    0.764706     0.834586
-2  0.002955    0.003247    0.727273     0.850746
-3  0.002105    0.002970    0.787879     0.858209
-4  0.002430    0.002906    0.878788     0.813433
+0  0.002360    0.003370    0.852941     0.849624
+1  0.002033    0.003282    0.764706     0.834586
+2  0.002277    0.003737    0.727273     0.850746
+3  0.002014    0.003145    0.787879     0.858209
+4  0.002423    0.003041    0.878788     0.813433
 ```
 
 ``` python
@@ -168,17 +178,23 @@ svm_cv_score.round(3)
 
 Notes:
 
-Superficially, SVMs are more like weighted 𝑘-NNs.
+Superficially, support vector machines are very similar to 𝑘-Nearest
+Neighbours.
 
 A test example is positive if on average it looks more like positive
-examples than negative examples.
+examples it is negative if on average it looks more like negative
+examples.
 
-The primary difference between 𝑘 -NNs and SVMs is that - Unlike 𝑘 -NNs,
-SVMs only remember the key examples (support vectors). So it’s more
-efficient than 𝑘 -NN.
+The primary difference between 𝑘-NNs and SVMs is that:
+
+  - Unlike 𝑘-NNs, SVMs only remember the key examples (support vectors).
+  - When it comes to predicting a query point, we only consider the key
+    examples from the data, and only calculate the distance to these key
+    examples. This makes it more efficient than 𝑘-NN.
 
 If we compare the scores from the 𝑘-NN model using `n_neighbors=5` and
-the scores from the SVM model we get similar results.
+the scores from the SVM model we get similar results, however, the SVM
+model seems to do slightly better than the 𝑘-NN model.
 
 ---
 
@@ -201,14 +217,17 @@ We need to make sure to import SVR from the SVM sklearn library.
 
 ### Hyperparameters of SVM are:
 
-    - `gamma`
-    - `C`
+  - `gamma`
+  - `C`
 
 Notes:
 
-We are not going to go into detail about the meaning behind these
-parameters but you should be able to explain how they affect training
-and testing scores (The fundamental trade-off).
+There are 2 main hyperparameters for support vector machines with an RBF
+kernel; `gamma` and `C`.
+
+We are not going into detail about the interpretation of these
+hyperparameters but we will observe how they are related to the
+fundamental trade-off.
 
 If you wish to learn more on these you can reference
 <a href="https://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html" target="_blank">Scikit-learn\`’s
@@ -230,10 +249,21 @@ hyperparameters we’ve seen.
 
 Notes:
 
+The first type of hyperparameter is `gamma`. `gamma` controls the
+complexity of the model.
+
+Using higher values for `gamma` means a more complex model is produced
+whereas lower values result in a less complex model.
+
+If we look at the plots, it appears that with lower values of gamma, the
+model is likely underfitting, and as gamma increases, the potential of
+overfitting is also increasing.
+
 ---
 
 ### Relation of C and the fundamental trade-off
 
+  
 C also affects the fundamental tradeoff.
 
   - As C ↑, complexity ↑
@@ -245,8 +275,12 @@ C also affects the fundamental tradeoff.
 
 Notes:
 
-Obtaining opimal validation scores require a hyperparameter search
-between both of these to balance the fundamental tradeoff.
+The other hyperparameter we will look at is `C`. `C` also controls the
+fundamental trade-off. Just like with gamma, higher values increase the
+model complexity whereas lower values decrease the complexity.
+
+Obtaining optimal validation scores requires a hyperparameter search
+between both `gamma` and `C` to balance the fundamental trade-off.
 
 We will learn how to search over multiple hyperparameters at a time in
 the next module.

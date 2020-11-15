@@ -827,7 +827,7 @@ Tasks:
 </exercise>
 
 <exercise id="21" title="𝑘 -Nearest Neighbours Regressor" type="slides,video">
-<slides source="module4/module4_21" shot="2" start="29:3123" end="35:1228">
+<slides source="module4/module4_21" shot="2" start="29:3123" end="35:1328">
 </slides>
 
 </exercise>

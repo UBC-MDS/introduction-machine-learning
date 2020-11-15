@@ -6,6 +6,9 @@ type: slides
 
 Notes: <br>
 
+Now that we have learned how to find similar examples, how can we use
+this idea in a predictive model?
+
 ---
 
 <br> <br>
@@ -18,16 +21,17 @@ Notes: <br>
 
 Notes:
 
-Now we know how to measure distance and find examples that are closest
-to a point but how can that be translated into a predictive model?
+Let’s demonstrate this using some toy data for binary classification.
 
-Here is a toy data for binary classification.
+We have two features in our toy example; feature 1 and feature 2.
 
-We want to predict the point in grey.
+We have two targets; 0 represented with blue points and 1 represented
+with orange points.
 
-An intuitive way to do this is to predict the grey point using the same
-label as the next “closest” point (𝑘 = 1) We would predict a target of 1
-(orange) in this case.
+We want to predict the point in gray.
+
+Based on what we have been doing so far, we can find the closest example
+to this gray point and use its class as the class for our grey point.
 
 ---
 
@@ -41,7 +45,8 @@ label as the next “closest” point (𝑘 = 1) We would predict a target of 1
 
 Notes:
 
-We would predict a target of 1 (orange) in this case.
+In this particular case, we will predict orange as the class for our
+query point.
 
 ---
 
@@ -55,10 +60,19 @@ We would predict a target of 1 (orange) in this case.
 
 Notes:
 
-We could also use the 3 closest points (𝑘 = 3) and let them **vote** on
-the correct class.
+Now you might be thinking that it may not be a great idea to make this
+decision based only on one nearest example.
 
-We would predict a target of 0 (blue) in this case.
+What if we consider more than one nearest example and let them vote on
+the target of the query example.
+
+In our toy example, we can consider the three closest points and let
+them vote.
+
+Now our prediction changes.
+
+Before our prediction was orange with only one nearest point and with
+three nearest points, now our prediction is blue.
 
 ---
 
@@ -83,11 +97,13 @@ one_city
 
 Notes:
 
-Let’s return to a smaller version of our cities data now.
+Let’s look at how we can do this using Sklearn.
 
-Here we have a single point we are calling `one_city`.
+Let’s go back to our cities data. Here we are only considering thirty
+examples from our cities data.
 
-It’s the green triangle we see in the plot.
+We are sampling 1 point from our data and that is the point represented
+with the green triangle.
 
 ---
 
@@ -111,8 +127,19 @@ array(['Canada'], dtype=object)
 
 Notes:
 
-If we predict the closest point where 𝑘 = 1, we would predict a target
-of **Canada** (red) in this case.
+Our goal is to find the class for this green triangle example.
+
+As usual, we will import the necessary libraries (here we are importing
+the `KneighborsClassifier` function) then we create our class object.
+
+We create our class object with only one neighbour. We can do this by
+passing one as the value for this `n_neighbors` argument.
+
+We fit the classifier on our training data and we predict the single
+green triangle city.
+
+Our prediction here is Canada since the closest point to the green
+triangle is a city with the class “Canada”.
 
 ---
 
@@ -134,10 +161,14 @@ array(['Canada'], dtype=object)
 
 Notes:
 
-What about with the nearest 3 cities(𝑘 = 3)?
+Now, what if we consider the nearest 3 neighbours?
 
-This is still predicting Canada since the majority of the 3 nearest
-points to the green triangle are “Canadian”.
+We can do this by passing three to the `n_neighbors` argument.
+
+We fit on the model.
+
+Using `predict` on our new model still gives us a classification of
+“Canada”.
 
 ---
 
@@ -159,10 +190,11 @@ array(['USA'], dtype=object)
 
 Notes:
 
-What about with the nearest 9 cities(𝑘 = 9)?
+When we change our model to consider the nearest 9 neighbours, our
+prediction changes\!
 
-This is now predicting USA since the majority of the 9 nearest points
-are “USA” cities.
+It now predicts “USA” since the majority of the 9 nearest points are
+“USA” cities.
 
 ---
 
@@ -189,14 +221,15 @@ model.score(X_test,y_test)
 
 Note:
 
-We can see how our model will predict both our training data and our
-test set using the same `fit` and `score` that we saw with dummy
-classifiers and decision trees.
+Let’s score our model with 1 neighbour.
 
-Extra: The
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_numpy.html" target="_blank">`.to_numpy()`
-</a> tool can help get pandas dataframes into a 2 dimensional array
-which is what `.score()` and `.fit()` need as inputs.
+We create our model and fit it.
+
+We see that with one neighbour we get the perfect score of 1.0 on the
+training data.
+
+But our test score is much lower. When we score our model 0.714
+accuracy.
 
 ---
 
