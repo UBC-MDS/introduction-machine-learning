@@ -4,7 +4,10 @@ type: slides
 
 # Finding the nearest neighbour
 
-Notes: <br>
+Notes:
+
+Now that we know how to calculate the distance between two points, we
+are ready to find the most similar examples.
 
 ---
 
@@ -46,9 +49,14 @@ dists.shape
 
 Notes:
 
-Now that we know how to calculate the Euclidean distance between
-examples, let see how close all the cities are to all other cities in
-the dataset.
+Let’s look at the distances from all the cities to all other cities in
+our training portion of our city’s data.
+
+This is going to be of shape 167 by 167 as this was the number of
+examples in our training portion.
+
+Each row here gives us the distance of that particular city to all other
+cities in the training data.
 
 ---
 
@@ -83,15 +91,13 @@ pd.DataFrame(dists).loc[:5,:5]
 
 Notes:
 
-It’s important that we use the `fill_diagonal()` tool to replace all the
-diagonal entries which is the distance from a city to itself.
+Note that we are replacing these diagonal entries by infinity in the
+matrix.
 
-It makes sense that there those entries have a distance of 0 but if we
-are trying to find the city with the minimum distance, we would never be
-getting the closest neighbour and instead be getting itself each time.
+The distance of each city to itself is going to be zero.
 
-This is why we “fill diagonal” entries with a very large number,
-infinity in fact.
+If we don’t replace 0 with infinity, each city’s most similar city is
+going to be itself which is not useful.
 
 ---
 
@@ -118,8 +124,22 @@ dists[0][:5]
 array([        inf,  4.92866046, 10.47586257,  3.40229467,  9.04600003])
 ```
 
-Notes: Next, let’s look at the distances between City 0 and the first 5
-cities in the dataframe.
+Notes:
+
+Now let’s look at the distance between city 0 and some other cities.
+
+We can look at city 0 with its respective `longitude` and `latitude`
+values.
+
+Here, we are printing the distances from city 0 to 5 other cities in the
+training dataset.
+
+Remember that our goal is to find the closest example.
+
+So, in our case, we want to find the closest example to city 0.
+
+We can find the closest city to city 0 by finding the city with the
+minimum distance.
 
 ---
 
@@ -159,15 +179,19 @@ dists[0][157]
 
 Notes:
 
-We can find the closest city to city 0 with
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html" target="_blank">`np.argmin`</a>.
+So, we take
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html" target="_blank">`np.argmin`</a>
+to find the city with the minimum distance from city 0.
 
-The closest city from city 0 is city 157 in the training dataframe.
+The closest city in our case turned out to be the city with index 157
+from our training dataset ( this corresponds to the index 96 from the
+original dataset before shuffling).
 
-Its feature vector tells us that it’s city 96 (of the whole dataset) and
-is located at longitude -76.3019 and latitude 44.211 in country Canada.
+If we look at the `longitude` and `latitude` values for the city at
+index 157 (labeled 96), they look pretty close to those of city 0.
 
-That’s 0.18 units away from city 0.
+So, in this case, the closest city to city 0 is city 157 and the
+Euclidean distance between the two cities is 0.184.
 
 ---
 
@@ -212,13 +236,33 @@ dists[np.argmin(dists)].item()
 
 Notes:
 
-We can also find the distances to a new “test” or “query” city.
+Next, let’s find the distances to a given query point.
 
-This time we add a second argument in `euclidean_distances()` which has
-the coordinates of our query point.
+Before we were calculating the distances between all the cities in our
+training dataset to all other cities in the same set.
 
-This produces an array with the distances from each city to the query
-point we specified.
+But what if instead, we are given this new query point which does not
+occur in our training data.
+
+So, suppose we have the query point with a longitude value of -80 and a
+latitude value of 25.
+
+We want to find the training example that’s most similar to this query
+point.
+
+How can we do that?
+
+First, we calculate the distances from a credit point to all examples in
+our training set.
+
+We are showing the distances of our query point to the first five cities
+in our training data.
+
+Next, we find out which city from our training data the query point is
+closest to.
+
+It turns out that the city at index 147 is close to our point with the
+Euclidean distance between the two equal to 3.838.
 
 ---
 
@@ -235,14 +279,17 @@ nn.kneighbors([[-80, 25]])
 
 Notes:
 
-You can do the same thing using Sklearn’s NearestNeighbors function and
-we get the same thing\!
+We use Sklearn’s `NearestNeighbors` function to get the closest example
+and the distance between the query point and the closest example.
+
+First, we create our “class” object (we can specify the number of
+closest neighbours we wish to find), we train on it, and then we can
+pass our query example to our object to return the closest number of
+examples along with the distances.
+
+And we could also extend it to points in multi-dimensional space.
 
 All this matches our intuition of “distance” in the real world.
-
-And we could also extend it to points in 3D space.
-
-In fact, we can extend it to arrays (“vectors”) of any length.
 
 ---
 
@@ -266,7 +313,7 @@ X_train.head()
 
 Note:
 
-Let’s look at our pokemon data which will have 7 dimensions.
+Let’s find the nearest neighbours in our Pokémon dataset.
 
 ---
 
@@ -309,11 +356,12 @@ X_test.to_numpy().shape
 
 Notes:
 
-The distance between pokemon 0 and pokemon 2 can be found with
-`dists[0,2]`.
+The distance between Pokémon zero and Pokémon 2 can be found using the
+indexing of `dists[0,20]`.
 
 We can find the most similar Pokemon from our training data to Pokemon 1
-from the test set using `NearestNeighbors` from the Sklearn package.
+from the test set using the `NearestNeighbors` function from the Sklearn
+library.
 
 ---
 
@@ -357,15 +405,13 @@ nn.kneighbors(X_test.iloc[[1]])
 
 Notes:
 
-We can also find the 5 most similar Pokemon in the training data to test
-Pokemon 1.
+Now let’s find the 5 most similar Pokémon from the training data to our
+test Pokémon.
 
-We need to be careful though.
+We need to be careful here though because we need to make sure we pass
+in a 2D NumPy array as an input.
 
-A numpy array with shape (9,) is 1 dimensional whereas (1, 9) is 2
-dimensional which is what `kneighbors()` needs as an input.
-
-Now we can see the top 5 most similar pokemon.
+We can see the top 5 most similar Pokémon to our test example.
 
 ---
 

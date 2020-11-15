@@ -4,7 +4,16 @@ type: slides
 
 # Distances
 
-Notes: <br>
+Notes:
+
+How do we calculate the similarity between examples?
+
+One way to calculate the similarity between two points in high
+dimensional space is by calculating the distance between them.
+
+So, if the distance is higher, that means that the points are less
+similar and when the distance is smaller, that means that the points are
+more similar.
 
 ---
 
@@ -34,8 +43,18 @@ is defined as:
 
 Notes:
 
-A common way to calculate the distance between vectors is calculating
-the Euclidean distance.
+A common way to calculate the distance between two points in high
+dimensional space is by using Euclidean distance.
+
+The formula to calculate Euclidean distance is shown.
+
+Given two vectors or two features vectors, in our case, we are assuming
+we have two feature vectors named 𝑢 and 𝑣.
+
+The Euclidean distance between them is defined by the square root of the
+summation of the squared element-wise differences between these two
+factors (A mouthful, we know, we will look at the steps in the next few
+slides).
 
 ---
 
@@ -58,6 +77,9 @@ Notes:
 
 Let’s return to the cities dataset that we have been working with.
 
+As a reminder, the data set has two features: `longitude` and `latitude`
+and we are trying to predict if the city is in the USA or Canada.
+
 ---
 
 ``` python
@@ -72,6 +94,9 @@ cities_viz
 <img src="/module4/cities_viz.png" alt="A caption" width="66%" />
 
 Notes:
+
+Here is the plot showing Canadian cities in red and American cities in
+blue.
 
 ---
 
@@ -92,7 +117,9 @@ Notes:
 
 Let’s take 2 points (two feature vectors) from the cities dataset.
 
-The two sampled points are shown as big black circles.
+The two sampled points are shown as black circles.
+
+Our goal is to find how similar these two points are.
 
 ---
 
@@ -134,6 +161,16 @@ dtype: float64
 
 Notes:
 
+How do we calculate the distance between these two points (two cities)?
+
+Let’s calculate the Euclidean distance between these two cities so here
+are our two cities.
+
+The first step is to subtract these two cities. We are subtracting the
+city at index 0 from the city at index 1.
+
+Next, we square the differences.
+
 ---
 
 Sum them up:
@@ -157,6 +194,13 @@ np.sqrt(np.sum((two_cities.iloc[1] - two_cities.iloc[0])**2))
 ```
 
 Notes:
+
+Our third step is summing up the squared differences.
+
+Then finally we take the square root of the value.
+
+This results in a value of 13.3898 which is the distance between the two
+cities.
 
 ---
 
@@ -183,10 +227,23 @@ array([[ 0.        , 13.38981857],
 
 Notes:
 
-This is called the ***Euclidean distance***.
+`sklearn` has a function called `euclidean_distances` that we could use
+instead of going through each of the steps on the previous slide.
 
-We could skip the 4 steps and instead use a tool from the `sklearn`
-library.
+When we call this function on our two cities data, it outputs this
+matrix with four values.
+
+  - Our first value is the distance between city 0 and itself.
+  - Our second value is the distance between city 0 and city1.
+  - Our third value is the distance between city 1and city 0.
+  - Our fourth value is the distance between city 1 and itself.
+
+As we can see, the distances are symmetric. If we calculate the distance
+between city 0 and city, it’s going to have the same value as if we
+calculated the distance between city 1 and city 0.
+
+This isn’t always the case if we use a different metric to calculate
+distances.
 
 ---
 

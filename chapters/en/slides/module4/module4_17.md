@@ -6,6 +6,16 @@ type: slides
 
 Notes: <br>
 
+We saw that the prediction of over query pointing changes with different
+values for the `n_neighbors` argument.
+
+So, a natural question is *how do we pick `n_neighbors`?*.
+
+What happens when we change this hyperparameter?
+
+Are we likely to be overfitting or underfitting with higher or lower
+values of `n_neighbors`?
+
 ---
 
 ``` python
@@ -30,18 +40,15 @@ model.score(X_train,y_train)
 
 Notes:
 
-In the last section, we saw we could build a `KNeighborsClassifier` in a
-similar way to how we’ve built other models.
+Let’s examine this using our cities data.
 
-The primary hyperparameter of the model is `n_neighbors` ( 𝑘 ) which
-decides how many neighbours should vote during prediction?
+As usual, we create our `X` and `y` objects as well as our training and
+test splits.
 
-What happens when we play around with `n_neighbors`?
+We create our `KNeighborsClassifier` object with `n_neighbors=1` and
+training the model.
 
-Are we more likely to overfit with a low `n_neighbors` or a high
-`n_neighbors`?
-
-Let’s examine the effect of the hyperparameter on our cities data.
+When we score it, we get an accuracy of 1 on the training data.
 
 ---
 
@@ -54,11 +61,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002604    0.003422    0.710526          1.0
-1  0.001960    0.002938    0.684211          1.0
-2  0.002401    0.003715    0.842105          1.0
-3  0.002042    0.003648    0.702703          1.0
-4  0.002105    0.003296    0.837838          1.0
+0  0.002151    0.003102    0.710526          1.0
+1  0.002047    0.004153    0.684211          1.0
+2  0.002056    0.003417    0.842105          1.0
+3  0.002830    0.003512    0.702703          1.0
+4  0.002067    0.003255    0.837838          1.0
 ```
 
 ``` python
@@ -70,20 +77,49 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.001995    0.004723    0.605263     0.600000
-1  0.002255    0.003235    0.605263     0.600000
-2  0.002024    0.003162    0.605263     0.600000
-3  0.002016    0.003542    0.594595     0.602649
-4  0.001988    0.003332    0.594595     0.602649
+0  0.002761    0.003340    0.605263     0.600000
+1  0.002082    0.003742    0.605263     0.600000
+2  0.002438    0.003654    0.605263     0.600000
+3  0.002087    0.003082    0.594595     0.602649
+4  0.001990    0.003453    0.594595     0.602649
 ```
 
 Notes:
 
+Let’s carry out cross-validation with 𝑘=1.
+
+These are our cross-validation results.
+
+What we see here is in each fold our training score always produces a
+perfect accuracy of 1.0.
+
+Our validation score for each fold is much lower than the training
+score.
+
+The gap between the training and validation sets seems to be high and so
+it is likely that our model is overfitting.
+
+Let’s seen now what happens when 𝑘=100.
+
+Now, we see that our training scores are much lower and our validation
+scores are also lower.
+
+The gap between the training and validation sets seem to be lower. This
+looks like our model is underfitting now.
+
 ---
 
-<img src="/module3/module4_17/unnamed-chunk-7-1.png" width="1536" />
+<img src="/module4/module4_17/unnamed-chunk-7-1.png" width="1536" />
 
 Notes:
+
+If we plot these two models with 𝑘=1 on the left and 𝑘=100 on the right.
+
+The left plot shows a much more complex model where it is much more
+specific and attempts to get every example correct.
+
+The plot on right is plotting a simpler model and we can see more
+training examples are being predicted incorrectly.
 
 ---
 
@@ -119,9 +155,15 @@ results_df
 
 Notes:
 
-`n_neighbors` is a hyperparameter.
+In our toy problem with 𝑘=1, we saw the model was overfitting yet when
+𝑘=100, the model was underfitting.
 
-We can use hyperparameter optimization to choose `n_neighbors`.
+So, the question is how do we pick 𝑘?
+
+  - The answer lies in hyperparameter optimization.
+
+Here we are looping over different values of 𝑘 ( `n_neighbors`) and
+performing cross-validation on each one.
 
 ---
 
@@ -135,8 +177,11 @@ We can use hyperparameter optimization to choose `n_neighbors`.
 
 Notes:
 
-Here we see that when `n_neighbors` is equal to 11, the cross-validation
-score is the highest.
+In this graph we’ve plotted, `n_neighbors` is on the x-axis and the
+model accuracy is on the y-axis.
+
+We can see there is a sweet spot where the gap between the validation
+and training scores is the lowest. Here it’s when `n_neighbors` is 11.
 
 ---
 
@@ -170,7 +215,10 @@ best_k
 
 Notes:
 
-We can confirm this when we sort the scores.
+We can find the most optimal `n_neighbors` value by sorting our results
+on the mean validation score.
+
+This shows the best validation score occurs when `n_neighbors=11`.
 
 ---
 
@@ -186,8 +234,16 @@ Test accuracy: 0.905
 
 Notes:
 
-Now when we build our model with `n_neighbors=11` we can hope that our
-test accuracy will be optimized.
+Now that we know the best scoring hyperparameter value, we are ready to
+assess our model on the test set.
+
+We recreate our model with `n_neighbors=11`, fit the model and score it
+on the test set.
+
+Our training accuracy is 0.905 which is higher than the validation mean
+accuracy we had earlier.
+
+This is surprising and could be due to having a small dataset.
 
 ---
 
@@ -207,16 +263,22 @@ test accuracy will be optimized.
 
 Notes:
 
-This affects all learners but it’s especially bad for nearest-neighbour.
+In the previous module, we discussed one of the most important problems
+in machine learning which was overfitting the second most important
+problem in machine learning is the ***curse of dimensionality***.
 
-𝑘 -NN usually works well when the number of dimensions is small but
-things fall apart quickly as the number of dimensions goes up.
+This problem affects most models but this problem is especially bad for
+𝑘-NN.
 
-If there are many irrelevant attributes, 𝑘 -NN is hopelessly confused
-because all of them contribute to finding similarity between examples.
+𝑘-NN works well then the number of dimensions is small but things fall
+apart fairly quickly as the number of dimensions goes up.
 
-With enough irrelevant attributes, the accidental similarity swamps out
-meaningful similarity and 𝑘 -NN is no better than random guessing.
+If there are many irrelevant features, 𝑘-NN is hopelessly confused
+because all of them contribute to finding similarities between examples.
+
+With enough irrelevant features, the accidental similarity between
+features wipe out any meaningful similarity and 𝑘-NN becomes is no
+better than random guessing.
 
 ---
 
@@ -233,11 +295,15 @@ meaningful similarity and 𝑘 -NN is no better than random guessing.
 
 Notes:
 
-There are many different arguments to use with `KNeighborsClassifier`,
-one of them being `weights`.
+Another useful hyperparameter is `weight`.
 
-`weights` allows us to assign a higher weight to the examples which are
-closer to the query example.
+So far, when predicting labels, we have been giving equal weight to all
+the nearby examples.
+
+We can change that using this `weight` hyperparameter.
+
+We can tell it to weigh the examples higher if they are closer to the
+query point.
 
 ---
 
