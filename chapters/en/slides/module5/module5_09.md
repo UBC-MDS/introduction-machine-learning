@@ -42,6 +42,10 @@ dataset in the first section of this module.
 In this section, we are going to dive a little deeper into the process
 and the transformer options.
 
+We had our basketball dataset and we saw the training and testing scores
+before scaling with 𝑘-NN and we saw how these results improved when we
+scaled our features.
+
 ---
 
 ## Scaling
@@ -58,9 +62,13 @@ Notes:
 
 This problem affects a large number of ML methods.
 
-There are a number of approaches to this problem.
+There are several approaches to this problem.
 
-We are going to look at two popular ones; `MinMaxScaler` and
+This diagram shows the original data with each feature on an axis and
+the 4 diagrams on the right show how the data is transformed with
+different scaling methods.
+
+We are going to concentrate on the two named `MinMaxScaler` and
 `StandardScaler`.
 
 ---
@@ -77,7 +85,13 @@ and
 
 Notes:
 
-<br>
+In terms of terminology, **Normalization** is the term we use when we
+use the `MinMaxScaler()` function and **Standardization** with
+`StandardScaler()` which we saw before.
+
+Normalization converts all the values so they lie between the values 0
+and 1. Standardization will set the sample mean to 0 and distribute the
+values around the mean with a standard deviation of 1.
 
 ---
 
@@ -114,14 +128,24 @@ pd.DataFrame(X_train_scaled, columns=X_train.columns, index=X_train.index).head(
 14471   1.168196 -1.287344           -0.843842    2.500924      -1.059242            -0.640266               -0.190617                  0.126808
 ```
 
-Notes: Let’s bring in our imputed data that we processed in the last
-slide deck.
+Notes:
+
+Let’s bring in our imputed data that we processed in the last slide deck
+from the California housing dataset.
+
+At this point, we’ve already imputed the missing data with median values
+using `SimpleImputer()` and we have not yet transformed it with scaling
+which we will do now.
 
 We’ve seen the `StandardScaler()` function earlier but let’s see what
 the transformed data looks like.
 
 Now we can compare our training score with scaled and unscaled data and
 see a noticeable difference between the two\!
+
+Any negative values represent values that are lower than the calculated
+feature mean and anything positive and greater than 0 will are values
+greater than the original column mean.
 
 ---
 
@@ -161,9 +185,10 @@ print(knn.score(X_test_scaled, y_test).round(3))
 
 Notes:
 
-How about our training scores?
+What about our training scores?
 
-Just using scaled column values increases the training score by 30%\!
+Just using scaled column values increases the training score by around
+30% and the test score increases by around 40%.
 
 ---
 
@@ -191,8 +216,21 @@ Notes:
 
 Let’s now explore `MinMaxScaler`.
 
+Note that this time we are using `fit_transform()` syntax. This means we
+are fitting and immediately transforming the data. We can use this for
+`StandardScaler()` as well, it just `sklearn` compressing 2 lines of
+code into a single one.
+
+In both transformation methods fit is recording certain calculations in
+order to convert the data.
+
+For instance, in standardization, during the fit stage, the transforming
+is learning the mean and standard deviation whereas in normalization,
+during `fit`, the transforming is learning the minimum and maximum
+values.
+
 Looking at the data after transforming it with `MinMaxScaler()` we see
-this time there are no negative values.
+this time there are no negative values and they all are between 0 and 1.
 
 ---
 
@@ -235,7 +273,7 @@ Notes:
 Again, similar to `StandardScaler` there is a big difference in the KNN
 training performance after scaling the data.
 
-But we saw last week that the training score doesn’t tell us much.
+But we saw in module 3 that the training score doesn’t tell us much.
 
 We should look at the cross-validation score.
 

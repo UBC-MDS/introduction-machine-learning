@@ -10,7 +10,7 @@ id: 3
 
 <exercise id="0" title="Module Learning Outcomes"  type="slides, video">
 
-<slides source="module3/module3_00" shot="0" start="0:006" end="3:39">
+<slides source="module3/module3_00" shot="0" start="07:2828" end="08:0516">
 </slides>
 
 </exercise>
@@ -1021,7 +1021,7 @@ Wouldn't you say within 3% is comparable here?
 
 
 <exercise id="21" title="What Did We Just Learn?" type="slides, video">
-<slides source="module3/module3_end" shot="0" start="0:003" end="1:54">
+<slides source="module3/module3_end" shot="0" start="08:0517" end="08:5423">
 </slides>
 </exercise>
 

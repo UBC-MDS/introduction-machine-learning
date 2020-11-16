@@ -18,7 +18,23 @@ Notes: <br>
   - The best settings depend on the specific data/problem.
   - Can take a long time to execute.
 
-Notes: <br>
+Notes:
+
+The problem with hyperparameters\!
+
+We’ve seen quite a few different hyperparameters for different models.
+
+We’ve seen `max_depth` and `min_samples_split` for decision trees.
+
+We’ve seen `n_neighbors` and `weights` for K-Nearest Neighbours and
+we’ve seen `gamma` and `C` for SVMs with RBF.
+
+We’ve even seen hyperparameters for our transformations like `strategy`
+for our `SimpleImputer()`.
+
+They are important and we’ve seen they can really help optimize your
+model, but we’ve also seen how difficult it can be figuring out how to
+set them.
 
 ---
 
@@ -52,7 +68,12 @@ Notes: <br>
 
 Notes:
 
-<br>
+Manual hyperparameter optimization is what we’ve been doing so far and
+we’ve seen that it’s been a little challenging.
+
+We are going to discuss automated hyperparameter optimization also known
+as hyperparameter tuning and see how it can help (and hinder) our model
+building.
 
 ---
 
@@ -61,13 +82,19 @@ Notes:
 <br> <br>
 
   - Exhaustive grid search:
-    <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>  
-  - Randomized hyperparameter optimization:
-    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" target="_blank">`sklearn.model_selection.RandomizedSearchCV`</a>
+
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>  
+\- Randomized hyperparameter optimization:
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" target="_blank">`sklearn.model_selection.RandomizedSearchCV`</a>
 
 Notes:
 
-There are two automated hyperparameter search methods in scikit-learn.
+There are two automated hyperparameter search methods in scikit-learn:
+
+  - <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>
+
+  - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" target="_blank">`sklearn.model_selection.RandomizedSearchCV`</a>
+    .
 
 The “CV” stands for cross-validation; these searchers have
 cross-validation built right in.
@@ -129,20 +156,37 @@ Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 Notes:
 
+We are first going to discuss `GridSearchCV` which is an exhaustive grid
+search method.
+
 How do we use
 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>?
 
-First in the dictionary `param_grid`, we specify the values we wish to
-look over.
+First, we need to decide what our model is and then decide what
+hyperparameters we wish to tune.
 
-Next, we build a model of our choosing. Here we are building a SVM
+We are going to use an SVM classifier.
+
+We build a dictionary called `param_grid` and we specify the values we
+wish to look over for the hyperparameter.
+
+Next, we build a model of our choosing. Here we are building an SVM
 classifier.
 
-Using `GridSearchCV` we first sepecify our model followed by the
-hyperparameter values we are checking.
+Using `GridSearchCV` we first specify our model followed by the
+hyperparameter values we are checking (in this case `param_grid`).
 
-That means `param_grid` for us. We assign `verbose=1` tells
-`GridSearchCV` to print some output while it’s working.
+Assigning `verbose=1` tells `GridSearchCV` to print some output while
+it’s working.
+
+When we call `grid_search.fit(X_train, y_train)`, it does all the work
+for us.
+
+It tries all the values we specified for gamma in our `param_grid`
+object.
+
+In this case, it’s checking 0.1, 1, 10, and 100 and for each on it’s
+also performing cross-validation.
 
 ---
 
@@ -167,28 +211,45 @@ Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 [Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.5s
-[Parallel(n_jobs=-1)]: Done  80 out of  80 | elapsed:    1.5s finished
+[Parallel(n_jobs=-1)]: Done  65 out of  80 | elapsed:    1.6s remaining:    0.4s
+[Parallel(n_jobs=-1)]: Done  80 out of  80 | elapsed:    1.6s finished
 ```
 
 Notes:
 
-The nice thing about this is we can do this for multiple
-hyperparameterssimultaneously as well.
+The nice thing about this is we can do this for multiple hyperparameters
+simultaneously as well.
 
-So we can search each of the values for `C` and `gamma` while performing
-cross-validation\!
+So, we can search each of the values for `C` and `gamma` while
+performing cross-validation\!
+
+We want to find the best overall combination of `gamma` and `C`.
+
+The grid in `GridSearchCV` stands for the way that it’s checking the
+hyperparameters.
+
+Since there 4 options for each, grid search is checking every value in
+each hyperparameter to one another.
+
+That means it’s checking 4 x 4 = 16 different combinations of
+hyperparameter values for the model.
 
 In `GridSearchCV` we can specify the number of folds of cross-validation
 with the argument `cv`.
 
-Something new we’ve added here is `n_jobs=-1`. This is a little more
-complex.
+Since we are specifying `cv=5` that means that fit is called a total of
+80 times (16 different combinations x 5 cross-validation folds).
+
+Something new we’ve added here is `n_jobs=-1`.
+
+This is a little more complex.
 
 Setting this to -1 helps make this process faster by running
 hyperparameter optimization in parallel instead of in a sequence.
 
-Sometimes when we are checking many hyperparameters, values, and with
+Sometimes when we are checking many hyperparameters, values, and
 multiple cross-validation folds, this can take quite a long time.
+
 Setting `n_jobs=-1` helps with that.
 
 ---
@@ -222,16 +283,25 @@ Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 Notes:
 
-We can also implement this in with pipelines that we just learned.
+We can also implement this with pipelines.
 
 After specifying the steps in a pipeline, a user must specify a set of
-values for each hyperparameter in `param_grid` like we did before.
+values for each hyperparameter in `param_grid` as we did before.
 
-Notice that we named our model, `svc` and so we need to call `svc`
-followed by 2 underscores and the name of the hyperparameter in
-`param_grid` this time.
+Notice that we named our steps in the pipeline now, so `svc` corresponds
+to the model initialization of the SVM classifier.
 
-Now let’s call `GridSearchCV` setting the first argument to the pipeline
+Then in our `param_grid`, we specify the name of the step followed by
+two underscores `__` and the name of the hyperparameter.
+
+This is because the pipeline would not know which hyperparameter goes
+with each step. Does `gamma` correspond to the hyperparameter in
+`SimpleImputer()` or `StandardScaler()`?
+
+This now gives the pipeline clear instructions on which hyperparameters
+correspond with which step.
+
+Let’s call `GridSearchCV` setting the first argument to the pipeline
 name instead of the model name this time.
 
 ---
@@ -268,12 +338,14 @@ Notes:
 Looking a bit closer these are the steps being performed with
 `GridSearchCV`.
 
-We have 3 loops. That means we are running fit the number of values for
-the first hyperparameter multiplied the number of values for the second
+We have 3 loops.
+
+That means we are running fit the number of values for the first
+hyperparameter multiplied the number of values for the second
 hyperparameter multiplied the number of cross-validation folds.
 
-In this case, we can see from the output that 80 execution are done,
-just like we calculated 4 x 4 x 5 = 80.
+In this case, we can see from the output that 80 executions are done,
+just like we calculated (4 x 4 x 5 = 80).
 
 ---
 
@@ -285,7 +357,34 @@ just like we calculated 4 x 4 x 5 = 80.
 
 Notes:
 
-<br>
+This animation helps explain why we must search over all possible values
+for each hyperparameter.
+
+So here, we will fix `C` with a value of 1 and loop over the values of
+1, 10 and 100 for `gamma`.
+
+This results in `100` having the best score with 0.82.
+
+Next, we fix `gamma` at `100`. Since that was what we found was the most
+optimal when `C` was equal to 1.
+
+Now when we loop over the values of 1, 10 and 100 for `C` we get the
+most optimal value to be 10.
+
+So naturally, we would pick the values `100` for `gamma` and `10` for
+`C`, however, if we had performed every possible combination, we would
+have seen that the optimal values would have actually been `10` for both
+`gamma` and `C`.
+
+The same thing is shown if we did it the other way around, first fixing
+`gamma` at a value of 1 and then looping over all possible values of
+`C`.
+
+This time the most optimal combination is `gamma` equal to 1 and `C`
+equal to 100 which is again not the optimal value of 10 for each.
+
+This is why it is so important not to fix either of the hyperparameters
+since it won’t necessarily help you find the most optimal values.
 
 ---
 
@@ -309,10 +408,10 @@ grid_search.best_score_
 
 Notes:
 
-From here, we can extract the best hyperparameter values with
-`.best_params_` and its score with `.best_score_`.
+When we have finished grid search, we can ask it what results it found.
 
-We can extract the classifier inside with `.best_estimator_`.
+We can extract the best hyperparameter values with `.best_params_` and
+their corresponding score with `.best_score_`.
 
 ---
 
@@ -347,13 +446,14 @@ grid_search.score(X_test, y_test)
 
 Notes:
 
-We can extract the classifier inside with `.best_estimator_`.
+We can extract the optimal classifier inside with `.best_estimator_`.
+
+This has already been fully fitting on with all the data and not just a
+portion from cross-validation.
 
 We can either save it as a new model and fit and score on this new one
 *or* we can use the `grid_search` object directly and it will by default
-score using the optimal model.
-
-These both give the same results.
+score using the optimal model. These both give the same results.
 
 ---
 
@@ -378,7 +478,7 @@ array(['Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Ca
 Notes:
 
 The same can be done for `.predict()` as well, either using the saved
-model, or using the `grid_search` object directly.
+model or using the `grid_search` object directly.
 
 ---
 
@@ -400,8 +500,17 @@ model, or using the `grid_search` object directly.
 Notes:
 
 This seems pretty nice and obeys the golden rule however the new problem
-is the execution time. What if we have many hyperparameters, many values
-and we do cross-validation many times? This could take a long time.
+is the execution time.
+
+Think about how much time it would take if we had 5 hyperparameters each
+with 10 different values.
+
+That would mean we would be needing to call `cross_validate()` 100,000
+times\!
+
+This could take a long time.
+
+This is where `RandomizedSearchCV()` can be useful\!
 
 <br>
 
@@ -435,7 +544,7 @@ random_search.score(X_test, y_test)
 ```
 
 ```out
-0.8333333333333334
+0.8095238095238095
 ```
 
 Notes:
@@ -446,9 +555,16 @@ Notice that we use the same arguments in `RandomizedSearchCV()` as in
 This argument gives us more control and lets us restrict how many
 candidates are searched.
 
+Before with `GridSearchCV()` the pipeline would conduct
+`cross_validate()` on every single possible combination of the
+hyperparameters specified in `param_grid`.
+
+Now we can change that and control that using `n_iter` which will pick a
+random subset containing the specified number of combinations.
+
 Larger `n_iter` will take longer but will do more searching.
 
-Last time when we used exhaustive grid search we had 80 fits (4 x 4 x
+Last time when we used exhaustive grid search, we had 80 fits (4 x 4 x
 5).
 
 This time we see only 50 fits\!
@@ -477,7 +593,7 @@ random_gs.best_params_
 ```
 
 ```out
-{'svc__C': 76.89920365010788, 'svc__gamma': 6.0582080406577195}
+{'svc__C': 57.41787248059937, 'svc__gamma': 8.663064127714792}
 ```
 
 ``` python
@@ -485,7 +601,7 @@ random_gs.best_score_
 ```
 
 ```out
-0.7867647058823529
+0.7691176470588236
 ```
 
 ``` python
@@ -498,8 +614,11 @@ random_gs.score(X_test, y_test)
 
 Notes:
 
-For randomize gridsearch we can search over a range of continuous values
-instead of discrete values like in `GridSearchCV()`.
+For randomize grid search we can search over a range of continuous
+values instead of discrete values like in `GridSearchCV()`.
+
+We can specify a range of values instead of a list of values for each
+hyperparameter.
 
 ---
 
@@ -518,14 +637,16 @@ random_search.score(X_test, y_test)
 ```
 
 ```out
-0.8333333333333334
+0.8095238095238095
 ```
 
 Notes:
 
+Here, (and often) they produce similar scores.
+
 ---
 
-## Overfitting on validation set
+## Overfitting on the validation set
 
 ### Overfitting on validation set of parameter learning:
 
@@ -550,6 +671,11 @@ Why not just use cross-validation on the whole dataset?
 While carrying out hyperparameter optimization, we end up trying over
 many possibilities.
 
+Since we are repeating cross-validation over and over again, it’s not
+necessarily unseen data anymore.
+
+This may produce overly optimistic results.
+
 If our dataset is small and if our validation set is hit too many times,
 we suffer from **optimization bias** or **overfitting the validation
 set**.
@@ -561,7 +687,7 @@ Consider a multiple-choice (a,b,c,d) “test” with 10 questions:
   - If you choose answers randomly, the expected grade is 25% (no bias).
   - If you fill out two tests randomly and pick the best, the expected
     grade is 33%.
-      - Optimization bias of \~8%.
+      - overfitting \~8%.
   - If you take the best among 10 random tests, the expected grade is
     \~47%.
   - If you take the best among 100, the expected grade is \~62%.
@@ -590,6 +716,30 @@ Consider a multiple-choice (a,b,c,d) “test” with 10 questions:
 
 Notes:
 
+This exercise helps explain the concept of overfitting on the validation
+set.
+
+Essentially our odds of doing well on a multiple choice exam (if we are
+guessing) increases the more times we can repeat and randomly take the
+exam again.
+
+Because we have so many chances you’ll eventually do well and perhaps
+not representative of your knowledge (remember you are randomly
+guessing)
+
+The same occurs with selecting hyperparameters.
+
+The more hyperparameters values and combinations we try, the more likely
+we will randomly get a better scoring model by chance and not because
+the model represents the data well.
+
+This overfitting can be decreased somewhat by increasing the number of
+questions or in our case, the number of examples we have.
+
+TLDR: If your test score is lower than your validation score, it may be
+because did so much hyperparameter optimization that you got lucky and
+the bigger data set that you have, the better.
+
 ---
 
 <br> <br> <br>
@@ -602,19 +752,26 @@ Notes:
 
 Notes:
 
+This is a little experiment performed with a different dataset with the
+accuracy on the y-axis and the hyperparameter that we were tuning on the
+x-axis.
+
+Each line represents a set; orange is the training set, blue is the
+validation set and green is the test set.
+
 What we can see here is that:
 
-) cross-validation score is too optimistic vs. test score.
+  - cross-validation score is generally higher than the test score.
 
-The cross-validation scores are too optimistic versus the test score.
+  - The cross-validation score curve is very bumpy, due to the smaller
+    data set and it seems unrealistic.
 
-The cross-validation score curve is very bumpy, due to the smaller data
-set.
+  - The best values of the hyperparameter are different if you look at
+    the validation vs. test runs.
 
-The best values of max\_df are different if you look at cv vs. test.
-
-Thus, not only can we not trust the cv scores, we also cannot trust cv’s
-ability to choose of the best hyperparameters.
+Thus, not only can we not trust the validation scores, but we also
+cannot trust cross-validation’s ability to choose the best
+hyperparameters.
 
 But we don’t have a lot of better alternatives, unfortunately, if we
 have a small dataset.

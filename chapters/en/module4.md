@@ -10,7 +10,7 @@ id: 4
 
 <exercise id="0" title="Module Learning Outcomes"  type="slides, video">
 
-<slides source="module4/module4_00" shot="0" start="0:006" end="3:39">
+<slides source="module4/module4_00" shot="0" start="08:5423" end="09:3211">
 </slides>
 
 </exercise>
@@ -1054,7 +1054,7 @@ We got a score around 0.9 with 𝑘-NN .
 </exercise>
 
 <exercise id="28" title="What Did We Just Learn?" type="slides, video">
-<slides source="module4/module4_end" shot="0" start="0:003" end="1:54">
+<slides source="module4/module4_end" shot="0" start="09:3212" end="10:0720">
 </slides>
 </exercise>
 
