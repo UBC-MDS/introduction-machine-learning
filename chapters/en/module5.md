@@ -10,7 +10,7 @@ id: 5
 
 <exercise id="0" title="Module Learning Outcomes"  type="slides, video">
 
-<slides source="module5/module5_00" shot="0" start="0:006" end="3:39">
+<slides source="module5/module5_00" shot="0" start="10:0721" end="11:2523">
 </slides>
 
 </exercise>
@@ -911,6 +911,6 @@ Are you sure? Take a look at what `grid_search.best_params_` returns.
 </exercise>
 
 <exercise id="21" title="What Did We Just Learn?" type="slides, video">
-<slides source="module5/module5_end" shot="0" start="0:003" end="1:54">
+<slides source="module5/module5_end" shot="0" start="11:2524" end="11:4920">
 </slides>
 

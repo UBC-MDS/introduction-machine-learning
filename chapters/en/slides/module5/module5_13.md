@@ -33,9 +33,12 @@ knn.score(X_train_scaled, y_train).round(3)
 
 Notes:
 
-We left off with our scaled data and calculating our training score,
-however in the last module we saw that cross-validation is a better way
+We left off with our scaled data and calculated our training score,
+however in the last module we saw that cross-validation is a useful way
 to get a realistic assessment of the model.
+
+We don’t want to keep touching our test set like we have been doing, so
+we really should be using cross-validation instead.
 
 ---
 
@@ -49,11 +52,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.008430    0.172872    0.696373     0.794236
-1  0.008192    0.163651    0.684447     0.791467
-2  0.007991    0.181362    0.695532     0.789436
-3  0.008897    0.172819    0.679478     0.793243
-4  0.009800    0.120611    0.680657     0.794820
+0  0.008486    0.182278    0.696373     0.794236
+1  0.008094    0.158972    0.684447     0.791467
+2  0.008470    0.220749    0.695532     0.789436
+3  0.008501    0.201372    0.679478     0.793243
+4  0.009286    0.122095    0.680657     0.794820
 ```
 
 Notes:
@@ -62,18 +65,34 @@ Let’s try cross-validation with transformed data.
 
 **Is there a problem here?**
 
-Are we applying `fit_transform` on the train portion and `transform` on
-the validation portion in each fold?
+We are using our `X_train_scaled` in our `cross_validate()` function
+which already has all our preprocessing done.
 
-Here we might be allowing information from the validation set to
+Let’s bring back the golden rule where ***Our test data should not
+influence our training data*** and this applies also to our validation
+data and that it also should not influence our training data.
+
+Our first instinct to develop good habits is to split our data first
+however when we use the `cross_validate()` function, since we are
+scaling first and then splitting into training and validation,
+information from our validation data is influencing our training data
+now.
+
+With imputation and scaling, we are scaling and imputing values based on
+all the information in the data meaning the training data AND the
+validation data and so we are not adhering to the golden rule anymore.
+
+Every row in our `x_train_scaled` has now been influenced in a minor way
+by every other row in `x_train_scaled`.
+
+With scaling every row has been transformed based on all the data before
+splitting between training and validation.
+
+Here we said that we allowed information from the validation set to
 **leak** into the training step.
 
-We need to apply the **SAME** preprocessing steps to train/validation.
-
-With many different transformations and cross-validation, the code gets
-unwieldy very quickly.
-
-That makes it likely to make mistakes and “leak” information.
+We need to take care that we are keeping our validation data truly as
+unseen data.
 
 Before we look at the right approach to this, it’s important to look at
 the wrong approaches and understand why we cannot perform
@@ -123,14 +142,29 @@ Test score:  0.7
 
 Notes:
 
+The first mistake that often occurs is as follows.
+
+We make our transformer, we fit it on the training data and then
+transform the training data.
+
+Next, we make a second transformer, fit it on the test data and then
+transform our test data.
+
 ***What is wrong with this approach?***
 
 Although we are keeping our test data separate from our training data,
-by scaling the train and test splits separately, this is problematic
-since we are using two different `StandardScaler` objects.
+by scaling the train and test splits separately, we are using two
+different `StandardScaler` objects.
 
 This is bad because we want to apply the same transformation on the
 training and test splits.
+
+The test data will have different values than the training data
+producing a different transformation than the training data.
+
+In summary, we should never fit on test data, whether it’s to build a
+model or with a transforming, test data should never be exposed to the
+`fit` function.
 
 ---
 
@@ -165,6 +199,10 @@ XX_train, XX_test = XX_scaled[:18576], XX_scaled[18576:]
 
 Notes:
 
+The next mistake is when we scale the data together. So instead of
+splitting our data, we are combining our training and testing and
+scaling it together.
+
 ***What is wrong with this second approach?***
 
 Here we are scaling the train and test splits together.
@@ -173,9 +211,10 @@ The golden rule says that the test data shouldn’t influence the training
 in any way.
 
 With this approach, we are using the information from the test split
-when we `fit` the scaler and calculate the mean, as we are passing the
-combined `X_train` and `X_test` to it. So, it’s **violation** of the
-golden rule.
+when we `fit` the scalar and calculate the mean.
+
+This means that the test data is being used when setting up the
+transformations so, it’s **in violation** of the golden rule.
 
 ---
 
@@ -197,7 +236,9 @@ print('Test score: ', (knn.score(XX_test, y_test).round(2))) # Misleading score
 Test score:  0.71
 ```
 
-Notes: <br>
+Notes:
+
+These values are showing misleading scores because of this bad approach.
 
 ---
 
@@ -211,6 +252,11 @@ Pipeline</a>\!
 
 Pipelines allow us to define a “pipeline” of transformers with a final
 estimator.
+
+Notes:
+
+To get around these issues, we introduce a new tool called
+**pipelines**.
 
 ---
 
@@ -230,15 +276,20 @@ pipe = Pipeline([
 
 Notes:
 
-We can combine preprocessing and model with a pipeline.
+A **pipeline** is a sklearn function that contains a sequence of steps.
 
-Here is a simple example.
+Essentially we give it all the actions we want to do with our data such
+as transformers and models and the pipeline will execute them in steps.
 
-We are passing in a list of steps.
+In this example, we instruct the pipeline to first do imputation using
+`SimpleImputer()` using a strategy of “median”, next to scale our data
+using `StandardScaler` and then build a `KNeighborsRegressor`.
 
 The last step should be a **model/classifier/regressor**.
 
 All the earlier steps should be **transformers**.
+
+This will help obey the golden rule.
 
 ---
 
@@ -254,24 +305,19 @@ Pipeline(steps=[('imputer', SimpleImputer(strategy='median')),
 What’s happening:
 
 ``` python
-imputer = SimpleImputer(strategy="median")
 imputer.fit(X_train)
 X_train_imp = imputer.transform(X_train)
-scaler = StandardScaler()
 scaler.fit(X_train_imp)
 X_train_imp_scaled = scaler.transform(X_train_imp)
-knn = KNeighborsRegressor()
 knn.fit(X_train_imp_scaled)
 ```
 
 Notes:
 
-Then we fit the `pipe` object and pass in `X_train, y_train`
+When we call `pipe.fit(X_train, y_train)`, multiple steps are occurring.
 
 Notice that we are passing `X_train` and **not** the imputed or scaled
 data here.
-
-When we call `fit` the pipeline is carrying out the following steps:
 
   - Fit `SimpleImputer` on `X_train`.
   - Transform `X_train` using the fit `SimpleImputer` to create
@@ -300,8 +346,8 @@ knn.predict(X_train_imp_scaled)
 
 Notes:
 
-Take note that when we are passing original data to `predict` the
-following steps are carrying out:
+Then when we are passing original data to `predict` the following steps
+are carrying out:
 
   - Transform `X_train` using the fit `SimpleImputer` to create
     `X_train_imp`.
@@ -311,6 +357,9 @@ following steps are carrying out:
     `X_train_imp_scaled`.
 
 It is not fitting any of the data this time.
+
+One thing that is awesome with pipelines is that we can’t make the
+mistakes we showed earlier.
 
 ---
 
@@ -324,15 +373,19 @@ It is not fitting any of the data this time.
 
 Notes:
 
-Here is a schematic assuming we have two transformers.
-
-One thing that is awesome with pipelines is that we can’t make the
-mistakes we showed earlier.
+Here is a schematic assuming we have two transformers `T1` (in our
+example, imputation) and `T2` (in our example, standardization).
 
 We call fit on the train split and score on the test split, it’s clean.
+
 We can’t accidentally re-fit the preprocessor on the test data like we
-did last time. It automatically makes sure the same transformations are
-applied to train and test.
+did last time.
+
+It automatically makes sure the same transformations are applied to
+train and test.
+
+When we call `pipe.fit()` we are fitting ***and*** transforming our
+data.
 
 ---
 
@@ -343,20 +396,20 @@ pd.DataFrame(scores_processed)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.022225    0.182393    0.693883     0.792395
-1  0.021052    0.170285    0.685017     0.789108
-2  0.022449    0.178411    0.694409     0.787796
-3  0.022472    0.179049    0.677055     0.792444
-4  0.020763    0.147359    0.714494     0.823421
+0  0.024251    0.207057    0.693883     0.792395
+1  0.021954    0.183063    0.685017     0.789108
+2  0.022043    0.189623    0.694409     0.787796
+3  0.022782    0.190466    0.677055     0.792444
+4  0.022356    0.151298    0.714494     0.823421
 ```
 
 Notes:
 
-Remember what cross-validation does - it calls fit and score.
+Remember what cross-validation does - it calls `fit` and `score`.
 
 Now we’re calling fit on the pipeline, not just the 𝑘-NN regressor.
 
-So, the transformers and the 𝑘-NN model are refit again on each fold.
+So, the transformers and the 𝑘-NN model are refits again on each fold.
 
 The pipeline applies the `fit_transform` on the train portion of the
 data and only `transform` on the validation portion in each fold.
@@ -370,8 +423,8 @@ pd.DataFrame(scores_processed).mean()
 ```
 
 ```out
-fit_time       0.021792
-score_time     0.171499
+fit_time       0.022677
+score_time     0.184301
 test_score     0.692972
 train_score    0.797033
 dtype: float64
@@ -384,8 +437,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       0.001353
-score_time     0.000700
+fit_time       0.001234
+score_time     0.000540
 test_score    -0.055115
 train_score   -0.054611
 dtype: float64
@@ -395,6 +448,9 @@ Notes:
 
 And we can also see that the preprocessed scores are much better than
 our dummy regressor which has negative ones\!
+
+We can trust here now that the scores are not influenced but the
+training data and all our steps were done efficiently and easily too.
 
 ---
 

@@ -29,7 +29,7 @@ So far we have seen:
 
   - Three ML models (decision trees, 𝑘-NNs, SVMs with RBF kernel)
   - ML fundamentals (train-validation-test split, cross-validation, the
-    fundamental tradeoff, the golden rule)
+    fundamental trade-off, the golden rule)
 
 Are we ready to do machine learning on real-world datasets?
 
@@ -81,12 +81,14 @@ player’s position using `DecisionTreeClassifier`.
 
 Can we use a 𝑘-NN classifier for this task?
 
-Intuition: To predict whether a particular player is a point guard (‘G’)
-or a forward (‘F’) (query point)
+We are going to attempt to predict a player’s position (whether a
+particular player is a point guard (‘G’) or a forward (‘F’)).
 
-  - Find the players that are closest to the query point
-  - Let them vote on the target
-  - Take the majority vote as the target for the query point
+Right now, we are only going to be using the numeric columns `weight`
+`height` and `salary` for our `X` object and our column `position` for
+our `y`.
+
+We will dive into categorical variables in module 6.
 
 ---
 
@@ -117,8 +119,12 @@ Notes:
 First, let’s see what scores we get if we simply predict the most
 occurring position in the dataset using our dummy classifier.
 
-Now if we build our 𝑘-NN classifier we determine that it gets even
-*worse* scores\! Why?
+We get a score of 0.57. Now if we build our 𝑘-NN classifier we determine
+that it gets an even *worse* score of 0.50\!
+
+Dummy classifiers are supposed to be a baseline and so why is it getting
+a better score than a model that is actually doing machine learning?
+What’s going on?
 
 ---
 
@@ -162,8 +168,16 @@ euclidean_distances(two_players_subset)[1,0]
 
 Notes:
 
-Let’s have a look at just 2 players and calculate the distance between
-them.
+Let’s have a look at just 2 players.
+
+We can see the values in each column.
+
+The values in the `weight` column are around 100, and the values in the
+`height` column are around 2.
+
+The salary column has values much higher at around 2 million.
+
+Let’s now calculate the distance between the two players.
 
 We can see the distance between player 285 and 236 is 117133.00184683.
 
@@ -171,7 +185,7 @@ What happens if we only consider the `salary` column though?
 
 It looks like we get almost the same distance\!
 
-The distance is completely dominated by the features with larger values.
+The distance is completely dominated by the feature with larger values.
 
 The features with smaller values are being ignored.
 
@@ -240,9 +254,10 @@ For now, try to only focus on the syntax.
 We’ll talk about scaling in a bit.
 
 1.  Create a feature transformer object. This is done in a similar way
-    to how we create a model.
-2.  Fitting the transformer on the train split
-3.  Transform the train split using `.transform()`
+    to how we create a model. Transformers accepts hyperparameters as
+    well.
+2.  Fitting the transformer on the train split.
+3.  Transform the train split using `.transform()`.
 4.  Then transform the test split.
 
 `sklearn` uses `fit` and `transform` paradigms for feature
@@ -252,6 +267,14 @@ transformations. (In model building it was `fit` and `predict` or
 We `fit` the transformer on the train split and then `transform` the
 train split as well as the test split.
 
+`transform` replaces `predict` here.
+
+We can now see that our values in our `X_train` have been scales so they
+are now all on the same scale.
+
+The `salary` values are no longer greater than the values in the
+`height` and `weight` columns.
+
 ---
 
 ## Sklearn’s *predict* vs *transform*
@@ -259,7 +282,6 @@ train split as well as the test split.
 ``` python
 model.fit(X_train, y_train)
 X_train_predictions = model.predict(X_train)
-X_test_predictions = model.predict(X_test)
 ```
 
 ``` python
@@ -267,20 +289,32 @@ transformer.fit(X_train, [y_train])
 X_train_transformed = transformer.transform(X_train)
 ```
 
+or
+
+``` python
+X_train_transformed = transformer.fit_transform(X_train)
+```
+
 Notes:
+
+Let’s solidify this new concept of `transform`.
 
 Suppose we have a named `model` which is either a classification or
 regression model.
 
-We can compare it with `transformer` which is a transformer used to
-change the input representation like to scale numeric features.
+We can compare `predict` it with `transformer` which is a transformer
+used to change the input representation to scale numeric features.
+
+We do similar steps by calling `fit` first, followed by `transform` on
+our training data just like we did `fit` and then `predict` in
+classification and regression.
 
 We can pass `y_train` in `fit` but it’s usually ignored. It allows us to
 pass it just to be consistent with the usual usage of `sklearn`’s `fit`
 method.
 
 We can also carry out fitting and transforming in one call using
-`fit_transform`, but we must be mindful to use it only on the train
+`.fit_transform()`, but we must be mindful to use it only on the train
 split and **not** on the test split.
 
 ---
@@ -319,8 +353,11 @@ Notes:
 
 Let’s check whether scaling makes any difference for 𝑘-NNs.
 
-The scores with scaled data are better compared to the unscaled data in
-the case of 𝑘-NNs.
+The scores with scaled data are now much better compared to the unscaled
+data in the case of 𝑘-NNs.
+
+We can see now that 𝑘-NN is doing better than the Dummy Classifier when
+we scaled our features.
 
 We are not carrying out cross-validation here for a reason that we’ll
 look into soon.

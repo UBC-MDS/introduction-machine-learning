@@ -41,11 +41,18 @@ For the next few slide decks, we are going to be using a dataset
 exploring the prices of homes in California to demonstrate feature
 transformation techniques.
 
-The task is to predict median house values in Californian districts,
+The task is to predict median house values in California districts,
 given several features from these districts.
 
-We can see here that some column values are mean/median while others are
-totals or not completely clear.
+Before we do anything, we load in the data and split it into our train
+and test splits.
+
+We can see in our training data that we have various districts and
+information such as where it is, `median_house_age`, `total_bedrooms`
+etc. Our target columns in the column labeled `median_house_value`.
+
+Something we need to be aware of is that some column values are
+mean/median while others are totals or not completely clear.
 
 ---
 
@@ -75,20 +82,15 @@ train_df.head()
 
 Notes:
 
-Let’s add some new features to the dataset which could help predict the
-target: `median_house_value`.
+Before we use this data we need to do some **feature engineering**.
 
-**When is it OK to do things before splitting?**
+That means we are going to transform our data into features that may be
+more meaningful for our prediction.
 
-Here it would have been OK to add new features before splitting because
-we are not using any global information in the data but only looking at
-one row at a time.
-
-But just to be safe and to avoid accidentally breaking the golden rule,
-it’s better to do it after splitting.
-
-Next, we remove the columns `total_rooms`, `total_bedrooms`, and
-`population`.
+Since we have inconsistent columns, we are going to engineer the new
+features `rooms_per_household`, `bedrooms_per_household`, and
+`population_per_household` and remove the columns `total_rooms`,
+`total_bedrooms`, and `population`.
 
 ---
 
@@ -120,11 +122,11 @@ memory usage: 1.6+ MB
 
 Notes:
 
-Here we see that we have all columns with dtype `float64` except for
-`ocean_proximity` which appears categorical.
+After using `.info()` we can we all the different column dtypes and also
+all the number of null values.
 
-It looks like the `bedrooms_per_household` columns have some missing
-values.
+We see that we have all columns with dtype `float64` except for
+`ocean_proximity` which appears categorical.
 
 ---
 
@@ -154,7 +156,7 @@ train_df["bedrooms_per_household"].isnull().sum()
 
 Notes:
 
-Looks like the training data is missing 185 values for
+It looks like the training data is missing 185 values for
 `bedrooms_per_household`.
 
 ---
@@ -183,9 +185,13 @@ Notes:
 First, we are going to drop the categorical variable `ocean_proximity`.
 
 Right now, we only know how to build models with numerical data. We will
-come back to categorical variables in module 6.
+come back to the categorical variables in module 6.
 
-But what do we do about the null values? Can we run a model with them?
+We create our `X` and `y` objects and attempt to run a model.
+
+Does it work?
+
+\-No.
 
 We can see that the classifier is not able to deal with missing values
 (NaNs).
@@ -227,13 +233,16 @@ X_train_no_nan.shape
 
 Notes:
 
+What can we do?
+
 We could drop the rows but we’d need to do the same in our test set.
 
 That also doesn’t help us if we get a missing value in deployment. What
 do we do then?
 
 Furthermore, what if the missing values don’t occur at random and we’re
-systematically dropping certain data?
+systematically dropping certain data? Perhaps a certain type of house
+contributes to more missing values.
 
 This is not a great solution, especially if there’s a lot of missing
 values.
@@ -267,8 +276,13 @@ Notes:
 One can also drop all columns with missing values.
 
 This generally throws away a lot of information, because we lose a whole
-column just for 1 missing value. But I might drop a column if it’s 99.9%
-missing values, for example.
+column just for 185 missing values out of a total of 18567.
+
+That means we are throwing away 99% of the column’s data because we are
+missing 1%.
+
+But dropping a column if it’s 99.9% missing values, for example, makes
+more sense.
 
 ---
 
@@ -288,7 +302,7 @@ We can impute missing values in:
 
 Notes:
 
-`SimpleImputer` is a **transformer** in `sklearn` which can deal with
+`SimpleImputer()` is a **transformer** in `sklearn` which can deal with
 this problem.
 
 We are going to concentrate on numeric columns in this section and
@@ -316,11 +330,11 @@ X_train.sort_values('bedrooms_per_household').tail(10)
 
 Notes:
 
-Let’s take a look at some of the examples with `NaN` values in
-`total_bedrooms`.
+First, let’s sort the values by `bedrooms_per_household` and we’ll see
+that the `NaN` values will fall to the end.
 
-Here we see that the index `7763` has a `NaN` value for `total_bedrooms`
-and `bedrooms_per_household`.
+Here we see that the index `7763` has a `NaN` value for
+`bedrooms_per_household`.
 
 ---
 
@@ -347,12 +361,19 @@ array([[-117.75      ,   34.04      ,   22.        , ...,    4.89700997,    1.05
 
 Notes:
 
+Simple import will work by replacing all the `NaN` values in some way,
+in this case, the column median.
+
 Let’s input our data and instead of dropping the examples, let’s use the
 `fit` and `transform` steps that we saw earlier.
 
-We do not need to fit on our target column this time.
+We fit on the training data and transform it on the train and test
+splits.
 
-Note that `imputer.transform` returns a NumPy array and not a dataframe.
+We do not need to fit on our target column.
+
+Note that `imputer.transform()` returns a NumPy array and not a
+dataframe.
 
 ---
 
@@ -377,13 +398,13 @@ X_train.loc[[7763]]
 
 Notes:
 
+We are going to convert the output from the transformer into a dataframe
+so it’s easier to look at.
+
 Let’s check whether the `NaN` values have been replaced or not.
 
-We can fix that a bit using the column index from `X_train` and
-transforming it into a dataframe.
-
-Now we can see our example 7763 no longer has any `NaN` values for
-`total_bedrooms` and `bedrooms_per_household`.
+Now we can see our example 7763 no longer has any `NaN` values for the
+`bedrooms_per_household` now.
 
 ---
 

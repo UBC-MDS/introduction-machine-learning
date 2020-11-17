@@ -7,3 +7,14 @@ next: /module9
 type: chapter
 id: 8
 ---
+
+<exercise id="0" title="Module Learning Outcomes"  type="slides, video">
+
+<slides source="module8/module8_00" shot="0" start="14:3217" end="15:2304">
+</slides>
+
+</exercise>
+
+<exercise id="30" title="What Did We Just Learn?" type="slides, video">
+<slides source="module8/module8_end" shot="0" start="15:2305" end="16:2301">
+</slides>
