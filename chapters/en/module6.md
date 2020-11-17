@@ -27,29 +27,29 @@ id: 6
 <exercise id="2" title= "">
 
 **Question 1**    
-What are the 2 main groups we split our data into?
+
 
 <choice id="1">
 
-<opt text="Training and predicting data">
+<opt text="">
 
 One of these may be right.
 
 </opt>
 
-<opt text= "Practice and testing data" >
+<opt text= "" >
  
 One of these may be right.
 
 </opt>
 
-<opt text="Training and Testing data" correct="true">
+<opt text="" correct="true">
 
 Nice work!
 
 </opt>
 
-<opt text="Fitting and predicting data">
+<opt text="">
 
 These are not the "official" names.
 
@@ -59,29 +59,29 @@ These are not the "official" names.
 
 
 **Question 2**    
-When do we split our data?
+
 
 <choice id="2" >
 
-<opt text="At the very beginning, before we explore our data." correct="true">
+<opt text="" correct="true">
 
 Great!
 
 </opt>
 
-<opt text="After we explore our data, but before we make our model.">
+<opt text="">
 
 We must split our data before we do anything else.
 
 </opt>
 
-<opt text="After we train our model.">
+<opt text="">
 
 This is a little too late. 
 
 </opt>
 
-<opt text="After we make any predictions.">
+<opt text="">
 
 It's a better idea to do it as soon as possible.
 
@@ -90,28 +90,28 @@ It's a better idea to do it as soon as possible.
 </choice>
 
 **Question 3**   
-Why do we split our data?
+
 
 <choice id="3" >
 
-<opt text="To increase our training accuracy." >
+<opt text="" >
 
 </opt>
 
-<opt text="to help us generalize our model better." >
+<opt text="" >
 
 Getting warmer but not quite. 
 
 </opt>
 
-<opt text="To decreasing training time.">
+<opt text="">
 
 Not quite but this may be a side effect. 
 
 </opt>
 
 
-<opt text="To help us assess how well our model generalizes." correct="true">
+<opt text="" correct="true">
 
 Great!
 
@@ -125,7 +125,6 @@ Great!
 <exercise id="3" title="">
 
 **True or False?**      
-_If you don't set random_state, splitting your data is randomized and you will get different results each time._
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -143,7 +142,7 @@ Great!
 </choice>
 
 **True or False**      
-*When using `train_test_split()`, you must specify both `test_size` and `train_size`.*
+
 
 <choice id="2">
 <opt text="True" >
@@ -175,7 +174,7 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 Tasks:     
 
 
-<codeblock id="03_04">
+<codeblock id="">
 
 - Are you ...?
 
