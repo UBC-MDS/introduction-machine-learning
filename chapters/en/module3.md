@@ -96,7 +96,7 @@ Why do we split our data?
 
 </opt>
 
-<opt text="to help us generalize our model better." >
+<opt text="To help us generalize our model better." >
 
 Getting warmer but not quite. 
 
