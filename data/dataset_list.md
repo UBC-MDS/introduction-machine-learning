@@ -1,4 +1,4 @@
 ## Dataset links:
 
-Pokemon: https://www.kaggle.com/mlomuscio/pokemon?select=PokemonData.csv
-Basketball: NBA 2k20 player dataset
+- [Pokemon](https://www.kaggle.com/mlomuscio/pokemon?select=PokemonData.csv)
+- [Basketball](https://www.kaggle.com/isaienkov/nba2k20-player-dataset)
