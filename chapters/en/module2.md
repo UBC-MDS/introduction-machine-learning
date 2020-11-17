@@ -11,7 +11,7 @@ id: 2
 
 <exercise id="0" title="Module Learning Outcomes"  type="slides, video">
 
-<slides source="module2/module2_00" shot="0" start="05:5912" end="06:35222">
+<slides source="module2/module2_00" shot="0" start="05:5912" end="06:51">
 </slides>
 
 </exercise>

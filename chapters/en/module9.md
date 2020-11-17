@@ -10,7 +10,7 @@ id: 9
 
 <exercise id="0" title="Congratulations!" type="slides, video">
 
-<slides source="module9/module9_00" shot="13" start="16:2302" end="18:2727">
+<slides source="module9/module9_00" shot="0" start="16:2302" end="18:27">
 </slides>
 
 </exercise> 
