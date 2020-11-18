@@ -202,7 +202,7 @@ Maybe take a closer look?
 </exercise>
 
 
-<exercise id="5" title="ColumnTransformer" type="slides,video">
+<exercise id="9" title="ColumnTransformer" type="slides,video">
 
 <slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
 </slides>
@@ -210,7 +210,7 @@ Maybe take a closer look?
 </exercise>
 
 
-<exercise id="5" title="make_pipeline" type="slides,video">
+<exercise id="13" title="make_pipeline" type="slides,video">
 
 <slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
 </slides>
@@ -218,7 +218,7 @@ Maybe take a closer look?
 </exercise>
 
 
-<exercise id="5" title="CountVectorizer" type="slides,video">
+<exercise id="17" title="CountVectorizer" type="slides,video">
 
 <slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
 </slides>
