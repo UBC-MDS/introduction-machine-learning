@@ -201,10 +201,17 @@ Maybe take a closer look?
 
 </exercise>
 
+<exercise id="5" title="Categorical Variables: One-Hot Encoding" type="slides,video">
+
+<slides source="module6/module6_05" shot="3" start="00:002" end="94:51">
+</slides>
+
+</exercise>
+
 
 <exercise id="9" title="ColumnTransformer" type="slides,video">
 
-<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_09" shot="3" start="00:002" end="94:51">
 </slides>
 
 </exercise>
@@ -212,7 +219,7 @@ Maybe take a closer look?
 
 <exercise id="13" title="make_pipeline" type="slides,video">
 
-<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_13" shot="3" start="00:002" end="94:51">
 </slides>
 
 </exercise>
@@ -220,7 +227,7 @@ Maybe take a closer look?
 
 <exercise id="17" title="CountVectorizer" type="slides,video">
 
-<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_17" shot="3" start="00:002" end="94:51">
 </slides>
 
 </exercise>
