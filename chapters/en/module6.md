@@ -1,7 +1,7 @@
 ---
-title: "Module 6: Preprocessing Categorical Variables and Sklearn's ColumnTransformer"
+title: "Module 6: Preprocessing Categorical Variables"
 description:
-  "This module will teach you different encoding methods for categorical variables (ordinal and one-hot encoding) and appropriately set them up. We will also introduce ColumnTransformer from the sklearn library and show you how to implement it for more complex pipelines."
+  "This module will teach you different encoding methods for categorical variables (ordinal and one-hot encoding) and appropriately set them up. We will also introduce ColumnTransformer and CountVectorizer from the sklearn library and show you how to implement them."
 prev: /module5
 next: /module7
 type: chapter
@@ -17,7 +17,7 @@ id: 6
 
 
 
-<exercise id="1" title="" type="slides,video">
+<exercise id="1" title="Categorical Variables: Ordinal Encoding" type="slides,video">
 
 <slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
 </slides>
@@ -198,6 +198,30 @@ Maybe take a closer look?
 </opt>
 
 </choice>
+
+</exercise>
+
+
+<exercise id="5" title="ColumnTransformer" type="slides,video">
+
+<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+</slides>
+
+</exercise>
+
+
+<exercise id="5" title="make_pipeline" type="slides,video">
+
+<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+</slides>
+
+</exercise>
+
+
+<exercise id="5" title="CountVectorizer" type="slides,video">
+
+<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+</slides>
 
 </exercise>
 
