@@ -1,4 +1,4 @@
-season,age,childish_diseases,accident_trauma,surgical_intervention,high_fevers_ last_year,freq_alcohol_con,smoking_habit,sitting_hrs,diagnosis
+season,age,childish_diseases,accident_trauma,surgical_intervention,high_fevers_last_year,freq_alcohol_con,smoking_habit,sitting_hrs,diagnosis
 spring,30,no,yes,yes,more than 3 months ago,once a week,occasional,16,Normal
 spring,35,yes,no,yes,more than 3 months ago,once a week,daily,6,Altered
 spring,27,yes,no,no,more than 3 months ago,hardly ever or never,never,9,Normal
