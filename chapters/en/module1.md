@@ -692,7 +692,7 @@ Negative values are a possible score when using regression classifiers.
 
 <opt text="1.5" correct="true">
 
-Great! 1.0 is the highest possible value.
+Great! 1. is the highest possible value.
 
 </opt>
 

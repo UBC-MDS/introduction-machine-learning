@@ -15,7 +15,7 @@ library(rmarkdown)
 knitr::opts_chunk$set(echo = TRUE,
                       base.dir = ".", 
                       base.url = "/",
-                      fig.path = paste("../../../../static/module5/", params$dynamictitle,"/", sep = ""))
+                      fig.path = paste("../../../../static/module6/", params$dynamictitle,"/", sep = ""))
 
 knitr_opts <- knitr_options( opts_knit = NULL,
                              opts_chunk = NULL,
@@ -70,7 +70,7 @@ np.set_printoptions(linewidth=400)
 pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 15)
 
-path = "../../../../static/module5/"
+path = "../../../../static/module6/"
 ```
 
 
@@ -79,6 +79,57 @@ type: slides
 # Parameters and hyperparameters
 
 Notes: <br>
+
+---
+
+
+Notes: 
+
+
+
+---
+
+Notes: 
+
+
+
+---
+
+Notes: 
+
+
+
+---
+
+Notes: 
+
+
+
+---
+
+
+Notes: 
+
+
+
+---
+
+
+Notes: 
+
+
+
+---
+
+Notes: 
+
+
+
+---
+
+Notes: 
+
+
 
 ---
 

@@ -338,6 +338,11 @@ Tasks:
 - Check if `X_train_imp_df`  still has missing values.
 
 <codeblock id="05_08b">
+- Are you importing `SimpleImputer`?
+- Are you using `SimpleImputer(strategy="median")`?
+- Are you fitting your model?
+- Are you using `transfor()` on both your train and test sets?
+- Are you putting it into a dataframe with `pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)`? 
 
 
 </codeblock>
