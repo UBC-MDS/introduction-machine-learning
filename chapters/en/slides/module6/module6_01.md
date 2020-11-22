@@ -151,8 +151,8 @@ pd.DataFrame(X_toy['language'].value_counts()).rename(columns={'language': 'freq
 ```
 
 ```out
-           English  Mandarin  Vietnamese  French  Spanish  Hindi
-frequency        5         4           2       1        1      1
+           English  Mandarin  Vietnamese  Hindi  French  Spanish
+frequency        5         4           2      1       1        1
 ```
 
 Notes:

@@ -166,6 +166,8 @@ X_toy
 13       Hindi
 ```
 
+Notes:
+
 Let’s take our `X_toy` and one-hot encode it.
 
 ---
