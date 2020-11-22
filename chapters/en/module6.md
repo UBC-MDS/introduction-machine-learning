@@ -43,7 +43,7 @@ id: 6
 
 **Question 1**    
 
-What would be the unique values givent to th values in the column `location`, in we transformed it with ordinal encoding?
+What would be the unique values given to the values in the column `location`, in we transformed it with ordinal encoding?
 
 <choice id="1">
 
@@ -61,7 +61,7 @@ Nice!
 
 <opt text="<code>[1, 2, 3, 4, 5, 6]</code>">
 
-Do we start labelling at 1?
+Do we start labeling at 1?
 
 </opt>
 
@@ -104,7 +104,7 @@ Whenever we have categorical values, we should use ordinal encoding.
 <choice id="1" >
 <opt text="True" >
 
-Do all categorical has an order to them? For example if we had fruit, is a kiwi closer to a banana than a strawberry?
+Do all categorical features have an order? For example, if we had fruit, is a kiwi closer to a banana than a strawberry?
 
 </opt>
 
@@ -145,7 +145,7 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-We've seen our basketball dataset but have only used the features `salary`, `weight` and `height`. This times let's look at the `country` column and transform it. 
+We've seen our basketball dataset but have only used the features `salary`, `weight` and `height`. This time, let's look at the `country` column and transform it. 
 
 Tasks:   
 
@@ -372,7 +372,7 @@ How is our data transforming?
 </choice>
 
 **True or False**     
-_The unique values in the new transformed columns after one-hot encoding because all possible integer or float values._
+_The unique values in the new transformed columns after one-hot encoding because of all possible integer or float values._
 
 <choice id="2" >
 <opt text="True"  >
@@ -598,17 +598,29 @@ Let's now start doing transformations and working with them with our basketball 
 
 We've provided you with the numerical and categorical features, it's your turn to make a pipeline for each and then use `ColumnTransformer` to transform them. 
 
-We have a regression problem this time where we are attempting to predict a players salary.
+We have a regression problem this time where we are attempting to predict a player's salary.
 
 
 Tasks:     
-- Create a pipeline for the numeric featurers. It should have the first step as simple imputation using 
-- Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using `strategy="median"`. The second step should be one-hot encoding with `handle_unknown="ignore"`. 
+- Import the necessary library.
+- Create a pipeline for the numeric features. It should have the first step as simple imputation using `strategy="most_frequent"` and the second step should be using `StandardScaler`.  Name this pipeline `numeric_transformer`.
+- Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using `strategy="median"`. The second step should be one-hot encoding with `handle_unknown="ignore"`. Name this pipeline `categotical_transformer`. 
+- Make your column transformer named `col_transformer` and specify the transformations on `numeric_features` and `categorical_features` using the appropriate pipelines you build above. 
+-Create a main pipeline named `main_pipe` which preprocesses with `col_transformer` followed by building a `KNeighborsRegressor` model.
+- The last step is performing cross-validation using our pipeline.
+
 
 
 <codeblock id="06_13">
 
-- Are you ...?
+- Are you importing the right library?
+- Are you using `SimpleImputer(strategy="median")` for numerical imputation? 
+- Are you naming your steps?
+- Are you using `SimpleImputer(strategy="most_frequent")` for categorical imputation?
+- Are you using one-hot encoding?
+- Are you naming the steps in `ColumnTransformer` and specifying `numeric_transformer` with `numeric_features` and `categorical_transformer` with `categorical_features`?
+- Is the first step in your main pipeline calling `col_transformer`?
+- Are you calling `main_pipe` in `cross_validate()`?
 
 </codeblock>
 
@@ -692,7 +704,7 @@ Which pipeline is transforming the categorical columns?
 
 <opt text="pipeline-1"  >
 
-This is using `StandardScaler` so it is likely transforming numeric columns. Also pipeline-2 is using `OneHotEncoder`.
+This is using `StandardScaler` so it is likely transforming numeric columns. Also, pipeline-2 is using `OneHotEncoder`.
 
 </opt>
 
@@ -740,7 +752,7 @@ Great!
 <exercise id="16" title="Transforming True or False">
 
 **True or False**     
-_`Pipeline()` is the same as `make_pipeline()` but  `make_pipeline()` requires you to name the steps._
+*`Pipeline()` is the same as `make_pipeline()` but  `make_pipeline()` requires you to name the steps.*
 
 <choice id="1" >
 <opt text="True"  >
@@ -758,7 +770,7 @@ Nailed it! It's the other way round! `Pipeline()` requires you to name the steps
 </choice>
 
 **True or False**     
-_`make_pipeline()` can be called before `make_column_transformer`._
+*`make_pipeline()` can be called before `make_column_transformer`.*
 
 <choice id="2" >
 <opt text="True"  correct="true">
@@ -769,7 +781,7 @@ Nice work!
 
 <opt text="False" >
 
-We can first make seperate transformation pipelines for our different columns and then we can use `make_column_transformer`. 
+We can first make separate transformation pipelines for our different columns and then we can use `make_column_transformer`. 
 
 </opt>
 
@@ -778,7 +790,7 @@ We can first make seperate transformation pipelines for our different columns an
 </exercise>
 
 
-<exercise id="17" title="">
+<exercise id="17" title="Making Pipelines With make_pipeline">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -787,13 +799,30 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
+Let's try to redo exercise 13, but this time let's use `make_pipeline()` and `make_column_transformer`. 
 
-Tasks:     
+
+Tasks:   
+- Import the necessary library.
+- For all pipelines, make sure to use `make_pipeline()` where possible.
+- Create a pipeline for the numeric features. It should have the first step as simple imputation using `strategy="median"` and the second step should be using `StandardScaler`.  Name this pipeline `numeric_transformer`. 
+- Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using `strategy="most_frequent"`. The second step should be one-hot encoding with `handle_unknown="ignore"`. Name this pipeline `categotical_transformer`. 
+- Make your column transformer named `col_transformer` by using `make_column_transformer()`and specify the transformations on `numeric_features` and `categorical_features` using the appropriate pipelines you build above. 
+-Create a main pipeline named `main_pipe` which preprocesses with `col_transformer` followed by building a `KNeighborsRegressor` model.
+- The last step is performing cross-validation using our pipeline.
 
 
-<codeblock id="">
 
-- Are you ...?
+<codeblock id="06_17">
+
+- Are you importing the right library?
+- Are you using `SimpleImputer(strategy="median")` for numerical imputation? 
+- Are you naming your steps?
+- Are you using `SimpleImputer(strategy="most_frequent")` for categorical imputation?
+- Are you using one-hot encoding?
+- Are you  specifying `numeric_transformer` with `numeric_features` and `categorical_transformer` with `categorical_features` in `make_column_transformer`?
+- Is the first step in your main pipeline calling `col_transformer`?
+- Are you calling `main_pipe` in `cross_validate()`?
 
 </codeblock>
 
@@ -905,7 +934,7 @@ What model would you use ordinal encoding with?
 
 <opt text="<code>colour</code>"  >
 
-Does colour have ordinality. 
+Does colour have ordinality? 
 
 </opt>
 
@@ -945,14 +974,14 @@ Great!
 
 <opt text="False">
 
-It's important to rememberthe systems you build are going to be used in some applications.
+It's important to remember the systems you build are going to be used in some applications.
 
 </opt>
 
 </choice>
 
 **True or False**     
-_If we have numeric, ordinal, binary and regular categorical features, we will need to call `make_pipeline()` 5 times to build a model._
+*If we have numeric, ordinal, binary and regular categorical features, we will need to call `make_pipeline()` 5 times to build a model.*
 
 <choice id="2" >
 <opt text="True"  correct="true">
@@ -972,7 +1001,7 @@ We have one for each category type and 1 main pipeline.
 </exercise>
 
 
-<exercise id="21" title="">
+<exercise id="21" title="Transforming the Fertility Dataset">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -981,13 +1010,39 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
+For this question, we will be using a dataset from assignment 1. 
 
-Tasks:     
+Here is the requested citation:
+_David Gil, Jose Luis Girela, Joaquin De Juan, M. Jose Gomez-Torres, and Magnus Johnsson. Predicting seminal quality with artificial intelligence methods. Expert Systems with Applications, 39(16):12564 â€“ 12573, 2012_
+
+We will be making pipelines and transforming our features appropriately. 
 
 
-<codeblock id="">
+First, let's take a look at our dataset and the features. 
 
-- Are you ...?
+
+<codeblock id="fertility">
+
+</codeblock>
+
+Tasks:   
+- What are the numeric features? Add them to a list named `numeric_features`.
+- What are the binary features? Add them to a list named `binary_features`.
+- What are the ordinal features? Add them to a list named `ordinal_features`.
+- What are the rest of the categorical features? Add them to a list named `categorical_features`.
+- Order the values in `high_fevers_last_year` and name the list `fever_order`. The options are 'more than 3 months ago', 'less than 3 months ago' and 'no'.
+- Order the values in `smoking_habit` and name the list `smoking_order`. The options are 'occasional', 'daily' and 'never'.
+- Order the values in `freq_alcohol_con` and name the list `alcohol_order`. The options are 'once a week', 'hardly ever or never', 'several times a week', 'several times a day' and 'every day'.
+- There are several pipelines already made for you. Designate `numeric_transformer` to the numerical transformer, `categorical_transformer` to the transformer that is not transforming binary or ordinal features, `binary_transformer` to the transformer of binary features, and `ordinal_transformer1`, `ordinal_transformer2` and `ordinal_transformer3` to the transformer of columns `high_fevers_last_year`, `smoking_habit` and `freq_alcohol_con` respectively. 
+- Fill in the associated gaps in the column transformer named `preprocessor`. 
+- Build a main pipeline using `KNeighborsClassifier` and name the object `main_pipe`.
+- Cross-validate and see the results.
+
+<codeblock id="06_21">
+
+- Are you ordering the ordinal values correctly? 
+- Do you have 3 binary features?
+- Are you naming the pipelines correctly?
 
 </codeblock>
 
@@ -1092,7 +1147,7 @@ Shouldn't this be binary?
 <exercise id="24" title="Text Data True or False">
 
 **True or False**     
-*As you increase the value for `max_features` hyperparameter of `CountVectorizer` the training score is likely to go up.*
+*As you increase the value for the `max_features` hyperparameter of `CountVectorizer`, the training score is likely to go up.*
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -1129,7 +1184,7 @@ We have one for each category type and 1 main pipeline.
 
 </exercise>
 
-<exercise id="25" title="">
+<exercise id="25" title="CountVectorizer with Disaster Tweets">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -1138,19 +1193,38 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
+We are going to bring in a new dataset for you to practice on. 
 
-Tasks:     
+This dataset contains a text column containing tweets associated with disaster keywords and a target column denoting whether a tweet is about a real disaster (1) or not (0). (<a href="https://www.kaggle.com/vstepanenko/disaster-tweets" target="_blank">Source</a>)
 
+In this question, we are going to explore how changing the value of `max_features` affects our training and cross-validation scores.
 
-<codeblock id="">
+Tasks:
 
-- Are you ...?
+- Import `CountVectorizer`.
+- Split the dataset into the feature table `X` and the target value `y`. `X` will be the single column `text` from the dataset wheras `target` will be your `y`. 
+- Split your data into your training and testing data using a text size of 20% and a random state of 7. 
+- Make a pipeline with `CountVectorizer` as the first step and `KNeighborsClassifier` as the second. Name the pipeline `pipe`. 
+- Perform RandomizedSearchCV using the parameters specified in `param_grid` and name the search `tweet_search`.
+- Don't forget to fit your grid search.
+- What is the best max_features value? Save it in an object name `tweet_feats`.
+- What is the best score? Save it in an object named `tweet_val_score`.
+- Score the optimal model on the test set and save it in an object named `tweet_test_score`.
+
+<codeblock id="06_25">
+
+- Are you splitting using `train_test_split()`
+- Are you using `make_pipeline(CountVectorizer(), KNeighborsClassifier())`?
+- Are you using `RandomizedSearchCV()` and calling `pipe` and `param_grid` as the first 2 arguments?
+- Are you naming the randomized grid search `tweet_search`?
+- Are you fitting `tweet_search`?
+- Are you using `tweet_search.best_params_['countvectorizer__max_features']` to get the optimal number of features?
+- Are you using `tweet_search.best_score_` to get the best validation score?
+- Are you using `tweet_search.score(X_test, y_test)` to get the test score?
 
 </codeblock>
 
 </exercise>
-
-
 
 
 <exercise id="26" title="What Did We Just Learn?" type="slides, video">

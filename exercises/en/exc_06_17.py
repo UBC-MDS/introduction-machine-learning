@@ -3,8 +3,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.neighbors import KNeighborsRegressor
 
 # Loading in the data
@@ -31,31 +31,17 @@ numeric_features = [ "weight",
 categorical_features = ["team", "position", "country"]
 
 # Build a numeric pipeline
-numeric_transformer = Pipeline(
-    steps=[("imputer", SimpleImputer(strategy="median")), 
-           ("scaler", StandardScaler())]
-)
+____ = ____
 
 # Build a categorical pipeline
-categorical_transformer = Pipeline(
-    steps=[("imputer", SimpleImputer(strategy="most_frequent")),
-           ("onehot", OneHotEncoder(handle_unknown="ignore"))]
-)
+____ = ____
 
-# Build a column transformer
-col_transformer = ColumnTransformer(
-    transformers=[
-        ("numeric", numeric_transformer, numeric_features),
-        ("categotical", categorical_transformer, categorical_features)
-    ] 
-)
+# Build a categorical transformer
+____ = ____
 
 # Build a main pipeline
-main_pipe = Pipeline(
-    steps=[
-        ("preprocessor", col_transformer),
-        ("reg", KNeighborsRegressor())])
+____ = ____
 
 # Cross validate
-scores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
+cores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
 pd.DataFrame(scores)

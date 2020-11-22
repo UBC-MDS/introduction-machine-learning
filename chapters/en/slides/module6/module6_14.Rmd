@@ -413,3 +413,9 @@ This syntax allows you to pre-define the categories.
 # Let’s apply what we learned!
 
 Notes: <br>
+
+
+```{python}
+
+```
+
