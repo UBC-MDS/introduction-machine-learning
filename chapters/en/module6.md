@@ -148,7 +148,6 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 We've seen our basketball dataset but have only used the features `salary`, `weight` and `height`. This time, let's look at the `country` column and transform it. 
 
 Tasks:   
-
 - Import the necessary library.
 - Build an ordinal encoder that uses a `dtype` of `int` and name it `ordinal_encoder`. 
 - Fit on `X_column`, transform it and save the results in an object named `country_encoded`. 
@@ -260,7 +259,7 @@ Refer to the dataframe to answer the following question.
 <br>
 
 **Question**   
-Which of the following outputs in the result of one-hot encoding the shape column?
+Which of the following outputs in the result of one-hot encoding the `shape` column?
 
 A) 
 
@@ -372,7 +371,7 @@ How is our data transforming?
 </choice>
 
 **True or False**     
-_The unique values in the new transformed columns after one-hot encoding because of all possible integer or float values._
+_The values in the new transformed columns after one-hot encoding, are all possible integer or float values._
 
 <choice id="2" >
 <opt text="True"  >
@@ -464,15 +463,15 @@ Nice!
 Refer to the dataframe to answer the following question.
 ```
        colour   location   seed    shape   sweetness  water_content  weight
-0       red      canada    True              True          84         100
+0       red      canada    True     NaN      True          84         100
 1     yellow     mexico    False   long      True          75         120
-2     orange     spain     True              True          90           
-3    magenta     china     True    round     False                    600
-4     purple    austria    False             True          80         115
+2     orange     spain     True     NaN      True          90         NaN
+3    magenta     china     True    round     False         NaN        600
+4     purple    austria    False    NaN      True          80         115
 5     purple    turkey     False   oval      False         78         340
-6     green     mexico     True    oval      True          83           
+6     green     mexico     True    oval      True          83         NaN
 7      blue     canada     True    round     True          73         535
-8     brown     china      True              True                    1743  
+8     brown     china      True     NaN      True          NaN       1743  
 9     yellow    mexico     False   oval      False         83         265
 ```
 
@@ -548,7 +547,7 @@ Pipeline isn't a transformer.
 <exercise id="12" title="Transforming True or False">
 
 **True or False**     
-_If there are missing values in both numeric and categorical columns we can specify this in a single step in the main pipeline._
+_If there are missing values in both numeric and categorical columns, we can specify this in a single step in the main pipeline._
 
 <choice id="1" >
 <opt text="True"  >
@@ -770,7 +769,7 @@ Nailed it! It's the other way round! `Pipeline()` requires you to name the steps
 </choice>
 
 **True or False**     
-*`make_pipeline()` can be called before `make_column_transformer`.*
+*`make_pipeline()` can be called before `make_column_transformer()`.*
 
 <choice id="2" >
 <opt text="True"  correct="true">
@@ -790,7 +789,7 @@ We can first make separate transformation pipelines for our different columns an
 </exercise>
 
 
-<exercise id="17" title="Making Pipelines With make_pipeline">
+<exercise id="17" title="Making Pipelines with make_pipeline()">
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -830,7 +829,7 @@ Tasks:
 
 
 
-<exercise id="18" title="Handeling Categorical Features: Binary, Ordinal and more" type="slides,video">
+<exercise id="18" title="Handeling Categorical Features: Binary, Ordinal and More" type="slides,video">
 
 <slides source="module6/module6_18" shot="3" start="00:002" end="94:51">
 </slides>

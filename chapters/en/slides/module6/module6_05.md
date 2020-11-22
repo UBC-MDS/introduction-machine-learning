@@ -35,9 +35,10 @@ encoding_view
 Notes:
 
 In the last section, we saw that we can transform our categorical data
-into numeric data using `OrdinalEncoder`. Seems pretty standard and easy
-enough but we asked you a question in the last slide deck if we should
-always use this method.
+into numeric data using `OrdinalEncoder`.
+
+Seems pretty standard and easy enough but we asked you a question in the
+last slide deck if we should always use this method?
 
 The answer is no. Can you see why?
 
@@ -122,7 +123,7 @@ Notes:
 
 So what do we do when our values are not truly ordinal categories?
 
-We can do something called **One hot encoding**\!
+We can do something called **one-hot encoding**\!
 
 Rather than assign integer labels to our data, we use it to create new
 binary columns to represent our categories.
@@ -134,8 +135,9 @@ transformed columns, one per category.
 One-hot encoding creates new binary columns to represent our categories.
 
 If we have 𝑐 categories in our column, we create 𝑐 new binary columns to
-represent those categories. - Example: Imagine a language column which
-has the information on whether you
+represent those categories.  
+\- Example: Imagine a language column which has the information on
+whether you
 
   - We can use sklearn’s
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">`OneHotEncoder`</a>
@@ -335,7 +337,7 @@ Notes:
 
 We can transform it into a dataframe to see the values more clearly.
 
-### But ….Now What?
+**But ….now what?**
 
 How do we put this together with other columns in the data before
 fitting the model?

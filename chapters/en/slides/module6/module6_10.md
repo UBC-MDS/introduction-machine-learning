@@ -163,7 +163,7 @@ transformers in `ColumnTransformer()`.
 The `ColumnTransformer` syntax is somewhat similar to that of `Pipeline`
 in that you pass in a list of tuples.
 
-But This time, each tuple has 3 values instead of 2: (name of the step,
+But, this time, each tuple has 3 values instead of 2: (name of the step,
 transformer object, list of columns)
 
 A big advantage here is that we build all our transformations together
@@ -262,11 +262,11 @@ pd.DataFrame(with_categorical_scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.038085    0.259666    0.695818     0.801659
-1  0.031425    0.246517    0.707483     0.799575
-2  0.034548    0.281343    0.713788     0.795944
-3  0.033444    0.286744    0.686938     0.801232
-4  0.032602    0.220774    0.724608     0.832498
+0  0.036422    0.272528    0.695818     0.801659
+1  0.033236    0.248174    0.707483     0.799575
+2  0.030916    0.246066    0.713788     0.795944
+3  0.032736    0.252447    0.686938     0.801232
+4  0.030737    0.207904    0.724608     0.832498
 ```
 
 Notes:
@@ -296,11 +296,11 @@ pd.DataFrame(no_categorical_scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.023439    0.171963    0.693883     0.792395
-1  0.025591    0.185129    0.685017     0.789108
-2  0.024009    0.183608    0.694409     0.787796
-3  0.021770    0.182145    0.677055     0.792444
-4  0.023406    0.132802    0.714494     0.823421
+0  0.020948    0.166332    0.693883     0.792395
+1  0.020602    0.154683    0.685017     0.789108
+2  0.019246    0.166048    0.694409     0.787796
+3  0.019384    0.162033    0.677055     0.792444
+4  0.018863    0.127219    0.714494     0.823421
 ```
 
 Notes:
@@ -316,8 +316,8 @@ pd.DataFrame(no_categorical_scores).mean()
 ```
 
 ```out
-fit_time       0.023643
-score_time     0.171129
+fit_time       0.019809
+score_time     0.155263
 test_score     0.692972
 train_score    0.797033
 dtype: float64
@@ -328,8 +328,8 @@ pd.DataFrame(with_categorical_scores).mean()
 ```
 
 ```out
-fit_time       0.034021
-score_time     0.259009
+fit_time       0.032809
+score_time     0.245424
 test_score     0.705727
 train_score    0.806182
 dtype: float64

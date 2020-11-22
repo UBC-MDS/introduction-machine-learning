@@ -238,7 +238,7 @@ We then call the numeric and categorical features with their respective transfor
 
 The `ColumnTransformer` syntax is somewhat similar to that of `Pipeline` in that you pass in a list of tuples.
 
-But This time, each tuple has 3 values instead of 2: (name of the step, transformer object, list of columns)
+But, this time, each tuple has 3 values instead of 2: (name of the step, transformer object, list of columns)
 
 A big advantage here is that we build all our transformations together into one object, and that way we're sure we do the same operations to all splits of the data.
 

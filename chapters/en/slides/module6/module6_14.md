@@ -29,7 +29,7 @@ train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
 
 Notes:
 
-Remember our Adult census data from assignment 5? Well, we are bringing
+Remember our adult census data from assignment 5? Well, we are bringing
 back a more complete version of it.
 
 ---
@@ -45,7 +45,7 @@ y_test = test_df['income']
 Notes:
 
 Remember, we are trying to predict if a row is classified with an income
-\<=50K or \>50K.
+`<=50K` or `>50K`.
 
 ---
 
@@ -220,10 +220,6 @@ Detailed traceback:
   File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 72, in inner_f
     return f(**kwargs)
   File "/usr/local/lib/python3.8/site-packages/sklearn/model_selection/_validation.py", line 242, in cross_validate
-    scores = parallel(
-  File "/usr/local/lib/python3.8/site-packages/joblib/parallel.py", line 1032, in __call__
-    while self.dispatch_one_batch(iterator):
-  File "/usr/local/lib/python3.8/site-packages/joblib/parallel.py", line 847, in dispatch_one_batch
 ```
 
 Notes:
@@ -234,16 +230,6 @@ What’s going on here??
 
 ``` out
 ValueError: Found unknown categories ['Holand-Netherlands'] in column 7 during transform
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-  File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 72, in inner_f
-    return f(**kwargs)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/model_selection/_validation.py", line 242, in cross_validate
-    scores = parallel(
-  File "/usr/local/lib/python3.8/site-packages/joblib/parallel.py", line 1032, in __call__
-    while self.dispatch_one_batch(iterator):
-  File "/usr/local/lib/python3.8/site-packages/joblib/parallel.py", line 847, in dispatch_one_batch
 ```
 
 ``` python
@@ -251,11 +237,11 @@ X_train["native.country"].value_counts().tail(5)
 ```
 
 ```out
-Trinadad&Tobago       12
-Hungary               11
-Scotland              10
-Honduras               7
-Holand-Netherlands     1
+Outlying-US(Guam-USVI-etc)    12
+Hungary                       11
+Scotland                      10
+Honduras                       7
+Holand-Netherlands             1
 Name: native.country, dtype: int64
 ```
 
@@ -299,8 +285,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       10.167120
-score_time      1.544889
+fit_time       10.889494
+score_time      1.686401
 test_score      0.855421
 train_score     0.867792
 dtype: float64

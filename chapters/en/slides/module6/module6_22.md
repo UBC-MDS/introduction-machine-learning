@@ -18,7 +18,7 @@ Notes: <br>
 
 Notes:
 
-Machine Learning algorithms we have seen so far prefer numeric and
+Machine Learning algorithms that we have seen so far prefer numeric and
 fixed-length input that looks like this.
 
 But what if we are only given data in the form of raw text and
@@ -128,7 +128,7 @@ As per your request 'Melle Melle (Oru Minnaminu...       0    0       0       1 
 
 Notes:
 
-We import a tool call `CountVectorizer()`.
+We import a tool call `CountVectorizer`.
 
 `CountVectorizer` converts a collection of text documents to a matrix of
 word counts.  
@@ -302,7 +302,7 @@ urgent       2
 
 Notes:
 
-We can control the size of X (the number of features) using
+We can control the size of `X` (the number of features) using
 `max_features`.
 
 ---
@@ -403,7 +403,9 @@ is somewhat unexpected behaviour and doesn’t match the documentation of
 in `CountVectorizer` shows the binarization is done before limiting the
 features to `max_features`, and so now we are actually looking at the
 document counts (in how many documents it occurs) rather than term
-count. This is not explained anywhere in the documentation.
+count.
+
+This is not explained anywhere in the documentation.
 
 ---
 
@@ -474,10 +476,10 @@ vec8.get_feature_names()
 Notes:
 
 `CountVectorizer` is carrying out some preprocessing such as because of
-the default argument values. - Converting words to lowercase
-(`lowercase=True`). Take a look at the word “urgent” In both cases. -
-getting rid of punctuation and special characters (`token_pattern
-='(?u)\\b\\w\\w+\\b'`)
+the default argument values.  
+\- Converting words to lowercase (`lowercase=True`). Take a look at the
+word “urgent” In both cases. - getting rid of punctuation and special
+characters (`token_pattern ='(?u)\\b\\w\\w+\\b'`)
 
 ---
 
@@ -513,7 +515,7 @@ Notes:
 
 ### Is this a realistic representation of text data?
 
-Of course, this is not a great representation of language - We are
+Of course, this is not a great representation of language. - We are
 throwing out everything we know about language and losing a lot of
 information. - It assumes that there is no syntax and compositional
 meaning in language.
@@ -525,85 +527,6 @@ meaning in language.
 Notes:
 
 <br>
-
-``` python
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
-from sklearn.impute import SimpleImputer
-from sklearn.compose import ColumnTransformer, make_column_transformer
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.feature_extraction.text import CountVectorizer
-import scipy
-
-# Loading in the data
-tweets_df = pd.read_csv('data/balanced_tweets.csv').dropna(subset=['target'])
-
-# Split the dataset into the feature table `X` and the target value `y`
-X = tweets_df['text']
-y = tweets_df['target']
-
-# Split the dataset into X_train, X_test, y_train, y_test 
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
-
-
-param_grid = {
-    "countvectorizer__max_features": range(1,1000),
-}
-
-
-# Make a pipeline with CountVectorizer as the first step and KNeighborsClassifier as the second 
-# perform RandomizedSearchCV using the parameters specified in param_grid
-pipe = make_pipeline(CountVectorizer(), KNeighborsClassifier())
-grid_search = RandomizedSearchCV(pipe, param_grid, n_jobs=-1, cv=5, return_train_score=True, n_iter=10)
-grid_search.fit(X_train, y_train)
-
-## What is the best max_features value? Save it in an object name opt_feats
-```
-
-```out
-RandomizedSearchCV(cv=5,
-                   estimator=Pipeline(steps=[('countvectorizer',
-                                              CountVectorizer()),
-                                             ('kneighborsclassifier',
-                                              KNeighborsClassifier())]),
-                   n_jobs=-1,
-                   param_distributions={'countvectorizer__max_features': range(1, 1000)},
-                   return_train_score=True)
-```
-
-``` python
-opt_feats = grid_search.best_params_['countvectorizer__max_features']
-print(opt_feats)
-
-## What is the best score? Save it in an object named opt_score
-```
-
-```out
-429
-```
-
-``` python
-opt_score = grid_search.best_score_
-print(opt_score)
-
-# Score the optimal model on the test set and save it in an obkect named test_score
-```
-
-```out
-0.6720831548862455
-```
-
-``` python
-test_score = grid_search.score(X_test, y_test)
-print(test_score)
-```
-
-```out
-0.6796690307328606
-```
 
 ---
 

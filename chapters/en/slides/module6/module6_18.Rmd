@@ -90,28 +90,24 @@ adult = adult.replace("?", np.NaN)
 train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
 X_train = train_df.drop(columns=['income'])
 y_train = train_df['income']
-
 X_test = test_df.drop(columns=['income'])
 y_test = test_df['income']
 
-numeric_features = [
-    "age",
-    "fnlwgt",
-    "education.num",
-    "capital.gain",
-    "capital.loss",
-    "hours.per.week"]
+numeric_features = ["age",
+                    "fnlwgt",
+                    "education.num",
+                    "capital.gain",
+                    "capital.loss",
+                    "hours.per.week"]
 
-categorical_features = [
-    "workclass",
-    "education",
-    "marital.status",
-    "occupation",
-    "relationship",
-    "race",
-    "sex",
-    "native.country"]
-
+categorical_features = ["workclass",
+                        "education", 
+                        "marital.status", 
+                        "occupation", 
+                        "relationship", 
+                        "race", 
+                        "sex", 
+                        "native.country"]
 ```
 
 ```{python}
@@ -128,8 +124,10 @@ Taking where we left off with our adult census data, it's a good idea to take a 
 Some of the categorical features are truly categorical, meaning that there is no ordinality among values. 
 
 But what about the `education` column? 
-- Here there is actually an order in the values and it might help to encode this column using `OrdinalEncoder`
-    - Example: Masters > 10th    
+
+Here there is actually an order in the values and it might help to encode this column using `OrdinalEncoder`
+
+- Example: Masters > 10th    
 
 
 ---
@@ -235,7 +233,7 @@ target_column = 'income'
 
 Notes: 
 
-So now when we are sorting our columns into their respective feature types, we need to separate 
+So now when we are separating our columns into their respective feature types.
 
 ---
 

@@ -84,7 +84,7 @@ Notes:
 Let’s first see what happens when we try to apply a 𝑘-NN model on our
 data and preprocess it for imputation and scaling.
 
-Oh no. That’s not good. We get a Value Error output.
+Oh no. That’s not good. We get a `ValueError` output.
 
 You see, `scikit-learn` only accepts numeric data as an input and it’s
 not sure how to handle the `ocean_proximity` feature.
@@ -97,7 +97,8 @@ not sure how to handle the `ocean_proximity` feature.
 
   - Drop the column (not recommended)
   - We can transform categorical features to numeric ones so that we can
-    use them in the model.
+    use them in the model
+  - There are two transformations we can do:
       - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal
         encoding</a>
       - One-hot encoding (recommended in most cases)
@@ -151,8 +152,8 @@ pd.DataFrame(X_toy['language'].value_counts()).rename(columns={'language': 'freq
 ```
 
 ```out
-           English  Mandarin  Vietnamese  Hindi  French  Spanish
-frequency        5         4           2      1       1        1
+           English  Mandarin  Vietnamese  Spanish  French  Hindi
+frequency        5         4           2        1       1      1
 ```
 
 Notes:

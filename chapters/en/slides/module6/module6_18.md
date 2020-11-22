@@ -16,27 +16,24 @@ adult = adult.replace("?", np.NaN)
 train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
 X_train = train_df.drop(columns=['income'])
 y_train = train_df['income']
-
 X_test = test_df.drop(columns=['income'])
 y_test = test_df['income']
 
-numeric_features = [
-    "age",
-    "fnlwgt",
-    "education.num",
-    "capital.gain",
-    "capital.loss",
-    "hours.per.week"]
+numeric_features = ["age",
+                    "fnlwgt",
+                    "education.num",
+                    "capital.gain",
+                    "capital.loss",
+                    "hours.per.week"]
 
-categorical_features = [
-    "workclass",
-    "education",
-    "marital.status",
-    "occupation",
-    "relationship",
-    "race",
-    "sex",
-    "native.country"]
+categorical_features = ["workclass",
+                        "education", 
+                        "marital.status", 
+                        "occupation", 
+                        "relationship", 
+                        "race", 
+                        "sex", 
+                        "native.country"]
 ```
 
 ``` python
@@ -68,9 +65,12 @@ take a look at the categorical features we specified in more detail.
 Some of the categorical features are truly categorical, meaning that
 there is no ordinality among values.
 
-But what about the `education` column? - Here there is actually an order
-in the values and it might help to encode this column using
-`OrdinalEncoder` - Example: Masters \> 10th
+But what about the `education` column?
+
+Here there is actually an order in the values and it might help to
+encode this column using `OrdinalEncoder`
+
+  - Example: Masters \> 10th
 
 ---
 
@@ -227,8 +227,8 @@ target_column = 'income'
 
 Notes:
 
-So now when we are sorting our columns into their respective feature
-types, we need to separate
+So now when we are separating our columns into their respective feature
+types.
 
 ---
 
@@ -267,8 +267,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       8.104349
-score_time     1.366734
+fit_time       9.134971
+score_time     1.512560
 test_score     0.851927
 train_score    0.853348
 dtype: float64
@@ -452,11 +452,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  8.277518    1.342359    0.850864     0.853153
-1  7.671084    1.302406    0.844530     0.855792
-2  7.647488    1.328711    0.859693     0.850609
-3  7.837566    1.314132    0.849299     0.853832
-4  7.767361    1.305436    0.854291     0.853448
+0  8.775018    1.382263    0.850864     0.853153
+1  8.532674    1.338235    0.844530     0.855792
+2  8.682128    1.711386    0.859693     0.850609
+3  9.029557    1.392423    0.849299     0.853832
+4  8.033944    1.340729    0.854291     0.853448
 ```
 
 ``` python
@@ -464,8 +464,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       7.840203
-score_time     1.318609
+fit_time       8.610664
+score_time     1.433007
 test_score     0.851735
 train_score    0.853367
 dtype: float64
@@ -482,17 +482,17 @@ X_train["native.country"].value_counts()
 ```
 
 ```out
-United-States                 23315
-Mexico                          512
-Philippines                     165
-Germany                         115
-Canada                           97
-                              ...  
-Outlying-US(Guam-USVI-etc)       12
-Hungary                          11
-Scotland                         10
-Honduras                          7
-Holand-Netherlands                1
+United-States         23315
+Mexico                  512
+Philippines             165
+Germany                 115
+Canada                   97
+                      ...  
+Trinadad&Tobago          12
+Hungary                  11
+Scotland                 10
+Honduras                  7
+Holand-Netherlands        1
 Name: native.country, Length: 41, dtype: int64
 ```
 
