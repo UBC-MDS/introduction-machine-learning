@@ -5,7 +5,7 @@ def test():
     # in the meta.json for details.
 
     # If an assertion fails, the message will be displayed
-    assert 'DecisionTreeClassifier' in __solution__, "Make sure you are specifying a 'DecisionTreeClassifier'."
+    assert 'DecisionTreeRegressor' in __solution__, "Make sure you are specifying a 'DecisionTreeRegressor'."
     assert reg_tree.get_params()['random_state'] == 1, "Make sure you are setting the model's 'random_state' to 1."
     assert reg_tree.get_params()['max_depth'] == 8, "Make sure you are setting the model's 'max_depth' to 8."
     assert 'reg_tree.fit' in __solution__, "Make sure you are using the '.fit()' function to fit 'X' and 'y'."

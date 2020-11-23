@@ -353,7 +353,7 @@ Notes:
 
 Simplest fix: Pass `handle_unknown="ignore"` argument to `OneHotEncoder`.   
 
-- It creates a row with all zeros. 
+It creates a row with all zeros. 
 
 Do you want this behaviour though? 
 

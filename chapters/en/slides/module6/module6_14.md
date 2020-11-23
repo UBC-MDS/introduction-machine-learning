@@ -285,8 +285,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       10.889494
-score_time      1.686401
+fit_time       12.803461
+score_time      1.914135
 test_score      0.855421
 train_score     0.867792
 dtype: float64
@@ -297,7 +297,7 @@ Notes:
 Simplest fix: Pass `handle_unknown="ignore"` argument to
 `OneHotEncoder`.
 
-  - It creates a row with all zeros.
+It creates a row with all zeros.
 
 Do you want this behaviour though?
 
