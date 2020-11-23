@@ -64,7 +64,6 @@ By the end of the module, students are expected to:
 - Categorical variables -> one-hot, Ordinal encoding 
 - ColumnTransformer
 - Count vectorizor/ text classification (lecture 5? in 571) (SVM for text classification)
-
 - Explain `handle_unknown="ignore"` hyperparameter of `scikit-learn`'s `OneHotEncoder`.
 - Identify when it's appropriate to apply ordinal encoding vs one-hot encoding.
 - Explain strategies to deal with categorical variables with too many categories.
@@ -73,28 +72,48 @@ By the end of the module, students are expected to:
 - Explain different hyperparameters of `CountVectorizer`.
 - Use `ColumnTransformer` to build all our transformations together into one object and use it with `scikit-learn` pipelines.
 
-
 ## Module 7
 
-- Identify and reason when to trust and not trust reported accuracies
-- precision and recall 
-- Data inbalance 
-- MAPE? 
+Learning Outcomes:
 
-## Module 8 
+- Explain why accuracy is not always the best metric in ML.
+- Explain components of a confusion matrix.
+- Define precision, recall, and f1-score and use them to evaluate different classifiers.
+- Identify whether there is class imbalance and whether you need to deal with it.
+- Explain and use the following methods to deal with data imbalance - `class_weight`
+- Appropriately select a scoring metric given a regression problem.
+- Interpret and communicate the meanings of different scoring metrics on regression problems.
+MSE, RMSE, $R^2$, MAPE
+
+
+Slide decks: 
+1. Questioning accuracy - confusion matrix, Type I err type II error
+1. Precision, recall, f1-score. False positives
+1. Multi-class -> classification_report, confusion matrix, Macro average vs weighted average 
+    - 
+1. imbalanced datasets, and `class_weight`
+1. Regression measurements: MSE, RMSE, $R^2$, MAPE
+1. Passing different scoring methods ( `cross_validate` and `GridSearchCV`)
+
+## Module 8
 
 - Explain the general intuition behind linear models
 - Explain the predict paradigm of linear models
-- Use scikit-learn's LogisticRegression classifier
+- Use scikit-learn's LogisticRegression classifier and ridge regression. 
 - Use fit, predict, predict_proba
 - Use coef_ to interpret the model weights
-- Explain the advantages and limitations of linear classifiers
+- Explain the advantages and limitations of linear models
 
-
-1. Linear regression 
+Slide decks:
+1. Linear regression predict paradigm (feat * coef + feat* coef ... etc)
 1. Coef_
 1. LogisticRegression 
-1. `predict_proba` 
+1. `predict_proba`
+1. Multi-class regression -> coeficients (prob scores add to one pick largest.)
+
+
+
+
 
 
 
