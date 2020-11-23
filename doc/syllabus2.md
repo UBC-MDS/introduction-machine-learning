@@ -90,7 +90,6 @@ Slide decks:
 1. Questioning accuracy - confusion matrix, Type I err type II error
 1. Precision, recall, f1-score. False positives
 1. Multi-class -> classification_report, confusion matrix, Macro average vs weighted average 
-    - 
 1. imbalanced datasets, and `class_weight`
 1. Regression measurements: MSE, RMSE, $R^2$, MAPE
 1. Passing different scoring methods ( `cross_validate` and `GridSearchCV`)
