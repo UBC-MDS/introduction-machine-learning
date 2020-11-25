@@ -1194,7 +1194,7 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 
 We are going to bring in a new dataset for you to practice on. 
 
-This dataset contains a text column containing tweets associated with disaster keywords and a target column denoting whether a tweet is about a real disaster (1) or not (0). (<a href="https://www.kaggle.com/vstepanenko/disaster-tweets" target="_blank">Source</a>)
+This dataset contains a text column containing tweets associated with disaster keywords and a target column denoting whether a tweet is about a real disaster (1) or not (0). (<a href="https://www.kaggle.com/vstepanenko/disaster-tweets" target="_blank"><b>Source</b></a>)
 
 In this question, we are going to explore how changing the value of `max_features` affects our training and cross-validation scores.
 
