@@ -221,6 +221,8 @@ X_test_imp_df = pd.DataFrame(X_test_imp,columns=X_test.columns, index=X_test.ind
 XX = pd.concat([X_train_imp_df, X_test_imp_df], axis = 0) ## Don't do it! 
 XX.shape 
 ```
+
+
 ```{python}
 scaler = StandardScaler()
 scaler.fit(XX);

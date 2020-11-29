@@ -87,17 +87,6 @@ test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["h
 train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
 test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
  
-X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
-y_train = train_df["median_house_value"]
- 
-X_test = test_df.drop(columns=["median_house_value", "ocean_proximity"])
-y_test = test_df["median_house_value"]
- 
-imputer = SimpleImputer(strategy="median")
-imputer.fit(X_train)
-X_train_imp = imputer.transform(X_train)
-X_test_imp = imputer.transform(X_test)
-
 
 X_train = train_df.drop(columns=["median_house_value"])
 y_train = train_df["median_house_value"]
@@ -177,6 +166,7 @@ And we will have to look at our data.
 ```{python}
 X_train.dtypes
 ```
+
 ```{python}
 numeric_features = [ "longitude",
                      "latitude",

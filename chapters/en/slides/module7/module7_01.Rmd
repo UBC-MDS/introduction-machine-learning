@@ -1,0 +1,350 @@
+---
+params:
+  dynamictitle: "module7_01"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module7/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.metrics import confusion_matrix, classification_report, roc_curve, roc_auc_score, plot_confusion_matrix, plot_precision_recall_curve, precision_score, recall_score, f1_score
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module7/"
+```
+
+
+type: slides
+
+# Introducing evaluation metrics
+
+Notes: <br>
+
+---
+
+```{python}
+cc_df = pd.read_csv('data/creditcard.csv', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+```
+
+```{python}
+train_df.head()
+```
+
+```{python}
+train_df.shape
+```
+
+
+
+Notes: 
+
+Up until this point, we have been scoring our models the same way every time. 
+
+We've been using the percentage of correctly predicted examples for classification problems and the R^2 metric for regression problems. 
+
+To help explain why this isn't the most beneficial option, we are bringing in a new dataset. 
+
+Let's classify fraudulent and non-fraudulent transactions using a 
+ <a href="https://www.kaggle.com/mlg-ulb/creditcardfraud" target="_blank">credit card fraud detection data set</a>.
+
+We can see this is a large dataset with 242085 examples and 31 features in our training set. 
+ 
+
+---
+
+```{python}
+train_df.head()
+```
+
+
+```{python}
+train_df.describe(include="all", percentiles = [])
+```
+
+
+Notes:
+
+We see it the columns are all scaled and numerical.
+
+You don't need to worry about this now. The original columns have been transformed already for confidentiality and our benefit so now there are no categorical features.
+
+----
+
+```{python}
+X_train_big, y_train_big = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+```
+
+
+```{python}
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+```
+
+
+Notes: 
+
+
+Let's separate X and y for train and test splits.
+
+It's easier to demonstrate evaluation metrics using an explicit validation set instead of using cross-validation.
+
+Our data is large enough so it shouldn't be a problem.
+
+
+---
+
+### Baseline
+
+```{python}
+dummy = DummyClassifier(strategy="most_frequent")
+pd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()
+```
+
+```{python}
+train_df["Class"].value_counts(normalize=True)
+```
+
+
+Notes: 
+
+We build a simple `DummyClassifier` model as our baseline but what is going on? We are getting 99.8% accuracy!
+
+Should we be happy with this accuracy and deploy this `DummyClassifier` model for fraud detection?
+
+If we look at the distribution of fraudulent labels to non-fraudulent labels, we can see there is an imbalance in the classes. 
+
+There are  MANY non-fraud transactions and only a tiny handful of fraud transactions.
+
+So, what would be a good accuracy here? 99.9%? 99.99%?
+
+The "fraud" class is the class that we want to spot.
+
+This module will tackle this issue.
+
+---
+
+
+```{python}
+pipe = make_pipeline(
+       (StandardScaler()),
+       (DecisionTreeClassifier(random_state=123))
+)
+```
+
+
+```{python}
+pd.DataFrame(cross_validate(pipe, X_train, y_train, return_train_score=True)).mean()
+```
+
+
+Notes: 
+
+We can make a model better than the dummy classifier now and we get similar results. 
+
+This seems slightly better than `DummyClassifier`, but can it really identify fraudulent transactions?
+
+This model will cover new tools on how to measure this. 
+
+
+
+---
+
+### What is "positive" and "negative"?
+
+```{python}
+train_df["Class"].value_counts(normalize=True)
+```
+
+
+There are two kinds of binary classification problems:
+
+- Distinguishing between two classes
+- Spotting a class (spot fraud transaction, spot spam, spot disease)
+
+
+Notes: 
+
+In the case of spotting problems, the thing that we are interested in spotting is considered "positive". 
+
+In our example, we want to spot fraudulent transactions and so they are "positive". 
+
+
+
+---
+
+# Confusion Matrix 
+
+```{python}
+pipe.fit(X_train, y_train);
+```
+
+```{python}
+from sklearn.metrics import  plot_confusion_matrix
+```
+
+```{python results = 'hide'}
+plot_confusion_matrix(pipe, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+```
+
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '50%'}
+plt.rcParams.update({'font.size': 12})
+plot_confusion_matrix(pipe, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+Notes: 
+
+A **confusion matrix** is a table that visualization the performance of an algorithm. It shows the labels possible and how many of each label the model predicts correctly and incorrectly. 
+
+Once we fit on our training portion, we can use the `plot_confusion_matrix` function from sklearn. 
+
+In this case, we are looking at the validation portion only. 
+
+This results in a 4 by 4 matrix with the labels `Non fraud` and `Fraud` on each axis. 
+
+#### Careful:
+
+Scikit-learn's convention is to have the true label as the rows and the predicted label as the columns.
+
+Others do it the other way around, e.g., the confusion matrix <a href=" https://en.wikipedia.org/wiki/Confusion_matrix" target="_blank">Wikipedia article</a>  .
+
+---
+
+```{python echo=FALSE,  fig.width = 9, fig.height = 7,  out.width = '50%', fig.align='center'}
+plt.rcParams.update({'font.size': 12})
+plot_confusion_matrix(pipe, X_valid, y_valid, display_labels=["Non Fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+|   X   | predict negative | predict positive |
+|------|----------|-------|
+| negative example | True negative (TN) | False positive (FP)|
+| positive example | False negative (FN) | True positive (TP) |
+
+
+Notes: 
+
+Remember the Fraud is considered "positive" in this case and non-fraud is considered "negative". 
+
+
+Here the 4 quadrants for this problem are explained below. These positions will change depending on what values we deem as the positive label. 
+
+- **True negative (TN)**: Examples that are negatively labeled that the model correctly predicts. This is in the top left quadrant. 
+- **False positive (FP)**: Examples that are negatively labeled that the model incorrectly predicts as positive. This is in the top right quadrant. 
+- **False negative (FN)**:  Examples that are positively labeled that the model incorrectly predicts as negative. This is in the bottom left quadrant. 
+- **True positive (TP)**:  Examples that are positively labeled that the model correctly predicted as positive This is in the bottom right quadrant. 
+
+
+---
+
+```{python}
+from sklearn.metrics import confusion_matrix
+```
+
+```{python}
+predictions = pipe.predict(X_valid)
+confusion_matrix(y_valid, predictions)
+```
+
+
+Notes: 
+
+If you want something more numeric and simpler you can obtain a NumPy array by importing `confusion_matrix` from the sklearn library. 
+
+Here we get the predictions of the model first with `.predict()` and compare it with `y_valid` in the function `confusion_matrix()`.
+
+
+---
+
+```{python}
+from sklearn.model_selection import cross_val_predict
+```
+
+```{python}
+cv_predictions = cross_val_predict(pipe, X_train, y_train)
+```
+
+
+```{python}
+confusion_matrix(y_train, cv_predictions)
+```
+
+
+
+Notes: 
+
+You can also calculate confusion matrix with cross-validation using <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html" target="_blank">`cross_val_predict`</a>. 
+
+This gives us a prediction for each example but this method does not let us conveniently use `plot_confusion_matrix`. 
+
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

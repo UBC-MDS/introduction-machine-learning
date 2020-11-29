@@ -1,0 +1,368 @@
+---
+params:
+  dynamictitle: "module7_13"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module7/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, classification_report, roc_curve, roc_auc_score, plot_confusion_matrix, plot_precision_recall_curve, precision_score, recall_score, f1_score
+
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module7/"
+```
+
+
+type: slides
+
+# Imbalanced datasets
+
+Notes: <br>
+
+---
+
+### Class imbalance in training sets
+
+```{python include = FALSE}
+cc_df = pd.read_csv('data/creditcard.csv', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=222)
+
+X_train_big, y_train_big = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+```
+
+
+
+```{python}
+X_train.head()
+```
+
+```{python}
+y_train.value_counts('Class')
+```
+
+
+Notes: 
+
+A class imbalance typically refers to having many more examples of one class than another in one's training set.
+
+We've seen this in our fraud dataset where our `class` target column had many more non-fraud than fraud examples where the classes are imbalanced. 
+
+Real-world data is often imbalanced and can be seen in scenarios such as:
+
+- Ad clicking data (Only around ~0.01% of ads are clicked.)
+- Spam classification datasets.
+
+
+---
+
+### Addressing class imbalance
+
+A very important question to ask yourself: ***"Why do I have a class imbalance?"***
+
+- Is it because one class is much rarer than the other?
+
+- Is it because of my data collection methods?
+  
+But, if you answer "no" to both of these, it may be fine to just ignore the class imbalance.
+
+Notes: 
+
+A very important question to ask yourself: ***"Why do I have a class imbalance?"***
+
+- Is it because one class is much rarer than the other?
+    - If it's just because one is rarer than the other, you need to ask whether you care about False positives or False negatives more than the other.   
+- Is it because of my data collection methods?
+    - If it's the data collection, then that means _your test and training data come from different distributions_!
+
+But, if you answer "no" to both of these, it may be fine to just ignore the class imbalance.
+
+---
+
+### Handling imbalance
+
+
+There are two common approaches to this: 
+
+1. **Changing the training procedure** 
+
+2. **Changing the data (not in this course)**
+    - Undersampling
+    - Oversampling 
+
+
+
+
+Notes: 
+
+Can we change the model itself so that it considers the errors that are important to us?
+
+There are two common approaches to this: 
+
+1. **Changing the training procedure** 
+
+2. **Changing the data (not in this course)**
+    - Undersampling
+    - Oversampling 
+
+
+---
+
+### Changing the training procedure: *class_weight*
+
+
+<center><img src="/module7/weights-sklearn.png"  width = "80%" alt="404 image" /></center>
+
+    `class_weight: dict or ‘balanced’, default=None`
+    
+    Set the parameter C of class i to class_weight[i] * C for SVC. 
+    If not given, all classes are supposed to have weight one. 
+    The “balanced” mode uses the values of y to automatically adjust weights inversely proportional to class frequencies in 
+    the input data as n_samples / (n_classes * np.bincount(y))
+
+
+
+
+Notes: 
+
+All `sklearn` classifiers have a parameter called `class_weight`.
+
+This allows you to specify that one class is more important than another.
+
+For example, maybe a false negative is 10x more problematic than a false positive. 
+
+So, if you look in our example of the SVM classifier, we see `class_weight` in the documentation.
+
+---
+
+```{python}
+pipe_tree = make_pipeline((StandardScaler()),
+                          (DecisionTreeClassifier(random_state=7)))
+pipe_tree.fit(X_train,y_train);
+```
+
+```{python}
+pipe_200 = make_pipeline((StandardScaler()),
+                               (DecisionTreeClassifier(random_state=7, class_weight={1:100})))
+pipe_200.fit(X_train,y_train);
+```
+
+
+```{python echo=FALSE, fig.width = 10, fig.height = 6,  out.width = '78%'}
+plt.rcParams.update({'font.size': 14})
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1)
+plt.title("Unbalanced")
+plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+
+plt.subplot(1, 2, 2)
+plt.title("class_weight={1:100}")
+plot_confusion_matrix(pipe_200, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+plt.tight_layout()
+plt.show()
+```
+
+Notes: 
+When we made our model before, we can see our confusion matrix on the left.
+
+
+Now let's rebuild our pipeline but using the `class_weight` argument and setting it as`class_weight={1:200}`. 
+
+This is equivalent to saying "repeat every positive example 200x in the training set", but repeating data would slow down the code, whereas this doesn't.
+
+Notice that we now have reduced false negatives and predicted more Fraud this time.
+
+But, as a consequence, we are also increasing false positives.    
+
+
+---
+
+## class_weight="balanced"
+
+
+```{python}
+pipe_balanced = make_pipeline((StandardScaler()),
+                               (DecisionTreeClassifier(random_state=7, class_weight="balanced")))
+pipe_balanced.fit(X_train,y_train);
+```
+
+
+```{python echo=FALSE, fig.width = 10, fig.height = 6,  out.width = '80%'}
+plt.rcParams.update({'font.size': 14})
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1)
+plt.title("Unbalanced")
+plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+
+plt.subplot(1, 2, 2)
+plt.title("class_weight=balanced")
+plot_confusion_matrix(pipe_balanced, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+plt.tight_layout()
+plt.show()
+```
+
+Notes: 
+
+
+We can also set `class_weight="balanced"`.
+
+This sets the weights so that the classes are "equal".
+
+We have reduced false negatives but we have many more false positives now! 
+
+
+---
+
+### Are we doing better with *class_weight="balanced"*?
+
+
+```{python}
+pipe_tree.score(X_valid, y_valid)
+```
+```{python}
+pipe_balanced.score(X_valid, y_valid)
+```
+
+
+Notes: 
+
+Changing the class weight will **generally reduce accuracy**.
+
+The original model was trying to maximize accuracy. Now you're telling it to do something different.
+
+But that ok since accuracy isn't the only metric that matters.
+
+Let's explain why this happens. 
+
+Sincere there are so many more negative examples than positive, false positives affect accuracy much more than false negatives.
+
+Thus, precision matters a lot more than recall.
+
+So, the default method trades off a lot of recall for a bit of precision.
+
+
+---
+
+### Stratified Splits
+
+<center><img src="/module7/kfolds.png"  width = "840%" alt="404 image" /></center>
+ <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html" target="_blank">Attribution: Scikit Learn</a>
+
+Notes: 
+
+
+A similar idea of "balancing" classes can be applied to data splits.
+
+For example, with cross-validation, there is also <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html" target="_blank">`StratifiedKFold`</a>.
+
+From the documentation it says 
+
+  *"This cross-validation object is a variation of KFold that returns stratified folds. The folds are made by preserving the percentage of samples for each class."*
+
+
+In other words, if we have 10% negative examples in total, then each fold will have 10% negative examples.
+
+
+
+---
+
+<center><img src="/module7/stratified.png"  width = "84%" alt="404 image" /></center>
+ <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.htmll" target="_blank">Attribution:Scikit Learn</a>
+
+Notes: 
+
+
+We have the same option in `train_test_split` with the `stratify` argument. 
+
+---
+
+### Is stratifying a good idea? 
+
+Yes and no: 
+
+- No longer a random sample.
+- It can be especially useful in multi-class situations. 
+
+
+But in general, these are difficult questions to answer.
+
+Notes: 
+
+Well, it's no longer a random sample, which is probably theoretically bad, but not that big of a deal and If you have many examples, it shouldn't matter as much.
+
+It can be especially useful in multi-class situations, say if you have one class with very few cases.
+
+In general, these are difficult questions to answer.
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

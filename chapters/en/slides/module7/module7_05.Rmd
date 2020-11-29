@@ -1,0 +1,435 @@
+---
+params:
+  dynamictitle: "module7_05"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module7/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix, classification_report, roc_curve, roc_auc_score, plot_confusion_matrix, plot_precision_recall_curve, precision_score, recall_score, f1_score
+from sklearn.tree import DecisionTreeClassifier
+
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module7/"
+```
+
+
+type: slides
+
+# Precision, recall and f1-score
+
+Notes: <br>
+
+---
+
+## Accuracy is only part of the story...
+
+```{python include=FALSE}
+cc_df = pd.read_csv('data/creditcard.csv', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+
+X_train_big, y_train_big = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+```
+
+```{python}
+pipe_tree = make_pipeline(
+    (StandardScaler()),
+    (DecisionTreeClassifier(random_state=123))
+)
+
+```
+
+```{python}
+pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True)).mean()
+```
+```{python}
+y_train.value_counts(normalize=True)
+```
+
+
+Notes: 
+
+
+We have been using `.score` to assess our models, which returns accuracy by default. 
+
+Accuracy is misleading when we have a class imbalance.
+
+We need other metrics to assess our models.
+
+We'll discuss three commonly used metrics which are based on the confusion matrix: 
+
+- recall
+- precision
+- f1 score
+
+Note that these metrics will only help us assess our model.  
+
+Later we'll talk about a few ways to address the class imbalance problem. 
+
+---
+
+
+
+```{python}
+pipe_tree.fit(X_train,y_train);
+predictions = pipe_tree.predict(X_valid)
+confusion_matrix(y_valid, predictions)
+```
+
+```{python}
+TN, FP, FN, TP = confusion_matrix(y_valid, predictions).ravel()
+```
+
+
+
+
+Notes: 
+
+Let's build our pipeline, and fit it. Once we've done that, we can create our confusion matrix. 
+
+This time we are going to split up the values in the matrix into the 4 quadrants we saw earlier. 
+
+- `TN` for the True Negatives
+- `FP` for the False Positives
+- `FN` for the False Negatives
+- `TP` for the True Positives 
+
+We need each of these values to explain the next measurements. 
+
+- The `.ravel()` function "flattens" or "unravels" the matrix into a 1D array which makes it easier to obtain the values which we need to explain the next concepts. 
+
+
+
+---
+
+### Recall 
+
+**Among all positive examples, how many did you identify?**
+
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
+plt.rcParams.update({'font.size': 12})
+plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+<center><img src="/module7/recall.png"  width = "35%" alt="404 image" /></center>
+
+
+
+
+
+
+Notes: 
+
+**Recall**: how many of the actual positive examples did you identify?
+
+So, in this case, since fraud is our positive label,  we see the correctly identified labels in the bottom right quadrant and the ones that we missed in the bottom left quadrant. 
+
+---
+
+
+<center><img src="/module7/recall.png"  width = "45%" alt="404 image" /></center>
+
+
+```{python}
+confusion_matrix(y_valid, predictions)
+```
+```{python}
+TN, FP, FN, TP = confusion_matrix(y_valid, predictions).ravel()
+```
+
+```{python}
+recall = TP / (TP + FN)
+recall.round(4)
+```
+
+Notes: 
+
+So here we take our true positives and we divide by all the positive labels in our validation set which is the predictions the model incorrectly labeled as negative (the false negatives). 
+
+---
+
+
+### Precision
+
+**Among the positive examples you identified, how many were actually positive?**
+
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
+plt.rcParams.update({'font.size': 12})
+plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+<center><img src="/module7/precision.png"  width = "30%" alt="404 image" /></center>
+
+
+
+
+Notes: 
+
+**Precision**:  Of the frauds we "caught", the fraction that was actually frauds.
+
+With fraud as our positive label,  we see the correctly identified fraud in the bottom right quadrant and the labels we incorrectly labeled as frauds in the top right. 
+
+---
+
+
+<center><img src="/module7/precision.png"  width = "30%" alt="404 image" /></center>
+
+
+```{python}
+confusion_matrix(y_valid, predictions)
+```
+
+```{python}
+TN, FP, FN, TP = confusion_matrix(y_valid, predictions).ravel()
+```
+
+```{python}
+precision = TP / (TP + FP)
+precision.round(4)
+```
+
+Notes: 
+
+So here we take our true positives and we divide by all the positive labels that our model predicted. 
+
+Of course, we'd like to have high precision and recall but the balance depends on our domain.
+
+For credit card fraud detection, recall is really important (catching frauds), precision is less important (reducing false positives).
+
+---
+
+
+### F1
+
+**F1-score combines precision and recall to give one score.** 
+
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
+plt.rcParams.update({'font.size': 12})
+plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+<center><img src="/module7/f1.png"  width = "35%" alt="404 image" /></center>
+
+
+
+
+
+
+Notes: 
+
+**f1**: The harmonic mean of precision and recall. 
+
+**f1-score combines precision and recall to give one score.** which could be used in hyperparameter optimization, for instance. 
+
+
+---
+
+
+<center><img src="/module7/f1.png"  width = "40%" alt="404 image" /></center>
+
+
+
+```{python}
+precision
+```
+
+```{python}
+recall
+```
+
+
+```{python}
+f1_score = (2 * precision * recall) / (precision + recall)
+f1_score
+```
+
+Notes: 
+
+If both precision and recall go up, the F1 score will go up, so in general, we want this to be high.
+
+Sometimes we need a single score to maximize, e.g., when doing hyperparameter tuning via RandomizedSearchCV.
+
+Accuracy is often a bad choice.
+
+
+---
+
+## Calculate evaluation metrics by ourselves and with sklearn
+
+
+```{python}
+data = {}
+data["accuracy"] = [(TP + TN) / (TN + FP + FN + TP)]
+data["error"] = [(FP + FN) / (TN + FP + FN + TP)]
+data["precision"] = [ TP / (TP + FP)] 
+data["recall"] = [TP / (TP + FN)] 
+data["f1 score"] = [(2 * precision * recall) / (precision + recall)] 
+measures_df = pd.DataFrame(data, index=['ourselves'])
+```
+
+Notes: 
+
+We can calculate all these measurements ourselves using basic math, or... 
+
+---
+
+```{python}
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+```
+
+
+```{python}
+pred_cv =  pipe_tree.predict(X_valid) 
+
+data["accuracy"].append(accuracy_score(y_valid, pred_cv))
+data["error"].append(1 - accuracy_score(y_valid, pred_cv))
+data["precision"].append(precision_score(y_valid, pred_cv, zero_division=1))
+data["recall"].append(recall_score(y_valid, pred_cv))
+data["f1 score"].append(f1_score(y_valid, pred_cv))
+
+pd.DataFrame(data, index=['ourselves', 'sklearn'])
+```
+
+
+
+Notes: 
+
+we can use `scikit-learn` which has functions for these metrics.
+
+See <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics" target="_blank">here</a>.
+
+The scores match. 
+
+
+
+---
+
+### Classification report 
+
+```{python}
+from sklearn.metrics import classification_report
+```
+
+
+```{python}
+pipe_tree.classes_
+```
+```{python}
+print(classification_report(y_valid, pipe_tree.predict(X_valid),
+        target_names=["non-fraud", "fraud"]))
+```
+
+
+Notes: 
+
+There is a convenient function called `classification_report` in `sklearn` which gives the information that we described above.
+
+We can use `classes` to see which position each label takes so we can designate them more comprehensive labels in our report. 
+
+Note that what you consider "positive" (fraud in our case) is important when calculating precision, recall, and f1-score. 
+
+If you flip what is considered positive or negative, we'll end up with different True Positive, False Positive, True Negatives and False Negatives, and hence different precision, recall, and f1-scores. 
+
+The `support` column just shows the number of examples in each class.  
+
+---
+
+<center><img src="/module7/evaluation-metrics.png"  width = "70%" alt="404 image" /></center>
+
+
+<a href="https://raw.githubusercontent.com/UBC-MDS/introduction-machine-learning/master/static/module7/evaluation-metrics.png" target="_blank">See here for full size.</a> 
+
+Notes: 
+
+
+We've provided you with a "Cheat Sheet" that you can refer to. 
+
+It will be available <a href="https://raw.githubusercontent.com/UBC-MDS/introduction-machine-learning/master/static/module7/evaluation-metrics.png" target="_blank">here</a>.
+
+Accuracy is misleading when you have a class imbalance. 
+
+A confusion matrix provides a way to break down errors made by our model. 
+
+We have looked at three metrics based on the confusion matrix:    
+
+- precision
+- recall
+- f1-score
+
+
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

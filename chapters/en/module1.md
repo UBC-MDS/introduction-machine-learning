@@ -2,7 +2,7 @@
 title: 'Module 1: Machine Learning Terminology'
 description:
   'In this module, we will explain the different branches of machine learning and introduce the steps needed to build a model by constructing baseline models.'
-prev: module0
+prev: /module0
 next: /module2
 type: chapter
 id: 1

@@ -169,7 +169,7 @@ pd.DataFrame(scores)
 
 
 ```{python echo=FALSE, fig.width = 10, fig.height = 8,  out.width = '100%'}
-svm.fit(X_train, y_train)
+svm.fit(X_train, y_train);
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
 plt.title("SVC")

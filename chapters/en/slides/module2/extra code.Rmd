@@ -1,11 +1,35 @@
 
 ```{python}
 import pandas as pd
-from display_tree import display_tree
-from sklearn.tree import DecisionTreeClassifier
 import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
 from plot_classifier import plot_classifier
-from sklearn.model_selection import train_test_split, cross_validate 
+from sklearn.compose import make_column_transformer, ColumnTransformer
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
 ```
 
 
@@ -151,10 +175,7 @@ bball
 
 ```{python}
 
-X= bball[['height', 'weight']]
-y = bball['position']
 
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=80)
 ```
 
 ```{python}
@@ -170,10 +191,72 @@ for K in range(1,30):
     results_dict["mean_cv_score"].append(np.mean(scores["test_score"]))
     results_dict["mean_train_score"].append(np.mean(scores["train_score"]))
 
-results_df = pd.DataFrame(results_dict)
-results_df
-scores
 ```
+
+
+```{python}
+bball = pd.read_csv('bball.csv')
+bball = bball[(bball['position'] == 'F') | (bball['position'] == 'G') ]
+bball
+```
+
+
+
+```{python  fig.width = 12, fig.height = 7,  out.width = '70%', fig.align='center'}
+
+bball = pd.read_csv('bball.csv')
+#bball = bball[(bball['position'] == 'F') | (bball['position'] == 'G') ]
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=42)
+
+X_train = train_df.drop(columns=['full_name', 'jersey', 'b_day', 'college'])
+y_train = train_df['position']
+
+X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day', 'college'])
+y_test = test_df['position']
+
+numeric_features = [
+    "rating",
+    "height",
+    "weight",
+    "salary",
+    "draft_year",
+    "draft_round",
+    "draft_peak"
+]
+
+categorical_features = [
+    "team",
+    "country"
+]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+
+pipe = make_pipeline(preprocessor, SVC())
+pipe.fit(X_train, y_train);
+
+plot_confusion_matrix(pipe, X_test, y_test, values_format="d", cmap="Blues", labels = ['F', 'C', 'G', 'G-F', 'F-C', 'F-G']);
+plt.show()
+```
+```{python}
+from sklearn.metrics import classification_report
+
+
+y_test.unique()
+
+```
+
 
 
 ```{python}
