@@ -242,10 +242,11 @@ Notes: We can also return many scoring measures by first making a dictionary and
 
 
 
+
 ```{python}
 pipe_regression = make_pipeline(preprocessor, KNeighborsRegressor())
 
-param_grid = { "kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
+param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
 ```
 
 ```{python}
@@ -270,17 +271,14 @@ The way that `best_params_` works is that it selects the parameters where the sc
 ---
 
 ```{python}
-def neg_mape(true, pred):
-    return -100.*np.mean(np.abs((pred - true)/true))
-    
-neg_mape_scorer = make_scorer(neg_mape)
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
 ```
 
 
 
 
 ```{python}
-param_grid = { "kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
+param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
 
 grid_search = GridSearchCV(pipe_regression, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= neg_mape_scorer)
 grid_search.fit(X_train, y_train);
@@ -294,7 +292,9 @@ grid_search.best_score_
 
 Notes: 
 
-We can create a new MAPE function that will return the negative MAPE value.  and now our `best_params_` will return the parameters will the highest negative MAPE (or the least amount of error). 
+We can create a new MAPE scorer by adding the argument `greater_is_better=False`.  Now our `best_params_` will return the parameters will the lowest MAPE (least amount of error). 
+
+That's better! 
 
 ---
 

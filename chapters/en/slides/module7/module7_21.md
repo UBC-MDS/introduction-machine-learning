@@ -86,11 +86,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time    test_score   train_score
-0  0.037458    0.277383 -62462.584290 -51440.540539
-1  0.032960    0.298675 -63437.715015 -51263.979666
-2  0.038590    0.293702 -62613.202523 -51758.817852
-3  0.056385    0.388653 -64204.295214 -51343.743586
-4  0.035522    0.252637 -59217.838633 -47325.157312
+0  0.040057    0.279670 -62462.584290 -51440.540539
+1  0.034934    0.276383 -63437.715015 -51263.979666
+2  0.034202    0.266903 -62613.202523 -51758.817852
+3  0.034112    0.266429 -64204.295214 -51343.743586
+4  0.033641    0.218434 -59217.838633 -47325.157312
 ```
 
 Notes:
@@ -129,11 +129,11 @@ pd.DataFrame(cross_validate(
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.039712    0.310671   22.709732    18.420969
-1  0.035242    0.266959   22.754570    18.469125
-2  0.034625    0.275713   22.236869    18.674964
-3  0.033674    0.280531   23.016666    18.510766
-4  0.033960    0.216018   21.033519    16.951021
+0  0.036413    0.270123   22.709732    18.420969
+1  0.038608    0.264594   22.754570    18.469125
+2  0.034210    0.263245   22.236869    18.674964
+3  0.035077    0.263816   23.016666    18.510766
+4  0.033600    0.220169   21.033519    16.951021
 ```
 
 Notes:
@@ -174,11 +174,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time   test_r2  train_r2  test_mape_score  train_mape_score  test_neg_rmse  train_neg_rmse  test_neg_mse  train_neg_mse
-0  0.035839    0.274238  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
-1  0.032429    0.257974  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
-2  0.037155    0.293498  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
-3  0.035664    0.272280  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
-4  0.033729    0.221913  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
+0  0.036153    0.276269  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
+1  0.036710    0.279248  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
+2  0.036194    0.274168  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
+3  0.037133    0.307513  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
+4  0.037095    0.258164  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
 ```
 
 Notes: We can also return many scoring measures by first making a
@@ -191,7 +191,7 @@ dictionary and then specifying the dictionary in the `scoring` argument.
 ``` python
 pipe_regression = make_pipeline(preprocessor, KNeighborsRegressor())
 
-param_grid = { "kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
+param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
 ```
 
 ``` python
@@ -230,14 +230,11 @@ not the highest.
 ---
 
 ``` python
-def neg_mape(true, pred):
-    return -100.*np.mean(np.abs((pred - true)/true))
-    
-neg_mape_scorer = make_scorer(neg_mape)
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
 ```
 
 ``` python
-param_grid = { "kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
+param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
 
 grid_search = GridSearchCV(pipe_regression, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= neg_mape_scorer)
 grid_search.fit(X_train, y_train);
@@ -247,7 +244,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   19.1s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.6s finished
 ```
 
 ``` python
@@ -268,9 +265,11 @@ grid_search.best_score_
 
 Notes:
 
-We can create a new MAPE function that will return the negative MAPE
-value. and now our `best_params_` will return the parameters will the
-highest negative MAPE (or the least amount of error).
+We can create a new MAPE scorer by adding the argument
+`greater_is_better=False`. Now our `best_params_` will return the
+parameters will the lowest MAPE (least amount of error).
+
+That’s better\!
 
 ---
 
@@ -314,7 +313,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   22.5s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   27.8s finished
 ```
 
 ``` python
