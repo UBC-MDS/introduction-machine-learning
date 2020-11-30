@@ -22,8 +22,8 @@ pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True
 ```
 
 ```out
-fit_time       6.011553
-score_time     0.009694
+fit_time       5.942421
+score_time     0.009375
 test_score     0.999119
 train_score    1.000000
 dtype: float64
@@ -93,8 +93,7 @@ quadrants we saw earlier.
 We need each of these values to explain the next measurements.
 
   - The `.ravel()` function “flattens” or “unravels” the matrix into a
-    1D array which makes it easier to obtain the values which we need to
-    explain the next concepts.
+    1D array which makes it easier to obtain the individual values.
 
 ---
 
@@ -221,9 +220,9 @@ frauds), precision is less important (reducing false positives).
 
 ---
 
-### F1
+### f1
 
-**F1-score combines precision and recall to give one score.**
+**f1-score combines precision and recall to give one score.**
 
 <img src="/module7/module7_05/unnamed-chunk-16-1.png" width="75%" style="display: block; margin: auto;" />
 
@@ -275,7 +274,7 @@ f1_score
 
 Notes:
 
-If both precision and recall go up, the F1 score will go up, so in
+If both precision and recall go up, the f1 score will go up, so in
 general, we want this to be high.
 
 Sometimes we need a single score to maximize, e.g., when doing
@@ -327,7 +326,7 @@ sklearn    0.998997  0.001003   0.690909  0.745098  0.716981
 
 Notes:
 
-we can use `scikit-learn` which has functions for these metrics.
+…We can use `scikit-learn` which has functions for these metrics.
 
 See
 <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics" target="_blank">here</a>.
@@ -369,7 +368,7 @@ weighted avg       1.00      1.00      1.00     59810
 Notes:
 
 There is a convenient function called `classification_report` in
-`sklearn` which gives the information that we described above.
+`sklearn` which gives the information that we described earlier.
 
 We can use `classes` to see which position each label takes so we can
 designate them more comprehensive labels in our report.
@@ -387,7 +386,7 @@ The `support` column just shows the number of examples in each class.
 
 <center>
 
-<img src="/module7/evaluation-metrics.png"  width = "70%" alt="404 image" />
+<img src="/module7/evaluation-metrics.png"  width = "80%" alt="404 image" />
 
 </center>
 

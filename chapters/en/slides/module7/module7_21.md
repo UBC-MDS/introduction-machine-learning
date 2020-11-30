@@ -86,11 +86,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time    test_score   train_score
-0  0.049064    0.406529 -62462.584290 -51440.540539
-1  0.034088    0.257756 -63437.715015 -51263.979666
-2  0.032271    0.258723 -62613.202523 -51758.817852
-3  0.032255    0.256781 -64204.295214 -51343.743586
-4  0.033171    0.215878 -59217.838633 -47325.157312
+0  0.037458    0.277383 -62462.584290 -51440.540539
+1  0.032960    0.298675 -63437.715015 -51263.979666
+2  0.038590    0.293702 -62613.202523 -51758.817852
+3  0.056385    0.388653 -64204.295214 -51343.743586
+4  0.035522    0.252637 -59217.838633 -47325.157312
 ```
 
 Notes:
@@ -99,16 +99,12 @@ Normally after building our pipelines, we would now either do
 cross-validation or grid search but let’s start with the
 `cross-validate()` function.
 
-In this example, we are particularly interested in recall over accuracy
-so we can specify that in the `scoring` argument of the function.
-
 All the possible scoring metrics that this argument accepts is available
 <a href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter" target="_blank">here</a>.
 
 In this case, if we wanted the RMSE measure, we would specify
-`neg_mean_squared_error` and the negated value of the metric
-
-will be returned in our dataframe.
+`neg_mean_squared_error` and the negated value of the metric will be
+returned in our dataframe.
 
 ---
 
@@ -133,11 +129,11 @@ pd.DataFrame(cross_validate(
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.035381    0.278959   22.709732    18.420969
-1  0.033093    0.247322   22.754570    18.469125
-2  0.036948    0.272582   22.236869    18.674964
-3  0.036585    0.281380   23.016666    18.510766
-4  0.031327    0.232585   21.033519    16.951021
+0  0.039712    0.310671   22.709732    18.420969
+1  0.035242    0.266959   22.754570    18.469125
+2  0.034625    0.275713   22.236869    18.674964
+3  0.033674    0.280531   23.016666    18.510766
+4  0.033960    0.216018   21.033519    16.951021
 ```
 
 Notes:
@@ -178,11 +174,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time   test_r2  train_r2  test_mape_score  train_mape_score  test_neg_rmse  train_neg_rmse  test_neg_mse  train_neg_mse
-0  0.036993    0.265383  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
-1  0.038516    0.334129  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
-2  0.041595    0.426604  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
-3  0.039753    0.332148  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
-4  0.041180    0.277866  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
+0  0.035839    0.274238  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
+1  0.032429    0.257974  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
+2  0.037155    0.293498  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
+3  0.035664    0.272280  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
+4  0.033729    0.221913  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
 ```
 
 Notes: We can also return many scoring measures by first making a
@@ -251,7 +247,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.5s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   19.1s finished
 ```
 
 ``` python
@@ -318,7 +314,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   43.0s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   22.5s finished
 ```
 
 ``` python

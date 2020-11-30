@@ -118,7 +118,7 @@ Notes:
 We aren’t doing classification anymore, so we can’t just check for
 equality.
 
-We need a score that reflects how right/wrong each prediction is. How
+We need a score that reflects how right/wrong each prediction is or how
 close we are to the actual numeric value.
 
 ---
@@ -180,7 +180,7 @@ np.mean((y_train - y_train)**2)
 
 Notes:
 
-mean squared error is a common measure.
+Mean Squared Error is a common measure.
 
 We calculate this by calculating the difference between the predicted
 and actual value, square it and sum all these values for every example
@@ -243,7 +243,7 @@ from sklearn.metrics import r2_score
 Notes:
 
 This is the score that `sklearn` uses by default when you call
-`.score()` so we’ve already seen R^2 when in our regression problems.
+`.score()` so we’ve already seen R^2 in our regression problems.
 
 You can
 <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination" target="_blank">read
@@ -384,14 +384,14 @@ Name: median_house_value, dtype: float64
 
 Notes:
 
-So, finding the percentage error may be handy, can we compute something
+So, finding the percentage error may be handy. Can we compute something
 like that?
 
 We can calculate a percentage error for each example. Now the errors are
 both positive (predict too high) and negative (predict too low).
 
 We can look at the absolute percent error which now shows us how far off
-we were direction not dependent.
+we were independent of direction.
 
 Like MSE, we can take the average over all the examples. This is called
 **Mean Absolute Percent Error (MAPE)**.

@@ -196,7 +196,7 @@ Tasks:
 
 
 **Question 1**    
-How many forward (f) players in the test set were correctly predicted as forward?
+How many players in the test set were correctly predicted as forward?
 
 <choice id="1" >
 <opt text="19"  correct="true" >
@@ -272,7 +272,7 @@ These are true positives!
 
 <center><img src="/module7/Q2.png"  width = "80%" alt="404 image" /></center>
 
-For the next questions use the confusion matrix above and assume that **Forward** is the positive label. 
+For the next questions few question, use the confusion matrix above and assume that **Forward** is the positive label. 
 
 **Question 1**    
 
@@ -345,7 +345,7 @@ Are you sure you are using Forward are your positive label?
 
 **Question 3**    
 
-What is the F1 score?
+What is the f1 score?
 
 <choice id="3" >
 
@@ -837,7 +837,7 @@ Tasks:
 
 
 **Question 1**    
-What happened with the precision and recall when we balanced our class weights? 
+What happened with precision and recall when we balanced our class weights? 
 
 <choice id="1" >
 <opt text="Precision and recall both increased"   >
@@ -1123,7 +1123,6 @@ Let's calculate some measurements from our basketball dataset this time predicti
 
 Tasks:   
 - Import the mean squared error and R^2 libraries. 
-- 
 - Calculate the MSE, RMSE, R^2, and MAP measurement by comparing the true values to what the model predicted on the validation set. Name the objects 
 `mse_calc`, `rmse_calc`, `re_calc` and `mape_calc` respectively. 
 

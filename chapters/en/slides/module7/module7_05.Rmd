@@ -163,7 +163,7 @@ This time we are going to split up the values in the matrix into the 4 quadrants
 
 We need each of these values to explain the next measurements. 
 
-- The `.ravel()` function "flattens" or "unravels" the matrix into a 1D array which makes it easier to obtain the values which we need to explain the next concepts. 
+- The `.ravel()` function "flattens" or "unravels" the matrix into a 1D array which makes it easier to obtain the individual values.
 
 
 
@@ -268,9 +268,9 @@ For credit card fraud detection, recall is really important (catching frauds), p
 ---
 
 
-### F1
+### f1
 
-**F1-score combines precision and recall to give one score.** 
+**f1-score combines precision and recall to give one score.** 
 
 ```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
 plt.rcParams.update({'font.size': 12})
@@ -315,7 +315,7 @@ f1_score
 
 Notes: 
 
-If both precision and recall go up, the F1 score will go up, so in general, we want this to be high.
+If both precision and recall go up, the f1 score will go up, so in general, we want this to be high.
 
 Sometimes we need a single score to maximize, e.g., when doing hyperparameter tuning via RandomizedSearchCV.
 
@@ -364,7 +364,7 @@ pd.DataFrame(data, index=['ourselves', 'sklearn'])
 
 Notes: 
 
-we can use `scikit-learn` which has functions for these metrics.
+...We can use `scikit-learn` which has functions for these metrics.
 
 See <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics" target="_blank">here</a>.
 
@@ -392,7 +392,7 @@ print(classification_report(y_valid, pipe_tree.predict(X_valid),
 
 Notes: 
 
-There is a convenient function called `classification_report` in `sklearn` which gives the information that we described above.
+There is a convenient function called `classification_report` in `sklearn` which gives the information that we described earlier.
 
 We can use `classes` to see which position each label takes so we can designate them more comprehensive labels in our report. 
 
@@ -404,7 +404,7 @@ The `support` column just shows the number of examples in each class.
 
 ---
 
-<center><img src="/module7/evaluation-metrics.png"  width = "70%" alt="404 image" /></center>
+<center><img src="/module7/evaluation-metrics.png"  width = "80%" alt="404 image" /></center>
 
 
 <a href="https://raw.githubusercontent.com/UBC-MDS/introduction-machine-learning/master/static/module7/evaluation-metrics.png" target="_blank">See here for full size.</a> 

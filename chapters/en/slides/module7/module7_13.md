@@ -39,8 +39,7 @@ A class imbalance typically refers to having many more examples of one
 class than another in one’s training set.
 
 We’ve seen this in our fraud dataset where our `class` target column had
-many more non-fraud than fraud examples where the classes are
-imbalanced.
+many more non-fraud than fraud examples.
 
 Real-world data is often imbalanced and can be seen in scenarios such
 as:
@@ -52,8 +51,8 @@ as:
 
 ### Addressing class imbalance
 
-A very important question to ask yourself: ***“Why do I have a class
-imbalance?”***
+A very important question to ask yourself:  
+***“Why do I have a class imbalance?”***
 
   - Is it because one class is much rarer than the other?
 
@@ -124,7 +123,7 @@ There are two common approaches to this:
 
 Notes:
 
-All `sklearn` classifiers have a parameter called `class_weight`.
+Most `sklearn` classifiers have a parameter called `class_weight`.
 
 This allows you to specify that one class is more important than
 another.
@@ -132,8 +131,8 @@ another.
 For example, maybe a false negative is 10x more problematic than a false
 positive.
 
-So, if you look in our example of the SVM classifier, we see
-`class_weight` in the documentation.
+So, if you look for example, in the documentation for the SVM
+classifier, we see `class_weight` as a parameter.
 
 ---
 
@@ -155,7 +154,7 @@ Notes: When we made our model before, we can see our confusion matrix on
 the left.
 
 Now let’s rebuild our pipeline but using the `class_weight` argument and
-setting it as`class_weight={1:200}`.
+setting it as`class_weight={1:100}`.
 
 This is equivalent to saying “repeat every positive example 200x in the
 training set”, but repeating data would slow down the code, whereas this
@@ -214,11 +213,11 @@ Changing the class weight will **generally reduce accuracy**.
 The original model was trying to maximize accuracy. Now you’re telling
 it to do something different.
 
-But that ok since accuracy isn’t the only metric that matters.
+But that’s ok since accuracy isn’t the only metric that matters.
 
 Let’s explain why this happens.
 
-Sincere there are so many more negative examples than positive, false
+Since there are so many more negative examples than positive, false
 positives affect accuracy much more than false negatives.
 
 Thus, precision matters a lot more than recall.

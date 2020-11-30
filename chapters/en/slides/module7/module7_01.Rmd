@@ -68,7 +68,7 @@ pd.set_option('display.width', 350)
 
 np.set_printoptions(linewidth=400)
 
-pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_columns', 12)
 pd.set_option('display.max_rows', 15)
 
 path = "../../../../static/module7/"
@@ -113,10 +113,6 @@ We can see this is a large dataset with 242085 examples and 31 features in our t
  
 
 ---
-
-```{python}
-train_df.head()
-```
 
 
 ```{python}
@@ -224,7 +220,7 @@ train_df["Class"].value_counts(normalize=True)
 There are two kinds of binary classification problems:
 
 - Distinguishing between two classes
-- Spotting a class (spot fraud transaction, spot spam, spot disease)
+- Spotting a class (fraud transaction, spam, disease)
 
 
 Notes: 
@@ -275,7 +271,7 @@ Others do it the other way around, e.g., the confusion matrix <a href=" https://
 
 ---
 
-```{python echo=FALSE,  fig.width = 9, fig.height = 7,  out.width = '50%', fig.align='center'}
+```{python echo=FALSE,  fig.width = 9, fig.height = 7,  out.width = '60%', fig.align='center'}
 plt.rcParams.update({'font.size': 12})
 plot_confusion_matrix(pipe, X_valid, y_valid, display_labels=["Non Fraud", "Fraud"], values_format="d", cmap="Blues");
 plt.show()
