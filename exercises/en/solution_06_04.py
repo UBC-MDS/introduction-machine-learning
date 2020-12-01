@@ -8,7 +8,6 @@ bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
 
 # Split the dataset
 df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
-
 X_column = df_train[['country']]
 
 # Build the tranformer and fit on it 

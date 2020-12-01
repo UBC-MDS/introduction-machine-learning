@@ -132,7 +132,7 @@ This is the number of false positives, what about the false negatives?
 <exercise id="3" title="True or False: Confusion Matrix">
 
 **True or False?**     
-Accuracy is the most important unit of measurement. 
+*Accuracy is the most important unit of measurement.*
 
 <choice id="1" >
 <opt text="True" >
@@ -150,7 +150,7 @@ Great!
 </choice>
 
 **True or False**      
-A confusion matrix will always show the predicted values as columns and the true labels as rows. 
+*A confusion matrix will always show the predicted values as columns and the true labels as rows.*
 
 <choice id="2">
 <opt text="True">
@@ -385,7 +385,7 @@ Are you sure you are calculating f1? f1 = (2 * precision * recall) / (precision 
 <exercise id="7" title="True or False: Measurements">
 
 **True or False?**     
-In spam classification, false positives are more damaging than false negatives (assume "positive" means the email is spam, "negative" means it's not).
+*In spam classification, false positives are more damaging than false negatives (assume "positive" means the email is spam, "negative" means it's not).*
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -403,7 +403,7 @@ What would be worse, getting a spam email, or not getting an important email tha
 </choice>
 
 **True or False**      
-In medical diagnosis, high recall is more important than high precision.
+*In medical diagnosis, high recall is more important than high precision.*
 
 <choice id="2">
 <opt text="True"  correct="true">
@@ -711,7 +711,7 @@ Nice! 5 examples were incorrectly labeled as `F` and 1 labeled incorrectly as `C
 <exercise id="12" title="True or False: Measurements">
 
 **True or False?**     
-The weighted average gives equal importance to all classes.
+*The weighted average gives equal importance to all classes.*
 
 <choice id="1" >
 <opt text="True" >
@@ -729,7 +729,7 @@ Killing it!
 </choice>
 
 **True or False**      
-Using 1 target label as the positive class will make all other target labels negative.
+*Using 1 target label as the positive class will make all other target labels negative.*
 
 <choice id="2">
 <opt text="True" correct="true" >
@@ -756,7 +756,7 @@ Classes are classified as binary for these measurements; either the target "posi
 <exercise id="14" title="True or False: Unbalanced Data">
 
 **True or False?**     
-When using `StratifiedKFold`, our data is no longer a random sample.
+*When using `StratifiedKFold`, our data is no longer a random sample.*
 
 <choice id="1" >
 <opt text="True" correct="true">
@@ -774,7 +774,7 @@ Are you sure?
 </choice>
 
 **True or False**      
-Unbalanced datasets are always going to have higher accuracies than unbalanced datasets.
+*Unbalanced datasets are always going to have higher accuracies than unbalanced datasets.*
 
 <choice id="2">
 <opt text="True" >
@@ -1006,7 +1006,7 @@ Go you!
 <exercise id="18" title="True or False: Regression Measurements">
 
 **True or False?**     
-We can still use recall and precision for regression problems but now we have other measurements we can use as well. 
+*We can still use recall and precision for regression problems but now we have other measurements we can use as well.*
 
 <choice id="1" >
 <opt text="True" >
@@ -1024,7 +1024,7 @@ Great.
 </choice>
 
 **True or False**      
-A lower RMSE value indicates a better fit.
+*A lower RMSE value indicates a better fit.*
 
 <choice id="2">
 <opt text="True"  correct="true">
@@ -1043,7 +1043,7 @@ Since this is an error measurement, we want a model that is resulting in less er
 
 
 **True or False**      
-In regression problems, calculating R^2 using `r2_score()` and `.score()` will produce the same results.
+*In regression problems, calculating R^2 using `r2_score()` and `.score()` will produce the same results.*
 
 <choice id="3">
 <opt text="True"  correct="true">
@@ -1166,7 +1166,7 @@ This model does worse than a DummyRegressor!
 <exercise id="22" title= "True or False: Scoring with Cross-Validation">
 
 **True or False?**     
-The `scoring` argument only accepts `str` inputs.
+*The `scoring` argument only accepts `str` inputs.*
 
 <choice id="1" >
 <opt text="True">
@@ -1184,7 +1184,7 @@ Great!
 </choice>
 
 **True or False**      
-We are limited to the scoring measures offered from sklearn.
+*We are limited to the scoring measures offered from sklearn.*
 
 <choice id="2">
 <opt text="True" >
@@ -1203,7 +1203,7 @@ Good job!
 
 
 **True or False**      
-If we specify the scoring method in `GridSearchCV` and `RandomizedSearchCV`, `best_param_`  will return the parameters with the highest specified measure. 
+*If we specify the scoring method in `GridSearchCV` and `RandomizedSearchCV`, `best_param_`  will return the parameters with the highest specified measure.*
 
 <choice id="2">
 <opt text="True" correct="true" >

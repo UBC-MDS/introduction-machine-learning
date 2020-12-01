@@ -27,23 +27,23 @@ id: 6
 <exercise id="2" title= "Categorical Variables">
 
 ```
-           name    colour    location    seed   shape  sweetness   water-content  weight
-0         apple       red     canada    True   round     True          84         100
-1        banana    yellow     mexico   False    long     True          75         120
-2    cantaloupe    orange      spain    True   round     True          90        1360
-3  dragon-fruit   magenta      china    True   round    False          96         600
-4    elderberry    purple    austria   False   round     True          80           5
-5           fig    purple     turkey   False    oval    False          78          40
-6         guava     green     mexico    True    oval     True          83         450
-7   huckleberry      blue     canada    True   round     True          73           5
-8          kiwi     brown      china    True   round     True          80          76
-9         lemon    yellow     mexico   False    oval    False          83          65
+           name    colour    location    seed   shape  sweetness   water-content  weight  popularity
+0         apple       red     canada    True   round     True          84         100      popular
+1        banana    yellow     mexico   False    long     True          75         120      popular
+2    cantaloupe    orange      spain    True   round     True          90        1360      neutral
+3  dragon-fruit   magenta      china    True   round    False          96         600      not popular
+4    elderberry    purple    austria   False   round     True          80           5      not popular
+5           fig    purple     turkey   False    oval    False          78          40      neutral
+6         guava     green     mexico    True    oval     True          83         450      neutral
+7   huckleberry      blue     canada    True   round     True          73           5      not popular
+8          kiwi     brown      china    True   round     True          80          76      popular
+9         lemon    yellow     mexico   False    oval    False          83          65      popular
 
 ```
 
 **Question 1**    
 
-What would be the unique values given to the values in the column `location`, in we transformed it with ordinal encoding?
+What would be the unique values given to the categories in the `popularity` column, in we transformed it with ordinal encoding?
 
 <choice id="1">
 
@@ -53,21 +53,21 @@ There are multiples of some of these values
 
 </opt>
 
-<opt text= "<code>[0, 1, 2, 3, 4, 5]</code>"  correct="true">
+<opt text= "<code>[0, 1, 2]</code>"  correct="true">
  
 Nice!
 
 </opt>
 
-<opt text="<code>[1, 2, 3, 4, 5, 6]</code>">
+<opt text="<code>[1, 2, 3]</code>">
 
 Do we start labeling at 1?
 
 </opt>
 
-<opt text="<code>[0, 1, 2, 3, 4, 5, 6]</code>">
+<opt text="<code>[0, 1, 2, 3]</code>">
 
-Do we have 7 unique values?
+Do we have 4 unique values?
 
 </opt>
 
@@ -76,7 +76,7 @@ Do we have 7 unique values?
 
 **Question 2**    
 
-Does it make sense to be doing ordinal transformations on this column?
+Does it make sense to be doing ordinal transformations on the `colour` column?
 
 <choice id="2" >
 
