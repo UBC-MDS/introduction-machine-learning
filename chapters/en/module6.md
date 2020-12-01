@@ -164,7 +164,7 @@ Tasks:
 
 
 **Question**    
-Which country corresponds with group 21?
+Which country corresponds with group 5?
 
 <choice id="1" >
 <opt text="USA"   >
