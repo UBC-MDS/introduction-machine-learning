@@ -1082,7 +1082,7 @@ Calculate the MSE from the values given below.
 
 <choice id="1">
 
-<opt text="15" correct="true">
+<opt text="15">
 
 Don't forget to divide by the number of samples!
 
@@ -1094,9 +1094,9 @@ You need to sum up the *squared* differences. Not just the difference.
 
 </opt>
 
-<opt text="3">
+<opt text="3" correct="true">
 
-Nice work
+Nice work!
 
 </opt>
 
