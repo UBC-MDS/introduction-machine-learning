@@ -15,7 +15,7 @@ id: 7
 </exercise>
 
 <exercise id="1" title="Introducing Evaluation Metrics"  type="slides, video">
-<slides source="module7/module7_01" shot="0" start="13:2011" end="14:1221">
+<slides source="module7/module7_01" shot="3" start="13:2011" end="14:1221">
 </slides>
 
 </exercise>
@@ -262,7 +262,7 @@ These are true positives!
 </exercise>
 
 <exercise id="5" title="Precision, Recall and F1 Score"  type="slides, video">
-<slides source="module7/module7_05" shot="0" start="13:2011" end="14:1221">
+<slides source="module7/module7_05" shot="3" start="13:2011" end="14:1221">
 </slides>
 
 </exercise>
@@ -471,7 +471,7 @@ Maybe give it another go above!
 </exercise>
 
 <exercise id="9" title="Multi-Class Measurements"  type="slides, video">
-<slides source="module7/module7_09" shot="0" start="13:2011" end="14:1221">
+<slides source="module7/module7_09" shot="3" start="13:2011" end="14:1221">
 </slides>
 
 </exercise>
@@ -748,7 +748,7 @@ Classes are classified as binary for these measurements; either the target "posi
 </exercise>
 
 <exercise id="13" title="Imbalanced Datasets"  type="slides, video">
-<slides source="module7/module7_13" shot="0" start="13:2011" end="14:1221">
+<slides source="module7/module7_13" shot="3" start="13:2011" end="14:1221">
 </slides>
 
 </exercise>
@@ -891,7 +891,7 @@ Nice!
 
 
 <exercise id="16" title="Regression Measurements"  type="slides, video">
-<slides source="module7/module7_16" shot="0" start="13:2011" end="14:1221">
+<slides source="module7/module7_16" shot="3" start="13:2011" end="14:1221">
 </slides>
 
 </exercise>
@@ -911,7 +911,7 @@ Great!
 
 </opt>
 
-<opt text= "R^2">
+<opt text= "R<sup>2</sup>">
  
 This won't have any units
 
@@ -944,7 +944,7 @@ The lowest value here is 0!
 
 </opt>
 
-<opt text= "R^2" correct="true">
+<opt text= "R<sup>2</sup>" correct="true">
  
 You got it. 
 
@@ -979,7 +979,7 @@ Not quite.
 
 </opt>
 
-<opt text= "R^2">
+<opt text= "R<sup>2</sup>">
  
 This will be a decimal and have a maximum value of 1.0. 
 
@@ -1043,7 +1043,7 @@ Since this is an error measurement, we want a model that is resulting in less er
 
 
 **True or False**      
-*In regression problems, calculating R^2 using `r2_score()` and `.score()` will produce the same results.*
+*In regression problems, calculating R<sup>2</sup>  using `r2_score()` and `.score()` will produce the same results.*
 
 <choice id="3">
 <opt text="True"  correct="true">
@@ -1054,7 +1054,7 @@ Good job!
 
 <opt text="False"  >
 
-`.score()` uses by default the R^2 measure.
+`.score()` by default uses the R<sup>2</sup> measure.
 
 </opt>
 
@@ -1122,8 +1122,8 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 Let's calculate some measurements from our basketball dataset this time predicting the players' salary. How well does our model do?
 
 Tasks:   
-- Import the mean squared error and R^2 libraries. 
-- Calculate the MSE, RMSE, R^2, and MAP measurement by comparing the true values to what the model predicted on the validation set. Name the objects 
+- Import the mean squared error and R<sup>2</sup> libraries. 
+- Calculate the MSE, RMSE, Rs<up>2</sup>, and MAP measurement by comparing the true values to what the model predicted on the validation set. Name the objects 
 `mse_calc`, `rmse_calc`, `re_calc` and `mape_calc` respectively. 
 
 <codeblock id="07_20">
@@ -1158,7 +1158,7 @@ This model does worse than a DummyRegressor!
 </exercise>
 
 <exercise id="21" title="Passing Different Scoring Methods"  type="slides, video">
-<slides source="module7/module7_21" shot="0" start="13:2011" end="14:1221">
+<slides source="module7/module7_21" shot="3" start="13:2011" end="14:1221">
 </slides>
 
 </exercise>

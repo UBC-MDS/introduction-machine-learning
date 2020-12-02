@@ -128,7 +128,7 @@ close we are to the actual numeric value.
 The scores we are going to discuss are:
 
   - mean squared error (MSE)
-  - R^2
+  - R<sup>2</sup>
   - root mean squared error (RMSE)
   - MAPE
 
@@ -216,16 +216,16 @@ Unlike classification, in regression, our target has units.
 In this case, our target column is the median housing value which is in
 dollars.
 
-That means that the mean squared error is in dollars^2.
+That means that the mean squared error is in dollars<sup>2</sup>.
 
 The score also depends on the scale of the targets.
 
 If we were working in cents instead of dollars, our MSE would be 10,000
-X (100^2) higher\!
+X (100<sup>2</sup>) higher\!
 
 ---
 
-### R^2 (quick notes)
+### R<sup>2</sup> (quick notes)
 
 Key points:
 
@@ -243,7 +243,8 @@ from sklearn.metrics import r2_score
 Notes:
 
 This is the score that `sklearn` uses by default when you call
-`.score()` so we’ve already seen R^2 in our regression problems.
+`.score()` so we’ve already seen R<sup>2</sup> in our regression
+problems.
 
 You can
 <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination" target="_blank">read
@@ -254,8 +255,8 @@ better measurement.
 
 Normalized so the max is 1.
 
-When you call `fit` it minimizes MSE / maximizes R^2 (or something like
-that) by default.
+When you call `fit` it minimizes MSE / maximizes R<sup>2</sup> (or
+something like that) by default.
 
 Just like in classification, this isn’t always what you want.
 
@@ -283,7 +284,7 @@ print(r2_score(predicted_y, y_train))
 
 Notes:
 
-We can reverse MSE but not R^2 (optional).
+We can reverse MSE but not R<sup>2</sup> (optional).
 
 ---
 
@@ -319,7 +320,7 @@ np.sqrt(mean_squared_error(y_train, predicted_y))
 
 Notes:
 
-The MSE we had before was in dollars^2.
+The MSE we had before was in dollars<sup>2</sup>.
 
 A more relatable metric would be the root mean squared error, or RMSE.
 
