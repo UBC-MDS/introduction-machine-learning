@@ -222,12 +222,13 @@ Which two vectors are most similar among `u`, `v`, and `w`?
 
 <choice id="2" >
 
-<opt text="u and w"  >
+<opt text="u and w">
 
 The distance between `u` and `w` is 10. Have you checked the other yet?
+
 </opt>
 
-<opt text="u and v" correct="true">
+<opt text="u and v">
 
 The distance between `u` and `v` is 7. Have you checked the other yet?
 
