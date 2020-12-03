@@ -239,14 +239,12 @@ Otherwise, we might, for example, do the OHE on both train and test but forget t
 - The `ColumnTransformer` will automatically remove columns that are not being transformed.      
 - We can use `remainder="passthrough"` of `ColumnTransformer` to keep the other columns intact.      
 
+We don't have any columns that are being removed in this case but this is a good feature to have if we are only interested in a few features. 
+
 ---
 
 ```{python}
 col_transformer.fit(X_train)
-```
-
-```{python}
-X_train_pp = col_transformer.transform(X_train)
 ```
 
 Notes: 
@@ -254,6 +252,28 @@ Notes:
 When we `fit` with the `col_transformer`, it calls `fit` on ***all*** the transformers.
 
 And when we transform with the preprocessor, it calls `transform` on ***all*** the transformers.
+
+---
+
+```{python}
+X_train.head()
+```
+
+
+```{python Echo=FALSE}
+x = list(X_train.columns.values)
+del x[5]
+X_train_pp = col_transformer.transform(X_train)
+pd.DataFrame(X_train_pp, columns= (x  + list(col_transformer.named_transformers_["categotical"].named_steps["onehot"].get_feature_names(categorical_features)))).head()
+```
+
+
+
+
+Notes: 
+
+Here we can see what our dataframe looks like after transformation. 
+
 
 ---
 

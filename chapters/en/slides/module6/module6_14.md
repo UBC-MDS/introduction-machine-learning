@@ -9,22 +9,17 @@ Notes: <br>
 ---
 
 ``` python
-adult = pd.read_csv('data/adult.csv')
-adult = adult.replace("?", np.NaN)
-adult.head()
+train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
+train_df.head()
 ```
 
 ```out
-   age workclass  fnlwgt     education  education.num marital.status         occupation   relationship   race     sex  capital.gain  capital.loss  hours.per.week native.country income
-0   90       NaN   77053       HS-grad              9        Widowed                NaN  Not-in-family  White  Female             0          4356              40  United-States  <=50K
-1   82   Private  132870       HS-grad              9        Widowed    Exec-managerial  Not-in-family  White  Female             0          4356              18  United-States  <=50K
-2   66       NaN  186061  Some-college             10        Widowed                NaN      Unmarried  Black  Female             0          4356              40  United-States  <=50K
-3   54   Private  140359       7th-8th              4       Divorced  Machine-op-inspct      Unmarried  White  Female             0          3900              40  United-States  <=50K
-4   41   Private  264663  Some-college             10      Separated     Prof-specialty      Own-child  White  Female             0          3900              40  United-States  <=50K
-```
-
-``` python
-train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
+       age  workclass  fnlwgt     education  education.num      marital.status      occupation   relationship   race     sex  capital.gain  capital.loss  hours.per.week native.country income
+5514    26    Private  256263       HS-grad              9       Never-married    Craft-repair  Not-in-family  White    Male             0             0              25  United-States  <=50K
+19777   24    Private  170277       HS-grad              9       Never-married   Other-service  Not-in-family  White  Female             0             0              35  United-States  <=50K
+10781   36    Private   75826     Bachelors             13            Divorced    Adm-clerical      Unmarried  White  Female             0             0              40  United-States  <=50K
+32240   22  State-gov   24395  Some-college             10  Married-civ-spouse    Adm-clerical           Wife  White  Female             0             0              20  United-States  <=50K
+9876    31  Local-gov  356689     Bachelors             13  Married-civ-spouse  Prof-specialty        Husband  White    Male             0             0              40  United-States  <=50K
 ```
 
 Notes:
@@ -65,7 +60,6 @@ categorical_features = [
     "marital.status",
     "occupation",
     "relationship",
-    "race",
     "sex",
     "native.country"
 ]
@@ -76,37 +70,39 @@ Notes:
 In the last slide deck, we split our features into numeric and
 categorical features which we will do again for this data.
 
+We can also add a new type of feature called `passthrough_features`
+these features are the ones that are omitted from being used in our
+model.
+
 ---
 
 ``` python
 numeric_transformer = Pipeline(
     steps=[("imputer", SimpleImputer(strategy="median")), 
-           ("scaler", StandardScaler())]
-)
+           ("scaler", StandardScaler())])
 
 categorical_transformer = Pipeline(
     steps=[
         ("imputer", SimpleImputer(strategy="constant", fill_value="missing")),
-        ("onehot", OneHotEncoder())]
-)
+        ("onehot", OneHotEncoder())])
 
 preprocessor = ColumnTransformer(
     transformers=[
         ("num", numeric_transformer, numeric_features),
-        ("cat", categorical_transformer, categorical_features)]
-)
+        ("cat", categorical_transformer, categorical_features)] )
 
 pipe = Pipeline(
     steps=[
         ("preprocessor", preprocessor),
-        ("clf", SVC())]
-)
+        ("clf", SVC())])
 ```
 
 Notes:
 
 We defined transformations on the numeric and categorical features, on a
 column transformer, and on a pipeline.
+
+You’ll also notice that we can specify \`remainder=“passthrough” in our
 
 This seems great but it seems quite a lot.
 
@@ -120,11 +116,42 @@ It’s call `make_pipeline()`.
 ### *make\_pipeline* syntax
 
 ``` python
+model_pipeline = Pipeline(
+    steps=[
+        ("scaling", StandardScaler()),
+        ("clf", SVC())])
+```
+
+``` python
+model_pipeline = make_pipeline(
+            StandardScaler(), SVC())
+```
+
+``` python
+model_pipeline
+```
+
+``` out
+Pipeline(steps=[('standardscaler', StandardScaler()), ('svc', SVC())])
+```
+
+Notes:
+
+`make_pipeline()` is a shorthand for the `Pipeline()` constructor and
+does not permit, naming the steps.
+
+Instead, their names will be set to the lowercase of their types
+automatically.
+
+---
+
+``` python
 from sklearn.pipeline import make_pipeline
 ```
 
 ``` python
-numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"),
+                                    StandardScaler())
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="constant", fill_value="missing"),
@@ -143,14 +170,13 @@ pipe = make_pipeline(preprocessor, SVC())
 
 Notes:
 
-Let’s create a column transformer and a pipeline using an alternative
-syntax `make_pipeline`.
+Let’s create our numeric and categoric pipelines for this data using
+`make_pipeline` instead of `Pipeline()`.
 
-This is a shorthand for the `Pipeline` constructor and does not permit,
-naming the steps.
+Look how much less effort our pipeline took\!
 
-Instead, their names will be set to the lowercase of their types
-automatically.
+Our `ColumnTransformer` may still have the same syntax but guess what?\!
+We have a solution for that too\!
 
 ---
 
@@ -166,8 +192,7 @@ so instead of this:
 preprocessor = ColumnTransformer(
     transformers=[
         ("num", numeric_transformer, numeric_features),
-        ("cat", categorical_transformer, categorical_features) ],
-         remainder='passthrough' 
+        ("cat", categorical_transformer, categorical_features) ]
 )
 ```
 
@@ -176,8 +201,7 @@ we can do this:
 ``` python
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features),
-    (categorical_transformer, categorical_features),
-     remainder='passthrough' )
+    (categorical_transformer, categorical_features))
 ```
 
 Notes:
@@ -224,6 +248,8 @@ Detailed traceback:
 
 Notes:
 
+Looks nice but it looks like we have a problem with this dataset.
+
 What’s going on here??
 
 ---
@@ -252,7 +278,9 @@ Let’s look at the error message:
 `Found unknown categories ['Holand-Netherlands'] in column 6 during
 transform`.
 
-There is only one instance of Holand-Netherlands.
+This is an issue with our `OneHotEncoder` transformation.
+
+There is only one instance of category `Holand-Netherlands`.
 
 During cross-validation, this is getting put into the validation split.
 
@@ -285,10 +313,10 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       12.803461
-score_time      1.914135
-test_score      0.855421
-train_score     0.867792
+fit_time       10.527957
+score_time      1.566353
+test_score      0.855459
+train_score     0.867974
 dtype: float64
 ```
 

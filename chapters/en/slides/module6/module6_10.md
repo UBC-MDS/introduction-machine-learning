@@ -180,6 +180,9 @@ forget to scale the test data.
   - We can use `remainder="passthrough"` of `ColumnTransformer` to keep
     the other columns intact.
 
+We don’t have any columns that are being removed in this case but this
+is a good feature to have if we are only interested in a few features.
+
 ---
 
 ``` python
@@ -206,10 +209,6 @@ ColumnTransformer(remainder='passthrough',
                                  ['ocean_proximity'])])
 ```
 
-``` python
-X_train_pp = col_transformer.transform(X_train)
-```
-
 Notes:
 
 When we `fit` with the `col_transformer`, it calls `fit` on ***all***
@@ -217,6 +216,41 @@ the transformers.
 
 And when we transform with the preprocessor, it calls `transform` on
 ***all*** the transformers.
+
+---
+
+``` python
+X_train.head()
+```
+
+```out
+       longitude  latitude  housing_median_age  households  median_income ocean_proximity  rooms_per_household  bedrooms_per_household  population_per_household
+6051     -117.75     34.04                22.0       602.0         3.1250          INLAND             4.897010                1.056478                  4.318937
+20113    -119.57     37.94                17.0        20.0         3.4861          INLAND            17.300000                6.500000                  2.550000
+14289    -117.13     32.74                46.0       708.0         2.6604      NEAR OCEAN             4.738701                1.084746                  2.057910
+13665    -117.31     34.02                18.0       285.0         5.2139          INLAND             5.733333                0.961404                  3.154386
+14471    -117.23     32.88                18.0      1458.0         1.8580      NEAR OCEAN             3.817558                1.004801                  4.323045
+```
+
+``` python
+x = list(X_train.columns.values)
+del x[5]
+X_train_pp = col_transformer.transform(X_train)
+pd.DataFrame(X_train_pp, columns= (x  + list(col_transformer.named_transformers_["categotical"].named_steps["onehot"].get_feature_names(categorical_features)))).head()
+```
+
+```out
+   longitude  latitude  housing_median_age  households  median_income  rooms_per_household  bedrooms_per_household  population_per_household  ocean_proximity_<1H OCEAN  ocean_proximity_INLAND  ocean_proximity_ISLAND  ocean_proximity_NEAR BAY  ocean_proximity_NEAR OCEAN
+0   0.908140 -0.743917           -0.526078    0.266135      -0.389736            -0.210591               -0.083813                  0.126398                        0.0                     1.0                     0.0                       0.0                         0.0
+1  -0.002057  1.083123           -0.923283   -1.253312      -0.198924             4.726412               11.166631                 -0.050132                        0.0                     1.0                     0.0                       0.0                         0.0
+2   1.218207 -1.352930            1.380504    0.542873      -0.635239            -0.273606               -0.025391                 -0.099240                        0.0                     0.0                     0.0                       0.0                         1.0
+3   1.128188 -0.753286           -0.843842   -0.561467       0.714077             0.122307               -0.280310                  0.010183                        0.0                     1.0                     0.0                       0.0                         0.0
+4   1.168196 -1.287344           -0.843842    2.500924      -1.059242            -0.640266               -0.190617                  0.126808                        0.0                     0.0                     0.0                       0.0                         1.0
+```
+
+Notes:
+
+Here we can see what our dataframe looks like after transformation.
 
 ---
 
@@ -262,11 +296,11 @@ pd.DataFrame(with_categorical_scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.036422    0.272528    0.695818     0.801659
-1  0.033236    0.248174    0.707483     0.799575
-2  0.030916    0.246066    0.713788     0.795944
-3  0.032736    0.252447    0.686938     0.801232
-4  0.030737    0.207904    0.724608     0.832498
+0  0.034942    0.263378    0.695818     0.801659
+1  0.036598    0.271417    0.707483     0.799575
+2  0.033372    0.270438    0.713788     0.795944
+3  0.033244    0.281224    0.686938     0.801232
+4  0.034295    0.259348    0.724608     0.832498
 ```
 
 Notes:
@@ -296,11 +330,11 @@ pd.DataFrame(no_categorical_scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.020948    0.166332    0.693883     0.792395
-1  0.020602    0.154683    0.685017     0.789108
-2  0.019246    0.166048    0.694409     0.787796
-3  0.019384    0.162033    0.677055     0.792444
-4  0.018863    0.127219    0.714494     0.823421
+0  0.024516    0.214260    0.693883     0.792395
+1  0.020666    0.172213    0.685017     0.789108
+2  0.024009    0.197966    0.694409     0.787796
+3  0.024899    0.203115    0.677055     0.792444
+4  0.023610    0.164008    0.714494     0.823421
 ```
 
 Notes:
@@ -316,8 +350,8 @@ pd.DataFrame(no_categorical_scores).mean()
 ```
 
 ```out
-fit_time       0.019809
-score_time     0.155263
+fit_time       0.023540
+score_time     0.190312
 test_score     0.692972
 train_score    0.797033
 dtype: float64
@@ -328,8 +362,8 @@ pd.DataFrame(with_categorical_scores).mean()
 ```
 
 ```out
-fit_time       0.032809
-score_time     0.245424
+fit_time       0.034490
+score_time     0.269161
 test_score     0.705727
 train_score    0.806182
 dtype: float64

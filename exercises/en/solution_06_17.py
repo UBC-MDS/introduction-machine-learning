@@ -52,4 +52,4 @@ main_pipe = make_pipeline(
 
 # Cross validate
 with_categorical_scores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
-pd.DataFrame(scores)
+pd.DataFrame(with_categorical_scores)

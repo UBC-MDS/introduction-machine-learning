@@ -5,7 +5,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 from sklearn.feature_extraction.text import ____
 import scipy
 
@@ -24,7 +24,7 @@ param_grid = {
     "countvectorizer__max_features": range(1,1000)
 }
 
-# Make a pipeline with CountVectorizer as the first step and KNeighborsClassifier as the second 
+# Make a pipeline with CountVectorizer as the first step and SVC as the second 
 ____ = ____
 
 # perform RandomizedSearchCV using the parameters specified in param_grid

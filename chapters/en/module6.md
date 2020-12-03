@@ -462,17 +462,17 @@ Nice!
 
 Refer to the dataframe to answer the following question.
 ```
-       colour   location   seed    shape   sweetness  water_content  weight
-0       red      canada    True     NaN      True          84         100
-1     yellow     mexico    False   long      True          75         120
-2     orange     spain     True     NaN      True          90         NaN
-3    magenta     china     True    round     False         NaN        600
-4     purple    austria    False    NaN      True          80         115
-5     purple    turkey     False   oval      False         78         340
-6     green     mexico     True    oval      True          83         NaN
-7      blue     canada     True    round     True          73         535
-8     brown     china      True     NaN      True          NaN       1743  
-9     yellow    mexico     False   oval      False         83         265
+       colour   location    shape   water_content  weight
+0       red      canada      NaN         84          100
+1     yellow     mexico     long         75          120
+2     orange     spain       NaN         90          NaN
+3    magenta     china      round        NaN         600
+4     purple    austria      NaN         80          115
+5     purple    turkey      oval         78          340
+6     green     mexico      oval         83          NaN
+7      blue     canada      round        73          535
+8     brown     china        NaN         NaN        1743  
+9     yellow    mexico      oval         83          265
 ```
 
 <br>
@@ -484,27 +484,27 @@ How many categorical columns are there and how many numeric?
 
 <choice id="1" >
 
-<opt text="5 categoric columns and 3 numeric columns"  >
+<opt text="5 categoric columns and 0 numeric columns"  >
 
-Are you sure it's the correct dimensions?
-
-</opt>
-
-<opt text="3 categoric columns and 5 numeric columns" >
-
-
+There are some numeric colums?
 
 </opt>
 
-<opt text="5 categoric columns and 2 numeric columns" correct="true">
+<opt text="2 categoric columns and 3 numeric columns" >
+
+Are you missing a categorical columns?
+
+</opt>
+
+<opt text="3 categoric columns and 2 numeric columns" correct="true">
 
 Great!
 
 </opt>
 
-<opt text="3 categoric columns and 4 numeric columns">
+<opt text="1 categoric columns and 4 numeric columns">
 
-This is a single column. Are you sure that's what you want?
+Are you counting numerical columns that I am not?
 
 </opt>
 
@@ -663,7 +663,7 @@ Pipeline(
 ```  
 
 **Question 1**   
-How many columns are being transformed in the first pipeline?
+How many columns are being transformed in `pipeline-1`?
  
 
 <choice id="1" >
@@ -768,24 +768,6 @@ Nailed it! It's the other way round! `Pipeline()` requires you to name the steps
 
 </choice>
 
-**True or False**     
-*`make_pipeline()` can be called before `make_column_transformer()`.*
-
-<choice id="2" >
-<opt text="True"  correct="true">
-
-Nice work!
-
-</opt>
-
-<opt text="False" >
-
-We can first make separate transformation pipelines for our different columns and then we can use `make_column_transformer`. 
-
-</opt>
-
-</choice>
-
 </exercise>
 
 
@@ -858,8 +840,7 @@ Use the diagram below to answer the following questions.
 
 
 **Question 1**   
-Which column would you use `OneHotEncoder(sparse=False, dtype=int, drop="if_binary")`?
- 
+ On which column would you  use `OneHotEncoder(sparse=False, dtype=int, drop="if_binary")`?
 
 <choice id="1" >
 
@@ -890,46 +871,14 @@ Is this column binary?
 
 </choice>
 
-
-**Question 2**   
-Which column would you group into bigger categories?
-
-<choice id="2" >
-
-<opt text="<code>colour</code>"  correct="true">
-
-This has several categories and many with only 1 value. 
-
-</opt>
-
-<opt text="<code>location</code>" >
-
-This only has 3 unique values.
-
-</opt>
-
-<opt text="<code>seed</code>" >
-
-This column already contains binary values.
-
-</opt>
-
-<opt text="<code>size</code>">
-
-This only has 3 unique values.
-
-</opt>
-
-
-
 </choice>
 
 
 
-**Question 3**   
+**Question 2**   
 What model would you use ordinal encoding with?
 
-<choice id="3" >
+<choice id="2" >
 
 <opt text="<code>colour</code>"  >
 
@@ -979,24 +928,6 @@ It's important to remember the systems you build are going to be used in some ap
 
 </choice>
 
-**True or False**     
-*If we have numeric, ordinal, binary and regular categorical features, we will need to call `make_pipeline()` 5 times to build a model.*
-
-<choice id="2" >
-<opt text="True"  correct="true">
-
-Nice work! We have one for each category type and 1 main pipeline.
-
-</opt>
-
-<opt text="False" >
-
-We have one for each category type and 1 main pipeline.
-
-</opt>
-
-</choice>
-
 </exercise>
 
 
@@ -1019,6 +950,7 @@ We will be making pipelines and transforming our features appropriately.
 
 First, let's take a look at our dataset and the features. 
 
+Disclaimer: Normally we should be investing more time to fully understand the data we are analyzing. We should be checking the unique values, using `.describe()`  and `.info()` to really get an idea of our features before deciding which transformations we want to apply. 
 
 <codeblock id="fertility">
 
@@ -1065,8 +997,8 @@ What is the size of the vocabulary for the examples below?
 
 ```
 X = [ "Take me to the river",
-    "Drop me in the water.",
-    "Push me in the river,",
+    "Drop me in the water",
+    "Push me in the river",
     " dip me in the water"]
 
 ```
@@ -1103,39 +1035,31 @@ Are you counting a word twice?
 
 
 **Question 2**   
-Which transformer created the sparse matrix below for the data in Question 1?
-
-```
-array([[0, 1, 1, 1, 0],
-       [1, 1, 0, 1, 1],
-       [1, 1, 1, 1, 0],
-       [1, 1, 0, 1, 1]])
-```
-
+Which of the following is not a hyperparameter of `CountVectorizer()`?
 
 <choice id="2" >
 
-<opt text="<code>CountVectorizer(binary=True)</code>"  >
+<opt text="<code>binary</code>"  >
 
-How many columns should this matrix have given the vocabulary above?
-
-</opt>
-
-<opt text="<code>CountVectorizer()</code>" >
-
-Think about some parameters that may need to be set.
+This is a hyperparameter of `CountVectorizer()`.
 
 </opt>
 
-<opt text="<code>CountVectorizer(binary=True, max_features=5)</code>" correct="true">
+<opt text="<code>max_features</code>" >
 
-You've been paying attention!
+This is a hyperparameter of `CountVectorizer()`.
 
 </opt>
 
-<opt text="<code>CountVectorizer(binary=False, max_features=5)</code>">
+<opt text="<code>vocabulary</code>" correct="true">
 
-Shouldn't this be binary?
+This is not a hyperparameter but an attribute!
+
+</opt>
+
+<opt text="<code>ngram_range</code>">
+
+This is a hyperparameter of `CountVectorizer()`.
 
 </opt>
 
@@ -1206,9 +1130,11 @@ Tasks:
 - Make a pipeline with `CountVectorizer` as the first step and `KNeighborsClassifier` as the second. Name the pipeline `pipe`. 
 - Perform RandomizedSearchCV using the parameters specified in `param_grid` and name the search `tweet_search`.
 - Don't forget to fit your grid search.
-- What is the best max_features value? Save it in an object name `tweet_feats`.
+- What is the best `max_features` value? Save it in an object name `tweet_feats`.
 - What is the best score? Save it in an object named `tweet_val_score`.
 - Score the optimal model on the test set and save it in an object named `tweet_test_score`.
+
+NOTE: This may take a few minutes to produce an output. Please be patient.
 
 <codeblock id="06_25">
 
@@ -1224,6 +1150,7 @@ Tasks:
 </codeblock>
 
 </exercise>
+
 
 
 <exercise id="26" title="What Did We Just Learn?" type="slides, video">

@@ -131,100 +131,16 @@ Notes:
 We import a tool call `CountVectorizer`.
 
 `CountVectorizer` converts a collection of text documents to a matrix of
-word counts.  
-\- Each row represents a “document” (e.g., a text message in our
-example). - Each column represents a word in the vocabulary in the
-training data. - Each cell represents how often the word occurs in the
-document.
+word counts.
+
+  - Each row represents a “document” (e.g., a text message in our
+    example).
+  - Each column represents a word in the vocabulary in the training
+    data.
+  - Each cell represents how often the word occurs in the document.
 
 In the NLP community, a text data set is referred to as a **corpus**
 (plural: corpora).
-
----
-
-## The output type…
-
-``` python
-X_counts
-```
-
-```out
-<6x72 sparse matrix of type '<class 'numpy.int64'>'
- with 85 stored elements in Compressed Sparse Row format>
-```
-
-``` python
-print("The total number of elements: ", np.prod(X_counts.shape))
-print("The number of non-zero elements: ", X_counts.nnz)
-print( "Proportion of non-zero elements:", (X_counts.nnz / np.prod(X_counts.shape).round(4)))
-print("The value at cell 3,", vec.vocabulary_["jackpot"], "is:", X_counts[3, vec.vocabulary_["jackpot"]]
-)
-```
-
-``` out
-The total number of elements:  432
-The number of non-zero elements:  85
-Proportion of non-zero elements: 0.19675925925925927
-The value at cell 3, 31 is: 1
-```
-
-Notes:
-
-What is a sparse matrix?
-
-A **sparse matrix** is a multidimensional array mostly contain with zero
-elements.
-
-  - Most words do not appear in a given document.
-  - We get massive computational savings if we only store the nonzero
-    elements.
-  - There is a bit of overhead because we also need to store the
-    locations:
-      - e.g. “location (3,31): 1”.
-  - However, if the fraction of nonzero is small, this is a huge win.
-
----
-
-### *OneHotEncoder* and sparse features
-
-``` python
-ohe = OneHotEncoder(sparse=False, dtype=int, drop="if_binary") 
-ohe.fit(X_train[["sex"]])
-ohe_df = pd.DataFrame(data=ohe.transform(X_train[["sex"]]), columns=ohe.get_feature_names(["sex"]), index=X_train.index)
-ohe_df
-```
-
-``` out
-OneHotEncoder(drop='if_binary', dtype=<class 'int'>, sparse=False)
-       sex_Male
-5514          1
-19777         0
-10781         0
-32240         0
-9876          1
-...         ...
-29802         1
-5390          1
-860           1
-15795         1
-23654         1
-
-[26048 rows x 1 columns]
-```
-
-Notes:
-
-In the last slide deck, you may have noticed that we set an argument
-named `sparse=False` when we were binarizing our data.
-
-By default, `OneHotEncoder` also creates sparse features.
-
-We were setting `sparse=False` to get a regular `numpy` array.
-
-If there are a huge number of categories, it may be beneficial to keep
-them sparse.
-
-For a smaller number of categories, it doesn’t matter much.
 
 ---
 
@@ -251,248 +167,54 @@ There are many useful and important hyperparameters of
 
 ---
 
-``` python
-vec_all = CountVectorizer()
-X_counts = vec_all.fit_transform(X)
-pd.DataFrame(data = X_counts.sum(axis=0).tolist()[0], 
-             index = vec_all.get_feature_names(), columns=['counts']).sort_values('counts', ascending=False).head(20)
-```
-
-```out
-         counts
-to            5
-your          4
-you           3
-free          3
-as            3
-...         ...
-prize         2
-receive       1
-or            1
-oru           1
-our           1
-
-[20 rows x 1 columns]
-```
-
-Notes:
-
-Let’s look at all features, i.e., words along with their frequencies.
-
----
-
-``` python
-vec8 = CountVectorizer(max_features=8)
-X_counts = vec8.fit_transform(X)
-pd.DataFrame(data = X_counts.sum(axis=0).tolist()[0], 
-             index = vec8.get_feature_names(), columns=['counts']).sort_values('counts', ascending=False)
-```
-
-```out
-        counts
-to           5
-your         4
-as           3
-free         3
-you          3
-the          2
-update       2
-urgent       2
-```
-
-Notes:
-
-We can control the size of `X` (the number of features) using
-`max_features`.
-
----
-
-``` python
-bow_df = pd.DataFrame(X_counts.toarray(), columns=sorted(vec8.vocabulary_), index=X)
-bow_df
-```
-
-```out
-                                                    as  free  the  to  update  urgent  you  your
-URGENT!! As a valued network customer you have ...   1     0    0   1       0       1    1     0
-Lol you are always so convincing.                    0     0    0   0       0       0    1     0
-Nah I don't think he goes to usf, he lives arou...   0     0    0   1       0       0    0     0
-URGENT! You have won a 1 week FREE membership i...   0     1    0   0       0       1    1     0
-Had your mobile 11 months or more? U R entitled...   0     2    2   2       2       0    0     1
-As per your request 'Melle Melle (Oru Minnaminu...   2     0    0   1       0       0    0     3
-```
-
-Notes:
-
----
-
-``` python
-vec8_binary = CountVectorizer(binary=True, max_features=8)
-X_counts_binary = vec8_binary.fit_transform(X)
-pd.DataFrame(data = X_counts_binary.sum(axis=0).tolist()[0], 
-             index = vec8_binary.get_feature_names(), columns=['counts']).sort_values('counts', ascending=False)
-```
-
-```out
-       counts
-to          4
-you         3
-as          2
-been        2
-free        2
-have        2
-prize       2
-your        2
-```
-
-``` python
-bow_df_binary = pd.DataFrame(X_counts_binary.toarray(), columns=sorted(vec8_binary.vocabulary_), index=X)
-bow_df_binary
-```
-
-```out
-                                                    as  been  free  have  prize  to  you  your
-URGENT!! As a valued network customer you have ...   1     1     0     1      1   1    1     0
-Lol you are always so convincing.                    0     0     0     0      0   0    1     0
-Nah I don't think he goes to usf, he lives arou...   0     0     0     0      0   1    0     0
-URGENT! You have won a 1 week FREE membership i...   0     0     1     1      1   0    1     0
-Had your mobile 11 months or more? U R entitled...   0     0     1     0      0   1    0     1
-As per your request 'Melle Melle (Oru Minnaminu...   1     1     0     0      0   1    0     1
-```
-
-Notes:
-
----
-
-``` python
-bow_df
-```
-
-```out
-                                                    as  free  the  to  update  urgent  you  your
-URGENT!! As a valued network customer you have ...   1     0    0   1       0       1    1     0
-Lol you are always so convincing.                    0     0    0   0       0       0    1     0
-Nah I don't think he goes to usf, he lives arou...   0     0    0   1       0       0    0     0
-URGENT! You have won a 1 week FREE membership i...   0     1    0   0       0       1    1     0
-Had your mobile 11 months or more? U R entitled...   0     2    2   2       2       0    0     1
-As per your request 'Melle Melle (Oru Minnaminu...   2     0    0   1       0       0    0     3
-```
-
-``` python
-bow_df_binary
-```
-
-```out
-                                                    as  been  free  have  prize  to  you  your
-URGENT!! As a valued network customer you have ...   1     1     0     1      1   1    1     0
-Lol you are always so convincing.                    0     0     0     0      0   0    1     0
-Nah I don't think he goes to usf, he lives arou...   0     0     0     0      0   1    0     0
-URGENT! You have won a 1 week FREE membership i...   0     0     1     1      1   0    1     0
-Had your mobile 11 months or more? U R entitled...   0     0     1     0      0   1    0     1
-As per your request 'Melle Melle (Oru Minnaminu...   1     1     0     0      0   1    0     1
-```
-
-Notes:
-
-Notice that `vec8` and `vec8_binary` have different vocabularies, which
-is somewhat unexpected behaviour and doesn’t match the documentation of
-`scikit-learn`.
-
-<a href="https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/feature_extraction/text.py#L1206-L1225" target="_blank">In
-`sklearn`’s documentation</a>, the code for the `binary=True` condition
-in `CountVectorizer` shows the binarization is done before limiting the
-features to `max_features`, and so now we are actually looking at the
-document counts (in how many documents it occurs) rather than term
-count.
-
-This is not explained anywhere in the documentation.
-
----
-
-``` python
-pd.DataFrame(data = X_counts.sum(axis=0).tolist()[0], 
-             index = vec8.get_feature_names(), columns=['counts']).sort_values('counts', ascending=False)
-```
-
-```out
-        counts
-to           5
-your         4
-as           3
-free         3
-you          3
-the          2
-update       2
-urgent       2
-```
-
-``` python
-pd.DataFrame(data = X_counts_binary.sum(axis=0).tolist()[0], 
-             index =vec8_binary.get_feature_names(), columns=['counts']).sort_values('counts', ascending=False)
-```
-
-```out
-       counts
-to          4
-you         3
-as          2
-been        2
-free        2
-have        2
-prize       2
-your        2
-```
-
-Notes:
-
-The ties in counts between different words make it even more confusing.
-I don’t think it’ll have a big impact on the results but this is good to
-know\!
-
-Remember that `scikit-learn` developers are also humans who are prone to
-make mistakes. So it’s always a good habit to question whatever tools we
-use now and then.
-
----
-
 ### Preprocessing
 
 ``` python
 X
 ```
 
-```out
-['URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!', 'Lol you are always so convincing.', "Nah I don't think he goes to usf, he lives around here though", 'URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!', 'Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030', "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
+``` out
+[ "URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!",
+  "Lol you are always so convincing.",
+  "Nah I don't think he goes to usf, he lives around here though",
+  "URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!",
+  "Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030",
+  "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
 ```
 
 ``` python
-vec8.get_feature_names()
+vec.get_feature_names()
 ```
 
 ```out
-['as', 'free', 'the', 'to', 'update', 'urgent', 'you', 'your']
+['08002986030', '100000', '11', '900', 'all', 'always', 'are', 'around', 'as', 'been', 'call', 'callers', 'callertune', 'camera', 'co', 'colour', 'convincing', 'copy', 'customer', 'don', 'entitled', 'for', 'free', 'friends', 'goes', 'had', 'has', 'have', 'he', 'here', 'in', 'jackpot', 'latest', 'lives', 'lol', 'melle', 'membership', 'minnaminunginte', 'mobile', 'mobiles', 'months', 'more', 'nah', 'network', 'nurungu', 'on', 'or', 'oru', 'our', 'per', 'press', 'prize', 'receive', 'request', 'reward', 'selected', 'set', 'so', 'the', 'think', 'though', 'to', 'update', 'urgent', 'usf', 'valued', 'vettam', 'week', 'with', 'won', 'you', 'your']
 ```
 
 Notes:
 
 `CountVectorizer` is carrying out some preprocessing such as because of
-the default argument values.  
-\- Converting words to lowercase (`lowercase=True`). Take a look at the
-word “urgent” In both cases. - getting rid of punctuation and special
-characters (`token_pattern ='(?u)\\b\\w\\w+\\b'`)
+the default argument values.
+
+  - Converting words to lowercase (`lowercase=True`). Take a look at the
+    word “urgent” In both cases.
+  - getting rid of punctuation and special characters (`token_pattern
+    ='(?u)\\b\\w\\w+\\b'`)
 
 ---
 
 ``` python
+param_grid = {"countvectorizer__max_features": range(1,1000)}
+```
+
+``` python
 pipe = make_pipeline(CountVectorizer(), SVC())
+
+grid_search = RandomizedSearchCV(pipe, param_grid, cv=2, return_train_score=True, n_iter=10, random_state=123)
+grid_search.fit(X, y);
 ```
 
 ``` python
-pipe.fit(X,y);
-```
-
-``` python
-pipe.predict(X)
+grid_search.predict(X)
 ```
 
 ```out
@@ -500,7 +222,15 @@ array(['spam', 'non spam', 'non spam', 'spam', 'spam', 'non spam'], dtype='<U8')
 ```
 
 ``` python
-pipe.score(X,y)
+grid_search.best_params_
+```
+
+```out
+{'countvectorizer__max_features': 132}
+```
+
+``` python
+grid_search.score(X,y)
 ```
 
 ```out
@@ -509,16 +239,47 @@ pipe.score(X,y)
 
 Notes:
 
-<br>
+We can use `CountVectorizer()` in a pipeline and hyperparameter tune
+using `RandomizedSearchCV()` just like any other transformer.
+
+Here we get a perfect score on the data it’s seen already. How well does
+it do on unsceen data?
+
+---
+
+``` python
+X_new = [
+    "Congratulations! You have been awarded $1000!",
+    "Mom, can you pick me up from soccer practice?",
+    "I'm trying to bake a cake and I forgot to put sugar in it smh. ",
+    "URGENT: please pick up your car at 2pm from servicing",
+    "Call 234950323 for a FREE consultation. It's your lucky day!" ]
+    
+y_new = ["spam", "non spam", "non spam", "non spam", "spam"]
+```
+
+``` python
+grid_search.score(X_new,y_new)
+```
+
+```out
+0.8
+```
+
+Notes:
+
+It’s not perfect but it seems to do well on this data too.
 
 ---
 
 ### Is this a realistic representation of text data?
 
-Of course, this is not a great representation of language. - We are
-throwing out everything we know about language and losing a lot of
-information. - It assumes that there is no syntax and compositional
-meaning in language.
+Of course, this is not a great representation of language.
+
+  - We are throwing out everything we know about language and losing a
+    lot of information.
+  - It assumes that there is no syntax and compositional meaning in
+    language.
 
 <br> <br> <br>
 

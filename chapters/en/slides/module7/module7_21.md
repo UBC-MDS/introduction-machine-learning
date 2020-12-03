@@ -86,11 +86,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time    test_score   train_score
-0  0.040057    0.279670 -62462.584290 -51440.540539
-1  0.034934    0.276383 -63437.715015 -51263.979666
-2  0.034202    0.266903 -62613.202523 -51758.817852
-3  0.034112    0.266429 -64204.295214 -51343.743586
-4  0.033641    0.218434 -59217.838633 -47325.157312
+0  0.038923    0.275090 -62462.584290 -51440.540539
+1  0.038158    0.266730 -63437.715015 -51263.979666
+2  0.038275    0.260825 -62613.202523 -51758.817852
+3  0.031868    0.258226 -64204.295214 -51343.743586
+4  0.033303    0.217223 -59217.838633 -47325.157312
 ```
 
 Notes:
@@ -129,11 +129,11 @@ pd.DataFrame(cross_validate(
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.036413    0.270123   22.709732    18.420969
-1  0.038608    0.264594   22.754570    18.469125
-2  0.034210    0.263245   22.236869    18.674964
-3  0.035077    0.263816   23.016666    18.510766
-4  0.033600    0.220169   21.033519    16.951021
+0  0.032763    0.267304   22.709732    18.420969
+1  0.040172    0.255111   22.754570    18.469125
+2  0.033707    0.250586   22.236869    18.674964
+3  0.033640    0.251035   23.016666    18.510766
+4  0.031631    0.209276   21.033519    16.951021
 ```
 
 Notes:
@@ -174,11 +174,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time   test_r2  train_r2  test_mape_score  train_mape_score  test_neg_rmse  train_neg_rmse  test_neg_mse  train_neg_mse
-0  0.036153    0.276269  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
-1  0.036710    0.279248  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
-2  0.036194    0.274168  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
-3  0.037133    0.307513  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
-4  0.037095    0.258164  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
+0  0.034676    0.257168  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
+1  0.032990    0.240115  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
+2  0.032236    0.245332  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
+3  0.031167    0.252397  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
+4  0.030157    0.204007  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
 ```
 
 Notes: We can also return many scoring measures by first making a
@@ -223,9 +223,9 @@ but instead with `GridSearchCV` and `RandomizedSearchCV`.
 Ok wait hold on, let’s think about this again.
 
 The way that `best_params_` works is that it selects the parameters
-where the scoring measure selected is the highest, the problem with that
-is MAPE is an error, and we want the parameter with the lowest value,
-not the highest.
+where the scoring measure selected is the highest measure, the problem
+with that is MAPE is an error, and we want the parameter with the lowest
+value, not the highest.
 
 ---
 
@@ -244,7 +244,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.6s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   15.2s finished
 ```
 
 ``` python
@@ -313,7 +313,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   27.8s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   20.6s finished
 ```
 
 ``` python

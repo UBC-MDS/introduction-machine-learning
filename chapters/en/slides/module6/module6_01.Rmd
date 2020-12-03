@@ -196,7 +196,7 @@ You see, `scikit-learn` only accepts numeric data as an input and it's not sure 
 - We can transform categorical features to numeric ones so that we can use them in the model
 - There are two transformations we can do:
     - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal encoding</a>
-    - One-hot encoding (recommended in most cases)
+    - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">One-hot encoding</a>(recommended in most cases)
 
 Notes: 
 
@@ -220,10 +220,10 @@ There are 2 types of ways we are going to talk about doing this:
 
 
 ```{python include=FALSE}
-X_toy = pd.DataFrame({'language':['English', 'Vietnamese', 'English', 'Mandarin', 
-                                  'English', 'English', 'Mandarin', 'English', 
-                                  'Vietnamese', 'Mandarin', 'French','Spanish', 
-                                  'Mandarin', 'Hindi']})
+X_toy = pd.DataFrame({'rating':['Good', 'Bad', 'Good', 'Good', 
+                                  'Bad', 'Neutral', 'Good', 'Good', 
+                                  'Neutral', 'Neutral', 'Neutral','Good', 
+                                  'Bad', 'Good']})
 ```
 
 ```{python}
@@ -233,7 +233,7 @@ X_toy
 
 
 ```{python}
-pd.DataFrame(X_toy['language'].value_counts()).rename(columns={'language': 'frequency'}).T
+pd.DataFrame(X_toy['rating'].value_counts()).rename(columns={'rating': 'frequency'}).T
 ```
 
 
@@ -241,7 +241,7 @@ Notes:
 
 Let's take a look at a dummy dataframe to explain how to use ordinal encoding. 
 
-Here we have a categorical column specifying different languages. 
+Here we have a categorical column specifying different movie rating.
 
 
 
@@ -278,17 +278,96 @@ encoding_view
 ```
 
 
+
 Notes: 
 
 Since `sklearn`'s transformed output is an array, we can add it next to our original column to see what happened. 
 
-In this case, we can see that each language has been designated an integer value. 
+In this case, we can see that each rating has been designated an integer value. 
 
-For example, `English` is represented by an encoded value of 0 and `Vietnamese` a value of 5. 
+For example, `Neutral` is represented by an encoded value of 2 and `Good` a value of 1. Shouldn't `Good` have a higher value? 
 
-Should we do this for every categorical column we have?
+---
 
-Think about this question for a bit and we will answer it in the next section. 
+```{python}
+ratings_order = ['Bad', 'Neutral', 'Good']
+```
+
+```{python}
+oe = OrdinalEncoder(categories = [ratings_order], dtype=int)
+oe.fit(X_toy);
+X_toy_ord = oe.transform(X_toy)
+
+X_toy_ord
+```
+
+
+Note: 
+
+We can change that by specifying the order in the `categories` argument. 
+
+
+---
+
+```{python}
+encoding_view = X_toy.assign(rating_enc=X_toy_ord)
+encoding_view
+```
+
+Note: 
+
+Now our `Good` rating is given an ordinal value of 2 and the `Bad` rating is encoded as 0. 
+
+---
+
+
+
+```{python include=FALSE}
+X_toy = pd.DataFrame({'language':['English', 'Vietnamese', 'English', 'Mandarin', 
+                                  'English', 'English', 'Mandarin', 'English', 
+                                  'Vietnamese', 'Mandarin', 'French','Spanish', 
+                                  'Mandarin', 'Hindi']})
+```
+
+```{python}
+X_toy
+```
+
+
+
+```{python}
+pd.DataFrame(X_toy['language'].value_counts()).rename(columns={'language': 'frequency'}).T
+```
+
+
+Notes: 
+
+Let's try this again but with now we have a categorical column specifying different languages. 
+
+
+
+---
+
+```{python}
+from sklearn.preprocessing import OrdinalEncoder
+
+oe = OrdinalEncoder(dtype=int)
+oe.fit(X_toy);
+X_toy_ord = oe.transform(X_toy)
+
+encoding_view = X_toy.assign(language_enc=X_toy_ord)
+encoding_view
+```
+
+
+
+Notes: 
+
+We assign an integer to each of our unique categorical labels and now all our languages are encoded. 
+
+Does it make sense to have this column ordinally encoded though? 
+
+We are saying in this case that `Vietnamese` is  as close to `spanish` as `Mandarin` is to `Hindi`. Does that quantification make sense? We can't really compare these things and that is why we use One-hot encoding which is what we will look at in the next section. 
 
 ---
 

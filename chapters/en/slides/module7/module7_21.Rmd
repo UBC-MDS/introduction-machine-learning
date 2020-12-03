@@ -265,7 +265,7 @@ We can do exactly the same thing we saw above with `cross_validate()` but instea
 
 Ok wait hold on, let's think about this again. 
  
-The way that `best_params_` works is that it selects the parameters where the scoring measure selected is the highest, the problem with that is MAPE is an error, and we want the parameter with the lowest value, not the highest. 
+The way that `best_params_` works is that it selects the parameters where the scoring measure selected is the highest measure, the problem with that is MAPE is an error, and we want the parameter with the lowest value, not the highest. 
 
 
 ---

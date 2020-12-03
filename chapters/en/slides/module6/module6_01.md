@@ -101,7 +101,8 @@ not sure how to handle the `ocean_proximity` feature.
   - There are two transformations we can do:
       - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal
         encoding</a>
-      - One-hot encoding (recommended in most cases)
+      - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">One-hot
+        encoding</a>(recommended in most cases)
 
 Notes:
 
@@ -124,6 +125,190 @@ There are 2 types of ways we are going to talk about doing this:
 ---
 
 ## Ordinal encoding
+
+``` python
+X_toy
+```
+
+```out
+     rating
+0      Good
+1       Bad
+2      Good
+3      Good
+4       Bad
+5   Neutral
+6      Good
+7      Good
+8   Neutral
+9   Neutral
+10  Neutral
+11     Good
+12      Bad
+13     Good
+```
+
+``` python
+pd.DataFrame(X_toy['rating'].value_counts()).rename(columns={'rating': 'frequency'}).T
+```
+
+```out
+           Good  Neutral  Bad
+frequency     7        4    3
+```
+
+Notes:
+
+Let’s take a look at a dummy dataframe to explain how to use ordinal
+encoding.
+
+Here we have a categorical column specifying different movie rating.
+
+---
+
+``` python
+from sklearn.preprocessing import OrdinalEncoder
+
+oe = OrdinalEncoder(dtype=int)
+oe.fit(X_toy);
+X_toy_ord = oe.transform(X_toy)
+
+X_toy_ord
+```
+
+```out
+array([[1],
+       [0],
+       [1],
+       [1],
+       [0],
+       [2],
+       [1],
+       [1],
+       [2],
+       [2],
+       [2],
+       [1],
+       [0],
+       [1]])
+```
+
+Notes:
+
+Here we simply assign an integer to each of our unique categorical
+labels.
+
+We can use sklearn’s
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">`OrdinalEncoder`</a>.
+
+First, we import `OrdinalEncoder` from `sklearn.preprocessing`.
+
+`OrdinalEncoder` is a transformer just like `SimpleImputer` and
+`StandardScaler` so we initial our encoder and then we fit and
+transform, just like we did with numeric columns.
+
+---
+
+``` python
+encoding_view = X_toy.assign(language_enc=X_toy_ord)
+encoding_view
+```
+
+```out
+     rating  language_enc
+0      Good             1
+1       Bad             0
+2      Good             1
+3      Good             1
+4       Bad             0
+5   Neutral             2
+6      Good             1
+7      Good             1
+8   Neutral             2
+9   Neutral             2
+10  Neutral             2
+11     Good             1
+12      Bad             0
+13     Good             1
+```
+
+Notes:
+
+Since `sklearn`’s transformed output is an array, we can add it next to
+our original column to see what happened.
+
+In this case, we can see that each rating has been designated an integer
+value.
+
+For example, `Good` is represented by an encoded value of 1 and `Bad` a
+value of 0. Good should have a higher value right?
+
+---
+
+``` python
+ratings_order = ['Bad', 'Neutral', 'Good']
+```
+
+``` python
+oe = OrdinalEncoder(categories = [ratings_order], dtype=int)
+oe.fit(X_toy);
+X_toy_ord = oe.transform(X_toy)
+
+X_toy_ord
+```
+
+```out
+array([[2],
+       [0],
+       [2],
+       [2],
+       [0],
+       [1],
+       [2],
+       [2],
+       [1],
+       [1],
+       [1],
+       [2],
+       [0],
+       [2]])
+```
+
+Note:
+
+we can change that by specifying the order in the `categories` argument.
+
+---
+
+``` python
+encoding_view = X_toy.assign(language_enc=X_toy_ord)
+encoding_view
+```
+
+```out
+     rating  language_enc
+0      Good             2
+1       Bad             0
+2      Good             2
+3      Good             2
+4       Bad             0
+5   Neutral             1
+6      Good             2
+7      Good             2
+8   Neutral             1
+9   Neutral             1
+10  Neutral             1
+11     Good             2
+12      Bad             0
+13     Good             2
+```
+
+Note:
+
+Now our `Good` rating is giving an ordinal value of 2 and our `Bad` is
+0.
+
+---
 
 ``` python
 X_toy
@@ -158,10 +343,8 @@ frequency        5         4           2        1       1      1
 
 Notes:
 
-Let’s take a look at a dummy dataframe to explain how to use ordinal
-encoding.
-
-Here we have a categorical column specifying different languages.
+Let’s try this again but with now we have a categorical column
+specifying different languages.
 
 ---
 
@@ -172,43 +355,6 @@ oe = OrdinalEncoder(dtype=int)
 oe.fit(X_toy);
 X_toy_ord = oe.transform(X_toy)
 
-X_toy_ord
-```
-
-```out
-array([[0],
-       [5],
-       [0],
-       [3],
-       [0],
-       [0],
-       [3],
-       [0],
-       [5],
-       [3],
-       [1],
-       [4],
-       [3],
-       [2]])
-```
-
-Notes:
-
-Here we simply assign an integer to each of our unique categorical
-labels.
-
-We can use sklearn’s
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">`OrdinalEncoder`</a>.
-
-First, we import `OrdinalEncoder` from `sklearn.preprocessing`.
-
-`OrdinalEncoder` is a transformer just like `SimpleImputer` and
-`StandardScaler` so we initial our encoder and then we fit and
-transform, just like we did with numeric columns.
-
----
-
-``` python
 encoding_view = X_toy.assign(language_enc=X_toy_ord)
 encoding_view
 ```
@@ -233,19 +379,15 @@ encoding_view
 
 Notes:
 
-Since `sklearn`’s transformed output is an array, we can add it next to
-our original column to see what happened.
+We assign an integer to each of our unique categorical labels and now
+all our languages are encoded.
 
-In this case, we can see that each language has been designated an
-integer value.
+Does it make sense to have this column ordinally encoded though?
 
-For example, `English` is represented by an encoded value of 0 and
-`Vietnamese` a value of 5.
-
-Should we do this for every categorical column we have?
-
-Think about this question for a bit and we will answer it in the next
-section.
+We are saying in this case thar `Vietnamese` is as close to `spanish` as
+`Mandarin` is to `Hindi`. Does that quantification make sense? We can’t
+really compare these things and that is why we use One-hot encoding
+which is what we will look at in the next section.
 
 ---
 
