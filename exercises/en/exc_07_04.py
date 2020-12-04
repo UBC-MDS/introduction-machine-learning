@@ -13,9 +13,9 @@ bball = pd.read_csv('data/bball_cm.csv')
 
 train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
 
-X_train = train_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'position'])
+X_train = train_df
 y_train = train_df['position']
-X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'position'])
+X_test = test_df
 y_test = test_df['position']
 
 drop_features = ['full_name', 'jersey', 'b_day', 'college', 'position']
