@@ -137,15 +137,13 @@ classifier, we see `class_weight` as a parameter.
 ---
 
 ``` python
-pipe_tree = make_pipeline((StandardScaler()),
-                          (DecisionTreeClassifier(random_state=7)))
-pipe_tree.fit(X_train,y_train);
+tree_default= DecisionTreeClassifier(random_state=7)
+tree_default.fit(X_train,y_train);
 ```
 
 ``` python
-pipe_200 = make_pipeline((StandardScaler()),
-                               (DecisionTreeClassifier(random_state=7, class_weight={1:100})))
-pipe_200.fit(X_train,y_train);
+tree_100 = DecisionTreeClassifier(random_state=7, class_weight={1:100})
+tree_100.fit(X_train,y_train);
 ```
 
 <img src="/module7/module7_13/unnamed-chunk-7-1.png" width="78%" />
@@ -170,9 +168,8 @@ But, as a consequence, we are also increasing false positives.
 ## class\_weight=“balanced”
 
 ``` python
-pipe_balanced = make_pipeline((StandardScaler()),
-                               (DecisionTreeClassifier(random_state=7, class_weight="balanced")))
-pipe_balanced.fit(X_train,y_train);
+tree_balanced =DecisionTreeClassifier(random_state=7, class_weight="balanced")
+tree_balanced.fit(X_train,y_train);
 ```
 
 <img src="/module7/module7_13/unnamed-chunk-9-1.png" width="80%" />
@@ -191,7 +188,7 @@ now\!
 ### Are we doing better with *class\_weight=“balanced”*?
 
 ``` python
-pipe_tree.score(X_valid, y_valid)
+tree_default.score(X_valid, y_valid)
 ```
 
 ```out
@@ -199,7 +196,7 @@ pipe_tree.score(X_valid, y_valid)
 ```
 
 ``` python
-pipe_balanced.score(X_valid, y_valid)
+tree_balanced.score(X_valid, y_valid)
 ```
 
 ```out

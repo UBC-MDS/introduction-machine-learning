@@ -13,12 +13,12 @@ bball = pd.read_csv('data/bball_cm.csv')
 
 train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
 
-X_train = train_df.drop(columns=['full_name', 'jersey',
-                                 'b_day', 'college', 'position'])
+X_train = train_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'position'])
 y_train = train_df['position']
-X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day',
-                               'college', 'position'])
+X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'position'])
 y_test = test_df['position']
+
+drop_features = ['full_name', 'jersey', 'b_day', 'college', 'position']
 
 numeric_features = [
     "rating",
@@ -32,7 +32,7 @@ numeric_features = [
 categorical_features = [
     "team",
     "country"]
-    
+
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 
 categorical_transformer = make_pipeline(
@@ -41,6 +41,7 @@ categorical_transformer = make_pipeline(
 )
 
 preprocessor = make_column_transformer(
+    ("drop", drop_features),
     (numeric_transformer, numeric_features), 
     (categorical_transformer, categorical_features)
 )

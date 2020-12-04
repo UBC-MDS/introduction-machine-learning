@@ -533,3 +533,349 @@ pd.DataFrame(data = X_counts_binary.sum(axis=0).tolist()[0],
 X_counts_binary.toarray()
 ```
 
+```{python}
+import numpy as np
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+from sklearn.metrics import precision_score, recall_score, f1_score, classification_report
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['legendary'])
+y_train_big = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+
+numeric_features = ["deck_no",  
+                    "attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt",
+                    "total_bs"]
+
+categorical_features = [
+    "type"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+
+# Build a pipeline containing the column transformer and an SVC model
+# Name this pipeline pipe_unbalanced
+pipe_unbalanced = make_pipeline(preprocessor, SVC())
+
+# Fit your unbalanced pipeline on the training data
+pipe_unbalanced.fit(X_train, y_train);
+
+# Predict your values on the validation set
+# Save them in an object named unbalanced_predicted
+unbalanced_predicted = pipe_unbalanced.predict(X_valid)
+
+# Using sklearn tools, print a classification_report from the validation set
+print(classification_report(y_valid, unbalanced_predicted, digits=5, zero_division=0))
+
+
+# Build another pipeline containing the column transformer and an SVC model
+# This time use the parameter class_weight="balanced"
+# Name this pipeline pipe_balanced
+pipe_balanced = make_pipeline(preprocessor, SVC(class_weight="balanced"))
+
+# Fit your balanced pipeline on the training data
+pipe_balanced.fit(X_train, y_train);
+
+# Predict your values on the validation set
+# Save them in an object named balanced_predicted
+balanced_predicted = pipe_balanced.predict(X_valid)
+
+# Using sklearn tools, print a classification_report from the validation set
+print(classification_report(y_valid, balanced_predicted, digits=5, zero_division=0))
+```
+
+```{python}
+pk_df
+```
+
+
+```{python}
+from sklearn.metrics import mean_squared_error 
+
+true =    [4, 12, 6, 9, 3,]
+predict = [5, 10, 9, 8, 3,]
+
+mean_squared_error( true, predict)
+tru
+
+```
+```{python}
+import numpy as np
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate, GridSearchCV
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train = train_df.drop(columns=['legendary'])
+y_train = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+numeric_features = ["deck_no",  
+                    "attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt",
+                    "total_bs"]
+
+categorical_features = [
+    "type"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+
+#param_grid = {"svc__gamma": [1, 10, 100],
+#              "svc__C": [1, 10, 100]}
+
+
+# Build a pipeline containing the column transformer and an SVC model
+# Use the parameter class_weight="balanced"
+# Name this pipeline main_pipe
+main_pipe = make_pipeline(preprocessor, SVC(class_weight="balanced"))
+
+# Perform cross validation on the training split using the scoring measures `accuracy, precision and recall 
+# You do not need to include return_train_score=True for this
+# Save the results in a dataframe named multi_scores
+multi_scores = pd.DataFrame(cross_validate(main_pipe,  X_train, y_train, scoring = ['accuracy','precision', 'recall']))
+print(multi_scores)
+
+```
+
+```{python}
+import numpy as np
+import pandas as pd
+import scipy
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.linear_model import Ridge
+from sklearn.metrics import  mean_squared_error, r2_score
+from scipy.stats import randint
+from sklearn.metrics import make_scorer
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df[['height']]
+y_train = train_df['weight']
+X_test = test_df[['height']]
+y_test = test_df['weight']
+
+## Define mape function 
+def mape(true, pred):
+    return 100.*np.mean(np.abs((pred - true) / true))
+
+## Create a mape scorer where lower number are better 
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
+
+# Create a set of values for alpha
+param_dist = {
+    "alpha": scipy.stats.randint(low=1, high=10000)}
+
+# Build a Ridge model called ridge_bb
+ridge_bb = Ridge()
+
+## Use RandomizedSearchCV to hyperparameter tune. 
+random_search = RandomizedSearchCV(
+    ridge_bb, param_dist, n_iter=20,
+    cv=5, verbose=1, n_jobs=1,
+    scoring=neg_mape_scorer, random_state=123)
+
+# Fit your grid search on the training data
+random_search.fit(X_train, y_train)
+
+# What is the best value for alpha?
+# Save it in an object named best_alpha
+best_alpha = random_search.best_params_
+print(best_alpha)
+
+# What is the best MAPE score?
+# Save it in an object named best_mape
+best_mape = random_search.best_score_
+print(best_mape)
+```
+
+
+```{python}
+mport numpy as np
+import pandas as pd
+import scipy
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.linear_model import Ridge
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.metrics import  mean_squared_error, r2_score
+from scipy.stats import randint
+from sklearn.metrics import make_scorer
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+df_train, df_test = train_test_split(bball, test_size=0.2, random_state=1)
+
+
+X_train = df_train[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "position", "country"]]
+X_test = df_test[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "position", "country"]]
+y_train = df_train['salary']
+y_test = df_test['salary']
+
+
+# Split the numeric and categorical features 
+numeric_features = [ "weight",
+                     "height",
+                     "draft_year",
+                     "draft_round",
+                     "draft_peak"]
+
+categorical_features = ["team", "position", "country"]
+
+
+def mape(true, pred):
+    return 100.*np.mean(np.abs((pred - true) / true))
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
+
+# Build a numeric pipeline
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+# Build a categorical pipeline
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+# Build a categorical transformer
+col_transformer = make_column_transformer(
+    (numeric_transformer, numeric_features),
+    (categorical_transformer, categorical_features))
+
+# Build a main pipeline
+ridge_bb = make_pipeline(
+    col_transformer,
+    Ridge())
+    
+
+
+param_dist = {
+    "ridge__alpha": scipy.stats.randint(low=1, high=10000)}
+
+random_search = RandomizedSearchCV(
+    ridge_bb, param_dist,
+    n_iter=20, cv=5, verbose=1, n_jobs=1, random_state=123, scoring= neg_mape_scorer)
+
+# Fit your grid search on the training data
+random_search.fit(X_train, y_train)
+
+random_search.best_score_
+```
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import scipy
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.linear_model import Ridge
+from sklearn.metrics import  mean_squared_error, r2_score
+from scipy.stats import randint
+from sklearn.metrics import make_scorer
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df[['height', 'weight']]
+y_train = train_df['salary']
+X_test = test_df[['height', 'weight']]
+y_test = test_df['salary']
+
+player_stats = pd.DataFrame([2.05,93.2], columns =['height', 'weight'])
+player_stats
+# Build a Ridge model called ridge_bb
+ridge_bb = Ridge()
+
+# Fit your grid search on the training data
+ridge_bb.fit(X_train, y_train)
+
+# What are the coefficients for this model?
+# Save these in an object named bb_weights
+
+bb_weights = ridge_bb.coef_
+print(bb_weights)
+
+# What is the intercept for this model? 
+# Save this in an object named bb_intercept
+
+bb_intercept = ridge_bb.intercept_
+
+# Using the weights and intercept discovered above, 
+# calculate the models's prediction
+# Save it in an object named player_predict
+
+player_predict
+```
+

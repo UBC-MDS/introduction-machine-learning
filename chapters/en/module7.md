@@ -132,18 +132,18 @@ This is the number of false positives, what about the false negatives?
 <exercise id="3" title="True or False: Confusion Matrix">
 
 **True or False?**     
-*Accuracy is the most important unit of measurement.*
+*There are scenarios where accuracy could be misleading..*
 
 <choice id="1" >
-<opt text="True" >
+<opt text="True" correct="true">
 
-It's really important to assess your model on not just accuracy.
+Nice!
 
 </opt>
 
-<opt text="False" correct="true">
+<opt text="False" >
 
-Great!
+It's really important to assess your model on not just accuracy.
 
 </opt>
 
@@ -272,11 +272,11 @@ These are true positives!
 
 <center><img src="/module7/Q2.png"  width = "80%" alt="404 image" /></center>
 
-For the next questions few question, use the confusion matrix above and assume that **Forward** is the positive label. 
+For the next few questions, use the confusion matrix above and assume that **Forward** is the positive label. 
 
 **Question 1**    
 
-Calculate the recall of the matrix above?
+Calculate the recall.
 
 <choice id="1">
 
@@ -309,7 +309,7 @@ Are you sure you are calculating recall?
 
 **Question 2**    
 
-Calculate the precision of the matrix above?
+Calculate the precision.
 
 <choice id="2" >
 
@@ -451,7 +451,7 @@ Tasks:
 
 
 **Question**    
-Do the numbers in your classification report match the calculations you did independently?
+Do the numbers in your classification report match the calculations you did using sklearn measurements?
 
 <choice id="1" >
 <opt text="Sure did!"  correct="true" >
@@ -773,21 +773,22 @@ Are you sure?
 
 </choice>
 
-**True or False**      
-*Unbalanced datasets are always going to have higher accuracies than unbalanced datasets.*
+**True or False?**     
+*If method A gets a higher accuracy than method B, that means its precision is also higher. .*
 
-<choice id="2">
+<choice id="2" >
 <opt text="True" >
 
-Sometimes our data isn't affected by the unbalanced nature of the data.
+Precision is independent from accuracy. 
 
 </opt>
 
-<opt text="False" correct="true"  >
+<opt text="False" correct="true" >
 
-Good job!
+Nice!
 
 </opt>
+
 
 </choice >
 
@@ -934,7 +935,7 @@ This is a percentage.
 
 **Question 2**    
 
-Which measurement is it possible to have negative values?
+For which of the following is it possible to have negative values?
 
 <choice id="2" >
 
@@ -969,7 +970,7 @@ You cannot have a negative MAPE.
 
 **Question 3**    
 
-Which measurement will be relative to the size of the numbers in the data itself?
+Which measurement is expressed as a percentage?
 
 <choice id="3" >
 
@@ -1043,7 +1044,7 @@ Since this is an error measurement, we want a model that is resulting in less er
 
 
 **True or False**      
-*In regression problems, calculating R<sup>2</sup>  using `r2_score()` and `.score()` will produce the same results.*
+*In regression problems, calculating R<sup>2</sup>  using `r2_score()` and `.score()` (with default values) will produce the same results.*
 
 <choice id="3">
 <opt text="True"  correct="true">
@@ -1205,7 +1206,7 @@ Good job!
 **True or False**      
 *If we specify the scoring method in `GridSearchCV` and `RandomizedSearchCV`, `best_param_`  will return the parameters with the highest specified measure.*
 
-<choice id="2">
+<choice id="3">
 <opt text="True" correct="true" >
 
 Cool!

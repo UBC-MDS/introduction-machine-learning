@@ -42,7 +42,8 @@ Up until this point, we have been scoring our models the same way every
 time.
 
 We’ve been using the percentage of correctly predicted examples for
-classification problems and the R^2 metric for regression problems.
+classification problems and the R<sup>2</sup> metric for regression
+problems.
 
 To help explain why this isn’t the most beneficial option, we are
 bringing in a new dataset.
@@ -51,7 +52,7 @@ Let’s classify fraudulent and non-fraudulent transactions using a
 <a href="https://www.kaggle.com/mlg-ulb/creditcardfraud" target="_blank">credit
 card fraud detection data set</a>.
 
-We can see this is a large dataset with 242085 examples and 31 features
+We can see this is a large dataset with 199364 examples and 31 features
 in our training set.
 
 ---
@@ -74,7 +75,7 @@ max    172792.000000       2.451888      22.057729       9.382558      16.491217
 
 Notes:
 
-We see it the columns are all scaled and numerical.
+We see that the columns are all scaled and numerical.
 
 You don’t need to worry about this now. The original columns have been
 transformed already for confidentiality and our benefit so now there are
@@ -96,7 +97,7 @@ X_train, X_valid, y_train, y_valid = train_test_split(X_train_big,
 
 Notes:
 
-Let’s separate X and y for train and test splits.
+Let’s separate `X` and `y` for train and test splits.
 
 It’s easier to demonstrate evaluation metrics using an explicit
 validation set instead of using cross-validation.
@@ -113,8 +114,8 @@ pd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).m
 ```
 
 ```out
-fit_time       0.014971
-score_time     0.001965
+fit_time       0.013017
+score_time     0.001685
 test_score     0.998302
 train_score    0.998302
 dtype: float64
@@ -164,8 +165,8 @@ pd.DataFrame(cross_validate(pipe, X_train, y_train, return_train_score=True)).me
 ```
 
 ```out
-fit_time       6.095458
-score_time     0.009759
+fit_time       6.130222
+score_time     0.009888
 test_score     0.999119
 train_score    1.000000
 dtype: float64
@@ -228,16 +229,16 @@ plot_confusion_matrix(pipe, X_valid, y_valid, display_labels=["Non fraud", "Frau
 
 Notes:
 
-A **confusion matrix** is a table that visualization the performance of
-an algorithm. It shows the labels possible and how many of each label
-the model predicts correctly and incorrectly.
+A **confusion matrix** is a table that visualizes the performance of an
+algorithm. It shows the possible labels and how many of each label the
+model predicts correctly and incorrectly.
 
 Once we fit on our training portion, we can use the
 `plot_confusion_matrix` function from sklearn.
 
 In this case, we are looking at the validation portion only.
 
-This results in a 4 by 4 matrix with the labels `Non fraud` and `Fraud`
+This results in a 2 by 2 matrix with the labels `Non fraud` and `Fraud`
 on each axis.
 
 #### Careful:
@@ -302,33 +303,6 @@ array by importing `confusion_matrix` from the sklearn library.
 
 Here we get the predictions of the model first with `.predict()` and
 compare it with `y_valid` in the function `confusion_matrix()`.
-
----
-
-``` python
-from sklearn.model_selection import cross_val_predict
-```
-
-``` python
-cv_predictions = cross_val_predict(pipe, X_train, y_train)
-```
-
-``` python
-confusion_matrix(y_train, cv_predictions)
-```
-
-```out
-array([[139255,     62],
-       [    61,    176]])
-```
-
-Notes:
-
-You can also calculate confusion matrix with cross-validation using
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html" target="_blank">`cross_val_predict`</a>.
-
-This gives us a prediction for each example but this method does not let
-us conveniently use `plot_confusion_matrix`.
 
 ---
 

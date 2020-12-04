@@ -86,11 +86,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time    test_score   train_score
-0  0.038923    0.275090 -62462.584290 -51440.540539
-1  0.038158    0.266730 -63437.715015 -51263.979666
-2  0.038275    0.260825 -62613.202523 -51758.817852
-3  0.031868    0.258226 -64204.295214 -51343.743586
-4  0.033303    0.217223 -59217.838633 -47325.157312
+0  0.036287    0.256357 -62462.584290 -51440.540539
+1  0.031821    0.252613 -63437.715015 -51263.979666
+2  0.037416    0.292869 -62613.202523 -51758.817852
+3  0.032163    0.257718 -64204.295214 -51343.743586
+4  0.035651    0.224238 -59217.838633 -47325.157312
 ```
 
 Notes:
@@ -129,11 +129,11 @@ pd.DataFrame(cross_validate(
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.032763    0.267304   22.709732    18.420969
-1  0.040172    0.255111   22.754570    18.469125
-2  0.033707    0.250586   22.236869    18.674964
-3  0.033640    0.251035   23.016666    18.510766
-4  0.031631    0.209276   21.033519    16.951021
+0  0.035918    0.270137   22.709732    18.420969
+1  0.031711    0.267242   22.754570    18.469125
+2  0.036626    0.262508   22.236869    18.674964
+3  0.034459    0.280399   23.016666    18.510766
+4  0.035492    0.228673   21.033519    16.951021
 ```
 
 Notes:
@@ -174,11 +174,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time   test_r2  train_r2  test_mape_score  train_mape_score  test_neg_rmse  train_neg_rmse  test_neg_mse  train_neg_mse
-0  0.034676    0.257168  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
-1  0.032990    0.240115  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
-2  0.032236    0.245332  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
-3  0.031167    0.252397  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
-4  0.030157    0.204007  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
+0  0.042987    0.278447  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
+1  0.034570    0.252504  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
+2  0.036874    0.270741  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
+3  0.031531    0.284730  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
+4  0.035826    0.221765  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
 ```
 
 Notes: We can also return many scoring measures by first making a
@@ -244,7 +244,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   15.2s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.4s finished
 ```
 
 ``` python
@@ -305,7 +305,7 @@ param_grid = {
 ```
 
 ``` python
-grid_search = GridSearchCV(pipe_classification, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= 'recall')
+grid_search = GridSearchCV(pipe_classification, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= 'f1')
 grid_search.fit(X_train, y_train);
 ```
 
@@ -321,7 +321,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'decisiontreeclassifier__max_depth': 5}
+{'decisiontreeclassifier__max_depth': 50}
 ```
 
 ``` python
@@ -329,7 +329,7 @@ grid_search.best_score_
 ```
 
 ```out
-0.834986830553117
+0.7190834822443745
 ```
 
 Notes:
