@@ -204,15 +204,13 @@ So, if you look for example, in the documentation for the SVM classifier, we see
 ---
 
 ```{python}
-pipe_tree = make_pipeline((StandardScaler()),
-                          (DecisionTreeClassifier(random_state=7)))
-pipe_tree.fit(X_train,y_train);
+tree_default= DecisionTreeClassifier(random_state=7)
+tree_default.fit(X_train,y_train);
 ```
 
 ```{python}
-pipe_200 = make_pipeline((StandardScaler()),
-                               (DecisionTreeClassifier(random_state=7, class_weight={1:100})))
-pipe_200.fit(X_train,y_train);
+tree_100 = DecisionTreeClassifier(random_state=7, class_weight={1:100})
+tree_100.fit(X_train,y_train);
 ```
 
 
@@ -221,11 +219,11 @@ plt.rcParams.update({'font.size': 14})
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
 plt.title("Unbalanced")
-plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+plot_confusion_matrix(tree_default, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
 
 plt.subplot(1, 2, 2)
 plt.title("class_weight={1:100}")
-plot_confusion_matrix(pipe_200, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+plot_confusion_matrix(tree_100, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
 plt.tight_layout()
 plt.show()
 ```
@@ -249,9 +247,8 @@ But, as a consequence, we are also increasing false positives.
 
 
 ```{python}
-pipe_balanced = make_pipeline((StandardScaler()),
-                               (DecisionTreeClassifier(random_state=7, class_weight="balanced")))
-pipe_balanced.fit(X_train,y_train);
+tree_balanced =DecisionTreeClassifier(random_state=7, class_weight="balanced")
+tree_balanced.fit(X_train,y_train);
 ```
 
 
@@ -260,11 +257,11 @@ plt.rcParams.update({'font.size': 14})
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
 plt.title("Unbalanced")
-plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+plot_confusion_matrix(tree_default, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
 
 plt.subplot(1, 2, 2)
 plt.title("class_weight=balanced")
-plot_confusion_matrix(pipe_balanced, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
+plot_confusion_matrix(tree_balanced, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues", ax=plt.gca());
 plt.tight_layout()
 plt.show()
 ```
@@ -285,10 +282,10 @@ We have reduced false negatives but we have many more false positives now!
 
 
 ```{python}
-pipe_tree.score(X_valid, y_valid)
+tree_default.score(X_valid, y_valid)
 ```
 ```{python}
-pipe_balanced.score(X_valid, y_valid)
+tree_balanced.score(X_valid, y_valid)
 ```
 
 

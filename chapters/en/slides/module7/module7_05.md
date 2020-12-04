@@ -22,8 +22,8 @@ pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True
 ```
 
 ```out
-fit_time       5.942421
-score_time     0.009375
+fit_time       6.157520
+score_time     0.009249
 test_score     0.999119
 train_score    1.000000
 dtype: float64

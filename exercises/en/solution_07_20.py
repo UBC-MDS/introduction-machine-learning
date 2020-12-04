@@ -62,16 +62,16 @@ predict_valid = pipe_bb.predict(X_valid)
 
 # Calculate the MSE and save the result in an object named mse_calc
 mse_calc = mean_squared_error(y_valid, predict_valid)
-print(mse_calc)
+print("MSE:", mse_calc)
 
 # Calculate the RMSE and save the result in an object named rmse_calc
 rmse_calc = np.sqrt(mean_squared_error(y_valid, predict_valid))
-print(rmse_calc)
+print("RMSE:", mse_calc)
 
 # Calculate the R^2 and save the result in an object named r2_calc
 r2_calc = r2_score(y_valid, predict_valid)
-print(r2_calc)
+print("R2:", r2_calc)
 
 # Calculate the MAPE and save the result in an object named mape_calc
 mape_calc = np.mean(np.abs((predict_valid - y_valid) / y_valid)) * 100.0
-print(mape_calc)
+print("MAPE:", mape_calc)

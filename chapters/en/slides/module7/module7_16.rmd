@@ -15,7 +15,7 @@ library(rmarkdown)
 knitr::opts_chunk$set(echo = TRUE,
                       base.dir = ".", 
                       base.url = "/",
-                      fig.path = paste("../../../../static/module6/", params$dynamictitle,"/", sep = ""))
+                      fig.path = paste("../../../../static/module7/", params$dynamictitle,"/", sep = ""))
 
 knitr_opts <- knitr_options( opts_knit = NULL,
                              opts_chunk = NULL,
@@ -59,7 +59,7 @@ from sklearn.model_selection import cross_val_score, cross_validate, train_test_
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
-from sklearn.svm import SVC
+from sklearn.svm import SVC, SVR
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.compose import make_column_transformer
 
@@ -144,7 +144,7 @@ preprocessor = make_column_transformer(
         (categorical_transformer, categorical_features), 
     remainder='passthrough')
 
-pipe = make_pipeline(preprocessor, KNeighborsRegressor())
+pipe = make_pipeline(preprocessor, SVR())
 pipe.fit(X_train, y_train);
 ```
 

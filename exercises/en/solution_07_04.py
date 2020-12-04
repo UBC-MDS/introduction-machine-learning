@@ -18,6 +18,8 @@ y_train = train_df['position']
 X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'position'])
 y_test = test_df['position']
 
+drop_features = ['full_name', 'jersey', 'b_day', 'college', 'position']
+
 numeric_features = [
     "rating",
     "height",
@@ -39,6 +41,7 @@ categorical_transformer = make_pipeline(
 )
 
 preprocessor = make_column_transformer(
+    ("drop", drop_features),
     (numeric_transformer, numeric_features), 
     (categorical_transformer, categorical_features)
 )
