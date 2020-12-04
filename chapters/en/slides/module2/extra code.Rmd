@@ -750,10 +750,19 @@ print(best_alpha)
 best_mape = random_search.best_score_
 print(best_mape)
 ```
+```{python}
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+bball.loc[(bball['position'] !='G') | (bball['position'] !='F'), 'position'] = 'other'
+```
+
+```{python}
+bball
+```
 
 
 ```{python}
-mport numpy as np
+import numpy as np
 import pandas as pd
 import scipy
 import warnings
@@ -768,16 +777,17 @@ from sklearn.metrics import make_scorer
 # Loading in the data
 bball = pd.read_csv('data/bball.csv')
 bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
-
+bball.loc[(bball['position'] =='G') | (bball['position'] =='F'), 'position'] = 'other'
+#bball = bball[(bball['position'] =='G') | (bball['position'] =='F')]
 df_train, df_test = train_test_split(bball, test_size=0.2, random_state=1)
 
 
 X_train = df_train[["weight", "height", "draft_year", "draft_round",
-                     "draft_peak", "team", "position", "country"]]
+                     "draft_peak", "team", "salary", "country"]]
 X_test = df_test[["weight", "height", "draft_year", "draft_round",
-                     "draft_peak", "team", "position", "country"]]
-y_train = df_train['salary']
-y_test = df_test['salary']
+                     "draft_peak", "team", "salary", "country"]]
+y_train = df_train['position']
+y_test = df_test['position']
 
 
 # Split the numeric and categorical features 
@@ -787,7 +797,7 @@ numeric_features = [ "weight",
                      "draft_round",
                      "draft_peak"]
 
-categorical_features = ["team", "position", "country"]
+categorical_features = ["team", "country"]
 
 
 def mape(true, pred):
@@ -796,8 +806,7 @@ neg_mape_scorer = make_scorer(mape, greater_is_better=False)
 
 # Build a numeric pipeline
 numeric_transformer = make_pipeline(
-    SimpleImputer(strategy="median"),
-    StandardScaler())
+    SimpleImputer(strategy="median"))
 
 # Build a categorical pipeline
 categorical_transformer = make_pipeline(
@@ -812,21 +821,23 @@ col_transformer = make_column_transformer(
 # Build a main pipeline
 ridge_bb = make_pipeline(
     col_transformer,
-    Ridge())
+    LogisticRegression())
     
 
 
-param_dist = {
-    "ridge__alpha": scipy.stats.randint(low=1, high=10000)}
+#param_dist = {
+#    "ridge__alpha": scipy.stats.randint(low=1, high=10000)}
 
-random_search = RandomizedSearchCV(
-    ridge_bb, param_dist,
-    n_iter=20, cv=5, verbose=1, n_jobs=1, random_state=123, scoring= neg_mape_scorer)
+#random_search = RandomizedSearchCV(
+#    ridge_bb, param_dist,
+#    n_iter=20, cv=5, verbose=1, n_jobs=1, random_state=123, scoring= neg_mape_scorer)
 
 # Fit your grid search on the training data
-random_search.fit(X_train, y_train)
+ridge_bb.fit(X_train, y_train)
 
-random_search.best_score_
+#ridge_bb.predict()
+
+y_test[:10]
 ```
 
 
@@ -846,6 +857,7 @@ from sklearn.metrics import make_scorer
 bball = pd.read_csv('data/bball.csv')
 bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
 
+
 train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
 
 X_train = train_df[['height', 'weight']]
@@ -853,7 +865,7 @@ y_train = train_df['salary']
 X_test = test_df[['height', 'weight']]
 y_test = test_df['salary']
 
-player_stats = pd.DataFrame([2.05,93.2], columns =['height', 'weight'])
+player_stats = pd.DataFrame([[2.05,93.2]], columns =['height', 'weight'])
 player_stats
 # Build a Ridge model called ridge_bb
 ridge_bb = Ridge()
@@ -871,11 +883,17 @@ print(bb_weights)
 # Save this in an object named bb_intercept
 
 bb_intercept = ridge_bb.intercept_
+print(bb_intercept)
 
 # Using the weights and intercept discovered above, 
 # calculate the models's prediction
 # Save it in an object named player_predict
 
-player_predict
+player_predict = bb_intercept + (bb_weights*player_stats).sum(axis=1)
+print(player_predict)
+
+# Check your answer using predict
+ridge_bb.predict(player_stats)
+
 ```
 

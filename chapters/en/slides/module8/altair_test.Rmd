@@ -1,0 +1,50 @@
+---
+params:
+  dynamictitle: "altair_test"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+type: slides
+
+# Passing Different Scoring Methods
+
+Notes: <br>
+
+---
+
+```{r load_packages}
+library(vegawidget) # Need to install this using: install.packages('vegawidget')
+library(reticulate)
+library(rsvg)
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module7/", params$dynamictitle,"/", sep = ""))
+# use_python('/usr/local/bin/python3') # you may not need this, comment out if so
+```
+```{python include=FALSE}
+import altair as alt
+import pandas as pd
+source = pd.DataFrame({
+    'a': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+    'b': [28, 55, 43, 91, 81, 53, 19, 87, 52]
+})
+chart1 = alt.Chart(source).mark_bar().encode(
+    alt.X('a:N',title='X-Axis label'),
+    alt.Y('b:Q',title='Y-axis label')).to_json()
+chart1
+```
+```{r}
+as_vegaspec(py$chart1)
+```
+
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

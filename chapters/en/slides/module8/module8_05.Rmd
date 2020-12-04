@@ -1,0 +1,338 @@
+---
+params:
+  dynamictitle: "module8_05"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module8/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import make_scorer
+from sklearn.linear_model import Ridge
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module8/"
+```
+
+
+type: slides
+
+# Coefficients and coef_
+
+Notes: <br>
+
+---
+
+## Intuition behind linear classifiers
+
+Listing 1: 5 bedroom, 6 bathroom, 3000 square feet, 1 year old  -> $6.39 million
+
+Listing 2: 1 bedroom, 1 bathroom, 800 square feet, 90 years old -> $1.67 million
+
+Listing 3: 3 bedroom, 2 bathroom, 1875 square feet, 66 years old -> $3.92 million
+
+<center><img src="/module8/house_table.png"  width = "50%" alt="404 image" /></center>
+
+Notes: 
+
+Unlike with decision trees where we make predictions with rules, and analogy-based models where we predict a certain class using distance to other examples, 
+
+linear classifiers use **coefficients** (or sometimes know as "weights") associated with features.
+
+We then use these learned coefficients to make predictions.
+
+For example suppose we are predicting the price of a house and we have 4 features; number of bedrooms, number of bathrooms, square footage, and age. 
+
+
+---
+
+<center><img src="/module8/house_table.png"  width = "35%" alt="404 image" /></center>
+
+
+Consider the following listing (example):     
+
+<font size="+1"><em> 3 bedroom, 2 bathroom, 1875 square feet, 66 year old .</em></font>
+
+<br>
+<br>
+
+<img src="/module8/price0.svg"  width = "100%" alt="404 image" />  <br>   
+
+<img src="/module8/price2.svg"  width = "58%" alt="404 image" /> <br>   
+  
+<img src="/module8/price3.svg"  width = "50%" alt="404 image" /> <br>
+
+<img src="/module8/price4.svg"  width = "16%" alt="404 image" />   <br>
+
+
+Notes: 
+
+
+
+---
+
+## Components of a linear model
+
+<br>
+<br>
+<br>
+
+<img src="/module8/price1.svg"  width = "100%" alt="404 image" />  <br>   
+
+- <font  color="7bd1ec"> Input features</font>     
+- <font  color="#b1d78c"> Coefficients (weights), one per feature</font>      
+- <font  color="e8b0d0"> Bias or intercept</font> 
+
+
+
+Notes: 
+
+
+---
+
+
+```{python}
+housing_df = pd.read_csv("data/real_estate.csv")
+train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=1)
+train_df.head()
+```
+
+```{python}
+X_train, y_train = train_df.drop(columns =['price']), train_df['price']
+X_test, y_test = test_df.drop(columns =['price']), test_df['price']
+```
+
+
+
+Notes: 
+
+Let's now use `Ridge` with our Taiwan housing dataset that we saw in assignment 1 where we want to predict the house price. 
+
+
+
+
+---
+
+```{python}
+lm = Ridge()
+lm.fit(X_train, y_train);
+training_score = lm.score(X_train, y_train)
+training_score
+```
+
+```{python}
+lm.coef_
+```
+
+Notes: 
+
+We can make our pipeline as usual and train it, and assess our training score.
+
+we saw that with linear classifiers we have weights associated with each feature our model. 
+
+How do we get that? We can use `.coef_` to obtain them from our trained model. 
+
+But how are these useful? 
+
+
+---
+
+```{python}
+ridge_weights = lm.coef_
+ridge_weights
+```
+
+```{python}
+words_weights_df = pd.DataFrame(data=ridge_weights, index=X_train.columns, columns=['Weight'])
+words_weights_df
+``` 
+
+
+
+
+
+Notes: 
+
+One of the primary advantage of linear classifiers is their ability to interpret models using these coefficients. 
+
+What does these mean? Let's try to make some sense of it here. 
+
+We have our coefficients but we should see which feature they correspond to, we can do that making a dataframe with both values. 
+
+We can use these weight to interpret our model. They show us how much each of these features effect our model's prediction.
+
+For example, if we have have an example with 2 store nearby our `num_stores` value is 2. that means that 2 * 1.26 = 2.52 will contribute to our predicted price!
+
+The negative coefficients work in the opposite way, for example, every unit increase in age of a house will, subtracts 0.244 from the house's predicted value.
+
+
+---
+
+```{python}
+words_weights_df.abs().sort_values(by='Weight')
+```
+
+Notes:
+
+In linear models, the  oefficients tells us how each feature affects the prediction. 
+
+So looking at the features which have coefficient with bigger magnitudes might be useful and contribute more to the prediction. 
+
+---
+
+## Interpreting learned weights/coefficients
+
+<br>
+<br>
+
+In linear models: 
+
+- if the coefficient is + , then ↑ the feature values ↑ the prediction value.  
+- if the coefficient is -, then ↑ the feature values ↓ the prediction value.  
+- if the coefficient is 0,  the feature is not used in making a prediction.
+
+
+
+Notes:
+
+In linear models: 
+
+- if the coefficient is positive, then increasing the feature values increases the prediction value.  
+- if the coefficient is negative, then increasing the feature values decreases the prediction value.  
+- if the coefficient is zero, the feature is not used in making a prediction
+
+---
+
+## Predicting
+
+
+```{python}
+X_train.iloc[0:1]
+```
+
+```{python}
+lm.predict(X_train.iloc[0:1])
+```
+
+
+
+Notes: 
+
+Let's take a look at a single example here. 
+
+The values in this are the input features. 
+
+We can use `predict()` on our features to get a prediction of 52.36.
+
+
+
+---
+
+
+
+```{python}
+words_weights_df.T
+```
+
+```{python}
+X_train.iloc[0:1]
+```
+
+```{python}
+intercept = lm.intercept_
+intercept
+```
+
+
+
+Notes: 
+
+Using our weights, and the model's intercept (bias) we can calculate the model's predictions ourselves as well. 
+
+
+
+
+---
+
+<center><img src="/module8/house_weights.svg"  width = "80%" alt="404 image" /></center>
+
+
+```{python}
+intercept + (ridge_weights * X_train.iloc[0:1]).sum(axis=1)
+```
+
+
+```{python}
+lm.predict(X_train.iloc[0:1])
+```
+Notes:
+
+All of these features values multiplied by the weights with the intercept contribute to our prediction. 
+
+When we do this by hand using the model's weights and intercept, we get the same as if we used `predict`.
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

@@ -1,0 +1,361 @@
+---
+params:
+  dynamictitle: "module8_09"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+library(rsvg)
+library(vegawidget) 
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module8/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+import scipy
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split, RandomizedSearchCV
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module8/"
+```
+
+
+type: slides
+
+# Logistic regression
+
+Notes: <br>
+
+---
+
+```{python}
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
+X_train, y_train = train_df.drop(columns=["country"], axis=1), train_df["country"]
+X_test, y_test = test_df.drop(columns=["country"], axis=1), test_df["country"]
+
+train_df.head()
+```
+
+
+Notes: 
+
+Next, we are going to introduce to you a new model called **logistic regression**. 
+
+It's very similar to the `Ridge` classifier we sae earlier but this one has some key differences. 
+
+For one, we can use it with classification instead of regression problems. 
+
+For that reason we are going to bring back our cities dataset we saw at the beginning of this course. 
+
+
+
+---
+
+## Setting the stage
+
+```{python}
+from sklearn.dummy import DummyClassifier
+dc = DummyClassifier(strategy="prior")
+
+scores= pd.DataFrame(cross_validate(dc, X_train, y_train, return_train_score=True))
+scores
+```
+
+
+
+Notes: 
+
+Although we don't always do this in the slides, we should always be building a baseline model before we do any type of meaningful modelling. 
+
+Let's do that before we get straight into it.
+
+Now we can have a better idea on how well our model performs. 
+
+---
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+```
+
+
+```{python}
+lr = LogisticRegression()
+scores = pd.DataFrame(cross_validate(lr, X_train, y_train, return_train_score=True))
+scores
+```
+
+
+Notes: 
+
+We import `LogisticRegression` from the `sklearn.linear_model` library like we did with `Ridge`. 
+
+This time we can see that our training and cross-validation scores have increased from those of our `DummyClassifier`. 
+
+
+
+---
+
+## Visualizing our model
+
+```{python echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '80%', fig.align='center'}
+lr.fit(X_train, y_train);
+plot_classifier(X_train, y_train, lr, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.title("Logistic Regression", fontsize=20)
+plt.xlabel("longitude", fontsize=16)
+plt.ylabel("lattitude", fontsize=16)
+```
+
+
+
+Notes: 
+
+We saw that with SVMs and decision trees we could visualize our model with decision boundaries and we can do the same thing here.
+
+Here we can see we get a line that separates our two target classes. 
+
+---
+
+<br>
+<br>
+<br>
+<br>
+
+```{python echo=FALSE,  fig.width = 10, fig.height = 7,  out.width = '100%', fig.align='center'}
+models = {
+    "KNN": KNeighborsClassifier(),    
+    "RBF SVM": SVC(gamma = 0.01),    
+    "Logistic Regression": LogisticRegression()
+}
+
+plt.figure(figsize=(20, 4))
+i = 0
+for name, model in models.items():    
+    plt.subplot(1, 4, i + 1)
+    model.fit(X_train, y_train)
+    plot_classifier(X_train, y_train, model, ax=plt.gca())
+    plt.xticks();
+    plt.yticks();
+    plt.title(name, fontsize=14)
+    plt.xlabel("longitude")
+    plt.ylabel("lattitude")
+    i += 1
+```
+
+
+
+Notes:
+
+If we look at some other models that we did this in comparison for you can understand a bit more on why we call Logistic Regression a "linear Classifiers". 
+
+Notice a linear decision boundary (a line in our case).
+
+
+---
+
+# Coefficients
+
+```{python}
+lr = LogisticRegression()
+lr.fit(X_train, y_train); 
+```
+
+```python
+print("Model weights:", lr.coef_)
+print("Model intercept:", lr.intercept_)
+```
+
+```out
+Model weights: [[-0.04108149 -0.33683126]]
+Model intercept: [10.8869838]
+```
+
+```{python}
+data = {'features': X_train.columns, 'coefficients':lr.coef_[0]}
+pd.DataFrame(data)
+```
+
+
+Notes: 
+
+Just like we saw for `Ridge`. we can get the equation of that line and the coefficients of our `latitude` and `longitude` features using `.coef_`.
+
+In this case we see that both are negative weights, 
+
+We also can see that the weight of latitude is larger in magnitude. 
+
+This makes a lot of sense because Canada as a country lies above the USA and so we expect `latitude` values to contribute more to a prediction than `longitude` which Canada and the `USA` have quite similar values. 
+
+
+---
+
+## Predictions
+
+```{python}
+example = X_test.iloc[0,:]
+example.tolist()
+```
+
+
+```{python}
+lr.intercept_ + (example.tolist() * lr.coef_).sum(axis=1)
+```
+```{python}
+lr.predict([example])
+```
+
+
+Notes: 
+
+Again let's take an example from our test and calculate the outcome using our weights and intercept. 
+
+We get a value of -1.978. 
+
+In `Ridge` our prediction would be the calculated result so -1.97, but for logistic regression we check the **sign** of the calculation only.
+
+Our threshold is 0.
+- If the result was positive, it predicts the one class; if negative, it predict the other.
+
+That means everything negative corresponds to "Canada" and everything positive predicts a class of "USA". 
+
+If we use `predict`, it gives us the same result as well! 
+
+These are "hard predictions" but we can also use this for something called "soft predictions" as well (That's in the next slide deck!). 
+
+---
+
+## Hyperparameter: C (A new one)
+
+
+```{python }
+scores_dict ={
+"C" :10.0**np.arange(-6,2,1),
+"train_score" : list(),
+"cv_score" : list(),
+}
+for C in scores_dict['C']:
+    lr_model = LogisticRegression(C=C)
+    results = cross_validate(lr_model, X_train, y_train, return_train_score=True)
+    scores_dict['train_score'].append(results["train_score"].mean())
+    scores_dict['cv_score'].append(results["test_score"].mean())
+```
+
+```{python}
+pd.DataFrame(scores_dict)
+```
+
+
+Notes: 
+
+At this point you should be feeling pretty comfortable with hyperparameters. 
+
+We saw that `Ridge` has the hyperparameter `alpha`, well `C` (annoyingly) has the opposite effect on the fundamental trade off. 
+
+In general, we say smaller `C` leads to a less complex model (whereas with `Ridge`, lower `alpha` means higher complexity). 
+
+higher values of `C` leads to more overfitting and lower values to less overfitting. 
+
+
+
+---
+
+```{python include =FALSE}
+plotting_source = pd.DataFrame(scores_dict).melt(id_vars='C', 
+                                  value_vars=['train_score', 'cv_score'], 
+                                  var_name='score_type' ,
+                                  value_name= 'accuracy' )
+                                  
+                                  
+mss_acc_plot = alt.Chart(plotting_source, width=500, height=300).mark_line().encode(
+    alt.X('C:Q',scale=alt.Scale(type='log')),
+    alt.Y('accuracy:Q', scale=alt.Scale(domain=[0.55, 0.9])),
+    alt.Color('score_type:N')
+).properties(title="Accuracies of C split for logistic regression").to_json()
+
+```
+
+```{r include=FALSE, fig.width = 13, fig.height = 8,  out.width = '80%', fig.align='center'}
+as_vegaspec(py$mss_acc_plot)
+``` 
+
+```{python}
+param_grid = {
+    "C": scipy.stats.uniform(0, 100)}
+
+lr = LogisticRegression()
+grid_search = RandomizedSearchCV(lr, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1)
+grid_search.fit(X_train, y_train);
+``` 
+
+```{python}
+grid_search.best_params_
+grid_search.best_score_
+```
+
+`LogisticRegression`'s default `C` hyperparameter is 1. 
+
+Let's see what kind of value we get if we do `RandomizedGrid`. 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

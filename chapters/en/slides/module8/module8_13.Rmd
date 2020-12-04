@@ -1,0 +1,328 @@
+---
+params:
+  dynamictitle: "module8_13"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module8/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module8/"
+```
+
+
+type: slides
+
+# Introducting linear classifiers: linear regression
+
+Notes: <br>
+
+---
+
+## Predicting probabilities 
+
+
+```{python}
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
+X_train, y_train = train_df.drop(columns=["country"], axis=1), train_df["country"]
+X_test, y_test = test_df.drop(columns=["country"], axis=1), test_df["country"]
+
+train_df.head()
+```
+
+
+```{python}
+lr = LogisticRegression()
+lr.fit(X_train, y_train);
+```
+
+
+```{python}
+lr.predict(X_test[:1])
+```
+
+Notes: 
+
+In the last slide deck we saw that we can make "hard" predictions with logistic regression using `predict` but logistic regression also can make something called "soft predictions". 
+
+
+
+---
+
+```{python}
+lr.predict(X_test[:1])
+```
+```{python}
+lr.predict_proba(X_test[:1])
+```
+
+
+Notes: 
+
+"Soft predictions" are when instead of predicting a specific class the model returns a probability for each class.
+
+We use `predict_proba` instead of `predict` for this. 
+
+This now returns an array with a probability of how confident the model is for each target class. 
+
+We can see that the model is 87.8% sure that example 1 is class 0 ("Canada") and 12.15% confident that example 1 is class 0 ("USA"). 
+
+`predict` works by predicting the class with the highest probability.
+
+---
+
+## How is this being done?
+
+For linear regression we used something like this: 
+
+<center><img src="/module8/linreg.svg"  width = "70%" alt="404 image" /></center>
+
+But this won't work with probabilities. 
+
+#### **Sigmoid function**(optional)
+
+```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '70%', fig.align='center'}
+sigmoid = lambda x: 1/(1+np.exp(-x))
+raw_model_output = np.linspace(-8,8,1000)
+plt.plot(raw_model_output, sigmoid(raw_model_output));
+plt.plot([0,0],[0,0.5], '--k')
+plt.plot([-8,0],[0.5,0.5], '--k')
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("raw model output", fontsize=14); plt.ylabel("predicted probability", fontsize=14);plt.title("The sigmoid function", fontsize=16)
+```
+
+
+Notes: 
+
+Ok so we have this option but what exactly is happening behind the scenes 
+
+Because probabilities MUST be between the values of 0, and 1 we need a tool that will convert the raw model's output into a range between [0,1]
+To convert the raw model output into probabilities, instead of taking the sign, we apply the sigmoid.  
+
+But this won't work with probabilities since we get values that are negative or greater than 1. 
+
+We use something called a **sigmoid function**  "squashes" the raw model output from any number to the range  [0,1].
+
+---
+
+```{python}
+predict_y = lr.predict(X_train)
+predict_y[-5:]
+```
+```{python}
+y_proba = lr.predict_proba(X_train)
+y_proba[-5:]
+```
+
+
+Notes: 
+
+If we now compare `predict` with `predict_proba` we can see how `predict` made a prediction based on the probabilities.
+
+
+
+
+---
+
+
+```{python}
+data_dict = {"y":y_train, 
+             "pred y": predict_y.tolist(),
+             "probabilities": y_proba.tolist()}
+pd.DataFrame(data_dict).tail(10)
+```
+
+
+Notes: 
+
+
+Let's take a look and compare the to the actual correct labels. 
+
+We can see that the first example was incorrectly predicted as "Canada" instead of "USA" but we also see that the model what not extremely confident in this prediction. It was 69.8% confident. 
+
+The rest of this selection the model corrected predicted but the model was more confident in some than others. 
+
+
+
+---
+
+```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '90%', fig.align='center'}
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1);
+plot_classifier(X_train[-10:], y_train[-10:], lr, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("logitude", fontsize=14)
+plt.title("Logistic regression - predict", fontsize=16)
+plt.subplot(1, 2, 2);
+plot_classifier(X_train[-10:], y_train[-10:], lr, proba=True, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("logitude", fontsize=14)
+plt.title("Logistic regression - predict_proba", fontsize=16)
+
+```
+
+Notes: 
+
+When we use predict we get a decision boundary with either blue or red, a colour for each class but now, with probabilities, we can see that the model is less confident the closer the observations are to the decision boundary. 
+
+
+---
+
+```{python}
+lr_targets = pd.DataFrame({
+             "y":y_train, 
+             "pred y": predict_y.tolist(),
+             "probability_canada": y_proba[:,0].tolist()})
+lr_targets.head()
+```
+```{python}
+lr_targets.sort_values(by='probability_canada')
+```
+
+
+
+
+Notes: 
+
+Let's find an example that the model is pretty confident. 
+This time where we make our dataframe we are only bringing in the probability of predicting "Canada". This is because we are 0 percent confident a prediction is "Canada", the model is 100% confident in "USA".
+
+Here we can see both extremes. 
+
+Like we are 99.345% (1- 0.006547) confident that city 37 is "USA" and 96.19% confident that city 1 is "Canada". The firt one it got right, but the second one it, didn't, let's plot them and see why. 
+
+
+---
+
+```{python}
+X_train.loc[[1,37]]
+```
+
+```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '70%', fig.align='center'}
+plot_classifier(X_train.loc[[1,37]], y_train.loc[[1,37]], lr, proba=True, ax=plt.gca(), ticks=True,  lims=(-140,-55,25,60))
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("logitude", fontsize=14)
+plt.title("Logistic regression - certain predictions", fontsize=16)
+```
+
+
+Notes: 
+
+Both points are "USA" cities but the second one we can now see why the model was more confident in this one. This city is likely in Alaska but the model doesn't know that and predicts more so on how close it lies to the decision boundary. 
+
+
+
+---
+
+```{python}
+lr_targets = pd.DataFrame({
+             "y":y_train, 
+             "pred y": predict_y.tolist(),
+             "prob_difference": (abs(y_proba[:,0] - y_proba[:,1])).tolist()})
+lr_targets.sort_values(by="prob_difference").head()
+```
+
+
+
+Notes: 
+
+Let's now find a example where the model is less certain on it's prediction. 
+
+We can do this by finding the absolute value of the difference between the two probabilities. The small the value, the more uncertain the model is. 
+
+Here we can see that city 61 and 54 have the model pretty stumped. 
+
+Let's see why.
+
+
+---
+
+```{python}
+X_train.loc[[61, 54]]
+```
+
+```{python echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '70%', fig.align='center'}
+plot_classifier(X_train.loc[[61, 54]], y_train.loc[[61, 54]], lr, proba=True, ax=plt.gca(), ticks=True,  lims=(-115,-55,25,60))
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("logitude", fontsize=14)
+plt.title("Logistic regression - uncertain prediction", fontsize=16)
+```
+
+Notes: 
+
+When we plot the cities with the decision boundary, we get a clear answer. The cities lies almost completely on the boundary making the model very divided between how to classify them 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>

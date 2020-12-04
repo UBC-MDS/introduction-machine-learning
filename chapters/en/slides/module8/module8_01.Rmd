@@ -1,0 +1,270 @@
+---
+params:
+  dynamictitle: "module8_01"
+title: "`r params$dynamictitle`"
+output: 
+  md_document:
+    variant: gfm
+---
+
+
+```{r setup, include=FALSE}
+## DO NOT FORGET TO CHANGE THIS ACCORDINGLY 
+library(rmarkdown)
+library(vegawidget) # Need to install this using: install.packages('vegawidget')
+library(reticulate)
+library(rsvg)
+# MAke sure you are updating your title 
+knitr::opts_chunk$set(echo = TRUE,
+                      base.dir = ".", 
+                      base.url = "/",
+                      fig.path = paste("../../../../static/module8/", params$dynamictitle,"/", sep = ""))
+
+knitr_opts <- knitr_options( opts_knit = NULL,
+                             opts_chunk = NULL,
+                             knit_hooks = NULL,
+                             opts_hooks = NULL,
+                             opts_template = NULL)
+md_document_custom <- md_document(variant = "gfm")
+output_format(knitr = knitr_opts,
+              pandoc = NULL,
+              base_format = md_document_custom)
+library(reticulate)
+
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import altair as alt
+from altair_saver import save
+
+import glob
+from sklearn.pipeline import Pipeline, make_pipeline
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_graphviz
+
+from IPython.display import HTML, display
+from PIL import Image, ImageFile
+
+from plot_classifier import plot_classifier
+
+
+# Classifiers and regressors
+from sklearn.dummy import DummyClassifier, DummyRegressor
+
+# Preprocessing and pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import euclidean_distances
+
+# train test split and cross validation
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
+from sklearn.svm import SVC, SVR
+from sklearn.tree import DecisionTreeClassifier
+
+
+pd.set_option('display.width', 350)
+
+np.set_printoptions(linewidth=400)
+
+pd.set_option('display.max_columns', 20)
+pd.set_option('display.max_rows', 15)
+
+path = "../../../../static/module8/"
+```
+
+
+type: slides
+
+# Introducing linear classifiers
+
+Notes: <br>
+
+---
+
+## Linear Regression
+
+```{python include=FALSE}
+np.random.seed(7)
+n = 100
+X_1 = np.linspace(0,2,n) + np.random.randn(n)*0.01
+X = pd.DataFrame(X_1[:,None], columns=['length'])
+
+y = abs(np.random.randn(n,1))*3 + X_1[:,None]*5 + .2
+y = pd.DataFrame(y, columns=['weight'])
+snakes_df = pd.concat([X,y], axis=1)
+
+train_df, test_df = train_test_split(snakes_df, test_size=0.2, random_state=77)
+
+X_train = train_df[['length']]
+y_train = train_df['weight']
+X_test = test_df[['length']]
+y_test = test_df['weight']
+
+
+```
+
+```{python}
+train_df.head()
+```
+
+
+
+Notes: 
+
+We've seen many regression models such as `DecisionTreeRegressor` and `KNeighborsRegressor` but now we have a new one that we are going to explore called  
+linear regression. 
+
+Linear regression is one of the most basic and popular ML/statistical techniques.
+
+Let's bring back our hypothetical snake data we saw in module 4 to explain this concept. 
+
+
+
+---
+
+## Ridge
+
+```{python}
+from sklearn.linear_model import LinearRegression
+LinearRegression();
+```
+
+
+```{python}
+from sklearn.linear_model import Ridge
+```
+
+```{python}
+rm = Ridge()
+rm.fit(X_train, y_train);
+```
+
+```{python}
+rm.predict(X_train)[:5]
+```
+
+```{python}
+rm.score(X_train, y_train)
+```
+
+
+Notes: 
+
+We can import LinearRegression in like all the previous models we've used except we are going to instead focus on it's close cousin `Ridge`. 
+
+`Ridge` is more flexible than `LinearRegression` and we will explain why shortly. 
+
+When we import `Ridge` you'll notice that we are importing from the `linear_model` sklearn library. 
+
+`Ridge`, has the same fit-predict paradiagm as the other models we have seen. 
+
+That means we can `fit` on training set and `predict` a numeric prediction. 
+
+
+We see that running `predict` returns the predicted housing prices for our examples. 
+
+---
+
+## *alpha*
+
+```{python}
+rm2 = Ridge(alpha=10000)
+rm2.fit(X_train, y_train);
+```
+
+```{python}
+rm2.score(X_train, y_train)
+```
+
+
+
+Notes:
+
+Ridge has hyperparameters just like the rest of the models we learned. 
+
+The `alpha` hyperparameter is what make it more flexible than using `LinearRegression`. 
+
+Remember the fundamental trade off we spoke about in module 3?
+
+**"As model complexity ↑, Score_train ↑ and Score_train − Score_valid tend to ↑"**
+
+Well, `alpha` controls the controls this fundamental tradeoff!
+
+---
+
+
+
+```{python }
+scores_dict ={
+"alpha" :10.0**np.arange(-2,6,1),
+"train_scores" : list(),
+"cv_scores" : list(),
+}
+for alpha in scores_dict['alpha']:
+    ridge_model = Ridge(alpha=alpha)
+    results = cross_validate(ridge_model, X_train, y_train, return_train_score=True)
+    scores_dict['train_scores'].append(results["train_score"].mean())
+    scores_dict['cv_scores'].append(results["test_score"].mean())
+```
+
+```{python}
+pd.DataFrame(scores_dict)
+```
+
+
+
+Notes: 
+
+As we increase `alpha`, we are decreasing our model complexity which means our training score is lower and we are more likely to underfit. 
+
+If we decrease `alpha`, our model complexity is increasing and consequentially our training score is increasing. Our chances of overfitting is going up. 
+
+
+---
+
+# Visualizing linear regression
+
+```{python include=FALSE}
+
+source = pd.DataFrame(data= {'length':  X_train['length'],
+                             'width':  y_train,
+                             'predicted': rm.predict(X_train)})
+chart1 = alt.Chart(source, width=500, height=300).mark_circle().encode(
+x = alt.X('length:Q', title= "Length"), 
+y = alt.Y('width:Q', title= "Width"))
+chart2 = alt.Chart(source, width=500, height=300).mark_line(color= 'orange').encode(
+x = alt.X('length:Q', title= "Length"), 
+y = alt.Y('predicted:Q', title = "Width"))
+
+chart3 = (chart1 + chart2).to_json()
+```
+
+
+```{r echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '80%', fig.align='center'}
+as_vegaspec(py$chart3)
+```
+
+
+Notes: 
+
+In our data we only have 1 feature `length` which helps predict our target feature `weight`. 
+
+We can use a 2D graph to plot this and our Ridge regression corresponds to a line. 
+
+In this plot, the green markers are the examples and our orange line is our Ridge regression line. 
+
+
+If we had a additional feature, let's say, `width`, we now would have 2 features and 1 target so our ridge regression would correspond to a plan in a 3 dimensional space. 
+
+As we increase our features beyond 3 it become harder to visualize. 
+
+---
+
+# Let’s apply what we learned!
+
+Notes: <br>
