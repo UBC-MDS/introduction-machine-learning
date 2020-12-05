@@ -1,7 +1,7 @@
 ---
 title: 'Module 8: Linear Models'
 description:
-  "This module will teach you about different types of linear models specifically, logistic regression. You will learn how this model can be interpreted as well as it's advantages and limitations."
+  "This module will teach you about different types of linear models. You will learn how this model can be interpreted as well as it's advantages and limitations."
 prev: /module7
 next: /module9
 type: chapter
@@ -142,7 +142,7 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 Using our well know basketball dataset, we are going to build a model using the `height` feature and assess if it can help predict a players `weight`.
 
 Tasks:   
-- Import the Ridge library. 
+- Import the Ridge function. 
 - Create a mape scorer from the map function that we provided. Make sure you specify in the scorer that lower number are better for MAPE. 
 - Build a Ridge model called `ridge_bb`.
 - Use `RandomizedSearchCV` to hyperparameter tune `alpha`. Fill the blanks so it uses `ridge_bb` as an estimator and the values from `param_dist`.
@@ -152,12 +152,12 @@ Tasks:
 
 <codeblock id="08_04">
 
-- Are you importing the Ridge library?
+- Are you importing the Ridge function?
 - Are you making the mape scorer with `make_scorer(mape, greater_is_better=False)`?
 - Are you filling in the blank for `RandomizedSearchCV` as  `random_search = RandomizedSearchCV(ridge_bb, param_dist, n_iter=20,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
 - Are you fitting with `random_search.fit(X_train, y_train)`?
 - Are you finding the best alpha as `random_search.best_params_`? 
-- Are you finding the best score with `random_search.best_score_` 
+- Are you finding the best score with `random_search.best_score_`? 
 </codeblock>
 
 </exercise>
@@ -313,7 +313,7 @@ Tasks:
 print(bb_weights)
 - Are you using `ridge_bb.intercept_` to find your model's intercept?
 - Are you calculating your model's predictiong with `bb_intercept + (bb_weights*player_stats).sum(axis=1)`?
-- You can check your calculation using predict by `ridge_bb.predict(player_stats)`.
+- You can check your calculation using `predict` with `ridge_bb.predict(player_stats)`.
 
 
 </codeblock>
@@ -442,6 +442,120 @@ Got it!
 
 </exercise>
 
+
+<exercise id="12" title=" Applying Logistic Regression">
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's give a warm welcome back to our wonderful Pokemon dataset. We want to see how well our model does with logistic regression. Let's try building a simple model with default parameters to start. 
+
+
+Tasks:   
+- Import the logistic regression function. 
+- Build and fit a pipeline containing the column transformer and a Logistic Regression model and use the parameter class_weight="balanced". Name this pipeline `pkm_pipe`.
+- Score your model on the test set using the default accuracy measurement. Save this in an object named `lr_scores`.
+- Fill in the blanks below to asses the model's feature coefficients. 
+
+<codeblock id="08_12">
+
+
+- Are you making the mape scorer with `make_scorer(mape, greater_is_better=False)`?
+- Are you filling in the blank for `RandomizedSearchCV` as  `random_search = RandomizedSearchCV(ridge_bb, param_dist, n_iter=20,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
+- Are you fitting with `random_search.fit(X_train, y_train)`?
+- Are you finding the best alpha as `random_search.best_params_`? 
+- Are you finding the best score with `random_search.best_score_`? 
+- Are you importing the logistic regression function?
+- Are you fitting your pipeline?
+- Are you scoring your pipeline on the test data?
+- Are you finding the coefficients using `pkm_pipe['logisticregression'].coef_[0]`?
+- Are you using `numeric_features` to find your model's feature names?
+
+</codeblock>
+
+
+<br> 
+<br>
+
+**Question 1**    
+
+Which feature contributes the most in predicting if an example is legendary or not? 
+
+<choice id="1">
+
+<opt text="<code>attack</code>">
+
+Which feature has the greatest magnitude?
+
+</opt>
+
+<opt text= "<code>defense</code>"  correct="true">
+ 
+This feature has the highest magnitude!
+
+</opt>
+
+<opt text="<code>sp_attack</code>" >
+
+
+Which feature has the greatest magnitude?
+
+</opt>
+
+<opt text="<code>sp_defense</code>" >
+
+Which feature has the greatest magnitude?
+
+</opt>
+
+<opt text="<code>speed</code>" >
+
+Which feature has the greatest magnitude?
+
+</opt>
+
+<opt text="<code>capture_rt</code>" >
+
+Which feature has the greatest magnitude?
+
+</opt>
+
+</choice>
+
+
+**Question 2**    
+
+As the capture rate value increases, will the model more likely predict a legendary or not legendary 
+Pokemon?
+
+```out
+['hired', 'hired', 'hired', 'not hired', 'not hired', 'not hired', 'hired', 'not hired', 'hired', 'hired']
+```
+
+<choice id="2" >
+
+<opt text="Legendary">
+
+Did you look at the sign of the coefficient?
+
+</opt>
+
+<opt text= "Not Legendary"  correct="true">
+ 
+Great!
+
+</opt>
+
+
+</choice>
+
+
+</exercise>
+
 <exercise id="13" title="Predicting Probabilities"  type="slides, video">
 <slides source="module8/module8_13" shot="3" start="13:2011" end="14:1221">
 </slides>
@@ -486,7 +600,7 @@ This is the number of "not hired" examples.
 
 <opt text="4"  correct="true">
 
-Great
+Great!
 
 </opt>
 
@@ -579,44 +693,99 @@ We need to tranform the raw model output so theat they lie between the values of
 
 </exercise>
 
+
+<exercise id="16" title="Applying predict_proba">
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's keep working with the Pokemon dataset. This time let's do a bit more. Let's hyperparameter tune our `C` and see if we can find an examples where the model is confident in it's prediction
+
+
+Tasks:   
+- Build and fit a pipeline containing the column transformer and a Logistic Regression model that used the parameter class_weight="balanced". Name this pipeline `pkm_pipe`.
+- Perform RandomizedSearchCV using the parameters specified in param_grid. Use n_iter equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pkm_grid`.
+- Fit your `pmk_grid` on the training data.
+- What is the best `C` value? Save it in an object name `pkm_best_c`.
+- What is the best f1 score? Save it in an object named `pkm_best_score`.
+- Find the predictions of the test set using `predict`. Save this in an object named `predicted_y`.
+- Find the target class probabilities of the test set using `predict_proba`. 
+- Save this in an object named `proba_y`.
+- Take the dataframe `lr_probs` and sort them in descending order of the models confidence in predicting legendary pokemon. Save this in an object named `legend_sorted`. 
+
+<codeblock id="08_16">
+
+- Are you using `make_pipeline(preprocessor, LogisticRegression(class_weight="balanced"))` to build your `pkm_pipe` object?
+- In `RandomizedSearchCV` are you calling `pkm_pipe` and `param_grid`?
+- Are you specifying `n_iter=10` and `scoring = 'f1'`? 
+- Are you fitting `pkm_grid` on your training data?
+- Are you using `best_params_` to find the most optimal `C` value?
+- Are you using `best_score_` to find the best score?
+- For `predicted_y`, are you using `km_grid.predict(X_test)`? 
+- For  `proba_y` are you using `pkm_grid.predict_proba(X_test)`?
+- Are you sorting `lr_probs` by `prob_legend` and setting `ascending = False`?
+
+</codeblock>
+
+</exercise>
+
 <exercise id="17" title="Multi-class Regression"  type="slides, video">
 <slides source="module8/module8_17" shot="3" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 
 
+
 <exercise id="18" title= "Multi-Class Questions">
 
-Use the following equation to answer the questions below: 
+Use the following coefficient output to answer the questions below: 
 
-<center><img src="/module8/backpack.svg"  width = "80%" alt="404 image" /></center>
+```out
+              Forward   Guard      Other
+weight       0.061025 -0.193441  0.132416
+height       0.227869 -1.358500  1.130631
+draft_year  -0.003043  0.010280 -0.007237
+draft_round  0.250149  0.501243 -0.751392
+draft_peak  -0.006979 -0.005453  0.012432
+
+```
 
 **Question 1**    
-What is our intercept value?
+For which feature does an increased value, pushes the prediction away from the `Other` class?
 
 <choice id="1">
 
-<opt text="3.02">
+<opt text="<code>weight</code>">
 
-This is the laptop coefficient
+Try looking at the `Other` column. 
 
 </opt>
 
-<opt text= "0.3" >
+<opt text="<code>height</code>">
  
-This is the pencil coefficient
+Try looking at the `Other` column. 
 
 </opt>
 
-<opt text="0.5"  correct="true">
+<opt text="<code>draft_year</code>">
 
-Nailed it! This is the intercept. 
+Try looking at the `Other` column. 
 
 </opt>
 
-<opt text="0" >
+<opt text="<code>draft_round</code>" correct="true">
 
-Not 0 this time!
+Nice!
+
+</opt>
+
+<opt text="<code>draft_peak</code>">
+
+Try looking at the `Other` column. 
 
 </opt>
 
@@ -624,38 +793,43 @@ Not 0 this time!
 
 
 **Question 2**    
-If I had 2 laptops 3 pencils in my backpack, What weight would my model predict for my backpack?
+If there is an increase in the feature value, for which feature does the classification of `Guard` decrease, and the other 2 features `Forward` and `Other` increase? 
 
 <choice id="2" >
 
-<opt text="6.94">
+<opt text="<code>weight</code>">
 
-You are missing the intercept value.
+In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
 
 </opt>
 
-<opt text= "7.44"  correct="true">
+<opt text="<code>height</code>"  correct="true">
  
-Great!
+Nice work!
 
 </opt>
 
-<opt text="10.16" >
+<opt text="<code>draft_year</code>">
 
-Are you calculating for 3 laptops and 2 pencils? 
+In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
 
 </opt>
 
-<opt text="4.42" >
+<opt text="<code>draft_round</code>">
 
-I think you forgot a laptop!
+In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
+
+</opt>
+
+<opt text="<code>draft_peak</code>">
+
+In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
 
 </opt>
 
 </choice>
 
 </exercise>
-
 
 
 <exercise id="19" title="True or False: Coefficients">
@@ -679,18 +853,18 @@ Cool!
 </choice>
 
 **True or False**      
-*Coefficients help us interpret our model.*
+*When we plot multi-classification data, there is a dimension for each class.*
 
 <choice id="2">
-<opt text="True" correct="true">
+<opt text="True" >
 
-Great!
+There is  1 dimension for each feature, not target class. 
 
 </opt>
 
-<opt text="False">
+<opt text="False" correct="true">
 
-Coefficients actual explain how how model got to a certain prediction. 
+You're doing great!
 
 </opt>
 
@@ -698,6 +872,99 @@ Coefficients actual explain how how model got to a certain prediction.
 
 </exercise>
 
-<exercise id="20" title="What Did We Just Learn?" type="slides, video">
+
+<exercise id="20" title="Multi Class Revisited">
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's keep working with the Pokemon dataset. This time let's do a bit more. Let's hyperparameter tune our `C` and see if we can find an examples where the model is confident in it's prediction
+
+
+Tasks:   
+- Build and fit a pipeline containing the column transformer and a Logistic Regression model. Name this pipeline `lr_pipe`.
+- Fit your pipeline on the training data.
+- Plot a confusion matrix for the test set prediction results and answer the questions below. 
+
+<codeblock id="08_20">
+
+
+**Question 1**    
+
+Calculate the recall if `Other` is considered the positive label? 
+_Remember: Recall = TP/(TP+FN)_
+
+</codeblock>
+
+<choice id="1">
+
+<opt text="11/19"  >
+
+You are doing TP/ (TP+FP) 
+
+</opt>
+
+<opt text= "8/19" >
+ 
+This is FP/ (TP+FP) 
+
+</opt>
+
+<opt text="11/74" >
+
+This is TP / (TP + TN + FP + FN)
+
+</opt>
+
+<opt text="11/18" correct="true">
+
+Nice work!
+
+</opt>
+
+</choice>
+
+
+**Question 2**    
+
+If `F` (forward) is the positive class, how many examples in the dataset are negative (true negative values)? 
+
+</codeblock>
+
+<choice id="2" correct="true">
+
+<opt text="50">
+
+Great!
+
+</opt>
+
+<opt text= "32" >
+ 
+this is the number of examples labelled `G`.
+
+</opt>
+
+<opt text="18"  >
+
+this is the number of examples labelled `Other`.
+
+</opt>
+
+<opt text="25" >
+
+This is the total number of incorrect predictions not negative classes
+
+</opt>
+
+</choice>
+
+</exercise>
+
+<exercise id="21" title="What Did We Just Learn?" type="slides, video">
 <slides source="module8/module8_end" shot="0" start="15:2305" end="16:2301">
 </slides>

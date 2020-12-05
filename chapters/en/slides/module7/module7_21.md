@@ -86,11 +86,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time    test_score   train_score
-0  0.035591    0.275736 -62462.584290 -51440.540539
-1  0.041613    0.255568 -63437.715015 -51263.979666
-2  0.032742    0.276014 -62613.202523 -51758.817852
-3  0.035356    0.269737 -64204.295214 -51343.743586
-4  0.035385    0.231804 -59217.838633 -47325.157312
+0  0.037469    0.268165 -62462.584290 -51440.540539
+1  0.032867    0.244131 -63437.715015 -51263.979666
+2  0.033739    0.285662 -62613.202523 -51758.817852
+3  0.040929    0.264807 -64204.295214 -51343.743586
+4  0.032731    0.227368 -59217.838633 -47325.157312
 ```
 
 Notes:
@@ -122,18 +122,17 @@ mape_scorer = make_scorer(mape)
 ```
 
 ``` python
-
 pd.DataFrame(cross_validate(
     pipe_regression, X_train, y_train, return_train_score=True, scoring=mape_scorer))
 ```
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.035600    0.284454   22.709732    18.420969
-1  0.032824    0.252475   22.754570    18.469125
-2  0.035861    0.285927   22.236869    18.674964
-3  0.033472    0.275940   23.016666    18.510766
-4  0.032912    0.247029   21.033519    16.951021
+0  0.036589    0.307769   22.709732    18.420969
+1  0.032327    0.294823   22.754570    18.469125
+2  0.043696    0.267888   22.236869    18.674964
+3  0.033329    0.274986   23.016666    18.510766
+4  0.033867    0.226708   21.033519    16.951021
 ```
 
 Notes:
@@ -174,11 +173,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time   test_r2  train_r2  test_mape_score  train_mape_score  test_neg_rmse  train_neg_rmse  test_neg_mse  train_neg_mse
-0  0.034048    0.282033  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
-1  0.033038    0.266285  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
-2  0.043656    0.276570  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
-3  0.036541    0.261406  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
-4  0.032540    0.229605  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
+0  0.043080    0.327482  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
+1  0.031694    0.252039  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
+2  0.039467    0.304196  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
+3  0.033891    0.272316  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
+4  0.034203    0.221094  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
 ```
 
 Notes: We can also return many scoring measures by first making a
@@ -236,7 +235,9 @@ neg_mape_scorer = make_scorer(mape, greater_is_better=False)
 ``` python
 param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
 
-grid_search = GridSearchCV(pipe_regression, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= neg_mape_scorer)
+grid_search = GridSearchCV(pipe_regression, param_grid, cv=5,
+                           return_train_score=True, verbose=1,
+                           n_jobs=-1, scoring= neg_mape_scorer)
 grid_search.fit(X_train, y_train);
 ```
 
@@ -244,7 +245,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.2s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.1s finished
 ```
 
 ``` python
@@ -283,37 +284,31 @@ X_train, y_train = train_df.drop(columns=["Class"]), train_df["Class"]
 X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
 ```
 
-``` python
-pipe_classification = make_pipeline(
-       (StandardScaler()),
-       (DecisionTreeClassifier(random_state=123, class_weight='balanced'))
-)
-```
-
 Notes:
 
 Let’s bring back our credit card data set and build our pipeline.
 
-This time we are going to use `class_weight='balanced'` in our
-Classifier.
-
 ---
 
 ``` python
-param_grid = {
-    "decisiontreeclassifier__max_depth": [5, 10, 50, 100]}
+dt_model = DecisionTreeClassifier(random_state=123, class_weight='balanced')
 ```
 
 ``` python
-grid_search = GridSearchCV(pipe_classification, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= 'f1')
+param_grid = {"max_depth": scipy.stats.randint(low=1, high=100)}
+```
+
+``` python
+grid_search = RandomizedSearchCV(dt_model, param_grid, cv=5, return_train_score=True,
+                           verbose=1, n_jobs=-1, scoring= 'f1', n_iter = 6)
 grid_search.fit(X_train, y_train);
 ```
 
 ```out
-Fitting 5 folds for each of 4 candidates, totalling 20 fits
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   21.5s finished
+[Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:   31.0s finished
 ```
 
 ``` python
@@ -321,7 +316,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'decisiontreeclassifier__max_depth': 50}
+{'max_depth': 56}
 ```
 
 ``` python
@@ -334,8 +329,11 @@ grid_search.best_score_
 
 Notes:
 
-Now we can tune our model for the thing we care about, which in this
-problem, is the recall.
+This time we are going to use `class_weight='balanced'` in our
+Classifier.
+
+Now we can tune our model for the thing we care about, in this case we
+are specifying the `f1` score.
 
 ---
 

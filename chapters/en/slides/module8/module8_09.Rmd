@@ -179,7 +179,7 @@ Here we can see we get a line that separates our two target classes.
 <br>
 <br>
 
-```{python echo=FALSE,  fig.width = 10, fig.height = 7,  out.width = '100%', fig.align='center'}
+```{python include=FALSE,  fig.width = 12, fig.height = 10,  out.width = '100%', fig.align='center'}
 models = {
     "KNN": KNeighborsClassifier(),    
     "RBF SVM": SVC(gamma = 0.01),    
@@ -200,7 +200,7 @@ for name, model in models.items():
     i += 1
 ```
 
-
+<center><img src="/module8/triple_graph.png"  width = "100%" alt="404 image" /></center>
 
 Notes:
 

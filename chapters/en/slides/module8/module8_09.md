@@ -54,11 +54,11 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.000625    0.000421    0.588235     0.601504
-1  0.000499    0.000346    0.588235     0.601504
-2  0.000649    0.000466    0.606061     0.597015
-3  0.000665    0.000357    0.606061     0.597015
-4  0.000540    0.000393    0.606061     0.597015
+0  0.000708    0.000482    0.588235     0.601504
+1  0.000627    0.000396    0.588235     0.601504
+2  0.000553    0.000432    0.606061     0.597015
+3  0.000516    0.000363    0.606061     0.597015
+4  0.000902    0.000753    0.606061     0.597015
 ```
 
 Notes:
@@ -84,11 +84,11 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.012821    0.002233    0.852941     0.827068
-1  0.011203    0.001882    0.823529     0.827068
-2  0.010528    0.001656    0.696970     0.858209
-3  0.011339    0.001734    0.787879     0.843284
-4  0.010669    0.001597    0.939394     0.805970
+0  0.021131    0.002766    0.852941     0.827068
+1  0.013887    0.001981    0.823529     0.827068
+2  0.013444    0.001905    0.696970     0.858209
+3  0.014567    0.002652    0.787879     0.843284
+4  0.013251    0.001736    0.939394     0.805970
 ```
 
 Notes:
@@ -116,7 +116,11 @@ Here we can see we get a line that separates our two target classes.
 
 <br> <br> <br> <br>
 
-<img src="/module8/module8_09/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+<center>
+
+<img src="/module8/triple_graph.png"  width = "100%" alt="404 image" />
+
+</center>
 
 Notes:
 
@@ -282,8 +286,8 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 10 candidates, totalling 50 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.5s
-[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.5s finished
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.9s
+[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.9s finished
 ```
 
 ``` python
@@ -291,7 +295,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'C': 79.230544082166}
+{'C': 12.786946328668414}
 ```
 
 ``` python

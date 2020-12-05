@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
@@ -34,20 +34,17 @@ numeric_features = ["deck_no",
                     "capture_rt",
                     "total_bs"]
 
-categorical_features = [
-    "type"]
+categorical_features = ["type"]
 
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 
 # Build a pipeline containing the column transformer and an SVC model
 # Name this pipeline pipe_unbalanced

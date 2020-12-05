@@ -1,12 +1,10 @@
 import numpy as np
 import pandas as pd
-import scipy
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.linear_model import Ridge
 from sklearn.metrics import  mean_squared_error, r2_score
-from scipy.stats import randint
 from sklearn.metrics import make_scorer
 
 # Loading in the data
@@ -21,7 +19,7 @@ X_test = test_df[['height', 'weight']]
 y_test = test_df['salary']
 
 player_stats = pd.DataFrame([[2.05,93.2]], columns =['height', 'weight'])
-player_stats
+
 # Build a Ridge model called ridge_bb
 ridge_bb = Ridge()
 

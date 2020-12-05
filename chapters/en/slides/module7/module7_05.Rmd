@@ -173,7 +173,7 @@ We need each of these values to explain the next measurements.
 
 **Among all positive examples, how many did you identify?**
 
-```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '60%', fig.align='center'}
 plt.rcParams.update({'font.size': 12})
 plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
 plt.show()
@@ -221,7 +221,7 @@ So here we take our true positives and we divide by all the positive labels in o
 
 **Among the positive examples you identified, how many were actually positive?**
 
-```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '60%', fig.align='center'}
 plt.rcParams.update({'font.size': 12})
 plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
 plt.show()
@@ -272,7 +272,7 @@ For credit card fraud detection, recall is really important (catching frauds), p
 
 **f1-score combines precision and recall to give one score.** 
 
-```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '75%', fig.align='center'}
+```{python echo=FALSE, fig.width = 9, fig.height = 7,  out.width = '60%', fig.align='center'}
 plt.rcParams.update({'font.size': 12})
 plot_confusion_matrix(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
 plt.show()

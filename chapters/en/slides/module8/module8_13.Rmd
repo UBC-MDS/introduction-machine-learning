@@ -145,7 +145,7 @@ But this won't work with probabilities.
 
 #### **Sigmoid function**(optional)
 
-```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '70%', fig.align='center'}
+```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '80%', fig.align='center'}
 sigmoid = lambda x: 1/(1+np.exp(-x))
 raw_model_output = np.linspace(-8,8,1000)
 plt.plot(raw_model_output, sigmoid(raw_model_output));

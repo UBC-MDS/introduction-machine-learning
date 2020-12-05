@@ -28,8 +28,7 @@ numeric_features = ["deck_no",
                     "capture_rt",
                     "total_bs"]
 
-categorical_features = [
-    "type"]
+categorical_features = ["type"]
 
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 

@@ -63,7 +63,7 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.compose import make_column_transformer
-
+import scipy
 pd.set_option('display.width', 350)
 
 np.set_printoptions(linewidth=400)
@@ -193,7 +193,6 @@ mape_scorer = make_scorer(mape)
 ```
 
 ```{python}
-
 pd.DataFrame(cross_validate(
     pipe_regression, X_train, y_train, return_train_score=True, scoring=mape_scorer))
 ```
@@ -241,8 +240,6 @@ Notes: We can also return many scoring measures by first making a dictionary and
 ## What about hyperparameter tuning? 
 
 
-
-
 ```{python}
 pipe_regression = make_pipeline(preprocessor, KNeighborsRegressor())
 
@@ -280,7 +277,9 @@ neg_mape_scorer = make_scorer(mape, greater_is_better=False)
 ```{python}
 param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
 
-grid_search = GridSearchCV(pipe_regression, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= neg_mape_scorer)
+grid_search = GridSearchCV(pipe_regression, param_grid, cv=5,
+                           return_train_score=True, verbose=1,
+                           n_jobs=-1, scoring= neg_mape_scorer)
 grid_search.fit(X_train, y_train);
 ``` 
 
@@ -309,32 +308,30 @@ X_train, y_train = train_df.drop(columns=["Class"]), train_df["Class"]
 X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
 ```
 
-```{python}
-pipe_classification = make_pipeline(
-       (StandardScaler()),
-       (DecisionTreeClassifier(random_state=123, class_weight='balanced'))
-)
-```
-
 
 
 Notes: 
 
 Let's bring back our credit card data set and build our pipeline. 
 
-This time we are going to use `class_weight='balanced'` in our Classifier. 
+
 
 ---
 
 ```{python}
-param_grid = {
-    "decisiontreeclassifier__max_depth": [5, 10, 50, 100]}
+dt_model = DecisionTreeClassifier(random_state=123, class_weight='balanced')
 ```
 
 ```{python}
-grid_search = GridSearchCV(pipe_classification, param_grid, cv=5, return_train_score=True, verbose=1, n_jobs=-1, scoring= 'f1')
+param_grid = {"max_depth": scipy.stats.randint(low=1, high=100)}
+```
+
+```{python}
+grid_search = RandomizedSearchCV(dt_model, param_grid, cv=5, return_train_score=True,
+                           verbose=1, n_jobs=-1, scoring= 'f1', n_iter = 6)
 grid_search.fit(X_train, y_train);
 ```
+
 
 ```{python}
 grid_search.best_params_
@@ -344,7 +341,9 @@ grid_search.best_score_
 
 Notes: 
 
-Now we can tune our model for the thing we care about, which in this problem, is the recall. 
+This time we are going to use `class_weight='balanced'` in our Classifier. 
+
+Now we can tune our model for the thing we care about, in this case we are specifying the `f1` score.
 
 
 ---

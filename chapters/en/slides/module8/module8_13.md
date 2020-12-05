@@ -30,11 +30,7 @@ train_df.head()
 
 ``` python
 lr = LogisticRegression()
-lr.fit(X_train, y_train)
-```
-
-```out
-LogisticRegression()
+lr.fit(X_train, y_train);
 ```
 
 ``` python
@@ -71,18 +67,18 @@ array([[0.87848688, 0.12151312]])
 
 Notes:
 
-“Soft predictions” are where instead of a class for a prediction we
-instead get a predicted probability.
+“Soft predictions” are when instead of predicting a specific class the
+model returns a probability for each class.
 
 We use `predict_proba` instead of `predict` for this.
 
 This now returns an array with a probability of how confident the model
 is for each target class.
 
-We see now that the model is 87.8% sure that it’s class 0 (“Canada”) and
-12.15% confident that it’s class 0 (“USA”).
+We can see that the model is 87.8% sure that example 1 is class 0
+(“Canada”) and 12.15% confident that example 1 is class 0 (“USA”).
 
-`predict` works by predicting the class which the highest probability.
+`predict` works by predicting the class with the highest probability.
 
 ---
 
@@ -92,15 +88,15 @@ For linear regression we used something like this:
 
 <center>
 
-<img src="/module8/linreg.svg"  width = "50%" alt="404 image" />
+<img src="/module8/linreg.svg"  width = "70%" alt="404 image" />
 
 </center>
 
 But this won’t work with probabilities.
 
-#### **sigmoid function**(optional)
+#### **Sigmoid function**(optional)
 
-<img src="/module8/module8_13/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="/module8/module8_13/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" />
 
 Notes:
 
@@ -113,7 +109,7 @@ tool that will convert the raw model’s output into a range between
 taking the sign, we apply the sigmoid.
 
 But this won’t work with probabilities since we get values that are
-negative or greater than 1. ’
+negative or greater than 1.
 
 We use something called a **sigmoid function** “squashes” the raw model
 output from any number to the range \[0,1\].
@@ -183,7 +179,7 @@ was more confident in some than others.
 
 ---
 
-<img src="/module8/module8_13/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="/module8/module8_13/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" />
 
 Notes:
 

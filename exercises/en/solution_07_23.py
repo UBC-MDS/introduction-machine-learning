@@ -28,20 +28,17 @@ numeric_features = ["deck_no",
                     "capture_rt",
                     "total_bs"]
 
-categorical_features = [
-    "type"]
+categorical_features = ["type"]
 
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 
 # Build a pipeline containing the column transformer and an SVC model
 # Use the parameter class_weight="balanced"
