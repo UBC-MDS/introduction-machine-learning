@@ -66,7 +66,7 @@ print("MSE:", mse_calc)
 
 # Calculate the RMSE and save the result in an object named rmse_calc
 rmse_calc = np.sqrt(mean_squared_error(y_valid, predict_valid))
-print("RMSE:", mse_calc)
+print("RMSE:", rmse_calc)
 
 # Calculate the R^2 and save the result in an object named r2_calc
 r2_calc = r2_score(y_valid, predict_valid)
