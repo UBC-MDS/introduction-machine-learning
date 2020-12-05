@@ -34,21 +34,17 @@ numeric_features = [
     "draft_round",
     "draft_peak"]
 
-categorical_features = [
-    "team",
-    "country"]
+categorical_features = ["team", "country"]
 
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 
 # Build a pipeline containing the column transformer and an SVC model
 pipe_bb = make_pipeline(preprocessor, SVC())

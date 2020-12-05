@@ -33,7 +33,7 @@ categorical_features = ["team", "position", "country"]
 # Build a numeric pipeline
 ____ = ____
 
-# Build a categorical pipeline
+# Build a column pipeline
 ____ = ____
 
 # Build a categorical transformer

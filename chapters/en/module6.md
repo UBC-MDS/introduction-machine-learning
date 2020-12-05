@@ -943,14 +943,14 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 For this question, we will be using a dataset from assignment 1. 
 
 Here is the requested citation:
-_David Gil, Jose Luis Girela, Joaquin De Juan, M. Jose Gomez-Torres, and Magnus Johnsson. Predicting seminal quality with artificial intelligence methods. Expert Systems with Applications, 39(16):12564 â€“ 12573, 2012_
+_David Gil, Jose Luis Girela, Joaquin De Juan, M. Jose Gomez-Torres, and Magnus Johnsson. Predicting seminal quality with artificial intelligence methods. Expert Systems with Applications, 39(16):12564 “ 12573, 2012_
 
 We will be making pipelines and transforming our features appropriately. 
 
 
 First, let's take a look at our dataset and the features. 
 
-Disclaimer: Normally we should be investing more time to fully understand the data we are analyzing. We should be checking the unique values, using `.describe()`  and `.info()` to really get an idea of our features before deciding which transformations we want to apply. 
+*Disclaimer: Normally we should be investing more time to fully understand the data we are analyzing. We should be checking the unique values, using `.describe()`  and `.info()` to really get an idea of our features before deciding which transformations we want to apply.* 
 
 <codeblock id="fertility">
 

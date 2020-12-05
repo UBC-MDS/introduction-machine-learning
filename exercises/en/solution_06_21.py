@@ -49,7 +49,7 @@ smoking_order = [ 'never', 'occasional', 'daily']
 # The options are 'once a week', 'hardly ever or never', 'several times a week', 
 # 'several times a day' and 'every day'
 alcohol_order = ['hardly ever or never', 'once a week',
-                 'several times a week', 'several times a day', 'every day']
+                 'several times a week', 'every day', 'several times a day']
 
 # Pipelines
 
