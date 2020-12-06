@@ -31,13 +31,13 @@ Notes:
 Next, we are going to introduce to you a new model called **logistic
 regression**.
 
-It’s very similar to the `Ridge` classifier we sae earlier but this one
+It’s very similar to the `Ridge` classifier we saw earlier but this one
 has some key differences.
 
 For one, we can use it with classification instead of regression
 problems.
 
-For that reason we are going to bring back our cities dataset we saw at
+For that reason, we are going to bring back our cities dataset we saw at
 the beginning of this course.
 
 ---
@@ -54,21 +54,21 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.000708    0.000482    0.588235     0.601504
-1  0.000627    0.000396    0.588235     0.601504
-2  0.000553    0.000432    0.606061     0.597015
-3  0.000516    0.000363    0.606061     0.597015
-4  0.000902    0.000753    0.606061     0.597015
+0  0.001218    0.000765    0.588235     0.601504
+1  0.000779    0.000474    0.588235     0.601504
+2  0.000503    0.000339    0.606061     0.597015
+3  0.000561    0.000354    0.606061     0.597015
+4  0.000508    0.000330    0.606061     0.597015
 ```
 
 Notes:
 
 Although we don’t always do this in the slides, we should always be
-building a baseline model before we do any type of meaningful modelling.
+building a baseline model before we do any type of meaningful modeling.
 
 Let’s do that before we get straight into it.
 
-Now we can have a better idea on how well our model performs.
+Now we can have a better idea of how well our model performs.
 
 ---
 
@@ -84,17 +84,17 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.021131    0.002766    0.852941     0.827068
-1  0.013887    0.001981    0.823529     0.827068
-2  0.013444    0.001905    0.696970     0.858209
-3  0.014567    0.002652    0.787879     0.843284
-4  0.013251    0.001736    0.939394     0.805970
+0  0.010079    0.001466    0.852941     0.827068
+1  0.010100    0.001572    0.823529     0.827068
+2  0.009124    0.001512    0.696970     0.858209
+3  0.008666    0.001388    0.787879     0.843284
+4  0.008757    0.001309    0.939394     0.805970
 ```
 
 Notes:
 
 We import `LogisticRegression` from the `sklearn.linear_model` library
-like we did with `Ridge`.
+as we did with `Ridge`.
 
 This time we can see that our training and cross-validation scores have
 increased from those of our `DummyClassifier`.
@@ -107,10 +107,11 @@ increased from those of our `DummyClassifier`.
 
 Notes:
 
-We saw that with SVMs and decision trees we could visualize our model
-with decision boundaries and we can do the same thing here.
+We saw that with SVMs and decision trees that we could visualize our
+model with decision boundaries and we can do the same thing with
+logistic regression.
 
-Here we can see we get a line that separates our two target classes.
+Here, we can see we get a line that separates our two target classes.
 
 ---
 
@@ -166,9 +167,10 @@ Just like we saw for `Ridge`. we can get the equation of that line and
 the coefficients of our `latitude` and `longitude` features using
 `.coef_`.
 
-In this case we see that both are negative weights,
+In this case, we see that both are negative weights,
 
-We also can see that the weight of latitude is larger in magnitude.
+We also can see that the weight of latitude is larger in magnitude than
+that of longitude.
 
 This makes a lot of sense because Canada as a country lies above the USA
 and so we expect `latitude` values to contribute more to a prediction
@@ -205,16 +207,18 @@ array(['Canada'], dtype=object)
 
 Notes:
 
-Again let’s take an example from our test and calculate the outcome
+Again, let’s take an example from our test set and calculate the outcome
 using our weights and intercept.
 
 We get a value of -1.978.
 
 In `Ridge` our prediction would be the calculated result so -1.97, but
-for logistic regression we check the **sign** of the calculation only.
+for logistic regression, we check the **sign** of the calculation only.
 
-Our threshold is 0. - If the result was positive, it predicts the one
-class; if negative, it predict the other.
+Our threshold is 0.
+
+  - If the result was positive, it predicts one class; if negative, it
+    predicts the other.
 
 That means everything negative corresponds to “Canada” and everything
 positive predicts a class of “USA”.
@@ -222,7 +226,9 @@ positive predicts a class of “USA”.
 If we use `predict`, it gives us the same result as well\!
 
 These are “hard predictions” but we can also use this for something
-called “soft predictions” as well (That’s in the next slide deck\!).
+called “soft predictions” as well.
+
+(That’s in the next slide deck\!)
 
 ---
 
@@ -259,16 +265,16 @@ pd.DataFrame(scores_dict)
 
 Notes:
 
-At this point you should be feeling pretty comfortable with
+At this point, you should be feeling pretty comfortable with
 hyperparameters.
 
 We saw that `Ridge` has the hyperparameter `alpha`, well `C`
-(annoyingly) has the opposite effect on the fundamental trade off.
+(annoyingly) has the opposite effect on the fundamental trade-off.
 
 In general, we say smaller `C` leads to a less complex model (whereas
 with `Ridge`, lower `alpha` means higher complexity).
 
-higher values of `C` leads to more overfitting and lower values to less
+Higher values of `C` leads to more overfitting and lower values to less
 overfitting.
 
 ---
@@ -286,8 +292,8 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 10 candidates, totalling 50 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.9s
-[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.9s finished
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.5s
+[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.6s finished
 ```
 
 ``` python
@@ -295,7 +301,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'C': 12.786946328668414}
+{'C': 99.01564180220849}
 ```
 
 ``` python
@@ -305,6 +311,8 @@ grid_search.best_score_
 ```out
 0.8201426024955436
 ```
+
+Notes:
 
 `LogisticRegression`’s default `C` hyperparameter is 1.
 

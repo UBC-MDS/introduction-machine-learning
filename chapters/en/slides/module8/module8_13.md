@@ -2,13 +2,11 @@
 type: slides
 ---
 
-# Introducting linear classifiers: linear regression
+# Predicting probabilities
 
 Notes: <br>
 
 ---
-
-## Predicting probabilities
 
 ``` python
 cities_df = pd.read_csv("data/canada_usa_cities.csv")
@@ -43,7 +41,7 @@ array(['Canada'], dtype=object)
 
 Notes:
 
-In the last slide deck we saw that we can make “hard” predictions with
+In the last slide deck, we saw that we can make “hard predictions” with
 logistic regression using `predict` but logistic regression also can
 make something called “soft predictions”.
 
@@ -67,7 +65,7 @@ array([[0.87848688, 0.12151312]])
 
 Notes:
 
-“Soft predictions” are when instead of predicting a specific class the
+“Soft predictions” are when instead of predicting a specific class, the
 model returns a probability for each class.
 
 We use `predict_proba` instead of `predict` for this.
@@ -96,23 +94,22 @@ But this won’t work with probabilities.
 
 #### **Sigmoid function**(optional)
 
-<img src="/module8/module8_13/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="/module8/module8_13/unnamed-chunk-7-1.png" width="72%" style="display: block; margin: auto;" />
 
 Notes:
 
 Ok so we have this option but what exactly is happening behind the
-scenes
+scenes?
 
-Because probabilities MUST be between the values of 0, and 1 we need a
+Because probabilities MUST be between the values of 0 and 1 we need a
 tool that will convert the raw model’s output into a range between
-\[0,1\] To convert the raw model output into probabilities, instead of
-taking the sign, we apply the sigmoid.
+\[0,1\].
 
-But this won’t work with probabilities since we get values that are
-negative or greater than 1.
+We currently can’t take the model’s raw output since we get values that
+are negative or greater than 1.
 
-We use something called a **sigmoid function** “squashes” the raw model
-output from any number to the range \[0,1\].
+We need to use something called a **sigmoid function** which “squashes”
+the raw model output from any number into the range \[0,1\].
 
 ---
 
@@ -158,35 +155,39 @@ pd.DataFrame(data_dict).tail(10)
 57      USA     USA   [0.03121394423109436, 0.9687860557689056]
 123  Canada  Canada    [0.6537036743991862, 0.3462963256008138]
 106  Canada  Canada    [0.8444267867198362, 0.1555732132801638]
-83   Canada  Canada    [0.6537036743991862, 0.3462963256008138]
-17      USA  Canada    [0.6984848138411375, 0.3015151861588626]
+..      ...     ...                                         ...
 98   Canada  Canada    [0.769706381275301, 0.23029361872469897]
 66      USA     USA  [0.053017116268726405, 0.9469828837312736]
 126  Canada  Canada   [0.6329448842395046, 0.36705511576049543]
 109  Canada  Canada    [0.8154016516676702, 0.1845983483323298]
+
+[10 rows x 3 columns]
 ```
 
 Notes:
 
-Let’s take a look and compare the to the actual correct labels.
+Let’s take a look and compare them to the actual correct labels.
 
 We can see that the first example was incorrectly predicted as “Canada”
-instead of “USA” but we also see that the model what not extremely
+instead of “USA” but we also see that the model was not extremely
 confident in this prediction. It was 69.8% confident.
 
-The rest of this selection the model corrected predicted but the model
-was more confident in some than others.
+For the rest of this selection, the model corrected predicted each city
+but the model was more confident in some than others.
 
 ---
+
+<br> <br>
 
 <img src="/module8/module8_13/unnamed-chunk-11-1.png" width="90%" style="display: block; margin: auto;" />
 
 Notes:
 
-When we use predict we get a decision boundary with either blue or red,
-a colour for each class but now, with probabilities, we can see that the
-model is less confident the closer the observations are to the decision
-boundary.
+When we use `predict`, we get a decision boundary with either blue or
+red, a colour for each class.
+
+With probabilities using `predict_proba`, we can see that the model is
+less confident the closer the observations are to the decision boundary.
 
 ---
 
@@ -217,9 +218,7 @@ lr_targets.sort_values(by='probability_canada')
 78      USA     USA            0.007685
 34      USA     USA            0.008317
 41      USA     USA            0.008958
-38      USA     USA            0.009194
 ..      ...     ...                 ...
-149  Canada  Canada            0.924004
 81   Canada  Canada            0.931792
 0       USA  Canada            0.932487
 165  Canada  Canada            0.951092
@@ -230,16 +229,21 @@ lr_targets.sort_values(by='probability_canada')
 
 Notes:
 
-Let’s find an example that the model is pretty confident. This time
-where we make our dataframe we are only bringing in the probability of
-predicting “Canada”. This is because we are 0 percent confident a
-prediction is “Canada”, the model is 100% confident in “USA”.
+Let’s find some examples where the model is pretty confident in it’s
+predictions.
+
+This time, when we make our dataframe, we are only bringing in the
+probability of predicting “Canada”. This is because if we are 10 percent
+confident a prediction is “Canada”, the model is 90% confident in “USA”.
 
 Here we can see both extremes.
 
-Like we are 99.345% (1- 0.006547) confident that city 37 is “USA” and
-96.19% confident that city 1 is “Canada”. The firt one it got right, but
-the second one it, didn’t, let’s plot them and see why.
+We are 99.345% (1- 0.006547) confident that city 37 is “USA” and 96.19%
+confident that city 1 is “Canada”.
+
+The model got the first example right, but the second one, it didn’t.
+
+Let’s plot this and see why.
 
 ---
 
@@ -257,9 +261,11 @@ X_train.loc[[1,37]]
 
 Notes:
 
-Both points are “USA” cities but the second one we can now see why the
-model was more confident in this one. This city is likely in Alaska but
-the model doesn’t know that and predicts more so on how close it lies to
+Both points are “USA” cities but we can now see why the model was so
+confident in both examples.
+
+The “USA” city it got wrong is likely in Alaska but the model doesn’t
+know that and predicts more so on how close and on which side it lies to
 the decision boundary.
 
 ---
@@ -283,16 +289,17 @@ lr_targets.sort_values(by="prob_difference").head()
 
 Notes:
 
-Let’s now find a example where the model is less certain on it’s
+Let’s now find an example where the model is less certain on its
 prediction.
 
 We can do this by finding the absolute value of the difference between
-the two probabilities. The small the value, the more uncertain the model
-is.
+the two probabilities.
+
+The smaller the value, the more uncertain the model is.
 
 Here we can see that city 61 and 54 have the model pretty stumped.
 
-Let’s see why.
+Let’s plot them and see why.
 
 ---
 
@@ -311,8 +318,10 @@ X_train.loc[[61, 54]]
 Notes:
 
 When we plot the cities with the decision boundary, we get a clear
-answer. The cities lies almost completely on the boundary making the
-model very divided between how to classify them
+answer.
+
+The cities lie almost completely on the boundary, this makes the model
+very divided on how to classify them.
 
 ---
 

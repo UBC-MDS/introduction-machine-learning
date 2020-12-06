@@ -1,7 +1,7 @@
 ---
 title: 'Module 8: Linear Models'
 description:
-  "This module will teach you about different types of linear models. You will learn how this model can be interpreted as well as it's advantages and limitations."
+  "This module will teach you about different types of linear models. You will learn how this model can be interpreted as well as its advantages and limitations."
 prev: /module7
 next: /module9
 type: chapter
@@ -15,7 +15,7 @@ id: 8
 </exercise>
 
 
-<exercise id="1" title="Introducing Linear Classifiers: Ridge"  type="slides, video">
+<exercise id="1" title="Introducing Linear Classifiers"  type="slides, video">
 <slides source="module8/module8_01" shot="0" start="13:2011" end="14:1221">
 </slides>
 </exercise>
@@ -48,7 +48,7 @@ Closer but not quiet.
 
 <opt text="<code>alpheba</code>" >
 
-Any chance you have seen the musical Wicked? This is a name not a hyperparameter. 
+Any chance you have seen the musical Wicked? This is a name, not a hyperparameter. 
 
 </opt>
 
@@ -74,7 +74,7 @@ This is the number of false negatives!
 
 <opt text="a plane"  correct="true">
 
-Great! We would need to use a plane which is 2 dimensional, to visualize our Ridge model in a 3 dimensional space. 
+Great! We would need to use a plane which is 2 dimensional, to visualize our Ridge model in a 3-dimensional space. 
 
 </opt>
 
@@ -93,7 +93,7 @@ This the number of true negatives.
 <exercise id="3" title="True or False: Ridge">
 
 **True or False?**     
-*Ridge is regression modeling appoach.*
+*Ridge is a regression modeling approach.*
 
 <choice id="1" >
 <opt text="True"  correct="true">
@@ -139,11 +139,11 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Using our well know basketball dataset, we are going to build a model using the `height` feature and assess if it can help predict a players `weight`.
+Using our well know basketball dataset, we are going to build a model using the `height` feature and assess if it can help predict a player's` weight`.
 
 Tasks:   
 - Import the Ridge function. 
-- Create a mape scorer from the map function that we provided. Make sure you specify in the scorer that lower number are better for MAPE. 
+- Create a MAPE scorer from the `mape` function that we provided. Make sure you specify in the scorer that lower numbers are better for MAPE. 
 - Build a Ridge model called `ridge_bb`.
 - Use `RandomizedSearchCV` to hyperparameter tune `alpha`. Fill the blanks so it uses `ridge_bb` as an estimator and the values from `param_dist`.
 - Fit your grid search on the training data.
@@ -153,7 +153,7 @@ Tasks:
 <codeblock id="08_04">
 
 - Are you importing the Ridge function?
-- Are you making the mape scorer with `make_scorer(mape, greater_is_better=False)`?
+- Are you making the MAPE scorer with `make_scorer(mape, greater_is_better=False)`?
 - Are you filling in the blank for `RandomizedSearchCV` as  `random_search = RandomizedSearchCV(ridge_bb, param_dist, n_iter=20,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
 - Are you fitting with `random_search.fit(X_train, y_train)`?
 - Are you finding the best alpha as `random_search.best_params_`? 
@@ -208,7 +208,7 @@ Not 0 this time!
 
 
 **Question 2**    
-If I had 2 laptops 3 pencils in my backpack, What weight would my model predict for my backpack?
+If I had 2 laptops 3 pencils in my backpack, what weight would my model predict for my backpack?
 
 <choice id="2" >
 
@@ -274,7 +274,7 @@ Great!
 
 <opt text="False">
 
-Coefficients actual explain how how model got to a certain prediction. 
+Coefficients actually explain how the model got to a certain prediction. 
 
 </opt>
 
@@ -303,8 +303,8 @@ Tasks:
 - Build and fit a `Ridge` model with default hyperparameters and name it `ridge_bb`. 
 - What are the coefficients for this model? Save these in an object named `bb_weights`.
 - What is the intercept for this model? Save this in an object named `bb_intercept`.
-- Using the weights and intercept discovered above, calculate the models's prediction and save the result in `player_predict`.
-- Check your answer using predict. 
+- Using the weights and intercept discovered above, calculate the model's prediction and save the result in `player_predict`.
+- Check your answer using `predict`. 
 
 <codeblock id="08_08">
 
@@ -312,7 +312,7 @@ Tasks:
 - Are you finding the coefficients using `ridge_bb.coef_`?
 print(bb_weights)
 - Are you using `ridge_bb.intercept_` to find your model's intercept?
-- Are you calculating your model's predictiong with `bb_intercept + (bb_weights*player_stats).sum(axis=1)`?
+- Are you calculating your model's predictions with `bb_intercept + (bb_weights*player_stats).sum(axis=1)`?
 - You can check your calculation using `predict` with `ridge_bb.predict(player_stats)`.
 
 
@@ -334,7 +334,7 @@ Use the following coefficients and intercept to answer the next 2 questions.
 |   Word            | Coefficient | 
 |--------------------|-------------|
 |excellent           | 2.2         | 
-|dissapointment      | -2.4        |
+|disappointment      | -2.4        |
 |flawless            | 1.4         |
 |boring              | -1.3        |
 |unwatchable         | -1.7        |
@@ -344,11 +344,13 @@ Use the following coefficients and intercept to answer the next 2 questions.
 Intercept = 1.3
 
 
-**Question 1**    
+**Question 1**   
 
-What value do you calculate after using the weights in the model above for the following review? The input feature value would be the number of times the word appears in the review (like `CountVectorizer`).
+<em>I thought it was going to be excellent but instead, it was unwatchable and boring. </em>
 
-<em>I thought it was going to be excellent but instead it was unwatchable and boring. </em>
+What value do you calculate after using the weights in the model above for the above review? 
+The input feature value would be the number of times the word appears in the review (like `CountVectorizer`).
+
 
 <choice id="1">
 
@@ -372,7 +374,7 @@ Are you subtracting the intercept?
 
 <opt text="-0.5" >
 
-Are you mixing up the sign.
+Are you mixing up the sign?
 
 </opt>
 
@@ -380,19 +382,19 @@ Are you mixing up the sign.
 
 
 **Question 2**    
-Would the model classify this review as positive or negative?
+Would the model classify this review as a positive or negative review?
 
 <choice id="2">
 
-<opt text="positive" correct="true">
+<opt text="Positive review" correct="true">
 
 It's a positive value so the model would classify it as a positive review. 
 
 </opt>
 
-<opt text= "negative">
+<opt text= "Negative review">
  
-The model can't see what we see. It's calculating a value based on the weights and intercept and it results in a positive value. 
+The model can't see what we see. It's calculating a value based on the weights and the intercept which results in a positive value. 
 
 </opt>
 
@@ -405,7 +407,7 @@ The model can't see what we see. It's calculating a value based on the weights a
 <exercise id="11" title="True or False: Logistic Regression">
 
 **True or False?**     
-*Increasing logistic Regression's `C` hyperparameter increases the model's complexity*
+*Increasing logistic regression's `C` hyperparameter increases the model's complexity.*
 
 <choice id="1" >
 <opt text="True" correct="true">
@@ -423,12 +425,12 @@ Are you mixing this up with `Ridge`'s `alpha` hyperparameter?
 </choice>
 
 **True or False**      
-*Unlike with `Ridge` regression, coefficients are not interpretable with logistic Regression.*
+*Unlike with `Ridge` regression, coefficients are not interpretable with logistic regression.*
 
 <choice id="2">
 <opt text="True">
 
-Coefficients actual explain how how model got to a certain prediction and much it contribute to a classification. 
+Coefficients explain how a model got to a certain prediction and how much it contributes to a classification. 
 
 </opt>
 
@@ -452,19 +454,19 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's give a warm welcome back to our wonderful Pokemon dataset. We want to see how well our model does with logistic regression. Let's try building a simple model with default parameters to start. 
+Let's give a warm welcome back to our wonderful Pokémon dataset. We want to see how well our model does with logistic regression. Let's try building a simple model with default parameters to start. 
 
 
 Tasks:   
 - Import the logistic regression function. 
-- Build and fit a pipeline containing the column transformer and a Logistic Regression model and use the parameter class_weight="balanced". Name this pipeline `pkm_pipe`.
+- Build and fit a pipeline containing the column transformer and a logistic regression model and use the parameter `class_weight="balanced"`. Name this pipeline `pkm_pipe`.
 - Score your model on the test set using the default accuracy measurement. Save this in an object named `lr_scores`.
-- Fill in the blanks below to asses the model's feature coefficients. 
+- Fill in the blanks below to assess the model's feature coefficients. 
 
 <codeblock id="08_12">
 
 
-- Are you making the mape scorer with `make_scorer(mape, greater_is_better=False)`?
+- Are you making the MAPE scorer with `make_scorer(mape, greater_is_better=False)`?
 - Are you filling in the blank for `RandomizedSearchCV` as  `random_search = RandomizedSearchCV(ridge_bb, param_dist, n_iter=20,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
 - Are you fitting with `random_search.fit(X_train, y_train)`?
 - Are you finding the best alpha as `random_search.best_params_`? 
@@ -477,8 +479,6 @@ Tasks:
 
 </codeblock>
 
-
-<br> 
 <br>
 
 **Question 1**    
@@ -530,11 +530,7 @@ Which feature has the greatest magnitude?
 **Question 2**    
 
 As the capture rate value increases, will the model more likely predict a legendary or not legendary 
-Pokemon?
-
-```out
-['hired', 'hired', 'hired', 'not hired', 'not hired', 'not hired', 'hired', 'not hired', 'hired', 'hired']
-```
+Pokémon?
 
 <choice id="2" >
 
@@ -656,10 +652,11 @@ The model did better than 0 right!
 <exercise id="15" title="True or False: predict_proba">
 
 **True or False?**     
-*`predict` returns the positive class if the predicted probability of the positive class is greater than 0.5*
+*`predict` returns the positive class if the predicted probability of the positive class is greater than 0.5.*
 
-<choice id="1" correct="true">
-<opt text="True" >
+<choice id="1"  correct="true">
+
+<opt text="True" correct="true">
 
 Nice!
 
@@ -685,7 +682,7 @@ Great! It's the sigmoid function!
 
 <opt text="False">
 
-We need to tranform the raw model output so theat they lie between the values of 0 and 1 somehow! 
+We need to transform the raw model output so that it lies between the values of 0 and 1 somehow! 
 
 </opt>
 
@@ -703,19 +700,19 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's keep working with the Pokemon dataset. This time let's do a bit more. Let's hyperparameter tune our `C` and see if we can find an examples where the model is confident in it's prediction
+Let's keep working with the Pokémon dataset. This time let's do a bit more. Let's hyperparameter tune our `C` and see if we can find an example where the model is confident in its prediction.
 
 
 Tasks:   
-- Build and fit a pipeline containing the column transformer and a Logistic Regression model that used the parameter class_weight="balanced". Name this pipeline `pkm_pipe`.
-- Perform RandomizedSearchCV using the parameters specified in param_grid. Use n_iter equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pkm_grid`.
+- Build and fit a pipeline containing the column transformer and a Logistic Regression model that used the parameter `class_weight="balanced"`. Name this pipeline `pkm_pipe`.
+- Perform `RandomizedSearchCV` using the parameters specified in `param_grid`. Use `n_iter` equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pkm_grid`.
 - Fit your `pmk_grid` on the training data.
 - What is the best `C` value? Save it in an object name `pkm_best_c`.
 - What is the best f1 score? Save it in an object named `pkm_best_score`.
 - Find the predictions of the test set using `predict`. Save this in an object named `predicted_y`.
 - Find the target class probabilities of the test set using `predict_proba`. 
 - Save this in an object named `proba_y`.
-- Take the dataframe `lr_probs` and sort them in descending order of the models confidence in predicting legendary pokemon. Save this in an object named `legend_sorted`. 
+- Take the dataframe `lr_probs` and sort them in descending order of the model's confidence in predicting legendary Pokémon. Save this in an object named `legend_sorted`. 
 
 <codeblock id="08_16">
 
@@ -733,7 +730,7 @@ Tasks:
 
 </exercise>
 
-<exercise id="17" title="Multi-class Regression"  type="slides, video">
+<exercise id="17" title="Multi-class Classification"  type="slides, video">
 <slides source="module8/module8_17" shot="3" start="13:2011" end="14:1221">
 </slides>
 </exercise>
@@ -746,16 +743,16 @@ Use the following coefficient output to answer the questions below:
 
 ```out
               Forward   Guard      Other
-weight       0.061025 -0.193441  0.132416
+weight      -0.031025 -0.193441  0.224466
 height       0.227869 -1.358500  1.130631
-draft_year  -0.003043  0.010280 -0.007237
+draft_year  -0.017517  0.010280  0.007237
 draft_round  0.250149  0.501243 -0.751392
 draft_peak  -0.006979 -0.005453  0.012432
 
 ```
 
 **Question 1**    
-For which feature does an increased value, pushes the prediction away from the `Other` class?
+For which feature does an increased value, push the prediction away from the `Other` class?
 
 <choice id="1">
 
@@ -835,7 +832,7 @@ In comparison to the other two features, where is the coefficient negative for `
 <exercise id="19" title="True or False: Coefficients">
 
 **True or False?**     
-*Decision Ttrees need special attention for multi-class problems.*
+*Decision trees need special attention for multi-class problems.*
 
 <choice id="1" >
 <opt text="True" >
@@ -858,7 +855,7 @@ Cool!
 <choice id="2">
 <opt text="True" >
 
-There is  1 dimension for each feature, not target class. 
+There is  1 dimension for each feature, not each target class. 
 
 </opt>
 
@@ -882,15 +879,21 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's keep working with the Pokemon dataset. This time let's do a bit more. Let's hyperparameter tune our `C` and see if we can find an examples where the model is confident in it's prediction
+Bringing back the Basketball dataset, we are going to take a look at how we assess the predictions from a logistic regression model. 
 
 
 Tasks:   
-- Build and fit a pipeline containing the column transformer and a Logistic Regression model. Name this pipeline `lr_pipe`.
+- Build and fit a pipeline containing the column transformer and a logistic regression model. Name this pipeline `lr_pipe`.
 - Fit your pipeline on the training data.
 - Plot a confusion matrix for the test set prediction results and answer the questions below. 
 
 <codeblock id="08_20">
+
+- Are you making your `lr_pipe` pipeline with `make_pipeline(col_transformer,LogisticRegression())`?
+- Are you Fitting your pipeline on the training set with `lr_pipe.fit(X_train, y_train)`?
+- Are you plotting your confusion matrix with `plot_confusion_matrix(lr_pipe, X_test, y_test,cmap="PuRd");`
+
+</codeblock>
 
 
 **Question 1**    
@@ -898,7 +901,6 @@ Tasks:
 Calculate the recall if `Other` is considered the positive label? 
 _Remember: Recall = TP/(TP+FN)_
 
-</codeblock>
 
 <choice id="1">
 
@@ -945,13 +947,13 @@ Great!
 
 <opt text= "32" >
  
-this is the number of examples labelled `G`.
+this is the number of examples labeled `G`.
 
 </opt>
 
 <opt text="18"  >
 
-this is the number of examples labelled `Other`.
+this is the number of examples labeled `Other`.
 
 </opt>
 

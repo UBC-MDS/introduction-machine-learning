@@ -10,13 +10,13 @@ Notes: <br>
 
 ## Intuition behind linear classifiers
 
-Listing 1: 5 bedroom, 6 bathroom, 3000 square feet, 1 year old -\> $6.39
-million
+Listing 1: 5 bedrooms, 6 bathrooms, 3000 square feet, 2 years old -\>
+$6.39 million
 
 Listing 2: 1 bedroom, 1 bathroom, 800 square feet, 90 years old -\>
 $1.67 million
 
-Listing 3: 3 bedroom, 2 bathroom, 1875 square feet, 66 years old -\>
+Listing 3: 3 bedrooms, 2 bathrooms, 1875 square feet, 66 years old -\>
 $3.92 million
 
 <center>
@@ -27,17 +27,15 @@ $3.92 million
 
 Notes:
 
-Unlike with decision trees where we make predictions with rules, and
+Unlike with decision trees where we make predictions with rules and
 analogy-based models where we predict a certain class using distance to
-other examples,
-
-linear classifiers use **coefficients** (or sometimes know as “weights”)
-associated with features.
+other examples, linear classifiers use **coefficients** (or sometimes
+known as “weights”) associated with features.
 
 We then use these learned coefficients to make predictions.
 
-For example suppose we are predicting the price of a house and we have 4
-features; number of bedrooms, number of bathrooms, square footage, and
+For example, suppose we are predicting the price of a house and we have
+4 features; number of bedrooms, number of bathrooms, square footage, and
 age.
 
 ---
@@ -133,8 +131,8 @@ Notes:
 We can make our pipeline as usual and train it, and assess our training
 score.
 
-we saw that with linear classifiers we have weights associated with each
-feature our model.
+We saw that with linear classifiers we have weights associated with each
+feature of our model.
 
 How do we get that? We can use `.coef_` to obtain them from our trained
 model.
@@ -166,41 +164,81 @@ latitude          8.923536
 longitude        -1.345233
 ```
 
+Notes:
+
+One of the primary advantages of linear classifiers is their ability to
+interpret models using these coefficients.
+
+What do these mean? Let’s try to make some sense of it here.
+
+We have our coefficients but we should see which feature corresponds to
+which coefficient.
+
+We can do that by making a dataframe with both values.
+
+We can use these weights to interpret our model. They show us how much
+each of these features affects our model’s prediction.
+
+For example, if we had a house with 2 stores nearby, our `num_stores`
+value is 2. That means that 2 \* 1.26 = 2.52 will contribute to our
+predicted price\!
+
+The negative coefficients work in the opposite way, for example, every
+unit increase in age of a house will, subtracts 0.244 from the house’s
+predicted value.
+
+---
+
 ``` python
-words_weights_df.sort_values(by='Weight')
+words_weights_df.abs().sort_values(by='Weight')
 ```
 
 ```out
                     Weight
-longitude        -1.345233
-house_age        -0.243214
-distance_station -0.005337
+distance_station  0.005337
+house_age         0.243214
 num_stores        1.258782
+longitude         1.345233
 latitude          8.923536
 ```
 
 Notes:
 
-One of the primary advantage of linear classifiers is their ability to
-interpret models using these coefficients.
+In linear models, the coefficients tell us how each feature affects the
+prediction.
 
-What does these mean? Let’s try to make some sense of it here.
-
-We have our coefficients but we should see which feature they correspond
-to, we can do that making a dataframe with both values.
-
-We can use these weight to interpret our model. They show us how much
-each of these features effect our model’s prediction.
-
-For example, if we have have an example with 2 store nearby our
-`num_stores` value is 2. that means that 2 \* 1.26 = 2.52 will
-contribute to our predicted price\!
-
-The negative coefficients work in the oposite way, for example, every
-unit increase in age of a house will, subtracts 0.244 from the house’s
-predicted value.
+So, looking at the features which have coefficient with bigger
+magnitudes might be useful and contribute more to the prediction.
 
 ---
+
+## Interpreting learned weights/coefficients
+
+<br> <br>
+
+In linear models:
+
+  - if the coefficient is +, then ↑ the feature values ↑ the prediction
+    value.  
+  - if the coefficient is -, then ↑ the feature values ↓ the prediction
+    value.  
+  - if the coefficient is 0, the feature is not used in making a
+    prediction.
+
+Notes:
+
+In linear models:
+
+  - if the coefficient is positive, then increasing the feature values
+    increases the prediction value.  
+  - if the coefficient is negative, then increasing the feature values
+    decreases the prediction value.  
+  - if the coefficient is zero, the feature is not used in making a
+    prediction
+
+---
+
+## Predicting
 
 ``` python
 X_train.iloc[0:1]
@@ -259,7 +297,7 @@ intercept
 Notes:
 
 Using our weights, and the model’s intercept (bias) we can calculate the
-model’s predictions ourselves.
+model’s predictions ourselves as well.
 
 ---
 
@@ -288,8 +326,8 @@ array([52.35605528])
 
 Notes:
 
-All of these features values multiplied by the weights with the
-intercept contribute to our prediction.
+All of these feature values multiplied by the weights then adding the
+intercept, contribute to our prediction.
 
 When we do this by hand using the model’s weights and intercept, we get
 the same as if we used `predict`.

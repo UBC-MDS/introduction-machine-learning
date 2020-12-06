@@ -117,11 +117,11 @@ train_df.head()
 Notes: 
 
 We've seen many regression models such as `DecisionTreeRegressor` and `KNeighborsRegressor` but now we have a new one that we are going to explore called  
-linear regression. 
+**linear regression**. 
 
 Linear regression is one of the most basic and popular ML/statistical techniques.
 
-Let's bring back our hypothetical snake data we saw in module 4 to explain this concept. 
+Let's bring back the hypothetical snake data that we saw in module 4. 
 
 
 
@@ -155,18 +155,18 @@ rm.score(X_train, y_train)
 
 Notes: 
 
-We can import LinearRegression in like all the previous models we've used except we are going to instead focus on it's close cousin `Ridge`. 
+We can import the `LinearRegression` model like we have for all the previous models we've used  except we are going to instead focus on its close cousin `Ridge`. 
 
 `Ridge` is more flexible than `LinearRegression` and we will explain why shortly. 
 
-When we import `Ridge` you'll notice that we are importing from the `linear_model` sklearn library. 
+When we import `Ridge`, you'll notice that we are importing from the `linear_model` Sklearn library. 
 
-`Ridge`, has the same fit-predict paradiagm as the other models we have seen. 
+`Ridge`, has the same fit-predict paradigm as the other models we have seen. 
 
-That means we can `fit` on training set and `predict` a numeric prediction. 
+That means we can `fit` on the training set and `predict` a numeric prediction. 
 
 
-We see that running `predict` returns the predicted housing prices for our examples. 
+We see that `predict` returns the predicted housing prices for our examples. 
 
 ---
 
@@ -187,13 +187,13 @@ Notes:
 
 Ridge has hyperparameters just like the rest of the models we learned. 
 
-The `alpha` hyperparameter is what make it more flexible than using `LinearRegression`. 
+The `alpha` hyperparameter is what makes it more flexible than using `LinearRegression`. 
 
-Remember the fundamental trade off we spoke about in module 3?
+Remember the fundamental trade-off we spoke about in module 3?
 
-**"As model complexity ↑, Score_train ↑ and Score_train − Score_valid tend to ↑"**
+**"As model complexity ↑, training score ↑ and training score– validation score tend to ↑"**
 
-Well, `alpha` controls the controls this fundamental tradeoff!
+Well, `alpha` controls this fundamental trade-off!
 
 ---
 
@@ -222,7 +222,7 @@ Notes:
 
 As we increase `alpha`, we are decreasing our model complexity which means our training score is lower and we are more likely to underfit. 
 
-If we decrease `alpha`, our model complexity is increasing and consequentially our training score is increasing. Our chances of overfitting is going up. 
+If we decrease `alpha`, our model complexity is increasing and consequentially our training score is increasing. Our chances of overfitting are going up. 
 
 
 ---
@@ -252,16 +252,16 @@ as_vegaspec(py$chart3)
 
 Notes: 
 
-In our data we only have 1 feature `length` which helps predict our target feature `weight`. 
+In our data, we only have 1 feature `length` which helps predict our target feature `weight`. 
 
-We can use a 2D graph to plot this and our Ridge regression corresponds to a line. 
+We can use a 2D graph to plot this and our ridge regression corresponds to a line. 
 
-In this plot, the green markers are the examples and our orange line is our Ridge regression line. 
+In this plot, the blue markers are the examples and our orange line is our Ridge regression line. 
 
 
-If we had a additional feature, let's say, `width`, we now would have 2 features and 1 target so our ridge regression would correspond to a plan in a 3 dimensional space. 
+If we had an additional feature, let's say, `width`, we now would have 2 features and 1 target so our ridge regression would correspond to a plan in a 3-dimensional space. 
 
-As we increase our features beyond 3 it become harder to visualize. 
+As we increase our features beyond 3 it becomes harder to visualize. 
 
 ---
 

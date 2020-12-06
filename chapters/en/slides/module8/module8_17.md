@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Multi-class Classification
+# Multi-class classification
 
 Notes: <br>
 
@@ -48,13 +48,15 @@ array([0, 1, 2, 2, 0, 2, 1, 1, 0, 2, 1, 2, 1, 0, 1, 0, 2, 2, 2, 1, 2, 1, 0, 2, 2
 Notes:
 
 The classification problems we have looked at so far in this module have
-had binary labels (2 possible labels)
+had binary labels (2 possible labels).
 
-But we’ve seen that target label’s are not restricted to this. Often we
-will have classification problems where we have multiple labels such as
-this wine dataset we are going to use in this section.
+But we’ve seen that target labels are not restricted to this.
 
-Here you can see that we have 3 classes: 0, 1, 2.
+Often we will have classification problems where we have multiple labels
+such as this wine dataset we are going to use.
+
+Here we have 3 classes for our target: 0, 1, 2 (maybe red, white and
+rose?).
 
 ---
 
@@ -81,16 +83,6 @@ array([[ 0.53342904,  0.43649341,  0.38582143, -0.04885916, -0.02585522,  0.5432
        [ 0.16846029,  0.36948366,  0.07387328,  0.14014478,  0.06087417, -0.47940986, -1.14149585, -0.13464466, -0.69140365,  0.71232667, -0.28894401, -0.58339285, -0.00190841]])
 ```
 
-Notes:
-
-For some models, like a decision trees, we don’t have to think about
-anything differently at all, but for our linear classifier, on the other
-hand, things are a bit different.
-
-What is going on here?
-
----
-
 ``` python
 lr.coef_.shape
 ```
@@ -98,6 +90,21 @@ lr.coef_.shape
 ```out
 (3, 13)
 ```
+
+Notes:
+
+For some models, like decision trees, we don’t have to think about
+anything differently at all, but for our linear classifier, on the other
+hand, things are a bit different.
+
+Let’s make a Logistic Regression here and look at the coefficients.
+(Ignore the `max_iter` for now. You can look into it
+<a href="https://medium.com/analytics-vidhya/a-complete-understanding-of-how-the-logistic-regression-can-perform-classification-a8e951d31c76" target="_blank">here</a>
+if you like)
+
+What is going on here?
+
+---
 
 ``` python
 lr_coefs = pd.DataFrame(data=lr.coef_.T, index=X_train.columns, columns=lr.classes_)
@@ -121,24 +128,13 @@ od280/od315_of_diluted_wines  0.614137 -0.030744 -0.583393
 proline                       0.011025 -0.009116 -0.001908
 ```
 
-``` python
-lr_coefs.loc["alcohol", 1]
-```
-
-```out
--0.701889329444353
-```
-
 Notes:
 
 What’s happening here is that we have one coefficient per feature *per
 class*.
 
-The interpretation is a feature importance for predicting a certain
-class.
-
-This means that if alcohol is larger , it’s more likely to predict class
-1.
+The interpretation is that these coefficients contributes to the
+predicting a certain class.
 
 The specific interpretation depends on the way the logistic regression
 is implementing multi-class.
@@ -171,8 +167,6 @@ If we look at the output of `predict_proba` you’ll also see that there
 is a probability for each class and each row adds up to 1 as we would
 expect (total probability = 1).
 
-We can also sum them up per row and we can see they add up to 1 as well.
-
 ---
 
 ``` python
@@ -187,13 +181,14 @@ array([[19,  0,  0],
 
 ``` python
 plot_confusion_matrix(lr, X_test, y_test, display_labels=lr.classes_, cmap='Blues', values_format='d');
-plt.show()
 ```
 
-<img src="/module8/module8_17/unnamed-chunk-14-1.png" width="60%" style="display: block; margin: auto;" />
+<img src="/module8/module8_17/unnamed-chunk-13-1.png" width="50%" style="display: block; margin: auto;" />
 
-Note: Like we saw in Module 7, we can still create confusion matrices
-but now they are greater than a 2 X 2 grid.
+Note: As we saw in Module 7, we can still create confusion matrices but
+now they are greater than a 2 X 2 grid.
+
+We have 3 classes for this data, so our confusion matrix is 3 X 3.
 
 ---
 
@@ -215,15 +210,15 @@ weighted avg       0.96      0.96      0.96        45
 
 Notes:
 
-Precision, recall, etc. don’t apply directly. But like we said before,
-if we pick one of the classes as positive, and consider the rest to be
+Precision, recall, etc. don’t apply directly but like we said before, if
+we pick one of the classes as positive, and consider the rest to be
 negative, then we can.
 
 ---
 
 ``` python
-x_train_2d = X_train[['alcohol','malic_acid']]
-x_train_2d.head()
+x_train_2d = X_train[['alcohol', 'malic_acid']]
+x_train_2d.head(3)
 ```
 
 ```out
@@ -231,42 +226,37 @@ x_train_2d.head()
 36     13.28        1.64
 77     11.84        2.89
 131    12.88        2.99
-159    13.48        1.67
-4      13.24        2.59
 ```
 
-<img src="/module8/module8_17/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="/module8/module8_17/unnamed-chunk-16-1.png" width="58%" style="display: block; margin: auto;" />
 
 Notes:
 
-We can also make the plots we made earlier in the course, but this time
-with more classes.
+We can also make plots shoulding the decision boundaries, but this time,
+it will show more classes.
 
-In order for us to be able to plot this we need to select 2 features so
-we are picking `alcohol` and `malic_acid`.
+For us to be able to plot this we need to select 2 features so we are
+picking `alcohol` and `malic_acid`.
 
-In this plot the colours are inconsisten wit the shapes. - The red
+In this plot, the colours are inconsistent with the shapes. - The red
 triangles correspond to the light blue predictions. - The black X’s
 correspond to the red predictions/ - The blue circles (correctly)
 correspond to the blue circles.
 
 ---
 
-<img src="/module8/module8_17/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" />
+<br> <br>
 
-``` python
-plot_classifier(x_train_2d, y_train, lr_2d,  ax=plt.gca(), ticks=True)
-plt.xticks(fontsize= 14);
-plt.yticks(fontsize= 14);
-plt.xlabel("latitude", fontsize=14); plt.ylabel("logitude", fontsize=14)
-plt.title("Logistic regression -multi classifications", fontsize=16)
-```
-
-<img src="/module8/module8_17/unnamed-chunk-19-1.png" width="1536" />
+<img src="/module8/module8_17/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
 
 Notes:
 
-## We can plot multi-class problems with other classifiers too. Here we can see the boundaries of the decision tree classifier as well as SVM with an RBF kernel.
+We can plot multi-class problems with other classifiers too.
+
+Here we can see the boundaries of the decision tree classifier as well
+as SVM with an RBF kernel.
+
+---
 
 # Let’s apply what we learned\!
 
