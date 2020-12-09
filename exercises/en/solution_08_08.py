@@ -27,10 +27,10 @@ ridge_bb = Ridge()
 ridge_bb.fit(X_train, y_train)
 
 # What are the coefficients for this model?
-# Save these in an object named bb_weights
+# Save these in an object named bb_coeffs
 
-bb_weights = ridge_bb.coef_
-print(bb_weights)
+bb_coeffs = ridge_bb.coef_
+print(bb_coeffs)
 
 # What is the intercept for this model? 
 # Save this in an object named bb_intercept
@@ -42,7 +42,7 @@ print(bb_intercept)
 # calculate the models's prediction
 # Save it in an object named player_predict
 
-player_predict = bb_intercept + (bb_weights*player_stats).sum(axis=1)
+player_predict = (bb_coeffs*player_stats).sum(axis=1) + bb_intercept
 print(player_predict)
 
 # Check your answer using predict

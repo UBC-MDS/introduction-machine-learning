@@ -151,7 +151,6 @@ Notes:
 
 What's happening here is that we have one coefficient per feature *per class*.
 
-
 The interpretation is that these coefficients contributes to the predicting a certain class. 
 
 The specific interpretation depends on the way the logistic regression is implementing multi-class.
@@ -185,8 +184,8 @@ plot_confusion_matrix(lr, X_test, y_test, display_labels=lr.classes_, cmap='Blue
 ```
 
 
-```{python echo=FALSE, fig.width = 10, fig.height = 8,  out.width = '50%', fig.align='center'}
-plt.rcParams.update({'font.size': 14})
+```{python echo=FALSE, fig.width = 10, fig.height = 8,  out.width = '40%', fig.align='center'}
+plt.rcParams.update({'font.size': 16})
 plot_confusion_matrix(lr, X_test, y_test, display_labels=lr.classes_, cmap='Blues', values_format='d');
 plt.show()
 ```
@@ -217,14 +216,14 @@ x_train_2d.head(3)
 
 
 
-```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '58%', fig.align='center'}
+```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '48%', fig.align='center'}
 lr_2d = LogisticRegression()
 lr_2d.fit(x_train_2d, y_train);
 plot_classifier(x_train_2d, y_train, lr_2d,  ax=plt.gca(), ticks=True)
-plt.xticks(fontsize= 16);
-plt.yticks(fontsize= 16);
-plt.xlabel("alcohol", fontsize=16); plt.ylabel("malic_acid", fontsize=16)
-plt.title("Logistic Regression - Multi Class", fontsize=18)
+plt.xticks(fontsize= 18);
+plt.yticks(fontsize= 18);
+plt.xlabel("alcohol", fontsize=18); plt.ylabel("malic_acid", fontsize=18)
+plt.title("Logistic Regression - Multi Class", fontsize=20)
 ```
 
 

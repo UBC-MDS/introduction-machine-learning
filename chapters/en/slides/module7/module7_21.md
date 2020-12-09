@@ -86,18 +86,18 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time    test_score   train_score
-0  0.037469    0.268165 -62462.584290 -51440.540539
-1  0.032867    0.244131 -63437.715015 -51263.979666
-2  0.033739    0.285662 -62613.202523 -51758.817852
-3  0.040929    0.264807 -64204.295214 -51343.743586
-4  0.032731    0.227368 -59217.838633 -47325.157312
+0  0.064406    0.338107 -62462.584290 -51440.540539
+1  0.049501    0.304557 -63437.715015 -51263.979666
+2  0.048282    0.281229 -62613.202523 -51758.817852
+3  0.040053    0.284780 -64204.295214 -51343.743586
+4  0.033643    0.221234 -59217.838633 -47325.157312
 ```
 
 Notes:
 
 Normally after building our pipelines, we would now either do
-cross-validation or grid search but let’s start with the
-`cross-validate()` function.
+cross-validation or hyperparameter tuning but let’s start with the
+`cross_validate()` function.
 
 All the possible scoring metrics that this argument accepts is available
 <a href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter" target="_blank">here</a>.
@@ -128,11 +128,11 @@ pd.DataFrame(cross_validate(
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.036589    0.307769   22.709732    18.420969
-1  0.032327    0.294823   22.754570    18.469125
-2  0.043696    0.267888   22.236869    18.674964
-3  0.033329    0.274986   23.016666    18.510766
-4  0.033867    0.226708   21.033519    16.951021
+0  0.038291    0.278258   22.709732    18.420969
+1  0.034654    0.271351   22.754570    18.469125
+2  0.034678    0.272321   22.236869    18.674964
+3  0.035442    0.283257   23.016666    18.510766
+4  0.032455    0.223162   21.033519    16.951021
 ```
 
 Notes:
@@ -173,11 +173,11 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 ```out
    fit_time  score_time   test_r2  train_r2  test_mape_score  train_mape_score  test_neg_rmse  train_neg_rmse  test_neg_mse  train_neg_mse
-0  0.043080    0.327482  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
-1  0.031694    0.252039  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
-2  0.039467    0.304196  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
-3  0.033891    0.272316  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
-4  0.034203    0.221094  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
+0  0.036338    0.291813  0.695818  0.801659        22.709732         18.420969  -62462.584290   -51440.540539 -3.901574e+09  -2.646129e+09
+1  0.034947    0.253969  0.707483  0.799575        22.754570         18.469125  -63437.715015   -51263.979666 -4.024344e+09  -2.627996e+09
+2  0.039101    0.267516  0.713788  0.795944        22.236869         18.674964  -62613.202523   -51758.817852 -3.920413e+09  -2.678975e+09
+3  0.033594    0.273241  0.686938  0.801232        23.016666         18.510766  -64204.295214   -51343.743586 -4.122192e+09  -2.636180e+09
+4  0.032988    0.230674  0.724608  0.832498        21.033519         16.951021  -59217.838633   -47325.157312 -3.506752e+09  -2.239671e+09
 ```
 
 Notes: We can also return many scoring measures by first making a
@@ -245,7 +245,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 4 candidates, totalling 20 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   16.1s finished
+[Parallel(n_jobs=-1)]: Done  20 out of  20 | elapsed:   19.1s finished
 ```
 
 ``` python
@@ -308,7 +308,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 6 candidates, totalling 30 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:   31.0s finished
+[Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:   44.5s finished
 ```
 
 ``` python
@@ -316,7 +316,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'max_depth': 56}
+{'max_depth': 36}
 ```
 
 ``` python
@@ -324,7 +324,7 @@ grid_search.best_score_
 ```
 
 ```out
-0.7190834822443745
+0.7212894838664344
 ```
 
 Notes:

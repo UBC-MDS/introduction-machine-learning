@@ -2,7 +2,7 @@
 type: slides
 ---
 
-# Introducing linear classifiers
+# Introducing linear regression
 
 Notes: <br>
 

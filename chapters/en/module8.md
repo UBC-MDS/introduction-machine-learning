@@ -15,16 +15,16 @@ id: 8
 </exercise>
 
 
-<exercise id="1" title="Introducing Linear Classifiers"  type="slides, video">
+<exercise id="1" title="Introducing Linear Regression"  type="slides, video">
 <slides source="module8/module8_01" shot="0" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 
-<exercise id="2" title= "Introducing Linear Classifiers">
+<exercise id="2" title= "Linear Regression Questions">
 
 
 **Question 1**    
-Which of the following is a well know `Ridge` hyperparameter?
+Which of the following is a well known `Ridge` hyperparameter?
 
 <choice id="1">
 
@@ -49,38 +49,6 @@ Closer but not quiet.
 <opt text="<code>alpheba</code>" >
 
 Any chance you have seen the musical Wicked? This is a name, not a hyperparameter. 
-
-</opt>
-
-</choice>
-
-
-**Question 2**    
-If I had 2 features and 1 target column, what would I need to visualize our Ridge model?
-
-<choice id="2" >
-
-<opt text="a point">
-
-That's not it.
-
-</opt>
-
-<opt text= "a line">
- 
-This is the number of false negatives! 
-
-</opt>
-
-<opt text="a plane"  correct="true">
-
-Great! We would need to use a plane which is 2 dimensional, to visualize our Ridge model in a 3-dimensional space. 
-
-</opt>
-
-<opt text="a 3D object" >
-
-This the number of true negatives. 
 
 </opt>
 
@@ -128,6 +96,25 @@ Nice work!
 
 </choice >
 
+
+**True or False**       
+*`Ridge` can be used with datasets that have multiple features?*
+
+<choice id="3">
+<opt text="True"  correct="true" >
+
+Nice!
+
+</opt>
+
+<opt text="False">
+
+We can use it for many features!
+
+</opt>
+
+</choice >
+
 </exercise>
 
 <exercise id="4" title="Using Ridge">
@@ -145,19 +132,19 @@ Tasks:
 - Import the Ridge function. 
 - Create a MAPE scorer from the `mape` function that we provided. Make sure you specify in the scorer that lower numbers are better for MAPE. 
 - Build a Ridge model called `ridge_bb`.
-- Use `RandomizedSearchCV` to hyperparameter tune `alpha`. Fill the blanks so it uses `ridge_bb` as an estimator and the values from `param_dist`.
+- Use `GridSearchCV` to hyperparameter tune `alpha`. Fill the blanks so it uses `ridge_bb` as an estimator and the values from `param_dist`.
 - Fit your grid search on the training data.
 - What is the best value for `alpha`? Save it in an object named `best_alpha`.
 - What is the best MAPE score? Save it in an object named `best_mape`.
 
 <codeblock id="08_04">
 
-- Are you importing the Ridge function?
+- Are you importing the `Ridge` function?
 - Are you making the MAPE scorer with `make_scorer(mape, greater_is_better=False)`?
-- Are you filling in the blank for `RandomizedSearchCV` as  `random_search = RandomizedSearchCV(ridge_bb, param_dist, n_iter=20,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
-- Are you fitting with `random_search.fit(X_train, y_train)`?
-- Are you finding the best alpha as `random_search.best_params_`? 
-- Are you finding the best score with `random_search.best_score_`? 
+- Are you filling in the blank for `GridSearchCV` as  `grid_search = GridSearchCV(ridge_bb, param_dist,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
+- Are you fitting with `grid_search.fit(X_train, y_train)`?
+- Are you finding the best alpha as `grid_search.best_params_`? 
+- Are you finding the best score with `grid_search.best_score_`? 
 </codeblock>
 
 </exercise>
@@ -173,7 +160,9 @@ Tasks:
 
 Use the following equation to answer the questions below: 
 
-<center><img src="/module8/backpack.svg"  width = "80%" alt="404 image" /></center>
+<center><font size="5"><em> predicted(backpack_weight) =  3.02 x #laptops + 0.3 x #pencils + 0.5 </em></font></center>
+
+<br>
 
 **Question 1**    
 What is our intercept value?
@@ -245,25 +234,25 @@ I think you forgot a laptop!
 <exercise id="7" title="True or False: Coefficients">
 
 **True or False?**     
-*With `Ridge`, we learn one weight per training example.*
+*With `Ridge`, we learn one coefficient per training example.*
 
 <choice id="1" >
 <opt text="True" >
 
-It's actually one weight per column feature! 
+It's actually one coefficient per column feature! 
 
 </opt>
 
 <opt text="False"  correct="true">
 
-You got it. It's one weight per feature! 
+You got it. It's one coefficient per feature! 
 
 </opt>
 
 </choice>
 
 **True or False**      
-*Coefficients help us interpret our model.*
+*Coefficients can help us interpret our model.*
 
 <choice id="2">
 <opt text="True" correct="true">
@@ -291,19 +280,13 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Using the same Ridge model as we obtain last time, let's calculate what our model would predict for the example we have below: 
-
-```
-   height  weight
-0    2.05    93.2
-
-```
+Using the same Ridge model as we obtained last time, let's calculate what our model would predict for a player who is 2.05m tall and weighs 93.2 kg.
 
 Tasks:    
 - Build and fit a `Ridge` model with default hyperparameters and name it `ridge_bb`. 
-- What are the coefficients for this model? Save these in an object named `bb_weights`.
+- What are the coefficients for this model? Save these in an object named `bb_coeffs`.
 - What is the intercept for this model? Save this in an object named `bb_intercept`.
-- Using the weights and intercept discovered above, calculate the model's prediction and save the result in `player_predict`.
+- Using the coefficients and intercept discovered above, calculate the model's prediction and save the result in `player_predict`.
 - Check your answer using `predict`. 
 
 <codeblock id="08_08">
@@ -312,7 +295,7 @@ Tasks:
 - Are you finding the coefficients using `ridge_bb.coef_`?
 print(bb_weights)
 - Are you using `ridge_bb.intercept_` to find your model's intercept?
-- Are you calculating your model's predictions with `bb_intercept + (bb_weights*player_stats).sum(axis=1)`?
+- Are you calculating your model's predictions with `bb_intercept + (bb_coeffs*player_stats).sum(axis=1)`?
 - You can check your calculation using `predict` with `ridge_bb.predict(player_stats)`.
 
 
@@ -560,41 +543,43 @@ Great!
 
 <exercise id="14" title= "Probabilities and Logistic Regression">
 
-Use the following `.predict_proba()` output to answer the questions below: 
 
-In this case, column 1 is for the classification "hired" and column 2 is "not hired". 
+
+We are trying to predict if a job applicant would be hired based on some features contained in their resume. 
+
+
+
+Below we have the output of `.predict_proba()` where column 0 shows the probability the model would predict "hired" and column 1 shows the probability the model would predict "not hired".
+
 
 ```out
 array([[0.04971843, 0.95028157],
        [0.94173513, 0.05826487],
        [0.74133975, 0.25866025],
        [0.13024982, 0.86975018],
-       [0.17126403, 0.82873597],
-       [0.0483314 , 0.9516686 ],
-       [0.21013417, 0.78986583],
-       [0.01338452, 0.98661548],
-       [0.99508633, 0.00491367],
-       [0.99610141, 0.00389859]])
+       [0.17126403, 0.82873597]])
 ```
 
+Use this output to answer the following questions.
+
 **Question 1**    
-If we had used `.predict()` for these examples instead of `.predict_proba()`, how many of the examples would the model have predicted "hired"
+If we had used `.predict()` for these examples instead of `.predict_proba()`, how many of the examples would the model have predicted "hired"?
 
 <choice id="1">
 
-<opt text="10">
+<opt text="5">
 
 This is the total number of examples.
 
 </opt>
 
-<opt text= "6" >
+<opt text= "3" >
  
 This is the number of "not hired" examples.
 
 </opt>
 
-<opt text="4"  correct="true">
+<opt text="2"  correct="true">
 
 Great!
 
@@ -602,7 +587,7 @@ Great!
 
 <opt text="0" >
 
-Some examples would have been predicted as "hired". How many of these examples have values >0.5 in the first column?  
+Some examples would have been predicted as "hired". How many of these examples have values >0.5 in the 0 column?  
 
 </opt>
 
@@ -614,24 +599,24 @@ Some examples would have been predicted as "hired". How many of these examples h
 If the true class labels are below, how many examples would the model have correctly predicted with `predict()`? 
 
 ```out
-['hired', 'hired', 'hired', 'not hired', 'not hired', 'not hired', 'hired', 'not hired', 'hired', 'hired']
+['hired', 'hired', 'hired', 'not hired', 'not hired']
 ```
 
 <choice id="2" >
 
-<opt text="10">
+<opt text="5">
 
 The model didn't get them all right. Take a closer look.
 
 </opt>
 
-<opt text= "8"  correct="true">
+<opt text= "4"  correct="true">
  
 Great!
 
 </opt>
 
-<opt text="2" >
+<opt text="1" >
 
 This is the number of incorrectly predicted examples.
 
@@ -704,9 +689,9 @@ Let's keep working with the Pokémon dataset. This time let's do a bit more. Let
 
 
 Tasks:   
-- Build and fit a pipeline containing the column transformer and a Logistic Regression model that used the parameter `class_weight="balanced"`. Name this pipeline `pkm_pipe`.
-- Perform `RandomizedSearchCV` using the parameters specified in `param_grid`. Use `n_iter` equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pkm_grid`.
-- Fit your `pmk_grid` on the training data.
+- Build and fit a pipeline containing the column transformer and a logistic regression model that uses the parameter `class_weight="balanced"` and `max_iter=1000`(`max_iter` will stop a warning from occuring) . Name this pipeline `pkm_pipe`.
+- Perform `RandomizedSearchCV` using the parameters specified in `param_grid`. Use `n_iter` equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pmk_search`.
+- Fit your `pmk_search` on the training data.
 - What is the best `C` value? Save it in an object name `pkm_best_c`.
 - What is the best f1 score? Save it in an object named `pkm_best_score`.
 - Find the predictions of the test set using `predict`. Save this in an object named `predicted_y`.
@@ -727,6 +712,75 @@ Tasks:
 - Are you sorting `lr_probs` by `prob_legend` and setting `ascending = False`?
 
 </codeblock>
+
+
+<br>
+
+
+**Question 1**    
+
+Which of the following Pokémon is the model confident in classifying it as "legendary"?
+
+<choice id="1">
+
+<opt text="Cubchoo">
+
+Are you sorting `lr_probs` in descending order and looking at the top of the dataframe?
+
+</opt>
+
+<opt text="Lugia" correct="true">
+
+Nice work!
+
+</opt>
+
+<opt text="Skitty">
+
+
+Are you sorting `lr_probs` in descending order and looking at the top of the dataframe?
+
+</opt>
+
+<opt text="Starmie">
+
+Are you sorting `lr_probs` in descending order and looking at the top of the dataframe?
+
+</opt>
+
+</choice>
+
+**Question 2**    
+
+Which of the following Pokémon is the model confident in classifying it as  "not legendary"?
+
+<choice id="2" >
+
+<opt text="Uxie">
+
+Are you sorting `lr_probs` in descending order and looking at the bottom of the dataframe?
+
+</opt>
+
+<opt text="Zygarde" >
+
+
+</opt>
+
+<opt text="Mandibuzz">
+
+Are you sorting `lr_probs` in descending order and looking at the bottom of the dataframe?
+
+</opt>
+
+<opt text="Diglett" correct="true">
+
+Nice work!
+
+</opt>
+
+</choice>
+
 
 </exercise>
 
@@ -752,7 +806,7 @@ draft_peak  -0.006979 -0.005453  0.012432
 ```
 
 **Question 1**    
-For which feature does an increased value, push the prediction away from the `Other` class?
+For which feature does increasing its value always push the prediction away from the `Other` class??
 
 <choice id="1">
 
@@ -788,51 +842,13 @@ Try looking at the `Other` column.
 
 </choice>
 
-
-**Question 2**    
-If there is an increase in the feature value, for which feature does the classification of `Guard` decrease, and the other 2 features `Forward` and `Other` increase? 
-
-<choice id="2" >
-
-<opt text="<code>weight</code>">
-
-In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
-
-</opt>
-
-<opt text="<code>height</code>"  correct="true">
- 
-Nice work!
-
-</opt>
-
-<opt text="<code>draft_year</code>">
-
-In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
-
-</opt>
-
-<opt text="<code>draft_round</code>">
-
-In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
-
-</opt>
-
-<opt text="<code>draft_peak</code>">
-
-In comparison to the other two features, where is the coefficient negative for `Guard` where the coefficient for `Forward` and `Other` are positive? 
-
-</opt>
-
-</choice>
-
 </exercise>
 
 
 <exercise id="19" title="True or False: Coefficients">
 
 **True or False?**     
-*Decision trees need special attention for multi-class problems.*
+*Decision trees use coefficients for multi-class problems.*
 
 <choice id="1" >
 <opt text="True" >
@@ -848,24 +864,6 @@ Cool!
 </opt>
 
 </choice>
-
-**True or False**      
-*When we plot multi-classification data, there is a dimension for each class.*
-
-<choice id="2">
-<opt text="True" >
-
-There is  1 dimension for each feature, not each target class. 
-
-</opt>
-
-<opt text="False" correct="true">
-
-You're doing great!
-
-</opt>
-
-</choice >
 
 </exercise>
 
@@ -937,9 +935,9 @@ If `F` (forward) is the positive class, how many examples in the dataset are neg
 
 </codeblock>
 
-<choice id="2" correct="true">
+<choice id="2" >
 
-<opt text="50">
+<opt text="50" correct="true">
 
 Great!
 

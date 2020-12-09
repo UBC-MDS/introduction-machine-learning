@@ -31,8 +31,8 @@ Notes:
 Next, we are going to introduce to you a new model called **logistic
 regression**.
 
-It’s very similar to the `Ridge` classifier we saw earlier but this one
-has some key differences.
+It’s very similar to `Ridge` we saw earlier but this one has some key
+differences.
 
 For one, we can use it with classification instead of regression
 problems.
@@ -54,11 +54,11 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.001218    0.000765    0.588235     0.601504
-1  0.000779    0.000474    0.588235     0.601504
-2  0.000503    0.000339    0.606061     0.597015
-3  0.000561    0.000354    0.606061     0.597015
-4  0.000508    0.000330    0.606061     0.597015
+0  0.000634    0.000423    0.588235     0.601504
+1  0.000502    0.000344    0.588235     0.601504
+2  0.000494    0.000341    0.606061     0.597015
+3  0.000489    0.000338    0.606061     0.597015
+4  0.000488    0.000340    0.606061     0.597015
 ```
 
 Notes:
@@ -84,11 +84,11 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.010079    0.001466    0.852941     0.827068
-1  0.010100    0.001572    0.823529     0.827068
-2  0.009124    0.001512    0.696970     0.858209
-3  0.008666    0.001388    0.787879     0.843284
-4  0.008757    0.001309    0.939394     0.805970
+0  0.010507    0.001683    0.852941     0.827068
+1  0.011321    0.001665    0.823529     0.827068
+2  0.009204    0.001819    0.696970     0.858209
+3  0.010030    0.001674    0.787879     0.843284
+4  0.009850    0.001592    0.939394     0.805970
 ```
 
 Notes:
@@ -103,7 +103,7 @@ increased from those of our `DummyClassifier`.
 
 ## Visualizing our model
 
-<img src="/module8/module8_09/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="/module8/module8_09/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Notes:
 
@@ -141,12 +141,12 @@ lr.fit(X_train, y_train);
 ```
 
 ``` python
-print("Model weights:", lr.coef_)
+print("Model coefficients:", lr.coef_)
 print("Model intercept:", lr.intercept_)
 ```
 
 ``` out
-Model weights: [[-0.04108149 -0.33683126]]
+Model coefficients: [[-0.04108149 -0.33683126]]
 Model intercept: [10.8869838]
 ```
 
@@ -167,10 +167,10 @@ Just like we saw for `Ridge`. we can get the equation of that line and
 the coefficients of our `latitude` and `longitude` features using
 `.coef_`.
 
-In this case, we see that both are negative weights,
+In this case, we see that both are negative coefficients.
 
-We also can see that the weight of latitude is larger in magnitude than
-that of longitude.
+We also can see that the coefficient of latitude is larger in magnitude
+than that of longitude.
 
 This makes a lot of sense because Canada as a country lies above the USA
 and so we expect `latitude` values to contribute more to a prediction
@@ -179,6 +179,14 @@ than `longitude` which Canada and the `USA` have quite similar values.
 ---
 
 ## Predictions
+
+``` python
+lr.classes_
+```
+
+```out
+array(['Canada', 'USA'], dtype=object)
+```
 
 ``` python
 example = X_test.iloc[0,:]
@@ -190,7 +198,7 @@ example.tolist()
 ```
 
 ``` python
-lr.intercept_ + (example.tolist() * lr.coef_).sum(axis=1)
+(example.tolist() * lr.coef_).sum(axis=1) + lr.intercept_ 
 ```
 
 ```out
@@ -208,7 +216,7 @@ array(['Canada'], dtype=object)
 Notes:
 
 Again, let’s take an example from our test set and calculate the outcome
-using our weights and intercept.
+using our coefficients and intercept.
 
 We get a value of -1.978.
 
@@ -292,8 +300,8 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 10 candidates, totalling 50 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.5s
-[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.6s finished
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.8s
+[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.8s finished
 ```
 
 ``` python
@@ -301,7 +309,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'C': 99.01564180220849}
+{'C': 32.648877607780925}
 ```
 
 ``` python

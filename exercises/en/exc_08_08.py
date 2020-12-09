@@ -27,10 +27,10 @@ ____ = ____
 ____
 
 # What are the coefficients for this model?
-# Save these in an object named bb_weights
+# Save these in an object named bb_coeffs
 
 ____ = ____
-print(bb_weights)
+print(bb_coeffs)
 
 # What is the intercept for this model? 
 # Save this in an object named bb_intercept

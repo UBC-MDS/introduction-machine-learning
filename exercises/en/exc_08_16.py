@@ -50,16 +50,16 @@ preprocessor = make_column_transformer(
 param_grid = {"logisticregression__C": scipy.stats.uniform(0, 100)}
 
 # Build a pipeline containing the column transformer and a Logistic Regression model
-# use the parameter class_weight="balanced" and set 
+# use the parameter class_weight="balanced" and set max_iter=1000
 # Name this pipeline pkm_pipe
 ____ = ____
 
 # Perform RandomizedSearchCV using the parameters specified in param_grid
 # Use n_iter equal to 10, 5 cross-validation folds and return the training score. 
-# Name this object pkm_grid
+# Name this object pmk_search
 ____ = ____(____, ____, n_jobs=-1, cv=5, return_train_score=True, ____=____, ____ = ____, random_state=2028)
 
-# Train your pmk_grid on the training data
+# Train your pmk_search on the training data
 ____.____
 
 # What is the best C value? Save it in an object name pkm_best_c
@@ -80,6 +80,7 @@ ____ = ____
 
 # This next part has been done for you
 lr_probs = pd.DataFrame({
+             "Pokemon": test_df['name'],
              "true y":y_test, 
              "pred y": predicted_y.tolist(),
              "prob_legend": proba_y[:, 1].tolist()})

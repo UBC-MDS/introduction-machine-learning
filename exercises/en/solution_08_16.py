@@ -50,36 +50,37 @@ preprocessor = make_column_transformer(
 param_grid = {"logisticregression__C": scipy.stats.uniform(0, 100)}
 
 # Build a pipeline containing the column transformer and a Logistic Regression model
-# use the parameter class_weight="balanced" and set 
+# use the parameter class_weight="balanced" and set max_iter=1000
 # Name this pipeline pkm_pipe
-pkm_pipe = make_pipeline(preprocessor, LogisticRegression(class_weight="balanced"))
+pkm_pipe = make_pipeline(preprocessor, LogisticRegression(class_weight="balanced", max_iter=1000))
 
 # Perform RandomizedSearchCV using the parameters specified in param_grid
 # Use n_iter equal to 10, 5 cross-validation folds and return the training score. 
-# Name this object pkm_grid
-pkm_grid = RandomizedSearchCV(pkm_pipe, param_grid, n_jobs=-1, cv=5, return_train_score=True, n_iter=10, scoring = 'f1', random_state=2028)
+# Name this object pmk_search
+pmk_search = RandomizedSearchCV(pkm_pipe, param_grid, n_jobs=-1, cv=5, return_train_score=True, n_iter=10, scoring = 'f1', random_state=2028)
 
-# Train your pmk_grid on the training data
-pkm_grid.fit(X_train, y_train)
+# Train your pmk_search on the training data
+pmk_search.fit(X_train, y_train)
 
 # What is the best C value? Save it in an object name pkm_best_c
-pkm_best_c= pkm_grid.best_params_['logisticregression__C']
+pkm_best_c= pmk_search.best_params_['logisticregression__C']
 print("Best C value:", pkm_best_c)
 
 # What is the best f1 score? Save it in an object named pkm_best_score
-pkm_best_score = pkm_grid.best_score_
+pkm_best_score = pmk_search.best_score_
 print("Best f1 score:", pkm_best_score)
 
 # Find the predictions of the test set using predict. 
 # Save this in an object named predicted_y
-predicted_y = pkm_grid.predict(X_test)
+predicted_y = pmk_search.predict(X_test)
 
 # Find the target class probabilities of the test set using predict_proba. 
 # Save this in an object named proba_y
-proba_y = pkm_grid.predict_proba(X_test)
+proba_y = pmk_search.predict_proba(X_test)
 
 # This next part has been done for you
 lr_probs = pd.DataFrame({
+             "Pokemon": test_df['name'],
              "true y":y_test, 
              "pred y": predicted_y.tolist(),
              "prob_legend": proba_y[:, 1].tolist()})

@@ -97,7 +97,7 @@ Notes:
 
 Next, we are going to introduce to you a new model called **logistic regression**. 
 
-It's very similar to the `Ridge` classifier we saw earlier but this one has some key differences. 
+It's very similar to `Ridge` we saw earlier but this one has some key differences. 
 
 For one, we can use it with classification instead of regression problems. 
 
@@ -153,14 +153,14 @@ This time we can see that our training and cross-validation scores have increase
 
 ## Visualizing our model
 
-```{python echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '80%', fig.align='center'}
+```{python echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '70%', fig.align='center'}
 lr.fit(X_train, y_train);
 plot_classifier(X_train, y_train, lr, ax=plt.gca(), ticks=True)
-plt.xticks(fontsize= 14);
-plt.yticks(fontsize= 14);
-plt.title("Logistic Regression", fontsize=20)
-plt.xlabel("longitude", fontsize=16)
-plt.ylabel("latitude", fontsize=16)
+plt.xticks(fontsize= 16);
+plt.yticks(fontsize= 16);
+plt.title("Logistic Regression", fontsize=22)
+plt.xlabel("longitude", fontsize=18)
+plt.ylabel("latitude", fontsize=18)
 ```
 
 
@@ -218,12 +218,12 @@ lr.fit(X_train, y_train);
 ```
 
 ```python
-print("Model weights:", lr.coef_)
+print("Model coefficients:", lr.coef_)
 print("Model intercept:", lr.intercept_)
 ```
 
 ```out
-Model weights: [[-0.04108149 -0.33683126]]
+Model coefficients: [[-0.04108149 -0.33683126]]
 Model intercept: [10.8869838]
 ```
 
@@ -237,9 +237,9 @@ Notes:
 
 Just like we saw for `Ridge`. we can get the equation of that line and the coefficients of our `latitude` and `longitude` features using `.coef_`.
 
-In this case, we see that both are negative weights, 
+In this case, we see that both are negative coefficients. 
 
-We also can see that the weight of latitude is larger in magnitude than that of longitude. 
+We also can see that the coefficient of latitude is larger in magnitude than that of longitude. 
 
 This makes a lot of sense because Canada as a country lies above the USA and so we expect `latitude` values to contribute more to a prediction than `longitude` which Canada and the `USA` have quite similar values. 
 
@@ -249,14 +249,20 @@ This makes a lot of sense because Canada as a country lies above the USA and so 
 ## Predictions
 
 ```{python}
+lr.classes_
+```
+
+
+```{python}
 example = X_test.iloc[0,:]
 example.tolist()
 ```
 
 
 ```{python}
-lr.intercept_ + (example.tolist() * lr.coef_).sum(axis=1)
+(example.tolist() * lr.coef_).sum(axis=1) + lr.intercept_ 
 ```
+
 ```{python}
 lr.predict([example])
 ```
@@ -264,7 +270,7 @@ lr.predict([example])
 
 Notes: 
 
-Again, let's take an example from our test set and calculate the outcome using our weights and intercept. 
+Again, let's take an example from our test set and calculate the outcome using our coefficients and intercept. 
 
 We get a value of -1.978. 
 

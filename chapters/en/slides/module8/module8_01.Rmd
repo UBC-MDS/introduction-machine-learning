@@ -80,7 +80,7 @@ path = "../../../../static/module8/"
 
 type: slides
 
-# Introducing linear classifiers
+# Introducing linear regression
 
 Notes: <br>
 

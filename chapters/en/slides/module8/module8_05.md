@@ -8,16 +8,22 @@ Notes: <br>
 
 ---
 
-## Intuition behind linear classifiers
+## Intuition behind linear regression
 
-Listing 1: 5 bedrooms, 6 bathrooms, 3000 square feet, 2 years old -\>
-$6.39 million
+| listing number | Number of Bedrooms | Number of Bathrooms | Square Footage | Age | Price         |
+| -------------- | ------------------ | ------------------- | -------------- | --- | ------------- |
+| 1              | 5                  | 6                   | 3000           | 2   | $6.39 million |
+| 2              | 1                  | 1                   | 800            | 90  | $1.67 million |
+| 3              | 3                  | 2                   | 1875           | 66  | $3.92 million |
 
-Listing 2: 1 bedroom, 1 bathroom, 800 square feet, 90 years old -\>
-$1.67 million
+Notes:
 
-Listing 3: 3 bedrooms, 2 bathrooms, 1875 square feet, 66 years old -\>
-$3.92 million
+Unlike with decision trees where we make predictions with rules and
+analogy-based models where we predict a certain class using distance to
+other examples, linear classifiers use **coefficients** (or sometimes
+known as “weights”) associated with features.
+
+---
 
 <center>
 
@@ -26,11 +32,6 @@ $3.92 million
 </center>
 
 Notes:
-
-Unlike with decision trees where we make predictions with rules and
-analogy-based models where we predict a certain class using distance to
-other examples, linear classifiers use **coefficients** (or sometimes
-known as “weights”) associated with features.
 
 We then use these learned coefficients to make predictions.
 
@@ -48,18 +49,24 @@ age.
 
 Consider the following listing (example):
 
-<font size="+1"><em> 3 bedroom, 2 bathroom, 1875 square feet, 66 year
-old .</em></font>
+| listing number | Number of Bedrooms | Number of Bathrooms | Square Footage | Age |
+| -------------- | ------------------ | ------------------- | -------------- | --- |
+| 3              | 3                  | 2                   | 1875           | 66  |
 
-<br> <br>
+<br>
 
-<img src="/module8/price0.svg"  width = "100%" alt="404 image" /> <br>
+<font size="4"><em> predicted(price) = coefficient<sub>bedrooms</sub> x
+\#bedrooms + coefficient<sub>bathrooms</sub> x \#bathrooms +
+coefficient<sub>sqfeet</sub> x \#sqfeet + coefficient<sub>age</sub> x
+\#age + intercept </em></font>
 
-<img src="/module8/price2.svg"  width = "58%" alt="404 image" /> <br>
+<font size="4"><em> predicted(price) = 0.03 x \#bedrooms + 0.04 x
+\#bathrooms + 0.003 x \#sqfeet + -0.01 x \#age + intercept </em></font>
 
-<img src="/module8/price3.svg"  width = "50%" alt="404 image" /> <br>
+<font size="4"><em> predicted(price) = (0.03 x 3) + (0.04 x 2) + (0.003
+x 1875) + (-0.01 x 66) + 0 </em></font>
 
-<img src="/module8/price4.svg"  width = "16%" alt="404 image" /> <br>
+<font size="4"><em> predicted(price) = 3.26 </em></font>
 
 Notes:
 
@@ -69,11 +76,19 @@ Notes:
 
 <br> <br> <br>
 
-<img src="/module8/price1.svg"  width = "100%" alt="404 image" /> <br>
+<font size="5"><em> predicted(price) =
+(<font  color="#b1d78c">coefficient<sub>bedrooms</sub></font> x
+<font  color="7bd1ec">\#bedrooms</font>) +
+(<font  color="#b1d78c">coefficient<sub>bathrooms</sub></font> x
+<font  color="7bd1ec">\#bathrooms</font>) +
+(<font  color="#b1d78c">coefficient<sub>sqfeet</sub></font> x
+<font  color="7bd1ec">\#sqfeet</font>) +
+(<font  color="#b1d78c">coefficient<sub>age</sub></font> x
+<font  color="7bd1ec">\#age</font>) +
+<font  color="e8b0d0">intercept</font> </em> </font>
 
   - <font  color="7bd1ec"> Input features</font>  
-  - <font  color="#b1d78c"> Coefficients (weights), one per
-    feature</font>  
+  - <font  color="#b1d78c"> Coefficients, one per feature</font>  
   - <font  color="e8b0d0"> Bias or intercept</font>
 
 Notes:
@@ -131,8 +146,8 @@ Notes:
 We can make our pipeline as usual and train it, and assess our training
 score.
 
-We saw that with linear classifiers we have weights associated with each
-feature of our model.
+We saw that with linear classifiers we have coefficients associated with
+each feature of our model.
 
 How do we get that? We can use `.coef_` to obtain them from our trained
 model.
@@ -142,8 +157,8 @@ But how are these useful?
 ---
 
 ``` python
-ridge_weights = lm.coef_
-ridge_weights
+ridge_coeffs = lm.coef_
+ridge_coeffs
 ```
 
 ```out
@@ -151,17 +166,17 @@ array([-2.43214368e-01, -5.33723544e-03,  1.25878207e+00,  8.92353624e+00, -1.34
 ```
 
 ``` python
-words_weights_df = pd.DataFrame(data=ridge_weights, index=X_train.columns, columns=['Weight'])
-words_weights_df
+words_coeffs_df = pd.DataFrame(data=ridge_coeffs, index=X_train.columns, columns=['Coefficients'])
+words_coeffs_df
 ```
 
 ```out
-                    Weight
-house_age        -0.243214
-distance_station -0.005337
-num_stores        1.258782
-latitude          8.923536
-longitude        -1.345233
+                  Coefficients
+house_age            -0.243214
+distance_station     -0.005337
+num_stores            1.258782
+latitude              8.923536
+longitude            -1.345233
 ```
 
 Notes:
@@ -176,8 +191,8 @@ which coefficient.
 
 We can do that by making a dataframe with both values.
 
-We can use these weights to interpret our model. They show us how much
-each of these features affects our model’s prediction.
+We can use these coefficients to interpret our model. They show us how
+much each of these features affects our model’s prediction.
 
 For example, if we had a house with 2 stores nearby, our `num_stores`
 value is 2. That means that 2 \* 1.26 = 2.52 will contribute to our
@@ -190,16 +205,16 @@ predicted value.
 ---
 
 ``` python
-words_weights_df.abs().sort_values(by='Weight')
+words_coeffs_df.abs().sort_values(by='Coefficients')
 ```
 
 ```out
-                    Weight
-distance_station  0.005337
-house_age         0.243214
-num_stores        1.258782
-longitude         1.345233
-latitude          8.923536
+                  Coefficients
+distance_station      0.005337
+house_age             0.243214
+num_stores            1.258782
+longitude             1.345233
+latitude              8.923536
 ```
 
 Notes:
@@ -210,9 +225,15 @@ prediction.
 So, looking at the features which have coefficient with bigger
 magnitudes might be useful and contribute more to the prediction.
 
+It’s important to be careful here though because this depends on the
+scaling of the features. Larger features will have smaller coefficients,
+but if we scale our features before we build our model then they are on
+a somewhat level playing field\! (Another reason we should be scaling
+our features\!)
+
 ---
 
-## Interpreting learned weights/coefficients
+## Interpreting learned coefficients
 
 <br> <br>
 
@@ -268,12 +289,12 @@ We can use `predict()` on our features to get a prediction of 52.36.
 ---
 
 ``` python
-words_weights_df.T
+words_coeffs_df.T
 ```
 
 ```out
-        house_age  distance_station  num_stores  latitude  longitude
-Weight  -0.243214         -0.005337    1.258782  8.923536  -1.345233
+              house_age  distance_station  num_stores  latitude  longitude
+Coefficients  -0.243214         -0.005337    1.258782  8.923536  -1.345233
 ```
 
 ``` python
@@ -296,19 +317,23 @@ intercept
 
 Notes:
 
-Using our weights, and the model’s intercept (bias) we can calculate the
+Using our coefficients, and the model’s intercept we can calculate the
 model’s predictions ourselves as well.
 
 ---
 
 <center>
 
-<img src="/module8/house_weights.svg"  width = "80%" alt="404 image" />
+<font size="4"><em> predicted(price) = coefficient<sub>house\_age</sub>
+x house\_age + coefficient<sub>distance\_station</sub> x
+distance\_station + coefficient<sub>num\_stores</sub> x num\_stores +
+coefficient<sub>latitude</sub> x latitude +
+coefficient<sub>longitude</sub> x longitude + intercept </em></font>
 
 </center>
 
 ``` python
-intercept + (ridge_weights * X_train.iloc[0:1]).sum(axis=1)
+(ridge_coeffs * X_train.iloc[0:1]).sum(axis=1) + intercept 
 ```
 
 ```out
@@ -326,11 +351,11 @@ array([52.35605528])
 
 Notes:
 
-All of these feature values multiplied by the weights then adding the
-intercept, contribute to our prediction.
+All of these feature values multiplied by the coefficients then adding
+the intercept, contribute to our prediction.
 
-When we do this by hand using the model’s weights and intercept, we get
-the same as if we used `predict`.
+When we do this by hand using the model’s coefficients and intercept, we
+get the same as if we used `predict`.
 
 ---
 

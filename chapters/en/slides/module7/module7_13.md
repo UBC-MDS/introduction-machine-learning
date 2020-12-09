@@ -154,7 +154,7 @@ the left.
 Now let’s rebuild our pipeline but using the `class_weight` argument and
 setting it as`class_weight={1:100}`.
 
-This is equivalent to saying “repeat every positive example 200x in the
+This is equivalent to saying “repeat every positive example 100x in the
 training set”, but repeating data would slow down the code, whereas this
 doesn’t.
 

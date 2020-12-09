@@ -84,17 +84,15 @@ We can see that the model is 87.8% sure that example 1 is class 0
 
 For linear regression we used something like this:
 
-<center>
-
-<img src="/module8/linreg.svg"  width = "70%" alt="404 image" />
-
-</center>
+<font size="4"><em> predicted(value) = coefficient<sub>feature1</sub> x
+feature1 + coefficient<sub>feature2</sub> x feature2 + … + intercept
+</em></font>
 
 But this won’t work with probabilities.
 
 #### **Sigmoid function**(optional)
 
-<img src="/module8/module8_13/unnamed-chunk-7-1.png" width="72%" style="display: block; margin: auto;" />
+<img src="/module8/module8_13/unnamed-chunk-7-1.png" width="60%" style="display: block; margin: auto;" />
 
 Notes:
 
@@ -154,9 +152,7 @@ pd.DataFrame(data_dict).tail(10)
 96   Canada  Canada    [0.7047596510140418, 0.2952403489859582]
 57      USA     USA   [0.03121394423109436, 0.9687860557689056]
 123  Canada  Canada    [0.6537036743991862, 0.3462963256008138]
-106  Canada  Canada    [0.8444267867198362, 0.1555732132801638]
 ..      ...     ...                                         ...
-98   Canada  Canada    [0.769706381275301, 0.23029361872469897]
 66      USA     USA  [0.053017116268726405, 0.9469828837312736]
 126  Canada  Canada   [0.6329448842395046, 0.36705511576049543]
 109  Canada  Canada    [0.8154016516676702, 0.1845983483323298]
@@ -192,11 +188,10 @@ less confident the closer the observations are to the decision boundary.
 ---
 
 ``` python
-lr_targets = pd.DataFrame({
-             "y":y_train, 
-             "pred y": predict_y.tolist(),
-             "probability_canada": y_proba[:,0].tolist()})
-lr_targets.head()
+lr_targets = pd.DataFrame({"y":y_train,
+                           "pred y": predict_y.tolist(),
+                           "probability_canada": y_proba[:,0].tolist()})
+lr_targets.head(3)
 ```
 
 ```out
@@ -204,8 +199,6 @@ lr_targets.head()
 160  Canada  Canada            0.704607
 127  Canada  Canada            0.563017
 169  Canada  Canada            0.838968
-188  Canada  Canada            0.796415
-187  Canada  Canada            0.901081
 ```
 
 ``` python
@@ -217,9 +210,7 @@ lr_targets.sort_values(by='probability_canada')
 37      USA     USA            0.006547
 78      USA     USA            0.007685
 34      USA     USA            0.008317
-41      USA     USA            0.008958
 ..      ...     ...                 ...
-81   Canada  Canada            0.931792
 0       USA  Canada            0.932487
 165  Canada  Canada            0.951092
 1       USA  Canada            0.961902
@@ -271,10 +262,9 @@ the decision boundary.
 ---
 
 ``` python
-lr_targets = pd.DataFrame({
-             "y":y_train, 
-             "pred y": predict_y.tolist(),
-             "prob_difference": (abs(y_proba[:,0] - y_proba[:,1])).tolist()})
+lr_targets = pd.DataFrame({"y":y_train,
+                           "pred y": predict_y.tolist(),
+                           "prob_difference": (abs(y_proba[:,0] - y_proba[:,1])).tolist()})
 lr_targets.sort_values(by="prob_difference").head()
 ```
 

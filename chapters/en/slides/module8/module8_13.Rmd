@@ -68,7 +68,7 @@ pd.set_option('display.width', 350)
 np.set_printoptions(linewidth=400)
 
 pd.set_option('display.max_columns', 50)
-pd.set_option('display.max_rows', 8)
+pd.set_option('display.max_rows', 6)
 
 path = "../../../../static/module8/"
 ```
@@ -137,21 +137,21 @@ We can see that the model is 87.8% sure that example 1 is class 0 ("Canada") and
 
 For linear regression we used something like this: 
 
-<center><img src="/module8/linreg.svg"  width = "70%" alt="404 image" /></center>
+<font size="4"><em> predicted(value) = coefficient<sub>feature1</sub> x feature1 + coefficient<sub>feature2</sub> x feature2 + ... + intercept </em></font>
 
 But this won't work with probabilities. 
 
 #### **Sigmoid function**(optional)
 
-```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '72%', fig.align='center'}
+```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '60%', fig.align='center'}
 sigmoid = lambda x: 1/(1+np.exp(-x))
 raw_model_output = np.linspace(-8,8,1000)
 plt.plot(raw_model_output, sigmoid(raw_model_output));
 plt.plot([0,0],[0,0.5], '--k')
 plt.plot([-8,0],[0.5,0.5], '--k')
-plt.xticks(fontsize= 14);
-plt.yticks(fontsize= 14);
-plt.xlabel("raw model output", fontsize=14); plt.ylabel("predicted probability", fontsize=14);plt.title("The sigmoid function", fontsize=16)
+plt.xticks(fontsize= 16);
+plt.yticks(fontsize= 16);
+plt.xlabel("raw model output", fontsize=16); plt.ylabel("predicted probability", fontsize=16);plt.title("The sigmoid function", fontsize=18)
 ```
 
 
@@ -238,12 +238,12 @@ With probabilities using `predict_proba`, we can see that the model is less conf
 ---
 
 ```{python}
-lr_targets = pd.DataFrame({
-             "y":y_train, 
-             "pred y": predict_y.tolist(),
-             "probability_canada": y_proba[:,0].tolist()})
-lr_targets.head()
+lr_targets = pd.DataFrame({"y":y_train,
+                           "pred y": predict_y.tolist(),
+                           "probability_canada": y_proba[:,0].tolist()})
+lr_targets.head(3)
 ```
+
 ```{python}
 lr_targets.sort_values(by='probability_canada')
 ```
@@ -292,10 +292,9 @@ The "USA" city it got wrong is likely in Alaska but the model doesn't know that 
 ---
 
 ```{python}
-lr_targets = pd.DataFrame({
-             "y":y_train, 
-             "pred y": predict_y.tolist(),
-             "prob_difference": (abs(y_proba[:,0] - y_proba[:,1])).tolist()})
+lr_targets = pd.DataFrame({"y":y_train,
+                           "pred y": predict_y.tolist(),
+                           "prob_difference": (abs(y_proba[:,0] - y_proba[:,1])).tolist()})
 lr_targets.sort_values(by="prob_difference").head()
 ```
 

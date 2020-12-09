@@ -183,7 +183,7 @@ array([[19,  0,  0],
 plot_confusion_matrix(lr, X_test, y_test, display_labels=lr.classes_, cmap='Blues', values_format='d');
 ```
 
-<img src="/module8/module8_17/unnamed-chunk-13-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="/module8/module8_17/unnamed-chunk-13-1.png" width="40%" style="display: block; margin: auto;" />
 
 Note: As we saw in Module 7, we can still create confusion matrices but
 now they are greater than a 2 X 2 grid.
@@ -228,7 +228,7 @@ x_train_2d.head(3)
 131    12.88        2.99
 ```
 
-<img src="/module8/module8_17/unnamed-chunk-16-1.png" width="58%" style="display: block; margin: auto;" />
+<img src="/module8/module8_17/unnamed-chunk-16-1.png" width="48%" style="display: block; margin: auto;" />
 
 Notes:
 

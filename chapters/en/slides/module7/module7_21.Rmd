@@ -170,7 +170,7 @@ pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_scor
 
 Notes: 
 
-Normally after building our pipelines, we would now either do cross-validation or grid search but let's start with the `cross-validate()` function. 
+Normally after building our pipelines, we would now either do cross-validation or hyperparameter tuning but let's start with the `cross_validate()` function. 
 
 All the possible scoring metrics that this argument accepts is available <a href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter" target="_blank">here</a>. 
 
