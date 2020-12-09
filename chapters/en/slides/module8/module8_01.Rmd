@@ -88,45 +88,26 @@ Notes: <br>
 
 ## Linear Regression
 
-```{python}
-housing_df = pd.read_csv("data/housing.csv")
-train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
-```
+```{python include=FALSE}
+np.random.seed(7)
+n = 100
+X_1 = np.linspace(0,2,n) + np.random.randn(n)*0.01
+X = pd.DataFrame(X_1[:,None], columns=['length'])
 
-```{python include = FALSE}
-train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
-                           bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
-                           population_per_household = train_df["population"]/train_df["households"])
-                        
-test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
-                         bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
-                         population_per_household = test_df["population"]/test_df["households"])
-                         
-train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
-test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
-```
+y = abs(np.random.randn(n,1))*3 + X_1[:,None]*5 + .2
+y = pd.DataFrame(y, columns=['weight'])
+snakes_df = pd.concat([X,y], axis=1)
 
-```{python}
-X_train = train_df.drop(columns=["median_house_value"])
-y_train = train_df["median_house_value"]
-X_test = test_df.drop(columns=["median_house_value"])
-y_test = test_df["median_house_value"]
+train_df, test_df = train_test_split(snakes_df, test_size=0.2, random_state=77)
 
-numeric_features = [ "longitude", "latitude",
-                     "housing_median_age",
-                     "households", "median_income",
-                     "rooms_per_household",
-                     "bedrooms_per_household",
-                     "population_per_household"]
-                     
-categorical_features = ["ocean_proximity"]
-
-X_train.head()
+X_train = train_df[['length']]
+y_train = train_df['weight']
+X_test = test_df[['length']]
+y_test = test_df['weight']
 ```
 
 ```{python}
-X_train, y_train = train_df.drop(columns=['price', 'ocean_proximity']), train_df['price']
-X_test, y_test = test_df.drop(columns=['price', 'ocean_proximity']), test_df['price']
+train_df.head()
 ```
 
 
@@ -138,7 +119,9 @@ We've seen many regression models such as `DecisionTreeRegressor` and `KNeighbor
 
 Linear regression is one of the most basic and popular ML/statistical techniques.
 
-Let's bring back the California housing data that we saw in previous modules of this course.
+Let's bring back the hypothetical snake data that we saw in module 4. 
+
+
 
 ---
 
@@ -170,7 +153,7 @@ rm.score(X_train, y_train)
 
 Notes: 
 
-We can import the `LinearRegression` model like we have for all the previous models we've used except we are going to instead focus on its close cousin `Ridge`. 
+We can import the `LinearRegression` model like we have for all the previous models we've used  except we are going to instead focus on its close cousin `Ridge`. 
 
 `Ridge` is more flexible than `LinearRegression` and we will explain why shortly. 
 
