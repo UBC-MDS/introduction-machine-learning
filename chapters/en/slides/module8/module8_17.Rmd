@@ -242,10 +242,8 @@ In this plot, the colours are inconsistent with the shapes.
 
 ---
 
-<br>
-<br>
 
-```{python  echo=FALSE, fig.width = 12, fig.height = 8,  out.width = '100%', fig.align='center'}
+```{python  echo=FALSE, fig.width = 12, fig.height = 8,  out.width = '80%', fig.align='center'}
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1);
 rf_2f = DecisionTreeClassifier();

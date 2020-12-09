@@ -245,9 +245,7 @@ correspond to the blue circles.
 
 ---
 
-<br> <br>
-
-<img src="/module8/module8_17/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="/module8/module8_17/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" />
 
 Notes:
 
