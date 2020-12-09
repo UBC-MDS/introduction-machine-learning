@@ -54,11 +54,11 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.000634    0.000423    0.588235     0.601504
-1  0.000502    0.000344    0.588235     0.601504
-2  0.000494    0.000341    0.606061     0.597015
-3  0.000489    0.000338    0.606061     0.597015
-4  0.000488    0.000340    0.606061     0.597015
+0  0.000702    0.000473    0.588235     0.601504
+1  0.000527    0.000358    0.588235     0.601504
+2  0.000583    0.000400    0.606061     0.597015
+3  0.000504    0.000336    0.606061     0.597015
+4  0.000491    0.000336    0.606061     0.597015
 ```
 
 Notes:
@@ -84,11 +84,11 @@ scores
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.010507    0.001683    0.852941     0.827068
-1  0.011321    0.001665    0.823529     0.827068
-2  0.009204    0.001819    0.696970     0.858209
-3  0.010030    0.001674    0.787879     0.843284
-4  0.009850    0.001592    0.939394     0.805970
+0  0.013990    0.003045    0.852941     0.827068
+1  0.013649    0.002283    0.823529     0.827068
+2  0.012972    0.001695    0.696970     0.858209
+3  0.011815    0.001804    0.787879     0.843284
+4  0.009755    0.001589    0.939394     0.805970
 ```
 
 Notes:
@@ -300,8 +300,8 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 10 candidates, totalling 50 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.8s
-[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.8s finished
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    2.0s
+[Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    2.1s finished
 ```
 
 ``` python
@@ -309,7 +309,7 @@ grid_search.best_params_
 ```
 
 ```out
-{'C': 32.648877607780925}
+{'C': 66.12113453497285}
 ```
 
 ``` python
@@ -325,6 +325,104 @@ Notes:
 `LogisticRegression`’s default `C` hyperparameter is 1.
 
 Let’s see what kind of value we get if we do `RandomizedGrid`.
+
+---
+
+## Logistic regression with text data
+
+``` python
+X = [
+    "URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!",
+    "Lol you are always so convincing.",
+    "Nah I don't think he goes to usf, he lives around here though",
+    "URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!",
+    "Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030",
+    "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
+
+y = ["spam", "non spam", "non spam", "spam", "spam", "non spam"]
+```
+
+Notes:
+
+In one of the practice problems and in the assigment, we apply logistic
+regression with text data.
+
+We want to give you a bit of background for this.
+
+Let’s bring back our spam dummy data that we looked at in Modulee 6.
+
+---
+
+``` python
+vec = CountVectorizer()
+X_transformed = vec.fit_transform(X);
+bow_df = pd.DataFrame(X_transformed.toarray(), columns=sorted(vec.vocabulary_), index=X)
+bow_df
+```
+
+```out
+                                                    08002986030  100000  11  900  all  always  are  around  as  been  call  callers  callertune  camera  co  colour  convincing  copy  customer  don  entitled  for  free  friends  goes  ...  oru  our  per  press  prize  receive  request  reward  selected  set  so  the  think  though  to  update  \
+URGENT!! As a valued network customer you have ...            0       0   0    1    0       0    0       0   1     1     0        0           0       0   0       0           0     0         1    0         0    0     0        0     0  ...    0    0    0      0      1        1        0       1         1    0   0    0      0       0   1       0   
+Lol you are always so convincing.                             0       0   0    0    0       1    1       0   0     0     0        0           0       0   0       0           1     0         0    0         0    0     0        0     0  ...    0    0    0      0      0        0        0       0         0    0   1    0      0       0   0       0   
+Nah I don't think he goes to usf, he lives arou...            0       0   0    0    0       0    0       1   0     0     0        0           0       0   0       0           0     0         0    1         0    0     0        0     1  ...    0    0    0      0      0        0        0       0         0    0   0    0      1       1   1       0   
+URGENT! You have won a 1 week FREE membership i...            0       1   0    0    0       0    0       0   0     0     0        0           0       0   0       0           0     0         0    0         0    0     1        0     0  ...    0    1    0      0      1        0        0       0         0    0   0    0      0       0   0       0   
+Had your mobile 11 months or more? U R entitled...            1       0   1    0    0       0    0       0   0     0     1        0           0       1   1       1           0     0         0    0         1    1     2        0     0  ...    0    0    0      0      0        0        0       0         0    0   0    2      0       0   2       2   
+As per your request 'Melle Melle (Oru Minnaminu...            0       0   0    0    1       0    0       0   2     1     0        1           2       0   0       0           0     1         0    0         0    1     0        1     0  ...    1    0    1      1      0        0        1       0         0    1   0    0      0       0   1       0   
+
+                                                    urgent  usf  valued  vettam  week  with  won  you  your  
+URGENT!! As a valued network customer you have ...       1    0       1       0     0     0    0    1     0  
+Lol you are always so convincing.                        0    0       0       0     0     0    0    1     0  
+Nah I don't think he goes to usf, he lives arou...       0    1       0       0     0     0    0    0     0  
+URGENT! You have won a 1 week FREE membership i...       1    0       0       0     1     0    1    1     0  
+Had your mobile 11 months or more? U R entitled...       0    0       0       0     0     1    0    0     1  
+As per your request 'Melle Melle (Oru Minnaminu...       0    0       0       1     0     0    0    0     3  
+
+[6 rows x 72 columns]
+```
+
+Notes:
+
+`CountVectorizer` transforms our `review` column into multiple columns
+each being a word from the `X` vocabulary.
+
+---
+
+``` python
+lr_text_model = LogisticRegression()
+lr_text_model.fit(X_transformed, y);
+```
+
+``` python
+pd.DataFrame({'feature': vec.get_feature_names(),
+              'coefficient': lr_text_model.coef_[0]})
+```
+
+```out
+        feature  coefficient
+0   08002986030     0.083722
+1        100000     0.147288
+2            11     0.083722
+3           900     0.154797
+4           all    -0.077603
+..          ...          ...
+67         week     0.147288
+68         with     0.083722
+69          won     0.147288
+70          you     0.111733
+71         your    -0.149088
+
+[72 rows x 2 columns]
+```
+
+Notes:
+
+That means that each word is a feature in our model and therefore when
+we apply logistic regression to our feature table, we get a coefficient
+for each word\!
+
+This should help you in understanding how the coefficients contribute to
+the predictions of each example for both the practice problems and the
+assignment.
 
 ---
 

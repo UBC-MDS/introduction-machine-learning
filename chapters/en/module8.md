@@ -311,7 +311,11 @@ print(bb_weights)
 
 <exercise id="10" title= "Logistic Regression Prediction">
 
-Use the following coefficients and intercept to answer the next 2 questions. 
+We have the following text, which we wish to classify as either a positive or negative movie review. 
+
+Using the words below (which are features in our model) with associated coefficients, answer the next 2 questions. 
+
+The input for the feature value is the number of times the word appears in the review. 
 
 
 |   Word            | Coefficient | 
@@ -321,8 +325,6 @@ Use the following coefficients and intercept to answer the next 2 questions.
 |flawless            | 1.4         |
 |boring              | -1.3        |
 |unwatchable         | -1.7        |
-|incoherent          | -1.9        |
-|subtle              | 1.3         |
 
 Intercept = 1.3
 
@@ -343,7 +345,7 @@ Nice!
 
 </opt>
 
-<opt text= "0.8" >
+<opt text= "-0.8" >
  
 Are you forgetting the intercept?
 

@@ -117,8 +117,8 @@ X_test, y_test = test_df.drop(columns =['price']), test_df['price']
 
 Notes:
 
-Let’s now use `Ridge` with our Taiwan housing dataset that we saw in
-assignment 1 where we want to predict the house price.
+Let’s now use `Ridge` with our Taiwan housing dataset again from the
+last slide deck. Here, we want to predict the house price.
 
 ---
 
@@ -143,7 +143,7 @@ array([-2.43214368e-01, -5.33723544e-03,  1.25878207e+00,  8.92353624e+00, -1.34
 
 Notes:
 
-We can make our pipeline as usual and train it, and assess our training
+We can make our model as usual and train it, and assess our training
 score.
 
 We saw that with linear classifiers we have coefficients associated with

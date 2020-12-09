@@ -63,6 +63,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.feature_extraction.text import CountVectorizer
 
 
 pd.set_option('display.width', 350)
@@ -364,6 +365,74 @@ Notes:
 `LogisticRegression`'s default `C` hyperparameter is 1. 
 
 Let's see what kind of value we get if we do `RandomizedGrid`. 
+
+---
+
+## Logistic regression with text data
+
+
+```{python}
+X = [
+    "URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!",
+    "Lol you are always so convincing.",
+    "Nah I don't think he goes to usf, he lives around here though",
+    "URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!",
+    "Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030",
+    "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
+
+y = ["spam", "non spam", "non spam", "spam", "spam", "non spam"]
+```
+
+
+
+
+Notes: 
+
+In one of the practice problems and in the assigment, we apply logistic regression with text data.
+
+We want to give you a bit of background for this.
+
+Let's bring back our spam dummy data that we looked at in Modulee 6. 
+
+
+
+---
+
+
+```{python}
+vec = CountVectorizer()
+X_transformed = vec.fit_transform(X);
+bow_df = pd.DataFrame(X_transformed.toarray(), columns=sorted(vec.vocabulary_), index=X)
+bow_df
+```
+
+
+Notes: 
+
+`CountVectorizer` transforms our `review` column into multiple columns each being a word from the `X` vocabulary. 
+
+
+
+---
+
+
+```{python}
+lr_text_model = LogisticRegression()
+lr_text_model.fit(X_transformed, y);
+```
+
+```{python}
+pd.DataFrame({'feature': vec.get_feature_names(),
+              'coefficient': lr_text_model.coef_[0]})
+```
+
+
+Notes: 
+
+That means that each  word is a feature in our model and therefore when we apply logistic regression to our feature table, we get a coefficient for each word! 
+
+This should help you in understanding how the coefficients contribute to the predictions of each example for both the practice problems and the assignment. 
+
 
 ---
 
