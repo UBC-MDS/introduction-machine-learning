@@ -62,7 +62,7 @@ pipe = Pipeline(
 ```
 
 ``` python
-pipe.fit(X_train, X_train)
+pipe.fit(X_train, y_train)
 ```
 
 ``` out
@@ -210,26 +210,26 @@ transform, just like we did with numeric columns.
 ---
 
 ``` python
-encoding_view = X_toy.assign(language_enc=X_toy_ord)
+encoding_view = X_toy.assign(rating_enc=X_toy_ord)
 encoding_view
 ```
 
 ```out
-     rating  language_enc
-0      Good             1
-1       Bad             0
-2      Good             1
-3      Good             1
-4       Bad             0
-5   Neutral             2
-6      Good             1
-7      Good             1
-8   Neutral             2
-9   Neutral             2
-10  Neutral             2
-11     Good             1
-12      Bad             0
-13     Good             1
+     rating  rating_enc
+0      Good           1
+1       Bad           0
+2      Good           1
+3      Good           1
+4       Bad           0
+5   Neutral           2
+6      Good           1
+7      Good           1
+8   Neutral           2
+9   Neutral           2
+10  Neutral           2
+11     Good           1
+12      Bad           0
+13     Good           1
 ```
 
 Notes:
@@ -240,8 +240,8 @@ our original column to see what happened.
 In this case, we can see that each rating has been designated an integer
 value.
 
-For example, `Good` is represented by an encoded value of 1 and `Bad` a
-value of 0. Good should have a higher value right?
+For example, `Neutral` is represented by an encoded value of 2 and
+`Good` a value of 1. Shouldn’t `Good` have a higher value?
 
 ---
 
@@ -276,37 +276,37 @@ array([[2],
 
 Note:
 
-we can change that by specifying the order in the `categories` argument.
+We can change that by specifying the order in the `categories` argument.
 
 ---
 
 ``` python
-encoding_view = X_toy.assign(language_enc=X_toy_ord)
+encoding_view = X_toy.assign(rating_enc=X_toy_ord)
 encoding_view
 ```
 
 ```out
-     rating  language_enc
-0      Good             2
-1       Bad             0
-2      Good             2
-3      Good             2
-4       Bad             0
-5   Neutral             1
-6      Good             2
-7      Good             2
-8   Neutral             1
-9   Neutral             1
-10  Neutral             1
-11     Good             2
-12      Bad             0
-13     Good             2
+     rating  rating_enc
+0      Good           2
+1       Bad           0
+2      Good           2
+3      Good           2
+4       Bad           0
+5   Neutral           1
+6      Good           2
+7      Good           2
+8   Neutral           1
+9   Neutral           1
+10  Neutral           1
+11     Good           2
+12      Bad           0
+13     Good           2
 ```
 
 Note:
 
-Now our `Good` rating is giving an ordinal value of 2 and our `Bad` is
-0.
+Now our `Good` rating is given an ordinal value of 2 and the `Bad`
+rating is encoded as 0.
 
 ---
 
@@ -337,8 +337,8 @@ pd.DataFrame(X_toy['language'].value_counts()).rename(columns={'language': 'freq
 ```
 
 ```out
-           English  Mandarin  Vietnamese  Spanish  French  Hindi
-frequency        5         4           2        1       1      1
+           English  Mandarin  Vietnamese  French  Hindi  Spanish
+frequency        5         4           2       1      1        1
 ```
 
 Notes:
@@ -384,7 +384,7 @@ all our languages are encoded.
 
 Does it make sense to have this column ordinally encoded though?
 
-We are saying in this case thar `Vietnamese` is as close to `spanish` as
+We are saying in this case that `Vietnamese` is as close to `spanish` as
 `Mandarin` is to `Hindi`. Does that quantification make sense? We can’t
 really compare these things and that is why we use One-hot encoding
 which is what we will look at in the next section.
