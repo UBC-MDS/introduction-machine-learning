@@ -230,14 +230,14 @@ If we decrease `alpha`, our model complexity is increasing and consequentially o
 ```{python include=FALSE}
 
 source = pd.DataFrame(data= {'length':  X_train['length'],
-                             'width':  y_train,
+                             'weight':  y_train,
                              'predicted': rm.predict(X_train)})
 chart1 = alt.Chart(source, width=500, height=300).mark_circle().encode(
 x = alt.X('length:Q', title= "Length"), 
-y = alt.Y('width:Q', title= "Width"))
+y = alt.Y('weight:Q', title= "Weight"))
 chart2 = alt.Chart(source, width=500, height=300).mark_line(color= 'orange').encode(
 x = alt.X('length:Q', title= "Length"), 
-y = alt.Y('predicted:Q', title = "Width"))
+y = alt.Y('predicted:Q', title = "Weight"))
 
 chart3 = (chart1 + chart2).to_json()
 ```
