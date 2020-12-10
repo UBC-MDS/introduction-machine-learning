@@ -149,7 +149,7 @@ features then we would need a third.)
 col_transformer = ColumnTransformer(
     transformers=[
         ("numeric", numeric_transformer, numeric_features),
-        ("categotical", categorical_transformer, categorical_features)
+        ("categorical", categorical_transformer, categorical_features)
     ], 
     remainder='passthrough'    
 )
@@ -200,7 +200,7 @@ ColumnTransformer(remainder='passthrough',
                                   'rooms_per_household',
                                   'bedrooms_per_household',
                                   'population_per_household']),
-                                ('categotical',
+                                ('categorical',
                                  Pipeline(steps=[('imputer',
                                                   SimpleImputer(fill_value='missing',
                                                                 strategy='constant')),
@@ -236,7 +236,7 @@ X_train.head()
 x = list(X_train.columns.values)
 del x[5]
 X_train_pp = col_transformer.transform(X_train)
-pd.DataFrame(X_train_pp, columns= (x  + list(col_transformer.named_transformers_["categotical"].named_steps["onehot"].get_feature_names(categorical_features)))).head()
+pd.DataFrame(X_train_pp, columns= (x  + list(col_transformer.named_transformers_["categorical"].named_steps["onehot"].get_feature_names(categorical_features)))).head()
 ```
 
 ```out
@@ -255,7 +255,7 @@ Here we can see what our dataframe looks like after transformation.
 ---
 
 ``` python
-onehot_cols = col_transformer.named_transformers_["categotical"].named_steps["onehot"].get_feature_names(categorical_features)
+onehot_cols = col_transformer.named_transformers_["categorical"].named_steps["onehot"].get_feature_names(categorical_features)
 onehot_cols
 ```
 
@@ -296,11 +296,11 @@ pd.DataFrame(with_categorical_scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.034942    0.263378    0.695818     0.801659
-1  0.036598    0.271417    0.707483     0.799575
-2  0.033372    0.270438    0.713788     0.795944
-3  0.033244    0.281224    0.686938     0.801232
-4  0.034295    0.259348    0.724608     0.832498
+0  0.042494    0.294840    0.695818     0.801659
+1  0.034074    0.290297    0.707483     0.799575
+2  0.032632    0.287995    0.713788     0.795944
+3  0.036031    0.278211    0.686938     0.801232
+4  0.035654    0.230778    0.724608     0.832498
 ```
 
 Notes:
@@ -330,11 +330,11 @@ pd.DataFrame(no_categorical_scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.024516    0.214260    0.693883     0.792395
-1  0.020666    0.172213    0.685017     0.789108
-2  0.024009    0.197966    0.694409     0.787796
-3  0.024899    0.203115    0.677055     0.792444
-4  0.023610    0.164008    0.714494     0.823421
+0  0.022094    0.182150    0.693883     0.792395
+1  0.024236    0.178469    0.685017     0.789108
+2  0.023526    0.174568    0.694409     0.787796
+3  0.024266    0.183895    0.677055     0.792444
+4  0.023542    0.145725    0.714494     0.823421
 ```
 
 Notes:
@@ -350,8 +350,8 @@ pd.DataFrame(no_categorical_scores).mean()
 ```
 
 ```out
-fit_time       0.023540
-score_time     0.190312
+fit_time       0.023533
+score_time     0.172961
 test_score     0.692972
 train_score    0.797033
 dtype: float64
@@ -362,8 +362,8 @@ pd.DataFrame(with_categorical_scores).mean()
 ```
 
 ```out
-fit_time       0.034490
-score_time     0.269161
+fit_time       0.036177
+score_time     0.276424
 test_score     0.705727
 train_score    0.806182
 dtype: float64
@@ -403,7 +403,7 @@ Pipeline(steps=[('preprocessor',
                                                    'rooms_per_household',
                                                    'bedrooms_per_household',
                                                    'population_per_household']),
-                                                 ('categotical',
+                                                 ('categorical',
                                                   Pipeline(steps=[('imputer',
                                                                    SimpleImputer(fill_value='missing',
                                                                                  strategy='constant')),

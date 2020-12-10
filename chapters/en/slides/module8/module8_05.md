@@ -58,12 +58,12 @@ Consider the following listing (example):
 <font size="4"><em> predicted(price) = coefficient<sub>bedrooms</sub> x
 \#bedrooms + coefficient<sub>bathrooms</sub> x \#bathrooms +
 coefficient<sub>sqfeet</sub> x \#sqfeet + coefficient<sub>age</sub> x
-\#age + intercept </em></font>
+age + intercept </em></font>
 
 <font size="4"><em> predicted(price) = 0.03 x \#bedrooms + 0.04 x
 \#bathrooms + 0.003 x \#sqfeet + -0.01 x \#age + intercept </em></font>
 
-<font size="4"><em> predicted(price) = (0.03 x 3) + (0.04 x 2) + (0.003
+<font size="4"><em> predicted(price) = (0.03 x 3) + (0.04 x 2) + (0.002
 x 1875) + (-0.01 x 66) + 0 </em></font>
 
 <font size="4"><em> predicted(price) = 3.26 </em></font>
@@ -84,7 +84,7 @@ Notes:
 (<font  color="#b1d78c">coefficient<sub>sqfeet</sub></font> x
 <font  color="7bd1ec">\#sqfeet</font>) +
 (<font  color="#b1d78c">coefficient<sub>age</sub></font> x
-<font  color="7bd1ec">\#age</font>) +
+<font  color="7bd1ec">age</font>) +
 <font  color="e8b0d0">intercept</font> </em> </font>
 
   - <font  color="7bd1ec"> Input features</font>  
