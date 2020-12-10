@@ -184,7 +184,7 @@ Tasks:
 - Import the plotting confusion matrix library. 
 - Build a pipeline named `pipe_bb` that preprocesses with `preprocessor` and builds an `SVC()` model with default hyperparameters. 
 - Fit the pipeline on `X_train` and `y_train`. 
-- Next, build a confusion matrix using `plot_confusion_matrix` and calling `pipe_bb` and the **test** set. Pick any colour you like with `cmap`. You can find the colour options <a href=" https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html" target="_blank">here</a>.
+- Next, build a confusion matrix using `plot_confusion_matrix` and calling `pipe_bb` on the **test** set. Pick any colour you like with `cmap`. You can find the colour options <a href=" https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html" target="_blank">here</a>.
 
 <codeblock id="07_04">
 

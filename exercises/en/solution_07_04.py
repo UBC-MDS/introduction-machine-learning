@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
@@ -52,6 +52,6 @@ pipe_bb = make_pipeline(preprocessor, SVC())
 # Fit your pipeline on the training data
 pipe_bb.fit(X_train, y_train);
 
-# Plot your confusion matrix and "show it"
+# Plot your confusion matrix 
 plot_confusion_matrix(pipe_bb, X_test, y_test,
                       cmap="PuRd");

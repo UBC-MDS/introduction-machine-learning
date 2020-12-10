@@ -144,7 +144,7 @@ preprocessor = make_column_transformer(
         (categorical_transformer, categorical_features), 
     remainder='passthrough')
 
-pipe = make_pipeline(preprocessor, SVR())
+pipe = make_pipeline(preprocessor, KNeighborsRegressor())
 pipe.fit(X_train, y_train);
 ```
 
@@ -330,7 +330,7 @@ We can reverse MSE but not R<sup>2</sup> (optional).
 
 <center><img src="/module7/rmse-simp.svg"  width = "20%" alt="404 image" /></center>
 
-<center><img src="/module7/mse-easy.svg"  width = "38%" alt="404 image" /></center>
+<center><img src="/module7/rmse-easy.svg"  width = "38%" alt="404 image" /></center>
 
 
 ```{python}
@@ -349,7 +349,7 @@ The MSE we had before was in dollars<sup>2</sup>.
 
 A more relatable metric would be the root mean squared error, or RMSE. 
 
-This now has the units in dollars.  Instead of 250 million dollars squared our error measurement is around $50,000.
+This now has the units in dollars.  Instead of 2 billion dollars squared our error measurement is around $50,000.
 
 ---
 

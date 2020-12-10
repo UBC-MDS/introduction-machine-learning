@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
@@ -52,7 +52,7 @@ ____ = ____
 # Fit your pipeline on the training data
 ____
 
-# Plot your confusion matrix and "show it"
+# Plot your confusion matrix
 ____(____, ____, ____, ____);
 
 

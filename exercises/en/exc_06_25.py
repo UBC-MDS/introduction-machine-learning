@@ -7,7 +7,6 @@ from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.svm import SVC
 from sklearn.feature_extraction.text import ____
-import scipy
 
 # Loading in the data
 tweets_df = pd.read_csv('data/balanced_tweets.csv').dropna(subset=['target'])
@@ -28,14 +27,17 @@ param_grid = {
 ____ = ____
 
 # perform RandomizedSearchCV using the parameters specified in param_grid
-____ = ____(____, ____, n_jobs=-1, cv=5, return_train_score=True, n_iter=10)
+# Don't forget to fit this on the training data
+____ = ____(____, ____, n_jobs=-1, cv=5,
+            return_train_score=True, n_iter=10,
+            Random_state=2020)
 ____.____(____)
 
-## What is the best max_features value? Save it in an object name tweet_feats
+# What is the best max_features value? Save it in an object name tweet_feats
 ____ = ____
 print(tweet_feats)
 
-## What is the best score? Save it in an object named tweet_val_score
+# What is the best score? Save it in an object named tweet_val_score
 ____ = ____
 print(tweet_val_score)
 

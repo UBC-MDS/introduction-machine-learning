@@ -67,7 +67,7 @@ pd.set_option('display.width', 350)
 
 np.set_printoptions(linewidth=400)
 
-pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_columns', 15)
 pd.set_option('display.max_rows', 15)
 
 path = "../../../../static/module6/"

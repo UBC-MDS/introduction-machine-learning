@@ -40,7 +40,7 @@ categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
     OneHotEncoder(handle_unknown="ignore"))
 
-# Build a categorical transformer
+# Build a column transformer
 col_transformer = make_column_transformer(
     (numeric_transformer, numeric_features),
     (categorical_transformer, categorical_features))

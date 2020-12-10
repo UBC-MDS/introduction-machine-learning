@@ -269,7 +269,7 @@ We fit and transform the data and exactly as before, our output from the `transf
 ```{python}
 pd.DataFrame(
     data=X_toy_ohe,
-    columns=enc.get_feature_names(['language']),
+    columns=ohe.get_feature_names(['language']),
     index=X_toy.index,
 )
 ```

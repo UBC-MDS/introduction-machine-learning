@@ -64,7 +64,7 @@ preprocessor = make_column_transformer(
         (categorical_transformer, categorical_features), 
     remainder='passthrough')
 
-pipe = make_pipeline(preprocessor, SVR())
+pipe = make_pipeline(preprocessor, KNeighborsRegressor())
 pipe.fit(X_train, y_train);
 ```
 
@@ -110,7 +110,7 @@ predicted_y
 ```
 
 ```out
-array([178547.48641894, 179315.14122106, 179159.95021724, ..., 179740.03133259, 179316.44994214, 177955.10847572])
+array([111740., 117380., 187700., ..., 271420., 265180.,  60860.])
 ```
 
 Notes:
@@ -159,7 +159,7 @@ predicted_y
 ```
 
 ```out
-array([178547.48641894, 179315.14122106, 179159.95021724, ..., 179740.03133259, 179316.44994214, 177955.10847572])
+array([111740., 117380., 187700., ..., 271420., 265180.,  60860.])
 ```
 
 ``` python
@@ -167,7 +167,7 @@ np.mean((y_train - predicted_y)**2)
 ```
 
 ```out
-13863186590.80318
+2570054492.048064
 ```
 
 ``` python
@@ -199,7 +199,7 @@ mean_squared_error(y_train, predicted_y)
 ```
 
 ```out
-13863186590.80318
+2570054492.048064
 ```
 
 Notes:
@@ -298,7 +298,7 @@ We can reverse MSE but not R<sup>2</sup> (optional).
 
 <center>
 
-<img src="/module7/mse-easy.svg"  width = "38%" alt="404 image" />
+<img src="/module7/rmse-easy.svg"  width = "38%" alt="404 image" />
 
 </center>
 
@@ -307,7 +307,7 @@ mean_squared_error(y_train, predicted_y)
 ```
 
 ```out
-13863186590.80318
+2570054492.048064
 ```
 
 ``` python
@@ -315,7 +315,7 @@ np.sqrt(mean_squared_error(y_train, predicted_y))
 ```
 
 ```out
-117742.03408640086
+50695.704867849156
 ```
 
 Notes:
@@ -324,8 +324,8 @@ The MSE we had before was in dollars<sup>2</sup>.
 
 A more relatable metric would be the root mean squared error, or RMSE.
 
-This now has the units in dollars. Instead of 250 million dollars
-squared our error measurement is around $50,000.
+This now has the units in dollars. Instead of 2 billion dollars squared
+our error measurement is around $50,000.
 
 ---
 
@@ -354,11 +354,11 @@ percent_errors.head()
 ```
 
 ```out
-6051     57.172083
-20113    30.411012
-14289     5.326249
-13665    38.718745
-14471   -12.622562
+6051     -1.637324
+20113   -14.632727
+14289    10.346855
+13665     6.713070
+14471   -10.965854
 Name: median_house_value, dtype: float64
 ```
 
@@ -367,11 +367,11 @@ np.abs(percent_errors).head()
 ```
 
 ```out
-6051     57.172083
-20113    30.411012
-14289     5.326249
-13665    38.718745
-14471    12.622562
+6051      1.637324
+20113    14.632727
+14289    10.346855
+13665     6.713070
+14471    10.965854
 Name: median_house_value, dtype: float64
 ```
 
@@ -380,7 +380,7 @@ Name: median_house_value, dtype: float64
 ```
 
 ```out
-52.210220418419
+18.192997502985218
 ```
 
 Notes:

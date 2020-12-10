@@ -7,7 +7,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier,
 from sklearn.metrics import precision_score, recall_score, f1_score, classification_report
 
 # Loading in the data

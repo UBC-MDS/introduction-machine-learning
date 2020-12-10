@@ -63,6 +63,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.feature_extraction.text import CountVectorizer
 
 
 pd.set_option('display.width', 350)
@@ -74,7 +75,6 @@ pd.set_option('display.max_rows', 15)
 
 path = "../../../../static/module8/"
 ```
-
 
 type: slides
 
@@ -98,11 +98,11 @@ Notes:
 
 Next, we are going to introduce to you a new model called **logistic regression**. 
 
-It's very similar to the `Ridge` classifier we sae earlier but this one has some key differences. 
+It's very similar to `Ridge` we saw earlier but this one has some key differences. 
 
 For one, we can use it with classification instead of regression problems. 
 
-For that reason we are going to bring back our cities dataset we saw at the beginning of this course. 
+For that reason, we are going to bring back our cities dataset we saw at the beginning of this course. 
 
 
 
@@ -122,11 +122,11 @@ scores
 
 Notes: 
 
-Although we don't always do this in the slides, we should always be building a baseline model before we do any type of meaningful modelling. 
+Although we don't always do this in the slides, we should always be building a baseline model before we do any type of meaningful modeling. 
 
 Let's do that before we get straight into it.
 
-Now we can have a better idea on how well our model performs. 
+Now we can have a better idea of how well our model performs. 
 
 ---
 
@@ -144,7 +144,7 @@ scores
 
 Notes: 
 
-We import `LogisticRegression` from the `sklearn.linear_model` library like we did with `Ridge`. 
+We import `LogisticRegression` from the `sklearn.linear_model` library as we did with `Ridge`. 
 
 This time we can see that our training and cross-validation scores have increased from those of our `DummyClassifier`. 
 
@@ -154,23 +154,23 @@ This time we can see that our training and cross-validation scores have increase
 
 ## Visualizing our model
 
-```{python echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '80%', fig.align='center'}
+```{python echo=FALSE,  fig.width = 13, fig.height = 9,  out.width = '70%', fig.align='center'}
 lr.fit(X_train, y_train);
 plot_classifier(X_train, y_train, lr, ax=plt.gca(), ticks=True)
-plt.xticks(fontsize= 14);
-plt.yticks(fontsize= 14);
-plt.title("Logistic Regression", fontsize=20)
-plt.xlabel("longitude", fontsize=16)
-plt.ylabel("lattitude", fontsize=16)
+plt.xticks(fontsize= 16);
+plt.yticks(fontsize= 16);
+plt.title("Logistic Regression", fontsize=22)
+plt.xlabel("longitude", fontsize=18)
+plt.ylabel("latitude", fontsize=18)
 ```
 
 
 
 Notes: 
 
-We saw that with SVMs and decision trees we could visualize our model with decision boundaries and we can do the same thing here.
+We saw that with SVMs and decision trees that  we could visualize our model with decision boundaries and we can do the same thing with logistic regression.
 
-Here we can see we get a line that separates our two target classes. 
+Here, we can see we get a line that separates our two target classes. 
 
 ---
 
@@ -179,7 +179,7 @@ Here we can see we get a line that separates our two target classes.
 <br>
 <br>
 
-```{python echo=FALSE,  fig.width = 10, fig.height = 7,  out.width = '100%', fig.align='center'}
+```{python include=FALSE,  fig.width = 12, fig.height = 10,  out.width = '100%', fig.align='center'}
 models = {
     "KNN": KNeighborsClassifier(),    
     "RBF SVM": SVC(gamma = 0.01),    
@@ -196,11 +196,11 @@ for name, model in models.items():
     plt.yticks();
     plt.title(name, fontsize=14)
     plt.xlabel("longitude")
-    plt.ylabel("lattitude")
+    plt.ylabel("latitude")
     i += 1
 ```
 
-
+<center><img src="/module8/triple_graph.png"  width = "100%" alt="404 image" /></center>
 
 Notes:
 
@@ -219,12 +219,12 @@ lr.fit(X_train, y_train);
 ```
 
 ```python
-print("Model weights:", lr.coef_)
+print("Model coefficients:", lr.coef_)
 print("Model intercept:", lr.intercept_)
 ```
 
 ```out
-Model weights: [[-0.04108149 -0.33683126]]
+Model coefficients: [[-0.04108149 -0.33683126]]
 Model intercept: [10.8869838]
 ```
 
@@ -238,9 +238,9 @@ Notes:
 
 Just like we saw for `Ridge`. we can get the equation of that line and the coefficients of our `latitude` and `longitude` features using `.coef_`.
 
-In this case we see that both are negative weights, 
+In this case, we see that both are negative coefficients. 
 
-We also can see that the weight of latitude is larger in magnitude. 
+We also can see that the coefficient of latitude is larger in magnitude than that of longitude. 
 
 This makes a lot of sense because Canada as a country lies above the USA and so we expect `latitude` values to contribute more to a prediction than `longitude` which Canada and the `USA` have quite similar values. 
 
@@ -250,14 +250,20 @@ This makes a lot of sense because Canada as a country lies above the USA and so 
 ## Predictions
 
 ```{python}
+lr.classes_
+```
+
+
+```{python}
 example = X_test.iloc[0,:]
 example.tolist()
 ```
 
 
 ```{python}
-lr.intercept_ + (example.tolist() * lr.coef_).sum(axis=1)
+(example.tolist() * lr.coef_).sum(axis=1) + lr.intercept_ 
 ```
+
 ```{python}
 lr.predict([example])
 ```
@@ -265,20 +271,23 @@ lr.predict([example])
 
 Notes: 
 
-Again let's take an example from our test and calculate the outcome using our weights and intercept. 
+Again, let's take an example from our test set and calculate the outcome using our coefficients and intercept. 
 
 We get a value of -1.978. 
 
-In `Ridge` our prediction would be the calculated result so -1.97, but for logistic regression we check the **sign** of the calculation only.
+In `Ridge` our prediction would be the calculated result so -1.97, but for logistic regression, we check the **sign** of the calculation only.
 
 Our threshold is 0.
-- If the result was positive, it predicts the one class; if negative, it predict the other.
+
+- If the result was positive, it predicts one class; if negative, it predicts the other.
 
 That means everything negative corresponds to "Canada" and everything positive predicts a class of "USA". 
 
 If we use `predict`, it gives us the same result as well! 
 
-These are "hard predictions" but we can also use this for something called "soft predictions" as well (That's in the next slide deck!). 
+These are "hard predictions" but we can also use this for something called "soft predictions" as well.
+
+(That's in the next slide deck!)
 
 ---
 
@@ -305,13 +314,13 @@ pd.DataFrame(scores_dict)
 
 Notes: 
 
-At this point you should be feeling pretty comfortable with hyperparameters. 
+At this point, you should be feeling pretty comfortable with hyperparameters. 
 
-We saw that `Ridge` has the hyperparameter `alpha`, well `C` (annoyingly) has the opposite effect on the fundamental trade off. 
+We saw that `Ridge` has the hyperparameter `alpha`, well `C` (annoyingly) has the opposite effect on the fundamental trade-off. 
 
 In general, we say smaller `C` leads to a less complex model (whereas with `Ridge`, lower `alpha` means higher complexity). 
 
-higher values of `C` leads to more overfitting and lower values to less overfitting. 
+Higher values of `C` leads to more overfitting and lower values to less overfitting. 
 
 
 
@@ -325,7 +334,7 @@ plotting_source = pd.DataFrame(scores_dict).melt(id_vars='C',
                                   
                                   
 mss_acc_plot = alt.Chart(plotting_source, width=500, height=300).mark_line().encode(
-    alt.X('C:Q',scale=alt.Scale(type='log')),
+    alt.X('C:Q', scale=alt.Scale(type='log')),
     alt.Y('accuracy:Q', scale=alt.Scale(domain=[0.55, 0.9])),
     alt.Color('score_type:N')
 ).properties(title="Accuracies of C split for logistic regression").to_json()
@@ -350,9 +359,80 @@ grid_search.best_params_
 grid_search.best_score_
 ```
 
+
+Notes: 
+
 `LogisticRegression`'s default `C` hyperparameter is 1. 
 
 Let's see what kind of value we get if we do `RandomizedGrid`. 
+
+---
+
+## Logistic regression with text data
+
+
+```{python}
+X = [
+    "URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!",
+    "Lol you are always so convincing.",
+    "Nah I don't think he goes to usf, he lives around here though",
+    "URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!",
+    "Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030",
+    "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
+
+y = ["spam", "non spam", "non spam", "spam", "spam", "non spam"]
+```
+
+
+
+
+Notes: 
+
+In one of the practice problems and in the assigment, we apply logistic regression with text data.
+
+We want to give you a bit of background for this.
+
+Let's bring back our spam dummy data that we looked at in Modulee 6. 
+
+
+
+---
+
+
+```{python}
+vec = CountVectorizer()
+X_transformed = vec.fit_transform(X);
+bow_df = pd.DataFrame(X_transformed.toarray(), columns=sorted(vec.vocabulary_), index=X)
+bow_df
+```
+
+
+Notes: 
+
+`CountVectorizer` transforms our `review` column into multiple columns each being a word from the `X` vocabulary. 
+
+
+
+---
+
+
+```{python}
+lr_text_model = LogisticRegression()
+lr_text_model.fit(X_transformed, y);
+```
+
+```{python}
+pd.DataFrame({'feature': vec.get_feature_names(),
+              'coefficient': lr_text_model.coef_[0]})
+```
+
+
+Notes: 
+
+That means that each  word is a feature in our model and therefore when we apply logistic regression to our feature table, we get a coefficient for each word! 
+
+This should help you in understanding how the coefficients contribute to the predictions of each example for both the practice problems and the assignment. 
+
 
 ---
 

@@ -7,7 +7,6 @@ from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.svm import SVC
 from sklearn.feature_extraction.text import CountVectorizer
-import scipy
 
 # Loading in the data
 tweets_df = pd.read_csv('data/balanced_tweets.csv').dropna(subset=['target'])
@@ -28,14 +27,17 @@ param_grid = {
 pipe = make_pipeline(CountVectorizer(), SVC())
 
 # perform RandomizedSearchCV using the parameters specified in param_grid
-tweet_search = RandomizedSearchCV(pipe, param_grid, n_jobs=-1, cv=5, return_train_score=True, n_iter=10)
+# Don't forget to fit this on the training data
+tweet_search = RandomizedSearchCV(pipe, param_grid, n_jobs=-1, cv=5,
+                                  return_train_score=True, n_iter=10,
+                                   random_state=2020)
 tweet_search.fit(X_train, y_train)
 
-## What is the best max_features value? Save it in an object name tweet_feats
+# What is the best max_features value? Save it in an object name tweet_feats
 tweet_feats = tweet_search.best_params_['countvectorizer__max_features']
 print(tweet_feats)
 
-## What is the best score? Save it in an object named tweet_val_score
+# What is the best score? Save it in an object named tweet_val_score
 tweet_val_score = tweet_search.best_score_
 print(tweet_val_score)
 

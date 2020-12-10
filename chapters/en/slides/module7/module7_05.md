@@ -22,8 +22,8 @@ pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True
 ```
 
 ```out
-fit_time       6.157520
-score_time     0.009249
+fit_time       5.819385
+score_time     0.009666
 test_score     0.999119
 train_score    1.000000
 dtype: float64
@@ -101,7 +101,7 @@ We need each of these values to explain the next measurements.
 
 **Among all positive examples, how many did you identify?**
 
-<img src="/module7/module7_05/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="/module7/module7_05/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" />
 
 <center>
 
@@ -160,7 +160,7 @@ incorrectly labeled as negative (the false negatives).
 **Among the positive examples you identified, how many were actually
 positive?**
 
-<img src="/module7/module7_05/unnamed-chunk-12-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="/module7/module7_05/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" />
 
 <center>
 
@@ -224,7 +224,7 @@ frauds), precision is less important (reducing false positives).
 
 **f1-score combines precision and recall to give one score.**
 
-<img src="/module7/module7_05/unnamed-chunk-16-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="/module7/module7_05/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" />
 
 <center>
 

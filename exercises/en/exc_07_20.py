@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
@@ -62,16 +62,16 @@ predict_valid = pipe_bb.predict(X_valid)
 
 # Calculate the MSE and save the result in an object named mse_calc
 ____ = ____
-print(mse_calc)
+print("MSE:", mse_calc)
 
 # Calculate the RMSE and save the result in an object named rmse_calc
 ____ = ____
-print(rmse_calc)
+print("RMSE:", rmse_calc)
 
 # Calculate the R^2 and save the result in an object named r2_calc
 ____ = ____
-print(r2_calc)
+print("R2:", r2_calc)
 
 # Calculate the MAPE and save the result in an object named mape_calc
 ____ = ____
-print(mape_calc)
+print("MAPE:", mape_calc)

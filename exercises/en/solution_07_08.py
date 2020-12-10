@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
@@ -35,21 +35,17 @@ numeric_features = [
     "draft_round",
     "draft_peak"]
 
-categorical_features = [
-    "team",
-    "country"]
+categorical_features = ["team", "country"]
 
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 
 # Build a pipeline containing the column transformer and an SVC model 
 # Name it pipe_unbalanced and fit it on the training data

@@ -157,7 +157,7 @@ pipe = Pipeline(
 ```
 
 ```python
-pipe.fit(X_train, X_train)
+pipe.fit(X_train, y_train)
 ```
 
 ```out
@@ -273,7 +273,7 @@ First, we import `OrdinalEncoder` from `sklearn.preprocessing`.
 ---
 
 ```{python}
-encoding_view = X_toy.assign(language_enc=X_toy_ord)
+encoding_view = X_toy.assign(rating_enc=X_toy_ord)
 encoding_view
 ```
 

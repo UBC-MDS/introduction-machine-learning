@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer

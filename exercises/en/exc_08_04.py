@@ -3,7 +3,7 @@ import pandas as pd
 import scipy
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, cross_validate, GridSearchCV
 from sklearn.metrics import  mean_squared_error, r2_score
 from scipy.stats import randint
 from sklearn.metrics import make_scorer
@@ -30,15 +30,15 @@ neg_mape_scorer = ____(____, ____=____)
 
 # Create a set of values for alpha
 param_dist = {
-    "alpha": scipy.stats.randint(low=1, high=10000)}
+    "alpha": [0.1, 1, 10, 100, 1000, 10000]}
 
 # Build a Ridge model called ridge_bb
 ____ = ____
 
 ## Use RandomizedSearchCV to hyperparameter tune. 
-random_search = RandomizedSearchCV(
-    ____, ____, n_iter=20,
-    cv=5, n_jobs=1, random_state=123
+random_search = GridSearchCV(
+    ____, ____, cv=5,
+     n_jobs=-1,
     ____=____)
 
 # Fit your grid search on the training data

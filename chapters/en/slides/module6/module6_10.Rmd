@@ -216,7 +216,7 @@ This means we need to make at least 2 preprocessing pipelines; one for the categ
 col_transformer = ColumnTransformer(
     transformers=[
         ("numeric", numeric_transformer, numeric_features),
-        ("categotical", categorical_transformer, categorical_features)
+        ("categorical", categorical_transformer, categorical_features)
     ], 
     remainder='passthrough'    
 )
@@ -264,7 +264,7 @@ X_train.head()
 x = list(X_train.columns.values)
 del x[5]
 X_train_pp = col_transformer.transform(X_train)
-pd.DataFrame(X_train_pp, columns= (x  + list(col_transformer.named_transformers_["categotical"].named_steps["onehot"].get_feature_names(categorical_features)))).head()
+pd.DataFrame(X_train_pp, columns= (x  + list(col_transformer.named_transformers_["categorical"].named_steps["onehot"].get_feature_names(categorical_features)))).head()
 ```
 
 
@@ -278,7 +278,7 @@ Here we can see what our dataframe looks like after transformation.
 ---
 
 ```{python}
-onehot_cols = col_transformer.named_transformers_["categotical"].named_steps["onehot"].get_feature_names(categorical_features)
+onehot_cols = col_transformer.named_transformers_["categorical"].named_steps["onehot"].get_feature_names(categorical_features)
 onehot_cols
 ```
 ```{python}

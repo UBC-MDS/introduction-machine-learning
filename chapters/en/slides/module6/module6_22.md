@@ -107,21 +107,13 @@ bow_df
 ```
 
 ```out
-                                                    08002986030  100000  11  900  all  always  are  around  as  been  call  callers  callertune  camera  co  colour  convincing  copy  customer  don  entitled  for  free  friends  goes  ...  oru  our  per  press  prize  receive  request  reward  selected  set  so  the  think  though  to  update  \
-URGENT!! As a valued network customer you have ...            0       0   0    1    0       0    0       0   1     1     0        0           0       0   0       0           0     0         1    0         0    0     0        0     0  ...    0    0    0      0      1        1        0       1         1    0   0    0      0       0   1       0   
-Lol you are always so convincing.                             0       0   0    0    0       1    1       0   0     0     0        0           0       0   0       0           1     0         0    0         0    0     0        0     0  ...    0    0    0      0      0        0        0       0         0    0   1    0      0       0   0       0   
-Nah I don't think he goes to usf, he lives arou...            0       0   0    0    0       0    0       1   0     0     0        0           0       0   0       0           0     0         0    1         0    0     0        0     1  ...    0    0    0      0      0        0        0       0         0    0   0    0      1       1   1       0   
-URGENT! You have won a 1 week FREE membership i...            0       1   0    0    0       0    0       0   0     0     0        0           0       0   0       0           0     0         0    0         0    0     1        0     0  ...    0    1    0      0      1        0        0       0         0    0   0    0      0       0   0       0   
-Had your mobile 11 months or more? U R entitled...            1       0   1    0    0       0    0       0   0     0     1        0           0       1   1       1           0     0         0    0         1    1     2        0     0  ...    0    0    0      0      0        0        0       0         0    0   0    2      0       0   2       2   
-As per your request 'Melle Melle (Oru Minnaminu...            0       0   0    0    1       0    0       0   2     1     0        1           2       0   0       0           0     1         0    0         0    1     0        1     0  ...    1    0    1      1      0        0        1       0         0    1   0    0      0       0   1       0   
-
-                                                    urgent  usf  valued  vettam  week  with  won  you  your  
-URGENT!! As a valued network customer you have ...       1    0       1       0     0     0    0    1     0  
-Lol you are always so convincing.                        0    0       0       0     0     0    0    1     0  
-Nah I don't think he goes to usf, he lives arou...       0    1       0       0     0     0    0    0     0  
-URGENT! You have won a 1 week FREE membership i...       1    0       0       0     1     0    1    1     0  
-Had your mobile 11 months or more? U R entitled...       0    0       0       0     0     1    0    0     1  
-As per your request 'Melle Melle (Oru Minnaminu...       0    0       0       1     0     0    0    0     3  
+                                                    08002986030  100000  11  900  all  always  are  ...  valued  vettam  week  with  won  you  your
+URGENT!! As a valued network customer you have ...            0       0   0    1    0       0    0  ...       1       0     0     0    0    1     0
+Lol you are always so convincing.                             0       0   0    0    0       1    1  ...       0       0     0     0    0    1     0
+Nah I don't think he goes to usf, he lives arou...            0       0   0    0    0       0    0  ...       0       0     0     0    0    0     0
+URGENT! You have won a 1 week FREE membership i...            0       1   0    0    0       0    0  ...       0       0     1     0    1    1     0
+Had your mobile 11 months or more? U R entitled...            1       0   1    0    0       0    0  ...       0       0     0     1    0    0     1
+As per your request 'Melle Melle (Oru Minnaminu...            0       0   0    0    1       0    0  ...       0       1     0     0    0    0     3
 
 [6 rows x 72 columns]
 ```
