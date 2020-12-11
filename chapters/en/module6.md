@@ -19,7 +19,7 @@ id: 6
 
 <exercise id="1" title="Categorical Variables: Ordinal Encoding" type="slides,video">
 
-<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_01" shot="3" start="00:002" end="14:51">
 </slides>
 
 </exercise>

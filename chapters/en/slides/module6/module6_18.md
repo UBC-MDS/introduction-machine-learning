@@ -19,21 +19,12 @@ y_train = train_df['income']
 X_test = test_df.drop(columns=['income'])
 y_test = test_df['income']
 
-numeric_features = ["age",
-                    "fnlwgt",
-                    "education.num",
-                    "capital.gain",
-                    "capital.loss",
-                    "hours.per.week"]
+numeric_features = ["age", "fnlwgt", "education.num", "capital.gain",
+                    "capital.loss", "hours.per.week"]
 
-categorical_features = ["workclass",
-                        "education", 
-                        "marital.status", 
-                        "occupation", 
-                        "relationship", 
-                        "race", 
-                        "sex", 
-                        "native.country"]
+categorical_features = ["workclass", "education", "marital.status", 
+                        "occupation", "relationship", "race", 
+                        "sex", "native.country"]
 ```
 
 ``` python
@@ -49,14 +40,6 @@ train_df[categorical_features].head()
 9876   Local-gov     Bachelors  Married-civ-spouse  Prof-specialty        Husband  White    Male  United-States
 ```
 
-``` python
-train_df["education"].unique()
-```
-
-```out
-array(['HS-grad', 'Bachelors', 'Some-college', '11th', '5th-6th', 'Assoc-voc', 'Masters', '9th', 'Doctorate', 'Prof-school', '7th-8th', '10th', '12th', '1st-4th', 'Assoc-acdm', 'Preschool'], dtype=object)
-```
-
 Notes:
 
 Taking where we left off with our adult census data, it’s a good idea to
@@ -64,13 +47,6 @@ take a look at the categorical features we specified in more detail.
 
 Some of the categorical features are truly categorical, meaning that
 there is no ordinality among values.
-
-But what about the `education` column?
-
-Here there is actually an order in the values and it might help to
-encode this column using `OrdinalEncoder`
-
-  - Example: Masters \> 10th
 
 ---
 
@@ -107,7 +83,16 @@ ed_transformed['education_enc'].unique()
 array([11,  9, 15,  1,  4,  8, 12,  6, 10, 14,  5,  0,  2,  3,  7, 13])
 ```
 
-Notes: Let’s use `OrdinalEncoder` and see what happens.
+Notes:
+
+But what about the `education` column?
+
+Here there is actually an order in the values and it might help to
+encode this column using `OrdinalEncoder`
+
+  - Example: Masters \> 10th
+
+Let’s use `OrdinalEncoder` and see what happens.
 
 We fit and then transform the `education` column.
 
@@ -267,10 +252,10 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       9.134971
-score_time     1.512560
-test_score     0.851927
-train_score    0.853348
+fit_time       10.497864
+score_time      1.671608
+test_score      0.851927
+train_score     0.853348
 dtype: float64
 ```
 
@@ -451,12 +436,12 @@ pd.DataFrame(scores)
 ```
 
 ```out
-   fit_time  score_time  test_score  train_score
-0  8.775018    1.382263    0.850864     0.853153
-1  8.532674    1.338235    0.844530     0.855792
-2  8.682128    1.711386    0.859693     0.850609
-3  9.029557    1.392423    0.849299     0.853832
-4  8.033944    1.340729    0.854291     0.853448
+    fit_time  score_time  test_score  train_score
+0  10.563047    1.791187    0.850864     0.853153
+1  11.679107    1.708302    0.844530     0.855792
+2   9.326531    1.594092    0.859693     0.850609
+3  10.544614    1.835715    0.849299     0.853832
+4   9.214264    1.439385    0.854291     0.853448
 ```
 
 ``` python
@@ -464,10 +449,10 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       8.610664
-score_time     1.433007
-test_score     0.851735
-train_score    0.853367
+fit_time       10.265513
+score_time      1.673736
+test_score      0.851735
+train_score     0.853367
 dtype: float64
 ```
 

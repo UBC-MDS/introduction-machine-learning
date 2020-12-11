@@ -16,7 +16,7 @@ id: 8
 
 
 <exercise id="1" title="Introducing Linear Regression"  type="slides, video">
-<slides source="module8/module8_01" shot="0" start="13:2011" end="14:1221">
+<slides source="module8/module8_01" shot="4" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 
@@ -151,7 +151,7 @@ Tasks:
 
 
 <exercise id="5" title="Coefficients and coef_"  type="slides, video">
-<slides source="module8/module8_05" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_05" shot="4" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 
@@ -304,7 +304,7 @@ print(bb_weights)
 </exercise>
 
 <exercise id="9" title="Logistic Regression"  type="slides, video">
-<slides source="module8/module8_09" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_09" shot="4" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 
@@ -538,7 +538,7 @@ Great!
 </exercise>
 
 <exercise id="13" title="Predicting Probabilities"  type="slides, video">
-<slides source="module8/module8_13" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_13" shot="4" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 
@@ -787,7 +787,7 @@ Nice work!
 </exercise>
 
 <exercise id="17" title="Multi-class Classification"  type="slides, video">
-<slides source="module8/module8_17" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_17" shot="4" start="13:2011" end="14:1221">
 </slides>
 </exercise>
 

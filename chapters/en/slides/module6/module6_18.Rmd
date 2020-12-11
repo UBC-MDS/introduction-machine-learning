@@ -93,28 +93,16 @@ y_train = train_df['income']
 X_test = test_df.drop(columns=['income'])
 y_test = test_df['income']
 
-numeric_features = ["age",
-                    "fnlwgt",
-                    "education.num",
-                    "capital.gain",
-                    "capital.loss",
-                    "hours.per.week"]
+numeric_features = ["age", "fnlwgt", "education.num", "capital.gain",
+                    "capital.loss", "hours.per.week"]
 
-categorical_features = ["workclass",
-                        "education", 
-                        "marital.status", 
-                        "occupation", 
-                        "relationship", 
-                        "race", 
-                        "sex", 
-                        "native.country"]
+categorical_features = ["workclass", "education", "marital.status", 
+                        "occupation", "relationship", "race", 
+                        "sex", "native.country"]
 ```
 
 ```{python}
 train_df[categorical_features].head()
-```
-```{python}
-train_df["education"].unique()
 ```
 
 Notes: 
@@ -123,11 +111,7 @@ Taking where we left off with our adult census data, it's a good idea to take a 
 
 Some of the categorical features are truly categorical, meaning that there is no ordinality among values. 
 
-But what about the `education` column? 
 
-Here there is actually an order in the values and it might help to encode this column using `OrdinalEncoder`
-
-- Example: Masters > 10th    
 
 
 ---
@@ -135,6 +119,7 @@ Here there is actually an order in the values and it might help to encode this c
 ```{python}
 train_df["education"].unique()
 ```
+
 ```{python}
 oe = OrdinalEncoder(dtype=int)
 oe.fit(X_train[["education"]]);
@@ -148,7 +133,16 @@ ed_transformed['education_enc'].unique()
 
 
 
-Notes:  Let's use `OrdinalEncoder` and see what happens. 
+Notes:  
+
+But what about the `education` column? 
+
+Here there is actually an order in the values and it might help to encode this column using `OrdinalEncoder`
+
+- Example: Masters > 10th    
+
+
+Let's use `OrdinalEncoder` and see what happens. 
 
 We fit and then transform the `education` column. 
 
