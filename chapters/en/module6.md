@@ -813,7 +813,7 @@ Tasks:
 
 <exercise id="18" title="Handeling Categorical Features: Binary, Ordinal and More" type="slides,video">
 
-<slides source="module6/module6_18" shot="3" start="42:05" end="51:00">
+<slides source="module6/module6_18" shot="3" start="42:05" end="54:5011">
 </slides>
 
 </exercise>
