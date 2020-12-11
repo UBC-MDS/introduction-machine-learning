@@ -151,7 +151,7 @@ Tasks:
 
 
 <exercise id="5" title="Coefficients and coef_"  type="slides, video">
-<slides source="module8/module8_05" shot="4" start="06:5007" end="19:5410">
+<slides source="module8/module8_05" shot="4" start="06:5007" end="19:5420">
 </slides>
 </exercise>
 
@@ -538,7 +538,7 @@ Great!
 </exercise>
 
 <exercise id="13" title="Predicting Probabilities"  type="slides, video">
-<slides source="module8/module8_13" shot="4" start="34:5413" end="45:55">
+<slides source="module8/module8_13" shot="4" start="34:52" end="45:55">
 </slides>
 </exercise>
 
