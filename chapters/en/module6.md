@@ -19,7 +19,7 @@ id: 6
 
 <exercise id="1" title="Categorical Variables: Ordinal Encoding" type="slides,video">
 
-<slides source="module6/module6_01" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_01" shot="3" start="00:005" end="07:3712">
 </slides>
 
 </exercise>
@@ -198,7 +198,7 @@ Maybe take a closer look?
 
 <exercise id="5" title="Categorical Variables: One-Hot Encoding" type="slides,video">
 
-<slides source="module6/module6_05" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_05" shot="3" start="07:4406" end="13:2606">
 </slides>
 
 </exercise>
@@ -452,7 +452,7 @@ Nice!
 
 <exercise id="10" title="ColumnTransformer" type="slides,video">
 
-<slides source="module6/module6_10" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_10" shot="3" start="13:3325" end="28:0905">
 </slides>
 
 </exercise>
@@ -628,7 +628,7 @@ Tasks:
 
 <exercise id="14" title="Make - Pipelines & Column Transformers" type="slides,video">
 
-<slides source="module6/module6_14" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_14" shot="3" start="28:1901" end="41:55">
 </slides>
 
 </exercise>
@@ -813,7 +813,7 @@ Tasks:
 
 <exercise id="18" title="Handeling Categorical Features: Binary, Ordinal and More" type="slides,video">
 
-<slides source="module6/module6_18" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_18" shot="3" start="42:05" end="54:5011">
 </slides>
 
 </exercise>
@@ -984,7 +984,7 @@ Tasks:
 
 <exercise id="22" title="Text Data" type="slides,video">
 
-<slides source="module6/module6_22" shot="3" start="00:002" end="94:51">
+<slides source="module6/module6_22" shot="3" start="54:5913" end="66:5120">
 </slides>
 
 </exercise>

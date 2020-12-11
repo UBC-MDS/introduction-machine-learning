@@ -1,7 +1,7 @@
 ---
 title: 'Module 8: Linear Models'
 description:
-  "This module will teach you about different types of linear models. You will learn how this model can be interpreted as well as its advantages and limitations."
+  "This module will teach you about different types of linear models. You will learn how these models can be interpreted as well as their advantages and limitations."
 prev: /module7
 next: /module9
 type: chapter
@@ -16,7 +16,7 @@ id: 8
 
 
 <exercise id="1" title="Introducing Linear Regression"  type="slides, video">
-<slides source="module8/module8_01" shot="0" start="13:2011" end="14:1221">
+<slides source="module8/module8_01" shot="4" start="00:003" end="06:44">
 </slides>
 </exercise>
 
@@ -151,7 +151,7 @@ Tasks:
 
 
 <exercise id="5" title="Coefficients and coef_"  type="slides, video">
-<slides source="module8/module8_05" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_05" shot="4" start="06:5007" end="19:5420">
 </slides>
 </exercise>
 
@@ -304,7 +304,7 @@ print(bb_weights)
 </exercise>
 
 <exercise id="9" title="Logistic Regression"  type="slides, video">
-<slides source="module8/module8_09" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_09" shot="4" start="20:0026" end="34:40">
 </slides>
 </exercise>
 
@@ -538,7 +538,7 @@ Great!
 </exercise>
 
 <exercise id="13" title="Predicting Probabilities"  type="slides, video">
-<slides source="module8/module8_13" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_13" shot="4" start="34:52" end="45:55">
 </slides>
 </exercise>
 
@@ -787,7 +787,7 @@ Nice work!
 </exercise>
 
 <exercise id="17" title="Multi-class Classification"  type="slides, video">
-<slides source="module8/module8_17" shot="3" start="13:2011" end="14:1221">
+<slides source="module8/module8_17" shot="4" start="46:0709" end="54:57">
 </slides>
 </exercise>
 

@@ -15,7 +15,7 @@ id: 7
 </exercise>
 
 <exercise id="1" title="Introducing Evaluation Metrics"  type="slides, video">
-<slides source="module7/module7_01" shot="3" start="13:2011" end="14:1221">
+<slides source="module7/module7_01" shot="3" start="67:0005" end="83:00">
 </slides>
 
 </exercise>
@@ -262,7 +262,7 @@ These are true positives!
 </exercise>
 
 <exercise id="5" title="Precision, Recall and F1 Score"  type="slides, video">
-<slides source="module7/module7_05" shot="3" start="13:2011" end="14:1221">
+<slides source="module7/module7_05" shot="3" start="83:08" end="96:5920">
 </slides>
 
 </exercise>
@@ -471,7 +471,7 @@ Maybe give it another go above!
 </exercise>
 
 <exercise id="9" title="Multi-Class Measurements"  type="slides, video">
-<slides source="module7/module7_09" shot="3" start="13:2011" end="14:1221">
+<slides source="module7/module7_09" shot="3" start="97:0807" end="102:17">
 </slides>
 
 </exercise>
@@ -748,7 +748,7 @@ Classes are classified as binary for these measurements; either the target "posi
 </exercise>
 
 <exercise id="13" title="Imbalanced Datasets"  type="slides, video">
-<slides source="module7/module7_13" shot="3" start="13:2011" end="14:1221">
+<slides source="module7/module7_13" shot="3" start="102:27" end="111:1205">
 </slides>
 
 </exercise>
@@ -892,7 +892,7 @@ Nice!
 
 
 <exercise id="16" title="Regression Measurements"  type="slides, video">
-<slides source="module7/module7_16" shot="3" start="13:2011" end="14:1221">
+<slides source="module7/module7_16" shot="3" start="111:2013" end="124:3310">
 </slides>
 
 </exercise>
@@ -1159,7 +1159,7 @@ This model does worse than a DummyRegressor!
 </exercise>
 
 <exercise id="21" title="Passing Different Scoring Methods"  type="slides, video">
-<slides source="module7/module7_21" shot="3" start="13:2011" end="14:1221">
+<slides source="module7/module7_21" shot="3" start="124:41" end="136:06">
 </slides>
 
 </exercise>

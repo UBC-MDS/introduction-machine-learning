@@ -201,12 +201,11 @@ param_grid = {"countvectorizer__max_features": range(1,1000)}
 ``` python
 pipe = make_pipeline(CountVectorizer(), SVC())
 
-grid_search = RandomizedSearchCV(pipe, param_grid, cv=2, return_train_score=True, n_iter=10, random_state=123)
-grid_search.fit(X, y);
+pipe.fit(X, y);
 ```
 
 ``` python
-grid_search.predict(X)
+pipe.predict(X)
 ```
 
 ```out
@@ -214,15 +213,7 @@ array(['spam', 'non spam', 'non spam', 'spam', 'spam', 'non spam'], dtype='<U8')
 ```
 
 ``` python
-grid_search.best_params_
-```
-
-```out
-{'countvectorizer__max_features': 132}
-```
-
-``` python
-grid_search.score(X,y)
+pipe.score(X,y)
 ```
 
 ```out
@@ -231,8 +222,8 @@ grid_search.score(X,y)
 
 Notes:
 
-We can use `CountVectorizer()` in a pipeline and hyperparameter tune
-using `RandomizedSearchCV()` just like any other transformer.
+We can use `CountVectorizer()` in a pipeline just like any other
+transformer.
 
 Here we get a perfect score on the data it’s seen already. How well does
 it do on unsceen data?
@@ -251,7 +242,7 @@ y_new = ["spam", "non spam", "non spam", "non spam", "spam"]
 ```
 
 ``` python
-grid_search.score(X_new,y_new)
+pipe.score(X_new,y_new)
 ```
 
 ```out

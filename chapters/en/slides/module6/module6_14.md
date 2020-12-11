@@ -220,15 +220,14 @@ So our whole thing becomes:
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"),
                                     StandardScaler())
 
-
 categorical_transformer = make_pipeline(
                 SimpleImputer(strategy="constant", fill_value="missing"),
-                OneHotEncoder(),
-)
+                OneHotEncoder())
+                
 preprocessor = make_column_transformer(
                (numeric_transformer, numeric_features), 
-               (categorical_transformer, categorical_features)
-)
+               (categorical_transformer, categorical_features))
+               
 pipe = make_pipeline(preprocessor, SVC())
 ```
 
@@ -296,13 +295,11 @@ numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardSc
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="constant", fill_value="missing"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 
 pipe = make_pipeline(preprocessor, SVC())
 ```
@@ -313,8 +310,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       10.527957
-score_time      1.566353
+fit_time       10.566225
+score_time      1.483709
 test_score      0.855459
 train_score     0.867974
 dtype: float64

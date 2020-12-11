@@ -90,7 +90,7 @@ feature1 + coefficient<sub>feature2</sub> x feature2 + … + intercept
 
 But this won’t work with probabilities.
 
-#### **Sigmoid function**(optional)
+#### **Sigmoid function** (optional)
 
 <img src="/module8/module8_13/unnamed-chunk-7-1.png" width="60%" style="display: block; margin: auto;" />
 

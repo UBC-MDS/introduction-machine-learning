@@ -289,15 +289,14 @@ So our whole thing becomes:
 numeric_transformer = make_pipeline(SimpleImputer(strategy="median"),
                                     StandardScaler())
 
-
 categorical_transformer = make_pipeline(
                 SimpleImputer(strategy="constant", fill_value="missing"),
-                OneHotEncoder(),
-)
+                OneHotEncoder())
+                
 preprocessor = make_column_transformer(
                (numeric_transformer, numeric_features), 
-               (categorical_transformer, categorical_features)
-)
+               (categorical_transformer, categorical_features))
+               
 pipe = make_pipeline(preprocessor, SVC())
 ```
 
@@ -361,13 +360,11 @@ numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardSc
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="constant", fill_value="missing"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 
 pipe = make_pipeline(preprocessor, SVC())
 ```

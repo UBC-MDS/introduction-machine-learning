@@ -141,7 +141,7 @@ For linear regression we used something like this:
 
 But this won't work with probabilities. 
 
-#### **Sigmoid function**(optional)
+#### **Sigmoid function** (optional)
 
 ```{python  echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '60%', fig.align='center'}
 sigmoid = lambda x: 1/(1+np.exp(-x))
