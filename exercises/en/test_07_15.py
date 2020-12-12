@@ -10,7 +10,7 @@ def test():
     assert "SVC()" in __solution__, "Make sure you are specifying SVC in your pipeline."
     assert "fit" in __solution__, "Make sure you are fitting the training data to your model"
     assert "pipe_unbalanced.predict(X_valid)" in __solution__, "Make sure you are predicting on the validation data."
-    assert 'SVC(class_weight="balanced")' in __solution__, "Make sure your specifying to balance the class weights for the balanced pipeline."
+    assert 'SVC(class_weight="balanced")' in __solution__, "Make sure you are specifying to balance the class weights for the balanced pipeline."
     assert "pipe_balanced.fit" in __solution__, "Make sure you are fitting the balanced pipeline on the training data."
     assert "pipe_balanced.predict(X_valid)" in __solution__, "Make sure you are doing prediction for the balanced pipeline on the validation data."
     assert "classification_report" in __solution__, "Make sure you are printing the classification report on the validation and the predicted data."

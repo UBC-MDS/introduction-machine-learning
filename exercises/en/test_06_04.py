@@ -5,6 +5,7 @@ def test():
     # in the meta.json for details.
     import pandas as pd
     # If an assertion fails, the message will be displayed
+    assert "from sklearn.preprocessing import OrdinalEncoder" in __solution__, "Make sure you are importing the ordinal encoder module."
     assert 'OrdinalEncoder(dtype=int)' in __solution__, "Make sure you are specifying an OrdinalEncoder with an integer data type."
     assert "ordinal_encoder.fit" in __solution__, "Make sure you are fitting this model on the column of interest."
     flat_list = [item for sublist in country_encoded for item in sublist]
