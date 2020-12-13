@@ -10,7 +10,7 @@ def test():
     assert "make_pipeline" in __solution__, "Make sure you are creating a pipeline using make_pipeline."
     assert "CountVectorizer()" in __solution__, "Make sure you are specifying CountVectorizer in your pipeline."
     assert "SVC()" in __solution__, "Make sure you are specifying SVC in your pipeline."
-    assert "RandomizedSearchCV" in __solution__, "Make sure you are calling RandomizedSearchCV to optimize your hyper parameters."
+    assert "RandomizedSearchCV" in __solution__, "Make sure you are calling RandomizedSearchCV to optimize your hyperparameters."
     assert "fit" in __solution__, "Make sure you are fitting the training data to your model"
     assert tweet_feats > 880, "The best value for max features is incorrect. Are you fitting the model properly?"
     assert round(tweet_val_score,3) > 0.810, "The value for tweet_val_score is incorrect. Are you fitting the model properly?"

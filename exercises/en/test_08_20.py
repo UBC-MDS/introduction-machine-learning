@@ -6,7 +6,7 @@ def test():
     import pandas as pd
     # If an assertion fails, the message will be displayed
     assert "make_pipeline" in __solution__, "Make sure creating a pipeline with the column transformer provided to you."
-    assert "LogisticRegression" in __solution__, "Make sure you are specifying logistic regression in the pipeline."
+    assert 'logisticregression' in str(list(lr_pipe.get_params()['steps'])), "Make sure you are specifying logistic regression in the pipeline."
     assert "lr_pipe.fit" in __solution__, "Make sure your are fitting the model to the training data."
     assert "plot_confusion_matrix" in __solution__, "Make sure you are plotting the confusion matrix of the model."
     __msg__.good("Nice work, well done!")

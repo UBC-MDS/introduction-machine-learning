@@ -5,6 +5,7 @@ def test():
     # in the meta.json for details.
     import pandas as pd
     # If an assertion fails, the message will be displayed
+    assert "import Ridge" in __solution__, "Make sure you are importing the Ridge module."
     assert "make_scorer" in __solution__, "Make sure you are creating a mape scorer"
     assert "" in __solution__, "The value for the mean squared error is incorrect. Are you scoring properly?"
     assert "greater_is_better=False" in __solution__, "Make sure you are specifying that lower numbers are better."
