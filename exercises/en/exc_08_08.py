@@ -23,7 +23,7 @@ player_stats = pd.DataFrame([[2.05,93.2]], columns =['height', 'weight'])
 # Build a Ridge model called ridge_bb
 ____ = ____
 
-# Fit your grid search on the training data
+# Fit your model on the training data
 ____
 
 # What are the coefficients for this model?

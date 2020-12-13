@@ -46,7 +46,7 @@ categorical_transformer = Pipeline(
 col_transformer = ColumnTransformer(
     transformers=[
         ("numeric", numeric_transformer, numeric_features),
-        ("categotical", categorical_transformer, categorical_features)
+        ("categorical", categorical_transformer, categorical_features)
     ] 
 )
 
