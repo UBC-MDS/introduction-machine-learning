@@ -150,9 +150,8 @@ We are going to discuss automated hyperparameter optimization also known as hype
 <br>
 <br>
 
-- Exhaustive grid search:
+- Exhaustive grid search: <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>  
 
-<a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>  
 - Randomized hyperparameter optimization: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" target="_blank">`sklearn.model_selection.RandomizedSearchCV`</a>  
 
 Notes: 

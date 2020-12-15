@@ -82,10 +82,10 @@ building.
 <br> <br>
 
   - Exhaustive grid search:
+    <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>
 
-<a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">`sklearn.model_selection.GridSearchCV`</a>  
-\- Randomized hyperparameter optimization:
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" target="_blank">`sklearn.model_selection.RandomizedSearchCV`</a>
+  - Randomized hyperparameter optimization:
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" target="_blank">`sklearn.model_selection.RandomizedSearchCV`</a>
 
 Notes:
 
@@ -211,7 +211,6 @@ Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 [Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    1.5s
-[Parallel(n_jobs=-1)]: Done  65 out of  80 | elapsed:    1.6s remaining:    0.4s
 [Parallel(n_jobs=-1)]: Done  80 out of  80 | elapsed:    1.6s finished
 ```
 
@@ -278,7 +277,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  80 out of  80 | elapsed:    0.2s finished
+[Parallel(n_jobs=-1)]: Done  80 out of  80 | elapsed:    0.3s finished
 ```
 
 Notes:
@@ -330,7 +329,7 @@ grid_search.fit(X_train, y_train);
 Fitting 5 folds for each of 16 candidates, totalling 80 fits
 
 [Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
-[Parallel(n_jobs=1)]: Done  80 out of  80 | elapsed:    0.8s finished
+[Parallel(n_jobs=1)]: Done  80 out of  80 | elapsed:    0.9s finished
 ```
 
 Notes:
@@ -593,7 +592,7 @@ random_gs.best_params_
 ```
 
 ```out
-{'svc__C': 57.41787248059937, 'svc__gamma': 8.663064127714792}
+{'svc__C': 93.1698720366206, 'svc__gamma': 16.430596788357633}
 ```
 
 ``` python
@@ -601,7 +600,7 @@ random_gs.best_score_
 ```
 
 ```out
-0.7691176470588236
+0.7272058823529411
 ```
 
 ``` python
@@ -609,7 +608,7 @@ random_gs.score(X_test, y_test)
 ```
 
 ```out
-0.7380952380952381
+0.7142857142857143
 ```
 
 Notes:
