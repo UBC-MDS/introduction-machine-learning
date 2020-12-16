@@ -49,6 +49,7 @@ Special thanks must be attributed to the following individuals and organizations
 
 - The Master of Data Science Program at UBC
 - Our friends, family and colleagues for supporting us and cheering us on!
+- All those who gave us feedback and suggestions on how we can improve this course. 
 
 Notes:
 
