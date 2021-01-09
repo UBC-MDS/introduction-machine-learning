@@ -8,7 +8,7 @@ output: pdf_document
 
 ## Time and Place
 Online
-Nov 17, 2020– Jan 11, 2021
+January 19, 2021 – March 8, 2021
 
 ## Description
 This course is part of the Key Capabilities for Data Science program and will introduce you to key concepts in machine learning.
@@ -84,7 +84,7 @@ We have supplied informative videos on how to do this in assignment 1 and refere
 
 | Week | Modules to Complete |Submissions Due|
 |------|--------|---------------|
-| Week 1 -2 | Module 1,<br> Module 2, <br> Module 3| assignment_01, assignment_02, assignment_03|
+| Week 1-2 | Module 1,<br> Module 2, <br> Module 3| assignment_01, assignment_02, assignment_03|
 | Week 3-4 | Module4, <br>Module 5| assignment_04, assignment_05, quiz_01|
 | Week 5-6 |Module 6,<br> Module 7, <br>Module 8| assignment_06, assignment_07, assignment_08| 
 | Week 7 | NA| quiz_02, final_project| 
