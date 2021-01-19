@@ -399,7 +399,7 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 
 Let's make sure we understand all the components we use in a dataset for machine learning. The packages you need will be loaded for you. In this example we would be attempting to predict the country availability of candy bars, which makes the column `availability` the target.
 
-- Print the `canbybar_df` object. 
+- Print the `candybar_df` object. 
 - Save the dimensions of the dataframe in an object named `candybar_dim`.
 
 <codeblock id="01_11">
