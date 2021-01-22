@@ -397,15 +397,15 @@ Maybe take a closer look, you may be missing one/some.
 
 </opt>
 
-<opt text="3"  correct="true" >
+<opt text="3"   >
 
-Nice!
+Did you find one that we didn't?
 
 </opt>
 
-<opt text="4" >
+<opt text="4" correct="true">
 
-Did you find one that we didn't?
+Nice!
 
 </opt>
 
