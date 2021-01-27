@@ -978,7 +978,7 @@ Have we touched the test data yet?
 </choice>
 
 
-Now that we have found a suitable value for max_depth let's build a new model and let this hyperparameter value. How well does your model do on the test data?
+Now that we have found a suitable value for `max_depth` let's build a new model and let this hyperparameter value. How well does your model do on the test data?
 
 Tasks:     
 
@@ -989,7 +989,7 @@ Tasks:
 
 <codeblock id="03_20b">
 
-- Are using `DecisionTreeClassifier(max_depth=5)`?
+- Are using `DecisionTreeClassifier(max_depth=4)`?
 - Are you using the model named `model`?
 - Are you calling `.fit(X_train, y_train)` on your model?
 - Are you scoring your model using `model.score(X_test, y_test)`?
