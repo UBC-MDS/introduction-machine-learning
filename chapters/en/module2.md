@@ -950,14 +950,14 @@ Let's build a decision tree regressor using `DecisionTreeRegressor()` and let's 
 Tasks:     
 
 - Build a model using `DecisionTreeRegressor()` and make sure to set the argument `random_state` to 1. 
-- Set the `max_depth` of the tree to 5.  
+- Set the `max_depth` of the tree to 8.  
 - Save your model in an object named `reg_tree`.
 - Fit your model on the objects `X` and `y` and then predict on `X`. 
 - Save the R^2 score of the model rounded to 2 decimal places in a variable named `tree_score`.
 
 <codeblock id="02_18">
 
-- Are using `DecisionTreeRegressor(random_state=1, max_depth=5)`?
+- Are using `DecisionTreeRegressor(random_state=1, max_depth=8)`?
 - Are you using the model named `reg_tree`?
 - Are you calling `.fit(X,y)` on your model?
 - Are you using `.score(X,y)` and rounding to 2 decimal places by using `round()`?
