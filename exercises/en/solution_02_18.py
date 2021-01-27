@@ -15,5 +15,5 @@ reg_tree = DecisionTreeClassifier(random_state=1, max_depth=8)
 reg_tree.fit(X,y)
 
 # Score the model
-reg_score = reg_tree.score(X, y)
-reg_score
+tree_score = reg_tree.score(X, y)
+tree_score
