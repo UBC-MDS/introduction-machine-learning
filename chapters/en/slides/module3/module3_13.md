@@ -6,21 +6,21 @@ type: slides
 
 Notes: <br>
 
----
+------------------------------------------------------------------------
 
-We’re going to think about 3 types of errors:
+We’re going to think about 3 types of scores:
 
-  - **score\_train**: is our training score (or mean train score from
+-   **score\_train**: is our training score (or mean train score from
     cross-validation).
 
 <br>
 
-  - **score\_valid** is our validation score (or mean validation score
+-   **score\_valid** is our validation score (or mean validation score
     from cross-validation).
 
 <br>
 
-  - **score\_test** is our test score.
+-   **score\_test** is our test score.
 
 Notes:
 
@@ -34,13 +34,13 @@ How do we diagnose the problem?
 
 We’re going to think about 3 types of scores:
 
-  - **Training score **: The score that our model gets on the same data
+-   **Training score **: The score that our model gets on the same data
     that it was trained on. (seen data - training data)
-  - **Validation score**: The mean validation score from
+-   **Validation score**: The mean validation score from
     cross-validation).
-  - **Test score**: This is the score from the data that we locked away.
+-   **Test score**: This is the score from the data that we locked away.
 
----
+------------------------------------------------------------------------
 
 ``` python
 df = pd.read_csv("data/canada_usa_cities.csv")
@@ -56,7 +56,7 @@ Notes:
 Let’s bring back our Canadian and United States cities’ data to help
 explain the concepts of overfitting and underfitting.
 
----
+------------------------------------------------------------------------
 
 ## Overfitting
 
@@ -95,7 +95,7 @@ The gap between the train and the validation score is bigger.
 This produces more severe results when the training data is minimal or
 when the model’s complexity is high.
 
----
+------------------------------------------------------------------------
 
 ## Underfitting
 
@@ -134,12 +134,10 @@ high as well as the validation being very low as well.
 Both train and validation scores are low and the gap between train and
 validation scores is low as well.
 
----
+------------------------------------------------------------------------
 
 <center>
-
 <img src="/module3/over_under.png"  width = "80%" alt="404 image" />
-
 </center>
 
 Standard question to ask ourselves: ***Which of these scenarios am I
@@ -149,10 +147,10 @@ in?***
 
 ***Score\_train*** and ***Score\_valid***.
 
-  - If they are very far apart → more likely **overfitting**.
-      - Try decreasing model complexity.
-  - If they are very close together → more likely **underfitting**.
-      - Try increasing model complexity.
+-   If they are very far apart → more likely **overfitting**.
+    -   Try decreasing model complexity.
+-   If they are very close together → more likely **underfitting**.
+    -   Try increasing model complexity.
 
 Notes:
 
@@ -167,17 +165,17 @@ Looking at the scores is a very good diagnostic to answer this question.
 If the scores are very far apart then we are more likely
 **overfitting**.
 
-  - In this case, the solution would be to reduce the complexity of the
+-   In this case, the solution would be to reduce the complexity of the
     model.
 
 If the scores are very close together then we are more likely
 **underfitting**.
 
-  - Attempting to increase the model’s complexity could help this
+-   Attempting to increase the model’s complexity could help this
     situation.
 
----
+------------------------------------------------------------------------
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>
