@@ -10,5 +10,5 @@ def test():
     assert reg_tree.get_params()['max_depth'] == 8, "Make sure you are setting the model's 'max_depth' to 8."
     assert 'reg_tree.fit' in __solution__, "Make sure you are using the '.fit()' function to fit 'X' and 'y'."
     assert 'reg_tree.score' in __solution__, "Make sure you are using the '.score()' function to score the model's performance."
-    assert round(tree_score,2) == 0.85, "The model's score is incorrect. Are you fitting the model with the correct parameters?"
+    assert round(tree_score, 2) == 1.0, "The model's score is incorrect. Are you fitting the model with the correct parameters?"
     __msg__.good("Nice work, well done!")

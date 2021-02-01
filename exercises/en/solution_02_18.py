@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeRegressor
 
 # Loading in the data
 canucks = pd.read_csv('data/canucks_subbed.csv')
@@ -9,7 +9,7 @@ X = canucks.loc[:, ['No.', 'Age', 'Height', 'Weight', 'Experience']]
 y = canucks['Salary']
 
 # Create a model
-reg_tree = DecisionTreeClassifier(random_state=1, max_depth=8)
+reg_tree = DecisionTreeRegressor(random_state=1, max_depth=8)
 
 # Fit your data 
 reg_tree.fit(X,y)
