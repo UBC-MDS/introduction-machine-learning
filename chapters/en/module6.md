@@ -404,7 +404,7 @@ Last time we ordinal encoded the `country` column from our basketball dataset bu
 Tasks:    
 
 - Import the necessary library.
-- Build a one-hot encoder that uses a `dtype` of `int` and `sparse=True`. Name it `one_hot_encoder`. 
+- Build a one-hot encoder that uses a `dtype` of `int` and `sparse=False`. Name it `one_hot_encoder`. 
 - Fit on `X_column`, transform it and save the results in an object named `country_encoded`. 
 
 <codeblock id="06_09">
