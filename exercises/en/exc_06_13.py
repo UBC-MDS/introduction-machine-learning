@@ -58,4 +58,4 @@ ____ = ____(
 
 # Cross validate
 scores = cross_validate(____, X_train, y_train, return_train_score=True)
-pd.DataFrame(with_categorical_scores)
+pd.DataFrame(scores)
