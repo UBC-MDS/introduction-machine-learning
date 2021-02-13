@@ -43,5 +43,5 @@ ____ = ____
 ____ = ____
 
 # Cross validate
-cores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
-pd.DataFrame(scores)
+with_categorical_scores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(with_categorical_scores)
