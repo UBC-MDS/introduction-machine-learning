@@ -534,7 +534,7 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's use `cross_validate()` on a Pokémon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
+Let's use `cross_val_score()` on a Pokémon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
 
 Tasks:     
 

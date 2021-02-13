@@ -6,7 +6,7 @@ type: slides
 
 Notes: <br>
 
-------------------------------------------------------------------------
+---
 
 We’re going to think about 3 types of scores:
 
@@ -40,7 +40,7 @@ We’re going to think about 3 types of scores:
     cross-validation).
 -   **Test score**: This is the score from the data that we locked away.
 
-------------------------------------------------------------------------
+---
 
 ``` python
 df = pd.read_csv("data/canada_usa_cities.csv")
@@ -56,7 +56,7 @@ Notes:
 Let’s bring back our Canadian and United States cities’ data to help
 explain the concepts of overfitting and underfitting.
 
-------------------------------------------------------------------------
+---
 
 ## Overfitting
 
@@ -95,7 +95,7 @@ The gap between the train and the validation score is bigger.
 This produces more severe results when the training data is minimal or
 when the model’s complexity is high.
 
-------------------------------------------------------------------------
+---
 
 ## Underfitting
 
@@ -134,7 +134,7 @@ high as well as the validation being very low as well.
 Both train and validation scores are low and the gap between train and
 validation scores is low as well.
 
-------------------------------------------------------------------------
+---
 
 <center>
 <img src="/module3/over_under.png"  width = "80%" alt="404 image" />
@@ -174,7 +174,7 @@ If the scores are very close together then we are more likely
 -   Attempting to increase the model’s complexity could help this
     situation.
 
-------------------------------------------------------------------------
+---
 
 # Let’s apply what we learned!
 

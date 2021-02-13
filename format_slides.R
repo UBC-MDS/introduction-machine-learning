@@ -35,7 +35,7 @@ main <- function(input) {
 
   # replace \n-----\n with \n---\n to denote slide breaks
   text <- str_replace_all(string = text, 
-                          pattern = "\n-----\n", 
+                          pattern = "\n-----.*\n",
                           replacement = "\n---\n")
   
   # fix title slide
@@ -56,6 +56,11 @@ main <- function(input) {
                           pattern = "    ## ",
                           replacement = "")
   
+  # remove doctype text before svg plots, otherwise this string shows up above the plot
+  text <- str_replace_all(string = text, 
+                          pattern = '&lt;!DOCTYPE svg PUBLIC “-//W3C//DTD SVG 1.1//EN”\n“<http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd>”&gt;',
+                          replacement = "")
+
   if (!is.null(opt[["--output"]])) {
     write_file(text, opt[["--output"]])
   } else {
