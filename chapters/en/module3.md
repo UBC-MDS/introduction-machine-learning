@@ -755,7 +755,7 @@ Is the training score higher or lower?
 
 <exercise id="17" title="Fundamental Tradeoff and the Golden Rule" type="slides,video">
 
-<slides source="module3/module3_17" shot="1" start="116:141" end="125:12">
+<slides source="module3/module3_17" shot="1" start="116:141" end="125:22">
 </slides>
 
 </exercise>
