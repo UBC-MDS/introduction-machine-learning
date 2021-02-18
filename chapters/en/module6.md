@@ -1127,7 +1127,7 @@ Tasks:
 - Import `CountVectorizer`.
 - Split the dataset into the feature table `X` and the target value `y`. `X` will be the single column `text` from the dataset wheras `target` will be your `y`. 
 - Split your data into your training and testing data using a text size of 20% and a random state of 7. 
-- Make a pipeline with `CountVectorizer` as the first step and `KNeighborsClassifier` as the second. Name the pipeline `pipe`. 
+- Make a pipeline with `CountVectorizer` as the first step and `SVC()` as the second. Name the pipeline `pipe`. 
 - Perform RandomizedSearchCV using the parameters specified in `param_grid` and name the search `tweet_search`.
 - Don't forget to fit your grid search.
 - What is the best `max_features` value? Save it in an object name `tweet_feats`.
@@ -1139,7 +1139,7 @@ NOTE: This may take a few minutes to produce an output. Please be patient.
 <codeblock id="06_25">
 
 - Are you splitting using `train_test_split()`
-- Are you using `make_pipeline(CountVectorizer(), KNeighborsClassifier())`?
+- Are you using `make_pipeline(CountVectorizer(), SVC())`?
 - Are you using `RandomizedSearchCV()` and calling `pipe` and `param_grid` as the first 2 arguments?
 - Are you naming the randomized grid search `tweet_search`?
 - Are you fitting `tweet_search`?
