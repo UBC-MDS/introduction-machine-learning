@@ -153,7 +153,7 @@ rm.score(X_train, y_train)
 
 Notes: 
 
-We can import the `LinearRegression` model like we have for all the previous models we've used  except we are going to instead focus on its close cousin `Ridge`. 
+We can import the `LinearRegression` model like we have for all the previous models we've used except we are going to instead focus on its close cousin `Ridge`. 
 
 `Ridge` is more flexible than `LinearRegression` and we will explain why shortly. 
 
@@ -164,7 +164,7 @@ When we import `Ridge`, you'll notice that we are importing from the `linear_mod
 That means we can `fit` on the training set and `predict` a numeric prediction. 
 
 
-We see that `predict` returns the predicted housing prices for our examples. 
+We see that `predict` returns the predicted snake weight for our examples. 
 
 ---
 

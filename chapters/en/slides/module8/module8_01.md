@@ -87,7 +87,7 @@ seen.
 That means we can `fit` on the training set and `predict` a numeric
 prediction.
 
-We see that `predict` returns the predicted housing prices for our
+We see that `predict` returns the predicted snake weight for our
 examples.
 
 ---
@@ -119,7 +119,7 @@ Remember the fundamental trade-off we spoke about in module 3?
 **“As model complexity ↑, training score ↑ and training score–
 validation score tend to ↑”**
 
-Well, `alpha` controls this fundamental trade-off\!
+Well, `alpha` controls this fundamental trade-off!
 
 ---
 
@@ -165,7 +165,10 @@ overfitting are going up.
 
 # Visualizing linear regression
 
-<img src="/module8/module8_01/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" />
+```out
+[1] "Error printing vegawidget in non-HTML format:"                        
+[2] "Package(s): \"png\" needed for this function to work. Please install."
+```
 
 Notes:
 
@@ -186,6 +189,6 @@ As we increase our features beyond 3 it becomes harder to visualize.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>
