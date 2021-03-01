@@ -57,7 +57,9 @@ pkm_pipe = make_pipeline(preprocessor, LogisticRegression(class_weight="balanced
 # Perform RandomizedSearchCV using the parameters specified in param_grid
 # Use n_iter equal to 10, 5 cross-validation folds and return the training score. 
 # Name this object pmk_search
-pmk_search = RandomizedSearchCV(pkm_pipe, param_grid, n_jobs=-1, cv=5, return_train_score=True, n_iter=10, scoring = 'f1', random_state=2028)
+pmk_search = RandomizedSearchCV(pkm_pipe, param_grid,
+                                n_jobs=-1, cv=5, return_train_score=True,
+                                 n_iter=10, scoring = 'f1', random_state=2028)
 
 # Train your pmk_search on the training data
 pmk_search.fit(X_train, y_train)

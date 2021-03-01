@@ -709,8 +709,8 @@ Tasks:
 - Are you fitting `pkm_grid` on your training data?
 - Are you using `best_params_` to find the most optimal `C` value?
 - Are you using `best_score_` to find the best score?
-- For `predicted_y`, are you using `km_grid.predict(X_test)`? 
-- For  `proba_y` are you using `pkm_grid.predict_proba(X_test)`?
+- For `predicted_y`, are you using `pmk_search.predict(X_test)`? 
+- For  `proba_y` are you using `pmk_search.predict_proba(X_test)`?
 - Are you sorting `lr_probs` by `prob_legend` and setting `ascending = False`?
 
 </codeblock>

@@ -57,7 +57,9 @@ ____ = ____
 # Perform RandomizedSearchCV using the parameters specified in param_grid
 # Use n_iter equal to 10, 5 cross-validation folds and return the training score. 
 # Name this object pmk_search
-____ = ____(____, ____, n_jobs=-1, cv=5, return_train_score=True, ____=____, ____ = ____, random_state=2028)
+____ = ____(____, ____, n_jobs=-1, cv=5,
+             return_train_score=True, ____=____,
+            ____ = ____, random_state=2028)
 
 # Train your pmk_search on the training data
 ____.____
