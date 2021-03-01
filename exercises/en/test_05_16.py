@@ -11,5 +11,5 @@ def test():
     assert "KNeighborsClassifier()" in __solution__,  "Make sure you are using a KNeighborsClassifier() in your pipeline."
     assert "cross_validate" in __solution__, "Make sure you are calling the cross validate function on your pipeline."
     assert "return_train_score" in __solution__, "Make sure you are returning the cross validation scores"
-    assert [round(x,3) for x in mean_scores] == [0.005, 0.003, 0.882, 0.915], "Your mean scores are incorect. Are you returning the mean of the cross validation scores?"
+    assert [round(x,3) for x in mean_scores] == [0.005, 0.003, 0.882, 0.915], "Your mean scores are incorrect. Are you returning the mean of the cross validation scores?"
     __msg__.good("Nice work, well done!")

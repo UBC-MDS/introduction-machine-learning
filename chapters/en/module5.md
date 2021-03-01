@@ -799,7 +799,7 @@ Tasks:
 
 - Import the necessary grid search libraries. 
 - Using the pipeline provided, create a grid of parameters to search over named `param_grid`. Search over the values 1, 5, 10, 20, 30, 40, and 50 for the hyperparameter `n_neighbors` and 'uniform' and 'distance' for the hyperparameter `weights` (make sure to call them appropriately). 
-- Use `GridSearchCV` to hyper-parameter tune using cross-validate equal to 10 folds. Make sure to specify the arguments `verbose=1` and `n_jobs=-1`. Name the object grid_search. 
+- Use `GridSearchCV` to hyper-parameter tune using cross-validate equal to 10 folds. Make sure to specify the arguments `verbose=1` and `n_jobs=-1`. Name the object `grid_search`. 
 - Transform `cross_scores` to a dataframe, take the mean of each column and save the result in an object named mean_scores.
 - Find the best hyperparameter values and save them in an object named `best_hyperparams`. Make sure to print these results.
 - Lastly, score your model on the test set and save your results in an object named `bb_test_score`.
