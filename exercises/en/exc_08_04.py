@@ -9,7 +9,6 @@ from scipy.stats import randint
 from sklearn.metrics import make_scorer
 from sklearn.linear_model import ____
 
-
 # Loading in the data
 bball = pd.read_csv('data/bball.csv')
 bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]

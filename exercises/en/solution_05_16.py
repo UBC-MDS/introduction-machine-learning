@@ -5,7 +5,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
-
 # Loading in the data
 bball_df = pd.read_csv('data/bball.csv')
 bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]

@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 candybar_df = pd.read_csv('data/candybars.csv')
 
 print(candybar_df.head())

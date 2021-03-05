@@ -10,7 +10,6 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import plot_confusion_matrix
 
-
 # Loading in the data
 bball = pd.read_csv('data/bball.csv')
 bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]

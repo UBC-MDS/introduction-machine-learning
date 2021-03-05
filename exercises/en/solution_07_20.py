@@ -10,7 +10,6 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.svm import SVR
 from sklearn.metrics import  mean_squared_error, r2_score
 
-
 # Loading in the data
 bball = pd.read_csv('data/bball.csv')
 bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]

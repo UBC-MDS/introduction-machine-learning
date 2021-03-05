@@ -7,7 +7,6 @@ from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.neighbors import KNeighborsClassifier
 
-
 # Loading in the data
 fertile_df = pd.read_csv('data/fertility.csv').dropna(subset=['diagnosis'])
 

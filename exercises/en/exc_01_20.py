@@ -1,7 +1,6 @@
 import pandas as pd
 from sklearn.dummy import ____
 
-
 # Loading in the data
 canucks = pd.read_csv('data/canucks_subbed.csv')
 

@@ -3,7 +3,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
-
 # Loading in the data
 bball_df = pd.read_csv('data/bball.csv')
 bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]

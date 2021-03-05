@@ -1,7 +1,6 @@
 import pandas as pd
 from sklearn.dummy import DummyClassifier
 
-
 # Loading in the data
 candybar_df = pd.read_csv('data/candybars.csv')
 
