@@ -435,7 +435,7 @@ Let's calculate some measurements from our basketball dataset from the previous 
 
 Tasks:   
 - Import the precision, recall, f1 and classification report libraries. 
-- Predict the values on `X_valid` using the `pipe_bb` and the `.predict()` function and save the result in an object named `predicted_y`.
+- Predict the values on `X_valid` using the `pipe_unbalanced` and the `.predict()` function and save the result in an object named `predicted_y`.
 - Using sklearn tools, calculate precision, recall and f1 scores and save them in the respective names `precision`, `recall`, and `f1`. Make sure you are comparing the true `y_valid` labels to the predicted labels. You will need to assign a positive label to the "Forward"(`F`) position. This can be specified in the `pos_label` of each function. Round each calculation to 3 decimal places.
 - Print a classification report of all the measurements comparing `y_valid` and `predicted_y` and assigning the `target_names` argument to `["F", "G"]`. You can use the `digits` function to round all the calculations to 3 decimal places.
 

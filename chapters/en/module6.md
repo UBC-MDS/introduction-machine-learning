@@ -789,7 +789,7 @@ Tasks:
 - Create a pipeline for the numeric features. It should have the first step as simple imputation using `strategy="median"` and the second step should be using `StandardScaler`.  Name this pipeline `numeric_transformer`. 
 - Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using `strategy="most_frequent"`. The second step should be one-hot encoding with `handle_unknown="ignore"`. Name this pipeline `categotical_transformer`. 
 - Make your column transformer named `col_transformer` by using `make_column_transformer()`and specify the transformations on `numeric_features` and `categorical_features` using the appropriate pipelines you build above. 
--Create a main pipeline named `main_pipe` which preprocesses with `col_transformer` followed by building a `KNeighborsRegressor` model.
+- Create a main pipeline named `main_pipe` which preprocesses with `col_transformer` followed by building a `KNeighborsRegressor` model.
 - The last step is performing cross-validation using our pipeline.
 
 
