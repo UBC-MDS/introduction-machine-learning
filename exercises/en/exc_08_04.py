@@ -34,8 +34,8 @@ param_dist = {
 # Build a Ridge model called ridge_bb
 ____ = ____
 
-## Use RandomizedSearchCV to hyperparameter tune. 
-random_search = GridSearchCV(
+## Use GridSearchCV to hyperparameter tune. 
+grid_search = GridSearchCV(
     ____, ____, cv=5,
      n_jobs=-1,
     ____=____)

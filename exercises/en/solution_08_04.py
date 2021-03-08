@@ -34,21 +34,21 @@ param_dist = {
 # Build a Ridge model called ridge_bb
 ridge_bb = Ridge()
 
-## Use RandomizedSearchCV to hyperparameter tune. 
-random_search = GridSearchCV(
+## Use GridSearchCV to hyperparameter tune. 
+grid_search = GridSearchCV(
     ridge_bb, param_dist, cv=5,
     n_jobs=-1,
     scoring=neg_mape_scorer)
 
 # Fit your grid search on the training data
-random_search.fit(X_train, y_train)
+grid_search.fit(X_train, y_train)
 
 # What is the best value for alpha?
 # Save it in an object named best_alpha
-best_alpha = random_search.best_params_
+best_alpha = grid_search.best_params_
 print(best_alpha)
 
 # What is the best MAPE score?
 # Save it in an object named best_mape
-best_mape = random_search.best_score_
+best_mape = grid_search.best_score_
 print(best_mape)
