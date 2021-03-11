@@ -450,12 +450,6 @@ Tasks:
 
 <codeblock id="08_12">
 
-
-- Are you making the MAPE scorer with `make_scorer(mape, greater_is_better=False)`?
-- Are you filling in the blank for `RandomizedSearchCV` as  `random_search = RandomizedSearchCV(ridge_bb, param_dist, n_iter=20,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
-- Are you fitting with `random_search.fit(X_train, y_train)`?
-- Are you finding the best alpha as `random_search.best_params_`? 
-- Are you finding the best score with `random_search.best_score_`? 
 - Are you importing the logistic regression function?
 - Are you fitting your pipeline?
 - Are you scoring your pipeline on the test data?

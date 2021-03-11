@@ -107,7 +107,7 @@ Our goal is to define a function that relates `X` to `y`.
 
 We then use this function to predict the targets of new examples. 
 
-Here is an example, where our `X` contains emoticons of cats and dogs and our 	Y` contains labels associated with these emoticons. We have our learning algorithm which is a classification algorithm in this case. Using this algorithm we learn the mapping between `X` and `y`. Once we had this model we applied it to unseen test data to get predictions.
+Here is an example, where our `X` contains emoticons of cats and dogs and our 	`Y` contains labels associated with these emoticons. We have our learning algorithm which is a classification algorithm in this case. Using this algorithm we learn the mapping between `X` and `y`. Once we had this model we applied it to unseen test data to get predictions.
 
 In this particular case, our unseen data contains the emoticons of a cat and a dog. Our predictions are the labels of cat and dog respectively.
 
