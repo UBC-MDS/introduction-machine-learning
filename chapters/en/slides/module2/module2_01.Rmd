@@ -200,7 +200,7 @@ The decision tree models use an algorithm that derives such rules from data in a
 Note: 
 
 
-Before we go forward with learning about decision tree classifiers and aggressors we need to understand the structure of a decision tree.
+Before we go forward with learning about decision tree classifiers and reggressors we need to understand the structure of a decision tree.
 Here is the key terminology that you will have to know: 
 
 - **Root**: Where we start making our conditions.

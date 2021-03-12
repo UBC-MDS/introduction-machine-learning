@@ -13,15 +13,15 @@ they are trying to predict; ***Classification*** and ***Regression***.
 
 ## Classification vs. Regression
 
-  - **Classification problem**: predicting among two or more categories,
+-   **Classification problem**: predicting among two or more categories,
     also known as classes
-      - *Example1*: Predict whether a patient has a liver disease or not
-      - *Example2*: Predict whether the letter grade of a student
+    -   *Example1*: Predict whether a patient has a liver disease or not
+    -   *Example2*: Predict whether the letter grade of a student
         (A,B,C,D or F)
-  - **Regression problem**: predicting a continuous (in other words, a
+-   **Regression problem**: predicting a continuous (in other words, a
     number) value
-      - Example1: Predict housing prices
-      - Example2: Predict a student’s score in this course’s quiz2
+    -   Example1: Predict housing prices
+    -   Example2: Predict a student’s score in this course’s quiz2
 
 Notes:
 
@@ -30,9 +30,9 @@ known categories.
 
 For example:
 
-  - Whether a patient has a liver disease or not (2 possible target
+-   Whether a patient has a liver disease or not (2 possible target
     values)
-  - The letter grade of a student: A, B, C, D or F. ( There are 5
+-   The letter grade of a student: A, B, C, D or F. (There are 5
     categories)
 
 **Regression** predicts a continuous (typically, floating-point) value.
@@ -43,9 +43,7 @@ quiz2.
 ---
 
 <center>
-
 <img src="/module1/classification-vs-regression.png" height="1500" width="1500">
-
 </center>
 
 Notes:
@@ -103,11 +101,11 @@ regression_df.head()
 Notes:
 
 On the other hand, in the regression problem, the target column (
-‘quiz2`) contains the actual scores so we have continuous values in
-our`quiz2\` column.
+‘quiz2`) contains the actual scores so we have continuous values in our`quiz2\`
+column.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

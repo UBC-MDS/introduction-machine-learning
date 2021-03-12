@@ -13,9 +13,7 @@ Notes: <br>
 Examples:
 
 <center>
-
 <img src="/module2/quiz2-grade-toy.png"  width = "85%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -44,15 +42,13 @@ values. 1 = yes and 0 = no or 1=A+ 0=Not A+.
 ## A program for prediction using a set of rules with *if/else* statements
 
 <center>
-
 <img src="/module2/quiz2-grade-toy.png" height="600" width="600">
-
 </center>
 
-  - How about a rule-based algorithm with several *if/else*
+-   How about a rule-based algorithm with several *if/else*
     statements?  
 
-<!-- end list -->
+<!-- -->
 
     if class attendance == 1 and quiz1 == 1:
         quiz2 == "A+"
@@ -167,9 +163,7 @@ predictions with rules and that’s where our decision trees come in.
 ## Decision trees
 
 <center>
-
 <img src="/module2/nature.png"  width = "85%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -182,23 +176,21 @@ data in a principled way.
 ## Decision trees terminology
 
 <center>
-
 <img src="/module2/lingo_tree.png"  width = "85%" alt="404 image">
-
 </center>
 
 Note:
 
 Before we go forward with learning about decision tree classifiers and
-aggressors we need to understand the structure of a decision tree. Here
+reggressors we need to understand the structure of a decision tree. Here
 is the key terminology that you will have to know:
 
-  - **Root**: Where we start making our conditions.
-  - **Branch**: A branch connects to the next node (statement). Each
+-   **Root**: Where we start making our conditions.
+-   **Branch**: A branch connects to the next node (statement). Each
     branch represents either true or false.
-  - **Internal node**: conditions within the tree.  
-  - **Leaf**: the value predicted from the conditions.
-  - **Tree depth**: The longest path from the root to a leaf.
+-   **Internal node**: conditions within the tree.  
+-   **Leaf**: the value predicted from the conditions.
+-   **Tree depth**: The longest path from the root to a leaf.
 
 With the decision tree algorithm in machine learning, the tree can have
 at most two **nodes** resulting from it, also known as **children**.
@@ -208,9 +200,7 @@ This tree would have a depth of 2.
 ---
 
 <center>
-
 <img src="/module2/example3.png"  width = "85%" alt="404 image">
-
 </center>
 
 Note:
@@ -227,11 +217,8 @@ Trees do not need to be balanced.
 ## Decision Stump
 
 <br> <br>
-
 <center>
-
 <img src="/module2/stump.png"  width = "60%" alt="404 image">
-
 </center>
 
 Note:
@@ -242,6 +229,6 @@ A decision tree that has a depth of 1 is called a ***decision stump***.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

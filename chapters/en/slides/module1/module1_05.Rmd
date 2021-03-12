@@ -85,7 +85,7 @@ Notes:
 For example: 
 
 - Whether a patient has a liver disease or not (2 possible target values) 
-- The letter grade of a student: A, B, C, D or F. ( There are 5 categories)
+- The letter grade of a student: A, B, C, D or F. (There are 5 categories)
 
 **Regression** predicts a continuous (typically, floating-point) value.
 
