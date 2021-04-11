@@ -123,7 +123,7 @@ Great!
 <exercise id="3" title="Decision Tree Outcome">
 
 **True or False?**      
-_If you don't set random_state, splitting your data is randomized and you will get different results each time._
+_If you don't set `random_state`, splitting your data will be randomized and you will get different results each time._
 
 <choice id="1" >
 <opt text="True"  correct="true">
