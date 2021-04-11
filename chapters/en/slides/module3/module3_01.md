@@ -19,7 +19,7 @@ kinds of scores (accuracies):
 
 <br>
 
-2.  Score on the entire distribution of data
+1.  Score on the entire distribution of data
 
 Notes:
 
@@ -35,14 +35,12 @@ interests lie so what do we do?
 
 ---
 
-## We can approximate generalization accuracy by splitting our data\!
+## We can approximate generalization accuracy by splitting our data!
 
 <br> <br>
 
 <center>
-
 <img src="/module3/splitted.png"  width = "100%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -61,9 +59,7 @@ distribution of the data.
 <br> <br>
 
 <center>
-
 <img src="/module3/train-test-split.png"  width = "100%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -82,9 +78,7 @@ touch it until the end.
 ---
 
 <center>
-
 <img src="/module3/split_funct.png"  width = "80%" alt="404 image" />
-
 </center>
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">*Attribution*</a>
@@ -102,9 +96,9 @@ split Pass in `X` and `y` and it will then split these both separately.
 
 It uses useful arguments such as:
 
-  - `test_size`
-  - `train_size`
-  - `random_state`
+-   `test_size`
+-   `train_size`
+-   `random_state`
 
 ---
 
@@ -218,14 +212,14 @@ First we import `train_test_split` from `sklearn.model_selection`.
 And then we are going to pass in the `X` and the `y` to give us the 4
 separate objects that we name:
 
-  - `X_train`
-  - `X_test`
-  - `y_train`
-  - `y_test`
+-   `X_train`
+-   `X_test`
+-   `y_train`
+-   `y_test`
 
 This gives us a look at what `X_train` looks like as we can see that
-it’s been shuffled because the index is out of order and it contains
-our 2 columns `longitude` and `latitude`.
+it’s been shuffled because the index is out of order and it contains our
+2 columns `longitude` and `latitude`.
 
 ---
 
@@ -387,9 +381,7 @@ and fitting it.
 ---
 
 <center>
-
 <img src="/module3/module3_01_small.png"  width = "78%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -401,9 +393,7 @@ The model corresponds to the following tree.
 <br> <br> <br>
 
 <center>
-
 <img src="/module3/boundary_tree.png"  width = "100%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -444,9 +434,7 @@ x-axis is predicted as `USA` and anything greater is predicted as
 ---
 
 <center>
-
 <img src="/module3/module3_01a.png"  width = "75%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -629,6 +617,6 @@ we can see that they contain different observations.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>
