@@ -231,19 +231,19 @@ If we decrease `alpha`, our model complexity is increasing and consequentially o
 source = pd.DataFrame(data= {'length':  X_train['length'],
                              'weight':  y_train,
                              'predicted': rm.predict(X_train)})
-chart4 = alt.Chart(source, width=500, height=300).mark_circle().encode(
+chart1 = alt.Chart(source, width=500, height=300).mark_circle().encode(
 x = alt.X('length:Q', title= "Length"), 
 y = alt.Y('weight:Q', title= "Weight"))
 chart2 = alt.Chart(source, width=500, height=300).mark_line(color= 'orange').encode(
 x = alt.X('length:Q', title= "Length"), 
 y = alt.Y('predicted:Q', title = "Weight"))
 
-chart4
+chart3 = chart1 + chart2
 ```
 
 
 ```{python include =FALSE}
-chart4.save(path + 'snakes_m8.png')
+chart3.save(path + 'snakes_m8.png')
 ```
 
 <br>
