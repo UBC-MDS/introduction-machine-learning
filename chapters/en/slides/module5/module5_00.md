@@ -19,7 +19,6 @@ By the end of the module, students are expected to:
 - Use `sklearn` for applying numerical feature transformations on the data.
 - Discuss the golden rule in the context of feature transformations.
 - Carry out hyperparameter optimization using `sklearn`'s `GridSearchCV` and `RandomizedSearchCV`.
-- Explain overfitting on the validation set.
 
 
 Notes: 

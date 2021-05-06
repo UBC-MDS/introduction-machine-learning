@@ -173,7 +173,7 @@ Notes:
 
 We defined transformations on the numeric and categorical features, on a column transformer, and on a pipeline.
 
-You'll also notice that we can specify  `remainder="passthrough"  in our 
+You'll also notice that we can specify  `remainder="passthrough"`  in our pipeline.
 
 This seems great but it seems quite a lot. 
 

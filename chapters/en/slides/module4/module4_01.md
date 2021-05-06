@@ -21,8 +21,8 @@ Suppose we are given the following training examples with corresponding
 labels and are asked to label a given test example.
 
 An intuitive way to classify the test example is by finding the most
-“similar” example(s) from the training set and using that label for
-the test example.
+“similar” example(s) from the training set and using that label for the
+test example.
 
 In the previous module, we saw that in supervised machine learning, we
 are given some training data.
@@ -56,21 +56,17 @@ That’s the basic idea behind analogy based algorithms.
 
 ## Analogy-based algorithms in practice
 
-  - <a href="https://www.hertasecurity.com/en" target="_blank">Herta’s
+-   <a href="https://www.hertasecurity.com/en" target="_blank">Herta’s
     High-tech Facial Recognition</a>
 
 <center>
-
 <img src="/module4/face_rec.png"  width = "20%" alt="404 image" />
-
 </center>
 
-  - Recommendation systems
+-   Recommendation systems
 
 <center>
-
 <img src="/module4/book_rec.png"  width = "90%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -97,9 +93,7 @@ analogy-based algorithms are used the most in these contexts.
 ### Geometric view of tabular data and dimensions
 
 <center>
-
 <img src="/module4/3d-table.png"  width = "100%" alt="404 image" />
-
 </center>
 
 Notes: In analogy based algorithms, our goal is to come up with a way to
@@ -207,9 +201,9 @@ This time we have 7-dimensional data.
 
 Dimensions:
 
-  - Dimensions≈20: Low dimensional
-  - Dimensions≈1000: Medium dimensional
-  - Dimensions≈100,000: High dimensional
+-   Dimensions≈20: Low dimensional
+-   Dimensions≈1000: Medium dimensional
+-   Dimensions≈100,000: High dimensional
 
 Notes:
 
@@ -235,7 +229,7 @@ Or think about an email spam classification system where each unique
 word from all the emails that our email received is a feature.
 
 We can imagine that the number of features would definitely be around
-one hundred thousand or more\!
+one hundred thousand or more!
 
 ---
 
@@ -279,8 +273,8 @@ array([ 1,  1, 92, 93, 84, 91, 92])
 
 Notes:
 
-Let’s look at feature records feature vectors now. They are composed of
-feature values associated with an example.
+Let’s look at feature vectors now. They are composed of feature values
+associated with an example.
 
 Here is an example of the feature vector from our cities data.
 
@@ -294,6 +288,6 @@ feature vector is of size 7.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

@@ -647,7 +647,7 @@ Let's build a baseline model by using `DummyClassifier()`.
 
 Tasks:     
 
-- Build a baseline model using  `DummyClassifier()`  and `most_frequent` for the `strategy` argument. Save this in an object named `model`. 
+- Build a baseline model using `DummyClassifier()`  and `most_frequent` for the `strategy` argument. Save this in an object named `model`. 
 - Fit your model and then predict on the target column. 
 - What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
 

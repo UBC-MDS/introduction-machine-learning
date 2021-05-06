@@ -81,8 +81,6 @@ Notes:
 
 We saw previously that we can use decision trees for classification problems but we can also use this decision tree algorithm for regression problems.  
 
-We can also use the decision tree algorithm for regression problems. 
-
 Instead of using Gini (which we briefly mentioned this in previous slides), we can use <a href="https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation" target="_blank">some other criteria</a> for splitting. 
 (A common one is mean squared error (MSE) which we will discuss shortly)
 

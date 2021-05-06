@@ -33,7 +33,7 @@ y_test = test_df["median_house_value"]
 
 Notes:
 
-Remember in module 6, we preprocessed only the numeric variables of our
+Remember in module 5, we preprocessed only the numeric variables of our
 California housing dataset.
 
 Early on, before we even did imputation, we dropped the categorical
@@ -95,13 +95,13 @@ not sure how to handle the `ocean_proximity` feature.
 
 ### So what do we do?
 
-  - Drop the column (not recommended)
-  - We can transform categorical features to numeric ones so that we can
+-   Drop the column (not recommended)
+-   We can transform categorical features to numeric ones so that we can
     use them in the model
-  - There are two transformations we can do:
-      - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal
+-   There are two transformations we can do:
+    -   <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal
         encoding</a>
-      - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">One-hot
+    -   <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">One-hot
         encoding</a>(recommended in most cases)
 
 Notes:
@@ -113,14 +113,14 @@ Just like we said, about dropping a column due to missing values, we
 don’t want to throw away information that could be useful for helping
 our model and prediction.
 
-Or we can give `scikit-learn` what it wants\! We can transform our
+Or we can give `scikit-learn` what it wants! We can transform our
 categorical features into numeric ones so we can use them in our models.
 
 There are 2 types of ways we are going to talk about doing this:
 
-  - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal
+-   <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html" target="_blank">Ordinal
     encoding</a> (occasionally recommended)
-  - One-hot encoding (OHE -recommended in most cases)
+-   One-hot encoding (OHE -recommended in most cases)
 
 ---
 
@@ -337,8 +337,8 @@ pd.DataFrame(X_toy['language'].value_counts()).rename(columns={'language': 'freq
 ```
 
 ```out
-           English  Mandarin  Vietnamese  French  Hindi  Spanish
-frequency        5         4           2       1      1        1
+           English  Mandarin  Vietnamese  French  Spanish  Hindi
+frequency        5         4           2       1        1      1
 ```
 
 Notes:
@@ -391,6 +391,6 @@ which is what we will look at in the next section.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

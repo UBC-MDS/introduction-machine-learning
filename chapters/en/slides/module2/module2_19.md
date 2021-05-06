@@ -88,9 +88,7 @@ model.score(X_subset, y)
 ```
 
 <center>
-
 <img src="/module2/module2_18a.png"  width = "30%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -98,7 +96,7 @@ Notes:
 Let’s build our model now.
 
 We’re going to build a decision tree classifier and set the `max_depth`
-hyperparameter to 1 to create a decision stop.
+hyperparameter to 1 to create a decision stump.
 
 In this decision tree there is only 1 split.
 
@@ -108,9 +106,7 @@ When we score it on data that it’s already seen we get an accuracy of
 ---
 
 <center>
-
 <img src="/module2/module2_18a.png"  width = "25%" alt="404 image" />
-
 </center>
 
 <img src="/module2/module2_19/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" />
@@ -138,9 +134,7 @@ model.score(X_subset, y)
 ```
 
 <center>
-
 <img src="/module2/module2_18b.png"  width = "30%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -156,9 +150,7 @@ Our score here has increased from 71.4% to 81%.
 ---
 
 <center>
-
 <img src="/module2/module2_18b.png"  width = "25%" alt="404 image" />
-
 </center>
 
 <img src="/module2/module2_19/unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;" />
@@ -182,9 +174,7 @@ model.score(X_subset, y)
 ```
 
 <center>
-
 <img src="/module2/module2_18c.png"  width = "40%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -230,9 +220,7 @@ model.score(X_subset, y)
 ```
 
 <center>
-
 <img src="/module2/module2_18d.png"  width = "36%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -266,9 +254,7 @@ Do you think that’s going to be helpful for us?
 ## Fundamental goal of machine learning
 
 <center>
-
 <img src="/module2/generalization-train.png" width = "42%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -298,9 +284,7 @@ She’s given 2 cats and 2 dogs in the training data.
 ### Generalizing to unseen data
 
 <center>
-
 <img src="/module2/generalization-predict.png" width = "100%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -365,6 +349,6 @@ We will cover this, in the next module.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

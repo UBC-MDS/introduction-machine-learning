@@ -8,7 +8,7 @@ Notes: <br>
 
 ---
 
-## Regression with 𝑘 -nearest neighbours ( 𝑘 -NNs)
+## Regression with 𝑘-nearest neighbours ( 𝑘 -NNs)
 
 ``` python
 np.random.seed(0)
@@ -75,11 +75,8 @@ scatter = alt.Chart(source, width=500, height=300).mark_point(filled=True, color
 scatter
 ```
 <br>
-
 <center>
-
 <img src="/module4/snakes2.png" alt="A caption" width="50%" />
-
 </center>
 
 Notes:
@@ -177,7 +174,7 @@ Notes:
 Now let’s try `n_neighbors=10`.
 
 Again, we are creating our `KNeighborsRegressor` object with
-`n_neighbors=10` and `  `n\_neighbors=10`=’uniform’` which means all of
+`n_neighbors=10` and ``n\_neighbors=10`=’uniform’` which means all of
 our examples have equal contribution to the prediction.
 
 We fit our regressor and score it. Now we can see we are getting a lower
@@ -228,20 +225,20 @@ correctly. This is likely another situation of overfitting.
 
 ### Pros:
 
-  - Easy to understand, interpret.
-  - Simply hyperparameter 𝑘 (`n_neighbors`) controlling the fundamental
+-   Easy to understand, interpret.
+-   Simply hyperparameter 𝑘 (`n_neighbors`) controlling the fundamental
     tradeoff.
-  - Can learn very complex functions given enough data.
-  - Lazy learning: Takes no time to `fit`
+-   Can learn very complex functions given enough data.
+-   Lazy learning: Takes no time to `fit`
 
 <br>
 
 ### Cons:
 
-  - Can potentially be VERY slow during prediction time.
-  - Often not that great test accuracy compared to the modern
+-   Can potentially be VERY slow during prediction time.
+-   Often not that great test accuracy compared to the modern
     approaches.
-  - You should scale your features. We’ll be looking into it in the next
+-   You should scale your features. We’ll be looking into it in the next
     lecture.
 
 Notes:
@@ -250,27 +247,27 @@ Let’s talk about some pros and cons.
 
 Advantages include:
 
-  - Easy to understand and interpret.
-  - Simply hyperparameter 𝑘 (`n_neighbors`) controlling the fundamental
+-   Easy to understand and interpret.
+-   Simply hyperparameter 𝑘 (`n_neighbors`) controlling the fundamental
     trade-off.
-      - lower 𝑘 is likely producing an overfit model and higher 𝑘 is
+    -   lower 𝑘 is likely producing an overfit model and higher 𝑘 is
         likely producing an underfit model.
-  - Given the simplicity of this algorithm, it can surprisingly learn
+-   Given the simplicity of this algorithm, it can surprisingly learn
     very complex functions given enough data.
-  - 𝑘-Nearest Neighbours we don’t really do anything during the fit
+-   𝑘-Nearest Neighbours we don’t really do anything during the fit
     phase.
 
 Some disadvantages often include:
 
-  - Can potentially be quite slow during prediction time which is due to
+-   Can potentially be quite slow during prediction time which is due to
     the fact that it does very little during training time. During
     prediction, the model must find the distances to the query point to
     all examples in the training set and this makes it very slow.
-  - Scaling must be done when using this model, which will be covered in
+-   Scaling must be done when using this model, which will be covered in
     module 5.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

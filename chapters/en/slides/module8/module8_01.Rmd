@@ -33,7 +33,6 @@ library(reticulate)
 
 ```
 
-
 ```{python include=FALSE}
 import pandas as pd
 import numpy as np
@@ -232,21 +231,23 @@ If we decrease `alpha`, our model complexity is increasing and consequentially o
 source = pd.DataFrame(data= {'length':  X_train['length'],
                              'weight':  y_train,
                              'predicted': rm.predict(X_train)})
-chart1 = alt.Chart(source, width=500, height=300).mark_circle().encode(
+chart4 = alt.Chart(source, width=500, height=300).mark_circle().encode(
 x = alt.X('length:Q', title= "Length"), 
 y = alt.Y('weight:Q', title= "Weight"))
 chart2 = alt.Chart(source, width=500, height=300).mark_line(color= 'orange').encode(
 x = alt.X('length:Q', title= "Length"), 
 y = alt.Y('predicted:Q', title = "Weight"))
 
-chart3 = (chart1 + chart2).to_json()
+chart4
 ```
 
 
-```{r echo=FALSE, fig.width = 13, fig.height = 8,  out.width = '80%', fig.align='center'}
-as_vegaspec(py$chart3)
+```{python include =FALSE}
+chart4.save(path + 'snakes_m8.png')
 ```
 
+<br>
+<center><img src="/module8/snakes_m8.png" alt="A caption" width="90%" /></center>
 
 Notes: 
 

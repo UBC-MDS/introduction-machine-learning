@@ -282,7 +282,7 @@ grades_df.drop(columns=['quiz2']).iloc[0].round(2).to_numpy()
 
 Notes: 
 
-Let’s look at feature records feature vectors now. They are composed of feature values associated with an example.
+Let’s look at feature vectors now. They are composed of feature values associated with an example.
 
 Here is an example of the feature vector from our cities data.
 

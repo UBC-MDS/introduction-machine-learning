@@ -274,7 +274,7 @@ We must always train our model on the data before prediction.
 </choice >
 
 **True or False**       
-*Decision trees always give the correct answer for a single prediction..*
+*Decision trees always give the correct answer for a single prediction.*
 
 <choice id="3">
 <opt text="True" >
@@ -478,7 +478,7 @@ Location was not the splitting feature here!
 
 </opt>
 
-<opt text="<code>water Content</code>" correct="true">
+<opt text="<code>Water content</code>" correct="true">
 
 You got it!
 

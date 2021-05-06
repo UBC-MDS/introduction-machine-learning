@@ -30,8 +30,6 @@ We saw previously that we can use decision trees for classification
 problems but we can also use this decision tree algorithm for regression
 problems.
 
-We can also use the decision tree algorithm for regression problems.
-
 Instead of using Gini (which we briefly mentioned this in previous
 slides), we can use
 <a href="https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation" target="_blank">some
@@ -120,9 +118,7 @@ This means our decision tree is going to be constrained to a depth of 4.
 ---
 
 <center>
-
 <img src="/module2/module2_16a.png"  width = "68%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -208,6 +204,6 @@ Classifier which had an 𝑅2 value of 0.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

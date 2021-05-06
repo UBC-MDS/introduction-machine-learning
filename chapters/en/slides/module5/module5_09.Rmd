@@ -218,7 +218,7 @@ We've seen the `StandardScaler()` function earlier but let's see what the transf
 
 Now we can compare our training score with scaled and unscaled data and see a noticeable difference between the two!
 
-Any negative values represent values that are lower than the calculated feature mean and anything positive and greater than 0 will are values greater than the original column mean. 
+Any negative values represent values that are lower than the calculated feature mean and anything positive and greater than 0 are values greater than the original column mean. 
 
  
 ---

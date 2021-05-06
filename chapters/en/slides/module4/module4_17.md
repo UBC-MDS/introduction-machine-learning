@@ -61,11 +61,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002151    0.003102    0.710526          1.0
-1  0.002047    0.004153    0.684211          1.0
-2  0.002056    0.003417    0.842105          1.0
-3  0.002830    0.003512    0.702703          1.0
-4  0.002067    0.003255    0.837838          1.0
+0  0.002213    0.003177    0.710526          1.0
+1  0.002071    0.003311    0.684211          1.0
+2  0.002167    0.003232    0.842105          1.0
+3  0.002021    0.004168    0.702703          1.0
+4  0.002387    0.003161    0.837838          1.0
 ```
 
 ``` python
@@ -77,11 +77,11 @@ pd.DataFrame(scores)
 
 ```out
    fit_time  score_time  test_score  train_score
-0  0.002761    0.003340    0.605263     0.600000
-1  0.002082    0.003742    0.605263     0.600000
-2  0.002438    0.003654    0.605263     0.600000
-3  0.002087    0.003082    0.594595     0.602649
-4  0.001990    0.003453    0.594595     0.602649
+0  0.002120    0.004765    0.605263     0.600000
+1  0.002123    0.003254    0.605263     0.600000
+2  0.002091    0.003305    0.605263     0.600000
+3  0.002098    0.003359    0.594595     0.602649
+4  0.001968    0.003225    0.594595     0.602649
 ```
 
 Notes:
@@ -109,7 +109,7 @@ looks like our model is underfitting now.
 
 ---
 
-<img src="/module4/module4_17/unnamed-chunk-7-1.png" width="1536" />
+![](/module4/module4_17/unnamed-chunk-7-1.png)<!-- -->
 
 Notes:
 
@@ -160,7 +160,7 @@ In our toy problem with 𝑘=1, we saw the model was overfitting yet when
 
 So, the question is how do we pick 𝑘?
 
-  - The answer lies in hyperparameter optimization.
+-   The answer lies in hyperparameter optimization.
 
 Here we are looping over different values of 𝑘 ( `n_neighbors`) and
 performing cross-validation on each one.
@@ -168,11 +168,8 @@ performing cross-validation on each one.
 ---
 
 <br>
-
 <center>
-
 <img src="/module4/K_plot.png" alt="A caption" width="80%" />
-
 </center>
 
 Notes:
@@ -240,7 +237,7 @@ assess our model on the test set.
 We recreate our model with `n_neighbors=11`, fit the model and score it
 on the test set.
 
-Our training accuracy is 0.905 which is higher than the validation mean
+Our testing accuracy is 0.905 which is higher than the validation mean
 accuracy we had earlier.
 
 This is surprising and could be due to having a small dataset.
@@ -251,14 +248,12 @@ This is surprising and could be due to having a small dataset.
 
 <br>
 
-  - 𝑘 -NN usually works well when the number of dimensions is small.
+-   𝑘 -NN usually works well when the number of dimensions is small.
 
 <br> <br>
 
 <center>
-
 <img src="/module4/skull.png" alt="A caption" width="60%" />
-
 </center>
 
 Notes:
@@ -285,9 +280,7 @@ better than random guessing.
 ### Other useful arguments of `KNeighborsClassifier`
 
 <center>
-
 <img src="/module4/knn.png" alt="A caption" width="80%" />
-
 </center>
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html" target="_blank">**Attribution**
@@ -307,6 +300,6 @@ query point.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

@@ -43,7 +43,7 @@ id: 6
 
 **Question 1**    
 
-What would be the unique values given to the categories in the `popularity` column, in we transformed it with ordinal encoding?
+What would be the unique values given to the categories in the `popularity` column, if we transformed it with ordinal encoding?
 
 <choice id="1">
 
@@ -486,7 +486,7 @@ How many categorical columns are there and how many numeric?
 
 <opt text="5 categoric columns and 0 numeric columns"  >
 
-There are some numeric colums?
+There are some numeric columns?
 
 </opt>
 
@@ -1051,9 +1051,9 @@ This is a hyperparameter of `CountVectorizer()`.
 
 </opt>
 
-<opt text="<code>vocabulary</code>" correct="true">
+<opt text="<code>vocab</code>" correct="true">
 
-This is not a hyperparameter but an attribute!
+This is not a hyperparameter!
 
 </opt>
 
@@ -1099,7 +1099,7 @@ If the word isn't in the dictionary, we would just ignore the word.
 
 <opt text="False" correct="true">
 
-We have one for each category type and 1 main pipeline.
+Nice!
 
 </opt>
 

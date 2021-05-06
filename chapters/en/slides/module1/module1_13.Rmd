@@ -145,7 +145,7 @@ Whenever we build models, there are several important steps involved.
 
 Our first step in building our model is splitting up our tabular data into the features and the target, also known as 𝑋 and 𝑦. 
 
-𝑋 is all of our features in our data, which we also call our ***feature table***.
+𝑋 is all of our features in our data, which we also call our ***feature table***. <br>
 𝑦 is our target, which is what we are predicting.
 
 For this problem, all the columns in our dataframe except `quiz2` make up our 𝑋 and the `quiz2` column, which is our target make up our 𝑦. 

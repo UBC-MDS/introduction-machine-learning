@@ -164,7 +164,6 @@ knn100.fit(X_train, y_train);
 plt.ylabel("latitude")
 plt.xlabel("longitude")
 plot_classifier(X_train, y_train, knn100, ax=plt.gca(), ticks=True)
-
 ```
 
 Notes: 
@@ -275,7 +274,7 @@ Now that we know the best scoring hyperparameter value, we are ready to assess o
 
 We recreate our model with `n_neighbors=11`, fit the model and score it on the test set. 
 
-Our training accuracy is 0.905 which is higher than the validation mean accuracy we had earlier. 
+Our testing accuracy is 0.905 which is higher than the validation mean accuracy we had earlier. 
 
 This is surprising and could be due to having a small dataset. 
 

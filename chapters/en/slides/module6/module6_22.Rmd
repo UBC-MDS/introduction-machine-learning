@@ -238,10 +238,6 @@ Notes:
 
 
 ```{python}
-param_grid = {"countvectorizer__max_features": range(1,1000)}
-```
-
-```{python}
 pipe = make_pipeline(CountVectorizer(), SVC())
 
 pipe.fit(X, y);

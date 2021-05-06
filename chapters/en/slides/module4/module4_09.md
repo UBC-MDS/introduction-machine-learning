@@ -357,7 +357,7 @@ X_test.to_numpy().shape
 Notes:
 
 The distance between Pokémon zero and Pokémon 2 can be found using the
-indexing of `dists[0,20]`.
+indexing of `dists[0,2]`.
 
 We can find the most similar Pokemon from our training data to Pokemon 1
 from the test set using the `NearestNeighbors` function from the Sklearn
@@ -415,6 +415,6 @@ We can see the top 5 most similar Pokémon to our test example.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

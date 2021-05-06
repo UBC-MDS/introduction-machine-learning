@@ -51,9 +51,7 @@ scaled our features.
 ## Scaling
 
 <center>
-
 <img src="/module5/scaling-data.png"  width = "75%" alt="404 image" />
-
 </center>
 
 <a href="https://amueller.github.io/COMS4995-s19/slides/aml-05-preprocessing/#8" target="_blank">Attribution</a>
@@ -73,8 +71,8 @@ We are going to concentrate on the two named `MinMaxScaler` and
 
 ---
 
-| Approach        | What it does                     | How to update 𝑋 (but see below\!)                      | sklearn implementation                                                                                                                                                            |
-| --------------- | -------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Approach        | What it does                     | How to update 𝑋 (but see below!)                       | sklearn implementation                                                                                                                                                            |
+|-----------------|----------------------------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Normalization   | sets range to \[0,1\]            | `X -= np.min(X, axis=0)`<br>`X /= np.max(X, axis=0)`   | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html" target="_blank">`MinMaxScaler()`</a>                                          |
 | Standardization | sets sample mean to 0, s.d. to 1 | `X -= np.mean(X, axis=0)`<br>`X /=  np.std(X, axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" target="_blank">`StandardScaler()`</a> |
 
@@ -141,11 +139,11 @@ We’ve seen the `StandardScaler()` function earlier but let’s see what
 the transformed data looks like.
 
 Now we can compare our training score with scaled and unscaled data and
-see a noticeable difference between the two\!
+see a noticeable difference between the two!
 
 Any negative values represent values that are lower than the calculated
-feature mean and anything positive and greater than 0 will are values
-greater than the original column mean.
+feature mean and anything positive and greater than 0 are values greater
+than the original column mean.
 
 ---
 
@@ -281,6 +279,6 @@ Let’s take a look at that in the next section.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

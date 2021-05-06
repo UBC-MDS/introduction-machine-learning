@@ -11,9 +11,7 @@ Notes: <br>
 <br> <br> <br>
 
 <center>
-
 <img src="/module6/num_xy.png"  width = "50%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -31,9 +29,7 @@ How can we represent such data into a fixed number of features?
 <br> <br> <br>
 
 <center>
-
 <img src="/module6/cat_xy.png"  width = "100%" alt="404 image" />
-
 </center>
 
 Notes:
@@ -54,9 +50,7 @@ How do we encode these features?
 ## Bag of words (BOW) representation
 
 <center>
-
 <img src="/module6/bag-of-words.png"  width = "85%" alt="404 image" />
-
 </center>
 
 <a href="https://web.stanford.edu/~jurafsky/slp3/4.pdf" target="_blank">Attribution:
@@ -125,11 +119,11 @@ We import a tool call `CountVectorizer`.
 `CountVectorizer` converts a collection of text documents to a matrix of
 word counts.
 
-  - Each row represents a “document” (e.g., a text message in our
+-   Each row represents a “document” (e.g., a text message in our
     example).
-  - Each column represents a word in the vocabulary in the training
+-   Each column represents a word in the vocabulary in the training
     data.
-  - Each cell represents how often the word occurs in the document.
+-   Each cell represents how often the word occurs in the document.
 
 In the NLP community, a text data set is referred to as a **corpus**
 (plural: corpora).
@@ -138,19 +132,19 @@ In the NLP community, a text data set is referred to as a **corpus**
 
 ### Important hyperparameters of `CountVectorizer`
 
-  - `binary`:
-      - Whether to use absence/presence feature values or counts.
-  - `max_features`:
-      - Only considers top `max_features` ordered by frequency in the
+-   `binary`:
+    -   Whether to use absence/presence feature values or counts.
+-   `max_features`:
+    -   Only considers top `max_features` ordered by frequency in the
         corpus.
-  - `max_df`:
-      - When building the vocabulary ignore terms that have a document
+-   `max_df`:
+    -   When building the vocabulary ignore terms that have a document
         frequency strictly higher than the given threshold.
-  - `min_df`:
-      - When building the vocabulary ignore terms that have a document
+-   `min_df`:
+    -   When building the vocabulary ignore terms that have a document
         frequency strictly lower than the given threshold.
-  - `ngram_range`:
-      - Consider word sequences in the given range.
+-   `ngram_range`:
+    -   Consider word sequences in the given range.
 
 Notes:
 
@@ -187,16 +181,12 @@ Notes:
 `CountVectorizer` is carrying out some preprocessing such as because of
 the default argument values.
 
-  - Converting words to lowercase (`lowercase=True`). Take a look at the
+-   Converting words to lowercase (`lowercase=True`). Take a look at the
     word “urgent” In both cases.
-  - getting rid of punctuation and special characters (`token_pattern
-    ='(?u)\\b\\w\\w+\\b'`)
+-   getting rid of punctuation and special characters
+    (`token_pattern ='(?u)\\b\\w\\w+\\b'`)
 
 ---
-
-``` python
-param_grid = {"countvectorizer__max_features": range(1,1000)}
-```
 
 ``` python
 pipe = make_pipeline(CountVectorizer(), SVC())
@@ -259,9 +249,9 @@ It’s not perfect but it seems to do well on this data too.
 
 Of course, this is not a great representation of language.
 
-  - We are throwing out everything we know about language and losing a
+-   We are throwing out everything we know about language and losing a
     lot of information.
-  - It assumes that there is no syntax and compositional meaning in
+-   It assumes that there is no syntax and compositional meaning in
     language.
 
 <br> <br> <br>
@@ -274,6 +264,6 @@ Notes:
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

@@ -13,7 +13,7 @@ the baseline model.
 
 ### Supervised Learning (Reminder)
 
-  - Tabular data → Machine learning algorithm → ML model → new examples
+-   Tabular data → Machine learning algorithm → ML model → new examples
     → predictions
 
 <center>
@@ -82,7 +82,7 @@ which has 2 possible values; `A+` or `Not A+`.
 
 ---
 
-## 1\. Create 𝑋 and 𝑦
+## 1. Create 𝑋 and 𝑦
 
 𝑋 → Feature vectors <br> 𝑦 → Target
 
@@ -99,19 +99,17 @@ Our first step in building our model is splitting up our tabular data
 into the features and the target, also known as 𝑋 and 𝑦.
 
 𝑋 is all of our features in our data, which we also call our ***feature
-table***. 𝑦 is our target, which is what we are predicting.
+table***. <br> 𝑦 is our target, which is what we are predicting.
 
 For this problem, all the columns in our dataframe except `quiz2` make
 up our 𝑋 and the `quiz2` column, which is our target make up our 𝑦.
 
 ---
 
-## 2\. Create a classifier object
+## 2. Create a classifier object
 
-  - `import` the appropriate classifier.
-  - Create an object of the classifier.
-
-<!-- end list -->
+-   `import` the appropriate classifier.
+-   Create an object of the classifier.
 
 ``` python
 from sklearn.dummy import DummyClassifier
@@ -138,7 +136,7 @@ Here we are naming our model `dummy_clf`.
 
 ---
 
-## 3\. Fit the classifier
+## 3. Fit the classifier
 
 ``` python
 dummy_clf.fit(X, y)
@@ -154,7 +152,7 @@ learn what the most frequent label is in our training data.
 
 ---
 
-## 4\. Predict the target of given examples
+## 4. Predict the target of given examples
 
 We can predict the target of examples by calling `predict` on the
 classifier object.
@@ -182,7 +180,7 @@ array(['not A+'], dtype='<U6')
 Notes:
 
 Once we have our learned model, the next thing we can do is predict
-using it\!
+using it!
 
 First, we will predict a single observation. We call our model
 `dummy_clf` on the object and we get a prediction of `Not A+` for it.
@@ -233,24 +231,20 @@ We will talk more about `.fit()` and `.predict()` in the next module.
 
 ---
 
-## 5\. Scoring your model
+## 5. Scoring your model
 
 In the classification setting, `.score()` gives the accuracy of the
 model, i.e., proportion of correctly predicted observations.
 
 <center>
-
 <img src="/module1/predit_total.gif" >
-
 </center>
 
 Sometimes you will also see people reporting error, which is usually
 1−𝑎𝑐𝑐𝑢𝑟𝑎𝑐𝑦
 
 <center>
-
 <img src="/module1/error.gif" >
-
 </center>
 
 ``` python
@@ -315,6 +309,6 @@ learning models using `sklearn`.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

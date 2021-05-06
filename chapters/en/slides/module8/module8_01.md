@@ -165,10 +165,10 @@ overfitting are going up.
 
 # Visualizing linear regression
 
-```out
-[1] "Error printing vegawidget in non-HTML format:"                        
-[2] "Package(s): \"png\" needed for this function to work. Please install."
-```
+<br>
+<center>
+<img src="/module8/snakes_m8.png" alt="A caption" width="90%" />
+</center>
 
 Notes:
 

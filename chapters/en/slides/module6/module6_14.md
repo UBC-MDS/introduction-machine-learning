@@ -102,7 +102,8 @@ Notes:
 We defined transformations on the numeric and categorical features, on a
 column transformer, and on a pipeline.
 
-You’ll also notice that we can specify \`remainder=“passthrough” in our
+You’ll also notice that we can specify `remainder="passthrough"` in our
+pipeline.
 
 This seems great but it seems quite a lot.
 
@@ -173,10 +174,10 @@ Notes:
 Let’s create our numeric and categoric pipelines for this data using
 `make_pipeline` instead of `Pipeline()`.
 
-Look how much less effort our pipeline took\!
+Look how much less effort our pipeline took!
 
-Our `ColumnTransformer` may still have the same syntax but guess what?\!
-We have a solution for that too\!
+Our `ColumnTransformer` may still have the same syntax but guess what?!
+We have a solution for that too!
 
 ---
 
@@ -274,8 +275,7 @@ Notes:
 
 Let’s look at the error message:
 
-`Found unknown categories ['Holand-Netherlands'] in column 6 during
-transform`.
+`Found unknown categories ['Holand-Netherlands'] in column 6 during transform`.
 
 This is an issue with our `OneHotEncoder` transformation.
 
@@ -310,8 +310,8 @@ pd.DataFrame(scores).mean()
 ```
 
 ```out
-fit_time       10.566225
-score_time      1.483709
+fit_time       10.120301
+score_time      1.534249
 test_score      0.855459
 train_score     0.867974
 dtype: float64
@@ -339,9 +339,7 @@ zeros.
 
 ### Cases where it’s OK to break the golden rule
 
-  - If it’s some fixed number of categories.
-
-<!-- end list -->
+-   If it’s some fixed number of categories.
 
 ``` python
 all_countries = adult["native.country"].unique()
@@ -361,7 +359,7 @@ Notes:
 
 Are there any cases where it’s OK to break the golden rule?
 
-  - If it’s some fixed number of categories.
+-   If it’s some fixed number of categories.
 
 For example, if the categories are provinces/territories of Canada, we
 know the possible values and we can just specify them.
@@ -374,6 +372,6 @@ This syntax allows you to pre-define the categories.
 
 ---
 
-# Let’s apply what we learned\!
+# Let’s apply what we learned!
 
 Notes: <br>

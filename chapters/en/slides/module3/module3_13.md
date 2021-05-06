@@ -34,7 +34,7 @@ How do we diagnose the problem?
 
 We’re going to think about 3 types of scores:
 
--   **Training score **: The score that our model gets on the same data
+-   **Training score**: The score that our model gets on the same data
     that it was trained on. (seen data - training data)
 -   **Validation score**: The mean validation score from
     cross-validation).

@@ -131,7 +131,7 @@ Notes:
 
 Let's build our model now. 
 
-We're going to build a decision tree classifier and set the `max_depth` hyperparameter to 1 to create a decision stop. 
+We're going to build a decision tree classifier and set the `max_depth` hyperparameter to 1 to create a decision stump. 
 
 In this decision tree there is only 1 split.  
 

@@ -132,7 +132,7 @@ y_test = test_df["median_house_value"]
 
 Notes: 
 
-Remember in module 6, we preprocessed only the numeric variables of our California housing dataset. 
+Remember in module 5, we preprocessed only the numeric variables of our California housing dataset. 
 
 Early on, before we even did imputation, we dropped the categorical feature `ocean_proximity` feature from the dataframe. 
 

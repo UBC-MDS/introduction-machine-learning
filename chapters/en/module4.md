@@ -78,25 +78,25 @@ Which of the following would be the feature vector for example 0.
 
 <choice id="2" >
 
-<opt text="<code>array([1,  0, 1, 1, 0, 0, 1, 1, 1, 0])<code>">
+<opt text="<code>array([1,  0, 1, 1, 0, 0, 1, 1, 1, 0])</code>">
 
 This is the values from the first column not values for the feature vector of example 0. 
 
 </opt>
 
-<opt text="<code>array([fruit,  fruit, veg, veg, fruit, fruit, veg, veg, veg, fruit])<code>">
+<opt text="<code>array([fruit,  fruit, veg, veg, fruit, fruit, veg, veg, veg, fruit])</code>">
 
 This is only containing the values of the target.
 
 </opt>
 
-<opt text="<code>array([1, 0, 35, 84, 100])<code>" correct="true">
+<opt text="<code>array([1, 0, 35, 84, 100])</code>" correct="true">
 
 Nice work!
 
 </opt>
 
-<opt text="<code>array([1, 0, 35, 84, 100,  fruit])<code>">
+<opt text="<code>array([1, 0, 35, 84, 100,  fruit])</code>">
 
 Close but you have the target value in the feature vector.
 
@@ -662,7 +662,7 @@ You shouldn't pick the highest `n_neighbors` without the cv-score being the high
 </choice>
 
 **Question 2**     
-At what of  𝑘 is the largest gap between the train and validation score?
+At what value of  𝑘 is the largest gap between the train and validation score?
 
 <choice id="2">
 
@@ -873,7 +873,7 @@ We must take the average of the 3 nearest examples.
 **Question 2**  
 
 **True or False**     
-_𝑘-NN with Regression can only be done in a 1-dimensional space._
+_𝑘-NN Regression can only be done in a 1-dimensional space._
 
 <choice id="2" >
 
