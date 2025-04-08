@@ -1,0 +1,63 @@
+project:
+  type: website
+  title: "Introduction to Machine Learning"
+  render:
+    - modules/**/*.qmd
+    - modules/index.qmd
+  resources:
+    - styles.scss
+
+website:
+  page-navigation: true
+  bread-crumbs: false
+  sidebar:
+    collapse-level: 1
+    logo: static/logo.svg
+    search: true
+    style: 'docked'
+    background: 'primary'
+    contents:
+      - section: "**M1. Machine Learning Terminology**"
+        contents:
+          - href: modules/module1/module1-01-what_is_supervised_machine_learning.qmd
+
+
+# each qmd file needs to include a yaml block including which format to use for that file.
+# https://github.com/quarto-dev/quarto-cli/issues/4583
+format:
+  html:
+    callout-icon: false
+    theme: [united, styles.scss]
+    linkcolor: '#F78F2E'
+    highlight-style: atom-one
+    grid:
+      sidebar-width: 350px
+      margin-width: 800px
+  live-html:
+    callout-icon: false
+    theme: [united, styles.scss]
+    linkcolor: '#F78F2E'
+    highlight-style: atom-one
+    grid:
+      sidebar-width: 350px
+      margin-width: 800px
+  revealjs:
+    theme: styles.scss
+    width: 100%
+    monofont: Ubuntu Mono
+    mainfont: Ubuntu
+    font-size: 0.5em
+    monobackgroundcolor: '#F1F3F5'
+    highlight-style: atom-one
+    # tango atom-one  nord
+    transition: slide
+    controls-layout: bottom-right
+    show-notes: true
+    slide-number: true
+    code-line-numbers: false
+    code-copy: true
+    progress: false
+    history: false
+    menu: false
+    execute:
+      echo: true
