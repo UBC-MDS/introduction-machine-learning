@@ -1,6 +1,8 @@
 import random
-import altair as alt
+
+# import altair as alt
 import numpy as np
+import math
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -14,34 +16,25 @@ np.set_printoptions(linewidth=400)
 pd.set_option("display.max_columns", 8)
 pd.set_option("display.max_rows", 6)
 
+try:
+    import altair as alt
 
-def increase_font_size():
-    return {
-        "config": {
-            "view": {"continuousWidth": 400, "continuousHeight": 300},
-            "legend": {"symbolSize": 14, "titleFontSize": 14, "labelFontSize": 14},
-            "axis": {"titleFontSize": 14, "labelFontSize": 12},
-            "header": {"titleFontSize": 16, "labelFontSize": 14},
-            "encoding": {"x": {"scale": {"zero": False}}},
+    def increase_font_size():
+        return {
+            "config": {
+                "view": {"continuousWidth": 400, "continuousHeight": 300},
+                "legend": {"symbolSize": 14, "titleFontSize": 14, "labelFontSize": 14},
+                "axis": {"titleFontSize": 14, "labelFontSize": 12},
+                "header": {"titleFontSize": 16, "labelFontSize": 14},
+                "encoding": {"x": {"scale": {"zero": False}}},
+            }
         }
-    }
 
+    alt.themes.register("increase_font_size", increase_font_size)
+    alt.themes.enable("increase_font_size")
 
-alt.themes.register("increase_font_size", increase_font_size)
-alt.themes.enable("increase_font_size")
-
-
-# def increase_chart_font_size():
-#     import altair as alt
-#     bigger_font = {
-#         'config': {
-#             'view': {'continuousWidth': 400, 'continuousHeight': 300},
-#             'legend': {'symbolSize': 14, 'titleFontSize': 14, 'labelFontSize': 14},
-#             'axis': {'titleFontSize': 14, 'labelFontSize': 12},
-#             'header': {'titleFontSize': 16, 'labelFontSize': 14},
-#             'encoding': {'x': {'scale': {'zero': False}}}}}
-#     alt.themes.register('bigger_font', bigger_font)
-#     alt.themes.enable('bigger_font')
+except ImportError:
+    print("Altair is not available; skipping theme configuration.")
 
 
 def assert_chart_equal(expected, actual):
@@ -93,3 +86,17 @@ def remove_keys_inplace(spec, keys):
     elif isinstance(spec, list):
         for item in spec:
             remove_keys_inplace(item, keys)
+
+
+def assert_accuracy_almost(expected, actual, tolerance=0.01):
+    if math.isclose(expected, actual, abs_tol=tolerance):
+        message = random.choice(["Nicely done", "Great", "Good job", "Well done"])
+        emoji = random.choice(["🍀", "🎉", "🌈", "🙌", "🚀", "🌟", "✨", "💯"])
+        return {"correct": True, "message": f"{message}! {emoji}"}
+    else:
+        diff = abs(expected - actual)
+        return {
+            "correct": False,
+            "message": f"Expected accuracy {expected}, but got {actual}. "
+            f"The difference of {diff} exceeds the tolerance of {tolerance}.",
+        }
