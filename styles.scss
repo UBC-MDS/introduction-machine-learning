@@ -57,6 +57,14 @@ code {
     color: #f0e934 !important;
 }
 
+.reveal p code,
+.reveal li code,
+.reveal span code {
+    background-color: rgba(11, 181, 212, 0.05) !important;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+}
+
 /* Make slide headings smaller */
 .reveal h1 {
     font-size: 2em !important;
@@ -140,6 +148,26 @@ span.tok-variableName {
     font-size: 14px !important;
     /* Ensure arrows are clickable and not covered by the slide number */
     z-index: -1;
+}
+
+.reveal pre.out {
+    background-color: rgba(11, 181, 212, 0.05) !important;
+    padding: 0.2em;
+    border-radius: 40px;
+    color: #f0e934 !important;
+}
+.reveal pre.out code {
+    background-color: transparent !important;
+}
+.reveal .cell-output.cell-output-display pre {
+    background-color: rgba(11, 181, 212, 0.05) !important;
+    padding: 0.2em;
+    border-radius: 40px;
+    color: #f0e934 !important;
+}
+
+.reveal .cell-output.cell-output-display pre code {
+    background-color: transparent !important;
 }
 
 .vega-bind-name {
