@@ -1,0 +1,51 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 1.1. Exercises
+
+## Is it Machine Learning?
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'True or False: The following is an example of machine learning?', 
+        'Diagnosing cancer from magnetic resonance imaging', 
+        { 
+        'True': '',
+        'False': 'Machine Learning can be used to attempt to diagnose cancer.'
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2',
+        'True or False: The following is an example of machine learning?',
+        'Classifying images containing animals',
+        {
+        'True': '',
+        'False': 'If you look at example 2, in the slides you’ll see the code we used to do this.'
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3',
+        'True or False: The following is an example of machine learning?',
+        'Blowing out a candle',
+        {
+        'True': 'No quite sure how this would work, but never say never! Technology is progressing everyday.',
+        'False': 'I don’t think we can use machine learning quite yet to do this. Maybe one day we will be able to! Who knows.'
+        },
+        'False',
+    );
+</script>

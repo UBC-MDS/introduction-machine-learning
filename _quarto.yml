@@ -20,6 +20,8 @@ website:
       - section: "**M1. Machine Learning Terminology**"
         contents:
           - href: modules/module1/module1-01-what_is_supervised_machine_learning.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module1/module1-02-is_it_machine_learning.qmd
 
 
 # each qmd file needs to include a yaml block including which format to use for that file.
