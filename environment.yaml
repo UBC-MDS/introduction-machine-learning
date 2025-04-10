@@ -1,0 +1,29 @@
+name: 'kcds-ml'
+channels:
+    - conda-forge
+    - defaults
+dependencies:
+    - python>=3.11,<3.13
+    - altair-all=5.5.*
+    - pandas=1.5.*
+    - pillow
+    - scipy
+    - scikit-learn
+    - graphviz
+    - matplotlib
+    - pytorch
+    - torchvision
+    - xgboost
+    - jupyter
+    - quarto
+    - pip
+
+# from PIL import Image
+# from scipy.stats import randint
+# from sklearn.tree import export_graphviz
+# from torchvision import transforms
+# import graphviz
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# import scipy
+# import torch
