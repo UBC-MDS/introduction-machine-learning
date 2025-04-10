@@ -230,7 +230,7 @@ In this case, when we apply our mode to the image, The model predicts that it co
 <br>
 
 ### Example 3: Predict sentiment expressed in a movie review (pos/neg)
-*Attribution: The dataset `imdb_master.csv` was obtained from <a href="https://www.kaggle.com/uttam94/imdb-mastercsv" target="_blank">Kaggle</a>*
+*Attribution: The dataset `imdb_master.csv` was obtained from <a href="https://www.kaggle.com/uttam94/imdb-mastercsv" target="_blank">Kaggle</a> and downsampled for demonstration*
 
 :::{.notes}
 Our third example is about predicting sentiment expressed in movie reviews.
