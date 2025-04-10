@@ -1,0 +1,63 @@
+[
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  }
+]
