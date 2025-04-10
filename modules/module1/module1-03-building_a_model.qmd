@@ -24,6 +24,7 @@ import pandas as pd
 from sklearn.dummy import DummyClassifier
 
 candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
 ```
 
 **Tasks:**  
