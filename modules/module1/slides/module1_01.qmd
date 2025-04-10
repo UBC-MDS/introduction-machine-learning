@@ -74,6 +74,9 @@ For now, ignore the code and only focus on input and output.
 
 ```{python}
 # | include: False
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
 df = pd.read_csv("../../data/indian_liver_patient.csv")
 df = df.drop(columns=["Gender"])
 df.loc[df["Dataset"] == 1, "Target"] = "Disease"
@@ -240,7 +243,6 @@ Our third example is about predicting sentiment expressed in movie reviews.
 # | include: False
 imdb_df = pd.read_csv("../../data/imdb_master.csv", encoding="ISO-8859-1")
 imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
-imdb_df = imdb_df.drop(columns=["Unnamed: 0", "type"])
 train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
 ```
 
