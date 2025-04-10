@@ -1,9 +1,6 @@
 ---
 format:
   live-html
-resources:
-  - ../utils.py
-  - ../data
 ---
 
 # 4.1. Exercises

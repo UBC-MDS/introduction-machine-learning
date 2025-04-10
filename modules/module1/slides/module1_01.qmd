@@ -7,7 +7,7 @@ title-slide-attributes:
 
 ```{python}
 #  | echo: false
-%run ../../utils.py
+%run src/utils.py
 ```
 
 ## Prevalence of Machine Learning (ML)
@@ -77,7 +77,7 @@ For now, ignore the code and only focus on input and output.
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("../../data/indian_liver_patient.csv")
+df = pd.read_csv("data/indian_liver_patient.csv")
 df = df.drop(columns=["Gender"])
 df.loc[df["Dataset"] == 1, "Target"] = "Disease"
 df.loc[df["Dataset"] == 2, "Target"] = "No Disease"
@@ -241,7 +241,7 @@ Our third example is about predicting sentiment expressed in movie reviews.
 
 ```{python}
 # | include: False
-imdb_df = pd.read_csv("../../data/imdb_master.csv", encoding="ISO-8859-1")
+imdb_df = pd.read_csv("data/imdb_master.csv", encoding="ISO-8859-1")
 imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
 train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
 ```
@@ -313,7 +313,7 @@ Example 4 is about predicting housing prices.
 ---
 
 ```{python}
-df = pd.read_csv("../../data/kc_house_data.csv")
+df = pd.read_csv("data/kc_house_data.csv")
 df = df.drop(columns=["id", "date"])
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
 train_df.head()
