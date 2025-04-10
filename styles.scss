@@ -54,7 +54,7 @@ h3 {
 strong,
 b,
 code {
-    color: #f0e934 !important;
+    color: #283791 !important;
 }
 
 .reveal p code,
@@ -126,7 +126,7 @@ code {
 
 .reveal span.op,
 .tok-definitionOperator {
-    color: #f78f2e !important;
+    color: #283791 !important;
 }
 
 span.tok-variableName {
@@ -148,26 +148,6 @@ span.tok-variableName {
     font-size: 14px !important;
     /* Ensure arrows are clickable and not covered by the slide number */
     z-index: -1;
-}
-
-.reveal pre.out {
-    background-color: rgba(11, 181, 212, 0.05) !important;
-    padding: 0.2em;
-    border-radius: 40px;
-    color: #f0e934 !important;
-}
-.reveal pre.out code {
-    background-color: transparent !important;
-}
-.reveal .cell-output.cell-output-display pre {
-    background-color: rgba(11, 181, 212, 0.05) !important;
-    padding: 0.2em;
-    border-radius: 40px;
-    color: #f0e934 !important;
-}
-
-.reveal .cell-output.cell-output-display pre code {
-    background-color: transparent !important;
 }
 
 .vega-bind-name {

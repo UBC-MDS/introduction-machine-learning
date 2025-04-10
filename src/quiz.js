@@ -5,7 +5,7 @@ function generateQuiz(containerId, title, question, options, correctAnswers) {
     const questionTitle = document.createElement('p');
     questionTitle.textContent = title;
     questionTitle.style.fontWeight = 'bold';
-    questionTitle.style.color = '#F78F2E';
+    questionTitle.style.color = '#283791';
     questionTitle.style.marginBottom = '0px';
     container.appendChild(questionTitle);
 
