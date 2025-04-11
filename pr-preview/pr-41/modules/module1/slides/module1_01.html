@@ -267,7 +267,7 @@
 </section>
 <section class="slide level2">
 
-<div id="01ee378e" class="cell" data-execution_count="3">
+<div id="ad3cc882" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">16</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -387,7 +387,7 @@
 </section>
 <section class="slide level2">
 
-<div id="98a335f1" class="cell" data-execution_count="4">
+<div id="5ab7eec8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'Target'</span>])</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">'Target'</span>]</span>
@@ -413,7 +413,7 @@
 </section>
 <section class="slide level2">
 
-<div id="9e9afa56" class="cell" data-execution_count="5">
+<div id="12e34326" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>    {<span class="st">"Predicted label"</span>: model.predict(X_test).tolist()}</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
@@ -542,7 +542,7 @@
 </section>
 <section id="predict-labels-with-associated-probability-scores-for-unseen-images" class="slide level2">
 <h2>Predict labels with associated probability scores for unseen images</h2>
-<div id="878c62ec" class="cell" data-execution_count="6">
+<div id="ee951882" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> glob.glob(<span class="st">"test_images/*.*"</span>)</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> image <span class="kw">in</span> images:</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(image)</span>
@@ -579,7 +579,7 @@
 </section>
 <section class="slide level2">
 
-<div id="1c9926e7" class="cell" data-execution_count="7">
+<div id="f98dbd46" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> glob.glob(<span class="st">"test_images/*.*"</span>)</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> image <span class="kw">in</span> images:</span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(image)</span>
@@ -632,7 +632,7 @@
 </section>
 <section class="slide level2">
 
-<div id="037543d6" class="cell" data-execution_count="9">
+<div id="e6f2308f" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -707,7 +707,7 @@
 </section>
 <section class="slide level2">
 
-<div id="70648bd1" class="cell" data-execution_count="10">
+<div id="27486fa5" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df[<span class="st">'review'</span>], train_df[<span class="st">'label'</span>]</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> test_df[<span class="st">'review'</span>], test_df[<span class="st">'label'</span>]</span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -736,7 +736,7 @@
 </section>
 <section class="slide level2">
 
-<div id="4fc66e37" class="cell" data-execution_count="11">
+<div id="22f366f6" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>pred_dict <span class="op">=</span> {</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"reviews"</span>: X_test[<span class="dv">0</span>:<span class="dv">4</span>],</span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"true_sentiment"</span>: y_test[<span class="dv">0</span>:<span class="dv">4</span>],</span>
@@ -818,7 +818,7 @@
 
 <p><br> <br> <br></p>
 <h3 id="example-4-predict-housing-prices">Example 4: Predict housing prices</h3>
-<p><em>Attribution: The dataset <code>kc_house_data.csv</code> was obtained from <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>.</em></p>
+<p><em>Attribution: The dataset <code>kc_house_data.csv</code> was obtained from <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a> and downsampled for demonstration.</em></p>
 <aside class="notes">
 <p>Example 4 is about predicting housing prices.</p>
 <style type="text/css">
@@ -835,11 +835,10 @@
 </section>
 <section class="slide level2">
 
-<div id="65a82d8b" class="cell" data-execution_count="12">
+<div id="2cf1c320" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/kc_house_data.csv"</span>)</span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">"id"</span>, <span class="st">"date"</span>])</span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <style scoped="">
@@ -873,64 +872,64 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8583</td>
-<td>509000.0</td>
+<td data-quarto-table-cell-role="th">608</td>
+<td>219000.0</td>
+<td>3</td>
+<td>1.50</td>
+<td>1740</td>
+<td>...</td>
+<td>47.3657</td>
+<td>-122.094</td>
+<td>1540</td>
+<td>5200</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">511</td>
+<td>618250.0</td>
+<td>4</td>
+<td>3.25</td>
+<td>2520</td>
+<td>...</td>
+<td>47.6801</td>
+<td>-122.315</td>
+<td>1730</td>
+<td>3360</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">641</td>
+<td>200000.0</td>
 <td>2</td>
 <td>1.50</td>
-<td>1930</td>
+<td>1360</td>
 <td>...</td>
-<td>47.6092</td>
-<td>-122.146</td>
-<td>1840</td>
-<td>3576</td>
+<td>47.2852</td>
+<td>-122.190</td>
+<td>1360</td>
+<td>1898</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">19257</td>
-<td>675000.0</td>
-<td>5</td>
-<td>2.75</td>
-<td>2570</td>
+<td data-quarto-table-cell-role="th">112</td>
+<td>656500.0</td>
+<td>4</td>
+<td>2.00</td>
+<td>2710</td>
 <td>...</td>
-<td>47.5814</td>
-<td>-122.050</td>
-<td>2580</td>
-<td>12927</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1295</td>
-<td>420000.0</td>
-<td>3</td>
-<td>1.00</td>
-<td>1150</td>
-<td>...</td>
-<td>47.5588</td>
-<td>-122.392</td>
-<td>1220</td>
-<td>5120</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15670</td>
-<td>680000.0</td>
-<td>8</td>
-<td>2.75</td>
-<td>2530</td>
-<td>...</td>
-<td>47.6241</td>
+<td>47.6756</td>
 <td>-122.305</td>
-<td>1540</td>
-<td>4800</td>
+<td>1700</td>
+<td>3800</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">3913</td>
-<td>357823.0</td>
+<td data-quarto-table-cell-role="th">535</td>
+<td>530000.0</td>
 <td>3</td>
-<td>1.50</td>
-<td>1240</td>
+<td>1.75</td>
+<td>1660</td>
 <td>...</td>
-<td>47.7562</td>
-<td>-122.094</td>
-<td>1690</td>
-<td>10800</td>
+<td>47.5734</td>
+<td>-122.412</td>
+<td>1510</td>
+<td>4800</td>
 </tr>
 </tbody>
 </table>
@@ -958,7 +957,7 @@
 </section>
 <section class="slide level2">
 
-<div id="2d53656a" class="cell" data-execution_count="13">
+<div id="4faf12ba" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"price"</span>])</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -994,64 +993,64 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8583</td>
+<td data-quarto-table-cell-role="th">608</td>
+<td>3</td>
+<td>1.50</td>
+<td>1740</td>
+<td>5200</td>
+<td>...</td>
+<td>47.3657</td>
+<td>-122.094</td>
+<td>1540</td>
+<td>5200</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">511</td>
+<td>4</td>
+<td>3.25</td>
+<td>2520</td>
+<td>3360</td>
+<td>...</td>
+<td>47.6801</td>
+<td>-122.315</td>
+<td>1730</td>
+<td>3360</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">641</td>
 <td>2</td>
 <td>1.50</td>
-<td>1930</td>
-<td>3521</td>
+<td>1360</td>
+<td>1898</td>
 <td>...</td>
-<td>47.6092</td>
-<td>-122.146</td>
-<td>1840</td>
-<td>3576</td>
+<td>47.2852</td>
+<td>-122.190</td>
+<td>1360</td>
+<td>1898</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">19257</td>
-<td>5</td>
-<td>2.75</td>
-<td>2570</td>
-<td>12906</td>
+<td data-quarto-table-cell-role="th">112</td>
+<td>4</td>
+<td>2.00</td>
+<td>2710</td>
+<td>4750</td>
 <td>...</td>
-<td>47.5814</td>
-<td>-122.050</td>
-<td>2580</td>
-<td>12927</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1295</td>
-<td>3</td>
-<td>1.00</td>
-<td>1150</td>
-<td>5120</td>
-<td>...</td>
-<td>47.5588</td>
-<td>-122.392</td>
-<td>1220</td>
-<td>5120</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15670</td>
-<td>8</td>
-<td>2.75</td>
-<td>2530</td>
-<td>4800</td>
-<td>...</td>
-<td>47.6241</td>
+<td>47.6756</td>
 <td>-122.305</td>
-<td>1540</td>
-<td>4800</td>
+<td>1700</td>
+<td>3800</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">3913</td>
+<td data-quarto-table-cell-role="th">535</td>
 <td>3</td>
-<td>1.50</td>
-<td>1240</td>
-<td>9196</td>
+<td>1.75</td>
+<td>1660</td>
+<td>4800</td>
 <td>...</td>
-<td>47.7562</td>
-<td>-122.094</td>
-<td>1690</td>
-<td>10800</td>
+<td>47.5734</td>
+<td>-122.412</td>
+<td>1510</td>
+<td>4800</td>
 </tr>
 </tbody>
 </table>
@@ -1060,19 +1059,19 @@
 </div>
 </div>
 </div>
-<div id="f8a20089" class="cell" data-execution_count="14">
+<div id="67788a09" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">"price"</span>]</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>y_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>8583     509000.0
-19257    675000.0
-1295     420000.0
-15670    680000.0
-3913     357823.0
+<pre><code>608    219000.0
+511    618250.0
+641    200000.0
+112    656500.0
+535    530000.0
 Name: price, dtype: float64</code></pre>
 </div>
 </div>
-<div id="090acd89" class="cell" data-execution_count="15">
+<div id="326c0036" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span>[<span class="st">"price"</span>])</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> train_df[<span class="st">"price"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1092,7 +1091,7 @@ Name: price, dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="3d614994" class="cell" data-execution_count="16">
+<div id="d8a24d7f" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBRegressor</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> XGBRegressor()</span>
@@ -1114,7 +1113,7 @@ Name: price, dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="8aa91370" class="cell" data-execution_count="17">
+<div id="4e6e5dd9" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>    {<span class="st">"Predicted price"</span>: model.predict(X_test[<span class="dv">0</span>:<span class="dv">4</span>]).tolist(), <span class="st">"Actual price"</span>: y_test[<span class="dv">0</span>:<span class="dv">4</span>].tolist()}</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
@@ -1154,51 +1153,51 @@ Name: price, dtype: float64</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>4</td>
+<td>3</td>
 <td>2.25</td>
-<td>2130</td>
-<td>8078</td>
+<td>1400</td>
+<td>6970</td>
 <td>...</td>
-<td>2300</td>
-<td>8112</td>
-<td>350672.68750</td>
-<td>509000.0</td>
+<td>1800</td>
+<td>8140</td>
+<td>383849.40625</td>
+<td>219000.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>3</td>
+<td>4</td>
 <td>2.50</td>
-<td>2210</td>
-<td>7620</td>
+<td>3440</td>
+<td>6332</td>
 <td>...</td>
-<td>1920</td>
-<td>7440</td>
-<td>634253.37500</td>
-<td>675000.0</td>
+<td>3310</td>
+<td>6528</td>
+<td>853539.31250</td>
+<td>618250.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4</td>
-<td>1.50</td>
-<td>1800</td>
-<td>9576</td>
+<td>5</td>
+<td>2.00</td>
+<td>2330</td>
+<td>10750</td>
 <td>...</td>
-<td>1370</td>
-<td>9576</td>
-<td>316480.40625</td>
-<td>420000.0</td>
+<td>1830</td>
+<td>10180</td>
+<td>414617.37500</td>
+<td>200000.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>3</td>
-<td>2.50</td>
-<td>1580</td>
-<td>1321</td>
+<td>1.75</td>
+<td>1840</td>
+<td>2310</td>
 <td>...</td>
-<td>1530</td>
-<td>1357</td>
-<td>618786.62500</td>
-<td>680000.0</td>
+<td>1670</td>
+<td>4000</td>
+<td>781376.31250</td>
+<td>656500.0</td>
 </tr>
 </tbody>
 </table>
