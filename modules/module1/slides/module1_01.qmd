@@ -301,7 +301,7 @@ Once we have the model, we can use this to predict the sentiment expressed in ne
 <br>
 
 ### Example 4: Predict housing prices
-*Attribution: The dataset `kc_house_data.csv` was obtained from <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a>.*
+*Attribution: The dataset `kc_house_data.csv` was obtained from <a href="https://www.kaggle.com/harlfoxem/housesalesprediction" target="_blank">Kaggle</a> and downsampled for demonstration.*
 
 
 :::{.notes}
@@ -314,7 +314,6 @@ Example 4 is about predicting housing prices.
 
 ```{python}
 df = pd.read_csv("data/kc_house_data.csv")
-df = df.drop(columns=["id", "date"])
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
 train_df.head()
 ```
