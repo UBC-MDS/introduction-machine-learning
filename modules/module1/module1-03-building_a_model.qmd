@@ -36,7 +36,7 @@ candybar_df
 
 import pandas as pd
 from sklearn.dummy import DummyClassifier
-from utils import assert_accuracy_almost
+from src.utils import assert_accuracy_almost
 
 candybar_df = pd.read_csv('data/candybars.csv')
 ```
