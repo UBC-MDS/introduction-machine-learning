@@ -1,0 +1,5 @@
+project:
+  type: website
+  render:
+    - modules/**/*.qmd
+    - modules/index.qmd
