@@ -32,11 +32,28 @@ website:
     style: 'docked'
     background: 'primary'
     contents:
+      - section: "**M0. Welcome to Introduction to Machine Learning**"
+        contents:
+          - text: '0. Welcome!'
+            href: modules/index.qmd
+          - href: modules/module0/module0-01-introduction_to_machine_learning.qmd
+          - text: '&nbsp;&nbsp; 1.1. Prerequisite confirmation'
+            href: modules/module0/module0-02-prerequisite_confirmation.qmd
       - section: "**M1. Machine Learning Terminology**"
         contents:
+          - href: modules/module1/module1-00-module_learning_outcomes.qmd
           - href: modules/module1/module1-01-what_is_supervised_machine_learning.qmd
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
+          - href: modules/module1/module1-03-types_of_machine_learning.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module1/module1-04-sup_vs_unsup_learning.qmd
+          - href: modules/module1/module1-05-classification_vs_regression.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module1/module1-06-classification_vs_regression.qmd
+          - href: modules/module1/module1-08-tabular_data_and_terminology.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module1/module1-09-terminology.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
 
 # Since we are declaring options for two formats here (html and revealjs)

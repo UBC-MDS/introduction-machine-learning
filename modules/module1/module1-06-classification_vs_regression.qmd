@@ -1,0 +1,96 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 3.1. Exercises
+
+## Classification vs. Regression
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Question 1', 
+        'Predicting the price of a house based on features  such as  number of rooms and the year built.', 
+        { 
+        'Classification': 'Is the prediction a categorical or a numerical value?',
+        'Regression': 'Good job! We are predicting a numerical value and therefore this is an example of regression.'
+        },
+        'Regression',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Question 2', 
+        'Predicting if a house will sell or not based on features like the price of the house, number of rooms, etc.', 
+        { 
+        'Classification': 'Good job! We are predicting a categorical value (Sell/Not Sell) and therefore this is an example of classification.',
+        'Regression': 'Is the prediction a categorical or a numerical value?'
+        },
+        'Classification',
+    );
+</script>
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'Question 3', 
+        'Predicting your grade in this course based on your grade in Programming in Python for Data Science.', 
+        { 
+        'Classification': 'Is the prediction a categorical or a numerical value?',
+        'Regression': 'Good job! We are predicting a numerical value (percent grade) and therefore this is an example of regression.'
+        },
+        'Regression',
+    );
+</script>
+
+<div id='mcq4'></div> 
+<script>
+    generateQuiz(
+        'mcq4', 
+        'Question 4', 
+        'Predicting a cereal’s manufacturer given the nutritional information.', 
+        { 
+        'Classification': 'Good job! We are predicting a categorical value and therefore this is an example of classification.',
+        'Regression': 'Is the prediction a categorical or a numerical value?'
+        },
+        'Classification',
+    );
+</script>
+
+
+## Classification vs. Regression Target
+
+```out
+           name     calories     sugar   water-content  weight  shape
+0         apple       100         3.0          84         100   round
+1        banana       120         4.0          75         120   long
+2    cantaloupe       130         5.0          90        1360   round
+3  dragon-fruit        70         1.5          96         600   round
+4    elderberry       110         2.5          80           5   round 
+5           fig        40         2.0          78          40   oval  
+6         guava        90         3.0          83         450   oval
+7   huckleberry        85         4.0          73           5   round
+8          kiwi        60         4.5          80          76   round
+9         lemon        50         1.0          83          65   oval
+```
+
+<div id='mcq5'></div> 
+<script>
+    generateQuiz(
+        'mcq5', 
+        'Question 1', 
+        'Given the target column "shape", does this represent a Classification or a Regression problem?', 
+        { 
+        'Classification': '',
+        'Regression': 'Is the prediction a categorical or a numerical value?'
+        },
+        'Classification',
+    );
+</script>

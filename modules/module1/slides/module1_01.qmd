@@ -313,7 +313,7 @@ Example 4 is about predicting housing prices.
 ---
 
 ```{python}
-df = pd.read_csv("data/kc_house_data.csv")
+df = pd.read_csv("data/kc_house_data_demo.csv")
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=4)
 train_df.head()
 ```
