@@ -70,7 +70,7 @@ candybar_df
 #| exercise: describing_a_dataset
 
 import pandas as pd
-from src.utils import assert_equal
+from src.utils import print_correct_msg
 
 candybar_df = pd.read_csv('data/candybars.csv')
 ```
@@ -88,7 +88,8 @@ candybar_dim
 #| exercise: describing_a_dataset
 #| check: true
 
-assert_equal(candybar_df.shape, result, "Did you save the dimensions to candybar_dim?")
+assert result == candybar_df.shape, "Did you save the dimensions to candybar_dim?"
+print_correct_msg()
 ```
 
 :::: { .hint exercise="describing_a_dataset"}
@@ -111,6 +112,7 @@ print(candybar_df.head())
 candybar_dim = candybar_df.shape
 candybar_dim
 ```
+
 :::
 ::::
 
@@ -159,3 +161,136 @@ candybar_dim
         'Classification',
     );
 </script>
+
+### Separating Our Data
+
+Let's split up our the data in the candybars dataframe into our features and target. 
+For this dataframe the features are the columns `chocolate` to `multi` and the target is the column `availability`.
+
+**Task 1:**<br>    
+
+- Save the columns `chocolate` to `multi` in an object named `X`.<br>
+
+```{pyodide}
+#| setup: true
+#| exercise: separating_our_data_1
+
+import pandas as pd
+from src.utils import print_correct_msg
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_1
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+
+X = ____
+
+X.head()
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_1
+#| check: true
+
+X = candybar_df.loc[:, 'chocolate':'multi']
+
+assert result.shape == X.head().shape, "The dimensions of X is incorrect. Are you selcting the correct columns?"
+assert sorted(list(result.columns))[0:4] == ['caramel', 'chocolate', 'coconut', 'cookie_wafer_rice'], "The X dataframe includes the incorrect columns. Make sure you are selecting the correct columns"
+print_correct_msg()
+```
+
+:::: { .hint exercise="separating_our_data_1"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `.loc[]` to obtain the columns `chocolate` to `multi`?
+
+:::
+::::
+
+:::: { .solution exercise="separating_our_data_1" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+```{pyodide}
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+
+X = candybar_df.loc[:, 'chocolate':'multi']
+
+X.head()
+```
+
+:::
+::::
+
+
+**Task 2:**<br>    
+
+- Since we are attempting to predict the country availability of candy bars, make the column `availability` the target and name the object `y`.<br>
+
+```{pyodide}
+#| setup: true
+#| exercise: separating_our_data_2
+
+import pandas as pd
+from src.utils import print_correct_msg
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_2
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+
+y = ____
+
+y.head()
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_2
+#| check: true
+
+y = candybar_df['availability']
+
+assert result.shape == y.head().shape, "The dimensions of y is incorrect. Are you selcting the correct columns?"
+assert result.name == 'availability', "Your target should be availability."
+print_correct_msg()
+
+```
+
+:::: { .hint exercise="separating_our_data_2"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you select the column `availability` with single brackets?
+
+:::
+::::
+
+:::: { .solution exercise="separating_our_data_2" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+```{pyodide}
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+
+y = candybar_df['availability']
+
+y.head()
+```
+
+:::
+::::
