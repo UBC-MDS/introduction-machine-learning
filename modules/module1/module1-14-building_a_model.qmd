@@ -3,7 +3,91 @@ format:
   live-html
 ---
 
-# 4.1. Exercises
+<script src='../../src/quiz.js'></script>  
+
+# 5.1. Exercises
+
+## Fit or Predict
+
+Do the following statements correspond to the `fit` or the `predict` stage:
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Statement 1', 
+        'Is called first (before the other one).', 
+        { 
+        'Fit': 'Great job! Training on training data must be done before predicting on new data.',
+        'Predict': 'How can the model predict without education first?'
+        },
+        'Fit',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Statement 2', 
+        'Only takes `X` as an argument.', 
+        { 
+        'Fit': 'We need to make sure we give the model the correct labels so it can learn.',
+        'Predict': ''
+        },
+        'Predict',
+    );
+</script>
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'Statement 3', 
+        'In scikit-learn, we can ignore its output.', 
+        { 
+        'Fit': '',
+        'Predict': 'You may want to look at the slides and see what each of these delivers as an output.'
+        },
+        'Fit',
+    );
+</script>
+
+
+## First Step in Building a Model
+
+**Question 1**<br><br>
+Below is the output of `y.value_counts()`.  
+```out
+Position
+Forward     13
+Defense      7
+Goalie       2
+dtype: int64
+```
+
+In this scenario, what would a `DummyClassifier(strategy='most_frequent')` model predict on the observation: 
+```
+   No.  Age  Height  Weight  Experience     Salary
+1   83   34     191     210          11  3200000.0
+```
+
+<div id='mcq4'></div> 
+<script>
+    generateQuiz(
+        'mcq4', 
+        '', 
+        '', 
+        { 
+        'Forward': '',
+        'Defense': 'We are using the strategy `most_frequent` which predicts the most frequently occuring value.',
+        'Goalie': 'We are using the strategy `most_frequent` which predicts the most frequently occuring value.',
+        'Player': 'We are using the strategy `most_frequent` which predicts the most frequently occuring value.',
+        },
+        'Forward',
+    );
+</script>
+
 
 ## Building a Model
 

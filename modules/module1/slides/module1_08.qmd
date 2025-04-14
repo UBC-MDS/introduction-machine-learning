@@ -33,8 +33,7 @@ Is there a specific required format for our data so that we can pass it to machi
 
 Here is a toy example of tabular data. 
 
-The task here is to predict the `quiz2` grade given all this information. 
-
+The task here is to predict the `quiz2` grade given all this information.<br>
 - Rows are ***examples***<br>
 - Columns are ***features*** and one of the columns is typically the ***target***.<br>
 - Features are relevant characteristics of the problem (usually suggested by experts).<br>

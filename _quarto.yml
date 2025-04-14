@@ -52,9 +52,15 @@ website:
           - text: '&nbsp;&nbsp; 3.1. Exercises'
             href: modules/module1/module1-06-classification_vs_regression.qmd
           - href: modules/module1/module1-08-tabular_data_and_terminology.qmd
-          - text: '&nbsp;&nbsp; 3.1. Exercises'
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
             href: modules/module1/module1-09-terminology.qmd
-          - href: modules/module1/module1-03-building_a_model.qmd
+          - href: modules/module1/module1-13-baselines_training_a_model.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module1/module1-14-building_a_model.qmd
+          - href: modules/module1/module1-17-baselines_dummy_regression.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module1/module1-18-dummy_regressors.qmd
+          - href: modules/module1/module1-21-what_did_we_just_learn.qmd
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.

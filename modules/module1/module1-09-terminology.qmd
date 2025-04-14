@@ -167,6 +167,14 @@ candybar_dim
 Let's split up our the data in the candybars dataframe into our features and target. 
 For this dataframe the features are the columns `chocolate` to `multi` and the target is the column `availability`.
 
+```{pyodide}
+import pandas as pd
+from sklearn.dummy import DummyClassifier
+
+candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
+```
+
 **Task 1:**<br>    
 
 - Save the columns `chocolate` to `multi` in an object named `X`.<br>
@@ -184,9 +192,6 @@ candybar_df = pd.read_csv('data/candybars.csv')
 
 ```{pyodide}
 #| exercise: separating_our_data_1
-# Loading in the data
-candybar_df = pd.read_csv('data/candybars.csv')
-
 X = ____
 
 X.head()
@@ -219,9 +224,6 @@ print_correct_msg()
 
 ## Fully worked solution:
 ```{pyodide}
-# Loading in the data
-candybar_df = pd.read_csv('data/candybars.csv')
-
 X = candybar_df.loc[:, 'chocolate':'multi']
 
 X.head()
@@ -248,9 +250,6 @@ candybar_df = pd.read_csv('data/candybars.csv')
 
 ```{pyodide}
 #| exercise: separating_our_data_2
-# Loading in the data
-candybar_df = pd.read_csv('data/candybars.csv')
-
 y = ____
 
 y.head()
@@ -284,9 +283,6 @@ print_correct_msg()
 
 ## Fully worked solution:
 ```{pyodide}
-# Loading in the data
-candybar_df = pd.read_csv('data/candybars.csv')
-
 y = candybar_df['availability']
 
 y.head()
