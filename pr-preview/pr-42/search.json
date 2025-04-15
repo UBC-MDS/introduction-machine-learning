@@ -478,7 +478,7 @@
     "href": "modules/module1/slides/module1_17.html#fit-the-regressor",
     "title": "Baselines: Dummy Regression",
     "section": "3. Fit the regressor",
-    "text": "3. Fit the regressor\n\ndummy_reg.fit(X, y)\n\nDummyRegressor()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.DummyRegressor?Documentation for DummyRegressoriFittedDummyRegressor() \n\n\n\nThe next step is fitting our regressor.\nAs usual, we call fit on our dummy regressor and we pass X and y into fit().\nOur dummy regressor is a very simple model and all it is going to learn here is the mean prediction from the training data."
+    "text": "3. Fit the regressor\n\ndummy_reg.fit(X, y)\n\n\nThe next step is fitting our regressor.\nAs usual, we call fit on our dummy regressor and we pass X and y into fit().\nOur dummy regressor is a very simple model and all it is going to learn here is the mean prediction from the training data."
   },
   {
     "objectID": "modules/module1/slides/module1_17.html#predict-the-target-of-given-examples",
