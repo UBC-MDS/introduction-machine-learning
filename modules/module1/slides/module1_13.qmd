@@ -118,7 +118,8 @@ Here we are naming our model `dummy_clf`.
 
 ## 3. Fit the classifier
 
-```{python results = 'hide'}
+```{python}
+# | output: false
 dummy_clf.fit(X, y)
 ```
 
