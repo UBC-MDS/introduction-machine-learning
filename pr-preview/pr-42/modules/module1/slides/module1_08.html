@@ -233,7 +233,7 @@
 <section id="terminology-1" class="slide level2">
 <h2>Terminology</h2>
 <h3 id="example-1-tabular-data-for-the-housing-price-prediction-problem">Example 1: Tabular data for the housing price prediction problem</h3>
-<div id="7750a9d6" class="cell" data-execution_count="2">
+<div id="d7fbef56" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/kc_house_data.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">"id"</span>, <span class="st">"date"</span>])</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -312,7 +312,7 @@
 </div>
 </div>
 </div>
-<div id="2b7c0120" class="cell" data-execution_count="3">
+<div id="0c3eb1ac" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(21613, 19)</code></pre>
@@ -337,7 +337,7 @@
 <section class="slide level2">
 
 <h3 id="example-2-tabular-data-for-quiz2-classification-problem">Example 2: Tabular data for quiz2 classification problem</h3>
-<div id="01380bb3" class="cell" data-execution_count="4">
+<div id="8ab68459" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -410,7 +410,7 @@
 </div>
 </div>
 </div>
-<div id="4f4f7103" class="cell" data-execution_count="5">
+<div id="1932358b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>classification_df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>(21, 8)</code></pre>
@@ -434,7 +434,7 @@
 </section>
 <section class="slide level2">
 
-<div id="525dbe13" class="cell" data-execution_count="6">
+<div id="6879da0d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -524,7 +524,7 @@
 </div>
 </div>
 </div>
-<div id="77aada21" class="cell" data-execution_count="7">
+<div id="875a58ef" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>y.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>0        A+

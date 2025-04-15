@@ -46,7 +46,7 @@
     "href": "modules/module1/slides/module1_13.html#fit-the-classifier",
     "title": "Baselines: Training a Model using Scikit-learn",
     "section": "3. Fit the classifier",
-    "text": "3. Fit the classifier\n\ndummy_clf.fit(X, y)\n\nDummyClassifier(strategy='most_frequent')In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.DummyClassifier?Documentation for DummyClassifieriFittedDummyClassifier(strategy='most_frequent') \n\n\n\nNext, we fit the classifier.\nWhen we call fit on our model object, the actual learning happens. In our simple model there is not much to learn and in this case, will only learn what the most frequent label is in our training data."
+    "text": "3. Fit the classifier\n\ndummy_clf.fit(X, y)\n\n\nNext, we fit the classifier.\nWhen we call fit on our model object, the actual learning happens. In our simple model there is not much to learn and in this case, will only learn what the most frequent label is in our training data."
   },
   {
     "objectID": "modules/module1/slides/module1_13.html#predict-the-target-of-given-examples",
