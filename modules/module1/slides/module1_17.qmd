@@ -89,7 +89,8 @@ Here we are naming our model `dummy_reg`.
 
 ## 3. Fit the regressor
 
-```{python results = 'hide'}
+```{python}
+# | output: false
 dummy_reg.fit(X, y)
 ```
 
