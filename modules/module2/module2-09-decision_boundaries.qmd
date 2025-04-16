@@ -1,0 +1,155 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 3.1. Exercises
+
+## Decision Boundaries Part 1
+
+For the following questions, refer to this diagram:
+
+![](../../static/module2/Q9.png){width="100%" fig-alt="404 image"}
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Question 1', 
+        'What is the diagram displaying?', 
+        { 
+        'A decision branch': 'The branches are the connections between nodes.',
+        'A decision stump': '',
+        'A decision leaf': 'Leaves are the outcomes of the decisions.',
+        'A decision trunk': 'Not quite the right word.'
+        },
+        'A decision stump',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Question 2', 
+        'On which feature is the decision boundary splitting?', 
+        { 
+        'seeds': 'Not this time!',
+        'location': 'Location was not the splitting feature here!',
+        'Water content': '',
+        'A decision trunk': 'Maybe take a look at the diagram a bit closer.'
+        },
+        'Water content',
+    );
+</script>
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'Question 3', 
+        'On what value of the above feature is the decision boundary splitting?', 
+        { 
+        '90': 'Not quite.',
+        'Water content': 'This is the feature it’s splitting on, not the value.',
+        '92': 'Not this time.',
+        '96': ''
+        },
+        '96',
+    );
+</script>
+
+## Decision Boundaries Part 2
+
+For the following questions, refer to this diagram below.
+
+We are trying to predict a player’s position in this problem:
+
+- Blue circles represent defense players
+- Red triangles represent forward players
+
+![](../../static/module2/hockey_q.png){fig-align="center" width="60%" fig-alt="404 image"}
+
+<div id='mcq4'></div> 
+<script>
+    generateQuiz(
+        'mcq4', 
+        'Question 1', 
+        'What are the two features used in this decision tree classifier?', 
+        { 
+        'Height and Weight': 'One of these is correct. Take a look at the x-axis.',
+        'Height and Experience': 'One of these is correct. Take a look at the y-axis.',
+        'Experience and Weight': '',
+        'Age and Weight': 'One of these is correct. Take a look at the x-axis.'
+        },
+        'Experience and Weight',
+    );
+</script>
+
+<div id='mcq5'></div> 
+<script>
+    generateQuiz(
+        'mcq5', 
+        'Question 2', 
+        'What is the splitting value for the feature on the x-axis?', 
+        { 
+        '9': 'This answer seems a little high.',
+        '6': 'Not quite.',
+        '7.5': '',
+        '4.5': 'This answer seems a little low.'
+        },
+        '7.5',
+    );
+</script>
+
+<div id='mcq6'></div> 
+<script>
+    generateQuiz(
+        'mcq6', 
+        'Question 3', 
+        'What is the splitting value for the feature on the y-axis?', 
+        { 
+        '175.5': '',
+        '120.5': 'This answer is a bit low.',
+        '210': 'This answer is a little high.',
+        '200.5': 'This answer is a little high.'
+        },
+        '175.5',
+    );
+</script>
+
+## Decision Boundaries Part 3
+
+Use the plot below to answer the following questions.
+
+![](../../static/module2/hockey_q.png){fig-align="center" width="60%" fig-alt="404 image"}
+
+We are trying to predict a player's position in this problem:
+
+- Blue circles represent defense players
+- Red triangles represent forward players
+
+**Question**       
+Given this plot, which tree diagram is best represented by the decision boundaries? 
+
+A.
+![](../../static/module2/module_hockey2.png){fig-align="center" width="50%" fig-alt="404 image"}
+
+
+B.
+![](../../static/module2/module_hockey.png){fig-align="center" width="40%" fig-alt="404 image"}
+
+<div id='mcq7'></div> 
+<script>
+    generateQuiz(
+        'mcq7', 
+        '', 
+        'Given this plot, which tree diagram is best represented by the decision boundaries? ', 
+        { 
+        'A.': 'What is the depth of the tree in the diagram and how many boundaries (lines) can you count in the plot?',
+        'B.': ''
+        },
+        'B.',
+    );
+</script>

@@ -1,0 +1,61 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 1.1. Exercises
+
+## Decision Tree - Trees
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Question 1', 
+        'What is the top node in a decision tree called?', 
+        { 
+        'truck': 'Not quite.',
+        'branch': 'This appears further down the tree.',
+        'root': '',
+        'blossom': 'That’s a pretty name, but that’s not what the top of the tree is called.'
+        },
+        'root',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Question 2', 
+        'What are the nodes in a decision tree?', 
+        { 
+        'An if/else statement': '',
+        'An if/elif/else statment': 'It is a Boolean decision, so only 2 outcomes are possible.',
+        'A for loop': 'There is no loop involved here.',
+        'A function': 'Not in this context.'
+        },
+        'An if/else statement',
+    );
+</script>
+
+## Decision Tree Outcome
+
+![](../../static/module2/Q3.png){fig-align="center" width="90%" fig-alt="404 image"}
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'Question 1', 
+        'What is the depth of this decision tree?', 
+        { 
+        '1': 'A depth of 1 would simply be the stump.',
+        '2': 'Perhaps think a bit *deeper* (hint hint).',
+        '3': '',
+        '4': 'Not quite so deep.'
+        },
+        '3',
+    );
+</script>
