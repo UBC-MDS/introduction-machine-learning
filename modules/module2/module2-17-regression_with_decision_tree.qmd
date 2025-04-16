@@ -1,0 +1,162 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 5.1. Exercises
+
+## Regression with Decision Tree True or False
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'True or False',
+        '.score() is calculated in the same way for regressions problems as for classification problems.',
+        {
+        'True': '.score() for regression problems returns something called an $R^2$ score.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'True or False',
+        'The same hyperparameters can be used for DecisionTreeRegressor().',
+        {
+        'True': 'You have been paying attention! Nice work!',
+        'False': 'If you look at the documentation, you’ll be able to see that they do have the same hyperparameters.',
+        },
+        'True',
+    );
+</script>
+
+## Building a Decision Tree Regressor
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's build a decision tree regressor using `DecisionTreeRegressor()` and let's set some different hyperparameters.
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+
+# Loading in the data
+canucks = pd.read_csv('data/canucks_subbed.csv')
+canucks
+```
+
+Tasks:     
+
+- Build a model using `DecisionTreeRegressor()` and make sure to set the argument `random_state` to 1. 
+- Set the `max_depth` of the tree to 8.  
+- Save your model in an object named `reg_tree`.
+- Fit your model on the objects `X` and `y` and then predict on `X`. 
+- Save the R^2 score of the model rounded to 2 decimal places in a variable named `tree_score`.
+
+```{pyodide}
+#| setup: true
+#| exercise: building_a_decision_tree_regressor
+
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+from src.utils import assert_accuracy_almost
+
+canucks = pd.read_csv('data/canucks_subbed.csv')
+```
+
+
+```{pyodide}
+#| exercise: building_a_decision_tree_regressor
+# Define X and y
+X = canucks.loc[:, ['No.', 'Age', 'Height', 'Weight', 'Experience']]
+y = canucks['Salary']
+
+# Create a model
+____ = ____(____)
+
+# Fit your data 
+____.____
+
+# Score the model
+____ = ____
+
+____
+```
+
+```{pyodide}
+#| exercise: building_a_decision_tree_regressor
+#| check: true
+
+X = canucks.loc[:, ['No.', 'Age', 'Height', 'Weight', 'Experience']]
+y = canucks['Salary']
+
+reg_tree = DecisionTreeRegressor(random_state=1, max_depth=8)
+reg_tree.fit(X,y)
+solution = round(reg_tree.score(X, y), 2)
+
+assert_accuracy_almost(solution, result)
+```
+
+:::: { .hint exercise="building_a_decision_tree_regressor"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `DecisionTreeRegressor(random_state=1, max_depth=8)`?
+- Are you using the model named `reg_tree`?
+- Are you calling `.fit(X,y)` on your model?
+- Are you using `.score(X,y)` and rounding to 2 decimal places by using `round()`?
+:::
+::::
+
+:::: { .solution exercise="building_a_decision_tree_regressor" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = canucks.loc[:, ['No.', 'Age', 'Height', 'Weight', 'Experience']]
+y = canucks['Salary']
+
+# Create a model
+reg_tree = DecisionTreeRegressor(random_state=1, max_depth=8)
+
+# Fit your data 
+reg_tree.fit(X,y)
+
+# Score the model
+tree_score = reg_tree.score(X, y)
+
+tree_score
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question',
+        'Given the value of the regression model’s score, which model does better?',
+        {
+        'Dummy Regressor': 'The Dummy Regressor gave a $R^2$ value of 0.0.',
+        'Decision Tree Regressor': '',
+        },
+        'Decision Tree Regressor',
+    );
+</script>

@@ -159,9 +159,9 @@ ____ = ____
 ____.____
 
 # Predict the labels of X
-predicted = ____.____
+____ = ____.____
 
-predicted
+____
 ```
 
 ```{pyodide}
