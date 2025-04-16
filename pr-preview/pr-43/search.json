@@ -1,0 +1,399 @@
+[
+  {
+    "objectID": "modules/module2/slides/module2_21.html#module-learning-outcomes",
+    "href": "modules/module2/slides/module2_21.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 2",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nBroadly describe how decision trees make predictions.\nUse DecisionTreeClassifier() and DecisionTreeRegressor() to build decision trees using scikit-learn.\nExplain the .fit() and .predict() paradigm and use .score() method of ML models.\nExplain the concept of decision boundaries.\nExplain the difference between parameters and hyperparameters.\nExplain how decision boundaries change with max_depth.\nExplain the concept of generalization.\n\n\nThe assignment will concentrate on the learning objectives as well as building knowledge on existing concepts."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_08.html#decision-boundaries",
+    "href": "modules/module2/slides/module2_08.html#decision-boundaries",
+    "title": "Decision trees with continuous features",
+    "section": "Decision boundaries",
+    "text": "Decision boundaries\n\ndepth = 1\nmodel = DecisionTreeClassifier(max_depth=depth)\nmodel.fit(X_subset, y)\n\n\n\nWhat do we do with learned models?\nWe build our model but here you may notice that we are setting an argument called max_depth.\nWe will cover this in more detail in the next section but for now, just know that setting this constricts our model.\nSetting this to 1 constricts the model to a depth of 1 which is a decision stump.\nAnother way to think about them is to ask: what sort of test examples will the model classify as positive, and what sort will it classify as negative?\nHere we can look at this decision stump which will show us where the first feature (lab4) makes a divide between an A+ and Not A+."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_08.html#another-example-of-decision-boundaries",
+    "href": "modules/module2/slides/module2_08.html#another-example-of-decision-boundaries",
+    "title": "Decision trees with continuous features",
+    "section": "Another example of decision boundaries",
+    "text": "Another example of decision boundaries\n\ndf = pd.read_csv('data/canada_usa_cities.csv')\ndf.head()\n\n\n\n\n\n\n\n\nlongitude\nlatitude\ncountry\n\n\n\n\n0\n-130.0437\n55.9773\nUSA\n\n\n1\n-134.4197\n58.3019\nUSA\n\n\n2\n-123.0780\n48.9854\nUSA\n\n\n3\n-122.7436\n48.9881\nUSA\n\n\n4\n-122.2691\n48.9951\nUSA\n\n\n\n\n\n\n\n\nHere is another example of a decision boundary which can help explain the concept more visually.\nWe have the latitude and longitude locations of different cities.\nWe want to predict if they are Canadian or American cities using these features."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_08.html#real-boundary-between-canada-and-usa",
+    "href": "modules/module2/slides/module2_08.html#real-boundary-between-canada-and-usa",
+    "title": "Decision trees with continuous features",
+    "section": "Real boundary between Canada and USA",
+    "text": "Real boundary between Canada and USA\n\nAttribution: sovereignlimits.com\n\nWe can compare this with the actual border between Canada and the U. S."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_01.html#improving-the-baseline-model",
+    "href": "modules/module2/slides/module2_01.html#improving-the-baseline-model",
+    "title": "Introducing Decision Trees",
+    "section": "Improving the baseline model",
+    "text": "Improving the baseline model\nExamples:\n\n\nSo we have built a baseline model, but can we do better than that?\nWe’re going to bring back this data set that we saw previously which is the classification dataset for whether or not a student will get an A+ on the second quiz given that there are multiple other columns here.\nIf you are asked to write a program to predict whether a student gets an A+ or not in quiz2, how would you go for it?\nIn our dummy model we only predicted the most occurring value in this Quiz 2 column on our new test data, so for example, if A+ was most occurring, then on any new test data, it would just predict A+ no matter what all of these other column values were.\nWe have all of these features that we could use to help with our predictions. To make things initially more understandable, we are going to change our dataset a little bit so they are expressed in binary values. 1 = yes and 0 = no or 1=A+ 0=Not A+."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_01.html#a-program-for-prediction-using-a-set-of-rules-with-ifelse-statements",
+    "href": "modules/module2/slides/module2_01.html#a-program-for-prediction-using-a-set-of-rules-with-ifelse-statements",
+    "title": "Introducing Decision Trees",
+    "section": "A program for prediction using a set of rules with if/else statements",
+    "text": "A program for prediction using a set of rules with if/else statements\n\n\nHow about a rule-based algorithm with several if/else statements?\n\nif class attendance == 1 and quiz1 == 1:\n    quiz2 == \"A+\"\nelif class attendance == 1 and lab3 == 1 and lab4 == 1:\n    quiz2 == \"A+\"\n...\n\nNow that we have a model where our features are 1 of 2 options, how about we have a rule-based algorithm with several if/else statements?\nWe learned about conditions and if/else statements in module 5 of Programming in Python for Data Science, now let’s incorporate this concept into a machine learning problem.\nLooking at the first example we have class_attendance=1 and quiz1=1 as well. That gives us in our training data an A+ as the target. We could write a rule where if class_attendance=1 and quiz1=1 we predict quiz2 =A+ since there are no other examples in the data.\nIn our next example, we could make an if-else statement where class_attendance=1 and lab3=1 and lab4=1 then quiz2=A+ since there are no other examples in this dataset.\nif class attendance == 1 and quiz1 == 1:\n    quiz2 == \"A+\"\nelif class attendance == 1 and lab3 == 1 and lab4 == 1:\n    quiz2 == \"A+\"\n...\nWe can continue making these rules until we have many rules.\nSince we have 7 features each with 2 possibilities, the total possible different rules could be 128 different statements but neither of us wants to write all these, which is where decision trees come into play."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_01.html#decision-trees",
+    "href": "modules/module2/slides/module2_01.html#decision-trees",
+    "title": "Introducing Decision Trees",
+    "section": "Decision trees",
+    "text": "Decision trees\n\n\nThe decision tree models use an algorithm that derives such rules from data in a principled way."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_01.html#decision-trees-terminology",
+    "href": "modules/module2/slides/module2_01.html#decision-trees-terminology",
+    "title": "Introducing Decision Trees",
+    "section": "Decision trees terminology",
+    "text": "Decision trees terminology\n\n\nBefore we go forward with learning about decision tree classifiers and reggressors we need to understand the structure of a decision tree. Here is the key terminology that you will have to know: - Root: Where we start making our conditions. - Branch: A branch connects to the next node (statement). Each branch represents either true or false. - Internal node: conditions within the tree. - Leaf: the value predicted from the conditions. - Tree depth: The longest path from the root to a leaf.\nWith the decision tree algorithm in machine learning, the tree can have at most two nodes resulting from it, also known as children.\nThis tree would have a depth of 2."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_01.html#decision-stump",
+    "href": "modules/module2/slides/module2_01.html#decision-stump",
+    "title": "Introducing Decision Trees",
+    "section": "Decision Stump",
+    "text": "Decision Stump\n\n\nThis tree has a depth of 1.\nA decision tree that has a depth of 1 is called a decision stump."
+  },
+  {
+    "objectID": "modules/module2/module2-21-what_did_we_just_learn.html",
+    "href": "modules/module2/module2-21-what_did_we_just_learn.html",
+    "title": "7. What Did We Just Learn?",
+    "section": "",
+    "text": "7. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "7. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-19-generalization.html",
+    "href": "modules/module2/module2-19-generalization.html",
+    "title": "6. Generalization",
+    "section": "",
+    "text": "6. Generalization\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "6. Generalization"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-16-decision_tree_regressor.html",
+    "href": "modules/module2/module2-16-decision_tree_regressor.html",
+    "title": "5. Decision Tree Regressor",
+    "section": "",
+    "text": "5. Decision Tree Regressor\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "5. Decision Tree Regressor"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-12-parameters_and_hyperparameters.html",
+    "href": "modules/module2/module2-12-parameters_and_hyperparameters.html",
+    "title": "4. Parameters and Hyperparameters",
+    "section": "",
+    "text": "4. Parameters and Hyperparameters\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "4. Parameters and Hyperparameters"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-08-decision_trees_with_continous_features.html",
+    "href": "modules/module2/module2-08-decision_trees_with_continous_features.html",
+    "title": "3. Decision Trees with Continuous Features",
+    "section": "",
+    "text": "3. Decision Trees with Continuous Features\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "3. Decision Trees with Continuous Features"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-04-building_a_decision_tree_classifier.html",
+    "href": "modules/module2/module2-04-building_a_decision_tree_classifier.html",
+    "title": "2. Building a Decision Tree Classifier",
+    "section": "",
+    "text": "2. Building a Decision Tree Classifier\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "2. Building a Decision Tree Classifier"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-01-introducing_decision_trees.html",
+    "href": "modules/module2/module2-01-introducing_decision_trees.html",
+    "title": "1. Introducing Decision Trees",
+    "section": "",
+    "text": "1. Introducing Decision Trees\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "1. Introducing Decision Trees"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-00-module_learning_outcomes.html",
+    "href": "modules/module2/module2-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-05-predicting_with_a_decision_tree.html",
+    "href": "modules/module2/module2-05-predicting_with_a_decision_tree.html",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Use the following Decision tree for the next 2 questions:\n\n\n\n\n\nQuestion 1\nGiven the features:\n    yellow  sweet  berry  long  green  Mexico  seeds\n0       0      1      0     0      1       0      1\n\n\n\n\nQuestion 2\nGiven the features:\n    yellow  sweet  berry  long  green  Mexico  seeds\n0       1      0      0     0      0       0      1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s build a decision tree classifier using DecisionTreeClassifier().\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeClassifier() and make sure to set the random_state argument to 1.\nSave this in an object named model.\nFit your model on the objects X and y.\nPredict on X and save the values in an object named predicted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier(random_state=1)?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCompare the availability column to the predicted column and answer the multiple-choice questions below.",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-05-predicting_with_a_decision_tree.html#predicting-with-a-decision-tree",
+    "href": "modules/module2/module2-05-predicting_with_a_decision_tree.html#predicting-with-a-decision-tree",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Use the following Decision tree for the next 2 questions:\n\n\n\n\n\nQuestion 1\nGiven the features:\n    yellow  sweet  berry  long  green  Mexico  seeds\n0       0      1      0     0      1       0      1\n\n\n\n\nQuestion 2\nGiven the features:\n    yellow  sweet  berry  long  green  Mexico  seeds\n0       1      0      0     0      0       0      1",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-05-predicting_with_a_decision_tree.html#building-a-decision-tree-classifier",
+    "href": "modules/module2/module2-05-predicting_with_a_decision_tree.html#building-a-decision-tree-classifier",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s build a decision tree classifier using DecisionTreeClassifier().\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeClassifier() and make sure to set the random_state argument to 1.\nSave this in an object named model.\nFit your model on the objects X and y.\nPredict on X and save the values in an object named predicted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier(random_state=1)?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-05-predicting_with_a_decision_tree.html#compare-actual-and-predicted-values",
+    "href": "modules/module2/module2-05-predicting_with_a_decision_tree.html#compare-actual-and-predicted-values",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Compare the availability column to the predicted column and answer the multiple-choice questions below.",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-09-decision_boundaries.html",
+    "href": "modules/module2/module2-09-decision_boundaries.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "For the following questions, refer to this diagram:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFor the following questions, refer to this diagram below.\nWe are trying to predict a player’s position in this problem:\n\nBlue circles represent defense players\nRed triangles represent forward players\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse the plot below to answer the following questions.\n\n\n\n\n\nWe are trying to predict a player’s position in this problem:\n\nBlue circles represent defense players\nRed triangles represent forward players\n\nQuestion\nGiven this plot, which tree diagram is best represented by the decision boundaries?",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-09-decision_boundaries.html#decision-boundaries-part-1",
+    "href": "modules/module2/module2-09-decision_boundaries.html#decision-boundaries-part-1",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "For the following questions, refer to this diagram:",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-09-decision_boundaries.html#decision-boundaries-part-2",
+    "href": "modules/module2/module2-09-decision_boundaries.html#decision-boundaries-part-2",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "For the following questions, refer to this diagram below.\nWe are trying to predict a player’s position in this problem:\n\nBlue circles represent defense players\nRed triangles represent forward players",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-09-decision_boundaries.html#decision-boundaries-part-3",
+    "href": "modules/module2/module2-09-decision_boundaries.html#decision-boundaries-part-3",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Use the plot below to answer the following questions.\n\n\n\n\n\nWe are trying to predict a player’s position in this problem:\n\nBlue circles represent defense players\nRed triangles represent forward players\n\nQuestion\nGiven this plot, which tree diagram is best represented by the decision boundaries?",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-13-feature_splitting.html",
+    "href": "modules/module2/module2-13-feature_splitting.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "For the following statements, state if it corresponds to a Parameter or Hyperparameter.\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s build a decision tree classifier using DecisionTreeClassifier() but this time, let’s set some different hyperparameters.\n\n\n\n\n\n\nTasks:\n\nBuild a decision tree classifier and make sure to set the argument random_state to 1.\nSet the max_depth of the tree to 8 and the min_samples_split to 4.\nSave the model in an object named hyper_tree.\nFit your model on the objects X and y.\nSave the accuracy of the model rounded to 2 decimal places in a variable named tree_score and display it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier(max_depth=8, min_samples_split=4, random_state=1)?\nAre you using the model named hyper_tree?\nAre you calling .fit(X,y) on your model?\nAre you using .score(X,y) and rounding to 2 decimal places by using round()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-13-feature_splitting.html#parameter-or-hyperparameter",
+    "href": "modules/module2/module2-13-feature_splitting.html#parameter-or-hyperparameter",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "For the following statements, state if it corresponds to a Parameter or Hyperparameter.",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-13-feature_splitting.html#playing-with-hyperparameters",
+    "href": "modules/module2/module2-13-feature_splitting.html#playing-with-hyperparameters",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s build a decision tree classifier using DecisionTreeClassifier() but this time, let’s set some different hyperparameters.\n\n\n\n\n\n\nTasks:\n\nBuild a decision tree classifier and make sure to set the argument random_state to 1.\nSet the max_depth of the tree to 8 and the min_samples_split to 4.\nSave the model in an object named hyper_tree.\nFit your model on the objects X and y.\nSave the accuracy of the model rounded to 2 decimal places in a variable named tree_score and display it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier(max_depth=8, min_samples_split=4, random_state=1)?\nAre you using the model named hyper_tree?\nAre you calling .fit(X,y) on your model?\nAre you using .score(X,y) and rounding to 2 decimal places by using round()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-17-regression_with_decision_tree.html",
+    "href": "modules/module2/module2-17-regression_with_decision_tree.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s build a decision tree regressor using DecisionTreeRegressor() and let’s set some different hyperparameters.\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeRegressor() and make sure to set the argument random_state to 1.\nSet the max_depth of the tree to 8.\n\nSave your model in an object named reg_tree.\nFit your model on the objects X and y and then predict on X.\nSave the R^2 score of the model rounded to 2 decimal places in a variable named tree_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeRegressor(random_state=1, max_depth=8)?\nAre you using the model named reg_tree?\nAre you calling .fit(X,y) on your model?\nAre you using .score(X,y) and rounding to 2 decimal places by using round()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/module2-17-regression_with_decision_tree.html#building-a-decision-tree-regressor",
+    "href": "modules/module2/module2-17-regression_with_decision_tree.html#building-a-decision-tree-regressor",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s build a decision tree regressor using DecisionTreeRegressor() and let’s set some different hyperparameters.\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeRegressor() and make sure to set the argument random_state to 1.\nSet the max_depth of the tree to 8.\n\nSave your model in an object named reg_tree.\nFit your model on the objects X and y and then predict on X.\nSave the R^2 score of the model rounded to 2 decimal places in a variable named tree_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeRegressor(random_state=1, max_depth=8)?\nAre you using the model named reg_tree?\nAre you calling .fit(X,y) on your model?\nAre you using .score(X,y) and rounding to 2 decimal places by using round()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M2. Decision Trees**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module2/slides/module2_00.html#module-learning-outcomes",
+    "href": "modules/module2/slides/module2_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nBroadly describe how decision trees make predictions.\nUse DecisionTreeClassifier() and DecisionTreeRegressor() to build decision trees using scikit-learn.\nExplain the .fit() and .predict() paradigm and use .score() method of ML models.\nExplain the concept of decision boundaries.\nExplain the difference between parameters and hyperparameters.\nExplain how decision boundaries change with max_depth.\nExplain the concept of generalization."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_04.html#how-does-predict-work",
+    "href": "modules/module2/slides/module2_04.html#how-does-predict-work",
+    "title": "Decision Tree Classifiers",
+    "section": "How does predict work?",
+    "text": "How does predict work?\n\nobservation\n\n\n\n\n\n\n\n\nml_experience\nclass_attendance\nlab1\nlab2\nlab3\nlab4\nquiz1\n\n\n\n\n0\n1\n0\n1\n1\n0\n1\n1\n\n\n\n\n\n\n\n\n\nLet’s try again with a new tree and the animation below.\nLet’s start at the top of the tree and ask binary questions at each node and follow the appropriate path in the tree.\nHere we go down the right branch from the root of the tree since class_attendence does not equal 1, next we take the left branch at the next node since quiz1==1 is true and that drops us off at the leaf where the model would predict quiz2 to be an A+.\nThe model only considers the features which are in the learned tree and ignores all other features."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_12.html#to-summarize",
+    "href": "modules/module2/slides/module2_12.html#to-summarize",
+    "title": "Parameters and hyperparameters",
+    "section": "To summarize",
+    "text": "To summarize\n\nparameters are automatically learned by the algorithm during training\nhyperparameters are specified based on:\n\nexpert knowledge\nheuristics, or\nsystematic/automated optimization (more on that in the upcoming modules)\n\n\n\nLet’s summarize what we know so far:\nParameters are chosen during training and hyperparameters are specified by us before training.\nThey can also be chosen by automated optimization which we will cover in module 5."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_19.html#visualizing-model-complexity-using-decision-boundaries",
+    "href": "modules/module2/slides/module2_19.html#visualizing-model-complexity-using-decision-boundaries",
+    "title": "Generalization",
+    "section": "Visualizing model complexity using decision boundaries",
+    "text": "Visualizing model complexity using decision boundaries\n\nclassification_df = pd.read_csv(\"data/quiz2-grade-toy-classification.csv\")\nclassification_df\n\n\n\n\n\n\n\n\nml_experience\nclass_attendance\nlab1\nlab2\nlab3\nlab4\nquiz1\nquiz2\n\n\n\n\n0\n1\n1\n92\n93\n84\n91\n92\nA+\n\n\n1\n1\n0\n94\n90\n80\n83\n91\nnot A+\n\n\n2\n0\n0\n78\n85\n83\n80\n80\nnot A+\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n18\n1\n1\n91\n93\n90\n88\n82\nnot A+\n\n\n19\n0\n1\n77\n94\n87\n81\n89\nnot A+\n\n\n20\n1\n1\n96\n92\n92\n96\n87\nA+\n\n\n\n\n21 rows × 8 columns\n\n\n\n\nIn the last slide deck, we learned about decision boundaries.\nWe saw that we could visualize the splitting of decision trees using these boundaries.\nLet’s use our familiar quiz2 data classification dataset back again to build on our decision boundary knowledge."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_19.html#fundamental-goal-of-machine-learning",
+    "href": "modules/module2/slides/module2_19.html#fundamental-goal-of-machine-learning",
+    "title": "Generalization",
+    "section": "Fundamental goal of machine learning",
+    "text": "Fundamental goal of machine learning\n\n\nIn machine learning the fundamental goal is to generalize beyond what we see in the training examples.\nWe are only given a sample of the data and do not have the full distribution.\nUsing the training data, we want to come up with a reasonable model that will perform well on some unseen examples.\nAt the end of the day, we want to deploy models that make reasonable predictions on unseen data\nExample: Imagine that a learner sees the following images as training data and corresponding labels.\nShe is trying to predict the labels of the image on the right after learning from the images from the training dataset on the left.\nShe’s given 2 cats and 2 dogs in the training data."
+  },
+  {
+    "objectID": "modules/module2/slides/module2_19.html#training-score-versus-generalization-score",
+    "href": "modules/module2/slides/module2_19.html#training-score-versus-generalization-score",
+    "title": "Generalization",
+    "section": "Training score versus Generalization score",
+    "text": "Training score versus Generalization score\nGiven a model in machine learning, people usually talk about two kinds of accuracies (scores):\n\nAccuracy on the training data\nAccuracy on the entire distribution of data\n\n\nWe saw with depth 10 we could get perfect accuracy of 1 but what makes ML hard is that we only have access to a sample and not the full data distribution.\nFor example, in our toy quiz 2 classification problem we only had 21 examples and 7 features so there could be many more possible examples.\nWe were expected to make a reasonable model that made reasonable predictions with only 21 examples from several possible options.\nThe question is when we get an accuracy of 1, on limited data, can we really trust the training accuracy?\nWould you deploy this model and expect it to perform reasonably on unseen examples? Probably not.\nThis is why in machine learning people usually talk about 2 types of scores.\nScores on the training data and score on the entire distribution.\nWe are really interested in the score on the entire distribution because at the end of the day we want our model to perform well on unseen examples.\nBut the problem is that we do not have access to the distribution and only the limited training data that is given to us.\nSo, what do we do?\nWe will cover this, in the next module."
+  }
+]

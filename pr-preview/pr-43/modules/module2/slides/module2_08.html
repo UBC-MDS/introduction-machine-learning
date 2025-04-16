@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-99fa6729ad23987aafeada22b1565191.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.43">
+
+  <title>Introduction to Machine Learning – Decision trees with continuous features</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #383a42;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #383a42; } /* Normal */
+    code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+    code span.an { color: #50a14f; } /* Annotation */
+    code span.at { color: #a626a4; } /* Attribute */
+    code span.bn { color: #986801; } /* BaseN */
+    code span.bu { color: #a626a4; } /* BuiltIn */
+    code span.cf { color: #a626a4; } /* ControlFlow */
+    code span.ch { color: #50a14f; } /* Char */
+    code span.cn { color: #986801; } /* Constant */
+    code span.co { color: #a0a1a7; font-style: italic; } /* Comment */
+    code span.cv { color: #e45649; font-style: italic; } /* CommentVar */
+    code span.do { color: #e45649; } /* Documentation */
+    code span.dt { color: #a626a4; } /* DataType */
+    code span.dv { color: #986801; } /* DecVal */
+    code span.er { color: #f44747; text-decoration: underline; } /* Error */
+    code span.ex { color: #4078f2; font-weight: bold; } /* Extension */
+    code span.fl { color: #986801; } /* Float */
+    code span.fu { color: #4078f2; } /* Function */
+    code span.im { color: #50a14f; } /* Import */
+    code span.in { color: #c45b00; } /* Information */
+    code span.kw { color: #a626a4; } /* Keyword */
+    code span.op { color: #a626a4; } /* Operator */
+    code span.ot { color: #27ae60; } /* Other */
+    code span.pp { color: #a626a4; } /* Preprocessor */
+    code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+    code span.sc { color: #0184bc; } /* SpecialChar */
+    code span.ss { color: #da4453; } /* SpecialString */
+    code span.st { color: #50a14f; } /* String */
+    code span.va { color: #e45649; } /* Variable */
+    code span.vs { color: #da4453; } /* VerbatimString */
+    code span.wa { color: #da4453; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-05f03a833fdedb6ac2691569b0339e1a.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-notes="" class="quarto-title-block center">
+  <h1 class="title">Decision trees with continuous features</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section class="slide level2">
+
+<div id="f15df814" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ml_experience</th>
+<th data-quarto-table-cell-role="th">class_attendance</th>
+<th data-quarto-table-cell-role="th">lab1</th>
+<th data-quarto-table-cell-role="th">lab2</th>
+<th data-quarto-table-cell-role="th">lab3</th>
+<th data-quarto-table-cell-role="th">lab4</th>
+<th data-quarto-table-cell-role="th">quiz1</th>
+<th data-quarto-table-cell-role="th">quiz2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>92</td>
+<td>93</td>
+<td>84</td>
+<td>91</td>
+<td>92</td>
+<td>A+</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>0</td>
+<td>94</td>
+<td>90</td>
+<td>80</td>
+<td>83</td>
+<td>91</td>
+<td>not A+</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0</td>
+<td>0</td>
+<td>78</td>
+<td>85</td>
+<td>83</td>
+<td>80</td>
+<td>80</td>
+<td>not A+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><br></p>
+<div id="94fa451c" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ml_experience</th>
+<th data-quarto-table-cell-role="th">class_attendance</th>
+<th data-quarto-table-cell-role="th">lab1</th>
+<th data-quarto-table-cell-role="th">lab2</th>
+<th data-quarto-table-cell-role="th">lab3</th>
+<th data-quarto-table-cell-role="th">lab4</th>
+<th data-quarto-table-cell-role="th">quiz1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>92</td>
+<td>93</td>
+<td>84</td>
+<td>91</td>
+<td>92</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>0</td>
+<td>94</td>
+<td>90</td>
+<td>80</td>
+<td>83</td>
+<td>91</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0</td>
+<td>0</td>
+<td>78</td>
+<td>85</td>
+<td>83</td>
+<td>80</td>
+<td>80</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><br></p>
+<div id="c2eee0d2" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>y.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>0        A+
+1    not A+
+2    not A+
+Name: quiz2, dtype: object</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>We’ve seen how decision trees work when our data is binary but that’s not always going to be the case.</p>
+<p>In fact, even for our quiz to toy classification dataset, we had to transform it into binary data.</p>
+<p>Here we see our labs 1 to 4 and quiz 1 are all numeric values from 0 to 100 and they’re not binary. How does our model handle this?</p>
+<p>As usual, let’s split up our classification dataset frame into the <code>X</code> object which is our features and our <code>Y</code> object which is our target column.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="072cda59" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8122c56b" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier()</span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>model.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Just like we saw in the previous sections, we have to import our decision tree classifier from the <code>scikit learn.tree</code> library.</p>
+<p>We build our model which is a decision tree classifier and we fit our data on our <code>X</code> and <code>y</code> objects.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+
+<img data-src="../../../static/module2/module2_08a.png" class="quarto-figure quarto-figure-center r-stretch" data-fig-width="80%" alt="404 image"><aside class="notes">
+<p>Now we can see what the decision tree looks like.</p>
+<p>The last time we looked at these trees it was splitting on values of 0.5.</p>
+<p>This time we have multiple different split values.</p>
+<p>Here, if your lab3 mark was less than 83.5 the tree predicts your <code>quiz2</code> grade to be <code>Not A+</code>.</p>
+<p>Before when we had binary data, features could only really be split once but now you’ll notice that some features come up multiple times in the tree with a different split value.</p>
+<p>For example, <code>lab4</code> is split on a value of 83.5 and if we go further down the branches we have another split for lab4 at 96.5.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="a0347ac9" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>X_subset <span class="op">=</span> X[[<span class="st">"lab4"</span>, <span class="st">"quiz1"</span>]]</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>X_subset.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">lab4</th>
+<th data-quarto-table-cell-role="th">quiz1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>91</td>
+<td>92</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>83</td>
+<td>91</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>80</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>91</td>
+<td>89</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>92</td>
+<td>85</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>For the next example let’s consider a subset of the data with only two features.</p>
+<p>This is because it’s easier to visualize the splitting in 2 dimensions.</p>
+<p>Let’s subset the data to only include <code>lab4</code> and <code>quiz1</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="decision-boundaries" class="slide level2">
+<h2>Decision boundaries</h2>
+<div id="ec782853" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>depth <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span>depth)</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>model.fit(X_subset, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="../../../static/module2/module2_08b.png" class="quarto-figure quarto-figure-center r-stretch" data-fig-width="80%" alt="404 image"><aside class="notes">
+<p>What do we do with learned models?</p>
+<p>We build our model but here you may notice that we are setting an argument called <code>max_depth</code>.</p>
+<p>We will cover this in more detail in the next section but for now, just know that setting this constricts our model.</p>
+<p>Setting this to 1 constricts the model to a depth of 1 which is a decision stump.</p>
+<p>Another way to think about them is to ask: what sort of test examples will the model classify as positive, and what sort will it classify as negative?</p>
+<p>Here we can look at this <strong><em>decision stump</em></strong> which will show us where the first feature (<code>lab4</code>) makes a divide between an <code>A+</code> and <code>Not A+</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../../static/module2/module2_08b.png" class="quarto-figure quarto-figure-center" style="width:20.0%" alt="404 image"></p>
+</figure>
+</div>
+<div id="5956b3b5" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 384x384 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="module2_08_files/figure-revealjs/cell-12-output-2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>We can assume a geometric view of the data. (More on this soon)</p>
+<p>Here the red region corresponds to the <code>not A+</code> class and the blue region corresponds to the <code>A+</code> class.</p>
+<p>There is a line separating the red region and the blue region which is called the <strong>decision boundary</strong> of the model.</p>
+<p>In our current model, this decision boundary is created by asking one question.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="another-example-of-decision-boundaries" class="slide level2">
+<h2>Another example of decision boundaries</h2>
+<div id="5bb38cf5" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/canada_usa_cities.csv'</span>)</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">longitude</th>
+<th data-quarto-table-cell-role="th">latitude</th>
+<th data-quarto-table-cell-role="th">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>-130.0437</td>
+<td>55.9773</td>
+<td>USA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>-134.4197</td>
+<td>58.3019</td>
+<td>USA</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>-123.0780</td>
+<td>48.9854</td>
+<td>USA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>-122.7436</td>
+<td>48.9881</td>
+<td>USA</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>-122.2691</td>
+<td>48.9951</td>
+<td>USA</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Here is another example of a decision boundary which can help explain the concept more visually.</p>
+<p>We have the latitude and longitude locations of different cities.</p>
+<p>We want to predict if they are Canadian or American cities using these features.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="9e4c62ec" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>chart1 <span class="op">=</span> alt.Chart(df).mark_circle(size<span class="op">=</span><span class="dv">20</span>, opacity<span class="op">=</span><span class="fl">0.6</span>).encode(</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'longitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="op">-</span><span class="dv">140</span>, <span class="op">-</span><span class="dv">40</span>]), axis<span class="op">=</span>alt.Axis(grid<span class="op">=</span><span class="va">False</span>)),</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'latitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">60</span>]), axis<span class="op">=</span>alt.Axis(grid<span class="op">=</span><span class="va">False</span>)),</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>    alt.Color(<span class="st">'country:N'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="st">'Canada'</span>, <span class="st">'USA'</span>],</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>                                           <span class="bu">range</span><span class="op">=</span>[<span class="st">'red'</span>, <span class="st">'blue'</span>]))</span>
+<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>chart1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<style>
+  #altair-viz-478145d05a75471db784bfe4cd3511d7.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-478145d05a75471db784bfe4cd3511d7.vega-embed details,
+  #altair-viz-478145d05a75471db784bfe4cd3511d7.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-478145d05a75471db784bfe4cd3511d7"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-478145d05a75471db784bfe4cd3511d7") {
+      outputDiv = document.getElementById("altair-viz-478145d05a75471db784bfe4cd3511d7");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.20.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.20.1"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}, "legend": {"symbolSize": 14, "titleFontSize": 14, "labelFontSize": 14}, "axis": {"titleFontSize": 14, "labelFontSize": 12}, "header": {"titleFontSize": 16, "labelFontSize": 14}, "encoding": {"x": {"scale": {"zero": false}}}}, "data": {"name": "data-162b5725bf23c1662ee10e403824dad8"}, "mark": {"type": "circle", "opacity": 0.6, "size": 20}, "encoding": {"color": {"field": "country", "scale": {"domain": ["Canada", "USA"], "range": ["red", "blue"]}, "type": "nominal"}, "x": {"axis": {"grid": false}, "field": "longitude", "scale": {"domain": [-140, -40]}, "type": "quantitative"}, "y": {"axis": {"grid": false}, "field": "latitude", "scale": {"domain": [20, 60]}, "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-162b5725bf23c1662ee10e403824dad8": [{"longitude": -130.0437, "latitude": 55.9773, "country": "USA"}, {"longitude": -134.4197, "latitude": 58.3019, "country": "USA"}, {"longitude": -123.078, "latitude": 48.9854, "country": "USA"}, {"longitude": -122.7436, "latitude": 48.9881, "country": "USA"}, {"longitude": -122.2691, "latitude": 48.9951, "country": "USA"}, {"longitude": -111.9626, "latitude": 48.9971, "country": "USA"}, {"longitude": -102.5496, "latitude": 48.9959, "country": "USA"}, {"longitude": -97.5533, "latitude": 48.7531, "country": "USA"}, {"longitude": -97.2049, "latitude": 48.9988, "country": "USA"}, {"longitude": -94.6002, "latitude": 48.7124, "country": "USA"}, {"longitude": -93.411, "latitude": 48.601, "country": "USA"}, {"longitude": -84.3593, "latitude": 46.4906, "country": "USA"}, {"longitude": -82.4405, "latitude": 42.9816, "country": "USA"}, {"longitude": -83.0466, "latitude": 42.3316, "country": "USA"}, {"longitude": -78.8784, "latitude": 42.8867, "country": "USA"}, {"longitude": -79.0615, "latitude": 43.0844, "country": "USA"}, {"longitude": -79.0359, "latitude": 43.1726, "country": "USA"}, {"longitude": -76.3305, "latitude": 44.1255, "country": "USA"}, {"longitude": -75.4864, "latitude": 44.6943, "country": "USA"}, {"longitude": -74.8921, "latitude": 44.9281, "country": "USA"}, {"longitude": -72.1064, "latitude": 45.0004, "country": "USA"}, {"longitude": -71.7961, "latitude": 45.0095, "country": "USA"}, {"longitude": -69.2275, "latitude": 47.4562, "country": "USA"}, {"longitude": -68.5897, "latitude": 47.2587, "country": "USA"}, {"longitude": -68.3219, "latitude": 47.3556, "country": "USA"}, {"longitude": -67.9353, "latitude": 47.1575, "country": "USA"}, {"longitude": -67.8408, "latitude": 46.1251, "country": "USA"}, {"longitude": -67.4297, "latitude": 45.5634, "country": "USA"}, {"longitude": -67.2781, "latitude": 45.189, "country": "USA"}, {"longitude": -66.9905, "latitude": 44.9065, "country": "USA"}, {"longitude": -66.9843, "latitude": 44.8607, "country": "USA"}, {"longitude": -74.006, "latitude": 40.7127, "country": "USA"}, {"longitude": -118.2428, "latitude": 34.0537, "country": "USA"}, {"longitude": -87.6244, "latitude": 41.8756, "country": "USA"}, {"longitude": -95.3677, "latitude": 29.7589, "country": "USA"}, {"longitude": -112.0741, "latitude": 33.4484, "country": "USA"}, {"longitude": -75.1635, "latitude": 39.9527, "country": "USA"}, {"longitude": -98.4951, "latitude": 29.4246, "country": "USA"}, {"longitude": -117.1628, "latitude": 32.7174, "country": "USA"}, {"longitude": -96.7969, "latitude": 32.7763, "country": "USA"}, {"longitude": -121.8906, "latitude": 37.3362, "country": "USA"}, {"longitude": -97.7437, "latitude": 30.2711, "country": "USA"}, {"longitude": -81.6557, "latitude": 30.3322, "country": "USA"}, {"longitude": -97.3327, "latitude": 32.7532, "country": "USA"}, {"longitude": -83.0007, "latitude": 39.9623, "country": "USA"}, {"longitude": -80.8431, "latitude": 35.2272, "country": "USA"}, {"longitude": -122.4199, "latitude": 37.779, "country": "USA"}, {"longitude": -86.1584, "latitude": 39.7683, "country": "USA"}, {"longitude": -122.3301, "latitude": 47.6038, "country": "USA"}, {"longitude": -104.9849, "latitude": 39.7392, "country": "USA"}, {"longitude": -77.0366, "latitude": 38.895, "country": "USA"}, {"longitude": -71.0583, "latitude": 42.3603, "country": "USA"}, {"longitude": -106.4646, "latitude": 31.7754, "country": "USA"}, {"longitude": -86.7744, "latitude": 36.1622, "country": "USA"}, {"longitude": -83.0466, "latitude": 42.3316, "country": "USA"}, {"longitude": -97.5171, "latitude": 35.473, "country": "USA"}, {"longitude": -122.6742, "latitude": 45.5202, "country": "USA"}, {"longitude": -115.1485, "latitude": 36.1673, "country": "USA"}, {"longitude": -90.0516, "latitude": 35.149, "country": "USA"}, {"longitude": -85.7039, "latitude": 38.2092, "country": "USA"}, {"longitude": -76.6108, "latitude": 39.2909, "country": "USA"}, {"longitude": -87.9225, "latitude": 43.035, "country": "USA"}, {"longitude": -106.651, "latitude": 35.0841, "country": "USA"}, {"longitude": -110.9748, "latitude": 32.2229, "country": "USA"}, {"longitude": -119.7848, "latitude": 36.7394, "country": "USA"}, {"longitude": -111.8315, "latitude": 33.4151, "country": "USA"}, {"longitude": -121.4944, "latitude": 38.5816, "country": "USA"}, {"longitude": -84.3902, "latitude": 33.7491, "country": "USA"}, {"longitude": -94.5781, "latitude": 39.1001, "country": "USA"}, {"longitude": -104.8253, "latitude": 38.834, "country": "USA"}, {"longitude": -95.9384, "latitude": 41.2587, "country": "USA"}, {"longitude": -78.6391, "latitude": 35.7804, "country": "USA"}, {"longitude": -80.1937, "latitude": 25.7743, "country": "USA"}, {"longitude": -118.1916, "latitude": 33.769, "country": "USA"}, {"longitude": -75.9774, "latitude": 36.853, "country": "USA"}, {"longitude": -122.2714, "latitude": 37.8045, "country": "USA"}, {"longitude": -93.2655, "latitude": 44.9773, "country": "USA"}, {"longitude": -95.9929, "latitude": 36.1557, "country": "USA"}, {"longitude": -82.4584, "latitude": 27.9478, "country": "USA"}, {"longitude": -97.1056, "latitude": 32.7019, "country": "USA"}, {"longitude": -90.0701, "latitude": 29.9499, "country": "USA"}, {"longitude": -129.9912, "latitude": 55.9383, "country": "Canada"}, {"longitude": -123.0833, "latitude": 49.0167, "country": "Canada"}, {"longitude": -122.8491, "latitude": 49.1913, "country": "Canada"}, {"longitude": -122.3295, "latitude": 49.0521, "country": "Canada"}, {"longitude": -111.9639, "latitude": 49.0017, "country": "Canada"}, {"longitude": -102.548, "latitude": 49.0014, "country": "Canada"}, {"longitude": -97.2089, "latitude": 49.0061, "country": "Canada"}, {"longitude": -94.5648, "latitude": 48.7227, "country": "Canada"}, {"longitude": -93.3968, "latitude": 48.6114, "country": "Canada"}, {"longitude": -84.3201, "latitude": 46.5239, "country": "Canada"}, {"longitude": -82.4066, "latitude": 42.9746, "country": "Canada"}, {"longitude": -83.0353, "latitude": 42.3171, "country": "Canada"}, {"longitude": -78.9186, "latitude": 42.9131, "country": "Canada"}, {"longitude": -79.1153, "latitude": 43.101, "country": "Canada"}, {"longitude": -79.0546, "latitude": 43.1642, "country": "Canada"}, {"longitude": -76.3019, "latitude": 44.211, "country": "Canada"}, {"longitude": -75.5192, "latitude": 44.7184, "country": "Canada"}, {"longitude": -74.7287, "latitude": 45.0184, "country": "Canada"}, {"longitude": -72.0968, "latitude": 45.0072, "country": "Canada"}, {"longitude": -71.7985, "latitude": 45.0126, "country": "Canada"}, {"longitude": -69.265, "latitude": 47.5052, "country": "Canada"}, {"longitude": -68.6034, "latitude": 47.2527, "country": "Canada"}, {"longitude": -68.3281, "latitude": 47.3644, "country": "Canada"}, {"longitude": -67.9245, "latitude": 47.1652, "country": "Canada"}, {"longitude": -67.5735, "latitude": 46.1503, "country": "Canada"}, {"longitude": -67.4253, "latitude": 45.5672, "country": "Canada"}, {"longitude": -67.2799, "latitude": 45.2004, "country": "Canada"}, {"longitude": -66.9861, "latitude": 44.9762, "country": "Canada"}, {"longitude": -66.9195, "latitude": 44.8938, "country": "Canada"}, {"longitude": -79.3839, "latitude": 43.6535, "country": "Canada"}, {"longitude": -73.6104, "latitude": 45.4972, "country": "Canada"}, {"longitude": -114.0626, "latitude": 51.0534, "country": "Canada"}, {"longitude": -75.6903, "latitude": 45.4211, "country": "Canada"}, {"longitude": -113.508, "latitude": 53.5354, "country": "Canada"}, {"longitude": -79.6457, "latitude": 43.5903, "country": "Canada"}, {"longitude": -97.1385, "latitude": 49.8955, "country": "Canada"}, {"longitude": -123.114, "latitude": 49.2609, "country": "Canada"}, {"longitude": -79.7599, "latitude": 43.6858, "country": "Canada"}, {"longitude": -79.8729, "latitude": 43.2561, "country": "Canada"}, {"longitude": -71.2352, "latitude": 46.826, "country": "Canada"}, {"longitude": -79.8729, "latitude": 43.2561, "country": "Canada"}, {"longitude": -79.7599, "latitude": 43.6858, "country": "Canada"}, {"longitude": -122.8491, "latitude": 49.1913, "country": "Canada"}, {"longitude": -73.7344, "latitude": 45.6056, "country": "Canada"}, {"longitude": -63.5859, "latitude": 44.6486, "country": "Canada"}, {"longitude": -79.5656, "latitude": 43.6436, "country": "Canada"}, {"longitude": -81.2496, "latitude": 42.9837, "country": "Canada"}, {"longitude": -118.7148, "latitude": 50.4165, "country": "Canada"}, {"longitude": -123.365, "latitude": 48.4283, "country": "Canada"}, {"longitude": -83.0353, "latitude": 42.3171, "country": "Canada"}, {"longitude": -79.3377, "latitude": 43.8564, "country": "Canada"}, {"longitude": -78.863, "latitude": 43.9177, "country": "Canada"}, {"longitude": -75.7106, "latitude": 45.4284, "country": "Canada"}, {"longitude": -79.5268, "latitude": 43.7942, "country": "Canada"}, {"longitude": -80.4944, "latitude": 43.4532, "country": "Canada"}, {"longitude": -73.4467, "latitude": 45.5172, "country": "Canada"}, {"longitude": -122.9725, "latitude": 49.2434, "country": "Canada"}, {"longitude": -123.0833, "latitude": 49.0833, "country": "Canada"}, {"longitude": -106.6608, "latitude": 52.1318, "country": "Canada"}, {"longitude": -79.4394, "latitude": 43.8801, "country": "Canada"}, {"longitude": -79.6902, "latitude": 44.3893, "country": "Canada"}, {"longitude": -123.1374, "latitude": 49.1632, "country": "Canada"}, {"longitude": -75.7887, "latitude": 45.3113, "country": "Canada"}, {"longitude": -104.6173, "latitude": 50.4488, "country": "Canada"}, {"longitude": -79.6667, "latitude": 43.4474, "country": "Canada"}, {"longitude": -79.7967, "latitude": 43.3249, "country": "Canada"}, {"longitude": -81.0685, "latitude": 46.5815, "country": "Canada"}, {"longitude": -122.3295, "latitude": 49.0521, "country": "Canada"}, {"longitude": -71.0692, "latitude": 48.406, "country": "Canada"}, {"longitude": -79.2441, "latitude": 43.158, "country": "Canada"}, {"longitude": -71.889, "latitude": 45.4033, "country": "Canada"}, {"longitude": -122.8565, "latitude": 49.3144, "country": "Canada"}, {"longitude": -71.1753, "latitude": 46.791, "country": "Canada"}, {"longitude": -119.4983, "latitude": 49.8893, "country": "Canada"}, {"longitude": -80.3123, "latitude": 43.3601, "country": "Canada"}, {"longitude": -72.5565, "latitude": 46.3327, "country": "Canada"}, {"longitude": -80.2493, "latitude": 43.5461, "country": "Canada"}, {"longitude": -79.3325, "latitude": 43.7, "country": "Canada"}, {"longitude": -122.7933, "latitude": 49.2843, "country": "Canada"}, {"longitude": -76.4813, "latitude": 44.2307, "country": "Canada"}, {"longitude": -60.1941, "latitude": 46.138, "country": "Canada"}, {"longitude": -123.0579, "latitude": 49.0846, "country": "Canada"}, {"longitude": -63.572, "latitude": 44.68, "country": "Canada"}, {"longitude": -89.2598, "latitude": 48.4064, "country": "Canada"}, {"longitude": -52.7151, "latitude": 47.5617, "country": "Canada"}, {"longitude": -80.5246, "latitude": 43.4669, "country": "Canada"}, {"longitude": -73.6515, "latitude": 45.7081, "country": "Canada"}, {"longitude": -79.0247, "latitude": 43.8504, "country": "Canada"}, {"longitude": -66.058, "latitude": 45.2788, "country": "Canada"}, {"longitude": -79.0906, "latitude": 43.8358, "country": "Canada"}, {"longitude": -80.2632, "latitude": 43.1408, "country": "Canada"}, {"longitude": -64.8001, "latitude": 46.098, "country": "Canada"}, {"longitude": -123.938, "latitude": 49.1638, "country": "Canada"}, {"longitude": -79.8828, "latitude": 43.5137, "country": "Canada"}, {"longitude": -82.4066, "latitude": 42.9746, "country": "Canada"}, {"longitude": -79.1153, "latitude": 43.101, "country": "Canada"}, {"longitude": -79.4109, "latitude": 43.7615, "country": "Canada"}, {"longitude": -73.6875, "latitude": 45.5089, "country": "Canada"}, {"longitude": -121.9514, "latitude": 49.1577, "country": "Canada"}, {"longitude": -73.4528, "latitude": 45.7326, "country": "Canada"}, {"longitude": -111.3885, "latitude": 56.7292, "country": "Canada"}, {"longitude": -78.3199, "latitude": 44.3048, "country": "Canada"}, {"longitude": -84.3201, "latitude": 46.5239, "country": "Canada"}, {"longitude": -79.4617, "latitude": 44.0563, "country": "Canada"}, {"longitude": -71.3998, "latitude": 46.8884, "country": "Canada"}, {"longitude": -113.8184, "latitude": 52.2698, "country": "Canada"}, {"longitude": -67.9245, "latitude": 47.1652, "country": "Canada"}, {"longitude": -73.2533, "latitude": 45.3057, "country": "Canada"}, {"longitude": -112.8516, "latitude": 49.6943, "country": "Canada"}, {"longitude": -122.5997, "latitude": 49.2197, "country": "Canada"}, {"longitude": -73.4679, "latitude": 45.4555, "country": "Canada"}, {"longitude": -120.3394, "latitude": 50.6758, "country": "Canada"}, {"longitude": -73.6289, "latitude": 45.468, "country": "Canada"}, {"longitude": -122.7979, "latitude": 49.0235, "country": "Canada"}, {"longitude": -122.7454, "latitude": 53.9129, "country": "Canada"}, {"longitude": -110.679, "latitude": 50.043, "country": "Canada"}, {"longitude": -80.4538, "latitude": 42.7972, "country": "Canada"}, {"longitude": -72.5019, "latitude": 45.8864, "country": "Canada"}, {"longitude": -122.9109, "latitude": 49.2068, "country": "Canada"}, {"longitude": -72.0885, "latitude": 46.0004, "country": "Canada"}, {"longitude": -113.2966, "latitude": 53.5257, "country": "Canada"}, {"longitude": -74.0132, "latitude": 45.7754, "country": "Canada"}, {"longitude": -71.1473, "latitude": 48.382, "country": "Canada"}, {"longitude": -72.7218, "latitude": 45.399, "country": "Canada"}, {"longitude": -66.6458, "latitude": 45.9664, "country": "Canada"}, {"longitude": -79.2506, "latitude": 42.9931, "country": "Canada"}, {"longitude": -72.9406, "latitude": 45.6275, "country": "Canada"}, {"longitude": -79.4608, "latitude": 46.3092, "country": "Canada"}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<aside class="notes">
+<p>Now we’re plotting our latitude and longitude and you can see all of the red dots are Canadian cities and all the blue dots are American cities.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="real-boundary-between-canada-and-usa" class="slide level2">
+<h2>Real boundary between Canada and USA</h2>
+
+<img data-src="../../../static/module2/canada-us-border.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><p><strong>Attribution:</strong> <a href="https://sovereignlimits.com/blog/u-s-canada-border-history-disputes" target="_blank">sovereignlimits.com</a></p>
+<aside class="notes">
+<p>We can compare this with the actual border between Canada and the U. S.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="lets-apply-what-we-learned" class="title-slide slide level1 center">
+<h1>Let’s apply what we learned!</h1>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: true,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '100%',
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
