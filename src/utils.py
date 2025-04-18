@@ -87,16 +87,27 @@ def remove_keys_inplace(spec, keys):
         for item in spec:
             remove_keys_inplace(item, keys)
 
+def print_correct_msg():
+    message = random.choice(["Nicely done", "Great", "Good job", "Well done"])
+    emoji = random.choice(["🍀", "🎉", "🌈", "🙌", "🚀", "🌟", "✨", "💯"])
+    return {"correct": True, "message": f"{message}! {emoji}"}
 
 def assert_accuracy_almost(expected, actual, tolerance=0.01):
-    if math.isclose(expected, actual, abs_tol=tolerance):
-        message = random.choice(["Nicely done", "Great", "Good job", "Well done"])
-        emoji = random.choice(["🍀", "🎉", "🌈", "🙌", "🚀", "🌟", "✨", "💯"])
-        return {"correct": True, "message": f"{message}! {emoji}"}
+    if isinstance(expected, (float, int)) and isinstance(actual, (float, int)):
+        pairs = [(expected, actual)]
+    elif isinstance(expected, (list, tuple)) and isinstance(actual, (list, tuple)) and len(expected) == len(actual):
+        pairs = list(zip(expected, actual))
     else:
-        diff = abs(expected - actual)
-        return {
-            "correct": False,
-            "message": f"Expected accuracy {expected}, but got {actual}. "
-            f"The difference of {diff} exceeds the tolerance of {tolerance}.",
-        }
+        raise ValueError("Expected and actual must both be floats or lists/tuples of equal length.")
+
+    for i, (e, a) in enumerate(pairs, 1):
+        if not math.isclose(e, a, abs_tol=tolerance):
+            diff = abs(e - a)
+            return {
+                "correct": False,
+                "message": (
+                    f"Mismatch at index {i-1}: expected {e}, got {a}. "
+                    f"Difference {diff:.4f} exceeds tolerance {tolerance}."
+                )
+            }
+    return print_correct_msg()

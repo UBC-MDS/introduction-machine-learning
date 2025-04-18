@@ -38,6 +38,20 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff"
+        contents:
+          - href: modules/module3/module3-00-module_learning_outcomes.qmd
+          - href: modules/module3/module3-01-splitting_data.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module3/module3-02-splitting_our_data.qmd
+          - href: modules/module3/module3-05-train_validation_and_test_split.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module3/module3-06-name_that_split.qmd
+          - href: modules/module3/module3-08-cross_validation.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module3/module3-09-cross_validation_questions.qmd
+          - href: modules/module3/module3-13-underfitting_and_overfitting.qmd
+
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.

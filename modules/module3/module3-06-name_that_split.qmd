@@ -1,0 +1,87 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 2.1. Exercises
+
+## Name that split!
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'What data is trained on, predicted on and scored on?',
+        {
+        'Train': 'Great! It’s the only data that the model trains on.',
+        'Validation': 'This doesn’t see the training phase.',
+        'Test': 'This is never trained on!',
+        'Deployment': 'This should be kept far far away from training and scoring!',
+        },
+        'Train',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'What is scored multiple times and predicted multiple times but never is fitted?',
+        {
+        'Train': 'This data gets fitted, so it can’t be training data.',
+        'Validation': '',
+        'Test': 'It’s a better idea to do it as soon as possible.',
+        'Deployment': 'This is never scored.',
+        },
+        'Validation',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'What is only ever scored once?',
+        {
+        'Train': 'This data gets scored many times.',
+        'Validation': 'This gets scored multiple times.',
+        'Test': 'You got it!',
+        'Deployment': 'This is never scored.',
+        },
+        'Test',
+    );
+</script>
+
+## Decision Tree Outcome
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'Deployment data is used at the very end and only scored once.',
+        {
+        'True': 'Deployment data is used at the very end but it is never scored.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'Validation data is used to help tune hyperparameters.',
+        {
+        'True': 'Nailed it!',
+        'False': 'This is a prime reason for having a validation set.',
+        },
+        'True',
+    );
+</script>
