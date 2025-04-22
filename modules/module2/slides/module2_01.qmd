@@ -135,12 +135,13 @@ The decision tree models use an algorithm that derives such rules from data in a
 
 :::{.notes}
 Before we go forward with learning about decision tree classifiers and reggressors we need to understand the structure of a decision tree.
-Here is the key terminology that you will have to know:<br><br>
-- **Root**: Where we start making our conditions.<br>
-- **Branch**:  A branch connects to the next node (statement). Each branch represents either true or false.<br>
-- **Internal node**: conditions within the tree.<br>
-- **Leaf**: the value predicted from the conditions.<br>
-- **Tree depth**: The longest path from the root to a leaf.<br>
+Here is the key terminology that you will have to know:
+
+- **Root**: Where we start making our conditions.
+- **Branch**:  A branch connects to the next node (statement). Each branch represents either true or false.
+- **Internal node**: conditions within the tree.
+- **Leaf**: the value predicted from the conditions.
+- **Tree depth**: The longest path from the root to a leaf.
 
 With the decision tree algorithm in machine learning, the tree can have at most two **nodes** resulting from it, also known as **children**. 
 

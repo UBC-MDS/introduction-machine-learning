@@ -16,11 +16,13 @@ title-slide-attributes:
 - ***Hyperparameters***: Adjustable parameters that can be set before training. 
 
 :::{.notes} 
- When you call `fit`, a bunch of values get set, like the split variables and split thresholds.<br><br>
-- These are called **parameters**.<br>
+ When you call `fit`, a bunch of values get set, like the split variables and split thresholds.
 
-But even before calling `fit` on a specific data set, we can set some "knobs" that control the learning.<br><br>
-- These are called **hyperparameters**.<br>
+- These are called **parameters**.
+
+But even before calling `fit` on a specific data set, we can set some "knobs" that control the learning.
+
+- These are called **hyperparameters**.
 :::
 
 ---
