@@ -13,9 +13,9 @@ format: live-html
     generateQuiz(
         'mcq1',
         'True or False',
-        '.score() is calculated in the same way for regressions problems as for classification problems.',
+        '<code>.score()</code> is calculated in the same way for regressions problems as for classification problems.',
         {
-        'True': '.score() for regression problems returns something called an $R^2$ score.',
+        'True': '<code>.score()</code> for regression problems returns something called an R<sup>2</sup> score.',
         'False': '',
         },
         'False',
@@ -27,7 +27,7 @@ format: live-html
     generateQuiz(
         'mcq2',
         'True or False',
-        'The same hyperparameters can be used for DecisionTreeRegressor().',
+        'The same hyperparameters can be used for <code>DecisionTreeRegressor()</code>.',
         {
         'True': 'You have been paying attention! Nice work!',
         'False': 'If you look at the documentation, you’ll be able to see that they do have the same hyperparameters.',
@@ -154,7 +154,7 @@ tree_score
         'Question',
         'Given the value of the regression model’s score, which model does better?',
         {
-        'Dummy Regressor': 'The Dummy Regressor gave a $R^2$ value of 0.0.',
+        'Dummy Regressor': 'The Dummy Regressor gave a R<sup>2</sup> value of 0.0.',
         'Decision Tree Regressor': '',
         },
         'Decision Tree Regressor',

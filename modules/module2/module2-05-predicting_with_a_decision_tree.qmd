@@ -11,7 +11,7 @@ format:
 
 Use the following Decision tree for the next 2 questions:  
 
-![](../../../static/module2/Q3.png){fig-align="center" width="100%" fig-alt="404 image"}
+![](../../static/module2/Q3.png){fig-align="center" width="100%" fig-alt="404 image"}
 
 **Question 1**
 
@@ -70,7 +70,7 @@ Given the features:
     generateQuiz(
         'mcq3', 
         'True or False', 
-        'DecisionTreeClassifier does not consider features in it’s prediction just like DummyClassifier.', 
+        '<code>DecisionTreeClassifier</code> does not consider features in it’s prediction just like <code>DummyClassifier</code>.', 
         { 
         'True': 'What about how the predictions are made?',
         'False': 'Decision trees make predictions based on the outcome from conditions determined by the features.'
@@ -84,7 +84,7 @@ Given the features:
     generateQuiz(
         'mcq4', 
         'True or False', 
-        'We need to `.fit` our decision tree model before we call `.predict`.', 
+        'We need to <code>.fit</code> our decision tree model before we call <code>.predict</code>.', 
         { 
         'True': '',
         'False': 'We must always train our model on the data before prediction.'
@@ -246,7 +246,7 @@ pd.concat([candybar_df.loc[:, ['candy bar', 'availability']],
         { 
         'Twix': 'Not this one.',
         'Oh Henry': 'Great! The model predicted this one incorrectly.',
-        'Skor': 'The model predicted `both` for this example which is the correct answer.',
+        'Skor': 'The model predicted <code>both</code> for this example which is the correct answer.',
         'Almond Joy': 'This candy bar was correctly predicted by the model.'
         },
         'Oh Henry',

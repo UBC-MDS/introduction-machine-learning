@@ -35,12 +35,12 @@ For the following questions, refer to this diagram:
         'Question 2', 
         'On which feature is the decision boundary splitting?', 
         { 
-        'seeds': 'Not this time!',
-        'location': 'Location was not the splitting feature here!',
-        'Water content': '',
-        'A decision trunk': 'Maybe take a look at the diagram a bit closer.'
+        '<code>seeds</code>': 'Not this time!',
+        '<code>location</code>': 'Location was not the splitting feature here!',
+        '<code>Water content</code>': '',
+        '<code>sweetness</code>': 'Maybe take a look at the diagram a bit closer.'
         },
-        'Water content',
+        '<code>Water content</code>',
     );
 </script>
 
@@ -51,12 +51,12 @@ For the following questions, refer to this diagram:
         'Question 3', 
         'On what value of the above feature is the decision boundary splitting?', 
         { 
-        '90': 'Not quite.',
-        'Water content': 'This is the feature it’s splitting on, not the value.',
-        '92': 'Not this time.',
-        '96': ''
+        '<code>90</code>': 'Not quite.',
+        '<code>Water content</code>': 'This is the feature it’s splitting on, not the value.',
+        '<code>92</code>': 'Not this time.',
+        '<code>96</code>': ''
         },
-        '96',
+        '<code>96</code>',
     );
 </script>
 

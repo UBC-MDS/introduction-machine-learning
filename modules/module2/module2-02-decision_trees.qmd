@@ -31,9 +31,9 @@ format: html
         'Question 2', 
         'What are the nodes in a decision tree?', 
         { 
-        'An if/else statement': '',
-        'An if/elif/else statment': 'It is a Boolean decision, so only 2 outcomes are possible.',
-        'A for loop': 'There is no loop involved here.',
+        'An <code>if</code>/<code>else</code> statement': '',
+        'An <code>if</code>/<code>elif</code>/<code>else</code> statment': 'It is a Boolean decision, so only 2 outcomes are possible.',
+        'A <code>for</code> loop': 'There is no loop involved here.',
         'A function': 'Not in this context.'
         },
         'An if/else statement',

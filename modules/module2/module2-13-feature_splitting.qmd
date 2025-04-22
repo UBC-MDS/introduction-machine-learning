@@ -176,3 +176,48 @@ tree_score
 
 :::
 ::::
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'Will increasing the value of <code>max_depth</code> increase or decrease the accuracy of the model?',
+        {
+        'Increase': 'Increasing the depth of the tree will increase the accuracy of the model.',
+        'Decrease': 'Maybe test it out above and see what happens?',
+        'Either increase or decrease': 'Maybe test it out above and see what happens?',
+        },
+        'Increase',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'Will increasing the value of <code>min_samples_split</code> increase or decrease the accuracy of the model?',
+        {
+        'Increase': 'Maybe test it out above and see what happens?',
+        'Decrease': 'Increasing the minimum number of samples needed to split on a feature will decrease the accuracy.',
+        'Either increase or decrease': 'Maybe test it out above and see what happens?',
+        },
+        'Decrease',
+    );
+</script>
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question 3',
+        'Will increasing the value of <code>max_depth</code> and <code>min_samples_split</code> increase or decrease the accuracy of the model?',
+        {
+        'Increase': 'Are we 100% sure? Increasing <code>max_depth</code> will increase the accuracy but increasing <code>min_samples_split</code> will decrease it.',
+        'Decrease': 'Are we 100% sure? Increasing <code>max_depth</code> will increase the accuracy but increasing <code>min_samples_split</code> will decrease it.',
+        'Either increase or decrease': 'Right! It’s hard to say since increasing <code>max_depth</code> will increase the accuracy but increasing <code>min_samples_split</code> will decrease it.',
+        },
+        'Either increase or decrease',
+    );
+</script>
