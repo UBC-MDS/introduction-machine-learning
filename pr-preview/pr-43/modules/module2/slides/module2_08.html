@@ -93,7 +93,7 @@
     code span.vs { color: #da4453; } /* VerbatimString */
     code span.wa { color: #da4453; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-05f03a833fdedb6ac2691569b0339e1a.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-fc2562e25d7bd663661b61a02aa1fed8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -202,7 +202,7 @@
 </section>
 <section class="slide level2">
 
-<div id="2309f740" class="cell" data-execution_count="2">
+<div id="fee1ae51" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -276,7 +276,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="88b6ce34" class="cell" data-execution_count="3">
+<div id="a698a0a9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -346,7 +346,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="af9df33d" class="cell" data-execution_count="4">
+<div id="4c48cfd4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>y.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -375,10 +375,10 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="146db1c5" class="cell" data-execution_count="5">
+<div id="f6ec7a3b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9b6e5014" class="cell" data-execution_count="6">
+<div id="6537da83" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier()</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>model.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -421,7 +421,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="cdaa041d" class="cell" data-execution_count="8">
+<div id="2e4f303f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>X_subset <span class="op">=</span> X[[<span class="st">"lab4"</span>, <span class="st">"quiz1"</span>]]</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>X_subset.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -498,7 +498,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section id="decision-boundaries" class="slide level2">
 <h2>Decision boundaries</h2>
-<div id="cbe2f41b" class="cell" data-execution_count="9">
+<div id="f7fd7b4b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>depth <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span>depth)</span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>model.fit(X_subset, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -530,7 +530,7 @@ Name: quiz2, dtype: object</code></pre>
 <p><img data-src="../../../static/module2/module2_08b.png" class="quarto-figure quarto-figure-center" style="width:20.0%" alt="404 image"></p>
 </figure>
 </div>
-<div id="73210d6f" class="cell" data-execution_count="11">
+<div id="3c945cac" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <pre><code>&lt;Figure size 384x384 with 0 Axes&gt;</code></pre>
 </div>
@@ -561,7 +561,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section id="another-example-of-decision-boundaries" class="slide level2">
 <h2>Another example of decision boundaries</h2>
-<div id="3c62cf00" class="cell" data-execution_count="12">
+<div id="a67d6c26" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/canada_usa_cities.csv'</span>)</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -644,7 +644,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="73d053be" class="cell" data-execution_count="13">
+<div id="6806c63b" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>chart1 <span class="op">=</span> alt.Chart(df).mark_circle(size<span class="op">=</span><span class="dv">20</span>, opacity<span class="op">=</span><span class="fl">0.6</span>).encode(</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'longitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="op">-</span><span class="dv">140</span>, <span class="op">-</span><span class="dv">40</span>]), axis<span class="op">=</span>alt.Axis(grid<span class="op">=</span><span class="va">False</span>)),</span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'latitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">60</span>]), axis<span class="op">=</span>alt.Axis(grid<span class="op">=</span><span class="va">False</span>)),</span>
@@ -655,23 +655,23 @@ Name: quiz2, dtype: object</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="13">
 
 <style>
-  #altair-viz-e5ee05faf16c494bb4685a566d25ea61.vega-embed {
+  #altair-viz-840d902a9ec2471b96dff508ffc70095.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-e5ee05faf16c494bb4685a566d25ea61.vega-embed details,
-  #altair-viz-e5ee05faf16c494bb4685a566d25ea61.vega-embed details summary {
+  #altair-viz-840d902a9ec2471b96dff508ffc70095.vega-embed details,
+  #altair-viz-840d902a9ec2471b96dff508ffc70095.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-e5ee05faf16c494bb4685a566d25ea61"></div>
+<div id="altair-viz-840d902a9ec2471b96dff508ffc70095"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e5ee05faf16c494bb4685a566d25ea61") {
-      outputDiv = document.getElementById("altair-viz-e5ee05faf16c494bb4685a566d25ea61");
+    if (outputDiv.id !== "altair-viz-840d902a9ec2471b96dff508ffc70095") {
+      outputDiv = document.getElementById("altair-viz-840d902a9ec2471b96dff508ffc70095");
     }
 
     const paths = {

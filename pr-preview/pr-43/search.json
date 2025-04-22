@@ -53,7 +53,7 @@
     "href": "modules/module2/slides/module2_01.html#decision-trees-terminology",
     "title": "Introducing Decision Trees",
     "section": "Decision trees terminology",
-    "text": "Decision trees terminology\n\n\nBefore we go forward with learning about decision tree classifiers and reggressors we need to understand the structure of a decision tree. Here is the key terminology that you will have to know: - Root: Where we start making our conditions. - Branch: A branch connects to the next node (statement). Each branch represents either true or false. - Internal node: conditions within the tree. - Leaf: the value predicted from the conditions. - Tree depth: The longest path from the root to a leaf.\nWith the decision tree algorithm in machine learning, the tree can have at most two nodes resulting from it, also known as children.\nThis tree would have a depth of 2."
+    "text": "Decision trees terminology\n\n\nBefore we go forward with learning about decision tree classifiers and reggressors we need to understand the structure of a decision tree. Here is the key terminology that you will have to know:\n\nRoot: Where we start making our conditions.\nBranch: A branch connects to the next node (statement). Each branch represents either true or false.\nInternal node: conditions within the tree.\nLeaf: the value predicted from the conditions.\nTree depth: The longest path from the root to a leaf.\n\nWith the decision tree algorithm in machine learning, the tree can have at most two nodes resulting from it, also known as children.\nThis tree would have a depth of 2."
   },
   {
     "objectID": "modules/module2/slides/module2_01.html#decision-stump",
