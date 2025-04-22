@@ -16,7 +16,7 @@ format:
         'Question 1', 
         'When using a regression model, which of the following is not a possible return value from .score(X,y)?', 
         {
-        '0.0': 'This is a possible value. This is expected when using a dummy classifier with a `mean` strategy.',
+        '0.0': 'This is a possible value. This is expected when using a dummy classifier with a <code>mean</code> strategy.',
         '1.0': '1.0 is the highest possible value.',
         '-0.2': 'Negative values are a possible score when using regression classifiers.',
         '1.5': 'Great! 1.0 is the highest possible value.'

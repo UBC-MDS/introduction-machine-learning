@@ -30,7 +30,7 @@ Do the following statements correspond to the `fit` or the `predict` stage:
     generateQuiz(
         'mcq2', 
         'Statement 2', 
-        'Only takes `X` as an argument.', 
+        'Only takes <code>X</code> as an argument.', 
         { 
         'Fit': 'We need to make sure we give the model the correct labels so it can learn.',
         'Predict': ''
@@ -80,9 +80,9 @@ In this scenario, what would a `DummyClassifier(strategy='most_frequent')` model
         '', 
         { 
         'Forward': '',
-        'Defense': 'We are using the strategy `most_frequent` which predicts the most frequently occuring value.',
-        'Goalie': 'We are using the strategy `most_frequent` which predicts the most frequently occuring value.',
-        'Player': 'We are using the strategy `most_frequent` which predicts the most frequently occuring value.',
+        'Defense': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occuring value.',
+        'Goalie': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occuring value.',
+        'Player': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occuring value.',
         },
         'Forward',
     );

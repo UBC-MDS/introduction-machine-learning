@@ -13,7 +13,7 @@ format: live-html
     generateQuiz(
         'mcq1', 
         'Terminology: Target', 
-        'Which is a synonym for targets?', 
+        'Which is a synonym for <code>targets</code>?', 
         { 
         'Predictors': 'Not quite. You may want to have a read through of the definitions in this section.',
         'Records': 'Not quite. You may want to have a read through of the definitions in this section.',
@@ -29,7 +29,7 @@ format: live-html
     generateQuiz(
         'mcq2', 
         'Terminology: Feature', 
-        'Which is a synonym for feature?', 
+        'Which is a synonym for <code>feature</code>?', 
         { 
         'Testers': 'This, unfortunately, is not in the Machine learning vocabulary.',
         'Input': 'Input is a synonym for features! Well done.',

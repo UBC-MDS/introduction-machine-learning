@@ -86,7 +86,7 @@ format: html
     generateQuiz(
         'mcq5', 
         'Question 1', 
-        'Given the target column "shape", does this represent a Classification or a Regression problem?', 
+        'Given the target column <code>shape</code>, does this represent a Classification or a Regression problem?', 
         { 
         'Classification': '',
         'Regression': 'Is the prediction a categorical or a numerical value?'
