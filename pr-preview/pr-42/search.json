@@ -443,7 +443,7 @@
     "href": "modules/module1/slides/module1_08.html#terminology-1",
     "title": "Tabular Data and Terminology",
     "section": "Terminology",
-    "text": "Terminology\nExample 1: Tabular data for the housing price prediction problem\n\ndf = pd.read_csv(\"data/kc_house_data.csv\")\ndf = df.drop(columns=[\"id\", \"date\"])\ndf.head(3)\n\n\n\n\n\n\n\n\nprice\nbedrooms\nbathrooms\nsqft_living\n...\nlat\nlong\nsqft_living15\nsqft_lot15\n\n\n\n\n0\n221900.0\n3\n1.00\n1180\n...\n47.5112\n-122.257\n1340\n5650\n\n\n1\n538000.0\n3\n2.25\n2570\n...\n47.7210\n-122.319\n1690\n7639\n\n\n2\n180000.0\n2\n1.00\n770\n...\n47.7379\n-122.233\n2720\n8062\n\n\n\n\n3 rows × 19 columns\n\n\n\n\ndf.shape\n\n(21613, 19)\n\n\n\nLet’s look at some examples of terminology:\nLet’s go back to our housing price prediction problems. In this particular example, there are 18 features and 21613 examples.\nOur target column is the price column."
+    "text": "Terminology\nExample 1: Tabular data for the housing price prediction problem\n\ndf = pd.read_csv(\"data/kc_house_data.csv\")\ndf.head(3)\n\n\n\n\n\n\n\n\nprice\nbedrooms\nbathrooms\nsqft_living\n...\nlat\nlong\nsqft_living15\nsqft_lot15\n\n\n\n\n0\n425000.0\n3\n1.00\n1180\n...\n47.7121\n-122.333\n2240\n7875\n\n\n1\n230500.0\n2\n1.00\n740\n...\n47.4793\n-122.336\n850\n8775\n\n\n2\n372000.0\n4\n2.75\n2610\n...\n47.3747\n-122.124\n2390\n7852\n\n\n\n\n3 rows × 19 columns\n\n\n\n\ndf.shape\n\n(1000, 19)\n\n\n\nLet’s look at some examples of terminology:\nLet’s go back to our housing price prediction problems. In this particular example, there are 18 features and 21613 examples.\nOur target column is the price column."
   },
   {
     "objectID": "modules/module1/slides/module1_17.html#building-a-baseline-regression-model",
