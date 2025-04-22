@@ -20,7 +20,7 @@ Here is some basic terminology used in ML:
 - **targets** = outputs
 - **training** = learning = fitting
 
-![](../../../static/module1/sup-ml-terminology.png){fig-alt:"Supervised machine learning terminology" fig-aligh="center" width="90%"}
+![](../../../static/module1/sup-ml-terminology.png){fig-alt:"Supervised machine learning terminology" fig-align="center" width="90%"}
 
 
 :::{.notes}
