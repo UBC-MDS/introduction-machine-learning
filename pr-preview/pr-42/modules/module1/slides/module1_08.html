@@ -93,7 +93,7 @@
     code span.vs { color: #da4453; } /* VerbatimString */
     code span.wa { color: #da4453; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-05f03a833fdedb6ac2691569b0339e1a.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-fc2562e25d7bd663661b61a02aa1fed8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -213,9 +213,19 @@
 <aside class="notes">
 <p>In the supervised machine learning paradigm, we have input data and an output. We feed our input to a machine learning algorithm.</p>
 <p>The question is how do we effectively represent this input?</p>
-<p>Is there a specific required format for our data so that we can pass it to machine learning algorithms.<br> - YES! In supervised machine learning, we typically work with <strong>tabular data</strong>.<br></p>
+<p>Is there a specific required format for our data so that we can pass it to machine learning algorithms.</p>
+<ul>
+<li>YES! In supervised machine learning, we typically work with <strong>tabular data</strong>.</li>
+</ul>
 <p>Here is a toy example of tabular data.</p>
-<p>The task here is to predict the <code>quiz2</code> grade given all this information.<br> - Rows are <strong><em>examples</em></strong><br> - Columns are <strong><em>features</em></strong> and one of the columns is typically the <strong><em>target</em></strong>.<br> - Features are relevant characteristics of the problem (usually suggested by experts).<br> - To a machine, column names (features) have no meaning. Only feature values and how they vary across examples mean something.<br> - <strong>Training</strong> a model can also be called learning or fitting a model.<br></p>
+<p>The task here is to predict the <code>quiz2</code> grade given all this information.</p>
+<ul>
+<li>Rows are <strong><em>examples</em></strong></li>
+<li>Columns are <strong><em>features</em></strong> and one of the columns is typically the <strong><em>target</em></strong>.</li>
+<li>Features are relevant characteristics of the problem (usually suggested by experts).</li>
+<li>To a machine, column names (features) have no meaning. Only feature values and how they vary across examples mean something.</li>
+<li><strong>Training</strong> a model can also be called learning or fitting a model.</li>
+</ul>
 <p>All of these will be used in the course so it’s important to get familiar with the vocabulary now.</p>
 <p>You will see a lot of variable terminology in machine learning and statistics and sometimes they can be confusing. See the MDS terminology resource <a href="https://ubc-mds.github.io/resources_pages/terminology/" target="_blank">here</a> to clear up any confusions.</p>
 <style type="text/css">
@@ -233,7 +243,7 @@
 <section id="terminology-1" class="slide level2">
 <h2>Terminology</h2>
 <h3 id="example-1-tabular-data-for-the-housing-price-prediction-problem">Example 1: Tabular data for the housing price prediction problem</h3>
-<div id="a517285a" class="cell" data-execution_count="2">
+<div id="e627dc31" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/kc_house_data.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -311,7 +321,7 @@
 </div>
 </div>
 </div>
-<div id="8af2c590" class="cell" data-execution_count="3">
+<div id="2baf9389" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(1000, 19)</code></pre>
@@ -336,7 +346,7 @@
 <section class="slide level2">
 
 <h3 id="example-2-tabular-data-for-quiz2-classification-problem">Example 2: Tabular data for quiz2 classification problem</h3>
-<div id="bcc69a58" class="cell" data-execution_count="4">
+<div id="5b46e105" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -409,7 +419,7 @@
 </div>
 </div>
 </div>
-<div id="572e55b8" class="cell" data-execution_count="5">
+<div id="db3cde18" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>classification_df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>(21, 8)</code></pre>
@@ -433,7 +443,7 @@
 </section>
 <section class="slide level2">
 
-<div id="876580b2" class="cell" data-execution_count="6">
+<div id="26d3ef2c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -523,7 +533,7 @@
 </div>
 </div>
 </div>
-<div id="80139b9b" class="cell" data-execution_count="7">
+<div id="59f6537c" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>y.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>0        A+

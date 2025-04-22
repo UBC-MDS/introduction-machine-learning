@@ -93,7 +93,7 @@
     code span.vs { color: #da4453; } /* VerbatimString */
     code span.wa { color: #da4453; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-05f03a833fdedb6ac2691569b0339e1a.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-fc2562e25d7bd663661b61a02aa1fed8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -216,9 +216,17 @@
 </ul>
 <aside class="notes">
 <p>In <strong>Classification</strong> problems we predict target value among two or more known categories.</p>
-<p>For example:<br> - Whether a patient has a liver disease or not (2 possible target values)<br> - The letter grade of a student: A, B, C, D or F. (There are 5 categories)<br></p>
+<p>For example:</p>
+<ul>
+<li>Whether a patient has a liver disease or not (2 possible target values)</li>
+<li>The letter grade of a student: A, B, C, D or F. (There are 5 categories)</li>
+</ul>
 <p><strong>Regression</strong> predicts a continuous (typically, floating-point) value.</p>
-<p>For example:<br> - Housing prices<br> - The scores of students in this course’s quiz2.<br></p>
+<p>For example:</p>
+<ul>
+<li>Housing prices</li>
+<li>The scores of students in this course’s quiz2.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -252,7 +260,7 @@
 </section>
 <section class="slide level2">
 
-<div id="2ea38924" class="cell" data-execution_count="2">
+<div id="ff9abbd8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -364,7 +372,7 @@
 </section>
 <section class="slide level2">
 
-<div id="c513f3e0" class="cell" data-execution_count="3">
+<div id="5ad2ca04" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>regression_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-regression.csv"</span>)</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>regression_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">

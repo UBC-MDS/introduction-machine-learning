@@ -93,7 +93,7 @@
     code span.vs { color: #da4453; } /* VerbatimString */
     code span.wa { color: #da4453; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-05f03a833fdedb6ac2691569b0339e1a.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-fc2562e25d7bd663661b61a02aa1fed8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -219,7 +219,13 @@
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Some typical types of learning problem include:<br><br> - <strong>Supervised learning (this course)</strong> (<a href="https://support.google.com/a/answer/2368132?hl=en" target="_blank">Gmail spam filtering</a>) which consists of training a model from input data and its corresponding labels to predict new examples.<br> - Unsupervised learning (<a href="https://news.google.com/" target="_blank">Google News</a>) We are not given a target column.<br> - Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far" target="_blank">AlphaGo</a>) is about teaching agents to interact in the real world.<br> - Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf" target="_blank">Amazon item recommendation system</a>) fall under the unsupervised paradigm but with a specific focus on predicting ratings or preferences a user would to certain items.<br></p>
+<p>Some typical types of learning problem include:</p>
+<ul>
+<li><strong>Supervised learning (this course)</strong> (<a href="https://support.google.com/a/answer/2368132?hl=en" target="_blank">Gmail spam filtering</a>) which consists of training a model from input data and its corresponding labels to predict new examples.</li>
+<li>Unsupervised learning (<a href="https://news.google.com/" target="_blank">Google News</a>) We are not given a target column.</li>
+<li>Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far" target="_blank">AlphaGo</a>) is about teaching agents to interact in the real world.</li>
+<li>Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf" target="_blank">Amazon item recommendation system</a>) fall under the unsupervised paradigm but with a specific focus on predicting ratings or preferences a user would to certain items.</li>
+</ul>
 <p>As mentioned before, this particular course focuses on supervised machine learning.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -258,7 +264,7 @@
 </section>
 <section class="slide level2">
 
-<div id="1706e254" class="cell" data-execution_count="2">
+<div id="5db30927" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.toy_classifier <span class="im">import</span> classify_image</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -285,7 +291,7 @@
 <section class="slide level2">
 
 
-<img data-src="../../../static/module1/alpaca.jpg" style="width:20.0%" alt="This image is in /static" class="r-stretch"><div id="209d401a" class="cell" data-execution_count="3">
+<img data-src="../../../static/module1/alpaca.jpg" style="width:20.0%" alt="This image is in /static" class="r-stretch"><div id="604cfda0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>classify_image(img, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Class, Probability
