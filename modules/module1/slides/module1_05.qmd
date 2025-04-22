@@ -26,15 +26,17 @@ title-slide-attributes:
 :::{.notes}
  In **Classification** problems we predict target value among two or more known categories.
 
-For example:<br>
-- Whether a patient has a liver disease or not (2 possible target values)<br>
-- The letter grade of a student: A, B, C, D or F. (There are 5 categories)<br>
+For example:
+
+- Whether a patient has a liver disease or not (2 possible target values)
+- The letter grade of a student: A, B, C, D or F. (There are 5 categories)
 
 **Regression** predicts a continuous (typically, floating-point) value.
 
-For example:<br>
-- Housing prices<br>
-- The scores of students in this course's quiz2.<br>
+For example:
+
+- Housing prices
+- The scores of students in this course's quiz2.
 
 :::
 

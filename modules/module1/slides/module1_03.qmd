@@ -25,11 +25,12 @@ title-slide-attributes:
 
 :::{.notes}
 
-Some typical types of learning problem include:<br><br>
-- **Supervised learning (this course)** (<a href="https://support.google.com/a/answer/2368132?hl=en" target="_blank">Gmail spam filtering</a>) which consists of training a model from input data and its corresponding labels to predict new examples.<br>
-- Unsupervised learning (<a href="https://news.google.com/" target="_blank">Google News</a>) We are not given a target column.<br>
-- Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far" target="_blank">AlphaGo</a>) is about teaching agents to interact in the real world.<br>
-- Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf" target="_blank">Amazon item recommendation system</a>) fall under the unsupervised paradigm but with a specific focus on predicting ratings or preferences a user would to certain items.<br>
+Some typical types of learning problem include:
+
+- **Supervised learning (this course)** (<a href="https://support.google.com/a/answer/2368132?hl=en" target="_blank">Gmail spam filtering</a>) which consists of training a model from input data and its corresponding labels to predict new examples.
+- Unsupervised learning (<a href="https://news.google.com/" target="_blank">Google News</a>) We are not given a target column.
+- Reinforcement learning (<a href="https://deepmind.com/research/case-studies/alphago-the-story-so-far" target="_blank">AlphaGo</a>) is about teaching agents to interact in the real world.
+- Recommendation systems (<a href="https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf" target="_blank">Amazon item recommendation system</a>) fall under the unsupervised paradigm but with a specific focus on predicting ratings or preferences a user would to certain items.
 
 As mentioned before, this particular course focuses on supervised machine learning. 
 :::

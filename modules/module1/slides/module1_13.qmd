@@ -29,6 +29,8 @@ We separate our data into features (`X`) and target (`y`), we feed it to our lea
 
 ## Building a simplest machine learning model using sklearn
 
+<br><br>
+
 Baseline model:          
 
 **most frequent baseline**: always predicts the most frequent label in the training set.
@@ -231,12 +233,13 @@ The general pattern when we build ML models using `sklearn`:
 5. `clf.predict(Xnew)` &rarr; predict on some new data using the trained model 
 
 :::{.notes}
-To summarize, here are the steps we follow when building machine learning models using `sklearn`.<br><br>
-1. Create our 𝑋 and 𝑦 objects<br>
-2. Create our model object ( in this case, we created a dummy classifier)<br>
-3. Fit our model<br>
-4. Assess our model<br>
-5. Predict on new examples using this model.<br>
+To summarize, here are the steps we follow when building machine learning models using `sklearn`.
+
+1. Create our 𝑋 and 𝑦 objects
+2. Create our model object ( in this case, we created a dummy classifier)
+3. Fit our model
+4. Assess our model
+5. Predict on new examples using this model.
 :::
 
 # Let’s apply what we learned!
