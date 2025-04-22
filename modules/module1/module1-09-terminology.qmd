@@ -107,8 +107,6 @@ print_correct_msg()
 
 ## Fully worked solution:
 ```{pyodide}
-print(candybar_df.head())
-
 candybar_dim = candybar_df.shape
 candybar_dim
 ```
