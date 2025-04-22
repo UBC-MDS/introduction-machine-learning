@@ -221,7 +221,7 @@
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
-<div id="dee87bbc" class="cell" data-execution_count="2">
+<div id="23aaf396" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-regression.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -334,7 +334,7 @@
 <section id="create-𝑋-and-𝑦" class="slide level2">
 <h2>1. Create 𝑋 and 𝑦</h2>
 <p>𝑋 → Feature vectors <br> 𝑦 → Target</p>
-<div id="6392ebba" class="cell" data-execution_count="3">
+<div id="b700b639" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -358,7 +358,7 @@
 <li><code>import</code> the appropriate regressor, in this case, <code>DummyRegressor</code>.</li>
 <li>Create an object of the regressor.</li>
 </ul>
-<div id="ea9ee1ba" class="cell" data-execution_count="4">
+<div id="5424ba9f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>dummy_reg <span class="op">=</span> DummyRegressor(strategy<span class="op">=</span><span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -382,7 +382,7 @@
 </section>
 <section id="fit-the-regressor" class="slide level2">
 <h2>3. Fit the regressor</h2>
-<div id="5a1fb74f" class="cell" data-execution_count="5">
+<div id="ad1bf821" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>dummy_reg.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
@@ -404,7 +404,7 @@
 <section id="predict-the-target-of-given-examples" class="slide level2">
 <h2>4. Predict the target of given examples</h2>
 <p>We can predict the mean of examples by calling <code>predict</code> on the classifier object.</p>
-<div id="af3a8458" class="cell" data-execution_count="6">
+<div id="c421c069" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>single_obs <span class="op">=</span> X.loc[[<span class="dv">2</span>]]</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>single_obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -454,7 +454,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="46fe7d6c" class="cell" data-execution_count="7">
+<div id="077367da" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>dummy_reg.predict(single_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array([86.28571429])</code></pre>
@@ -478,7 +478,7 @@
 </section>
 <section class="slide level2">
 
-<div id="23500abc" class="cell" data-execution_count="8">
+<div id="d09e5bb0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -588,7 +588,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="3fd45084" class="cell" data-execution_count="9">
+<div id="3f468c58" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>dummy_reg.predict(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([86.28571429, 86.28571429, 86.28571429, 86.28571429, 86.28571429, 86.28571429, 86.28571429])</code></pre>
@@ -611,7 +611,7 @@
 <section id="scoring-your-model" class="slide level2">
 <h2>5. Scoring your model</h2>
 <p>In the regression setting, <code>.score()</code> gives the R^2 of the model, i.e.&nbsp;the coefficient of determination of the prediction.</p>
-<div id="edda5be2" class="cell" data-execution_count="10">
+<div id="8d097642" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The accuracy of the model on the training data:"</span>, <span class="bu">round</span>((dummy_reg.score(X, y)),<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The accuracy of the model on the training data: 0.0</code></pre>
