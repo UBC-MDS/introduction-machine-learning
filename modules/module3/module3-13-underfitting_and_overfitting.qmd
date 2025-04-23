@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=6540&end=6960&rel=0" 
+    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=6548&end=6969&rel=0" 
     title="Module 3 Video - Underfitting and Overfitting"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

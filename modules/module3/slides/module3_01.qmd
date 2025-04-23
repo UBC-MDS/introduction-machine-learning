@@ -16,18 +16,17 @@ title-slide-attributes:
 
 Given a model, in Machine Learning (ML), people usually talk about two kinds of scores (accuracies):
 
-1. Score on the training data
-   
-<br>   
+1. Score on the training data 
     
 2. Score on the entire distribution of data
 
 
 
 :::{.notes} 
-At the end of module 2, we discussed two kinds of scores (accuracies) in a model:<br><br>
-1. Score on the training data<br><br>
-2. Score on the entire distribution of data<br>
+At the end of module 2, we discussed two kinds of scores (accuracies) in a model:
+
+1. Score on the training data
+2. Score on the entire distribution of data
 
 But we do not have access to the entire distribution which is where our interests lie so what do we do? 
 :::
@@ -66,6 +65,7 @@ The lock and key icon on the test set symbolizes that we don't want to touch it 
 ---
 
 ![](../../../static/module3/split_funct.png){fig-align="center" width="80%" fig-alt="404 image"}
+
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">*Attribution*</a>
 
 
@@ -78,9 +78,10 @@ There are two ways of using it:
 Pass in a dataframe and then it does the split
 Pass in `X` and `y` and it will then split these both separately. 
 
-It uses useful arguments such as:<br><br>
-- `test_size`<br>
-- `train_size`<br>
+It uses useful arguments such as:
+
+- `test_size`
+- `train_size`
 - `random_state`
 :::
 
@@ -139,11 +140,12 @@ X_train.head(3)
 :::{.notes}
 First we import `train_test_split` from `sklearn.model_selection`. 
 
-And then we are going to pass in the `X` and the `y` to give us the 4 separate objects that we name:<br><br>
-- `X_train`<br>
-- `X_test`<br>
-- `y_train`<br>
-- `y_test`<br>
+And then we are going to pass in the `X` and the `y` to give us the 4 separate objects that we name:
+
+- `X_train`
+- `X_test`
+- `y_train`
+- `y_test`
 
 This gives us a look at what `X_train` looks like as we can see that it’s been shuffled because the index is out of order and it contains our 2 columns `longitude` and `latitude`. 
 :::
@@ -229,6 +231,7 @@ Sometimes we may want to keep the target in the train split for EDA or for visua
 ---
 
 ```{python}
+# | output: false
 chart_cities = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
     alt.X('longitude:Q', scale=alt.Scale(domain=[-140, -40])),
     alt.Y('latitude:Q', scale=alt.Scale(domain=[20, 60])),
@@ -256,8 +259,7 @@ This is another reason why splitting with the target and features together can b
 from sklearn.tree import DecisionTreeClassifier
 
 model = DecisionTreeClassifier()
-model.fit(X_train, y_train)
-
+model.fit(X_train, y_train);
 ```
 
 
@@ -271,7 +273,6 @@ We can build our model here by constructing a decision tree classifier and fitti
 # | include: false
 model2 = DecisionTreeClassifier(max_depth=2, random_state=77)
 model2.fit(X_train, y_train)
-
 ```
 
 ```{python}
@@ -368,7 +369,7 @@ plt.subplot(1, 2, 2)
 plt.title("Decision tree model on the test data")
 plot_classifier(X_test.to_numpy(), y_encoded_test, model, ticks=True, ax=plt.gca(),  lims=(-140,-50,25,60))
 plt.xlabel("longitude")
-plt.ylabel("lattitude")
+plt.ylabel("lattitude");
 ```
 
 :::{.notes}
@@ -438,6 +439,8 @@ train_df_rs5, test_df_rs5 = train_test_split(cities_df, test_size = 0.2, random_
 ```{python}
 train_df_rs7, test_df_rs7 = train_test_split(cities_df, test_size = 0.2, random_state = 7)
 ```
+
+<br>
 
 ```{python}
 train_df_rs5.head(3)

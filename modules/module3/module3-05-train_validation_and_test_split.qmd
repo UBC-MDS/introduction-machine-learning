@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=5645&end=5940&rel=0" 
+    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=5698&end=5943&rel=0" 
     title="Module 3 Video - Train, Validation and Test Split"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -40,6 +40,8 @@ format: live-html
     );
 </script>
 
+**Question 3**
+
 ```out
 array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
 ```
@@ -48,8 +50,8 @@ array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
 <script>
     generateQuiz(
         'mcq3',
-        'Question 3',
-        'Given this output of cross_val_score(), what was the value of 𝑘?',
+        '',
+        'Given this output of <code>cross_val_score()</code>, what was the value of 𝑘?',
         {
         '0': 'There must have been some positive value for k.',
         '1': 'How many items are there in the array?',
@@ -83,7 +85,7 @@ array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
         'Question 2',
         'The goal of cross-validation is to obtain a better estimate of test score than just using a single validation set.',
         {
-        'True': 'Nailed it!',
+        'True': '',
         'False': 'We use cross validation to estimate our test score better.',
         },
         'True',
@@ -97,12 +99,14 @@ array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
         'Question 3',
         'The main disadvantage of using a large 𝑘 in cross-validation is running time.',
         {
-        'True': 'Nailed it!',
+        'True': '',
         'False': 'Since we need to train multiple times and predict multiple times, it can be very time-consuming.',
         },
         'True',
     );
 </script>
+
+<br>
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
@@ -141,6 +145,7 @@ pokemon
 #| exercise: cross_validation_in_action
 
 import pandas as pd
+import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
@@ -171,7 +176,6 @@ ____
 ```{pyodide}
 #| exercise: cross_validation_in_action
 #| check: true
-
 X = pokemon.loc[:, 'attack':'capture_rt']
 y = pokemon['legendary']
 
@@ -180,7 +184,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = DecisionTreeClassifier()
 solution = cross_val_score(model, X_train, y_train, cv=6)
 
-assert_accuracy_almost(solution, result)
+assert isinstance(result, np.ndarray), "Make sure you are doing cross validation scoring using the 'cross_val_score' function."
+assert solution.size == result.size, "Make sure you are doing 6-fold cross validation."
+assert_accuracy_almost(round(sum(solution)/solution.size,3), round(sum(result)/result.size,3), tolerance=0.015)
 ```
 
 :::: { .hint exercise="cross_validation_in_action"}
@@ -221,6 +227,8 @@ cv_scores
 :::
 ::::
 
+<br>
+
 ## Cross Validation in Action again!
 
 Let's use `cross_validate()` on our Pokémon dataset that we saw in the previous exercises.  
@@ -252,7 +260,7 @@ pokemon
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_validate
 from src.utils import assert_accuracy_almost
 
 pokemon = pd.read_csv('data/pokemon.csv')

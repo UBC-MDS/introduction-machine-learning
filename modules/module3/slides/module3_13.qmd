@@ -14,11 +14,7 @@ We're going to think about 3 types of scores:
 
 - **score_train**:  is our training score (or mean train score from cross-validation).
 
-<br>
-
 - **score_valid**  is our validation score (or mean validation score from cross-validation).
-
-<br>
 
 - **score_test**  is our test score.
 
@@ -29,10 +25,11 @@ We saw in cross-validation that there were train and validation scores and what 
 
 How do we diagnose the problem? 
 
-We're going to think about 3 types of scores:<br><br>
-- **Training score**: The score that our model gets on the same data that it was trained on. (seen data - training data)<br>
-- **Validation score**: The mean validation score from cross-validation.<br>
-- **Test score**: This is the score from the data that we locked away.<br>
+We're going to think about 3 types of scores:
+
+- **Training score**: The score that our model gets on the same data that it was trained on. (seen data - training data)
+- **Validation score**: The mean validation score from cross-validation.
+- **Test score**: This is the score from the data that we locked away.
 :::
 
 ---
@@ -60,7 +57,6 @@ scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
 print("Train score: " + str(round(scores["train_score"].mean(), 2)))
 print("Validation score: " + str(round(scores["test_score"].mean(), 2)))
 ```
-<br>
 
 ```out
 Train score: 1.0
@@ -110,7 +106,6 @@ scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
 print("Train score: " + str(round(scores["train_score"].mean(), 2)))
 print("Validation score: " + str(round(scores["test_score"].mean(), 2)))
 ```
-<br>
 
 ```out
 Train score: 0.83
@@ -169,10 +164,12 @@ The question to ask is which situation are we in?
 
 Looking at the scores is a very good diagnostic to answer this question. 
 
-If the scores are very far apart then we are more likely **overfitting**.<br><br>    
-- In this case, the solution would be to reduce the complexity of the model.<br>
+If the scores are very far apart then we are more likely **overfitting**.
 
-If the scores are very close together then we are more likely **underfitting**.<br><br>
+- In this case, the solution would be to reduce the complexity of the model.
+
+If the scores are very close together then we are more likely **underfitting**.
+
 - Attempting to increase the model’s complexity could help this situation.
 :::
 

@@ -62,7 +62,7 @@ format: html
 <script>
     generateQuiz(
         'mcq4',
-        'Question 1',
+        'True or False',
         'Deployment data is used at the very end and only scored once.',
         {
         'True': 'Deployment data is used at the very end but it is never scored.',
@@ -76,7 +76,7 @@ format: html
 <script>
     generateQuiz(
         'mcq5',
-        'Question 2',
+        'True or False',
         'Validation data is used to help tune hyperparameters.',
         {
         'True': 'Nailed it!',

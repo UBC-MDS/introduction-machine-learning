@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=5940&end=6540&rel=0" 
+    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=5949&end=6542&rel=0" 
     title="Module 3 Video - Cross Validation"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

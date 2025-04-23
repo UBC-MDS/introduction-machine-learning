@@ -227,12 +227,13 @@ Normally we calculate the mean cross-validation score but sometimes it would be 
 
 
 :::{.notes} 
-This brings us to our standard set of steps or workflow for supervised learning.<br><br>
-1. We are given the dataset with our `X` and `y`.<br>
-2. We split our data into our `X_train`, `y_train`, `X_test`, y_test`.<br>
-3. We try different models and hyperparameter optimization.<br>
-4. We then build the best model based on the results.<br>
-5. When we have our favourite model, we assess our model with our `X_test`, y_test`.<br>
+This brings us to our standard set of steps or workflow for supervised learning.
+
+1. We are given the dataset with our `X` and `y`.
+2. We split our data into our `X_train`, `y_train`, `X_test`, y_test`.
+3. We try different models and hyperparameter optimization.
+4. We then build the best model based on the results.
+5. When we have our favourite model, we assess our model with our `X_test`, y_test`.
 6. If we are happy with these scores, we deploy our model into practice.  
 :::
 

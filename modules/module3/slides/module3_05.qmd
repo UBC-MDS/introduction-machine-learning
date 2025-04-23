@@ -87,21 +87,22 @@ So, if our model does well on the validation and test data, we hope it will do w
 ---
 
 |         | `fit` | `score` | `predict` |
-|----------|-------|---------|-----------|
+|----------|:-------:|:---------:|:---------:|
 | Train    | ✔️      | ✔️      | ✔️         |
 | Validation |      | ✔️      | ✔️         |
 | Test    |       |  once   | once         |
 | Deployment    |       |       | ✔️         |
-
+: {tbl-colwidths="[16,28,28,28]"}
 
 
 :::{.notes} 
-This table shows what functions from `sklearn` we can use on the different datasets.<br><br>
-- The training data can be called with `fit`, `score` and `predict`!<br>
-- The validation data can only be assessed with `score` and `predict`. (`score` typically uses predict in order to predict the labels and score comparing with the true labels)<br>
-- The test data is similar to validation data except that we only call `score` and `predict` a single time.<br>
-- The deployment data cannot call `score` since we do not have the correct labels to compare it with so we can only call `predict` to find our predicted labels.<br>
+This table shows what functions from `sklearn` we can use on the different datasets.
 
+- The training data can be called with `fit`, `score` and `predict`!
+- The validation data can only be assessed with `score` and `predict`. (`score` typically uses predict in order to predict the labels and score comparing with the true labels)
+- The test data is similar to validation data except that we only call `score` and `predict` a single time.
+- The deployment data cannot call `score` since we do not have the correct labels to compare it with so we can only call `predict` to find our predicted labels.
+:::
 
 
 # Let’s apply what we learned!
