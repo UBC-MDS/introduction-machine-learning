@@ -1,0 +1,423 @@
+[
+  {
+    "objectID": "modules/module3/slides/module3_21.html#module-learning-outcomes",
+    "href": "modules/module3/slides/module3_21.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 3",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nSplit a dataset into train and test sets using train_test_split function.\nExplain the difference between train, validation, test, and “deployment” data.\nIdentify the difference between training error, validation error, and test error.\nExplain cross-validation and use cross_val_score() and cross_validate() to calculate cross-validation error.\nExplain overfitting, underfitting, and the fundamental tradeoff.\nState the golden rule and identify the scenarios when it’s violated.\n\n\nThe assignment will concentrate on the learning objectives as well as building knowledge on existing concepts."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_13.html#overfitting",
+    "href": "modules/module3/slides/module3_13.html#overfitting",
+    "title": "Overfitting and underfitting",
+    "section": "Overfitting",
+    "text": "Overfitting\nmodel = DecisionTreeClassifier()\nscores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)\nprint(\"Train score: \" + str(round(scores[\"train_score\"].mean(), 2)))\nprint(\"Validation score: \" + str(round(scores[\"test_score\"].mean(), 2)))\nTrain score: 1.0\nValidation score: 0.81\n\n\n&lt;Figure size 384x384 with 0 Axes&gt;\n\n\n\n\nUsing a decision tree with no specified max_depth, can help explain the phenomenon is called overfitting.\nOverfitting occurs when our model is overly specified to the particular training data and often leads to bad results.\nWhen our model fits the training data well and therefore the training score is high, however, the model does not generalize to the validation set as well and the validation error is much higher.\nThis is a sign of overfitting.\nThe train score is high but the validation score is much lower.\nThe gap between the train and the validation score is bigger.\nThis produces more severe results when the training data is minimal or when the model’s complexity is high."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_13.html#underfitting",
+    "href": "modules/module3/slides/module3_13.html#underfitting",
+    "title": "Overfitting and underfitting",
+    "section": "Underfitting",
+    "text": "Underfitting\nmodel = DecisionTreeClassifier(max_depth=1)\n\nscores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)\nprint(\"Train score: \" + str(round(scores[\"train_score\"].mean(), 2)))\nprint(\"Validation score: \" + str(round(scores[\"test_score\"].mean(), 2)))\nTrain score: 0.83\nValidation score: 0.81\n\n\n&lt;Figure size 384x384 with 0 Axes&gt;\n\n\n\n\nUnderfitting is somewhat the opposite of overfitting in the sense that it occurs when the model is not complex enough.\nUsing a decision tree with a max_depth of 1, we can explain the phenomenon.\nUnderfitting is when our model is too simple (DecisionTreeClassifier with max_depth=1 or DummyClassifier).\nThe model doesn’t capture the patterns in the training data and the training score is not that high.\nThe model doesn’t fit the data well and hence the training score is not high as well as the validation being very low as well.\nBoth train and validation scores are low and the gap between train and validation scores is low as well."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_05.html#trainvalidationtest-split",
+    "href": "modules/module3/slides/module3_05.html#trainvalidationtest-split",
+    "title": "Train, Validation and Test Split",
+    "section": "Train/validation/test split",
+    "text": "Train/validation/test split\n\n\n\nTrain: Used to fit our models.\nValidation: Used to assess our model during model tuning.\nTest: Unseen data used for a final assessment.\n\n\nThis diagram shows that first we split our data into train and test sets just like we’ve done before but then we go further and split the training set into train and validation sets.\nBefore going forward, it’s important to know that there isn’t a good consensus on the terminology of what is validation and what is test data.\nWe will try to use “validation” to refer to data where we have access to the target values, but unlike the training data, we only use this for hyperparameter tuning and model assessment; we don’t pass these into fit.\nWe will try to use “test” to refer to data where we have access to the target values, but in this case, unlike training and validation data, we neither use it in training nor hyperparameter optimization.\nWe only use test data once to evaluate the performance of the best performing model on the validation set.\nWe lock it in a “vault” until we’re ready to evaluate."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_05.html#deployment-data",
+    "href": "modules/module3/slides/module3_05.html#deployment-data",
+    "title": "Train, Validation and Test Split",
+    "section": "Deployment data",
+    "text": "Deployment data\n\n\nThe last character in the story is the deployment data.\nAfter we build and finalize a model, we deploy it, and then the model is used with data in the wild.\nWe will use “deployment” to refer to this data, where we do not have access to the target values.\nThe whole point of doing supervised learning is we want to predict something which we do not know the answer to, so we do not have the target values and we only have the features.\nDeployment score is the thing we really care about.\nWe use validation and test scores as proxies for deployment score, and we hope they are similar.\nSo, if our model does well on the validation and test data, we hope it will do well on deployment data."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_00.html#module-learning-outcomes",
+    "href": "modules/module3/slides/module3_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nSplit a dataset into train and test sets using train_test_split function.\nExplain the difference between train, validation, test, and “deployment” data.\nIdentify the difference between training error, validation error, and test error.\nExplain cross-validation and use cross_val_score() and cross_validate() to calculate cross-validation error.\nExplain overfitting, underfitting, and the fundamental tradeoff.\nState the golden rule and identify the scenarios when it’s violated."
+  },
+  {
+    "objectID": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html",
+    "href": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Question 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s take a look at the basketball dataset we saw in exercise 16. We will again be using features height, weight and salary and a target column position.. This time , however, let’s cross-validate on different values for max_depth so we can set this hyperparameter and build a final model that best generalizes on our test set.\n\n\n\n\n\n\nFirst let’s see which hyperparameter is the most optimal.\nTasks:\n\nFill in the code below.\nWe are first loading in our bball.csv dataset and assigning our features to X and our target position to an object named y.\nFill in the code so that it split the dataset into X_train, X_test, y_train, y_test. Make sure to use a 20% test set and a random_state=33 so we can verify you solution.\nNext, fill in the code so that a for loop does the following:\n\niterates over the values 1-20.\n\n\nBuilds a decision tree classifier with a max_depth equal to each iteration.\nUses cross_validate on the model with a cv=10 and return_train_score=True.\nAppends the depth value to the depth list in the dictionary results_dict.\nAppends the test_score to the mean_cv_score list in the dictionary.\nAppends the train_score to the mean_train_score list in the dictionary.\n\nWe have given you code that wrangles this dictionary and transforms it into a state ready for plotting.\nFinish off by filling in the blank to create a line graph that plots the train and validation scores for each depth value. (Note: we have edited the limits of the y-axis so it’s easier to read)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using train_test_split() to split the data?\nAre you splitting with either test_size=0.2 or train_size=0.8?\nAre you setting your random_state=33 inside train_test_split()?\nAre you using DecisionTreeClassifier(max_depth=depth) to build the model?\nAre you using cross_validate(model, X_train, y_train, cv=10, return_train_score=True)?\nAre you using alt.Chart(results_df).mark_line() to create your plot?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow that we have found a suitable value for max_depth let’s build a new model and let this hyperparameter value. How well does your model do on the test data?\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeClassifier() using the optimal max_depth.\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the test score of the model using .score() on X_test and y_test and save the values in an object named test_score rounded to 4 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier(max_depth=4)?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_test, y_test)?\nAre you rounding to 4 decimal places?\nAre you calculating test_score as round(model.score(X_test, y_test), 4)\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html#quick-questions-on-tradeoff-and-golden-rule",
+    "href": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html#quick-questions-on-tradeoff-and-golden-rule",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Question 1",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html#picking-your-hyperparameter-part-1",
+    "href": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html#picking-your-hyperparameter-part-1",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s take a look at the basketball dataset we saw in exercise 16. We will again be using features height, weight and salary and a target column position.. This time , however, let’s cross-validate on different values for max_depth so we can set this hyperparameter and build a final model that best generalizes on our test set.\n\n\n\n\n\n\nFirst let’s see which hyperparameter is the most optimal.\nTasks:\n\nFill in the code below.\nWe are first loading in our bball.csv dataset and assigning our features to X and our target position to an object named y.\nFill in the code so that it split the dataset into X_train, X_test, y_train, y_test. Make sure to use a 20% test set and a random_state=33 so we can verify you solution.\nNext, fill in the code so that a for loop does the following:\n\niterates over the values 1-20.\n\n\nBuilds a decision tree classifier with a max_depth equal to each iteration.\nUses cross_validate on the model with a cv=10 and return_train_score=True.\nAppends the depth value to the depth list in the dictionary results_dict.\nAppends the test_score to the mean_cv_score list in the dictionary.\nAppends the train_score to the mean_train_score list in the dictionary.\n\nWe have given you code that wrangles this dictionary and transforms it into a state ready for plotting.\nFinish off by filling in the blank to create a line graph that plots the train and validation scores for each depth value. (Note: we have edited the limits of the y-axis so it’s easier to read)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using train_test_split() to split the data?\nAre you splitting with either test_size=0.2 or train_size=0.8?\nAre you setting your random_state=33 inside train_test_split()?\nAre you using DecisionTreeClassifier(max_depth=depth) to build the model?\nAre you using cross_validate(model, X_train, y_train, cv=10, return_train_score=True)?\nAre you using alt.Chart(results_df).mark_line() to create your plot?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html#picking-your-hyperparameter-part-2",
+    "href": "modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.html#picking-your-hyperparameter-part-2",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Now that we have found a suitable value for max_depth let’s build a new model and let this hyperparameter value. How well does your model do on the test data?\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeClassifier() using the optimal max_depth.\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the test score of the model using .score() on X_test and y_test and save the values in an object named test_score rounded to 4 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier(max_depth=4)?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_test, y_test)?\nAre you rounding to 4 decimal places?\nAre you calculating test_score as round(model.score(X_test, y_test), 4)\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-14-is_it_overfitting_or_underfitting.html",
+    "href": "modules/module3/module3-14-is_it_overfitting_or_underfitting.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.\nThis time we are looking at a new data set that contains the basketball players in the NBA. We are only going to use the players with a position of Guard (G) or Forward (F). We will be using features height, weight and salary to try to predict the player’s position, Guard or Forward.\nLet’s take a quick look at it before diving in.\n\n\n\n\n\n\nTasks:\n\nCross-validate using cross_validate() on the objects X_train and y_train making sure to specify 10 folds and return_train_score=True.\nConvert the scores into a dataframe and save it in an object named scores_df.\nCalculate the mean value of each column and save this in an object named mean_scores.\nAnswer the question below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you cross-validating using cross_validate(model, X_train, y_train, cv=10, return_train_score=True) on your model?\nAre you saving your dataframe using pd.DataFrame(scores)?\nAre you using .mean() to calculate the mean of each column in scores_df?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-14-is_it_overfitting_or_underfitting.html#overfittingunderfitting-in-action",
+    "href": "modules/module3/module3-14-is_it_overfitting_or_underfitting.html#overfittingunderfitting-in-action",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.\nThis time we are looking at a new data set that contains the basketball players in the NBA. We are only going to use the players with a position of Guard (G) or Forward (F). We will be using features height, weight and salary to try to predict the player’s position, Guard or Forward.\nLet’s take a quick look at it before diving in.\n\n\n\n\n\n\nTasks:\n\nCross-validate using cross_validate() on the objects X_train and y_train making sure to specify 10 folds and return_train_score=True.\nConvert the scores into a dataframe and save it in an object named scores_df.\nCalculate the mean value of each column and save this in an object named mean_scores.\nAnswer the question below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you cross-validating using cross_validate(model, X_train, y_train, cv=10, return_train_score=True) on your model?\nAre you saving your dataframe using pd.DataFrame(scores)?\nAre you using .mean() to calculate the mean of each column in scores_df?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-09-cross_validation_questions.html",
+    "href": "modules/module3/module3-09-cross_validation_questions.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Question 3\narray([0.80952381, 0.80952381, 0.85714286, 0.85714286])\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\n\n\n\nLet’s use cross_val_score() on a Pokémon dataset that we’ve used before in Programming in Python for Data Science.\n\n\n\n\n\n\nTasks:\n\nSplit the X and y dataframes into 4 objects: X_train, X_test, y_train, y_test.\nMake the test set 0.2 (or the train set 0.8) and make sure to use random_state=33 (the random state here is for testing purposes so we all get the same split).\nBuild a model using DecisionTreeClassifier().\nSave this in an object named model.\nCross-validate using cross_val_score() on the objects X_train and y_train and with 6 folds (cv=6) and save these scores in an object named cv_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=33)?\nAre using DecisionTreeClassifier()?\nAre you using the model named model?\nAre you cross-validating using cross_val_score(model, X_train, y_train, cv=6) on your model?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLet’s use cross_validate() on our Pokémon dataset that we saw in the previous exercises.\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeClassifier().\nSave this in an object named model.\nCross-validate using cross_validate() on the objects X_train and y_train making sure to specify 10 folds and return_train_score=True.\nConvert the scores into a dataframe and save it in an object named scores_df.\nCalculate the mean value of each column and save this in an object named mean_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier()?\nAre you using the model named model?\nAre you cross-validating using cross_validate(model, X_train, y_train, cv=10, return_train_score=True) on your model?\nAre you saving your dataframe using pd.DataFrame(scores)?\nAre you using .mean() to calculate the mean of each column in scores_df?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-questions",
+    "href": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-questions",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Question 3\narray([0.80952381, 0.80952381, 0.85714286, 0.85714286])",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-true-or-false",
+    "href": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-true-or-false",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-in-action",
+    "href": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-in-action",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Let’s use cross_val_score() on a Pokémon dataset that we’ve used before in Programming in Python for Data Science.\n\n\n\n\n\n\nTasks:\n\nSplit the X and y dataframes into 4 objects: X_train, X_test, y_train, y_test.\nMake the test set 0.2 (or the train set 0.8) and make sure to use random_state=33 (the random state here is for testing purposes so we all get the same split).\nBuild a model using DecisionTreeClassifier().\nSave this in an object named model.\nCross-validate using cross_val_score() on the objects X_train and y_train and with 6 folds (cv=6) and save these scores in an object named cv_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=33)?\nAre using DecisionTreeClassifier()?\nAre you using the model named model?\nAre you cross-validating using cross_val_score(model, X_train, y_train, cv=6) on your model?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-in-action-again",
+    "href": "modules/module3/module3-09-cross_validation_questions.html#cross-validation-in-action-again",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Let’s use cross_validate() on our Pokémon dataset that we saw in the previous exercises.\n\n\n\n\n\n\nTasks:\n\nBuild a model using DecisionTreeClassifier().\nSave this in an object named model.\nCross-validate using cross_validate() on the objects X_train and y_train making sure to specify 10 folds and return_train_score=True.\nConvert the scores into a dataframe and save it in an object named scores_df.\nCalculate the mean value of each column and save this in an object named mean_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DecisionTreeClassifier()?\nAre you using the model named model?\nAre you cross-validating using cross_validate(model, X_train, y_train, cv=10, return_train_score=True) on your model?\nAre you saving your dataframe using pd.DataFrame(scores)?\nAre you using .mean() to calculate the mean of each column in scores_df?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-02-splitting_our_data.html",
+    "href": "modules/module3/module3-02-splitting_our_data.html",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s split our data using train_test_split() on our candy bars dataset.\n\n\n\n\n\n\nTasks:\n\nSplit the X and y dataframes into 4 objects: X_train, X_test, y_train, y_test.\nMake the test set 0.2 (or the train set 0.8) and make sure to use random_state=7.\nBuild a model using DecisionTreeClassifier().\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the accuracy of the model using .score() on X_train and y_train save the values in an object named train_score.\nRepeat the above action but this time evaluate the accuracy of the model using .score() on X_test and y_test (which the model has never seen before) and save the values in an object named test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)?\nAre using DecisionTreeClassifier()?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_train, y_train) and model.score(X_test, y_test)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-02-splitting_our_data.html#splitting-data-in-action",
+    "href": "modules/module3/module3-02-splitting_our_data.html#splitting-data-in-action",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s split our data using train_test_split() on our candy bars dataset.\n\n\n\n\n\n\nTasks:\n\nSplit the X and y dataframes into 4 objects: X_train, X_test, y_train, y_test.\nMake the test set 0.2 (or the train set 0.8) and make sure to use random_state=7.\nBuild a model using DecisionTreeClassifier().\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the accuracy of the model using .score() on X_train and y_train save the values in an object named train_score.\nRepeat the above action but this time evaluate the accuracy of the model using .score() on X_test and y_test (which the model has never seen before) and save the values in an object named test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)?\nAre using DecisionTreeClassifier()?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_train, y_train) and model.score(X_test, y_test)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-00-module_learning_outcomes.html",
+    "href": "modules/module3/module3-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module3/module3-01-splitting_data.html",
+    "href": "modules/module3/module3-01-splitting_data.html",
+    "title": "1. Splitting Data",
+    "section": "",
+    "text": "1. Splitting Data\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "1. Splitting Data"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-05-train_validation_and_test_split.html",
+    "href": "modules/module3/module3-05-train_validation_and_test_split.html",
+    "title": "2. Train, Validation and Test Split",
+    "section": "",
+    "text": "2. Train, Validation and Test Split\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "2. Train, Validation and Test Split"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-08-cross_validation.html",
+    "href": "modules/module3/module3-08-cross_validation.html",
+    "title": "3. Cross Validation",
+    "section": "",
+    "text": "3. Cross Validation\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "3. Cross Validation"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-13-underfitting_and_overfitting.html",
+    "href": "modules/module3/module3-13-underfitting_and_overfitting.html",
+    "title": "4. Underfitting and Overfitting",
+    "section": "",
+    "text": "4. Underfitting and Overfitting\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "4. Underfitting and Overfitting"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-17-fundamental_tradeoff_and_the_golden_rule.html",
+    "href": "modules/module3/module3-17-fundamental_tradeoff_and_the_golden_rule.html",
+    "title": "5. Fundamental Tradeoff and the Golden Rule",
+    "section": "",
+    "text": "5. Fundamental Tradeoff and the Golden Rule\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "5. Fundamental Tradeoff and the Golden Rule"
+    ]
+  },
+  {
+    "objectID": "modules/module3/module3-21-what_did_we_just_learn.html",
+    "href": "modules/module3/module3-21-what_did_we_just_learn.html",
+    "title": "6. What Did We Just Learn?",
+    "section": "",
+    "text": "6. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**",
+      "6. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module3/slides/module3_01.html#recap",
+    "href": "modules/module3/slides/module3_01.html#recap",
+    "title": "Data Splitting",
+    "section": "Recap",
+    "text": "Recap\nTraining score versus generalization score\nGiven a model, in Machine Learning (ML), people usually talk about two kinds of scores (accuracies):\n\nScore on the training data\nScore on the entire distribution of data\n\n\nAt the end of module 2, we discussed two kinds of scores (accuracies) in a model:\n\nScore on the training data\nScore on the entire distribution of data\n\nBut we do not have access to the entire distribution which is where our interests lie so what do we do?"
+  },
+  {
+    "objectID": "modules/module3/slides/module3_01.html#we-can-approximate-generalization-accuracy-by-splitting-our-data",
+    "href": "modules/module3/slides/module3_01.html#we-can-approximate-generalization-accuracy-by-splitting-our-data",
+    "title": "Data Splitting",
+    "section": "We can approximate generalization accuracy by splitting our data!",
+    "text": "We can approximate generalization accuracy by splitting our data!\n\n\nWhat we do is we keep a randomly selected portion of our data aside we call that the testing data.\nWe do our fitting on the training data and then we can assess the model on this testing data which we’re using to be representative of the whole distribution of the data."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_01.html#simple-train-and-test-split",
+    "href": "modules/module3/slides/module3_01.html#simple-train-and-test-split",
+    "title": "Data Splitting",
+    "section": "Simple train and test split",
+    "text": "Simple train and test split\n\n\nThe data needs to be shuffled before splitting since our data could be in a specific order and if we took the last part as our test set we wouldn’t have a random sample of our data.\nSo first we shuffle and then split the rows of the data into 2 sections.\nHere the training portion in green and the test portion in red.\nThe lock and key icon on the test set symbolizes that we don’t want to touch it until the end."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_08.html#single-split-problems",
+    "href": "modules/module3/slides/module3_08.html#single-split-problems",
+    "title": "Cross-validation",
+    "section": "Single split problems",
+    "text": "Single split problems\n\n\nWe saw that it’s necessary to split our data into multiple different sets/splits but is having a single train and validation split optimal?\nThe problem with having a single train/validation split is that now we are using only a portion of our data for training and only a portion for validation.\nIf our dataset is small we might end up with a tiny training and/or validation set.\nWe might also be unlucky with our splits such that they don’t align well or don’t well represent our test data.\nIt would be nice to have more data on which to train and validate."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_08.html#so-what-do-we-do",
+    "href": "modules/module3/slides/module3_08.html#so-what-do-we-do",
+    "title": "Cross-validation",
+    "section": "So what do we do?",
+    "text": "So what do we do?\n𝑘-fold cross-validation\n\n\nHere we will introduce something called cross-validation or 𝑘-fold cross-validation which attempts to get the best of both worlds.\nWe still have the test set here at the bottom locked away that we will not touch until the end.\nInstead of splitting our training set and simply chopping it into train and validation sets, we do something more complicated that allows us to validate more accurately and not be over-reliant on the random dividing into the training and validation sets.\nDoing this could lead to us either being lucky or unlucky with the splitting, causing extremely accurate or very poor scores.\nCross-validation consists of splitting the data into k-folds ( 𝑘&gt;2, often 𝑘=10 ). In the picture below 𝑘=4.\nEach “fold” gets a turn at being the validation set. And the other folds are used as the training set.\nThen we use a new fold as the validation set and the rest now become the training set.\nThis is repeated until every fold has an opportunity to act as the validation set.\nEach round will produce a score so after 𝑘-fold cross-validation, it will produce 𝑘 scores. We usually average over the 𝑘 results.\nIt’s better to notice the variation in the scores across folds.\nWe can get a more “robust” score on unseen data.\nThe main disadvantage here is that this as K increases the longer it takes to run the code, which is a problem for bigger datasets / more complex models."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_08.html#cross-validation-using-scikit-learn",
+    "href": "modules/module3/slides/module3_08.html#cross-validation-using-scikit-learn",
+    "title": "Cross-validation",
+    "section": "Cross-validation using scikit-learn",
+    "text": "Cross-validation using scikit-learn\n\ndf = pd.read_csv(\"data/canada_usa_cities.csv\")\nX = df.drop(columns=[\"country\"])\ny = df[\"country\"]\n\n\n\nfrom sklearn.model_selection import train_test_split\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=123)\n\n\nLet’s bring in our Canadian/United States cities data and split it."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_08.html#our-typical-supervised-learning-set-up-is-as-follows",
+    "href": "modules/module3/slides/module3_08.html#our-typical-supervised-learning-set-up-is-as-follows",
+    "title": "Cross-validation",
+    "section": "Our typical supervised learning set up is as follows:",
+    "text": "Our typical supervised learning set up is as follows:\n\n\nGiven training data with X and y.\nWe split our data into X_train, y_train, X_test, y_test.\nHyperparameter optimization using cross-validation on X_train and y_train.\nWe assess the best model using X_test and y_test.\nThe test score tells us how well our model generalizes.\nIf the test score is reasonable, we deploy the model.\n\n\nThis brings us to our standard set of steps or workflow for supervised learning.\n\nWe are given the dataset with our X and y.\nWe split our data into our X_train, y_train, X_test, y_test`.\nWe try different models and hyperparameter optimization.\nWe then build the best model based on the results.\nWhen we have our favourite model, we assess our model with our X_test, y_test`.\nIf we are happy with these scores, we deploy our model into practice."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#reminder",
+    "href": "modules/module3/slides/module3_17.html#reminder",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "Reminder:",
+    "text": "Reminder:\n\nscore_train: is our training score (or mean train score from cross-validation).\nscore_valid is our validation score (or mean validation score from cross-validation).\nscore_test is our test score.\n\n\nBefore going further, let’s just remind ourselves of the different possible scores.\nThe training score, the validation score and the test score."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#the-fundamental-tradeoff-of-supervised-learning",
+    "href": "modules/module3/slides/module3_17.html#the-fundamental-tradeoff-of-supervised-learning",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "The “fundamental tradeoff” of supervised learning",
+    "text": "The “fundamental tradeoff” of supervised learning\n\nAs model complexity ↑, Score_train ↑ and Score_train − Score_valid tend to ↑.\n\nWe are going to talk about the fundamental tradeoff of supervised learning. We’ve already danced around this topic which involves the concepts of overfitting and underfitting.\nIf our model is very simple, like DummyClassifier(), or a Decision tree with a max_depth of 1 then we won’t really learn any “specific patterns” of the training set, we will only learn some general trend.\nThis is underfitting.\nIf our model is very complex, like a DecisionTreeClassifier(max_depth=None), then we will learn unreliable patterns that get every single training example correct, but there will be a huge gap between training error and validation error.\nThis is overfitting.\nThe trade-off is there is a tension between these two concepts. When we underfit less, we overfit more.\nAs we increase model complexity, our training score increases (overfit more, underfit less) but the trade-off is that the gap between the training data and the test data will also increase.\nThe question is how will the validation score react?"
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#how-to-pick-a-model-that-would-generalize-better",
+    "href": "modules/module3/slides/module3_17.html#how-to-pick-a-model-that-would-generalize-better",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "How to pick a model that would generalize better?",
+    "text": "How to pick a model that would generalize better?\n\ndf = pd.read_csv(\"data/canada_usa_cities.csv\")\nX = df.drop(columns=[\"country\"])\ny = df[\"country\"]\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=123)\n\n\nHow do we approach this?\nLet’s go back to our cities data as an example."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#the-golden-rule",
+    "href": "modules/module3/slides/module3_17.html#the-golden-rule",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "The Golden Rule",
+    "text": "The Golden Rule\nEven though we care the most about test score:\n\nTHE TEST DATA CANNOT INFLUENCE THE TRAINING PHASE IN ANY WAY\n\n\n\n\nNow that we’ve covered the fundamental tradeoff, we want to discuss the *Golden rule of Machine Learning which is that the test data cannot influence the training phase in any way.\nIt’s important to always separate our test data and not call it until the very end.\nThis sounds easy enough, but there are many ways where it can be violated (even to the best of us).\nIt is surprisingly hard to adhere to as we get into more sophisticated machine learning.\nThe problem is when this happens, the test data influences our training and the test data is no longer unseen data and so the test score will be too optimistic.\nThen our model will not work well when we deploy it."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#golden-rule-violation-example-1",
+    "href": "modules/module3/slides/module3_17.html#golden-rule-violation-example-1",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "Golden rule violation: Example 1",
+    "text": "Golden rule violation: Example 1\n\nAttribution: The A register - Katyanna Quach\n\n… He attempted to reproduce the research, and found a major flaw: there was some overlap in the data used to both train and test the model.\nThere have been several cases in the news where this occurs.\nIn this example, an author of a scientific paper was accused of mixing the training and testing data by accident."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#golden-rule-violation-example-2",
+    "href": "modules/module3/slides/module3_17.html#golden-rule-violation-example-2",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "Golden rule violation: Example 2",
+    "text": "Golden rule violation: Example 2\n\nAttribution: MIT Technology Review- Tom Simonite\n\n… The Challenge rules state that you must only test your code twice a week, because there’s an element of chance to the results. Baidu has admitted that it used multiple email accounts to test its code roughly 200 times in just under six months – over four times what the rules allow.\nAnd in other cases, people have been accused of intentionally."
+  },
+  {
+    "objectID": "modules/module3/slides/module3_17.html#how-can-we-avoid-violating-the-golden-rule",
+    "href": "modules/module3/slides/module3_17.html#how-can-we-avoid-violating-the-golden-rule",
+    "title": "The fundamental tradeoff and the golden rule",
+    "section": "How can we avoid violating the golden rule?",
+    "text": "How can we avoid violating the golden rule?\n\n\nHow can we avoid this?\nThe most important thing is when splitting the data, we lock it away and keep it separate from the training data.\nBefore we do anything, we should split our data and not bring it back until the end of our model building."
+  }
+]
