@@ -95,7 +95,7 @@ def print_correct_msg():
 def assert_accuracy_almost(expected, actual, tolerance=0.01):
     if isinstance(expected, (float, int)) and isinstance(actual, (float, int)):
         pairs = [(expected, actual)]
-    elif isinstance(expected, (list, tuple)) and isinstance(actual, (list, tuple)) and len(expected) == len(actual):
+    elif isinstance(expected, (list, tuple, np.ndarray)) and isinstance(actual, (list, tuple, np.ndarray)) and len(expected) == len(actual):
         pairs = list(zip(expected, actual))
     else:
         raise ValueError("Expected and actual must both be floats or lists/tuples of equal length.")
