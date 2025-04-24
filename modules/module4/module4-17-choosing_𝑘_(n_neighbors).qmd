@@ -1,0 +1,29 @@
+---
+format:
+  html:
+    page-layout: full
+---
+
+# 5. Choosing 𝑘 (n_neighbors)
+
+::: {.panel-tabset .nav-pills}
+
+## Video
+
+<iframe
+    class="video"
+    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=1289&end=1766&rel=0" 
+    title="Module 4 Video - Choosing 𝑘 (n_neighbors)"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+></iframe>
+
+## Slides
+
+<iframe
+    class="slide-deck"
+    src="slides/module4_17.html"
+></iframe>
+
+:::

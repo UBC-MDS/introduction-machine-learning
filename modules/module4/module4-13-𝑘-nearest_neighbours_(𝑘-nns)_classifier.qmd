@@ -1,0 +1,29 @@
+---
+format:
+  html:
+    page-layout: full
+---
+
+# 4. 𝑘-Nearest Neighbours (𝑘-NNs) Classifier
+
+::: {.panel-tabset .nav-pills}
+
+## Video
+
+<iframe
+    class="video"
+    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=1030&end=1286&rel=0" 
+    title="Module 4 Video - 𝑘-Nearest Neighbours (𝑘-NNs) Classifier"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+></iframe>
+
+## Slides
+
+<iframe
+    class="slide-deck"
+    src="slides/module4_13.html"
+></iframe>
+
+:::
