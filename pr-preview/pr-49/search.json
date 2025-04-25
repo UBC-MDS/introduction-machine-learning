@@ -1,0 +1,396 @@
+[
+  {
+    "objectID": "modules/module5/slides/module5_21.html#module-learning-outcomes",
+    "href": "modules/module5/slides/module5_21.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 5",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nIdentify when to implement feature transformations such as imputation and scaling.\nApply sklearn.pipeline.Pipeline to build a machine learning pipeline.\nUse sklearn for applying numerical feature transformations on the data.\nDiscuss the golden rule in the context of feature transformations.\nCarry out hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV.\nExplain overfitting on the validation set.\n\n\nThe assignment will concentrate on the learning objectives as well as building knowledge on existing concepts."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_13.html#how-to-carry-out-cross-validation",
+    "href": "modules/module5/slides/module5_13.html#how-to-carry-out-cross-validation",
+    "title": "Case Study: Pipelines",
+    "section": "How to carry out cross-validation?",
+    "text": "How to carry out cross-validation?\n\nfrom sklearn.model_selection import cross_validate\n\nknn = KNeighborsRegressor()\nscores = cross_validate(knn, X_train_scaled, y_train, return_train_score=True)\npd.DataFrame(scores)\n\n\n\n\n\n\n\n\nfit_time\nscore_time\ntest_score\ntrain_score\n\n\n\n\n0\n0.011634\n0.166076\n0.696373\n0.794236\n\n\n1\n0.011580\n0.148478\n0.684447\n0.791467\n\n\n2\n0.011611\n0.160891\n0.695532\n0.789436\n\n\n3\n0.011571\n0.163705\n0.679478\n0.793243\n\n\n4\n0.011559\n0.100518\n0.680657\n0.794820\n\n\n\n\n\n\n\n\nLet’s try cross-validation with transformed data.\nIs there a problem here?\nWe are using our X_train_scaled in our cross_validate() function which already has all our preprocessing done.\nLet’s bring back the golden rule where Our test data should not influence our training data and this applies also to our validation data and that it also should not influence our training data.\nOur first instinct to develop good habits is to split our data first however when we use the cross_validate() function, since we are scaling first and then splitting into training and validation, information from our validation data is influencing our training data now.\nWith imputation and scaling, we are scaling and imputing values based on all the information in the data meaning the training data AND the validation data and so we are not adhering to the golden rule anymore.\nEvery row in our x_train_scaled has now been influenced in a minor way by every other row in x_train_scaled.\nWith scaling every row has been transformed based on all the data before splitting between training and validation.\nHere we said that we allowed information from the validation set to leak into the training step.\nWe need to take care that we are keeping our validation data truly as unseen data.\nBefore we look at the right approach to this, it’s important to look at the wrong approaches and understand why we cannot perform cross-validation in such ways."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_13.html#bad-methodology-1-scaling-the-data-separately",
+    "href": "modules/module5/slides/module5_13.html#bad-methodology-1-scaling-the-data-separately",
+    "title": "Case Study: Pipelines",
+    "section": "Bad methodology 1: Scaling the data separately",
+    "text": "Bad methodology 1: Scaling the data separately\n\nscaler = StandardScaler();\nscaler.fit(X_train_imp);\nX_train_scaled = scaler.transform(X_train_imp)\n\n\n\n# Creating a separate object for scaling test data - Not a good idea.\nscaler = StandardScaler();\nscaler.fit(X_test_imp); # Calling fit on the test data - Yikes! \nX_test_scaled = scaler.transform(X_test_imp) # Transforming the test data using the scaler fit on test data ... Bad! \n\n\n\nknn = KNeighborsRegressor()\nknn.fit(X_train_scaled, y_train);\nprint(\"Training score: \", round(knn.score(X_train_scaled, y_train), 2))\nprint(\"Test score: \", round(knn.score(X_test_scaled, y_test), 2))\n\nTraining score:  0.8\nTest score:  0.7\n\n\n\nThe first mistake that often occurs is as follows.\nWe make our transformer, we fit it on the training data and then transform the training data.\nNext, we make a second transformer, fit it on the test data and then transform our test data.\nWhat is wrong with this approach?\nAlthough we are keeping our test data separate from our training data, by scaling the train and test splits separately, we are using two different StandardScaler objects.\nThis is bad because we want to apply the same transformation on the training and test splits.\nThe test data will have different values than the training data producing a different transformation than the training data.\nIn summary, we should never fit on test data, whether it’s to build a model or with a transforming, test data should never be exposed to the fit function."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_13.html#bad-methodology-2-scaling-the-data-together",
+    "href": "modules/module5/slides/module5_13.html#bad-methodology-2-scaling-the-data-together",
+    "title": "Case Study: Pipelines",
+    "section": "Bad methodology 2: Scaling the data together",
+    "text": "Bad methodology 2: Scaling the data together\n\nX_train_imp.shape, X_test_imp.shape\n\n((18576, 8), (2064, 8))\n\n\n\n\n# Join the train and test sets back together\nX_train_imp_df = pd.DataFrame(X_train_imp,columns=X_train.columns, index=X_train.index)\nX_test_imp_df = pd.DataFrame(X_test_imp,columns=X_test.columns, index=X_test.index)\nXX = pd.concat([X_train_imp_df, X_test_imp_df], axis = 0) ## Don't do it! \nXX.shape \n\n(20640, 8)\n\n\n\n\nscaler = StandardScaler()\nscaler.fit(XX);\nXX_scaled = scaler.transform(XX) \nXX_train, XX_test = XX_scaled[:18576], XX_scaled[18576:]\n\n\nThe next mistake is when we scale the data together. So instead of splitting our data, we are combining our training and testing and scaling it together.\nWhat is wrong with this second approach?\nHere we are scaling the train and test splits together.\nThe golden rule says that the test data shouldn’t influence the training in any way.\nWith this approach, we are using the information from the test split when we fit the scalar and calculate the mean.\nThis means that the test data is being used when setting up the transformations so, it’s in violation of the golden rule."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_13.html#lets-see-it-in-action",
+    "href": "modules/module5/slides/module5_13.html#lets-see-it-in-action",
+    "title": "Case Study: Pipelines",
+    "section": "Let’s see it in action",
+    "text": "Let’s see it in action\n\nfrom sklearn.pipeline import Pipeline\n\npipe = Pipeline([\n        (\"imputer\", SimpleImputer(strategy=\"median\")),\n        (\"scaler\", StandardScaler()),\n        (\"reg\", KNeighborsRegressor())\n])\n\n\nA pipeline is a sklearn function that contains a sequence of steps.\nEssentially we give it all the actions we want to do with our data such as transformers and models and the pipeline will execute them in steps.\nIn this example, we instruct the pipeline to first do imputation using SimpleImputer() using a strategy of “median”, next to scale our data using StandardScaler and then build a KNeighborsRegressor.\nThe last step should be a model/classifier/regressor.\nAll the earlier steps should be transformers.\nThis will help obey the golden rule."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_05.html#case-study-california-housing-prices",
+    "href": "modules/module5/slides/module5_05.html#case-study-california-housing-prices",
+    "title": "Preprocessing with Imputation",
+    "section": "Case study: California housing prices",
+    "text": "Case study: California housing prices\n\nhousing_df = pd.read_csv(\"data/housing.csv\")\ntrain_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)\n\ntrain_df.head()\n\n\n\n\n\n\n\n\nlongitude\nlatitude\nhousing_median_age\ntotal_rooms\n...\nhouseholds\nmedian_income\nmedian_house_value\nocean_proximity\n\n\n\n\n6051\n-117.75\n34.04\n22.0\n2948.0\n...\n602.0\n3.1250\n113600.0\nINLAND\n\n\n20113\n-119.57\n37.94\n17.0\n346.0\n...\n20.0\n3.4861\n137500.0\nINLAND\n\n\n14289\n-117.13\n32.74\n46.0\n3355.0\n...\n708.0\n2.6604\n170100.0\nNEAR OCEAN\n\n\n13665\n-117.31\n34.02\n18.0\n1634.0\n...\n285.0\n5.2139\n129300.0\nINLAND\n\n\n14471\n-117.23\n32.88\n18.0\n5566.0\n...\n1458.0\n1.8580\n205000.0\nNEAR OCEAN\n\n\n\n\n5 rows × 10 columns\n\n\n\nWe are using the data that can be downloaded here.\nThis dataset is a modified version of the California Housing dataset available from: Luís Torgo’s University of Porto website.\n\nFor the next few slide decks, we are going to be using a dataset exploring the prices of homes in California to demonstrate feature transformation techniques.\nThe task is to predict median house values in California districts, given several features from these districts.\nBefore we do anything, we load in the data and split it into our train and test splits.\nWe can see in our training data that we have various districts and information such as where it is, median_house_age, total_bedrooms etc. Our target columns in the column labeled median_house_value.\nSomething we need to be aware of is that some column values are mean/median while others are totals or not completely clear."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_05.html#exploratory-data-analysis-eda",
+    "href": "modules/module5/slides/module5_05.html#exploratory-data-analysis-eda",
+    "title": "Preprocessing with Imputation",
+    "section": "Exploratory Data Analysis (EDA)",
+    "text": "Exploratory Data Analysis (EDA)\n\ntrain_df.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nInt64Index: 18576 entries, 6051 to 19966\nData columns (total 10 columns):\n #   Column                    Non-Null Count  Dtype  \n---  ------                    --------------  -----  \n 0   longitude                 18576 non-null  float64\n 1   latitude                  18576 non-null  float64\n 2   housing_median_age        18576 non-null  float64\n 3   households                18576 non-null  float64\n 4   median_income             18576 non-null  float64\n 5   median_house_value        18576 non-null  float64\n 6   ocean_proximity           18576 non-null  object \n 7   rooms_per_household       18576 non-null  float64\n 8   bedrooms_per_household    18391 non-null  float64\n 9   population_per_household  18576 non-null  float64\ndtypes: float64(9), object(1)\nmemory usage: 1.6+ MB\n\n\n\nAfter using .info() we can we all the different column dtypes and also all the number of null values.\nWe see that we have all columns with dtype float64 except for ocean_proximity which appears categorical."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_05.html#what-happens",
+    "href": "modules/module5/slides/module5_05.html#what-happens",
+    "title": "Preprocessing with Imputation",
+    "section": "What happens?",
+    "text": "What happens?\n\nX_train = train_df.drop(columns=[\"median_house_value\", \"ocean_proximity\"])\ny_train = train_df[\"median_house_value\"]\n\nX_test = test_df.drop(columns=[\"median_house_value\", \"ocean_proximity\"])\ny_test = test_df[\"median_house_value\"]\n\n\nknn = KNeighborsRegressor()\nknn.fit(X_train, y_train)\nValueError: Input contains NaN, infinity or a value too large for dtype('float64').\n\nFirst, we are going to drop the categorical variable ocean_proximity.\nRight now, we only know how to build models with numerical data. We will come back to the categorical variables in module 6.\nWe create our X and y objects and attempt to run a model.\nDoes it work?\n\nNo.\n\nWe can see that the classifier is not able to deal with missing values (NaNs).\nWhat are the possible ways to deal with the problem?"
+  },
+  {
+    "objectID": "modules/module5/slides/module5_05.html#dropping",
+    "href": "modules/module5/slides/module5_05.html#dropping",
+    "title": "Preprocessing with Imputation",
+    "section": "Dropping",
+    "text": "Dropping\n\ntrain_df[\"bedrooms_per_household\"].isnull().sum()\n\n185\n\n\n\n\nX_train.shape\n\n(18576, 8)\n\n\n\n\nX_train_no_nan = X_train.dropna()\ny_train_no_nan = y_train.dropna()\n\nX_train_no_nan.shape\n\n(18391, 8)\n\n\n\nWhat can we do?\nWe could drop the rows but we’d need to do the same in our test set.\nThat also doesn’t help us if we get a missing value in deployment. What do we do then?\nFurthermore, what if the missing values don’t occur at random and we’re systematically dropping certain data? Perhaps a certain type of house contributes to more missing values.\nThis is not a great solution, especially if there’s a lot of missing values."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_05.html#dropping-a-column",
+    "href": "modules/module5/slides/module5_05.html#dropping-a-column",
+    "title": "Preprocessing with Imputation",
+    "section": "Dropping a column",
+    "text": "Dropping a column\n\nX_train.shape\n\n(18576, 8)\n\n\n\n\nX_train_no_col = X_train.dropna(axis=1)\n\nX_train_no_col.shape\n\n(18576, 7)\n\n\n\nOne can also drop all columns with missing values.\nThis generally throws away a lot of information, because we lose a whole column just for 185 missing values out of a total of 18567.\nThat means we are throwing away 99% of the column’s data because we are missing 1%.\nBut dropping a column if it’s 99.9% missing values, for example, makes more sense."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_05.html#imputation",
+    "href": "modules/module5/slides/module5_05.html#imputation",
+    "title": "Preprocessing with Imputation",
+    "section": "Imputation",
+    "text": "Imputation\nImputation: Imputation means inventing values for the missing data.\n\nfrom sklearn.impute import SimpleImputer\n\nWe can impute missing values in:\n\nCategorical columns: with the most frequent value.\nNumeric columns: with the mean or median of the column or a constant of our choosing.\n\n\nSimpleImputer() is a transformer in sklearn which can deal with this problem.\nWe are going to concentrate on numeric columns in this section and address categorical preprocessing in Module 6."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_00.html#module-learning-outcomes",
+    "href": "modules/module5/slides/module5_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nIdentify when to implement feature transformations such as imputation and scaling.\nApply sklearn.pipeline.Pipeline to build a machine learning pipeline.\nUse sklearn for applying numerical feature transformations on the data.\nDiscuss the golden rule in the context of feature transformations.\nCarry out hyperparameter optimization using sklearn’s GridSearchCV and RandomizedSearchCV."
+  },
+  {
+    "objectID": "modules/module5/module5-18-exhaustive_or_randomized_grid_search.html",
+    "href": "modules/module5/module5-18-exhaustive_or_randomized_grid_search.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nNow that we have built a pipeline in the last interactive exercises, let’s pair that with grid search to optimize our hyperparameters.\n\n\n\n\n\n\nTasks:\n\nUsing the pipeline provided, create a grid of parameters to search over named param_grid. Search over the values 1, 5, 10, 20, 30, 40, and 50 for the hyperparameter n_neighbors and ‘uniform’ and ‘distance’ for the hyperparameter weights (make sure to call them appropriately).\nUse GridSearchCV to hyper-parameter tune using cross-validate equal to 10 folds. Make sure to specify the arguments verbose=1 and n_jobs=-1. Name the object grid_search.\nFind the best hyperparameter values and save them in an object named best_hyperparams. Make sure to print these results.\nLastly, score your model on the test set and save your results in an object named bb_test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you specifying knn__n_neighbors and knn__weights in param_grid and specifying the hyperparameter values in a list?\nAre you using GridSearchCV(bb_pipe, param_grid, cv=10, verbose=1, n_jobs=-1) and remembering to fit it?\nAre you using grid_search.best_params_ to find the most optimal hyperparameter values?\nAre you using grid_search.score(X_test, y_test) to calculate your test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-18-exhaustive_or_randomized_grid_search.html#using-automated-hyperparameter-optimization-in-action",
+    "href": "modules/module5/module5-18-exhaustive_or_randomized_grid_search.html#using-automated-hyperparameter-optimization-in-action",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nNow that we have built a pipeline in the last interactive exercises, let’s pair that with grid search to optimize our hyperparameters.\n\n\n\n\n\n\nTasks:\n\nUsing the pipeline provided, create a grid of parameters to search over named param_grid. Search over the values 1, 5, 10, 20, 30, 40, and 50 for the hyperparameter n_neighbors and ‘uniform’ and ‘distance’ for the hyperparameter weights (make sure to call them appropriately).\nUse GridSearchCV to hyper-parameter tune using cross-validate equal to 10 folds. Make sure to specify the arguments verbose=1 and n_jobs=-1. Name the object grid_search.\nFind the best hyperparameter values and save them in an object named best_hyperparams. Make sure to print these results.\nLastly, score your model on the test set and save your results in an object named bb_test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you specifying knn__n_neighbors and knn__weights in param_grid and specifying the hyperparameter values in a list?\nAre you using GridSearchCV(bb_pipe, param_grid, cv=10, verbose=1, n_jobs=-1) and remembering to fit it?\nAre you using grid_search.best_params_ to find the most optimal hyperparameter values?\nAre you using grid_search.score(X_test, y_test) to calculate your test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-14-pipeline_questions.html",
+    "href": "modules/module5/module5-14-pipeline_questions.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nUsing our trusty basketball let’s impute, scale and fit a model using a pipeline to see the results.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline named bb_pipe it should impute using SimpleImputer and a “median” strategy, scale using StandardScaler and build a KNeighborsClassifier.\nCross-validate on bb_pipe using X_train and y_train and save the results in an object named cross_scores.\nTransform cross_scores to a dataframe, take the mean of each column and save the result in an object named mean_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\") as the first step in the pipeline?\nAre you using StandardScaler() as a second step in the pipeline?\nAre you using KNeighborsClassifier() as the third step in the pipeline?\nAre you using cross_validate(bb_pipe, X_train, y_train, return_train_score=True) to cross-validate?\nAre you using pd.DataFrame(cross_scores).mean() to see your results?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-14-pipeline_questions.html#applying-pipelines",
+    "href": "modules/module5/module5-14-pipeline_questions.html#applying-pipelines",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nUsing our trusty basketball let’s impute, scale and fit a model using a pipeline to see the results.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline named bb_pipe it should impute using SimpleImputer and a “median” strategy, scale using StandardScaler and build a KNeighborsClassifier.\nCross-validate on bb_pipe using X_train and y_train and save the results in an object named cross_scores.\nTransform cross_scores to a dataframe, take the mean of each column and save the result in an object named mean_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\") as the first step in the pipeline?\nAre you using StandardScaler() as a second step in the pipeline?\nAre you using KNeighborsClassifier() as the third step in the pipeline?\nAre you using cross_validate(bb_pipe, X_train, y_train, return_train_score=True) to cross-validate?\nAre you using pd.DataFrame(cross_scores).mean() to see your results?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-10-name_that_scaling_method.html",
+    "href": "modules/module5/module5-10-name_that_scaling_method.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nNow that we have a basketball dataset that no longer is missing any values, let’s scale the features.\nFirst, let’s scale using standardization.\n\n\n\n\n\n\nTasks:\n\nBuild the transformer and name it ss_scaler.\nFit and transform the data X_train and save the transformed feature vectors in objects named X_train_scaled.\nTransform X_test and save it in an object named X_test_scaled.\nBuild a KNN classifier and name it knn.\nFit your model on the newly scaled training data.\nSave the training score to 3 decimal places in an object named ss_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using ss_scaler.fit_transform(X_train)?\nAre you using model.fit(X_train, y_train.to_numpy())?\nAre you using ss_scaler.transform(X_test)?\nAre you using KNeighborsClassifier() to create your model?\nAre you using knn.fit(X_train_scaled, y_train) to train your data?\nTo obtain the training score are you using round(knn.score(X_train_scaled, y_train), 3)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-10-name_that_scaling_method.html#practicing-scaling",
+    "href": "modules/module5/module5-10-name_that_scaling_method.html#practicing-scaling",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nNow that we have a basketball dataset that no longer is missing any values, let’s scale the features.\nFirst, let’s scale using standardization.\n\n\n\n\n\n\nTasks:\n\nBuild the transformer and name it ss_scaler.\nFit and transform the data X_train and save the transformed feature vectors in objects named X_train_scaled.\nTransform X_test and save it in an object named X_test_scaled.\nBuild a KNN classifier and name it knn.\nFit your model on the newly scaled training data.\nSave the training score to 3 decimal places in an object named ss_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using ss_scaler.fit_transform(X_train)?\nAre you using model.fit(X_train, y_train.to_numpy())?\nAre you using ss_scaler.transform(X_test)?\nAre you using KNeighborsClassifier() to create your model?\nAre you using knn.fit(X_train_scaled, y_train) to train your data?\nTo obtain the training score are you using round(knn.score(X_train_scaled, y_train), 3)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-06-imputation.html",
+    "href": "modules/module5/module5-06-imputation.html",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s take a look at a modified version of our basketball player dataset.\n\n\n\n\n\n\nFirst, let’s take a look at if and/or where we are missing any values.\nTasks:\n\nUse .describe() or .info() to find if there are any values missing from the dataset.\nUsing some of the skills we learned in the previous course find the number of rows that contains missing values and save the total number of examples with missing values in an object named num_nan.\nHint: .any(axis=1) may come in handy here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X_train.info()?\nAre you using X_train.isnull().any(axis=1).sum()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow that we’ve identified the columns with missing values, let’s use SimpleImputer to replace the missing value.\n\n\n\n\n\n\nTasks:\n- Import the necessary library. - Using SimpleImputer, replace the null values in the training and testing dataset with the median value in each column. - Save your transformed data in objects named train_X_imp and test_X_imp respectively. - Transform X_train_imp into a dataframe using the column and index labels from X_train and save it as X_train_imp_df. - Check if X_train_imp_df still has missing values.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\")?\nAre you fitting your model?\nAre you using transfor() on both your train and test sets?\nAre you putting it into a dataframe with pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-06-imputation.html#imputing-in-action",
+    "href": "modules/module5/module5-06-imputation.html#imputing-in-action",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s take a look at a modified version of our basketball player dataset.\n\n\n\n\n\n\nFirst, let’s take a look at if and/or where we are missing any values.\nTasks:\n\nUse .describe() or .info() to find if there are any values missing from the dataset.\nUsing some of the skills we learned in the previous course find the number of rows that contains missing values and save the total number of examples with missing values in an object named num_nan.\nHint: .any(axis=1) may come in handy here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X_train.info()?\nAre you using X_train.isnull().any(axis=1).sum()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow that we’ve identified the columns with missing values, let’s use SimpleImputer to replace the missing value.\n\n\n\n\n\n\nTasks:\n- Import the necessary library. - Using SimpleImputer, replace the null values in the training and testing dataset with the median value in each column. - Save your transformed data in objects named train_X_imp and test_X_imp respectively. - Transform X_train_imp into a dataframe using the column and index labels from X_train and save it as X_train_imp_df. - Check if X_train_imp_df still has missing values.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\")?\nAre you fitting your model?\nAre you using transfor() on both your train and test sets?\nAre you putting it into a dataframe with pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-00-module_learning_outcomes.html",
+    "href": "modules/module5/module5-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module5/module5-01-the_importance_of_preprocessing.html",
+    "href": "modules/module5/module5-01-the_importance_of_preprocessing.html",
+    "title": "1. The Importance of Preprocessing",
+    "section": "",
+    "text": "1. The Importance of Preprocessing\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "1. The Importance of Preprocessing"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-05-case_study:_preprocessing_with_imputation.html",
+    "href": "modules/module5/module5-05-case_study:_preprocessing_with_imputation.html",
+    "title": "2. Case Study: Preprocessing with Imputation",
+    "section": "",
+    "text": "2. Case Study: Preprocessing with Imputation\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "2. Case Study: Preprocessing with Imputation"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-09-case_study:_preprocessing_with_scaling.html",
+    "href": "modules/module5/module5-09-case_study:_preprocessing_with_scaling.html",
+    "title": "3. Case Study: Preprocessing with Scaling",
+    "section": "",
+    "text": "3. Case Study: Preprocessing with Scaling\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "3. Case Study: Preprocessing with Scaling"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-13-case_study:_pipelines.html",
+    "href": "modules/module5/module5-13-case_study:_pipelines.html",
+    "title": "4. Case Study: Pipelines",
+    "section": "",
+    "text": "4. Case Study: Pipelines\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "4. Case Study: Pipelines"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-17-automated_hyperparameter_optimization.html",
+    "href": "modules/module5/module5-17-automated_hyperparameter_optimization.html",
+    "title": "5. Automated Hyperparameter Optimization",
+    "section": "",
+    "text": "5. Automated Hyperparameter Optimization\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "5. Automated Hyperparameter Optimization"
+    ]
+  },
+  {
+    "objectID": "modules/module5/module5-21-what_did_we_just_learn.html",
+    "href": "modules/module5/module5-21-what_did_we_just_learn.html",
+    "title": "6. What Did We Just Learn?",
+    "section": "",
+    "text": "6. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**",
+      "6. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module5/slides/module5_01.html#basketball-dataset",
+    "href": "modules/module5/slides/module5_01.html#basketball-dataset",
+    "title": "The Importance of Preprocessing",
+    "section": "Basketball dataset",
+    "text": "Basketball dataset\n\nbball_df = pd.read_csv('data/bball.csv')\nbball_df.head(3)\n\n\n\n\n\n\n\n\nfull_name\nrating\njersey\n...\ndraft_round\ndraft_peak\ncollege\n\n\n\n\n0\nLeBron James\n97\n#23\n...\n1\n1\nNaN\n\n\n1\nKawhi Leonard\n97\n#2\n...\n1\n15\nSan Diego State\n\n\n2\nGiannis Antetokounmpo\n96\n#34\n...\n1\n15\nNaN\n\n\n\n\n3 rows × 14 columns\n\n\n\n\n\nbball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]\nX = bball_df[['weight', 'height', 'salary']]\ny =bball_df[\"position\"]\nX_train, X_test, y_train, y_test =train_test_split(X, y, test_size=0.20, random_state=123)\n\n\n\nX_train.head(3)\n\n\n\n\n\n\n\n\nweight\nheight\nsalary\n\n\n\n\n152\n79.4\n1.88\n1588231.0\n\n\n337\n82.1\n1.91\n2149560.0\n\n\n130\n106.6\n2.03\n6500000.0\n\n\n\n\n\n\n\n\nIn module 3, we used a portion of the basketball dataset to predict a player’s position using DecisionTreeClassifier.\nCan we use a 𝑘-NN classifier for this task?\nWe are going to attempt to predict a player’s position (whether a particular player is a point guard (‘G’) or a forward (‘F’)).\nRight now, we are only going to be using the numeric columns weight height and salary for our X object and our column position for our y.\nWe will dive into categorical variables in module 6."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_01.html#transformers-scaling-example",
+    "href": "modules/module5/slides/module5_01.html#transformers-scaling-example",
+    "title": "The Importance of Preprocessing",
+    "section": "Transformers: Scaling example",
+    "text": "Transformers: Scaling example\n\nfrom sklearn.preprocessing import StandardScaler\n\nscaler = StandardScaler()   # Create feature transformer object\nscaler.fit(X_train); # Fitting the transformer on the train split\nX_train_scaled = scaler.transform(X_train) # Transforming the train split\nX_test_scaled = scaler.transform(X_test) # Transforming the test split\npd.DataFrame(X_train_scaled, columns = X_train.columns).head()\n\n\n\n\n\n\n\n\nweight\nheight\nsalary\n\n\n\n\n0\n-1.552775\n-1.236056\n-0.728809\n\n\n1\n-1.257147\n-0.800950\n-0.670086\n\n\n2\n1.425407\n0.939473\n-0.214967\n\n\n3\n1.370661\n1.664650\n-0.585185\n\n\n4\n0.286690\n-0.510879\n-0.386408\n\n\n\n\n\n\n\n\nOne form of preprocessing we can do is scaling we will talk about this in more detail to come but for now just take a look at the tools we are using.\nWe’ll be using sklearn’s StandardScaler, which is a transformer.\nFor now, try to only focus on the syntax.\nWe’ll talk about scaling in a bit.\n\nCreate a feature transformer object. This is done in a similar way to how we create a model. Transformers accepts hyperparameters as well.\nFitting the transformer on the train split.\nTransform the train split using .transform().\nThen transform the test split.\n\nsklearn uses fit and transform paradigms for feature transformations. (In model building it was fit and predict or score)\nWe fit the transformer on the train split and then transform the train split as well as the test split.\ntransform replaces predict here.\nWe can now see that our values in our X_train have been scales so they are now all on the same scale.\nThe salary values are no longer greater than the values in the height and weight columns."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_01.html#sklearns-predict-vs-transform",
+    "href": "modules/module5/slides/module5_01.html#sklearns-predict-vs-transform",
+    "title": "The Importance of Preprocessing",
+    "section": "Sklearn’s predict vs transform",
+    "text": "Sklearn’s predict vs transform\nmodel.fit(X_train, y_train)\nX_train_predictions = model.predict(X_train)\n\ntransformer.fit(X_train, [y_train])\nX_train_transformed = transformer.transform(X_train)\nor\nX_train_transformed = transformer.fit_transform(X_train)\n\nLet’s solidify this new concept of transform.\nSuppose we have a named model which is either a classification or regression model.\nWe can compare predict with transformer which is a transformer used to change the input representation to scale numeric features.\nWe do similar steps by calling fit first, followed by transform on our training data just like we did fit and then predict in classification and regression.\nWe can pass y_train in fit but it’s usually ignored. It allows us to pass it just to be consistent with the usual usage of sklearn’s fit method.\nWe can also carry out fitting and transforming in one call using .fit_transform(), but we must be mindful to use it only on the train split and not on the test split."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_09.html#scaling",
+    "href": "modules/module5/slides/module5_09.html#scaling",
+    "title": "Case Study: Preprocessing with Scaling",
+    "section": "Scaling",
+    "text": "Scaling\n\nAttribution\n\nThis problem affects a large number of ML methods.\nThere are several approaches to this problem.\nThis diagram shows the original data with each feature on an axis and the 4 diagrams on the right show how the data is transformed with different scaling methods.\nWe are going to concentrate on the two named MinMaxScaler and StandardScaler."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#the-problem-with-hyperparameters",
+    "href": "modules/module5/slides/module5_17.html#the-problem-with-hyperparameters",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "The problem with hyperparameters",
+    "text": "The problem with hyperparameters\n\nWe may have a lot of them.\nPicking reasonable hyperparameters is important -&gt; it helps avoid underfit or overfit models.\nNobody knows exactly how to choose them.\nMay interact with each other in unexpected ways.\nThe best settings depend on the specific data/problem.\nCan take a long time to execute.\n\n\nThe problem with hyperparameters!\nWe’ve seen quite a few different hyperparameters for different models.\nWe’ve seen max_depth and min_samples_split for decision trees.\nWe’ve seen n_neighbors and weights for K-Nearest Neighbours and we’ve seen gamma and C for SVMs with RBF.\nWe’ve even seen hyperparameters for our transformations like strategy for our SimpleImputer().\nThey are important and we’ve seen they can really help optimize your model, but we’ve also seen how difficult it can be figuring out how to set them."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#how-to-pick-hyperparameters",
+    "href": "modules/module5/slides/module5_17.html#how-to-pick-hyperparameters",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "How to pick hyperparameters",
+    "text": "How to pick hyperparameters\nManual hyperparameter optimization\nAdvantages:\n\nWe may have some intuition about what might work.\n\nDisadvantages:\n\nIt takes a lot of work.\n\nIn some cases, intuition might be worse than a data-driven approach.\n\nAutomated hyperparameter optimization\nAdvantages:\n\nReduce human effort.\n\nLess prone to error.\n\nData-driven approaches may be effective.\n\nDisadvantages:\n\nIt may be hard to incorporate intuition.\n\nOverfitting on the validation set.\n\n\nManual hyperparameter optimization is what we’ve been doing so far and we’ve seen that it’s been a little challenging.\nWe are going to discuss automated hyperparameter optimization also known as hyperparameter tuning and see how it can help (and hinder) our model building."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#bring-in-the-data",
+    "href": "modules/module5/slides/module5_17.html#bring-in-the-data",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "Bring in the data",
+    "text": "Bring in the data\n\ncities_df = pd.read_csv(\"data/canada_usa_cities.csv\")\ntrain_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)\nX_train, y_train = train_df.drop(columns=['country']), train_df['country']\nX_test, y_test = test_df.drop(columns=['country']), test_df['country']\nX_train.head()\n\n\n\n\n\n\n\n\nlongitude\nlatitude\n\n\n\n\n160\n-76.4813\n44.2307\n\n\n127\n-81.2496\n42.9837\n\n\n169\n-66.0580\n45.2788\n\n\n188\n-73.2533\n45.3057\n\n\n187\n-67.9245\n47.1652\n\n\n\n\n\n\n\n\nLet’s bring back the cities dataset we worked with in the last model."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#exhaustive-grid-search",
+    "href": "modules/module5/slides/module5_17.html#exhaustive-grid-search",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "Exhaustive grid search",
+    "text": "Exhaustive grid search\n\nfrom sklearn.model_selection import GridSearchCV\n\nparam_grid = {\n    \"gamma\": [0.1, 1.0, 10, 100]\n}\n\n\n\nfrom sklearn.svm import SVC\n\nsvc = SVC()\ngrid_search = GridSearchCV(svc, param_grid, verbose=1)\n\n\n\ngrid_search.fit(X_train, y_train);\n\nFitting 5 folds for each of 4 candidates, totalling 20 fits\n\n\n\nWe are first going to discuss GridSearchCV which is an exhaustive grid search method.\nHow do we use sklearn.model_selection.GridSearchCV?\nFirst, we need to decide what our model is and then decide what hyperparameters we wish to tune.\nWe are going to use an SVM classifier.\nWe build a dictionary called param_grid and we specify the values we wish to look over for the hyperparameter.\nNext, we build a model of our choosing. Here we are building an SVM classifier.\nUsing GridSearchCV we first specify our model followed by the hyperparameter values we are checking (in this case param_grid).\nAssigning verbose=1 tells GridSearchCV to print some output while it’s working.\nWhen we call grid_search.fit(X_train, y_train), it does all the work for us.\nIt tries all the values we specified for gamma in our param_grid object.\nIn this case, it’s checking 0.1, 1, 10, and 100 and for each on it’s also performing cross-validation."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#now-what",
+    "href": "modules/module5/slides/module5_17.html#now-what",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "Now what?",
+    "text": "Now what?\n\ngrid_search.best_params_\n\n{'svc__C': 10, 'svc__gamma': 1.0}\n\n\n\n\ngrid_search.best_score_\n\n0.8208556149732621\n\n\n\nWhen we have finished grid search, we can ask it what results it found.\nWe can extract the best hyperparameter values with .best_params_ and their corresponding score with .best_score_."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#extra-optional-slide",
+    "href": "modules/module5/slides/module5_17.html#extra-optional-slide",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "Extra (optional slide)",
+    "text": "Extra (optional slide)\n\nimport scipy\n\nparam_grid = {\n    \"svc__C\": scipy.stats.uniform(0, 100),\n    \"svc__gamma\": scipy.stats.uniform(0, 100)}\n\n\n\nrandom_gs = RandomizedSearchCV(pipe, param_grid, n_jobs=-1, cv=10, return_train_score=True, n_iter=10)\nrandom_gs.fit(X_train, y_train);\nrandom_gs.best_params_\n\n{'svc__C': 78.60931218620897, 'svc__gamma': 2.6676206579977713}\n\n\n\n\nrandom_gs.best_score_\n\n0.8044117647058824\n\n\n\n\nrandom_gs.score(X_test, y_test)\n\n0.8095238095238095\n\n\n\nFor randomize grid search we can search over a range of continuous values instead of discrete values like in GridSearchCV().\nWe can specify a range of values instead of a list of values for each hyperparameter."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#how-different-do-they-score",
+    "href": "modules/module5/slides/module5_17.html#how-different-do-they-score",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "How different do they score?",
+    "text": "How different do they score?\n\ngrid_search.score(X_test, y_test)\n\n0.8333333333333334\n\n\n\n\nrandom_search.score(X_test, y_test)\n\n0.8333333333333334\n\n\n\nHere, (and often) they produce similar scores."
+  },
+  {
+    "objectID": "modules/module5/slides/module5_17.html#overfitting-on-the-validation-set",
+    "href": "modules/module5/slides/module5_17.html#overfitting-on-the-validation-set",
+    "title": "Automated Hyperparameter Optimization",
+    "section": "Overfitting on the validation set",
+    "text": "Overfitting on the validation set\nOverfitting on validation set of parameter learning:\n\nDuring learning, we could search over tons of different decision trees.\nSo, we can get “lucky” and find one with a high training score by chance.\n\n“Overfitting of the training score”.\n\n\nOverfitting on validation set of hyper-parameter learning:\n\nHere, we might optimize the validation score over 100 values of max_depth.\nOne of the 100 trees might have a high validation score by chance.\n\n\nWhy do we need to evaluate the model on the test set in the end?\nWhy not just use cross-validation on the whole dataset?\nWhile carrying out hyperparameter optimization, we end up trying over many possibilities.\nSince we are repeating cross-validation over and over again, it’s not necessarily unseen data anymore.\nThis may produce overly optimistic results.\nIf our dataset is small and if our validation set is hit too many times, we suffer from optimization bias or overfitting the validation set."
+  }
+]
