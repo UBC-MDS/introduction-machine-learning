@@ -95,7 +95,7 @@ def plot_classifier(X, y, clf, ax=None, ticks=False, proba=False, lims=None, tra
         if len(labels) == 2:
             ax.scatter(X0[y==labels[0]], X1[y==labels[0]], s=60, c='b', marker='o', edgecolors='k')
             ax.scatter(X0[y==labels[1]], X1[y==labels[1]], s=60, c='r', marker='^', edgecolors='k')
-        if len(labels) == 3:
+        elif len(labels) == 3:
             ax.scatter(X0[y==labels[0]], X1[y==labels[0]], s=60, c='b', marker='o', edgecolors='k')
             ax.scatter(X0[y==labels[1]], X1[y==labels[1]], s=60, c='r', marker='^', edgecolors='k')
             ax.scatter(X0[y==labels[2]], X1[y==labels[2]], s=60, c='k', marker='x', edgecolors='k')
