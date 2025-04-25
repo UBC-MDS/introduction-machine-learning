@@ -1,0 +1,288 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 2.1. Exercises
+
+## Imputation
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'When do we need to impute our data?',
+        {
+        'When we have unreliable data.': 'Not quite.',
+        'When we have missing data.': '',
+        'Before we build all models.': 'Not necessarily. It depends on the data we have.',
+        'As a precaution to make sure our model is more robust.': 'We will not be able to fit our model without imputation and so it’s not quite a precaution.',
+        },
+        'When we have missing data.',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'If we have <code>NaN</code> values in our data, should we simply drop the column missing the data?',
+        {
+        'Yes, it won’t make a difference.': 'What if it’s a column that substantially helps the prediction?',
+        'Yes, if the majority of the values are missing from the column': '',
+        'No, dropping the column will not solve the issue.': 'Dropping the column may solve the issue, however, we could be losing a lot of important information.',
+        'No, never drop a column from the data.': 'Dropping a column can sometimes be an appropriate method of removing <code>NaN</code> values.',
+        },
+        'Yes, if the majority of the values are missing from the column',
+    );
+</script>
+
+## Imputation True or False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        '<code>SimpleImputer</code> is a type of transformer.',
+        {
+        'True': 'Yes! We are transforming the data!',
+        'False': 'Is our data transforming?',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'We can use <code>SimpleImputer</code> to impute values that are missing from numerical and categorical columns.',
+        {
+        'True': 'Yes! We can use <code>SimpleImputer</code> to impute both numerical and categorical columns.',
+        'False': 'This is true and we will touch on categorical columns in the next module!',
+        },
+        'True',
+    );
+</script>
+
+## Imputing in Action
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's take a look at a modified version of our basketball player dataset.  
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball_imp.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+bball_df
+```
+
+First, let's take a look at if and/or where we are missing any values.
+
+**Tasks:**
+
+- Use `.describe()` or `.info()` to find if there are any values missing from the dataset. 
+- Using some of the skills we learned in the previous <a href="https://prog-learn.mds.ubc.ca/en/module8" target="_blank">course</a> find the number of rows that contains missing values and save the total number of examples with missing values in an object named `num_nan`.       
+*Hint: `.any(axis=1)` may come in handy here.* 
+
+```{pyodide}
+#| setup: true
+#| exercise: imputing_in_action
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from src.utils import print_correct_msg
+
+bball_df = pd.read_csv('data/bball_imp.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: imputing_in_action
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Explore the missing data in the training features.
+____.____
+
+# Calculate the number of examples with missing values
+____ = ____
+____
+```
+
+```{pyodide}
+#| exercise: imputing_in_action
+#| check: true
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+solution = X_train.isnull().any(axis=1).sum()
+
+assert int(result), "There should be an integer number of missing data."
+assert solution == result, "Have you found the total number of examples with missing values?"
+print_correct_msg()
+```
+
+:::: { .hint exercise="imputing_in_action"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `X_train.info()`?
+- Are you using `X_train.isnull().any(axis=1).sum()`?
+
+:::
+::::
+
+:::: { .solution exercise="imputing_in_action" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Explore the missing data in the training features 
+X_train.info()
+
+# Calculate the number of examples with missing values
+num_nan = X_train.isnull().any(axis=1).sum()
+num_nan
+```
+
+:::
+::::
+
+<br>
+
+Now that we've identified the columns with missing values, let's use `SimpleImputer` to replace the missing value. 
+
+```{pyodide}
+from sklearn.impute import SimpleImputer
+```
+
+**Tasks:**   
+- Import the necessary library.
+- Using `SimpleImputer`, replace the null values in the training and testing dataset with the median value in each column.
+- Save your transformed data in objects named `train_X_imp` and `test_X_imp` respectively. 
+- Transform `X_train_imp` into a dataframe using the column and index labels from `X_train` and save it as `X_train_imp_df`.
+- Check if `X_train_imp_df`  still has missing values.
+
+
+```{pyodide}
+#| setup: true
+#| exercise: imputing_in_action_2
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+from src.utils import print_correct_msg
+
+bball_df = pd.read_csv('data/bball_imp.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: imputing_in_action_2
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Fill in the missing values using imputation
+____ = ____
+____.____
+____ = ____
+____ = ____
+
+# Transform X_train_imp into a dataframe using the column and index labels from X_train
+____ = ____
+
+# Check if your training set still has missing values 
+____
+
+# For checking purposes, please keep the following line
+X_train_imp_df
+```
+
+```{pyodide}
+#| exercise: imputing_in_action_2
+#| check: true
+assert result.isnull().any(axis=1).sum() == 0, "There is missing data in your dataframe. Are you imputing properly?"
+print_correct_msg()
+```
+
+:::: { .hint exercise="imputing_in_action_2"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `SimpleImputer(strategy="median")`?
+- Are you fitting your model?
+- Are you using `transfor()` on both your train and test sets?
+- Are you putting it into a dataframe with `pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)`?
+
+:::
+::::
+
+:::: { .solution exercise="imputing_in_action_2" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Fill in the missing values using imputation
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train);
+X_train_imp = imputer.transform(X_train)
+X_test_imp = imputer.transform(X_test)
+
+# Transform X_train_imp into a dataframe using the column and index labels from X_train
+X_train_imp_df = pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_train.index)
+
+# Check if your training set still has missing values 
+X_train_imp_df.info()
+```
+
+:::
+::::
