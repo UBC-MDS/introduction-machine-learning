@@ -232,7 +232,7 @@
 </section>
 <section id="basketball-dataset" class="slide level2">
 <h2>Basketball dataset</h2>
-<div id="626c63ef" class="cell" data-execution_count="3">
+<div id="8bd5c6b2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>bball_df <span class="op">=</span> pd.read_csv(<span class="st">'data/bball.csv'</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>bball_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -303,14 +303,14 @@
 </div>
 </div>
 <p><br></p>
-<div id="4f2107bf" class="cell" data-execution_count="4">
+<div id="0f3fc4ed" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>bball_df <span class="op">=</span> bball_df[(bball_df[<span class="st">'position'</span>] <span class="op">==</span><span class="st">'G'</span>) <span class="op">|</span> (bball_df[<span class="st">'position'</span>] <span class="op">==</span><span class="st">'F'</span>)]</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> bball_df[[<span class="st">'weight'</span>, <span class="st">'height'</span>, <span class="st">'salary'</span>]]</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span>bball_df[<span class="st">"position"</span>]</span>
 <span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span>train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.20</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="81398e78" class="cell" data-execution_count="5">
+<div id="c585e680" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -383,7 +383,7 @@
 <section class="slide level2">
 
 <h3 id="dummy-classifier">Dummy Classifier</h3>
-<div id="0b17fb99" class="cell" data-execution_count="6">
+<div id="bb4071e1" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -395,7 +395,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="ad359dc4" class="cell" data-execution_count="7">
+<div id="7d6c8ce7" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsClassifier()</span>
@@ -423,7 +423,7 @@
 </section>
 <section class="slide level2">
 
-<div id="8f7ebe98" class="cell" data-execution_count="8">
+<div id="0c0da53f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>two_players <span class="op">=</span> X_train.sample(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>two_players</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -471,7 +471,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="ab908ad8" class="cell" data-execution_count="9">
+<div id="018b39fb" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> euclidean_distances</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>euclidean_distances(two_players)[<span class="dv">1</span>,<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -479,7 +479,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="2817740d" class="cell" data-execution_count="10">
+<div id="05d5a127" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>two_players_subset <span class="op">=</span> two_players[[<span class="st">"salary"</span>]]</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>two_players_subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -521,7 +521,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="8de8592a" class="cell" data-execution_count="11">
+<div id="ee427fbb" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>euclidean_distances(two_players_subset)[<span class="dv">1</span>,<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>117133.0</code></pre>
@@ -565,7 +565,7 @@
 </section>
 <section id="transformers-scaling-example" class="slide level2">
 <h2>Transformers: Scaling example</h2>
-<div id="5a3b7e0b" class="cell" data-execution_count="12">
+<div id="9e123a6e" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()   <span class="co"># Create feature transformer object</span></span>
@@ -693,7 +693,7 @@
 </section>
 <section class="slide level2">
 
-<div id="69ed5ad9" class="cell" data-execution_count="13">
+<div id="ff37a7b2" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>knn_unscaled <span class="op">=</span> KNeighborsClassifier()</span>
 <span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>knn_unscaled.fit(X_train, y_train)<span class="op">;</span></span>
 <span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train score: '</span>, (<span class="bu">round</span>(knn_unscaled.score(X_train, y_train), <span class="dv">2</span>)))</span>
@@ -702,7 +702,7 @@
 <pre class="out"><code>Train score:  0.71
 Test score:  0.45</code></pre>
 <p><br></p>
-<div id="9086f657" class="cell" data-execution_count="14">
+<div id="af1b368a" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>knn_scaled <span class="op">=</span> KNeighborsClassifier()</span>
 <span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>knn_scaled.fit(X_train_scaled, y_train)<span class="op">;</span></span>
 <span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train score: '</span>, (<span class="bu">round</span>(knn_scaled.score(X_train_scaled, y_train), <span class="dv">2</span>)))</span>

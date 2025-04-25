@@ -305,7 +305,7 @@ Test score:  0.89</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="21fcf3b1" class="cell" data-execution_count="3">
+<div id="7b966cbf" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(X_train_imp, columns<span class="op">=</span>X_train.columns, index<span class="op">=</span>X_train.index).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -400,7 +400,7 @@ Test score:  0.89</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="9d423a73" class="cell" data-execution_count="4">
+<div id="267ccad4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
@@ -520,7 +520,7 @@ Test score:  0.89</code></pre>
 <section class="slide level2">
 
 <p><strong>Unscaled data</strong></p>
-<div id="2da5f4a0" class="cell" data-execution_count="5">
+<div id="526b4387" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
@@ -532,7 +532,7 @@ Test score:  0.89</code></pre>
 0.32</code></pre>
 <p><br></p>
 <p><strong>Scaled data</strong></p>
-<div id="0dc7e14b" class="cell" data-execution_count="6">
+<div id="2507b271" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_scaled, y_train)<span class="op">;</span></span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(knn.score(X_train_scaled, y_train), <span class="dv">3</span>))</span>
@@ -557,7 +557,7 @@ Test score:  0.89</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="2de31dee" class="cell" data-execution_count="7">
+<div id="d9c4cb5d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
@@ -677,7 +677,7 @@ Test score:  0.89</code></pre>
 <section class="slide level2">
 
 <p><strong>Unscaled data</strong></p>
-<div id="7fd06e7a" class="cell" data-execution_count="8">
+<div id="9299c3cd" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_imp, y_train)<span class="op">;</span></span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(knn.score(X_train_imp, y_train), <span class="dv">3</span>))</span>
@@ -687,7 +687,7 @@ Test score:  0.89</code></pre>
 0.32</code></pre>
 <p><br></p>
 <p><strong>Scaled data</strong></p>
-<div id="24c42a05" class="cell" data-execution_count="9">
+<div id="f49f260b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_scaled, y_train)<span class="op">;</span></span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(knn.score(X_train_scaled, y_train), <span class="dv">3</span>))</span>
