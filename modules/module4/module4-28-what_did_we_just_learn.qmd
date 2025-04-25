@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/4q6DXyo-V6Q?start=572&end=607&rel=0" 
+    src="https://www.youtube.com/embed/4q6DXyo-V6Q?start=573&end=607&rel=0" 
     title="Module 4 Video - What Did We Just Learn?"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

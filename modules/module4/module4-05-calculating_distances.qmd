@@ -1,5 +1,5 @@
 ---
-format: html
+format: live-html
 ---
 
 <script src='../../src/quiz.js'></script>
@@ -18,23 +18,32 @@ v = np.array([-1, 0, 19, -9])
     generateQuiz(
         'mcq1',
         'Question 1',
-        'Given the above 2 feature vectors, what is the Euclidean distance between the following two feature vectors?',
+        'Given the above 2 feature vectors, what is the Euclidean distance between the above two feature vectors?',
         {
         '49': 'You forgot to square root!',
         '7': '',
         '6': 'Not quite there.',
-        '36': 'Close but you have the target value in the feature vector.',
+        '36': 'Check your calculation.',
         },
         '7',
     );
 </script>
+
+
+We have collected a third vector `w`. 
+
+```
+u = np.array([5, 0, 22, -11])
+v = np.array([-1, 0, 19, -9])
+w = np.array([0, 1, 17, -4])
+```
 
 <div id='mcq2'></div>
 <script>
     generateQuiz(
         'mcq2',
         'Question 2',
-        'We have collected a third vector <code>w</code>.',
+        'Which two vectors are most similar among <code>u</code>, <code>v</code>, and <code>w</code>?',
         {
         'u and w': 'The distance between <code>u</code> and <code>w</code> is 10. Have you checked the other yet?',
         'u and v': 'The distance between <code>u</code> and <code>v</code> is 7. Have you checked the other yet?',
@@ -100,6 +109,7 @@ from math import sqrt
 from src.utils import print_correct_msg
 
 pokemon_df = pd.read_csv('data/pokemon.csv')
+pokemon_df
 ```
 
 
@@ -138,7 +148,7 @@ y = pokemon_df['legendary']
 
 solution = sqrt(((X.iloc[1] - X.iloc[0]) ** 2).sum())
 
-assert round(result, 2) == round(solution, 2)
+assert round(result, 2) == round(solution, 2), "Check your calculation again."
 print_correct_msg()
 ```
 
@@ -147,7 +157,6 @@ print_correct_msg()
 
 ## Hint 1
 
-- Are you importing `sqrt` from the `math` library?
 - Are you using `X.iloc[1] - X.iloc[0]` to subtract the first 2 Pokémon feature vectors?
 - Are you using `**2` to square the difference??
 - Are you using `.sum()` to sum the differences?
@@ -189,6 +198,7 @@ pk_distance
 :::
 ::::
 
+<br>
 
 ## Calculating Euclidean Distance with Scikit-learn
 
@@ -203,9 +213,8 @@ pokemon_df = pd.read_csv('data/pokemon.csv')
 pokemon_df
 ```
 
-**Tasks:**
+**Task:**
 
-- Import the necessary library.
 - Calculate the Euclidean distance of the first 2 Pokémon and save it in an object named pk_distance.
 
 ```{pyodide}
@@ -240,7 +249,7 @@ X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'
 y = pokemon_df['legendary']
 
 solution = euclidean_distances(X.iloc[:2])[0,1]
-assert round(result, 2) == round(solution, 2)
+assert round(result, 2) == round(solution, 2), "Are you calculating the euclidean distance between the first 2 pokemon?"
 print_correct_msg()
 ```
 
@@ -249,7 +258,6 @@ print_correct_msg()
 
 ## Hint 1
 
-- Are you importing `euclidean_distances` from `sklearn.metrics.pairwise` 
 - Are you making sure to use `euclidean_distances(X.iloc[:2])`
 - Are you selecting the right value from the array using `[0,1]`
 

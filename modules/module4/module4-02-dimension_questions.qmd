@@ -30,7 +30,7 @@ Use the following dataframe named `garden` to answer the next two questions.
     generateQuiz(
         'mcq1',
         'Question 1',
-        'We are trying to predict if each example is either a fruit or a vegetable.',
+        'We are trying to predict if each example is either a fruit or a vegetable. What would be the dimension of feature vectors in this problem?',
         {
         '1': 'Have you tried counting the columns in <code>garden</code> that are not the <code>target</code>?',
         '5': 'Fantastic!',
@@ -66,7 +66,7 @@ Use the following dataframe named `garden` to answer the next two questions.
         'Question 1',
         'Analogy-based models find examples from the test set that are most similar to the test example we are predicting.',
         {
-        'True': 'These types of models find examples that are most similar to the text example in the *training* set.',
+        'True': 'These types of models find examples that are most similar to the text example in the training set.',
         'False': 'Great! They are finding examples in the training set, most similar to the test example.',
         },
         'False',

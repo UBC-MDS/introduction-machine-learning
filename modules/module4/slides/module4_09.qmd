@@ -20,14 +20,17 @@ train_df.head(3)
 <br>
 
 ```{python}
+# | include: false
+import numpy as np
+np.set_printoptions(edgeitems=2)
+```
+```{python}
 from sklearn.metrics.pairwise import euclidean_distances
-
 dists = euclidean_distances(train_df[["latitude", "longitude"]])
 dists
 ```
 
 <br>
-
 ```{python}
 dists.shape
 ```
@@ -70,6 +73,8 @@ Feature vector for city 0:
 ```{python}
 train_df.iloc[0]
 ```
+
+<br>
 
 Distances from city 0 to 5 other cities:
 
@@ -133,20 +138,20 @@ So, in this case, the closest city to city 0 is city 157 and the Euclidean dista
 
 ```{python}
 query_point = [[-80, 25]]
-```
 
-<br>
-
-```{python}
 dists = euclidean_distances(train_df[["longitude", "latitude"]], query_point)
 dists[0:5]
 ```
+
+<br>
 
 We can find the city closest to the query point (-80, 25) using:
 
 ```{python}
 np.argmin(dists)
 ```
+
+<br>
 
 The distance between the query point and closest city is:
 
@@ -262,12 +267,11 @@ ValueError: Expected 2D array, got 1D array instead:
 array=[605  55  55  85  55  30 255 335   5].
 Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
 ```
+<br>
 
 ```{python}
 X_test.iloc[1].shape
 ```
-
-<br>
 
 ```{python}
 X_test.iloc[[1]].shape

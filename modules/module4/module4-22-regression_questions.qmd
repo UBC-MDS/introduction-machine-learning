@@ -1,0 +1,178 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 6.1. Exercises
+
+## Regression Questions
+
+Consider this toy dataset:
+
+![](../../static/module4/Q14.png){fig-align="center" width="40%" fig-alt="404 image"}
+
+
+**Question 1**
+
+![](../../static/module4/ans14.png){width="8%" fig-alt="404 image"}
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        '',
+        'If  𝑘=3 , what would you predict for the above point if we were doing regression rather than classification?',
+        {
+        '0': 'The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0) and so we must take the average of all the values.',
+        '1': 'The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0) and so we must take the average of all the values.',
+        '1/3': 'You got it!',
+        '3': 'We must take the average of the 3 nearest examples.',
+        },
+        '1/3',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'True or False',
+        '𝑘-NN Regression can only be done in a 1-dimensional space.',
+        {
+        'True': '𝑘-NN can be done with just as many dimensions as classification',
+        'False': 'Nice work.',
+        },
+        'False',
+    );
+</script>
+
+
+## Building a 𝑘-NN-Regressor
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's bring in this Pokémon dataset again, but this time we are not going to be predicting a Pokémon’s capture rate (`capture_rt`) instead of its `legendary` classification.
+
+We did the same process of cross validation and scoring as we did before but we obtain this plot: 
+
+![](../../static/module4/Q23.png){fig-align="center" width="70%" fig-alt="404 image"}
+
+This model didn't end up having a clear best score when we hyperparameter tuned but in the end, we decided to use `n_neighbors=12`.
+
+Let's build a `KNeighborsRegressor` with this hyperparameter value and see how well your model does on the test data.
+
+```{pyodide}
+import pandas as pd
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import train_test_split
+
+# Loading in the data
+pokemon_df = pd.read_csv('data/pokemon.csv')
+pokemon_df
+```
+
+**Tasks:**  
+
+- Build a model using `KNeighborsRegressor()` using the optimal `n_neighbors`. 
+- Save this in an object named `model`. 
+- Fit your model on the objects `X_train` and `y_train`.
+- Evaluate the test score of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_score` rounded to 4 decimal places.
+
+```{pyodide}
+#| setup: true
+#| exercise: building_a_knn_regressor
+import pandas as pd
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import train_test_split
+from src.utils import assert_accuracy_almost
+
+pokemon_df = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: building_a_knn_regressor
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary', 'capture_rt'])
+y = pokemon_df['capture_rt']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+____ = ____
+
+# Fit your data 
+____
+
+# Score the model on the test set 
+____ = ____
+
+____
+```
+
+```{pyodide}
+#| exercise: building_a_knn_regressor
+#| check: true
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary', 'capture_rt'])
+y = pokemon_df['capture_rt']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+model = KNeighborsRegressor(n_neighbors=12)
+model.fit(X_train,y_train)
+assert_accuracy_almost(round(model.score(X_test, y_test), 4), result, tolerance=0.001)
+```
+
+:::: { .hint exercise="building_a_knn_regressor"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `KNeighborsRegressor(n_neighbors=12)`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X_train, y_train)` on your model?
+- Are you scoring your model using `model.score(X_test, y_test)`?
+- Are you rounding to 4 decimal places?
+- Are you calculating `test_score` as  `round(model.score(X_test, y_test), 4)`
+
+:::
+::::
+
+:::: { .solution exercise="building_a_knn_regressor" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary', 'capture_rt'])
+y = pokemon_df['capture_rt']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+model = KNeighborsRegressor(n_neighbors=12)
+
+# Fit your data 
+model.fit(X_train,y_train)
+
+# Score the model on the test set 
+test_score = round(model.score(X_test, y_test), 4)
+
+test_score
+```
+
+:::
+::::

@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/4q6DXyo-V6Q?start=534&end=572&rel=0" 
+    src="https://www.youtube.com/embed/4q6DXyo-V6Q?start=535&end=572&rel=0" 
     title="Module 4 Video - Module Learning Outcomes"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

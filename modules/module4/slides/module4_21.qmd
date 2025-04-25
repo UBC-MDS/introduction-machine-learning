@@ -48,6 +48,7 @@ Right now, do not worry about the code and only focus on data and our model.
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
 ```
 
+<br>
 ```{python}
 # | output: false
 import altair as alt
@@ -60,15 +61,11 @@ scatter = alt.Chart(source, width=500, height=300).mark_point(filled=True, color
 scatter
 ```
 
-<br>
-
 ```{python}
 # | include: false
 scatter.save('static/module4/snakes2.png')
 ```
-
-<br>
-![](../../../static/module4/snakes2.png){fig-alt="404 image" width="50%" fig-align="center"}
+![](../../../static/module4/snakes2.png){fig-alt="404 image" width="65%" fig-align="center"}
 
 
 :::{.notes}
@@ -139,7 +136,7 @@ knn.fit(X, y)
 # | echo: false
 # | fig-align: center
 import matplotlib.pyplot as plt
-
+plt.figure(figsize=(8,4))
 grid = np.linspace(np.min(X), np.max(X), 1000)[:, None]
 plt.plot(grid, knn.predict(grid), color='orange', linewidth=1)
 plt.plot(X, y, ".r", markersize=10, color='green')
@@ -174,8 +171,10 @@ knnr.score(X_train, y_train)
 
 ```{python}
 # | echo: false
+# | fig-align: center
 knn = KNeighborsRegressor(n_neighbors=10, weights="uniform")
 knn.fit(X, y);
+plt.figure(figsize=(8,4))
 plt.plot(grid, knn.predict(grid), color='orange', linewidth=1)
 plt.plot(X, y, ".r", markersize=10, color='green')
 plt.xticks(fontsize= 16);
@@ -211,6 +210,8 @@ knnr.score(X_train, y_train)
 
 ```{python}
 # | echo: false
+# | fig-align: center
+plt.figure(figsize=(8,4))
 knn = KNeighborsRegressor(n_neighbors=10, weights="distance").fit(X, y);
 plt.plot(grid, knn.predict(grid), color='orange', linewidth=1)
 plt.plot(X, y, ".r", markersize=10, color='green')

@@ -19,21 +19,22 @@ title-slide-attributes:
 ## Distance between vectors
 
 
-**Euclidean distance**: Euclidean distance is a measure of the true straight line distance between two points in Euclidean space.(<a href="https://hlab.stanford.edu/brian/euclidean_distance_in.html" target="_blank">source </a>)
+**Euclidean distance**: Euclidean distance is a measure of the true straight line distance between two points in Euclidean space. (<a href="https://hlab.stanford.edu/brian/euclidean_distance_in.html" target="_blank">source </a>)
 
+<br>
 The Euclidean distance between vectors     
      
-![](../../../static/module4/u.png){fig-alt="404 image" width="18%"}          
+![](../../../static/module4/u.png){fig-alt="404 image" width="22%"}          
 
 and       
     
-![](../../../static/module4/v.png){fig-alt="404 image" width="18%"}     
+![](../../../static/module4/v.png){fig-alt="404 image" width="22%"}     
          
 is defined as:
 
 <br>
 
-![](../../../static/module4/eq_euc.png){fig-align="center" fig-alt="404 image" width="45%"}
+![](../../../static/module4/eq_euc.png){fig-align="center" fig-alt="404 image" width="60%"}
 
 :::{.notes}
 A common way to calculate the distance between two points in high dimensional space is by using Euclidean distance. 
@@ -92,6 +93,8 @@ two_cities = cities_df.sample(2, random_state=42).drop(columns=["country"])
 two_cities
 ```
 
+<br>
+
 ![](../../../static/module4/cities_distance.png){fig-alt="404 image" width="70%"}
 
 
@@ -111,13 +114,14 @@ Our goal is to find how similar these two points are.
 two_cities
 ```
 
-
+<br>
 Subtract the two cities:
 
 ```{python}
 two_cities.iloc[1] - two_cities.iloc[0]
 ```
 
+<br>
 Square the differences:
 
 ```{python}
@@ -144,6 +148,7 @@ Sum them up:
 ((two_cities.iloc[1] - two_cities.iloc[0])**2).sum()
 ```
 
+<br>
 And then take the square root:
 
 ```{python}

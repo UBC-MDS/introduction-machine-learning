@@ -12,9 +12,10 @@ title-slide-attributes:
 ```
 
 <br>
-<br>
-![](../../../static/module4/scatter.png){fig-align="center" width="50%" fig-alt="404 image"}
 
+:::{.r-stack}
+![](../../../static/module4/scatter.png){fig-align="center" width="100%" fig-alt="404 image"}
+:::
 
 :::{.notes} 
 Let's demonstrate this using some toy data for binary classification. 
@@ -31,9 +32,10 @@ Based on what we have been doing so far, we can find the closest example to this
 ---
 
 <br>
-<br>
-![](../../../static/module4/scatter_k1.png){fig-align="center" width="50%" fig-alt="404 image"}
 
+:::{.r-stack}
+![](../../../static/module4/scatter_k1.png){fig-align="center" width="100%" fig-alt="404 image"}
+:::
 
 :::{.notes} 
 In this particular case, we will predict orange as the class for our query point.
@@ -42,8 +44,10 @@ In this particular case, we will predict orange as the class for our query point
 ---
 
 <br>
-<br>
-![](../../../static/module4/scatter_k3.png){fig-align="center" width="50%" fig-alt="404 image"}
+
+:::{.r-stack}
+![](../../../static/module4/scatter_k3.png){fig-align="center" width="100%" fig-alt="404 image"}
+:::
 
 :::{.notes} 
 Now you might be thinking that it may not be a great idea to make this decision based only on one nearest example. 
@@ -74,6 +78,8 @@ one_city = small_train_df.sample(1, random_state=44)
 one_city
 ```
 
+<br>
+
 ![](../../../static/module4/point.png){fig-align="center" width="63%" fig-alt="404 image"}
 
 :::{.notes} 
@@ -87,6 +93,8 @@ We are sampling 1 point from our data and that is the point represented with the
 ----
 
 ![](../../../static/module4/point.png){fig-align="center" width="60%" fig-alt="404 image"}
+
+<br>
 
 ```{python}
 from sklearn.neighbors import KNeighborsClassifier
@@ -114,6 +122,7 @@ Our prediction here is Canada since the closest point to the green triangle is a
 
 ![](../../../static/module4/point.png){fig-align="center" width="60%" fig-alt="404 image"}
 
+<br>
 
 ```{python}
 neigh = KNeighborsClassifier(n_neighbors=3)
@@ -136,6 +145,7 @@ Using `predict` on our new model still gives us a classification of “Canada”
 
 ![](../../../static/module4/point.png){fig-align="center" width="60%" fig-alt="404 image"}
 
+<br>
 
 ```{python}
 neigh = KNeighborsClassifier(n_neighbors=9)

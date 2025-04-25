@@ -1,0 +1,209 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 3.1. Exercises
+
+## Finding Neighbours Questions
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'In the slides we calculated distances between all points in the training data using <code>sklearn</code>’s <code>euclidean_distances</code> function. What would happen if we didn’t use <code>fill_diagonal()</code>?',
+        {
+        'We would get the farthest example from the one we are trying to find instead of the closest.': 'Not quite.',
+        'We would get itself as the closest example.': 'Right, there is 0 distance from a point to itself.',
+        'We would obtain the mean distance from all points to the current one.': 'Unfortunately, the mean has nothing to do with why we fill the diagonals in.',
+        'We would get 0 examples.': 'We would get an example but it would be the wrong one.',
+        },
+        'We would get itself as the closest example.',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'How many dimension does the input vector for <code>kneighbors()</code> need to be?',
+        {
+        '1': '1d vectors will result in an error.',
+        '2': '',
+        '3': 'This will throw an error.',
+        'It must be a pandas dataframe': 'Not quite.',
+        },
+        '2',
+    );
+</script>
+
+## Nearest Neighbours True or False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'When finding the nearest neighbour in a dataset using <code>kneighbors()</code> from the <code>sklearn</code> library, we must <code>fit</code>  the data first.',
+        {
+        'True': 'Great work!',
+        'False': 'Take a look at the code in the lecture slides to refresh!',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'Calculating the distances between an example and a query point takes twice as long as calculating the distances between two examples.',
+        {
+        'True': 'This is completely made up!',
+        'False': 'Great work!',
+        },
+        'False',
+    );
+</script>
+
+## Calculating the Distance to a Query Point
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's calculate the closet Pokémon in the training set to a Snoodle (our made-up Pokémon)!
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import NearestNeighbors
+
+# Loading in the data
+pokemon_df = pd.read_csv('data/pokemon.csv')
+pokemon_df
+```
+
+Snoodle	has the following feature vector. 
+
+```out
+[[53,  77,  43,  69,  80,  57,  5]]
+```
+Which Pokémon in the training set, most resembles a Snoodle?
+
+**Tasks:**
+
+- Create a model and name it `nn` (make sure you are finding the single closest Pokémon).
+- Train your model on `X_train`.
+- Predict your Pokémon using `kneighbors` and save it in an object named `snoodles_neighbour`.
+- Which Pokémon (the name) is Snoodle most similar to? Save it in an object named `snoodle_name`.
+
+```{pyodide}
+#| setup: true
+#| exercise: calculating_the_distance_to_a_query_point
+import warnings
+warnings.filterwarnings("ignore")
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import NearestNeighbors
+from src.utils import print_correct_msg
+
+pokemon_df = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: calculating_the_distance_to_a_query_point
+# Split the data
+train_df, test_df = train_test_split(pokemon_df, test_size=0.2, random_state=123)
+
+# Define X and y for the training
+X_train = train_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+
+# The Snoodles query point
+query_point = [[53, 77, 43, 69, 80, 57, 5]]
+
+# Create a model and name it nn (make sure you are finding the single closest pokemon)
+____ = ____
+
+# Train your model
+____
+
+# Predict your pokemon using kneighbors and save it in an object named snoodles_neighbour
+____ = ____
+#print(snoodles_neighbour)
+
+# Which pokemon (the name) is Snoodle most similar to? Save it in an object named snoodle_name
+____
+____
+```
+
+```{pyodide}
+#| exercise: calculating_the_distance_to_a_query_point
+#| check: true
+assert isinstance(result, str), "Have you found the name of the Pokémon?"
+
+train_df, test_df = train_test_split(pokemon_df, test_size=0.2, random_state=123)
+X_train = train_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+query_point = [[53, 77, 43, 69, 80, 57, 5]]
+nn = NearestNeighbors(n_neighbors=1)
+nn.fit(X_train)
+solution = train_df.iloc[nn.kneighbors(query_point)[1].item()]['name']
+
+assert result == solution, "Check your kneighbors prediction again."
+print_correct_msg()
+```
+
+:::: { .hint exercise="calculating_the_distance_to_a_query_point"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using ` NearestNeighbors(n_neighbors=1)`?
+- Are you using `nn.fit(X_train)`?
+- Are you using `nn.kneighbors(query_point)` ?
+- Are you using `train_df.iloc[snoodles_neighbour[1].item()]['name']` to get the name of the closest Pokémon?
+
+:::
+::::
+
+:::: { .solution exercise="calculating_the_distance_to_a_query_point" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Split the data
+train_df, test_df = train_test_split(pokemon_df, test_size=0.2, random_state=123)
+
+# Define X and y for the training
+X_train = train_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+
+# The Snoodles query point
+query_point = [[53, 77, 43, 69, 80, 57, 5]]
+
+# Create a model and name it nn (make sure you are finding the single closest pokemon)
+nn = NearestNeighbors(n_neighbors=1)
+
+# Train your model
+nn.fit(X_train)
+
+# Predict your pokemon using kneighbors and save it in an object named snoodles_neighbour
+snoodles_neighbour = nn.kneighbors(query_point)
+print(snoodles_neighbour)
+
+# Which pokemon (the name) is Snoodle most similar to? 
+snoodle_name = train_df.iloc[snoodles_neighbour[1].item()]['name']
+snoodle_name
+```
+
+:::
+::::

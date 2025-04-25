@@ -15,12 +15,14 @@ title-slide-attributes:
 cities_df = pd.read_csv("data/canada_usa_cities.csv")
 train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
 train_df.head()
-X_train, y_train = train_df.drop(columns=['country']), train_df['country']
-X_test, y_test = test_df.drop(columns=['country']), test_df['country']
 ```
 
+<br>
+
 ```{python}
-train_df.head()
+X_train, y_train = train_df.drop(columns=['country']), train_df['country']
+X_test, y_test = test_df.drop(columns=['country']), test_df['country']
+X_train.head()
 ```
 
 :::{.notes} 
@@ -46,7 +48,8 @@ cities_plot = alt.Chart(train_df).mark_circle(size=20, opacity=0.6).encode(
 cities_plot
 ```
 
-```{python include =FALSE}
+```{python}
+# | include: false
 cities_plot.save('static/module4/cities_plot.png')
 ```
 

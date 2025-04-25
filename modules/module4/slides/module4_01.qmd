@@ -207,13 +207,14 @@ We can imagine that the number of features would definitely be around one hundre
 train_df.head()
 ```
 
-
+<br>
 An example feature vector from the cities dataset:
 
 ```{python}
 train_df.drop(columns=["country"]).iloc[0].round(2).to_numpy()
 ```
 
+<br>
 An example feature vector from the grading dataset:
 
 ```{python}

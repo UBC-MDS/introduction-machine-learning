@@ -27,12 +27,16 @@ y = cities_df["country"]
 X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.1, random_state=123)
 ```
 
+<br>
+
 ```{python}
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier(n_neighbors=1)
 model.fit(X_train, y_train.to_numpy());
 ```
+
+<br>
 
 ```{python}
 model.score(X_train,y_train)
@@ -258,7 +262,7 @@ With enough irrelevant features, the accidental similarity between features wipe
 ## Other useful arguments of `KNeighborsClassifier`
 
 
-![](../../../static/module4/knn.png){fig-align="center" fig-alt="404 image" width="80%"}
+![](../../../static/module4/knn.png){fig-align="center" fig-alt="404 image" width="90%"}
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html" target="_blank">**Attribution** </a>  
 

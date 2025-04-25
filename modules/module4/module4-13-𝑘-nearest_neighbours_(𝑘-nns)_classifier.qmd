@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=1030&end=1286&rel=0" 
+    src="https://www.youtube.com/embed/aBpgJh0ikoA?start=1031&end=1286&rel=0" 
     title="Module 4 Video - 𝑘-Nearest Neighbours (𝑘-NNs) Classifier"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -1,0 +1,377 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 5.1. Exercises
+
+## Choosing 𝑘 for Your Model
+
+Consider this graph:
+
+![](../../static/module4/Q18a.png){fig-align="center" width="70%" fig-alt="404 image"}
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'What value of <code>n_neighbors</code> would you choose to train your model on?',
+        {
+        '0': 'This is not a valid value for <code>n_neighbors</code>.',
+        '2': 'Although this may have the highest training score, this does not have the highest cross-validation score.',
+        '12': 'Nice work.',
+        '16': 'Almost. There is a value with a higher score',
+        '29': 'You shouldn’t pick the highest <code>n_neighbors</code> without the cv-score being the highest.',
+        },
+        '12',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'At what value of  𝑘 is the largest gap between the train and validation score?',
+        {
+        '1': 'Training score is much higher than the validation score here!',
+        '4': 'Are there values where the validation score is lower?',
+        '17': 'Are there values where the validation score is lower and the training score is higher?',
+        '29': 'The gap between validation score and training score is actually quite small here!',
+        },
+        '1',
+    );
+</script>
+
+## Curse of Dimensionality and Choosing 𝑘 True or False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'With  𝑘 -NN, setting the hyperparameter  𝑘  to larger values typically increase training score.',
+        {
+        'True': 'Have you tried it out? It could be a good idea to see this in action!',
+        'False': 'Great work!',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        '𝑘 -NN may perform poorly in high-dimensional space (say, d > 100).',
+        {
+        'True': 'Nice work.',
+        'False': 'Having more features in some cases is less helpful to the model.',
+        },
+        'True',
+    );
+</script>
+
+## Hyperparameter Tuning
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+In the last exercise, we classified some Pokémon from the Pokémon dataset but we were not using the model that could have been the best! Let's try hyperparameter tuning.
+
+```{pyodide}
+import pandas as pd
+import altair as alt
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split, cross_validate
+
+# Loading in the data
+pokemon_df = pd.read_csv('data/pokemon.csv')
+pokemon_df
+```
+
+First, let's see which hyperparameter is the most optimal. 
+
+**Tasks:** 
+
+Fill in the code for  a `for` loop that does the following:
+- iterates over the values 1-50 in increments of 5.
+- Builds a  `KNeighborsClassifier` model with `n_neighbors` equal to each iteration.
+- Uses `cross_validate` on the model with a `cv=10` and `return_train_score=True`.
+- Appends the 𝑘 value to the `n_neighbors` list in the dictionary `results_dict`.
+- Appends the `test_score` to the `mean_cv_score` list in the dictionary. 
+- Appends the `train_score` to the `mean_train_score` list in the dictionary. 
+
+We have given you code that wrangles this dictionary and transforms it into a state ready for plotting.
+
+Finish off by filling in the blank to create a line graph that plots the train and validation scores for each value of k.      
+(Note: we have edited the limits of the y-axis so it's easier to read)
+
+
+```{pyodide}
+#| setup: true
+#| exercise: hyperparameter_tuning_1
+import pandas as pd
+import altair as alt
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split, cross_validate
+from src.utils import assert_chart_equal
+
+pokemon_df = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: hyperparameter_tuning_1
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name', 'total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+results_dict = {"n_neighbors": [], "mean_train_score": [], "mean_cv_score": []}
+
+# Create a for loop and fill in the blanks
+for k in range(1,50,5):
+    model = ____(____=k)
+    scores = cross_validate(____, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["____"].append(k)
+    results_dict["mean_cv_score"].append(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
+
+# Wrangles the data into a form suitable for plotting 
+results_df = pd.DataFrame(results_dict).melt(id_vars=['n_neighbors'],
+                                             value_vars=['mean_train_score',
+                                                         'mean_cv_score'], 
+                                             var_name='split',
+                                             value_name='score')
+
+# Create a chart that plots depth vs score
+chart1 = alt.Chart(____).____().encode(
+         alt.X('____:Q', axis=alt.Axis(title="Number of Neighbours")),
+         ____.____('score:Q', scale=alt.Scale(domain=[.95, 1.00])), 
+         alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
+                                                     'mean_cv_score'],
+                                             range=['teal', 'gold'])))
+chart1
+```
+
+```{pyodide}
+#| exercise: hyperparameter_tuning_1
+#| check: true
+X = pokemon_df.drop(columns = ['deck_no', 'name', 'total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+results_dict = {"n_neighbors": [], "mean_train_score": [], "mean_cv_score": []}
+
+for k in range(1,50,5):
+    model = KNeighborsClassifier(n_neighbors=k)
+    scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["n_neighbors"].append(k)
+    results_dict["mean_cv_score"].append(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
+
+results_df = pd.DataFrame(results_dict).melt(id_vars=['n_neighbors'],
+                                             value_vars=['mean_train_score',
+                                                         'mean_cv_score'], 
+                                             var_name='split',
+                                             value_name='score')
+
+solution = alt.Chart(results_df).mark_line().encode(
+         alt.X('n_neighbors:Q', axis=alt.Axis(title="Number of Neighbours")),
+         alt.Y('score:Q', scale=alt.Scale(domain=[.95, 1.00])), 
+         alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
+                                                     'mean_cv_score'],
+                                             range=['teal', 'gold'])))
+
+assert_chart_equal(solution, result)
+```
+
+:::: { .hint exercise="hyperparameter_tuning_1"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using ` KNeighborsClassifier(n_neighbors=k)`?
+- Are you using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)`?
+- Are you using `results_dict["n_neighbors"].append(k)`
+- Are you using `alt.Chart(results_df).mark_line()` to create your plot?
+
+:::
+::::
+
+:::: { .solution exercise="hyperparameter_tuning_1" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name', 'total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+results_dict = {"n_neighbors": [], "mean_train_score": [], "mean_cv_score": []}
+
+# Create a for loop and fill in the blanks
+for k in range(1,50,5):
+    model = KNeighborsClassifier(n_neighbors=k)
+    scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["n_neighbors"].append(k)
+    results_dict["mean_cv_score"].append(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
+
+# Wrangles the data into a form suitable for plotting 
+results_df = pd.DataFrame(results_dict).melt(id_vars=['n_neighbors'],
+                                             value_vars=['mean_train_score',
+                                                         'mean_cv_score'], 
+                                             var_name='split',
+                                             value_name='score')
+
+# Create a chart that plots depth vs score
+chart1 = alt.Chart(results_df).mark_line().encode(
+         alt.X('n_neighbors:Q', axis=alt.Axis(title="Number of Neighbours")),
+         alt.Y('score:Q', scale=alt.Scale(domain=[.95, 1.00])), 
+         alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
+                                                     'mean_cv_score'],
+                                             range=['teal', 'gold'])))
+chart1
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'What value would you pick for the hyperparameter <code>n_neighbors</code>?',
+        {
+        '1': 'There are other <code>n_neighbors</code> values that have a higher cross-validation score than at this value.',
+        '11': 'Great! The CV score is highest at this value.',
+        '24': 'Are you sure this is the n_neighbors with the highest cross-validation score possible?',
+        '31': 'Are you sure this is the n_neighbors with the highest cross-validation score possible?',
+        },
+        '11',
+    );
+</script>
+
+<br>
+
+Now that we have found a suitable value for `n_neighbors`, let’s build a new model with this hyperparameter value. How well does your model do on the test data?
+
+**Tasks:**     
+
+- Build a model using `KNeighborsClassifier()` using the optimal `n_neighbors`. 
+- Save this in an object named `model`. 
+- Fit your model on the objects `X_train` and `y_train`.
+- Evaluate the test score of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_score` rounded to 4 decimal places.
+
+```{pyodide}
+#| setup: true
+#| exercise: hyperparameter_tuning_2
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from src.utils import assert_accuracy_almost
+
+pokemon_df = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: hyperparameter_tuning_2
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name', 'total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+____ = ____
+
+# Fit your data 
+____
+
+# Score the model on the test set 
+____ = ____
+
+____
+```
+
+```{pyodide}
+#| exercise: hyperparameter_tuning_2
+#| check: true
+X = pokemon_df.drop(columns = ['deck_no', 'name', 'total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+model = KNeighborsClassifier(n_neighbors=11)
+model.fit(X_train,y_train)
+solution = round(model.score(X_test, y_test), 4)
+assert_accuracy_almost(solution, result, tolerance=0.001)
+```
+
+:::: { .hint exercise="hyperparameter_tuning_2"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `KNeighborsClassifier(n_neighbors=11)`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X_train, y_train)` on your model?
+- Are you scoring your model using `model.score(X_test, y_test)`?
+- Are you rounding to 4 decimal places?
+- Are you calculating `test_score` as  `round(model.score(X_test, y_test), 4)`
+
+:::
+::::
+
+:::: { .solution exercise="hyperparameter_tuning_2" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name', 'total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+model = KNeighborsClassifier(n_neighbors=11)
+
+# Fit your data 
+model.fit(X_train,y_train)
+
+# Score the model on the test set 
+test_score = round(model.score(X_test, y_test), 4)
+
+test_score
+```
+
+:::
+::::
