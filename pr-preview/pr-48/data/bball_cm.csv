@@ -1,0 +1,258 @@
+full_name,rating,jersey,team,position,b_day,height,weight,salary,country,draft_year,draft_round,draft_peak,college
+LeBron James,97,#23,Los Angeles Lakers,F,12/30/84,2.06,113.4,37436858.0,USA,2003,1,1,
+Kawhi Leonard,97,#2,Los Angeles Clippers,F,06/29/91,2.01,102.1,32742000.0,USA,2011,1,15,San Diego State
+Kevin Durant,96,#7,Brooklyn Nets,F,09/29/88,2.08,104.3,37199000.0,USA,2007,1,2,Texas
+James Harden,96,#13,Houston Rockets,G,08/26/89,1.96,99.8,38199000.0,USA,2009,1,3,Arizona State
+Stephen Curry,95,#30,Golden State Warriors,G,03/14/88,1.91,83.9,40231758.0,USA,2009,1,7,Davidson
+Paul George,93,#13,Los Angeles Clippers,F,05/02/90,2.03,95.3,33005556.0,USA,2010,1,10,Fresno State
+Damian Lillard,92,#0,Portland Trail Blazers,G,07/15/90,1.88,88.5,29802321.0,USA,2012,1,6,Weber State
+Kyrie Irving,91,#11,Brooklyn Nets,G,03/23/92,1.88,81.6,31742000.0,Australia,2011,1,1,Duke
+Russell Westbrook,90,#0,Houston Rockets,G,11/12/88,1.91,86.2,38506482.0,USA,2008,1,4,UCLA
+Klay Thompson,89,#11,Golden State Warriors,G,02/08/90,1.98,93.0,32742000.0,USA,2011,1,11,Washington State
+Jimmy Butler,88,#22,Miami Heat,G,09/14/89,2.01,99.8,32742000.0,USA,2011,1,30,Marquette
+Blake Griffin,88,#23,Detroit Pistons,F,03/16/89,2.06,114.3,34449964.0,USA,2009,1,1,Oklahoma
+Donovan Mitchell,88,#45,Utah Jazz,G,09/07/96,1.85,95.7,3635760.0,USA,2017,1,13,Louisville
+Kemba Walker,88,#8,Boston Celtics,G,05/08/90,1.83,78.0,32742000.0,USA,2011,1,9,UConn
+Bradley Beal,87,#3,Washington Wizards,G,06/28/93,1.91,93.9,27093018.0,USA,2012,1,3,Florida
+Mike Conley,87,#10,Utah Jazz,G,10/11/87,1.85,83.9,32511623.0,USA,2007,1,4,Ohio State
+CJ McCollum,87,#3,Portland Trail Blazers,G,09/19/91,1.91,89.4,27556959.0,USA,2013,1,10,Lehigh
+Victor Oladipo,87,#4,Indiana Pacers,G,05/04/92,1.93,96.6,21000000.0,USA,2013,1,2,Indiana
+D'Angelo Russell,87,#0,Minnesota Timberwolves,G,02/23/96,1.93,87.5,27285000.0,USA,2015,1,2,Ohio State
+Pascal Siakam,87,#43,Toronto Raptors,F,04/02/94,2.06,103.0,2351838.0,Cameroon,2016,1,27,New Mexico State
+Ben Simmons,87,#25,Philadelphia 76ers,F,07/20/96,2.08,108.9,8113929.0,Australia,2016,1,1,LSU
+De'Aaron Fox,86,#5,Sacramento Kings,G,12/20/97,1.91,77.6,6392760.0,USA,2017,1,5,Kentucky
+Devin Booker,86,#1,Phoenix Suns,G,10/30/96,1.96,93.4,27285000.0,USA,2015,1,13,Kentucky
+Draymond Green,86,#23,Golden State Warriors,F,03/04/90,1.98,104.3,18539130.0,USA,2012,2,35,Michigan State
+Jrue Holiday,86,#11,New Orleans Pelicans,G,06/12/90,1.91,81.6,26131111.0,USA,2009,1,17,UCLA
+John Wall,86,#2,Washington Wizards,G,09/06/90,1.93,88.5,38199000.0,USA,2010,1,1,Kentucky
+Jayson Tatum,85,#0,Boston Celtics,F,03/03/98,2.03,92.5,7830000.0,USA,2017,1,3,Duke
+Trae Young,85,#11,Atlanta Hawks,G,09/19/98,1.85,81.6,6273000.0,USA,2018,1,5,Oklahoma
+Eric Bledsoe,85,#6,Milwaukee Bucks,G,12/09/89,1.85,88.5,15625000.0,USA,2010,1,18,Kentucky
+Tobias Harris,85,#12,Philadelphia 76ers,F,07/15/92,2.03,102.5,32742000.0,USA,2011,1,19,Tennessee
+Zach LaVine,85,#8,Chicago Bulls,G,03/10/95,1.98,82.1,19500000.0,USA,2014,1,13,UCLA
+Kyle Lowry,85,#7,Toronto Raptors,G,03/25/86,1.83,93.0,33296296.0,USA,2006,1,24,Villanova
+Khris Middleton,85,#22,Milwaukee Bucks,F,08/12/91,2.01,98.4,30603448.0,USA,2012,2,39,Texas A&M
+Chris Paul,85,#3,Oklahoma City Thunder,G,05/06/85,1.85,79.4,38506482.0,USA,2005,1,4,Wake Forest
+John Collins,84,#20,Atlanta Hawks,F,09/23/97,2.06,102.1,2686560.0,USA,2017,1,19,Wake Forest
+Buddy Hield,84,#24,Sacramento Kings,G,12/17/93,1.93,96.2,4861207.0,The Bahamas,2016,1,6,Oklahoma
+Kyle Kuzma,84,#0,Los Angeles Lakers,F,07/24/95,2.03,100.2,1974600.0,USA,2017,1,27,Utah
+Jamal Murray,84,#27,Denver Nuggets,G,02/23/97,1.93,91.2,4444746.0,Canada,2016,1,7,Kentucky
+Louis Williams,84,#23,Los Angeles Clippers,G,10/27/86,1.85,79.4,8000000.0,USA,2005,2,45,
+Marvin Bagley,83,#35,Sacramento Kings,F,03/14/99,2.11,106.6,8556120.0,USA,2018,1,2,Duke
+Malcolm Brogdon,83,#7,Indiana Pacers,G,12/11/92,1.96,101.2,20000000.0,USA,2016,2,36,Virginia
+Danilo Gallinari,83,#8,Oklahoma City Thunder,F,08/08/88,2.08,102.1,22615559.0,Italy,2008,1,6,
+Montrezl Harrell,83,#5,Los Angeles Clippers,F,01/26/94,2.01,114.8,6000000.0,USA,2015,2,32,Louisville
+Kevin Love,83,#0,Cleveland Cavaliers,F,09/07/88,2.03,117.9,28942830.0,USA,2008,1,5,UCLA
+Julius Randle,83,#30,New York Knicks,F,11/29/94,2.03,113.4,18000000.0,USA,2014,1,7,Kentucky
+Spencer Dinwiddie,82,#8,Brooklyn Nets,G,04/06/93,1.96,93.0,10605600.0,USA,2014,2,38,Colorado
+Marcus Smart,82,#36,Boston Celtics,G,03/06/94,1.91,103.0,12553571.0,USA,2014,1,6,Oklahoma State
+Serge Ibaka,81,#9,Toronto Raptors,F,09/18/89,2.13,108.9,23271604.0,Spain,2008,1,24,
+Zion Williamson,81,#1,New Orleans Pelicans,F,07/06/00,1.98,128.8,9757440.0,USA,2019,1,1,Duke
+Rudy Gay,81,#22,San Antonio Spurs,F,08/17/86,2.03,104.3,14500000.0,USA,2006,1,8,UConn
+Aaron Gordon,81,#0,Orlando Magic,F,09/16/95,2.03,99.8,19863636.0,USA,2014,1,4,Arizona
+Brandon Ingram,81,#14,New Orleans Pelicans,F,09/02/97,2.01,88.9,7265485.0,USA,2016,1,2,Duke
+Derrick Rose,80,#25,Detroit Pistons,G,10/04/88,1.88,86.2,7317074.0,USA,2008,1,1,Memphis
+Derrick Favors,80,#22,New Orleans Pelicans,F,07/15/91,2.06,111.6,17650000.0,USA,2010,1,3,Georgia Tech
+Gordon Hayward,80,#20,Boston Celtics,F,03/23/90,2.01,93.9,32700690.0,USA,2010,1,9,Butler
+Reggie Jackson,80,#0,Los Angeles Clippers,G,04/16/90,1.91,94.3,17799677.0,USA,2011,1,24,Boston College
+Otto Porter,80,#22,Chicago Bulls,F,06/03/93,2.03,89.8,27250576.0,USA,2013,1,2,Georgetown
+JJ Redick,80,#4,New Orleans Pelicans,G,06/24/84,1.91,86.2,13486300.0,USA,2006,1,11,Duke
+Josh Richardson,80,#0,Philadelphia 76ers,G,09/15/93,1.96,90.7,10116576.0,USA,2015,2,40,Tennessee
+TJ Warren,80,#1,Indiana Pacers,F,09/05/93,2.03,99.8,11060000.0,USA,2014,1,14,NC State
+Ja Morant,79,#12,Memphis Grizzlies,G,08/10/99,1.91,78.9,8730240.0,USA,2019,1,2,Murray State
+Lonzo Ball,79,#2,New Orleans Pelicans,G,10/27/97,1.98,86.2,8719320.0,USA,2017,1,2,UCLA
+Harrison Barnes,79,#40,Sacramento Kings,F,05/30/92,2.03,95.3,24147727.0,USA,2012,1,7,North Carolina
+Patrick Beverley,79,#21,Los Angeles Clippers,G,07/12/88,1.85,81.6,12345680.0,USA,2009,2,42,Arkansas
+Jaylen Brown,79,#7,Boston Celtics,F,10/24/96,1.98,101.2,6534829.0,USA,2016,1,3,California
+Goran Dragic,79,#7,Miami Heat,G,05/06/86,1.91,86.2,19217900.0,Slovenia,2008,2,45,
+Shai Gilgeous-Alexander,79,#2,Oklahoma City Thunder,G,07/12/98,1.96,81.6,3952920.0,Canada,2018,1,11,Kentucky
+Gary Harris,79,#14,Denver Nuggets,G,09/14/94,1.93,93.0,17839286.0,USA,2014,1,19,Michigan State
+Jeremy Lamb,79,#26,Indiana Pacers,G,05/30/92,1.96,81.6,10500000.0,USA,2012,1,12,UConn
+Terrence Ross,79,#8,Orlando Magic,G,02/05/91,1.98,93.4,12500000.0,USA,2012,1,8,Washington
+Tristan Thompson,79,#13,Cleveland Cavaliers,F,03/13/91,2.06,102.1,18539130.0,Canada,2011,1,4,Texas
+PJ Tucker,79,#17,Houston Rockets,F,05/05/85,1.96,102.1,8349039.0,USA,2006,2,35,Texas
+Andrew Wiggins,79,#22,Golden State Warriors,F,02/23/95,2.01,89.4,27504630.0,Canada,2014,1,1,Kansas
+Thaddeus Young,79,#21,Chicago Bulls,F,06/21/88,2.03,99.8,12900000.0,USA,2007,1,12,Georgia Tech
+RJ Barrett,78,#9,New York Knicks,G,06/14/00,1.98,91.6,7839960.0,Canada,2019,1,3,Duke
+Ricky Rubio,78,#11,Phoenix Suns,G,10/21/90,1.91,81.6,16200000.0,Spain,2009,1,5,
+Will Barton,78,#5,Denver Nuggets,G,01/06/91,1.96,79.4,12776786.0,USA,2012,2,40,Memphis
+Bogdan Bogdanovic,78,#8,Sacramento Kings,G,08/18/92,1.98,93.0,8529386.0,Serbia,2014,1,27,
+Jordan Clarkson,78,#8,Utah Jazz,G,06/07/92,1.93,84.4,13437500.0,Philippines,2014,2,46,Missouri
+Evan Fournier,78,#10,Orlando Magic,G,10/29/92,2.01,86.2,17150000.0,France,2012,1,20,
+Eric Gordon,78,#10,Houston Rockets,G,12/25/88,1.91,97.5,14057730.0,USA,2008,1,7,Indiana
+Joe Harris,78,#12,Brooklyn Nets,G,09/06/91,1.98,97.5,7666667.0,USA,2014,2,33,Virginia
+Caris LeVert,78,#22,Brooklyn Nets,G,08/25/94,1.98,86.6,2625717.0,USA,2016,1,20,Michigan
+Marcus Morris,78,#0,Los Angeles Clippers,F,09/02/89,2.03,106.6,15000000.0,USA,2011,1,14,Kansas
+Dejounte Murray,78,#5,San Antonio Spurs,G,09/19/96,1.93,77.1,2321735.0,USA,2016,1,29,Washington
+Larry Nance Jr,78,#22,Cleveland Cavaliers,F,01/01/93,2.01,103.0,12727273.0,USA,2015,1,27,Wyoming
+Jabari Parker,78,#0,Sacramento Kings,F,03/15/95,2.03,106.6,6500000.0,USA,2014,1,2,Duke
+Terry Rozier,78,#3,Charlotte Hornets,G,03/17/94,1.85,86.2,19894737.0,USA,2015,1,16,Louisville
+Dennis Schroeder,78,#17,Oklahoma City Thunder,G,09/15/93,1.85,78.0,15500000.0,Germany,2013,1,17,
+Jeff Teague,78,#0,Atlanta Hawks,G,06/10/88,1.91,82.1,19000000.0,USA,2009,1,19,Wake Forest
+Derrick White,78,#4,San Antonio Spurs,G,07/02/94,1.93,90.7,1948080.0,USA,2017,1,29,Colorado
+Justise Winslow,78,#0,Memphis Grizzlies,F,03/26/96,1.98,100.7,13000000.0,USA,2015,1,10,Duke
+Darius Garland,77,#10,Cleveland Cavaliers,G,06/26/00,1.85,79.4,6400920.0,USA,2019,1,5,Vanderbilt
+De'Andre Hunter,77,#12,Atlanta Hawks,F,12/01/97,2.01,102.1,7068360.0,USA,2019,1,4,Virginia
+Al-Farouq Aminu,77,#2,Orlando Magic,F,09/21/90,2.03,97.5,9258000.0,Nigeria,2010,1,8,Wake Forest
+Malik Beasley,77,#0,Minnesota Timberwolves,G,11/26/96,1.93,89.8,2731713.0,USA,2016,1,19,Florida State
+DeMarre Carroll,77,#0,Houston Rockets,F,07/27/86,1.98,96.2,7339258.0,USA,2009,1,27,Missouri
+Ed Davis,77,#17,Utah Jazz,F,06/05/89,2.06,97.5,4767000.0,USA,2010,1,13,North Carolina
+Taj Gibson,77,#67,New York Knicks,F,06/24/85,2.06,102.1,9000000.0,USA,2009,1,26,USC
+Jerami Grant,77,#9,Denver Nuggets,F,03/12/94,2.03,97.1,9346153.0,USA,2014,2,39,Syracuse
+Danny Green,77,#14,Los Angeles Lakers,G,06/22/87,1.98,94.8,14634147.0,USA,2009,2,46,North Carolina
+Tim Hardaway Jr,77,#11,Dallas Mavericks,G,03/16/92,1.96,90.3,20025127.0,USA,2013,1,24,Michigan
+Kevon Looney,77,#5,Golden State Warriors,F,02/06/96,2.06,100.7,4464286.0,USA,2015,1,30,UCLA
+Monte Morris,77,#11,Denver Nuggets,G,06/27/95,1.88,79.4,1588231.0,USA,2017,2,51,Iowa State
+Taurean Prince,77,#2,Brooklyn Nets,F,03/22/94,2.01,99.8,3481985.0,USA,2016,1,12,Baylor
+Dario Saric,77,#20,Phoenix Suns,F,04/08/94,2.08,98.0,3481985.0,Croatia,2014,1,12,
+Collin Sexton,77,#2,Cleveland Cavaliers,G,01/04/99,1.85,86.2,4764960.0,USA,2018,1,8,Alabama
+Dennis Smith,77,#5,New York Knicks,G,11/25/97,1.88,88.5,4463640.0,USA,2017,1,9,NC State
+Jarrett Culver,77,#23,Minnesota Timberwolves,G,02/20/99,1.98,88.5,5813640.0,USA,2019,1,6,Texas Tech
+DJ Augustin,76,#14,Orlando Magic,G,11/10/87,1.8,81.6,7250000.0,USA,2008,1,9,Texas
+Michael Beasley,76,#0,,F,01/09/89,2.08,106.6,3500000.0,USA,2008,1,2,Kansas State
+Davis Bertans,76,#42,Washington Wizards,F,11/12/92,2.08,95.7,7000000.0,Latvia,2011,2,42,
+Avery Bradley,76,#11,Los Angeles Lakers,G,11/26/90,1.91,88.5,6767000.0,USA,2010,1,19,Texas
+Miles Bridges,76,#0,Charlotte Hornets,F,03/21/98,1.98,102.1,3755400.0,USA,2018,1,12,Michigan State
+Jalen Brunson,76,#13,Dallas Mavericks,G,08/31/96,1.85,86.2,1416852.0,USA,2018,2,33,Villanova
+Kentavious Caldwell-Pope,76,#1,Los Angeles Lakers,G,02/18/93,1.96,92.5,8089282.0,USA,2013,1,8,Georgia
+Jae Crowder,76,#99,Miami Heat,F,07/06/90,1.98,106.6,7815533.0,USA,2012,2,34,Marquette
+Jeff Green,76,#34,Houston Rockets,F,08/28/86,2.03,106.6,3405180.0,USA,2007,1,5,Georgetown
+Rodney Hood,76,#5,Portland Trail Blazers,F,10/20/92,2.03,94.3,5718000.0,USA,2014,1,23,Duke
+Kevin Huerter,76,#3,Atlanta Hawks,G,08/27/98,2.01,86.2,2636280.0,USA,2018,1,19,Maryland
+Ersan Ilyasova,76,#7,Milwaukee Bucks,F,05/15/87,2.06,106.6,7000000.0,Turkey,2005,2,36,
+Jonathan Isaac,76,#1,Orlando Magic,F,10/03/97,2.11,93.0,5806440.0,USA,2017,1,6,Florida State
+Josh Jackson,76,#20,Memphis Grizzlies,F,02/10/97,2.03,92.1,7059480.0,USA,2017,1,4,Kansas
+Michael Kidd-Gilchrist,76,#0,Dallas Mavericks,F,09/26/93,1.98,105.2,12784359.0,USA,2012,1,2,Kentucky
+Kevin Knox,76,#20,New York Knicks,F,08/11/99,2.01,97.5,4380120.0,USA,2018,1,9,Kentucky
+Emmanuel Mudiay,76,#8,Utah Jazz,G,03/05/96,1.91,86.2,1737145.0,Democratic Republic of the Congo,2015,1,7,
+Elfrid Payton,76,#6,New York Knicks,G,02/22/94,1.91,83.9,8000000.0,USA,2014,1,10,Louisiana
+Michael Porter,76,#1,Denver Nuggets,F,06/29/98,2.08,97.5,3389400.0,USA,2018,1,14,Missouri 
+Austin Rivers,76,#25,Houston Rockets,G,08/01/92,1.91,90.7,2174310.0,USA,2012,1,10,Duke
+Rajon Rondo,76,#9,Los Angeles Lakers,G,02/22/86,1.85,84.4,2564753.0,USA,2006,1,21,Kentucky
+Landry Shamet,76,#20,Los Angeles Clippers,G,03/13/97,1.93,81.6,1995120.0,USA,2018,1,26,Wichita State
+Isaiah Thomas,76,#0,,G,02/07/89,1.75,83.9,2320044.0,USA,2011,2,60,Washington
+Dion Waiters,76,#11,Los Angeles Lakers,G,12/10/91,1.91,95.3,12475385.0,USA,2012,1,4,Syracuse
+Marvin Williams,76,#2,Milwaukee Bucks,F,06/19/86,2.03,108.9,14654179.0,USA,2005,1,2,North Carolina
+Delon Wright,76,#55,Dallas Mavericks,G,04/26/92,1.96,82.1,9473684.0,USA,2015,1,20,Utah
+Coby White,76,#0,Chicago Bulls,G,02/16/00,1.93,83.9,5307120.0,USA,2019,1,7,North Carolina
+Marco Belinelli,75,#18,San Antonio Spurs,G,03/25/86,1.96,90.7,5846154.0,Italy,2007,1,18,
+Damyean Dotson,75,#21,New York Knicks,G,05/06/94,1.96,91.6,1618520.0,USA,2017,2,44,Houston
+Kris Dunn,75,#32,Chicago Bulls,G,03/18/94,1.91,93.0,5348007.0,USA,2016,1,5,Providence
+Wayne Ellington,75,#2,New York Knicks,G,11/29/87,1.93,90.7,8000000.0,USA,2009,1,28,North Carolina
+Josh Hart,75,#3,New Orleans Pelicans,G,03/06/95,1.96,92.5,1934160.0,USA,2017,1,30,Villanova
+John Henson,75,#31,Detroit Pistons,F,12/28/90,2.06,99.8,9732396.0,USA,2012,1,14,North Carolina
+George Hill,75,#3,Milwaukee Bucks,G,05/04/86,1.91,81.6,10133907.0,USA,2008,1,26,IUPUI
+Rondae Hollis-Jefferson,75,#4,Toronto Raptors,F,01/03/95,1.98,95.7,2500000.0,USA,2015,1,23,Arizona
+Richaun Holmes,75,#22,Sacramento Kings,F,10/15/93,2.08,110.2,4767000.0,USA,2015,2,37,Bowling Green
+James Johnson,75,#0,Minnesota Timberwolves,F,02/20/87,2.01,111.1,15349400.0,USA,2009,1,16,Wake Forest
+Luke Kennard,75,#5,Detroit Pistons,G,06/24/96,1.96,88.9,3827160.0,USA,2017,1,12,Duke
+Kyle Korver,75,#26,Milwaukee Bucks,F,03/17/81,2.01,96.2,6004753.0,USA,2003,2,51,Creighton
+Rodions Kurucs,75,#0,Brooklyn Nets,F,02/05/98,2.06,97.5,1699236.0,Latvia,2018,2,40,
+Jake Layman,75,#10,Minnesota Timberwolves,F,03/07/94,2.03,94.8,3581986.0,USA,2016,2,47,Maryland
+Trey Lyles,75,#41,San Antonio Spurs,F,11/05/95,2.06,109.3,5500000.0,Canada,2015,1,12,Kentucky
+Patrick Mills,75,#8,San Antonio Spurs,G,08/11/88,1.85,83.9,12678571.0,Australia,2009,2,55,Saint Mary's
+Malik Monk,75,#1,Charlotte Hornets,G,02/04/98,1.91,89.4,4028400.0,USA,2017,1,11,Kentucky
+Markieff Morris,75,#88,Los Angeles Lakers,F,09/02/89,2.03,111.1,3709887.0,USA,2011,1,13,Kansas
+Shabazz Napier,75,#0,Washington Wizards,G,07/14/91,1.83,79.4,1845301.0,USA,2014,1,24,UConn
+Tomas Satoransky,75,#31,Chicago Bulls,G,10/30/91,2.01,89.8,10000000.0,Czech,2012,2,32,
+Mike Scott,75,#1,Philadelphia 76ers,F,07/16/88,2.01,107.5,4767000.0,USA,2012,2,43,Virginia
+Noah Vonleh,75,#0,Denver Nuggets,F,08/24/95,2.08,112.0,2000000.0,USA,2014,1,9,Indiana
+Juan Hernangomez,74,#41,Minnesota Timberwolves,F,09/28/95,2.06,99.8,3321029.0,Spain,2016,1,15,
+Kyle Anderson,74,#1,Memphis Grizzlies,F,09/20/93,2.06,104.3,9073050.0,USA,2014,1,30,UCLA
+Reggie Bullock,74,#25,New York Knicks,G,03/16/91,1.98,90.7,4000000.0,USA,2013,1,25,North Carolina
+Pat Connaughton,74,#24,Milwaukee Bucks,G,01/06/93,1.96,97.5,1723050.0,USA,2015,2,41,Notre Dame
+Markelle Fultz,74,#20,Orlando Magic,G,05/29/98,1.91,88.5,9745200.0,USA,2017,1,1,Washington
+Moe Harkless,74,#0,New York Knicks,F,05/11/93,2.01,94.3,11011234.0,USA,2012,1,15,St. John's
+Cory Joseph,74,#9,Sacramento Kings,G,08/20/91,1.91,83.9,12000000.0,Canada,2011,1,29,Texas
+Doug McDermott,74,#20,Indiana Pacers,F,01/03/92,2.01,98.9,7333333.0,USA,2014,1,11,Creighton
+E'Twaun Moore,74,#55,New Orleans Pelicans,G,02/25/89,1.91,86.6,8664928.0,USA,2011,2,55,Purdue
+Chandler Parsons,74,#0,,F,10/25/88,2.06,90.7,25102512.0,USA,2011,2,38,Florida
+Norman Powell,74,#24,Toronto Raptors,G,05/25/93,1.91,97.5,10116576.0,USA,2015,2,46,UCLA
+Glenn Robinson III,74,#22,Golden State Warriors,F,01/08/94,1.98,95.7,1882867.0,USA,2014,2,40,Michigan
+Denzel Valentine,74,#45,Chicago Bulls,G,11/16/93,1.93,95.3,3377568.0,USA,2016,1,14,Michigan State
+Rui Hachimura,74,#8,Washington Wizards,F,02/08/98,2.03,102.1,4469160.0,Japan,2019,1,9,Gonzaga
+Dwayne Bacon,73,#7,Charlotte Hornets,G,08/30/95,1.98,99.8,1618520.0,USA,2017,2,40,Florida State
+DeAndre Bembry,73,#95,Atlanta Hawks,F,07/04/94,1.96,93.9,2603981.0,USA,2016,1,21,Saint Joseph's
+Jonah Bolden,73,#0,Phoenix Suns,F,01/02/96,2.03,97.5,1788296.0,Australia,2017,2,36,UCLA
+Sterling Brown,73,#23,Milwaukee Bucks,G,02/10/95,1.96,104.3,1618520.0,USA,2017,2,46,SMU
+Bruce Brown,73,#6,Detroit Pistons,G,08/15/96,1.93,86.2,1416852.0,USA,2018,2,42,Miami (Florida)
+Alec Burks,73,#0,Philadelphia 76ers,G,07/20/91,1.98,88.5,2320044.0,USA,2011,1,12,Colorado
+James Ennis,73,#0,Orlando Magic,F,07/01/90,1.98,91.2,1882867.0,USA,2013,2,50,Long Beach State
+Aaron Holiday,73,#3,Indiana Pacers,G,09/30/96,1.83,83.9,2239200.0,USA,2018,1,23,UCLA
+Stanley Johnson,73,#5,Toronto Raptors,F,05/29/96,1.98,109.8,3623000.0,USA,2015,1,8,Arizona
+Tyus Jones,73,#21,Memphis Grizzlies,G,05/10/96,1.83,83.9,10116000.0,USA,2015,1,24,Duke
+Furkan Korkmaz,73,#30,Philadelphia 76ers,F,06/27/97,2.01,83.9,1620564.0,Turkey,2016,1,26,
+Frank Ntilikina,73,#11,New York Knicks,G,07/28/98,1.93,86.2,4855800.0,France,2017,1,8,
+Semi Ojeleye,73,#37,Boston Celtics,F,12/05/94,1.98,106.6,1618520.0,USA,2017,2,37,SMU
+Josh Okogie,73,#20,Minnesota Timberwolves,G,09/01/98,1.93,96.6,2530680.0,Nigeria,2018,1,20,Georgia Tech
+Tony Snell,73,#17,Detroit Pistons,F,11/10/91,1.98,89.8,11392857.0,USA,2013,1,20,New Mexico
+Omari Spellman,73,#0,Minnesota Timberwolves,F,07/21/97,2.03,111.1,1897800.0,USA,2018,1,30,Villanova
+Lonnie Walker,73,#1,San Antonio Spurs,G,12/14/98,1.96,92.5,2764200.0,USA,2018,1,18,Miami (Florida)
+Tyler Herro,73,#14,Miami Heat,G,01/20/00,1.96,88.5,3640200.0,USA,2019,1,13,Kentucky
+Sekou Doumbouya,73,#45,Detroit Pistons,F,12/23/00,2.03,94.8,3285120.0,France,2019,1,15,
+Brandon Clarke,73,#15,Memphis Grizzlies,F,09/19/96,2.03,97.5,2478840.0,Canada,2019,1,21,Gonzaga
+Nassir Little,73,#9,Portland Trail Blazers,F,02/11/00,1.96,99.8,2105520.0,USA,2019,1,25,North Carolina
+Grayson Allen,72,#3,Memphis Grizzlies,G,10/08/95,1.93,93.0,2429400.0,USA,2018,1,21,Duke
+Michael Carter-Williams,72,#7,Orlando Magic,G,10/10/91,1.96,83.5,2028594.0,USA,2013,1,11,Syracuse
+Donte DiVincenzo,72,#0,Milwaukee Bucks,G,01/31/97,1.93,93.0,2905800.0,USA,2018,1,17,Villanova
+Jared Dudley,72,#10,Los Angeles Lakers,F,07/10/85,1.98,102.1,2564753.0,USA,2007,1,22,Boston College
+Chandler Hutchison,72,#15,Chicago Bulls,F,04/26/96,2.01,88.9,2332320.0,USA,2018,1,22,Boise State
+Wesley Iwundu,72,#25,Orlando Magic,F,12/20/94,1.98,93.0,1618520.0,USA,2017,2,33,Kansas State
+Brandon Knight,72,#0,Detroit Pistons,G,12/02/91,1.88,85.7,15643750.0,USA,2011,1,8,Kentucky
+Patrick McCaw,72,#22,Toronto Raptors,G,10/25/95,2.01,82.1,4000000.0,USA,2016,2,38,UNLV
+Darius Miller,72,#21,New Orleans Pelicans,F,03/21/90,1.98,102.1,7250000.0,USA,2012,2,46,Kentucky
+Raul Neto,72,#19,Philadelphia 76ers,G,05/19/92,1.85,77.1,1737145.0,Brazil,2013,2,47,
+Georges Niang,72,#31,Utah Jazz,F,06/17/93,2.01,104.3,1645357.0,USA,2016,2,50,Iowa State
+Cameron Payne,72,#0,Phoenix Suns,G,08/08/94,1.88,81.6,346288.0,USA,2015,1,14,Murray State
+Anfernee Simons,72,#1,Portland Trail Blazers,G,06/08/99,1.91,82.1,2149560.0,USA,2018,1,24,
+DJ Wilson,72,#5,Milwaukee Bucks,F,02/19/96,2.08,106.1,2961120.0,USA,2017,1,17,Michigan
+Romeo Langford,72,#45,Boston Celtics,G,10/25/99,1.93,98.0,3458400.0,USA,2019,1,14,Indiana
+Grant Williams,72,#12,Boston Celtics,F,11/30/98,1.98,107.0,2379840.0,USA,2019,1,22,Tennessee
+PJ Washington,72,#25,Charlotte Hornets,F,08/23/98,2.01,102.1,3831840.0,USA,2019,1,12,Kentucky
+De'Anthony Melton,72,#0,Memphis Grizzlies,G,05/28/98,1.88,86.2,1416852.0,USA,2018,2,46,USC
+Nickeil Alexander-Walker,72,#0,New Orleans Pelicans,G,09/02/98,1.96,93.0,2964840.0,Canada,2019,1,17,Virginia Tech
+Cameron Johnson,72,#23,Phoenix Suns,F,03/03/96,2.03,95.3,4033440.0,USA,2019,1,11,North Carolina
+Ty Jerome,72,#10,Phoenix Suns,G,07/08/97,1.96,88.5,2193480.0,USA,2019,1,24,Virginia
+Luka Samanic,72,#19,San Antonio Spurs,F,01/09/00,2.08,94.8,2689920.0,Croatia,2019,1,19,
+Keldon Johnson,72,#3,San Antonio Spurs,F,10/11/99,1.96,95.7,1950600.0,USA,2019,1,29,Kentucky
+Jevon Carter,71,#4,Phoenix Suns,G,09/14/95,1.85,90.7,1416852.0,USA,2018,2,32,West Virginia
+Jacob Evans,71,#0,Minnesota Timberwolves,G,06/18/97,1.93,95.3,1925880.0,USA,2018,1,28,Cincinnati
+Terrance Ferguson,71,#23,Oklahoma City Thunder,G,05/17/98,1.98,83.5,2475840.0,USA,2017,1,21,
+Daniel Gafford,71,#12,Chicago Bulls,F,10/01/98,2.08,106.1,898310.0,USA,2019,2,38,Arkansas
+Frank Jackson,71,#15,New Orleans Pelicans,G,05/04/98,1.91,93.0,1618520.0,USA,2017,2,31,Duke
+Frank Mason,71,#15,Milwaukee Bucks,G,04/13/94,1.8,86.2,79568.0,USA,2017,2,34,Kansas
+Ben McLemore,71,#16,Houston Rockets,G,02/11/93,1.91,85.7,2028594.0,USA,2013,1,7,Kansas
+Dzanan Musa,71,#13,Brooklyn Nets,F,05/08/99,2.06,88.5,1911600.0,Bosnia and Herzegovina,2018,1,29,
+Elie Okobo,71,#2,Phoenix Suns,G,10/23/97,1.91,86.2,1416852.0,France,2018,2,31,
+Jerome Robinson,71,#1,Washington Wizards,G,02/22/97,1.93,86.2,3567720.0,USA,2018,1,13,Boston College
+Edmond Sumner,71,#5,Indiana Pacers,G,12/13/95,1.93,84.4,2000000.0,USA,2017,2,52,Xavier
+Gary Trent Jr,71,#2,Portland Trail Blazers,G,01/18/99,1.96,94.8,1416852.0,USA,2018,2,37,Duke
+Moritz Wagner,71,#21,Washington Wizards,F,04/26/97,2.11,108.9,2063520.0,Germany,2018,1,25,Michigan
+Admiral Schofield,71,#1,Washington Wizards,F,03/30/97,1.96,109.3,1000000.0,USA,2019,2,42,Tennessee
+Bruno Fernando,71,#24,Atlanta Hawks,F,08/15/98,2.06,111.1,1400000.0,Angola,2019,2,34,Maryland
+Alen Smailagic,71,#6,Golden State Warriors,F,08/18/00,2.08,97.5,898310.0,Serbia,2019,2,39,
+Eric Paschall,71,#7,Golden State Warriors,F,11/04/96,1.98,115.7,898310.0,USA,2019,2,41,Villanova
+Carsen Edwards,71,#4,Boston Celtics,G,03/12/98,1.8,90.7,1228026.0,USA,2019,2,33,Purdue
+KZ Okpala,71,#4,Miami Heat,F,04/28/99,2.03,97.5,898310.0,USA,2019,2,32,Stanford
+Chimezie Metu,71,#7,San Antonio Spurs,F,03/22/97,2.06,102.1,1416852.0,Nigeria,2018,2,49,USC
+Keita Bates-Diop,70,#0,Denver Nuggets,F,01/23/96,2.03,106.6,1416852.0,USA,2018,2,48,Ohio State
+Darius Bazley,70,#7,Oklahoma City Thunder,F,06/12/00,2.03,90.7,2284800.0,USA,2019,1,23,
+Hamidou Diallo,70,#6,Oklahoma City Thunder,G,07/31/98,1.96,89.8,1416852.0,USA,2018,2,45,Kentucky
+Melvin Frazier,70,#35,Orlando Magic,F,08/30/96,1.96,91.2,1416852.0,USA,2018,2,35,Tulane
+Solomon Hill,70,#44,Miami Heat,F,03/18/91,1.98,102.5,13290395.0,USA,2013,1,23,Arizona
+Alize Johnson,70,#24,Indiana Pacers,F,04/26/96,2.01,91.2,1416852.0,USA,2018,2,50,Missouri State
+Sviatoslav Mykhailiuk,70,#19,Detroit Pistons,G,06/10/97,2.01,93.0,1416852.0,Ukraine,2018,2,47,Kansas
+Abdel Nader,70,#11,Oklahoma City Thunder,F,09/25/93,1.96,102.1,1618520.0,Egypt,2016,2,58,Iowa State
+Jarred Vanderbilt,70,#0,Minnesota Timberwolves,F,04/03/99,2.06,97.1,1416852.0,USA,2018,2,41,Kentucky
+Jordan Poole,70,#3,Golden State Warriors,G,06/19/99,1.93,88.0,1964760.0,USA,2019,1,28,Michigan
+Talen Horton-Tucker,70,#5,Los Angeles Lakers,G,11/20/00,1.93,106.1,898310.0,USA,2019,2,46,Iowa State
+Thanasis Antetokounmpo,70,#43,Milwaukee Bucks,F,07/18/92,1.98,97.5,1445697.0,Greece,2014,2,51,
+Ignas Brazdeikis,70,#17,New York Knicks,F,01/08/99,1.98,98.0,898310.0,Canada,2019,2,47,Michigan
+Justin James,70,#10,Sacramento Kings,G,01/24/97,2.01,86.2,898310.0,USA,2019,2,40,Wyoming
+Devonte Graham,69,#0,Charlotte Hornets,G,02/22/95,1.85,83.9,1416852.0,USA,2018,2,34,Kansas
+Khyri Thomas,69,#13,Detroit Pistons,G,05/08/96,1.91,95.3,1416852.0,USA,2018,2,38,Creighton
+Terance Mann,69,#14,Los Angeles Clippers,G,10/18/96,1.96,97.5,1000000.0,USA,2019,2,48,Florida State
+Miye Oni,69,#24,Utah Jazz,F,08/04/97,1.96,95.3,898310.0,USA,2019,2,58,Yale
+Isaac Bonga,68,#17,Washington Wizards,G,11/08/99,2.03,90.7,1416852.0,Germany,2018,2,39,
+Jordan McRae,68,#0,Detroit Pistons,G,03/28/91,1.96,81.2,1254933.0,USA,2014,2,58,Tennessee
+Michael Frazier,68,#21,Houston Rockets,G,03/08/94,1.91,90.7,79568.0,USA,2015,2,60,Florida

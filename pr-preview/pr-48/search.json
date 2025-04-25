@@ -1,0 +1,540 @@
+[
+  {
+    "objectID": "modules/module4/slides/module4_28.html#module-learning-outcomes",
+    "href": "modules/module4/slides/module4_28.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 4",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain the notion of similarity-based algorithms.\nBroadly describe how 𝑘-NNs use distances.\nDescribe the effect of using a small/large value of the hyperparameter 𝑘 when using the 𝑘-NN algorithm.\nExplain the problem of curse of dimensionality.\nExplain the general idea of SVMs with RBF kernel.\nCompare and contrast 𝑘-NNs and SVM RBFs.\nBroadly describe the relation of gamma and C hyperparameters with the fundamental tradeoff.\n\n\nThe assignment will concentrate on the learning objectives as well as building knowledge on existing concepts."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_21.html#regression-with-𝑘-nearest-neighbours-𝑘--nns",
+    "href": "modules/module4/slides/module4_21.html#regression-with-𝑘-nearest-neighbours-𝑘--nns",
+    "title": "𝑘 -Nearest Neighbours Regressor",
+    "section": "Regression with 𝑘-nearest neighbours ( 𝑘 -NNs)",
+    "text": "Regression with 𝑘-nearest neighbours ( 𝑘 -NNs)\n\nnp.random.seed(0)\nn = 50\nX_1 = np.linspace(0,2,n)+np.random.randn(n)*0.01\nX = pd.DataFrame(X_1[:,None], columns=['length'])\nX.head()\n\n\n\n\n\n\n\n\nlength\n\n\n\n\n0\n0.017641\n\n\n1\n0.044818\n\n\n2\n0.091420\n\n\n3\n0.144858\n\n\n4\n0.181941\n\n\n\n\n\n\n\n\n\ny = abs(np.random.randn(n,1))*2 + X_1[:,None]*5\ny = pd.DataFrame(y, columns=['weight'])\ny.head()\n\n\n\n\n\n\n\n\nweight\n\n\n\n\n0\n1.879136\n\n\n1\n0.997894\n\n\n2\n1.478710\n\n\n3\n3.085554\n\n\n4\n0.966069\n\n\n\n\n\n\n\n\nWe can use the 𝑘-nearest neighbour algorithm on regression problems as well.\nIn 𝑘-nearest neighbour regression, we take the average of 𝑘-nearest neighbours instead of majority vote.\nLet’s look at an example. Here we are creating some synthetic data with fifty examples and only one feature.\nLet’s imagine that our one feature represents the length of a snake and our task is to predict the weight of the snake given the length.\nRight now, do not worry about the code and only focus on data and our model."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_21.html#using-weighted-distances",
+    "href": "modules/module4/slides/module4_21.html#using-weighted-distances",
+    "title": "𝑘 -Nearest Neighbours Regressor",
+    "section": "Using weighted distances",
+    "text": "Using weighted distances\n\nknnr = KNeighborsRegressor(n_neighbors=10, weights=\"distance\")\nknnr.fit(X_train, y_train);\n\n\n\nknnr.score(X_train, y_train)\n\n1.0\n\n\n\n\nLet’s now take a look at the weight hyperparameter distance.\nThis means that the points (examples) that are closer now have more meaning to the prediction than the points (example) that are further away.\nIf we use this parameter, fit it and then score it, we get a perfect training score again.\nPlotting it shows that the model is trying to predict every model correctly. This is likely another situation of overfitting."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_21.html#pros-and-cons-of-𝑘--nearest-neighbours",
+    "href": "modules/module4/slides/module4_21.html#pros-and-cons-of-𝑘--nearest-neighbours",
+    "title": "𝑘 -Nearest Neighbours Regressor",
+    "section": "Pros and Cons of 𝑘 -Nearest Neighbours",
+    "text": "Pros and Cons of 𝑘 -Nearest Neighbours\n\nPros:\n\nEasy to understand, interpret.\nSimply hyperparameter 𝑘 (n_neighbors) controlling the fundamental tradeoff.\nCan learn very complex functions given enough data.\nLazy learning: Takes no time to fit\n\n\nCons:\n\nCan potentially be VERY slow during prediction time.\nOften not that great test accuracy compared to the modern approaches.\nYou should scale your features. We’ll be looking into it in the next lecture.\n\n\nLet’s talk about some pros and cons.\nAdvantages include:\n\nEasy to understand and interpret.\nSimply hyperparameter 𝑘 (n_neighbors) controlling the fundamental trade-off.\n\nlower 𝑘 is likely producing an overfit model and higher 𝑘 is likely producing an underfit model.\n\nGiven the simplicity of this algorithm, it can surprisingly learn very complex functions given enough data.\n𝑘-Nearest Neighbours we don’t really do anything during the fit phase.\n\nSome disadvantages often include:\n\nCan potentially be quite slow during prediction time which is due to the fact that it does very little during training time. During prediction, the model must find the distances to the query point to all examples in the training set and this makes it very slow.\nScaling must be done when using this model, which will be covered in module 5."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_04.html#distance-between-vectors",
+    "href": "modules/module4/slides/module4_04.html#distance-between-vectors",
+    "title": "Distances",
+    "section": "Distance between vectors",
+    "text": "Distance between vectors\nEuclidean distance: Euclidean distance is a measure of the true straight line distance between two points in Euclidean space. (source )\n The Euclidean distance between vectors\n\nand\n\nis defined as:\n\n\n\n\n\n\n\nA common way to calculate the distance between two points in high dimensional space is by using Euclidean distance.\nThe formula to calculate Euclidean distance is shown.\nGiven two vectors or two features vectors, in our case, we are assuming we have two feature vectors named 𝑢 and 𝑣.\nThe Euclidean distance between them is defined by the square root of the summation of the squared element-wise differences between these two factors (A mouthful, we know, we will look at the steps in the next few slides)."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_04.html#how-do-we-calculate-the-distance-between-the-two-cities",
+    "href": "modules/module4/slides/module4_04.html#how-do-we-calculate-the-distance-between-the-two-cities",
+    "title": "Distances",
+    "section": "How do we calculate the distance between the two cities?",
+    "text": "How do we calculate the distance between the two cities?\n\ntwo_cities\n\n\n\n\n\n\n\n\nlongitude\nlatitude\n\n\n\n\n30\n-66.9843\n44.8607\n\n\n171\n-80.2632\n43.1408\n\n\n\n\n\n\n\n Subtract the two cities:\n\ntwo_cities.iloc[1] - two_cities.iloc[0]\n\nlongitude   -13.2789\nlatitude     -1.7199\ndtype: float64\n\n\n Square the differences:\n\n(two_cities.iloc[1] - two_cities.iloc[0])**2\n\nlongitude    176.329185\nlatitude       2.958056\ndtype: float64\n\n\n\nHow do we calculate the distance between these two points (two cities)?\nLet’s calculate the Euclidean distance between these two cities so here are our two cities.\nThe first step is to subtract these two cities. We are subtracting the city at index 0 from the city at index 1.\nNext, we square the differences."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_00.html#module-learning-outcomes",
+    "href": "modules/module4/slides/module4_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain the notion of similarity-based algorithms.\nBroadly describe how 𝑘-NNs use distances.\nDescribe the effect of using a small/large value of the hyperparameter 𝑘 when using the 𝑘-NN algorithm.\nExplain the problem of curse of dimensionality.\nExplain the general idea of SVMs with RBF kernel.\nCompare and contrast 𝑘-NNs and SVM RBFs.\nBroadly describe the relation of gamma and C hyperparameters with the fundamental tradeoff."
+  },
+  {
+    "objectID": "modules/module4/module4-25-testing_your_svm_rbf_knowledge.html",
+    "href": "modules/module4/module4-25-testing_your_svm_rbf_knowledge.html",
+    "title": "7.1. Exercises",
+    "section": "",
+    "text": "These two boundary plots were made using SVM with an RBF kernel and the other with K-Nearest Neighbours.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe’ve used K-Nearest Neighbours to classify Pokémon from the Pokémon dataset so now let’s try to do the same thing with an RBF kernel!\n\n\n\n\n\n\nTasks:\n\nCreate an SVM model with gamma equal to 0.1 and C equal to 10 then name the model model.\nTrain your model on X_train and y_train (Hint: you may want to use .to_numpy()).\nScore your model on the training set using .score() and save it in an object named train_score.\nScore your model on the test set using .score() and save it in an object named test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SVM(gamma=0.1, C=10)?\nAre you using model.fit(X_train, y_train)?\nAre you using model.score(X_test, y_test) to find the test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 7.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-25-testing_your_svm_rbf_knowledge.html#testing-your-svm-rbf-knowledge",
+    "href": "modules/module4/module4-25-testing_your_svm_rbf_knowledge.html#testing-your-svm-rbf-knowledge",
+    "title": "7.1. Exercises",
+    "section": "",
+    "text": "These two boundary plots were made using SVM with an RBF kernel and the other with K-Nearest Neighbours.",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 7.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-25-testing_your_svm_rbf_knowledge.html#predicting-with-an-svm-classifier",
+    "href": "modules/module4/module4-25-testing_your_svm_rbf_knowledge.html#predicting-with-an-svm-classifier",
+    "title": "7.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe’ve used K-Nearest Neighbours to classify Pokémon from the Pokémon dataset so now let’s try to do the same thing with an RBF kernel!\n\n\n\n\n\n\nTasks:\n\nCreate an SVM model with gamma equal to 0.1 and C equal to 10 then name the model model.\nTrain your model on X_train and y_train (Hint: you may want to use .to_numpy()).\nScore your model on the training set using .score() and save it in an object named train_score.\nScore your model on the test set using .score() and save it in an object named test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SVM(gamma=0.1, C=10)?\nAre you using model.fit(X_train, y_train)?\nAre you using model.score(X_test, y_test) to find the test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 7.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-22-regression_questions.html",
+    "href": "modules/module4/module4-22-regression_questions.html",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "Consider this toy dataset:\n\n\n\n\n\nQuestion 1\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s bring in this Pokémon dataset again, but this time we are not going to be predicting a Pokémon’s capture rate (capture_rt) instead of its legendary classification.\nWe did the same process of cross validation and scoring as we did before but we obtain this plot:\n\n\n\n\n\nThis model didn’t end up having a clear best score when we hyperparameter tuned but in the end, we decided to use n_neighbors=12.\nLet’s build a KNeighborsRegressor with this hyperparameter value and see how well your model does on the test data.\n\n\n\n\n\n\nTasks:\n\nBuild a model using KNeighborsRegressor() using the optimal n_neighbors.\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the test score of the model using .score() on X_test and y_test and save the values in an object named test_score rounded to 4 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using KNeighborsRegressor(n_neighbors=12)?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_test, y_test)?\nAre you rounding to 4 decimal places?\nAre you calculating test_score as round(model.score(X_test, y_test), 4)\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-22-regression_questions.html#regression-questions",
+    "href": "modules/module4/module4-22-regression_questions.html#regression-questions",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "Consider this toy dataset:\n\n\n\n\n\nQuestion 1",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-22-regression_questions.html#building-a-𝑘-nn-regressor",
+    "href": "modules/module4/module4-22-regression_questions.html#building-a-𝑘-nn-regressor",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s bring in this Pokémon dataset again, but this time we are not going to be predicting a Pokémon’s capture rate (capture_rt) instead of its legendary classification.\nWe did the same process of cross validation and scoring as we did before but we obtain this plot:\n\n\n\n\n\nThis model didn’t end up having a clear best score when we hyperparameter tuned but in the end, we decided to use n_neighbors=12.\nLet’s build a KNeighborsRegressor with this hyperparameter value and see how well your model does on the test data.\n\n\n\n\n\n\nTasks:\n\nBuild a model using KNeighborsRegressor() using the optimal n_neighbors.\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the test score of the model using .score() on X_test and y_test and save the values in an object named test_score rounded to 4 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using KNeighborsRegressor(n_neighbors=12)?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_test, y_test)?\nAre you rounding to 4 decimal places?\nAre you calculating test_score as round(model.score(X_test, y_test), 4)\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-18-choosing_k_for_your_model.html",
+    "href": "modules/module4/module4-18-choosing_k_for_your_model.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Consider this graph:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nIn the last exercise, we classified some Pokémon from the Pokémon dataset but we were not using the model that could have been the best! Let’s try hyperparameter tuning.\n\n\n\n\n\n\nFirst, let’s see which hyperparameter is the most optimal.\nTasks:\nFill in the code for a for loop that does the following: - iterates over the values 1-50 in increments of 5. - Builds a KNeighborsClassifier model with n_neighbors equal to each iteration. - Uses cross_validate on the model with a cv=10 and return_train_score=True. - Appends the 𝑘 value to the n_neighbors list in the dictionary results_dict. - Appends the test_score to the mean_cv_score list in the dictionary. - Appends the train_score to the mean_train_score list in the dictionary.\nWe have given you code that wrangles this dictionary and transforms it into a state ready for plotting.\nFinish off by filling in the blank to create a line graph that plots the train and validation scores for each value of k.\n(Note: we have edited the limits of the y-axis so it’s easier to read)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using KNeighborsClassifier(n_neighbors=k)?\nAre you using cross_validate(model, X_train, y_train, cv=10, return_train_score=True)?\nAre you using results_dict[\"n_neighbors\"].append(k)\nAre you using alt.Chart(results_df).mark_line() to create your plot?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow that we have found a suitable value for n_neighbors, let’s build a new model with this hyperparameter value. How well does your model do on the test data?\nTasks:\n\nBuild a model using KNeighborsClassifier() using the optimal n_neighbors.\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the test score of the model using .score() on X_test and y_test and save the values in an object named test_score rounded to 4 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using KNeighborsClassifier(n_neighbors=11)?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_test, y_test)?\nAre you rounding to 4 decimal places?\nAre you calculating test_score as round(model.score(X_test, y_test), 4)\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-18-choosing_k_for_your_model.html#choosing-𝑘-for-your-model",
+    "href": "modules/module4/module4-18-choosing_k_for_your_model.html#choosing-𝑘-for-your-model",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Consider this graph:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-18-choosing_k_for_your_model.html#hyperparameter-tuning",
+    "href": "modules/module4/module4-18-choosing_k_for_your_model.html#hyperparameter-tuning",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nIn the last exercise, we classified some Pokémon from the Pokémon dataset but we were not using the model that could have been the best! Let’s try hyperparameter tuning.\n\n\n\n\n\n\nFirst, let’s see which hyperparameter is the most optimal.\nTasks:\nFill in the code for a for loop that does the following: - iterates over the values 1-50 in increments of 5. - Builds a KNeighborsClassifier model with n_neighbors equal to each iteration. - Uses cross_validate on the model with a cv=10 and return_train_score=True. - Appends the 𝑘 value to the n_neighbors list in the dictionary results_dict. - Appends the test_score to the mean_cv_score list in the dictionary. - Appends the train_score to the mean_train_score list in the dictionary.\nWe have given you code that wrangles this dictionary and transforms it into a state ready for plotting.\nFinish off by filling in the blank to create a line graph that plots the train and validation scores for each value of k.\n(Note: we have edited the limits of the y-axis so it’s easier to read)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using KNeighborsClassifier(n_neighbors=k)?\nAre you using cross_validate(model, X_train, y_train, cv=10, return_train_score=True)?\nAre you using results_dict[\"n_neighbors\"].append(k)\nAre you using alt.Chart(results_df).mark_line() to create your plot?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow that we have found a suitable value for n_neighbors, let’s build a new model with this hyperparameter value. How well does your model do on the test data?\nTasks:\n\nBuild a model using KNeighborsClassifier() using the optimal n_neighbors.\nSave this in an object named model.\nFit your model on the objects X_train and y_train.\nEvaluate the test score of the model using .score() on X_test and y_test and save the values in an object named test_score rounded to 4 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using KNeighborsClassifier(n_neighbors=11)?\nAre you using the model named model?\nAre you calling .fit(X_train, y_train) on your model?\nAre you scoring your model using model.score(X_test, y_test)?\nAre you rounding to 4 decimal places?\nAre you calculating test_score as round(model.score(X_test, y_test), 4)\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-14-classifying_examples_by_hand.html",
+    "href": "modules/module4/module4-14-classifying_examples_by_hand.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Consider this toy dataset:\n\n\n\n\n\nQuestion 1\n\n\n\n\n\nQuestion 2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s try to classify some Pokémon from the Pokémon dataset. How well does our model do on the training data?\n\n\n\n\n\n\nTasks:\n\nCreate a KNeighborsClassifier model with n_neighbors equal to 5 and name it model.\nTrain your model on X_train and y_train (Hint: you may want to use .to_numpy()).\nScore your model on the training set using .score() and save it in an object named train_score.\nScore your model on the test set using .score() and save it in an object named test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using KNeighborsClassifier(n_neighbors=5)?\nAre you using model.fit(X_train, y_train.to_numpy())?\nAre you using model.score(X_train, y_train) to find the training score?\nAre you using model.score(X_test, y_test) to find the test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-14-classifying_examples_by_hand.html#classifying-examples-by-hand",
+    "href": "modules/module4/module4-14-classifying_examples_by_hand.html#classifying-examples-by-hand",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Consider this toy dataset:\n\n\n\n\n\nQuestion 1\n\n\n\n\n\nQuestion 2",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-14-classifying_examples_by_hand.html#predicting-with-a-𝑘-nn-classifier",
+    "href": "modules/module4/module4-14-classifying_examples_by_hand.html#predicting-with-a-𝑘-nn-classifier",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s try to classify some Pokémon from the Pokémon dataset. How well does our model do on the training data?\n\n\n\n\n\n\nTasks:\n\nCreate a KNeighborsClassifier model with n_neighbors equal to 5 and name it model.\nTrain your model on X_train and y_train (Hint: you may want to use .to_numpy()).\nScore your model on the training set using .score() and save it in an object named train_score.\nScore your model on the test set using .score() and save it in an object named test_score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using KNeighborsClassifier(n_neighbors=5)?\nAre you using model.fit(X_train, y_train.to_numpy())?\nAre you using model.score(X_train, y_train) to find the training score?\nAre you using model.score(X_test, y_test) to find the test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-10-finding_neighbours_questions.html",
+    "href": "modules/module4/module4-10-finding_neighbours_questions.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s calculate the closet Pokémon in the training set to a Snoodle (our made-up Pokémon)!\n\n\n\n\n\n\nSnoodle has the following feature vector.\n[[53,  77,  43,  69,  80,  57,  5]]\nWhich Pokémon in the training set, most resembles a Snoodle?\nTasks:\n\nCreate a model and name it nn (make sure you are finding the single closest Pokémon).\nTrain your model on X_train.\nPredict your Pokémon using kneighbors and save it in an object named snoodles_neighbour.\nWhich Pokémon (the name) is Snoodle most similar to? Save it in an object named snoodle_name.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using NearestNeighbors(n_neighbors=1)?\nAre you using nn.fit(X_train)?\nAre you using nn.kneighbors(query_point) ?\nAre you using train_df.iloc[snoodles_neighbour[1].item()]['name'] to get the name of the closest Pokémon?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-10-finding_neighbours_questions.html#calculating-the-distance-to-a-query-point",
+    "href": "modules/module4/module4-10-finding_neighbours_questions.html#calculating-the-distance-to-a-query-point",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s calculate the closet Pokémon in the training set to a Snoodle (our made-up Pokémon)!\n\n\n\n\n\n\nSnoodle has the following feature vector.\n[[53,  77,  43,  69,  80,  57,  5]]\nWhich Pokémon in the training set, most resembles a Snoodle?\nTasks:\n\nCreate a model and name it nn (make sure you are finding the single closest Pokémon).\nTrain your model on X_train.\nPredict your Pokémon using kneighbors and save it in an object named snoodles_neighbour.\nWhich Pokémon (the name) is Snoodle most similar to? Save it in an object named snoodle_name.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using NearestNeighbors(n_neighbors=1)?\nAre you using nn.fit(X_train)?\nAre you using nn.kneighbors(query_point) ?\nAre you using train_df.iloc[snoodles_neighbour[1].item()]['name'] to get the name of the closest Pokémon?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-05-calculating_distances.html",
+    "href": "modules/module4/module4-05-calculating_distances.html",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "u = np.array([5, 0, 22, -11])\nv = np.array([-1, 0, 19, -9])\n\n\n\n\nWe have collected a third vector w.\nu = np.array([5, 0, 22, -11])\nv = np.array([-1, 0, 19, -9])\nw = np.array([0, 1, 17, -4])\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\n\n\n\nLet’s calculate the Euclidean distance between 2 examples in the Pokémon dataset without using Scikit-learn.\n\n\n\n\n\n\nTasks:\n\nSubtract the first two pokemon feature vectors and save the result in an object named sub_pk.\nSquare the difference and save it in an object named sq_sub_pk.\nSum the squared difference from each dimension and save the result in an object named sss_pk.\nFinally, take the square root of the entire calculation and save it in an object named pk_distance.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X.iloc[1] - X.iloc[0] to subtract the first 2 Pokémon feature vectors?\nAre you using **2 to square the difference??\nAre you using .sum() to sum the differences?\nAre you using sqrt() to square root the sum of squared differences?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis time, let’s calculate the Euclidean distance between 2 examples in the Pokémon dataset using Scikit-learn.\n\n\n\n\n\n\nTask:\n\nCalculate the Euclidean distance of the first 2 Pokémon and save it in an object named pk_distance.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you making sure to use euclidean_distances(X.iloc[:2])\nAre you selecting the right value from the array using [0,1]\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-05-calculating_distances.html#calculating-distances",
+    "href": "modules/module4/module4-05-calculating_distances.html#calculating-distances",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "u = np.array([5, 0, 22, -11])\nv = np.array([-1, 0, 19, -9])\n\n\n\n\nWe have collected a third vector w.\nu = np.array([5, 0, 22, -11])\nv = np.array([-1, 0, 19, -9])\nw = np.array([0, 1, 17, -4])",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-05-calculating_distances.html#distance-true-or-false",
+    "href": "modules/module4/module4-05-calculating_distances.html#distance-true-or-false",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-05-calculating_distances.html#calculating-euclidean-distance-step-by-step",
+    "href": "modules/module4/module4-05-calculating_distances.html#calculating-euclidean-distance-step-by-step",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Let’s calculate the Euclidean distance between 2 examples in the Pokémon dataset without using Scikit-learn.\n\n\n\n\n\n\nTasks:\n\nSubtract the first two pokemon feature vectors and save the result in an object named sub_pk.\nSquare the difference and save it in an object named sq_sub_pk.\nSum the squared difference from each dimension and save the result in an object named sss_pk.\nFinally, take the square root of the entire calculation and save it in an object named pk_distance.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using X.iloc[1] - X.iloc[0] to subtract the first 2 Pokémon feature vectors?\nAre you using **2 to square the difference??\nAre you using .sum() to sum the differences?\nAre you using sqrt() to square root the sum of squared differences?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-05-calculating_distances.html#calculating-euclidean-distance-with-scikit-learn",
+    "href": "modules/module4/module4-05-calculating_distances.html#calculating-euclidean-distance-with-scikit-learn",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "This time, let’s calculate the Euclidean distance between 2 examples in the Pokémon dataset using Scikit-learn.\n\n\n\n\n\n\nTask:\n\nCalculate the Euclidean distance of the first 2 Pokémon and save it in an object named pk_distance.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you making sure to use euclidean_distances(X.iloc[:2])\nAre you selecting the right value from the array using [0,1]\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-02-dimension_questions.html",
+    "href": "modules/module4/module4-02-dimension_questions.html",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Use the following dataframe named garden to answer the next two questions.\n               \n       seeds   shape  sweetness   water-content      weight    fruit_veg\n0      1        0        35          84               100        fruit\n1      0        0        23          75               120        fruit\n2      1        1        15          90              1360         veg\n3      1        1         7          96               600         veg\n4      0        0        37          80                 5        fruit\n5      0        0        45          78                40        fruit  \n6      1        0        27          83               450         veg\n7      1        1        18          73                 5         veg\n8      1        1        32          80                76         veg\n9      0        0        40          83                65        fruit",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-02-dimension_questions.html#dimension-questions",
+    "href": "modules/module4/module4-02-dimension_questions.html#dimension-questions",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Use the following dataframe named garden to answer the next two questions.\n               \n       seeds   shape  sweetness   water-content      weight    fruit_veg\n0      1        0        35          84               100        fruit\n1      0        0        23          75               120        fruit\n2      1        1        15          90              1360         veg\n3      1        1         7          96               600         veg\n4      0        0        37          80                 5        fruit\n5      0        0        45          78                40        fruit  \n6      1        0        27          83               450         veg\n7      1        1        18          73                 5         veg\n8      1        1        32          80                76         veg\n9      0        0        40          83                65        fruit",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-00-module_learning_outcomes.html",
+    "href": "modules/module4/module4-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module4/module4-01-terminology.html",
+    "href": "modules/module4/module4-01-terminology.html",
+    "title": "1. Terminology",
+    "section": "",
+    "text": "1. Terminology\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "1. Terminology"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-04-distances.html",
+    "href": "modules/module4/module4-04-distances.html",
+    "title": "2. Distances",
+    "section": "",
+    "text": "2. Distances\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "2. Distances"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-09-finding_the_nearest_neighbour.html",
+    "href": "modules/module4/module4-09-finding_the_nearest_neighbour.html",
+    "title": "3. Finding the Nearest Neighbour",
+    "section": "",
+    "text": "3. Finding the Nearest Neighbour\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "3. Finding the Nearest Neighbour"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-13-𝑘-nearest_neighbours_(𝑘-nns)_classifier.html",
+    "href": "modules/module4/module4-13-𝑘-nearest_neighbours_(𝑘-nns)_classifier.html",
+    "title": "4. 𝑘-Nearest Neighbours (𝑘-NNs) Classifier",
+    "section": "",
+    "text": "4. 𝑘-Nearest Neighbours (𝑘-NNs) Classifier\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "4. 𝑘-Nearest Neighbours (𝑘-NNs) Classifier"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-17-choosing_𝑘_(n_neighbors).html",
+    "href": "modules/module4/module4-17-choosing_𝑘_(n_neighbors).html",
+    "title": "5. Choosing 𝑘 (n_neighbors)",
+    "section": "",
+    "text": "5. Choosing 𝑘 (n_neighbors)\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "5. Choosing 𝑘 (n_neighbors)"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-21-𝑘_-nearest_neighbours_regressor.html",
+    "href": "modules/module4/module4-21-𝑘_-nearest_neighbours_regressor.html",
+    "title": "6. 𝑘 -Nearest Neighbours Regressor",
+    "section": "",
+    "text": "6. 𝑘 -Nearest Neighbours Regressor\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "6. 𝑘 -Nearest Neighbours Regressor"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-24-support_vector_machines_(svms)_with_rbf_kernel.html",
+    "href": "modules/module4/module4-24-support_vector_machines_(svms)_with_rbf_kernel.html",
+    "title": "7. Support Vector Machines (SVMs) with RBF Kernel",
+    "section": "",
+    "text": "7. Support Vector Machines (SVMs) with RBF Kernel\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "7. Support Vector Machines (SVMs) with RBF Kernel"
+    ]
+  },
+  {
+    "objectID": "modules/module4/module4-28-what_did_we_just_learn.html",
+    "href": "modules/module4/module4-28-what_did_we_just_learn.html",
+    "title": "8. What Did We Just Learn?",
+    "section": "",
+    "text": "8. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M4.Similarity-Based Approaches to Supervised Learning**",
+      "8. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module4/slides/module4_01.html#analogy-based-models",
+    "href": "modules/module4/slides/module4_01.html#analogy-based-models",
+    "title": "Terminology with analogy-based models",
+    "section": "Analogy-based models",
+    "text": "Analogy-based models\n\n\nAttribution\n\nSuppose we are given the following training examples with corresponding labels and are asked to label a given test example.\nAn intuitive way to classify the test example is by finding the most “similar” example(s) from the training set and using that label for the test example.\nIn the previous module, we saw that in supervised machine learning, we are given some training data.\nWe are given X and y. We learn a mapping function from this training data than given a new unseen example, we predict the target of this new example using our learn-mapping function.\nIn the case of decision trees, we did this by asking a series of questions on some features and some thresholds on future values.\nAnother intuitive way to do this is by using the notion of analogy.\nFor example, suppose we are given many images and their labels.\nSo, our X in is a set of pictures and our y is a set of names associated with those pictures.\nThen we are given a new unseen test example, a picture in this particular case.\nWe want to find out the label for this new test picture.\nAn intuitive way to do this is by finding the most similar picture in our training set and using the label of the most similar picture as the label of this new test example.\nThat’s the basic idea behind analogy based algorithms."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_01.html#analogy-based-algorithms-in-practice",
+    "href": "modules/module4/slides/module4_01.html#analogy-based-algorithms-in-practice",
+    "title": "Terminology with analogy-based models",
+    "section": "Analogy-based algorithms in practice",
+    "text": "Analogy-based algorithms in practice\n\nHerta’s High-tech Facial Recognition\n\n\n\n\n\n\n\nRecommendation systems\n\n\n\n\n\n\n\nHere, I am showing two examples of analogy based algorithms in practice.\nWe can see this idea being used in facial recognition systems and recommendation systems.\nFor example, we can imagine having a bunch of faces on our watchlist and a new face comes up.\nWe want to check whether that new face is in our watchlist or not.\nAnother example is recommendation systems. In recommendation systems, we usually want to find out similar users or similar items.\nWe are not going to look into these applications in this particular course but it’s worth mentioning these applications because analogy-based algorithms are used the most in these contexts."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_01.html#geometric-view-of-tabular-data-and-dimensions",
+    "href": "modules/module4/slides/module4_01.html#geometric-view-of-tabular-data-and-dimensions",
+    "title": "Terminology with analogy-based models",
+    "section": "Geometric view of tabular data and dimensions",
+    "text": "Geometric view of tabular data and dimensions\n\n\nIn analogy based algorithms, our goal is to come up with a way to find similarity between examples. For this, we need some terminology.\nIn analogy based algorithms, it’s useful to think of data as points in a high dimensional space.\nSo, given X, each feature in it is a dimension and each example is a point in the dimensional space.\nIn this example, we have three features; speed attack and defense. Each example is a point in this three-dimensional space."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_01.html#dimensions",
+    "href": "modules/module4/slides/module4_01.html#dimensions",
+    "title": "Terminology with analogy-based models",
+    "section": "Dimensions",
+    "text": "Dimensions\n\ngrades_df = pd.read_csv(\"data/quiz2-grade-toy-classification.csv\")\ngrades_df.head()\n\n\n\n\n\n\n\n\nml_experience\nclass_attendance\nlab1\nlab2\nlab3\nlab4\nquiz1\nquiz2\n\n\n\n\n0\n1\n1\n92\n93\n84\n91\n92\nA+\n\n\n1\n1\n0\n94\n90\n80\n83\n91\nnot A+\n\n\n2\n0\n0\n78\n85\n83\n80\n80\nnot A+\n\n\n3\n0\n1\n91\n94\n92\n91\n89\nA+\n\n\n4\n0\n1\n77\n83\n90\n92\n85\nA+\n\n\n\n\n\n\n\n\n\nX = grades_df.drop(columns=['quiz2'])\nX.shape[1]\n\n7\n\n\n\nRemember the quiz dataset that we’ve seen a few times?\nHow many dimensions (features) would this dataset have?\nThe number of features in the grades dataset can be checked using .shape.\nIf we drop the target column and create X, .shape can be used to give us the dimension of our dataset.\nThis time we have 7-dimensional data."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_01.html#dimensions-in-ml-problems",
+    "href": "modules/module4/slides/module4_01.html#dimensions-in-ml-problems",
+    "title": "Terminology with analogy-based models",
+    "section": "Dimensions in ML problems",
+    "text": "Dimensions in ML problems\nDimensions:\n\nDimensions≈20: Low dimensional\nDimensions≈1000: Medium dimensional\nDimensions≈100,000: High dimensional\n\n\nWe can visualize examples when dimensions are less than or equal to three.\nThat said, in machine learning, we usually deal with high dimensional problems where examples are hard to visualize.\nIn machine learning twenty is considered low dimensional.\nOne thousand as a medium dimensional.\nAnd one hundred thousand as high dimensional.\nIt’s not very hard to think of problems where the dimensions are perhaps one hundred thousand.\nFor instance, if we’re dealing with images, then each feature or each dimension would be a pixel in our image.\nOr think about an email spam classification system where each unique word from all the emails that our email received is a feature.\nWe can imagine that the number of features would definitely be around one hundred thousand or more!"
+  },
+  {
+    "objectID": "modules/module4/slides/module4_01.html#feature-vectors",
+    "href": "modules/module4/slides/module4_01.html#feature-vectors",
+    "title": "Terminology with analogy-based models",
+    "section": "Feature vectors",
+    "text": "Feature vectors\nFeature vector: a vector composed of feature values associated with an example.\n\ntrain_df.head()\n\n\n\n\n\n\n\n\nlongitude\nlatitude\ncountry\n\n\n\n\n160\n-76.4813\n44.2307\nCanada\n\n\n127\n-81.2496\n42.9837\nCanada\n\n\n169\n-66.0580\n45.2788\nCanada\n\n\n188\n-73.2533\n45.3057\nCanada\n\n\n187\n-67.9245\n47.1652\nCanada\n\n\n\n\n\n\n\n An example feature vector from the cities dataset:\n\ntrain_df.drop(columns=[\"country\"]).iloc[0].round(2).to_numpy()\n\narray([-76.48,  44.23])\n\n\n An example feature vector from the grading dataset:\n\ngrades_df.drop(columns=['quiz2']).iloc[0].round(2).to_numpy()\n\narray([ 1,  1, 92, 93, 84, 91, 92])\n\n\n\nLet’s look at feature vectors now. They are composed of feature values associated with an example.\nHere is an example of the feature vector from our cities data.\nIn this particular case, the size of our feature vector is 2.\nAnd we have values associated with each feature (latitude and longitude) in this feature vector.\nIn the feature vector from our toy quiz2 classifications data, our feature vector is of size 7."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_09.html#finding-the-distances-to-a-query-point",
+    "href": "modules/module4/slides/module4_09.html#finding-the-distances-to-a-query-point",
+    "title": "Finding the Nearest Neighbour",
+    "section": "Finding the distances to a query point",
+    "text": "Finding the distances to a query point\n\nquery_point = [[-80, 25]]\n\ndists = euclidean_distances(train_df[[\"longitude\", \"latitude\"]], query_point)\ndists[0:5]\n\narray([[19.54996348],\n       [18.02706204],\n       [24.60912622],\n       [21.39718237],\n       [25.24111312]])\n\n\n\nWe can find the city closest to the query point (-80, 25) using:\n\nnp.argmin(dists)\n\n147\n\n\n\nThe distance between the query point and closest city is:\n\ndists[np.argmin(dists)].item()\n\n3.8383922936564634\n\n\n\nNext, let’s find the distances to a given query point.\nBefore we were calculating the distances between all the cities in our training dataset to all other cities in the same set.\nBut what if instead, we are given this new query point which does not occur in our training data.\nSo, suppose we have the query point with a longitude value of -80 and a latitude value of 25.\nWe want to find the training example that’s most similar to this query point.\nHow can we do that?\nFirst, we calculate the distances from a credit point to all examples in our training set.\nWe are showing the distances of our query point to the first five cities in our training data.\nNext, we find out which city from our training data the query point is closest to.\nIt turns out that the city at index 147 is close to our point with the Euclidean distance between the two equal to 3.838."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_17.html#how-to-choose-n_neighbors",
+    "href": "modules/module4/slides/module4_17.html#how-to-choose-n_neighbors",
+    "title": "Choosing 𝑘 (n_neighbors)",
+    "section": "How to choose n_neighbors?",
+    "text": "How to choose n_neighbors?\n\nresults_dict = {\"n_neighbors\": list(), \"mean_train_score\": list(), \"mean_cv_score\": list()}\n\nfor k in range(1,50,5):\n    knn = KNeighborsClassifier(n_neighbors=k)\n    scores = cross_validate(knn, X_train, y_train, return_train_score = True)\n    results_dict[\"n_neighbors\"].append(k)\n    results_dict[\"mean_cv_score\"].append(np.mean(scores[\"test_score\"]))\n    results_dict[\"mean_train_score\"].append(np.mean(scores[\"train_score\"]))\n\nresults_df = pd.DataFrame(results_dict)\nresults_df\n\n\n\n\n\n\n\n\nn_neighbors\nmean_train_score\nmean_cv_score\n\n\n\n\n0\n1\n1.000000\n0.755477\n\n\n1\n6\n0.831135\n0.792603\n\n\n2\n11\n0.819152\n0.802987\n\n\n...\n...\n...\n...\n\n\n7\n36\n0.728777\n0.707681\n\n\n8\n41\n0.706128\n0.681223\n\n\n9\n46\n0.694155\n0.660171\n\n\n\n\n10 rows × 3 columns\n\n\n\n\nIn our toy problem with 𝑘=1, we saw the model was overfitting yet when 𝑘=100, the model was underfitting.\nSo, the question is how do we pick 𝑘?\n\nThe answer lies in hyperparameter optimization.\n\nHere we are looping over different values of 𝑘 ( n_neighbors) and performing cross-validation on each one."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_17.html#curse-of-dimensionality",
+    "href": "modules/module4/slides/module4_17.html#curse-of-dimensionality",
+    "title": "Choosing 𝑘 (n_neighbors)",
+    "section": "Curse of dimensionality",
+    "text": "Curse of dimensionality\n\n\n𝑘 -NN usually works well when the number of dimensions is small.\n\n \n\n\nIn the previous module, we discussed one of the most important problems in machine learning which was overfitting the second most important problem in machine learning is the curse of dimensionality.\nThis problem affects most models but this problem is especially bad for 𝑘-NN.\n𝑘-NN works well then the number of dimensions is small but things fall apart fairly quickly as the number of dimensions goes up.\nIf there are many irrelevant features, 𝑘-NN is hopelessly confused because all of them contribute to finding similarities between examples.\nWith enough irrelevant features, the accidental similarity between features wipe out any meaningful similarity and 𝑘-NN becomes is no better than random guessing."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_17.html#other-useful-arguments-of-kneighborsclassifier",
+    "href": "modules/module4/slides/module4_17.html#other-useful-arguments-of-kneighborsclassifier",
+    "title": "Choosing 𝑘 (n_neighbors)",
+    "section": "Other useful arguments of KNeighborsClassifier",
+    "text": "Other useful arguments of KNeighborsClassifier\n\nAttribution \n\nAnother useful hyperparameter is weight.\nSo far, when predicting labels, we have been giving equal weight to all the nearby examples.\nWe can change that using this weight hyperparameter.\nWe can tell it to weigh the examples higher if they are closer to the query point."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_24.html#svms",
+    "href": "modules/module4/slides/module4_24.html#svms",
+    "title": "Support Vector Machines (SVMs) with RBF Kernel",
+    "section": "SVMs",
+    "text": "SVMs\n\nknn = KNeighborsClassifier(n_neighbors=5)\nscores = cross_validate(knn, X_train, y_train, return_train_score=True)\npd.DataFrame(scores)\n\n\n\n\n\n\n\n\nfit_time\nscore_time\ntest_score\ntrain_score\n\n\n\n\n0\n0.001553\n0.003107\n0.852941\n0.849624\n\n\n1\n0.001311\n0.002915\n0.764706\n0.834586\n\n\n2\n0.001322\n0.002851\n0.727273\n0.850746\n\n\n3\n0.001315\n0.002870\n0.787879\n0.858209\n\n\n4\n0.001301\n0.002789\n0.878788\n0.813433\n\n\n\n\n\n\n\n\n\nknn_cv_score = scores['test_score'].mean().round(3)\nknn_cv_score\n\n0.802\n\n\n\n\nsvm_cv_score.round(3)\n\n0.82\n\n\n\nSuperficially, support vector machines are very similar to 𝑘-Nearest Neighbours.\nA test example is positive if on average it looks more like positive examples it is negative if on average it looks more like negative examples.\nThe primary difference between 𝑘-NNs and SVMs is that:\n\nUnlike 𝑘-NNs, SVMs only remember the key examples (support vectors).\nWhen it comes to predicting a query point, we only consider the key examples from the data, and only calculate the distance to these key examples. This makes it more efficient than 𝑘-NN.\n\nIf we compare the scores from the 𝑘-NN model using n_neighbors=5 and the scores from the SVM model we get similar results, however, the SVM model seems to do slightly better than the 𝑘-NN model."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_24.html#svm-regressor",
+    "href": "modules/module4/slides/module4_24.html#svm-regressor",
+    "title": "Support Vector Machines (SVMs) with RBF Kernel",
+    "section": "SVM Regressor",
+    "text": "SVM Regressor\n\nfrom sklearn.svm import SVR\n\n\nIt should come as no surprise that we can use SVM models for regression problems as well.\nWe need to make sure to import SVR from the SVM sklearn library."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_24.html#hyperparameters-of-svm-are",
+    "href": "modules/module4/slides/module4_24.html#hyperparameters-of-svm-are",
+    "title": "Support Vector Machines (SVMs) with RBF Kernel",
+    "section": "Hyperparameters of SVM are:",
+    "text": "Hyperparameters of SVM are:\n\ngamma\nC\n\n\nThere are 2 main hyperparameters for support vector machines with an RBF kernel; gamma and C.\nWe are not going into detail about the interpretation of these hyperparameters but we will observe how they are related to the fundamental trade-off.\nIf you wish to learn more on these you can reference Scikit-learn`’s explanation of RBF SVM parameters."
+  },
+  {
+    "objectID": "modules/module4/slides/module4_24.html#relation-of-c-and-the-fundamental-trade-off",
+    "href": "modules/module4/slides/module4_24.html#relation-of-c-and-the-fundamental-trade-off",
+    "title": "Support Vector Machines (SVMs) with RBF Kernel",
+    "section": "Relation of C and the fundamental trade-off",
+    "text": "Relation of C and the fundamental trade-off\nC also affects the fundamental tradeoff.\n\nAs C ↑, complexity ↑\nAs C ↓, complexity ↓\n\n\n\n\nThe other hyperparameter we will look at is C. C also controls the fundamental trade-off. Just like with gamma, higher values increase the model complexity whereas lower values decrease the complexity.\nObtaining optimal validation scores requires a hyperparameter search between both gamma and C to balance the fundamental trade-off.\nWe will learn how to search over multiple hyperparameters at a time in the next module."
+  }
+]
