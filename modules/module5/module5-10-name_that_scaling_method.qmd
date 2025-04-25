@@ -189,7 +189,6 @@ assert_accuracy_almost(solution, result)
 ## Hint 1
 
 - Are you using `ss_scaler.fit_transform(X_train)`?
-- Are you using `model.fit(X_train, y_train.to_numpy())`?
 - Are you using `ss_scaler.transform(X_test)`?
 - Are you using `KNeighborsClassifier()` to create your model?
 - Are you using `knn.fit(X_train_scaled, y_train)` to train your data?
