@@ -1,0 +1,291 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 2.1. Exercises
+
+## One-Hot Encoding Questions
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'If we one hot encoded the <code>shape</code> column, what datatype would be the output of after using <code>transform</code>?',
+        {
+        'NumPy array': 'You got it!',
+        'Pandas Dataframe': 'Do we get labels with the output?',
+        'Pandas Series': 'Are we getting multiple columns in the output?',
+        'Dictionary': 'Not quite.',
+        },
+        'NumPy array',
+    );
+</script>
+
+## One-Hot Encoding - Output
+
+Refer to the dataframe to answer the following question.
+```
+           name   colour location   seed  shape  sweetness  water_content  weight
+0         apple      red   canada   True  round       True             84     100
+1        banana   yellow   mexico  False   long       True             75     120
+2    cantaloupe   orange    spain   True  round       True             90    1360
+3  dragon-fruit  magenta    china   True  round      False             96     600
+4    elderberry   purple  austria  False  round       True             80       5
+5           fig   purple   turkey  False   oval      False             78      40
+6         guava    green   mexico   True   oval       True             83     450
+7   huckleberry     blue   canada   True  round       True             73       5
+8          kiwi    brown    china   True  round       True             80      76
+9         lemon   yellow   mexico  False   oval      False             83      65
+```
+
+<br>
+
+A.
+
+```
+array([[0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 1, 1, 0, 0, 1],
+       [1, 0, 1, 1, 1, 0, 0, 1, 1, 0]])
+```
+
+B.
+
+```
+array([[0, 0, 1],
+       [1, 0, 0],
+       [0, 0, 1],
+       [0, 0, 1],
+       [0, 0, 1],
+       [0, 1, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [0, 0, 1],
+       [0, 1, 0]])
+```
+
+C.
+
+```
+array([[0, 1, 0, 0, 0, 0],
+       [0, 0, 0, 1, 0, 0],
+       [0, 0, 0, 0, 1, 0],
+       [0, 0, 1, 0, 0, 0],
+       [1, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 1],
+       [0, 0, 0, 1, 0, 0],
+       [0, 1, 0, 0, 0, 0],
+       [0, 0, 1, 0, 0, 0],
+       [0, 0, 0, 1, 0, 0]])
+```
+
+D.
+
+```
+array([[0],
+       [5],
+       [0],
+       [3],
+       [0],
+       [0],
+       [3],
+       [0],
+       [5],
+       [3],
+       [1],
+       [4],
+       [3],
+       [2]])
+
+```
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 1',
+        'Which of the following outputs in the result of one-hot encoding the <code>shape</code> column?',
+        {
+        'A': 'Are you sure it’s the correct dimensions?',
+        'B': '',
+        'C': 'How many unique values are there in the column <code>shape</code>',
+        'D': 'This is a single column. Are you sure that’s what you want?',
+        },
+        'B',
+    );
+</script>
+
+## One Hot encoding True or False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'One-hot encoding a column with 5 unique categories will produce 5 new transformed columns.',
+        {
+        'True': 'Yes! We are transforming the data into new columns!',
+        'False': 'How is our data transforming?',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'The values in the new transformed columns after one-hot encoding, are all possible integer or float values.',
+        {
+        'True': 'How many options are there for each columns? Does it become a binary value now?',
+        'False': 'Great! The values become binary and only two possible values are in the columns now: 0, or 1.',
+        },
+        'False',
+    );
+</script>
+
+## Encoding - One-Hot Style!
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Last time we ordinal encoded the `country` column from our basketball dataset but now we know that this isn't the best option. This time, instead let's one-hot encode this feature. 
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+bball_df
+```
+
+**Tasks:**
+
+- Build a one-hot encoder that uses a `dtype` of `int` and `sparse_output=False`. Name it `one_hot_encoder`. 
+- Fit on `X_column`, transform it and save the results in an object named `country_encoded`.
+
+```{pyodide}
+#| setup: true
+#| exercise: encoding_one-hot_style
+import numpy as np
+import pandas as pd
+pd.set_option('display.max_columns', 6)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from src.utils import print_correct_msg
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: encoding_one-hot_style
+# Split the dataset
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+
+X_column = df_train[['country']]
+
+# Build the tranformer and fit on it 
+____ = ____(____, ____)
+____.____(____);
+
+# Transform the column country
+____ = ____.____(____)
+
+# Print the output of country_encoded
+print(country_encoded)
+
+# Let's look at this in a dataframe
+pd.DataFrame(data=country_encoded,
+                  columns=one_hot_encoder.get_feature_names_out(['country']),
+                  index=X_column.index)
+```
+
+```{pyodide}
+#| exercise: encoding_one-hot_style
+#| check: true
+assert isinstance(result, pd.DataFrame), "The last line should be a dataframe."
+
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+X_column = df_train[['country']]
+
+one_hot_encoder = OneHotEncoder(sparse_output=False, dtype='int')
+one_hot_encoder.fit(X_column);
+country_encoded = one_hot_encoder.transform(X_column)
+solution = pd.DataFrame(data=country_encoded,columns=one_hot_encoder.get_feature_names_out(['country']),index=X_column.index)
+
+assert solution.shape == result.shape, "The shape of the final dataframe is incorrect."
+assert solution.sum(axis=1).sum() == result.sum(axis=1).sum(), "Check your encoding."
+print_correct_msg()
+```
+
+:::: { .hint exercise="encoding_one-hot_style"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you building `OneHotEncoder` and using `dtype=int` and setting `sparse_output=False`?
+- Are you fitting the transformer?
+
+:::
+::::
+
+:::: { .solution exercise="encoding_one-hot_style" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Split the dataset
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+
+X_column = df_train[['country']]
+
+# Build the tranformer and fit on it 
+one_hot_encoder = OneHotEncoder(sparse_output=False, dtype='int')
+one_hot_encoder.fit(X_column);
+
+# Transform the column country
+country_encoded = one_hot_encoder.transform(X_column)
+
+# Print the output of country_encoded
+print(country_encoded)
+
+# Let's look at this in a dataframe
+pd.DataFrame(data=country_encoded,
+                  columns=one_hot_encoder.get_feature_names_out(['country']),
+                  index=X_column.index)
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question',
+        'How many columns will <code>country_encoded</code> have?',
+        {
+        '1': 'This is the case for ordinal encoding. Try using <code>country_encoded.shape</code>.',
+        '5': 'This is just what you see. Try using <code>country_encoded.shape</code>.',
+        '21': 'Try using <code>country_encoded.shape</code>.',
+        '23': '',
+        },
+        '23',
+    );
+</script>

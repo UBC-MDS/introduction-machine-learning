@@ -38,6 +38,28 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M6. Preprocessing Categorical Variables**"
+        contents:
+          - href: modules/module6/module6-00-module_learning_outcomes.qmd
+          - href: modules/module6/module6-01-categorical_variables:_ordinal_encoding.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module6/module6-02-categorical_variables.qmd
+          - href: modules/module6/module6-05-categorical_variables:_one-hot_encoding.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module6/module6-06-one-hot_encoding_questions.qmd
+          - href: modules/module6/module6-10-columntransformer.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module6/module6-11-transforming_columns_with_columntransformer.qmd
+          - href: modules/module6/module6-14-make_-_pipelines_column_transformers.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module6/module6-15-making_pipelines.qmd
+          - href: modules/module6/module6-18-handeling_categorical_features:_binary_ordinal_and_more.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module6/module6-19-transforming_categorical_features.qmd
+          - href: modules/module6/module6-22-text_data.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module6/module6-23-text_data_questions.qmd
+          - href: modules/module6/module6-26-what_did_we_just_learn.qmd
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.
@@ -46,7 +68,7 @@ format:
   html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px
@@ -54,7 +76,7 @@ format:
   live-html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px

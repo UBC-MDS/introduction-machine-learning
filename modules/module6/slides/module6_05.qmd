@@ -1,0 +1,284 @@
+---
+format: revealjs
+title: "One-Hot encoding"
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+## From before ...
+
+```{python}
+# | include: false
+pd.set_option('display.max_rows', 15)
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OrdinalEncoder
+from sklearn.neighbors import KNeighborsRegressor
+
+housing_df = pd.read_csv("data/housing.csv")
+train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
+ 
+train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
+                           bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
+                           population_per_household = train_df["population"]/train_df["households"])
+                        
+test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
+                         bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
+                         population_per_household = test_df["population"]/test_df["households"])
+                         
+train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
+test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
+ 
+X_train = train_df.drop(columns=["median_house_value", "ocean_proximity"])
+y_train = train_df["median_house_value"]
+ 
+X_test = test_df.drop(columns=["median_house_value", "ocean_proximity"])
+y_test = test_df["median_house_value"]
+ 
+imputer = SimpleImputer(strategy="median")
+imputer.fit(X_train)
+X_train_imp = imputer.transform(X_train)
+X_test_imp = imputer.transform(X_test)
+
+
+X_train = train_df.drop(columns=["median_house_value"])
+y_train = train_df["median_house_value"]
+
+X_test = test_df.drop(columns=["median_house_value"])
+y_test = test_df["median_house_value"]
+
+pipe = Pipeline(
+    steps=[
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler()),
+        ("reg", KNeighborsRegressor()),
+    ]
+)
+
+X_toy = pd.DataFrame({'language':['English', 'Vietnamese', 'English', 'Mandarin', 
+                                  'English', 'English', 'Mandarin', 'English', 
+                                  'Vietnamese', 'Mandarin', 'French','Spanish', 
+                                  'Mandarin', 'Hindi']})
+                                  
+
+oe = OrdinalEncoder(dtype=int)
+oe.fit(X_toy);
+X_toy_ord = oe.transform(X_toy)
+
+
+encoding_view = X_toy.assign(language_enc=X_toy_ord)
+```
+
+```{python}
+encoding_view
+```
+
+
+:::{.notes} 
+In the last section, we saw that we can transform our categorical data into numeric data using `OrdinalEncoder`.
+
+Seems pretty standard and easy enough but we asked you a question in the last slide deck if we should always use this method?
+
+The answer is no. Can you see why? 
+:::
+
+---
+
+## What wrong with this?
+
+```{python}
+oe.categories_
+```
+
+<br>
+
+```{python}
+encoding_view.drop_duplicates()
+```
+
+
+:::{.notes} 
+What's the problem with this approach? 
+
+If you look at the original values and compare them to the new transformed ones what do you notice?
+
+We have imposed ordinality on the categorical data.
+
+For example, imagine when you are calculating distances. Is it fair to say that French and Hindi are closer to one another than French and Spanish? 
+
+In general, label encoding is useful if there is ordinality in your data and capturing it is important for your problem, e.g., `[cold, warm, hot]`. 
+:::
+
+---
+
+## One-hot encoding (OHE)
+
+
+Ordinal encoding: 
+
+```{python}
+encoding_view[['language_enc']].head()
+```
+
+<br>
+
+```{python}
+# | include: false
+from sklearn.preprocessing import OneHotEncoder
+
+enc = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+enc.fit(X_toy)
+X_toy_ohe = enc.transform(X_toy)
+one_hot_df = pd.DataFrame(
+    data=X_toy_ohe,
+    columns=enc.get_feature_names_out(['language']),
+    index=X_toy.index,
+)
+```
+
+One-hot encoding: 
+
+```{python}
+one_hot_df.head()
+```
+
+:::{.notes} 
+So what do we do when our values are not truly ordinal categories? 
+
+We can do something called **one-hot encoding**!
+
+Rather than assign integer labels to our data, we use it to create new binary columns to represent our categories.
+
+Before we would transform one original column into one transformed column but in this case, we will transform one column into several transformed columns, one per category.
+
+One-hot encoding creates new binary columns to represent our categories.
+
+If we have 𝑐 categories in our column, we create 𝑐 new binary columns to represent those categories.    
+- Example: Imagine a language column which has the information on whether you 
+
+- We can use sklearn's <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">`OneHotEncoder`</a>
+:::
+
+---
+
+## How to one-hot encode
+
+```{python}
+X_toy
+```
+
+:::{.notes}
+Let's take our `X_toy` and one-hot encode it.
+:::
+
+---
+
+
+```{python}
+from sklearn.preprocessing import OneHotEncoder
+
+ohe = OneHotEncoder(sparse_output=False, dtype='int')
+ohe.fit(X_toy);
+X_toy_ohe = ohe.transform(X_toy)
+
+X_toy_ohe
+```
+
+
+
+:::{.notes} 
+We import the `OneHotEncoder` transformer from `sklearn` and then build our transformer. 
+
+We fit and transform the data and exactly as before, our output from the `transform` function is a NumPy array.
+:::
+
+---
+
+
+```{python}
+pd.DataFrame(
+    data=X_toy_ohe,
+    columns=ohe.get_feature_names_out(['language']),
+    index=X_toy.index,
+)
+```
+
+:::{.notes} 
+We can convert it to a Pandas dataframe and see that instead of 1 column, we have 6!
+:::
+
+---
+
+```{python}
+X_train.head()
+```
+
+<br>
+
+```{python}
+X_train['ocean_proximity'].unique()
+```
+
+
+:::{.notes} 
+Ok, so what should we use on our California housing data? 
+
+`ocean_proximity` seems like an ordinal feature, however, looking at the possible categories seems a little less clear. 
+
+How would you order these? 
+
+Should `NEAR OCEAN` be higher in value than `NEAR BAY`? 
+
+In unsure times, maybe one-hot encoding is the better option. 
+:::
+
+---
+
+## One hot encoding the California housing data
+
+```{python}
+ohe = OneHotEncoder(sparse_output=False, dtype="int")
+ohe.fit(X_train[["ocean_proximity"]])
+X_imp_ohe_train = ohe.transform(X_train[["ocean_proximity"]])
+
+X_imp_ohe_train
+```
+
+
+:::{.notes} 
+Ok great we've transformed our data, however, Just like before, the transformer outputs a NumPy array. 
+:::
+
+-----
+
+```{python}
+transformed_ohe = pd.DataFrame(
+    data=X_imp_ohe_train,
+    columns=ohe.get_feature_names_out(['ocean_proximity']),
+    index=X_train.index,
+)
+
+transformed_ohe.head()
+```
+
+:::{.notes} 
+
+We can transform it into a dataframe to see the values more clearly.
+
+**But ....now what?**
+
+How do we put this together with other columns in the data before fitting the model? 
+
+We want to apply different transformations to different columns.  
+
+We will explain that in the next section. 
+:::
+
+
+# Let’s apply what we learned!

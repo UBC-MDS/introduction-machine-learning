@@ -48,13 +48,11 @@ function generateQuiz(containerId, title, question, options, correctAnswers) {
         input.style.boxShadow = 'none';  // Remove brief occurances of transparent fill when clicked
         input.style.outline = 'none';  // Remove brief occurances of transparent fill when clicked
 
-        // Modify the event listener to check against an array of correct answers
         input.addEventListener('change', function () {
             messageElement.style.display = 'none';
             messageElement.style.opacity = 0;
 
-            // Check if the selected option is in the correctAnswers array
-            if (correctAnswers.includes(option)) {
+            if (correctAnswers === option) {
                 const emojis = ["🍀", "🎉", "🌈", "🚀", "🌟", "✨", "💯"];
                 const emoji = emojis[~~(Math.random() * emojis.length)];
                 messageBody.innerHTML = `<strong style="color: #F78F2E !important; font-size: 16px">Correct! &nbsp;${emoji}</strong><br>${explanation}`;
