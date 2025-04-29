@@ -1,0 +1,503 @@
+[
+  {
+    "objectID": "modules/module6/slides/module6_26.html#module-learning-outcomes",
+    "href": "modules/module6/slides/module6_26.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 6",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain handle_unknown=\"ignore\" hyperparameter of scikit-learn’s OneHotEncoder.\nIdentify when it’s appropriate to apply ordinal encoding vs one-hot encoding.\nExplain strategies to deal with categorical variables with too many categories.\nExplain why text data needs a different treatment than categorical variables.\nUse scikit-learn’s CountVectorizer to encode text data.\nExplain different hyperparameters of CountVectorizer.\nUse ColumnTransformer to build all our transformations together into one object and use it with scikit-learn pipelines."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_18.html#returning-to-ordinal-encoding",
+    "href": "modules/module6/slides/module6_18.html#returning-to-ordinal-encoding",
+    "title": "Handeling Categorical Features: Binary, Ordinal and More",
+    "section": "Returning to ordinal encoding",
+    "text": "Returning to ordinal encoding\n\nfrom sklearn.model_selection import train_test_split\n\nadult = pd.read_csv('data/adult.csv')\nadult = adult.replace(\"?\", np.NaN)\ntrain_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)\nX_train = train_df.drop(columns=['income'])\ny_train = train_df['income']\nX_test = test_df.drop(columns=['income'])\ny_test = test_df['income']\n\nnumeric_features = [\"age\", \"fnlwgt\", \"education.num\", \"capital.gain\",\n                    \"capital.loss\", \"hours.per.week\"]\n\ncategorical_features = [\"workclass\", \"education\", \"marital.status\", \n                        \"occupation\", \"relationship\", \"race\", \n                        \"sex\", \"native.country\"]\n\n\ntrain_df[categorical_features].head(3)\n\n\n\n\n\n\n\n\nworkclass\neducation\nmarital.status\noccupation\nrelationship\nrace\nsex\nnative.country\n\n\n\n\n5514\nPrivate\nHS-grad\nNever-married\nCraft-repair\nNot-in-family\nWhite\nMale\nUnited-States\n\n\n19777\nPrivate\nHS-grad\nNever-married\nOther-service\nNot-in-family\nWhite\nFemale\nUnited-States\n\n\n10781\nPrivate\nBachelors\nDivorced\nAdm-clerical\nUnmarried\nWhite\nFemale\nUnited-States\n\n\n\n\n\n\n\n\nTaking where we left off with our adult census data, it’s a good idea to take a look at the categorical features we specified in more detail.\nSome of the categorical features are truly categorical, meaning that there is no ordinality among values."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_18.html#binary-features",
+    "href": "modules/module6/slides/module6_18.html#binary-features",
+    "title": "Handeling Categorical Features: Binary, Ordinal and More",
+    "section": "Binary Features",
+    "text": "Binary Features\n\nX_train.head()\n\n\n\n\n\n\n\n\nage\nworkclass\nfnlwgt\neducation\n...\ncapital.gain\ncapital.loss\nhours.per.week\nnative.country\n\n\n\n\n5514\n26\nPrivate\n256263\nHS-grad\n...\n0\n0\n25\nUnited-States\n\n\n19777\n24\nPrivate\n170277\nHS-grad\n...\n0\n0\n35\nUnited-States\n\n\n10781\n36\nPrivate\n75826\nBachelors\n...\n0\n0\n40\nUnited-States\n\n\n32240\n22\nState-gov\n24395\nSome-college\n...\n0\n0\n20\nUnited-States\n\n\n9876\n31\nLocal-gov\n356689\nBachelors\n...\n0\n0\n40\nUnited-States\n\n\n\n\n5 rows × 14 columns\n\n\n\n\n\nX_train['sex'].unique()\n\narray(['Male', 'Female'], dtype=object)\n\n\n\nLet’s take another look at our columns.\nIf we look at the values for sex, they were collected in a binary way.\nNote that this representation reflects how the data were collected and is not meant to imply that, for example, gender is binary."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_18.html#one-hot-encoding-with-many-categories",
+    "href": "modules/module6/slides/module6_18.html#one-hot-encoding-with-many-categories",
+    "title": "Handeling Categorical Features: Binary, Ordinal and More",
+    "section": "One-hot encoding with many categories",
+    "text": "One-hot encoding with many categories\n\nX_train[\"native.country\"].value_counts()\n\nUnited-States         23315\nMexico                  512\nPhilippines             165\n                      ...  \nScotland                 10\nHonduras                  7\nHoland-Netherlands        1\nName: native.country, Length: 41, dtype: int64\n\n\n\nThis may be too detailed, and the amount of data is very limited for most of these countries.\nCan you really learn from 11 examples?\nGrouping them into bigger categories such as “South America” or “Asia” or having an “other” category for rare cases could be a better solution."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_10.html#problem-we-have-different-transformations-for-different-columns",
+    "href": "modules/module6/slides/module6_10.html#problem-we-have-different-transformations-for-different-columns",
+    "title": "ColumnTransformer",
+    "section": "Problem: We have different transformations for different columns",
+    "text": "Problem: We have different transformations for different columns\nBefore we fit our model, we want to apply different transformations on different columns.\n\nNumeric columns:\n\nimputation\nscaling\n\nCategorical columns:\n\nimputation\n\none-hot encoding\n\n\n\nWe can’t use a pipeline since not all the transformations are occurring on every feature.\nWe could do so without but then we would be violating the Golden Rule of Machine learning when we did cross-validation.\nSo we need a new tool and it’s called ColumnTransformer!"
+  },
+  {
+    "objectID": "modules/module6/slides/module6_10.html#columntransformer",
+    "href": "modules/module6/slides/module6_10.html#columntransformer",
+    "title": "ColumnTransformer",
+    "section": "ColumnTransformer",
+    "text": "ColumnTransformer\n\n\nAdapted from here. \n\nsklearn’s ColumnTransformer makes this more manageable.\nA big advantage here is that we build all our transformations together into one object, and that way we’re sure we do the same operations to all splits of the data.\nOtherwise, we might, for example, do the OHE on both train and test but forget to scale the test data."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_01.html#remember-our-case-study-with-the-california-housing-dataset",
+    "href": "modules/module6/slides/module6_01.html#remember-our-case-study-with-the-california-housing-dataset",
+    "title": "Categorical Variables: Ordinal Encoding",
+    "section": "Remember our case study with the California housing dataset?",
+    "text": "Remember our case study with the California housing dataset?\n\ntrain_df.head()\n\n\n\n\n\n\n\n\nlongitude\nlatitude\nhousing_median_age\nhouseholds\n...\nocean_proximity\nrooms_per_household\nbedrooms_per_household\npopulation_per_household\n\n\n\n\n6051\n-117.75\n34.04\n22.0\n602.0\n...\nINLAND\n4.897010\n1.056478\n4.318937\n\n\n20113\n-119.57\n37.94\n17.0\n20.0\n...\nINLAND\n17.300000\n6.500000\n2.550000\n\n\n14289\n-117.13\n32.74\n46.0\n708.0\n...\nNEAR OCEAN\n4.738701\n1.084746\n2.057910\n\n\n13665\n-117.31\n34.02\n18.0\n285.0\n...\nINLAND\n5.733333\n0.961404\n3.154386\n\n\n14471\n-117.23\n32.88\n18.0\n1458.0\n...\nNEAR OCEAN\n3.817558\n1.004801\n4.323045\n\n\n\n\n5 rows × 10 columns\n\n\n\n\n\nX_train = train_df.drop(columns=[\"median_house_value\"])\ny_train = train_df[\"median_house_value\"]\n\nX_test = test_df.drop(columns=[\"median_house_value\"])\ny_test = test_df[\"median_house_value\"]\n\n\nRemember in module 5, we preprocessed only the numeric variables of our California housing dataset.\nEarly on, before we even did imputation, we dropped the categorical feature ocean_proximity feature from the dataframe.\nWe just discussed how dropping certain columns is not always the best idea since we could be dropping potentially useful features in this task.\nCategorical variables can be extremely useful in that they require their own different kind of preprocessing.\nLet’s create our X_train and and X_test again by keeping the ocean_proximity feature in the data this time."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_01.html#ordinal-encoding",
+    "href": "modules/module6/slides/module6_01.html#ordinal-encoding",
+    "title": "Categorical Variables: Ordinal Encoding",
+    "section": "Ordinal encoding",
+    "text": "Ordinal encoding\n\nX_toy\n\n\n\n\n\n\n\n\nrating\n\n\n\n\n0\nGood\n\n\n1\nBad\n\n\n2\nGood\n\n\n3\nGood\n\n\n4\nBad\n\n\n5\nNeutral\n\n\n6\nGood\n\n\n7\nGood\n\n\n8\nNeutral\n\n\n9\nNeutral\n\n\n10\nNeutral\n\n\n11\nGood\n\n\n12\nBad\n\n\n13\nGood\n\n\n\n\n\n\n\n\npd.DataFrame(X_toy['rating'].value_counts()).rename(columns={'rating': 'frequency'}).T\n\n\n\n\n\n\n\n\nGood\nNeutral\nBad\n\n\n\n\nfrequency\n7\n4\n3\n\n\n\n\n\n\n\n\nLet’s take a look at a dummy dataframe to explain how to use ordinal encoding.\nHere we have a categorical column specifying different movie rating."
+  },
+  {
+    "objectID": "modules/module6/module6-26-what_did_we_just_learn.html",
+    "href": "modules/module6/module6-26-what_did_we_just_learn.html",
+    "title": "7. What Did We Just Learn?",
+    "section": "",
+    "text": "7. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "7. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-22-text_data.html",
+    "href": "modules/module6/module6-22-text_data.html",
+    "title": "6. Text Data",
+    "section": "",
+    "text": "6. Text Data\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "6. Text Data"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-18-handeling_categorical_features:_binary_ordinal_and_more.html",
+    "href": "modules/module6/module6-18-handeling_categorical_features:_binary_ordinal_and_more.html",
+    "title": "5. Handeling Categorical Features: Binary, Ordinal and More",
+    "section": "",
+    "text": "5. Handeling Categorical Features: Binary, Ordinal and More\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "5. Handeling Categorical Features: Binary, Ordinal and More"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-14-make_-_pipelines_column_transformers.html",
+    "href": "modules/module6/module6-14-make_-_pipelines_column_transformers.html",
+    "title": "4. Make - Pipelines & Column Transformers",
+    "section": "",
+    "text": "4. Make - Pipelines & Column Transformers\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "4. Make - Pipelines & Column Transformers"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-10-columntransformer.html",
+    "href": "modules/module6/module6-10-columntransformer.html",
+    "title": "3. ColumnTransformer",
+    "section": "",
+    "text": "3. ColumnTransformer\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "3. ColumnTransformer"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-05-categorical_variables:_one-hot_encoding.html",
+    "href": "modules/module6/module6-05-categorical_variables:_one-hot_encoding.html",
+    "title": "2. Categorical Variables: One-Hot Encoding",
+    "section": "",
+    "text": "2. Categorical Variables: One-Hot Encoding\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "2. Categorical Variables: One-Hot Encoding"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-01-categorical_variables:_ordinal_encoding.html",
+    "href": "modules/module6/module6-01-categorical_variables:_ordinal_encoding.html",
+    "title": "1. Categorical Variables: Ordinal Encoding",
+    "section": "",
+    "text": "1. Categorical Variables: Ordinal Encoding\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "1. Categorical Variables: Ordinal Encoding"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-00-module_learning_outcomes.html",
+    "href": "modules/module6/module6-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-02-categorical_variables.html",
+    "href": "modules/module6/module6-02-categorical_variables.html",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "name    colour    location    seed   shape  sweetness   water-content  weight  popularity\n0         apple       red     canada    True   round     True          84         100      popular\n1        banana    yellow     mexico   False    long     True          75         120      popular\n2    cantaloupe    orange      spain    True   round     True          90        1360      neutral\n3  dragon-fruit   magenta      china    True   round    False          96         600      not popular\n4    elderberry    purple    austria   False   round     True          80           5      not popular\n5           fig    purple     turkey   False    oval    False          78          40      neutral\n6         guava     green     mexico    True    oval     True          83         450      neutral\n7   huckleberry      blue     canada    True   round     True          73           5      not popular\n8          kiwi     brown      china    True   round     True          80          76      popular\n9         lemon    yellow     mexico   False    oval    False          83          65      popular\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe’ve seen our basketball dataset but have only used the features salary, weight and height. This time, let’s look at the country column and transform it.\n\n\n\n\n\n\nTasks: - Build an ordinal encoder that uses a dtype of int and name it ordinal_encoder. - Fit on X_column, transform it and save the results in an object named country_encoded.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you building OrdinalEncoder and using dtype=int?\nAre you fitting the transformer?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-02-categorical_variables.html#categorical-variables",
+    "href": "modules/module6/module6-02-categorical_variables.html#categorical-variables",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "name    colour    location    seed   shape  sweetness   water-content  weight  popularity\n0         apple       red     canada    True   round     True          84         100      popular\n1        banana    yellow     mexico   False    long     True          75         120      popular\n2    cantaloupe    orange      spain    True   round     True          90        1360      neutral\n3  dragon-fruit   magenta      china    True   round    False          96         600      not popular\n4    elderberry    purple    austria   False   round     True          80           5      not popular\n5           fig    purple     turkey   False    oval    False          78          40      neutral\n6         guava     green     mexico    True    oval     True          83         450      neutral\n7   huckleberry      blue     canada    True   round     True          73           5      not popular\n8          kiwi     brown      china    True   round     True          80          76      popular\n9         lemon    yellow     mexico   False    oval    False          83          65      popular",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-02-categorical_variables.html#try-ordinal-encoding-yourself",
+    "href": "modules/module6/module6-02-categorical_variables.html#try-ordinal-encoding-yourself",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe’ve seen our basketball dataset but have only used the features salary, weight and height. This time, let’s look at the country column and transform it.\n\n\n\n\n\n\nTasks: - Build an ordinal encoder that uses a dtype of int and name it ordinal_encoder. - Fit on X_column, transform it and save the results in an object named country_encoded.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you building OrdinalEncoder and using dtype=int?\nAre you fitting the transformer?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-06-one-hot_encoding_questions.html",
+    "href": "modules/module6/module6-06-one-hot_encoding_questions.html",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Refer to the dataframe to answer the following question.\n           name   colour location   seed  shape  sweetness  water_content  weight\n0         apple      red   canada   True  round       True             84     100\n1        banana   yellow   mexico  False   long       True             75     120\n2    cantaloupe   orange    spain   True  round       True             90    1360\n3  dragon-fruit  magenta    china   True  round      False             96     600\n4    elderberry   purple  austria  False  round       True             80       5\n5           fig   purple   turkey  False   oval      False             78      40\n6         guava    green   mexico   True   oval       True             83     450\n7   huckleberry     blue   canada   True  round       True             73       5\n8          kiwi    brown    china   True  round       True             80      76\n9         lemon   yellow   mexico  False   oval      False             83      65\n\n\n\n\narray([[0, 1, 0, 0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 1, 1, 0, 0, 1],\n       [1, 0, 1, 1, 1, 0, 0, 1, 1, 0]])\n\n\n\narray([[0, 0, 1],\n       [1, 0, 0],\n       [0, 0, 1],\n       [0, 0, 1],\n       [0, 0, 1],\n       [0, 1, 0],\n       [0, 1, 0],\n       [0, 0, 1],\n       [0, 0, 1],\n       [0, 1, 0]])\n\n\n\narray([[0, 1, 0, 0, 0, 0],\n       [0, 0, 0, 1, 0, 0],\n       [0, 0, 0, 0, 1, 0],\n       [0, 0, 1, 0, 0, 0],\n       [1, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 1],\n       [0, 0, 0, 1, 0, 0],\n       [0, 1, 0, 0, 0, 0],\n       [0, 0, 1, 0, 0, 0],\n       [0, 0, 0, 1, 0, 0]])\n\n\n\narray([[0],\n       [5],\n       [0],\n       [3],\n       [0],\n       [0],\n       [3],\n       [0],\n       [5],\n       [3],\n       [1],\n       [4],\n       [3],\n       [2]])\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLast time we ordinal encoded the country column from our basketball dataset but now we know that this isn’t the best option. This time, instead let’s one-hot encode this feature.\n\n\n\n\n\n\nTasks:\n\nBuild a one-hot encoder that uses a dtype of int and sparse_output=False. Name it one_hot_encoder.\nFit on X_column, transform it and save the results in an object named country_encoded.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you building OneHotEncoder and using dtype=int and setting sparse_output=False?\nAre you fitting the transformer?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-06-one-hot_encoding_questions.html#one-hot-encoding---output",
+    "href": "modules/module6/module6-06-one-hot_encoding_questions.html#one-hot-encoding---output",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Refer to the dataframe to answer the following question.\n           name   colour location   seed  shape  sweetness  water_content  weight\n0         apple      red   canada   True  round       True             84     100\n1        banana   yellow   mexico  False   long       True             75     120\n2    cantaloupe   orange    spain   True  round       True             90    1360\n3  dragon-fruit  magenta    china   True  round      False             96     600\n4    elderberry   purple  austria  False  round       True             80       5\n5           fig   purple   turkey  False   oval      False             78      40\n6         guava    green   mexico   True   oval       True             83     450\n7   huckleberry     blue   canada   True  round       True             73       5\n8          kiwi    brown    china   True  round       True             80      76\n9         lemon   yellow   mexico  False   oval      False             83      65\n\n\n\n\narray([[0, 1, 0, 0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 1, 1, 0, 0, 1],\n       [1, 0, 1, 1, 1, 0, 0, 1, 1, 0]])\n\n\n\narray([[0, 0, 1],\n       [1, 0, 0],\n       [0, 0, 1],\n       [0, 0, 1],\n       [0, 0, 1],\n       [0, 1, 0],\n       [0, 1, 0],\n       [0, 0, 1],\n       [0, 0, 1],\n       [0, 1, 0]])\n\n\n\narray([[0, 1, 0, 0, 0, 0],\n       [0, 0, 0, 1, 0, 0],\n       [0, 0, 0, 0, 1, 0],\n       [0, 0, 1, 0, 0, 0],\n       [1, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 1],\n       [0, 0, 0, 1, 0, 0],\n       [0, 1, 0, 0, 0, 0],\n       [0, 0, 1, 0, 0, 0],\n       [0, 0, 0, 1, 0, 0]])\n\n\n\narray([[0],\n       [5],\n       [0],\n       [3],\n       [0],\n       [0],\n       [3],\n       [0],\n       [5],\n       [3],\n       [1],\n       [4],\n       [3],\n       [2]])",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-06-one-hot_encoding_questions.html#encoding---one-hot-style",
+    "href": "modules/module6/module6-06-one-hot_encoding_questions.html#encoding---one-hot-style",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLast time we ordinal encoded the country column from our basketball dataset but now we know that this isn’t the best option. This time, instead let’s one-hot encode this feature.\n\n\n\n\n\n\nTasks:\n\nBuild a one-hot encoder that uses a dtype of int and sparse_output=False. Name it one_hot_encoder.\nFit on X_column, transform it and save the results in an object named country_encoded.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you building OneHotEncoder and using dtype=int and setting sparse_output=False?\nAre you fitting the transformer?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-11-transforming_columns_with_columntransformer.html",
+    "href": "modules/module6/module6-11-transforming_columns_with_columntransformer.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Refer to the dataframe to answer the following question.\n       colour   location    shape   water_content  weight\n0       red      canada      NaN         84          100\n1     yellow     mexico     long         75          120\n2     orange     spain       NaN         90          NaN\n3    magenta     china      round        NaN         600\n4     purple    austria      NaN         80          115\n5     purple    turkey      oval         78          340\n6     green     mexico      oval         83          NaN\n7      blue     canada      round        73          535\n8     brown     china        NaN         NaN        1743  \n9     yellow    mexico      oval         83          265\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s now start doing transformations and working with them with our basketball dataset.\nWe’ve provided you with the numerical and categorical features, it’s your turn to make a pipeline for each and then use ColumnTransformer to transform them.\nWe have a regression problem this time where we are attempting to predict a player’s salary.\n\n\n\n\n\n\nTasks:\n\nCreate a pipeline for the numeric features. It should have the first step as simple imputation using strategy=\"median\" and the second step should be using StandardScaler. Name this pipeline numeric_transformer.\nCreate a pipeline for the categorical features. It should also have 2 steps. The first is imputation using strategy=\"most_frequent\". The second step should be one-hot encoding with handle_unknown=\"ignore\". Name this pipeline categorical_transformer.\nMake your column transformer named col_transformer and specify the transformations on numeric_features and categorical_features using the appropriate pipelines you build above. -Create a main pipeline named main_pipe which preprocesses with col_transformer followed by building a KNeighborsRegressor model.\nThe last step is performing cross-validation using our pipeline.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\") for numerical imputation?\nAre you naming your steps?\nAre you using SimpleImputer(strategy=\"most_frequent\") for categorical imputation?\nAre you using one-hot encoding?\nAre you naming the steps in ColumnTransformer and specifying numeric_transformer with numeric_features and categorical_transformer with categorical_features?\nIs the first step in your main pipeline calling col_transformer?\nAre you calling main_pipe in cross_validate()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-11-transforming_columns_with_columntransformer.html#transforming-columns-with-columntransformer",
+    "href": "modules/module6/module6-11-transforming_columns_with_columntransformer.html#transforming-columns-with-columntransformer",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Refer to the dataframe to answer the following question.\n       colour   location    shape   water_content  weight\n0       red      canada      NaN         84          100\n1     yellow     mexico     long         75          120\n2     orange     spain       NaN         90          NaN\n3    magenta     china      round        NaN         600\n4     purple    austria      NaN         80          115\n5     purple    turkey      oval         78          340\n6     green     mexico      oval         83          NaN\n7      blue     canada      round        73          535\n8     brown     china        NaN         NaN        1743  \n9     yellow    mexico      oval         83          265",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-11-transforming_columns_with_columntransformer.html#your-turn-with-column-transforming",
+    "href": "modules/module6/module6-11-transforming_columns_with_columntransformer.html#your-turn-with-column-transforming",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s now start doing transformations and working with them with our basketball dataset.\nWe’ve provided you with the numerical and categorical features, it’s your turn to make a pipeline for each and then use ColumnTransformer to transform them.\nWe have a regression problem this time where we are attempting to predict a player’s salary.\n\n\n\n\n\n\nTasks:\n\nCreate a pipeline for the numeric features. It should have the first step as simple imputation using strategy=\"median\" and the second step should be using StandardScaler. Name this pipeline numeric_transformer.\nCreate a pipeline for the categorical features. It should also have 2 steps. The first is imputation using strategy=\"most_frequent\". The second step should be one-hot encoding with handle_unknown=\"ignore\". Name this pipeline categorical_transformer.\nMake your column transformer named col_transformer and specify the transformations on numeric_features and categorical_features using the appropriate pipelines you build above. -Create a main pipeline named main_pipe which preprocesses with col_transformer followed by building a KNeighborsRegressor model.\nThe last step is performing cross-validation using our pipeline.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\") for numerical imputation?\nAre you naming your steps?\nAre you using SimpleImputer(strategy=\"most_frequent\") for categorical imputation?\nAre you using one-hot encoding?\nAre you naming the steps in ColumnTransformer and specifying numeric_transformer with numeric_features and categorical_transformer with categorical_features?\nIs the first step in your main pipeline calling col_transformer?\nAre you calling main_pipe in cross_validate()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-15-making_pipelines.html",
+    "href": "modules/module6/module6-15-making_pipelines.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Use the diagram below to answer the following questions.\nPipeline(\n    steps=[('columntransformer',\n               ColumnTransformer(\n                  transformers=[('pipeline-1',\n                                  Pipeline(\n                                    steps=[('simpleimputer',\n                                             SimpleImputer(strategy='median')),\n                                           ('standardscaler',\n                                             StandardScaler())]),\n                      ['water_content', 'weight', 'carbs']),\n                                ('pipeline-2',\n                                  Pipeline(\n                                    steps=[('simpleimputer',\n                                             SimpleImputer(fill_value='missing',\n                                                                strategy='constant')),\n                                           ('onehotencoder',\n                                             OneHotEncoder(handle_unknown='ignore'))]),\n                      ['colour', 'location', 'seed', 'shape', 'sweetness',\n                                                   'tropical'])])),\n         ('decisiontreeclassifier', DecisionTreeClassifier())])\n                \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s try to redo exercise 13, but this time let’s use make_pipeline() and make_column_transformer.\n\n\n\n\n\n\nTasks: - For all pipelines, make sure to use make_pipeline() where possible. - Create a pipeline for the numeric features. It should have the first step as simple imputation using strategy=\"median\" and the second step should be using StandardScaler. Name this pipeline numeric_transformer. - Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using strategy=\"most_frequent\". The second step should be one-hot encoding with handle_unknown=\"ignore\". Name this pipeline categotical_transformer. - Make your column transformer named col_transformer by using make_column_transformer()and specify the transformations on numeric_features and categorical_features using the appropriate pipelines you build above. - Create a main pipeline named main_pipe which preprocesses with col_transformer followed by building a KNeighborsRegressor model. - The last step is performing cross-validation using our pipeline.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\") for numerical imputation?\nAre you naming your steps?\nAre you using SimpleImputer(strategy=\"most_frequent\") for categorical imputation?\nAre you using one-hot encoding?\nAre you specifying numeric_transformer with numeric_features and categorical_transformer with categorical_features in make_column_transformer?\nIs the first step in your main pipeline calling col_transformer?\nAre you calling main_pipe in cross_validate()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-15-making_pipelines.html#making-pipelines",
+    "href": "modules/module6/module6-15-making_pipelines.html#making-pipelines",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Use the diagram below to answer the following questions.\nPipeline(\n    steps=[('columntransformer',\n               ColumnTransformer(\n                  transformers=[('pipeline-1',\n                                  Pipeline(\n                                    steps=[('simpleimputer',\n                                             SimpleImputer(strategy='median')),\n                                           ('standardscaler',\n                                             StandardScaler())]),\n                      ['water_content', 'weight', 'carbs']),\n                                ('pipeline-2',\n                                  Pipeline(\n                                    steps=[('simpleimputer',\n                                             SimpleImputer(fill_value='missing',\n                                                                strategy='constant')),\n                                           ('onehotencoder',\n                                             OneHotEncoder(handle_unknown='ignore'))]),\n                      ['colour', 'location', 'seed', 'shape', 'sweetness',\n                                                   'tropical'])])),\n         ('decisiontreeclassifier', DecisionTreeClassifier())])",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-15-making_pipelines.html#making-pipelines-with-make_pipeline",
+    "href": "modules/module6/module6-15-making_pipelines.html#making-pipelines-with-make_pipeline",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s try to redo exercise 13, but this time let’s use make_pipeline() and make_column_transformer.\n\n\n\n\n\n\nTasks: - For all pipelines, make sure to use make_pipeline() where possible. - Create a pipeline for the numeric features. It should have the first step as simple imputation using strategy=\"median\" and the second step should be using StandardScaler. Name this pipeline numeric_transformer. - Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using strategy=\"most_frequent\". The second step should be one-hot encoding with handle_unknown=\"ignore\". Name this pipeline categotical_transformer. - Make your column transformer named col_transformer by using make_column_transformer()and specify the transformations on numeric_features and categorical_features using the appropriate pipelines you build above. - Create a main pipeline named main_pipe which preprocesses with col_transformer followed by building a KNeighborsRegressor model. - The last step is performing cross-validation using our pipeline.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using SimpleImputer(strategy=\"median\") for numerical imputation?\nAre you naming your steps?\nAre you using SimpleImputer(strategy=\"most_frequent\") for categorical imputation?\nAre you using one-hot encoding?\nAre you specifying numeric_transformer with numeric_features and categorical_transformer with categorical_features in make_column_transformer?\nIs the first step in your main pipeline calling col_transformer?\nAre you calling main_pipe in cross_validate()?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-19-transforming_categorical_features.html",
+    "href": "modules/module6/module6-19-transforming_categorical_features.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Use the diagram below to answer the following questions.\n   colour  tropical location  carbs   seed  shape        size  water_content  weight\n0      red     False   canada      6   True  round      small             84     100\n1   yellow      True   mexico     12  False   long        med             75     120\n2   orange     False    china      8   True  round      large             90    1360\n3  magenta     False    china     18   True  round      small             96     600\n4   purple     False   mexico     11  False  round      small             80       5\n5   purple     False   canada      8  False   oval        med             78      40\n6    green      True   mexico     14   True   oval        med             83     450\n7     blue     False   canada      6   True  round      large             73       5\n8    brown      True    china      8   True  round      large             80      76\n9   yellow      True   mexico      4  False   oval        med             83      65\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nFor this question, we will be using a dataset from assignment 1.\nHere is the requested citation: David Gil, Jose Luis Girela, Joaquin De Juan, M. Jose Gomez-Torres, and Magnus Johnsson. Predicting seminal quality with artificial intelligence methods. Expert Systems with Applications, 39(16):12564 “ 12573, 2012\nWe will be making pipelines and transforming our features appropriately.\nFirstly, let’s take a look at our dataset and the features.\nDisclaimer: Normally we should be investing more time to fully understand the data we are analyzing. We should be checking the unique values, using .describe() and .info() to really get an idea of our features before deciding which transformations we want to apply.\n\n\n\n\n\n\n\nSecondly, let’s split the numeric and categorical features.\nTasks:\n\nWhat are the numeric features? Add them to a list named numeric_features.\nWhat are the binary features? Add them to a list named binary_features.\nWhat are the ordinal features? Add them to a list named ordinal_features.\nWhat are the rest of the categorical features? Add them to a list named categorical_features.\nOrder the values in high_fevers_last_year and name the list fever_order. The options are ‘more than 3 months ago’, ‘less than 3 months ago’ and ‘no’.\nOrder the values in smoking_habit and name the list smoking_order. The options are ‘occasional’, ‘daily’ and ‘never’.\nOrder the values in freq_alcohol_con and name the list alcohol_order. The options are ‘once a week’, ‘hardly ever or never’, ‘several times a week’, ‘several times a day’ and ‘every day’.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you ordering the ordinal values correctly?\nDo you have 3 binary features?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow, we are ready to make the pipelines and transform our features.\nTasks:\n\nThere are several pipelines already made for you. Designate numeric_transformer to the numerical transformer, categorical_transformer to the transformer that is not transforming binary or ordinal features, binary_transformer to the transformer of binary features, and ordinal_transformer1, ordinal_transformer2 and ordinal_transformer3 to the transformer of columns high_fevers_last_year, smoking_habit and freq_alcohol_con respectively.\nFill in the associated gaps in the column transformer named preprocessor.\nBuild a main pipeline using KNeighborsClassifier and name the object main_pipe.\nCross-validate and see the results.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the features you categorized above?\nAre you naming the pipelines correctly?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-19-transforming_categorical_features.html#transforming-categorical-features",
+    "href": "modules/module6/module6-19-transforming_categorical_features.html#transforming-categorical-features",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Use the diagram below to answer the following questions.\n   colour  tropical location  carbs   seed  shape        size  water_content  weight\n0      red     False   canada      6   True  round      small             84     100\n1   yellow      True   mexico     12  False   long        med             75     120\n2   orange     False    china      8   True  round      large             90    1360\n3  magenta     False    china     18   True  round      small             96     600\n4   purple     False   mexico     11  False  round      small             80       5\n5   purple     False   canada      8  False   oval        med             78      40\n6    green      True   mexico     14   True   oval        med             83     450\n7     blue     False   canada      6   True  round      large             73       5\n8    brown      True    china      8   True  round      large             80      76\n9   yellow      True   mexico      4  False   oval        med             83      65",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-19-transforming_categorical_features.html#transforming-the-fertility-dataset",
+    "href": "modules/module6/module6-19-transforming_categorical_features.html#transforming-the-fertility-dataset",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nFor this question, we will be using a dataset from assignment 1.\nHere is the requested citation: David Gil, Jose Luis Girela, Joaquin De Juan, M. Jose Gomez-Torres, and Magnus Johnsson. Predicting seminal quality with artificial intelligence methods. Expert Systems with Applications, 39(16):12564 “ 12573, 2012\nWe will be making pipelines and transforming our features appropriately.\nFirstly, let’s take a look at our dataset and the features.\nDisclaimer: Normally we should be investing more time to fully understand the data we are analyzing. We should be checking the unique values, using .describe() and .info() to really get an idea of our features before deciding which transformations we want to apply.\n\n\n\n\n\n\n\nSecondly, let’s split the numeric and categorical features.\nTasks:\n\nWhat are the numeric features? Add them to a list named numeric_features.\nWhat are the binary features? Add them to a list named binary_features.\nWhat are the ordinal features? Add them to a list named ordinal_features.\nWhat are the rest of the categorical features? Add them to a list named categorical_features.\nOrder the values in high_fevers_last_year and name the list fever_order. The options are ‘more than 3 months ago’, ‘less than 3 months ago’ and ‘no’.\nOrder the values in smoking_habit and name the list smoking_order. The options are ‘occasional’, ‘daily’ and ‘never’.\nOrder the values in freq_alcohol_con and name the list alcohol_order. The options are ‘once a week’, ‘hardly ever or never’, ‘several times a week’, ‘several times a day’ and ‘every day’.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you ordering the ordinal values correctly?\nDo you have 3 binary features?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow, we are ready to make the pipelines and transform our features.\nTasks:\n\nThere are several pipelines already made for you. Designate numeric_transformer to the numerical transformer, categorical_transformer to the transformer that is not transforming binary or ordinal features, binary_transformer to the transformer of binary features, and ordinal_transformer1, ordinal_transformer2 and ordinal_transformer3 to the transformer of columns high_fevers_last_year, smoking_habit and freq_alcohol_con respectively.\nFill in the associated gaps in the column transformer named preprocessor.\nBuild a main pipeline using KNeighborsClassifier and name the object main_pipe.\nCross-validate and see the results.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the features you categorized above?\nAre you naming the pipelines correctly?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-23-text_data_questions.html",
+    "href": "modules/module6/module6-23-text_data_questions.html",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "X = [ \"Take me to the river\",\n    \"Drop me in the water\",\n    \"Push me in the river\",\n    \" dip me in the water\"]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe are going to bring in a new dataset for you to practice on.\nThis dataset contains a text column containing tweets associated with disaster keywords and a target column denoting whether a tweet is about a real disaster (1) or not (0). (Source)\nIn this question, we are going to explore how changing the value of max_features affects our training and cross-validation scores.\n\n\n\n\n\n\nTasks:\n\nSplit the dataset into the feature table X and the target value y. X will be the single column text from the dataset wheras target will be your y.\nSplit your data into your training and testing data using a text size of 20% and a random state of 7.\nMake a pipeline with CountVectorizer as the first step and SVC() as the second. Name the pipeline pipe.\nPerform RandomizedSearchCV using the parameters specified in param_grid and name the search tweet_search.\nDon’t forget to fit your grid search.\nWhat is the best max_features value? Save it in an object name tweet_feats.\nWhat is the best score? Save it in an object named tweet_val_score.\nScore the optimal model on the test set and save it in an object named tweet_test_score.\n\nNOTE: This may take a few minutes to produce an output. Please be patient.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you splitting using train_test_split()\nAre you using make_pipeline(CountVectorizer(), SVC())?\nAre you using RandomizedSearchCV() and calling pipe and param_grid as the first 2 arguments?\nAre you naming the randomized grid search tweet_search?\nAre you fitting tweet_search?\nAre you using tweet_search.best_params_['countvectorizer__max_features'] to get the optimal number of features?\nAre you using tweet_search.best_score_ to get the best validation score?\nAre you using tweet_search.score(X_test, y_test) to get the test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-23-text_data_questions.html#text-data-questions",
+    "href": "modules/module6/module6-23-text_data_questions.html#text-data-questions",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "X = [ \"Take me to the river\",\n    \"Drop me in the water\",\n    \"Push me in the river\",\n    \" dip me in the water\"]",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/module6-23-text_data_questions.html#countvectorizer-with-disaster-tweets",
+    "href": "modules/module6/module6-23-text_data_questions.html#countvectorizer-with-disaster-tweets",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe are going to bring in a new dataset for you to practice on.\nThis dataset contains a text column containing tweets associated with disaster keywords and a target column denoting whether a tweet is about a real disaster (1) or not (0). (Source)\nIn this question, we are going to explore how changing the value of max_features affects our training and cross-validation scores.\n\n\n\n\n\n\nTasks:\n\nSplit the dataset into the feature table X and the target value y. X will be the single column text from the dataset wheras target will be your y.\nSplit your data into your training and testing data using a text size of 20% and a random state of 7.\nMake a pipeline with CountVectorizer as the first step and SVC() as the second. Name the pipeline pipe.\nPerform RandomizedSearchCV using the parameters specified in param_grid and name the search tweet_search.\nDon’t forget to fit your grid search.\nWhat is the best max_features value? Save it in an object name tweet_feats.\nWhat is the best score? Save it in an object named tweet_val_score.\nScore the optimal model on the test set and save it in an object named tweet_test_score.\n\nNOTE: This may take a few minutes to produce an output. Please be patient.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you splitting using train_test_split()\nAre you using make_pipeline(CountVectorizer(), SVC())?\nAre you using RandomizedSearchCV() and calling pipe and param_grid as the first 2 arguments?\nAre you naming the randomized grid search tweet_search?\nAre you fitting tweet_search?\nAre you using tweet_search.best_params_['countvectorizer__max_features'] to get the optimal number of features?\nAre you using tweet_search.best_score_ to get the best validation score?\nAre you using tweet_search.score(X_test, y_test) to get the test score?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M6. Preprocessing Categorical Variables**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module6/slides/module6_00.html#module-learning-outcomes",
+    "href": "modules/module6/slides/module6_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain handle_unknown=\"ignore\" hyperparameter of scikit-learn’s OneHotEncoder.\nIdentify when it’s appropriate to apply ordinal encoding vs one-hot encoding.\nExplain strategies to deal with categorical variables with too many categories.\nExplain why text data needs a different treatment than categorical variables.\nUse scikit-learn’s CountVectorizer to encode text data.\nExplain different hyperparameters of CountVectorizer.\nUse ColumnTransformer to build all our transformations together into one object and use it with scikit-learn pipelines."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_05.html#from-before",
+    "href": "modules/module6/slides/module6_05.html#from-before",
+    "title": "One-Hot encoding",
+    "section": "From before …",
+    "text": "From before …\n\nencoding_view\n\n\n\n\n\n\n\n\nlanguage\nlanguage_enc\n\n\n\n\n0\nEnglish\n0\n\n\n1\nVietnamese\n5\n\n\n2\nEnglish\n0\n\n\n3\nMandarin\n3\n\n\n4\nEnglish\n0\n\n\n5\nEnglish\n0\n\n\n6\nMandarin\n3\n\n\n7\nEnglish\n0\n\n\n8\nVietnamese\n5\n\n\n9\nMandarin\n3\n\n\n10\nFrench\n1\n\n\n11\nSpanish\n4\n\n\n12\nMandarin\n3\n\n\n13\nHindi\n2\n\n\n\n\n\n\n\n\nIn the last section, we saw that we can transform our categorical data into numeric data using OrdinalEncoder.\nSeems pretty standard and easy enough but we asked you a question in the last slide deck if we should always use this method?\nThe answer is no. Can you see why?"
+  },
+  {
+    "objectID": "modules/module6/slides/module6_05.html#what-wrong-with-this",
+    "href": "modules/module6/slides/module6_05.html#what-wrong-with-this",
+    "title": "One-Hot encoding",
+    "section": "What wrong with this?",
+    "text": "What wrong with this?\n\noe.categories_\n\n[array(['English', 'French', 'Hindi', 'Mandarin', 'Spanish', 'Vietnamese'], dtype=object)]\n\n\n\n\nencoding_view.drop_duplicates()\n\n\n\n\n\n\n\n\nlanguage\nlanguage_enc\n\n\n\n\n0\nEnglish\n0\n\n\n1\nVietnamese\n5\n\n\n3\nMandarin\n3\n\n\n10\nFrench\n1\n\n\n11\nSpanish\n4\n\n\n13\nHindi\n2\n\n\n\n\n\n\n\n\nWhat’s the problem with this approach?\nIf you look at the original values and compare them to the new transformed ones what do you notice?\nWe have imposed ordinality on the categorical data.\nFor example, imagine when you are calculating distances. Is it fair to say that French and Hindi are closer to one another than French and Spanish?\nIn general, label encoding is useful if there is ordinality in your data and capturing it is important for your problem, e.g., [cold, warm, hot]."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_05.html#one-hot-encoding-ohe",
+    "href": "modules/module6/slides/module6_05.html#one-hot-encoding-ohe",
+    "title": "One-Hot encoding",
+    "section": "One-hot encoding (OHE)",
+    "text": "One-hot encoding (OHE)\nOrdinal encoding:\n\nencoding_view[['language_enc']].head()\n\n\n\n\n\n\n\n\nlanguage_enc\n\n\n\n\n0\n0\n\n\n1\n5\n\n\n2\n0\n\n\n3\n3\n\n\n4\n0\n\n\n\n\n\n\n\n\nOne-hot encoding:\n\none_hot_df.head()\n\n\n\n\n\n\n\n\nlanguage_English\nlanguage_French\nlanguage_Hindi\nlanguage_Mandarin\nlanguage_Spanish\nlanguage_Vietnamese\n\n\n\n\n0\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n1\n0.0\n0.0\n0.0\n0.0\n0.0\n1.0\n\n\n2\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n3\n0.0\n0.0\n0.0\n1.0\n0.0\n0.0\n\n\n4\n1.0\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n\n\n\n\n\n\nSo what do we do when our values are not truly ordinal categories?\nWe can do something called one-hot encoding!\nRather than assign integer labels to our data, we use it to create new binary columns to represent our categories.\nBefore we would transform one original column into one transformed column but in this case, we will transform one column into several transformed columns, one per category.\nOne-hot encoding creates new binary columns to represent our categories.\nIf we have 𝑐 categories in our column, we create 𝑐 new binary columns to represent those categories.\n- Example: Imagine a language column which has the information on whether you\n\nWe can use sklearn’s OneHotEncoder"
+  },
+  {
+    "objectID": "modules/module6/slides/module6_05.html#how-to-one-hot-encode",
+    "href": "modules/module6/slides/module6_05.html#how-to-one-hot-encode",
+    "title": "One-Hot encoding",
+    "section": "How to one-hot encode",
+    "text": "How to one-hot encode\n\nX_toy\n\n\n\n\n\n\n\n\nlanguage\n\n\n\n\n0\nEnglish\n\n\n1\nVietnamese\n\n\n2\nEnglish\n\n\n3\nMandarin\n\n\n4\nEnglish\n\n\n5\nEnglish\n\n\n6\nMandarin\n\n\n7\nEnglish\n\n\n8\nVietnamese\n\n\n9\nMandarin\n\n\n10\nFrench\n\n\n11\nSpanish\n\n\n12\nMandarin\n\n\n13\nHindi\n\n\n\n\n\n\n\n\nLet’s take our X_toy and one-hot encode it."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_05.html#one-hot-encoding-the-california-housing-data",
+    "href": "modules/module6/slides/module6_05.html#one-hot-encoding-the-california-housing-data",
+    "title": "One-Hot encoding",
+    "section": "One hot encoding the California housing data",
+    "text": "One hot encoding the California housing data\n\nohe = OneHotEncoder(sparse_output=False, dtype=\"int\")\nohe.fit(X_train[[\"ocean_proximity\"]])\nX_imp_ohe_train = ohe.transform(X_train[[\"ocean_proximity\"]])\n\nX_imp_ohe_train\n\narray([[0, 1, 0, 0, 0],\n       [0, 1, 0, 0, 0],\n       [0, 0, 0, 0, 1],\n       ...,\n       [1, 0, 0, 0, 0],\n       [0, 0, 0, 1, 0],\n       [0, 1, 0, 0, 0]])\n\n\n\nOk great we’ve transformed our data, however, Just like before, the transformer outputs a NumPy array."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_14.html#make_column_transformer-syntax",
+    "href": "modules/module6/slides/module6_14.html#make_column_transformer-syntax",
+    "title": "Make - Pipelines & Column Transformers",
+    "section": "make_column_transformer syntax",
+    "text": "make_column_transformer syntax\n\nfrom sklearn.compose import make_column_transformer\n\n\nso instead of this:\n\npreprocessor = ColumnTransformer(\n    transformers=[\n        (\"num\", numeric_transformer, numeric_features),\n        (\"cat\", categorical_transformer, categorical_features) ]\n)\n\n\nwe can do this:\n\npreprocessor = make_column_transformer(\n    (numeric_transformer, numeric_features),\n    (categorical_transformer, categorical_features))\n\n\nJust like make_pipeline(), we can make our column transformer with make_column_transformer().\nThis eliminates the need to designate names for the numeric and categorical transformations."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_14.html#how-do-we-fix-it",
+    "href": "modules/module6/slides/module6_14.html#how-do-we-fix-it",
+    "title": "Make - Pipelines & Column Transformers",
+    "section": "How do we fix it?",
+    "text": "How do we fix it?\n\nnumeric_transformer = make_pipeline(SimpleImputer(strategy=\"median\"), StandardScaler())\n\ncategorical_transformer = make_pipeline(\n    SimpleImputer(strategy=\"constant\", fill_value=\"missing\"),\n    OneHotEncoder(handle_unknown=\"ignore\"))\n\npreprocessor = make_column_transformer(\n    (numeric_transformer, numeric_features), \n    (categorical_transformer, categorical_features))\n\npipe = make_pipeline(preprocessor, SVC())\n\n\n\nfrom sklearn.model_selection import cross_validate\n\nscores = cross_validate(pipe, X_train, y_train, cv=5, return_train_score=True)\npd.DataFrame(scores).mean()\n\nfit_time       8.727163\nscore_time     1.635127\ntest_score     0.855459\ntrain_score    0.867974\ndtype: float64\n\n\n\nSimplest fix: Pass handle_unknown=\"ignore\" argument to OneHotEncoder.\nIt creates a row with all zeros.\nDo you want this behaviour though?\nIn that case, “Holland” or “Mars” or “Hogwarts” would all be treated the same.\nAre you expecting to get many unknown categories? Do you want to be able to distinguish between them?\nWith this approach, all unknown categories will be represented with all zeros."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_22.html#bag-of-words-bow-representation",
+    "href": "modules/module6/slides/module6_22.html#bag-of-words-bow-representation",
+    "title": "Text Data",
+    "section": "Bag of words (BOW) representation",
+    "text": "Bag of words (BOW) representation\n\nAttribution: Daniel Jurafsky & James H. Martin\n\nOne way is to use a simple bag of words (BOW) representation which involves two components.\n\nThe vocabulary (all unique words in all documents)\nA value indicating either the presence or absence or the count of each word in the document."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_22.html#extracting-bow-features-using-scikit-learn",
+    "href": "modules/module6/slides/module6_22.html#extracting-bow-features-using-scikit-learn",
+    "title": "Text Data",
+    "section": "Extracting BOW features using scikit-learn",
+    "text": "Extracting BOW features using scikit-learn\n\nX = [\n    \"URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!\",\n    \"Lol you are always so convincing.\",\n    \"Nah I don't think he goes to usf, he lives around here though\",\n    \"URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!\",\n    \"Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030\",\n    \"As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune\"]\n    \ny = [\"spam\", \"non spam\", \"non spam\", \"spam\", \"spam\", \"non spam\"]\n\n\nLet’s say we have 1 feature in our X dataframe consisting of the following text messages.\nIn our target column, we have the classification of each message as either spam or non spam."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_22.html#important-hyperparameters-of-countvectorizer",
+    "href": "modules/module6/slides/module6_22.html#important-hyperparameters-of-countvectorizer",
+    "title": "Text Data",
+    "section": "Important hyperparameters of CountVectorizer",
+    "text": "Important hyperparameters of CountVectorizer\n\nbinary:\n\nWhether to use absence/presence feature values or counts.\n\nmax_features:\n\nOnly considers top max_features ordered by frequency in the corpus.\n\nmax_df:\n\nWhen building the vocabulary ignore terms that have a document frequency strictly higher than the given threshold.\n\nmin_df:\n\nWhen building the vocabulary ignore terms that have a document frequency strictly lower than the given threshold.\n\nngram_range:\n\nConsider word sequences in the given range.\n\n\n\nThere are many useful and important hyperparameters of CountVectorizer."
+  },
+  {
+    "objectID": "modules/module6/slides/module6_22.html#preprocessing",
+    "href": "modules/module6/slides/module6_22.html#preprocessing",
+    "title": "Text Data",
+    "section": "Preprocessing",
+    "text": "Preprocessing\nX\n[ \"URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!\",\n  \"Lol you are always so convincing.\",\n  \"Nah I don't think he goes to usf, he lives around here though\",\n  \"URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!\",\n  \"Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030\",\n  \"As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune\"]"
+  },
+  {
+    "objectID": "modules/module6/slides/module6_22.html#preprocessing-1",
+    "href": "modules/module6/slides/module6_22.html#preprocessing-1",
+    "title": "Text Data",
+    "section": "Preprocessing",
+    "text": "Preprocessing\n\nvec.get_feature_names_out()\n\narray(['08002986030', '100000', '11', '900', 'all', 'always', 'are', 'around', 'as', 'been', 'call', 'callers', 'callertune', 'camera', 'co', 'colour', 'convincing', 'copy', 'customer', 'don', 'entitled', 'for', 'free', 'friends', 'goes', 'had', 'has', 'have', 'he', 'here', 'in', 'jackpot', 'latest', 'lives', 'lol', 'melle', 'membership', 'minnaminunginte', 'mobile', 'mobiles', 'months', 'more',\n       'nah', 'network', 'nurungu', 'on', 'or', 'oru', 'our', 'per', 'press', 'prize', 'receive', 'request', 'reward', 'selected', 'set', 'so', 'the', 'think', 'though', 'to', 'update', 'urgent', 'usf', 'valued', 'vettam', 'week', 'with', 'won', 'you', 'your'], dtype=object)\n\n\n\nCountVectorizer is carrying out some preprocessing such as because of the default argument values.\n\nConverting words to lowercase (lowercase=True). Take a look at the word “urgent” In both cases.\ngetting rid of punctuation and special characters (token_pattern ='(?u)\\\\b\\\\w\\\\w+\\\\b')"
+  },
+  {
+    "objectID": "modules/module6/slides/module6_22.html#is-this-a-realistic-representation-of-text-data",
+    "href": "modules/module6/slides/module6_22.html#is-this-a-realistic-representation-of-text-data",
+    "title": "Text Data",
+    "section": "Is this a realistic representation of text data?",
+    "text": "Is this a realistic representation of text data?\nOf course, this is not a great representation of language.\n\nWe are throwing out everything we know about language and losing a lot of information.\nIt assumes that there is no syntax and compositional meaning in language.\n\n  \n…But it works surprisingly well for many tasks."
+  }
+]

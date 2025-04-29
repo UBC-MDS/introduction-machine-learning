@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-99fa6729ad23987aafeada22b1565191.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.43">
+
+  <title>Introduction to Machine Learning – Handeling Categorical Features: Binary, Ordinal and More</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #383a42;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #383a42; } /* Normal */
+    code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+    code span.an { color: #50a14f; } /* Annotation */
+    code span.at { color: #a626a4; } /* Attribute */
+    code span.bn { color: #986801; } /* BaseN */
+    code span.bu { color: #a626a4; } /* BuiltIn */
+    code span.cf { color: #a626a4; } /* ControlFlow */
+    code span.ch { color: #50a14f; } /* Char */
+    code span.cn { color: #986801; } /* Constant */
+    code span.co { color: #a0a1a7; font-style: italic; } /* Comment */
+    code span.cv { color: #e45649; font-style: italic; } /* CommentVar */
+    code span.do { color: #e45649; } /* Documentation */
+    code span.dt { color: #a626a4; } /* DataType */
+    code span.dv { color: #986801; } /* DecVal */
+    code span.er { color: #f44747; text-decoration: underline; } /* Error */
+    code span.ex { color: #4078f2; font-weight: bold; } /* Extension */
+    code span.fl { color: #986801; } /* Float */
+    code span.fu { color: #4078f2; } /* Function */
+    code span.im { color: #50a14f; } /* Import */
+    code span.in { color: #c45b00; } /* Information */
+    code span.kw { color: #a626a4; } /* Keyword */
+    code span.op { color: #a626a4; } /* Operator */
+    code span.ot { color: #27ae60; } /* Other */
+    code span.pp { color: #a626a4; } /* Preprocessor */
+    code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+    code span.sc { color: #0184bc; } /* SpecialChar */
+    code span.ss { color: #da4453; } /* SpecialString */
+    code span.st { color: #50a14f; } /* String */
+    code span.va { color: #e45649; } /* Variable */
+    code span.vs { color: #da4453; } /* VerbatimString */
+    code span.wa { color: #da4453; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-fa1348fd6fe5f36d0015af747b09343a.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-notes="" class="quarto-title-block center">
+  <h1 class="title">Handeling Categorical Features: Binary, Ordinal and More</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="returning-to-ordinal-encoding" class="slide level2">
+<h2>Returning to ordinal encoding</h2>
+<div id="9a4b0684" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>adult <span class="op">=</span> pd.read_csv(<span class="st">'data/adult.csv'</span>)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>adult <span class="op">=</span> adult.replace(<span class="st">"?"</span>, np.NaN)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(adult, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'income'</span>])</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">'income'</span>]</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span>[<span class="st">'income'</span>])</span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test_df[<span class="st">'income'</span>]</span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [<span class="st">"age"</span>, <span class="st">"fnlwgt"</span>, <span class="st">"education.num"</span>, <span class="st">"capital.gain"</span>,</span>
+<span id="cb1-12"><a aria-hidden="true" tabindex="-1"></a>                    <span class="st">"capital.loss"</span>, <span class="st">"hours.per.week"</span>]</span>
+<span id="cb1-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a aria-hidden="true" tabindex="-1"></a>categorical_features <span class="op">=</span> [<span class="st">"workclass"</span>, <span class="st">"education"</span>, <span class="st">"marital.status"</span>, </span>
+<span id="cb1-15"><a aria-hidden="true" tabindex="-1"></a>                        <span class="st">"occupation"</span>, <span class="st">"relationship"</span>, <span class="st">"race"</span>, </span>
+<span id="cb1-16"><a aria-hidden="true" tabindex="-1"></a>                        <span class="st">"sex"</span>, <span class="st">"native.country"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="899af5d7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>train_df[categorical_features].head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">workclass</th>
+<th data-quarto-table-cell-role="th">education</th>
+<th data-quarto-table-cell-role="th">marital.status</th>
+<th data-quarto-table-cell-role="th">occupation</th>
+<th data-quarto-table-cell-role="th">relationship</th>
+<th data-quarto-table-cell-role="th">race</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">native.country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5514</td>
+<td>Private</td>
+<td>HS-grad</td>
+<td>Never-married</td>
+<td>Craft-repair</td>
+<td>Not-in-family</td>
+<td>White</td>
+<td>Male</td>
+<td>United-States</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19777</td>
+<td>Private</td>
+<td>HS-grad</td>
+<td>Never-married</td>
+<td>Other-service</td>
+<td>Not-in-family</td>
+<td>White</td>
+<td>Female</td>
+<td>United-States</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10781</td>
+<td>Private</td>
+<td>Bachelors</td>
+<td>Divorced</td>
+<td>Adm-clerical</td>
+<td>Unmarried</td>
+<td>White</td>
+<td>Female</td>
+<td>United-States</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Taking where we left off with our adult census data, it’s a good idea to take a look at the categorical features we specified in more detail.</p>
+<p>Some of the categorical features are truly categorical, meaning that there is no ordinality among values.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="9ffa0dab" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>train_df[<span class="st">"education"</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>array(['HS-grad', 'Bachelors', 'Some-college', '11th', '5th-6th', 'Assoc-voc', 'Masters', '9th', 'Doctorate', 'Prof-school', '7th-8th', '10th', '12th', '1st-4th', 'Assoc-acdm', 'Preschool'], dtype=object)</code></pre>
+</div>
+</div>
+<p><br></p>
+<div id="c8297290" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OrdinalEncoder</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>oe.fit(X_train[[<span class="st">"education"</span>]])<span class="op">;</span></span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>ed_transformed <span class="op">=</span> oe.transform(X_train[[<span class="st">"education"</span>]])</span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>ed_transformed <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>ed_transformed, columns<span class="op">=</span>[<span class="st">"education_enc"</span>], index<span class="op">=</span>X_train.index)</span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>ed_transformed.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">education_enc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5514</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19777</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10781</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">32240</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9876</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><br></p>
+<div id="d6e02d1f" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>ed_transformed[<span class="st">'education_enc'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>array([11,  9, 15,  1,  4,  8, 12,  6, 10, 14,  5,  0,  2,  3,  7, 13])</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>But what about the <code>education</code> column?</p>
+<p>Here there is actually an order in the values and it might help to encode this column using <code>OrdinalEncoder</code></p>
+<ul>
+<li>Example: Masters &gt; 10th</li>
+</ul>
+<p>Let’s use <code>OrdinalEncoder</code> and see what happens.</p>
+<p>We fit and then transform the <code>education</code> column.</p>
+<p>We now see that we have given each education category a value.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="6df6de57" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>oe.categories_[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array(['10th', '11th', '12th', '1st-4th', '5th-6th', '7th-8th', '9th', 'Assoc-acdm', 'Assoc-voc', 'Bachelors', 'Doctorate', 'HS-grad', 'Masters', 'Preschool', 'Prof-school', 'Some-college'], dtype=object)</code></pre>
+</div>
+</div>
+<p><br></p>
+<div id="554e55ac" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(data<span class="op">=</span>np.arange(<span class="bu">len</span>(oe.categories_[<span class="dv">0</span>])), columns<span class="op">=</span>[<span class="st">"transformed"</span>], index<span class="op">=</span>oe.categories_[<span class="dv">0</span>]).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">transformed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10th</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11th</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12th</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Assoc-acdm</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Assoc-voc</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bachelors</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+
+<p>10 rows × 1 columns</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>But which integer value corresponds to each education category?</p>
+<p><code>OrdinalEncoder</code> has encoded the categories by alphabetically sorting them and then assigning integers to them in that order.</p>
+<p>Is this what we want?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="bd40559b" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>train_df[<span class="st">"education"</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>array(['HS-grad', 'Bachelors', 'Some-college', '11th', '5th-6th', 'Assoc-voc', 'Masters', '9th', 'Doctorate', 'Prof-school', '7th-8th', '10th', '12th', '1st-4th', 'Assoc-acdm', 'Preschool'], dtype=object)</code></pre>
+</div>
+</div>
+<p><br></p>
+<div id="ec74e53f" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>education_levels <span class="op">=</span> [<span class="st">'Preschool'</span>, <span class="st">'1st-4th'</span>, <span class="st">'5th-6th'</span>, <span class="st">'7th-8th'</span>, </span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="st">'9th'</span>, <span class="st">'10th'</span>, <span class="st">'11th'</span>, <span class="st">'12th'</span>, <span class="st">'HS-grad'</span>,</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Prof-school'</span>, <span class="st">'Assoc-voc'</span>, <span class="st">'Assoc-acdm'</span>, </span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Some-college'</span>, <span class="st">'Bachelors'</span>, <span class="st">'Masters'</span>, <span class="st">'Doctorate'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div id="1f2ed204" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">set</span>(education_levels) <span class="op">==</span> <span class="bu">set</span>(train_df[<span class="st">"education"</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Instead, let’s order them manually.</p>
+<p>We can use the set datatype that we learned in Programming in Python for Data Science to make sure that each has been accounted for.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="05605c86" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(categories<span class="op">=</span>[education_levels], dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>oe.fit(X_train[[<span class="st">"education"</span>]])<span class="op">;</span></span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>ed_transformed <span class="op">=</span> oe.transform(X_train[[<span class="st">"education"</span>]])</span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>ed_transformed <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>ed_transformed, columns<span class="op">=</span>[<span class="st">"education_enc"</span>], index<span class="op">=</span>X_train.index)</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>oe.categories_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>[array(['Preschool', '1st-4th', '5th-6th', '7th-8th', '9th', '10th', '11th', '12th', 'HS-grad', 'Prof-school', 'Assoc-voc', 'Assoc-acdm', 'Some-college', 'Bachelors', 'Masters', 'Doctorate'], dtype=object)]</code></pre>
+</div>
+</div>
+<p><br></p>
+<div id="2a9d0819" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(data<span class="op">=</span>np.arange(<span class="bu">len</span>(oe.categories_[<span class="dv">0</span>])), columns<span class="op">=</span>[<span class="st">"transformed"</span>], index<span class="op">=</span>oe.categories_[<span class="dv">0</span>]).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">transformed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Preschool</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1st-4th</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5th-6th</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12th</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">HS-grad</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Prof-school</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+
+<p>10 rows × 1 columns</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Ah! That looks better.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="e0eb0819" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [<span class="st">'age'</span>, <span class="st">'fnlwgt'</span>, <span class="st">'capital.gain'</span>, </span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="st">'capital.loss'</span>, <span class="st">'hours.per.week'</span>]</span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>categorical_features <span class="op">=</span> [<span class="st">'workclass'</span>, <span class="st">'marital.status'</span>, <span class="st">'occupation'</span>, </span>
+<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>                        <span class="st">'relationship'</span>, <span class="st">'race'</span>, <span class="st">'sex'</span>, <span class="st">'native.country'</span>]</span>
+<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>ordinal_features <span class="op">=</span> [<span class="st">'education'</span>]</span>
+<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a>target_column <span class="op">=</span> <span class="st">'income'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>So now when we are separating our columns into their respective feature types.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="2c7669a6" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder, StandardScaler</span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="012033c8" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> make_pipeline(SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>), StandardScaler())</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>categorical_transformer <span class="op">=</span> make_pipeline(</span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>    SimpleImputer(strategy<span class="op">=</span><span class="st">"constant"</span>, fill_value<span class="op">=</span><span class="st">"missing"</span>),</span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>    OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>)</span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a aria-hidden="true" tabindex="-1"></a>ordinal_transformer <span class="op">=</span> make_pipeline(</span>
+<span id="cb20-9"><a aria-hidden="true" tabindex="-1"></a>    SimpleImputer(strategy<span class="op">=</span><span class="st">"constant"</span>, fill_value<span class="op">=</span><span class="st">"missing"</span>),</span>
+<span id="cb20-10"><a aria-hidden="true" tabindex="-1"></a>    OrdinalEncoder(categories<span class="op">=</span>[education_levels], dtype<span class="op">=</span><span class="bu">int</span>,)</span>
+<span id="cb20-11"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> make_column_transformer(</span>
+<span id="cb20-14"><a aria-hidden="true" tabindex="-1"></a>        (numeric_transformer, numeric_features),</span>
+<span id="cb20-15"><a aria-hidden="true" tabindex="-1"></a>        (categorical_transformer, categorical_features),</span>
+<span id="cb20-16"><a aria-hidden="true" tabindex="-1"></a>        (ordinal_transformer, ordinal_features)</span>
+<span id="cb20-17"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-18"><a aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> make_pipeline(preprocessor, SVC())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>This means that we need to make a separate pipeline for our ordinal columns. We then specify this transformation in or <code>make_column_transformer()</code> function.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="32404bf5" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(pipe, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>fit_time       7.917626
+score_time     1.555683
+test_score     0.851927
+train_score    0.853348
+dtype: float64</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>This then produces new scores.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="binary-features" class="slide level2">
+<h2>Binary Features</h2>
+<div id="b89708d3" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">workclass</th>
+<th data-quarto-table-cell-role="th">fnlwgt</th>
+<th data-quarto-table-cell-role="th">education</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">capital.gain</th>
+<th data-quarto-table-cell-role="th">capital.loss</th>
+<th data-quarto-table-cell-role="th">hours.per.week</th>
+<th data-quarto-table-cell-role="th">native.country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5514</td>
+<td>26</td>
+<td>Private</td>
+<td>256263</td>
+<td>HS-grad</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>25</td>
+<td>United-States</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19777</td>
+<td>24</td>
+<td>Private</td>
+<td>170277</td>
+<td>HS-grad</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>35</td>
+<td>United-States</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10781</td>
+<td>36</td>
+<td>Private</td>
+<td>75826</td>
+<td>Bachelors</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>40</td>
+<td>United-States</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">32240</td>
+<td>22</td>
+<td>State-gov</td>
+<td>24395</td>
+<td>Some-college</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>20</td>
+<td>United-States</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9876</td>
+<td>31</td>
+<td>Local-gov</td>
+<td>356689</td>
+<td>Bachelors</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>40</td>
+<td>United-States</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 14 columns</p>
+</div>
+</div>
+</div>
+<p><br></p>
+<div id="128820fc" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>X_train[<span class="st">'sex'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>array(['Male', 'Female'], dtype=object)</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>Let’s take another look at our columns.</p>
+<p>If we look at the values for <code>sex</code>, they were collected in a binary way.</p>
+<p>Note that this representation reflects how the data were collected and is not meant to imply that, for example, gender is binary.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="6e86845b" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>ohe <span class="op">=</span> OneHotEncoder(sparse_output<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>ohe.fit(X_train[[<span class="st">"sex"</span>]])</span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>ohe_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>ohe.transform(X_train[[<span class="st">"sex"</span>]]), columns<span class="op">=</span>ohe.get_feature_names_out([<span class="st">"sex"</span>]), index<span class="op">=</span>X_train.index)</span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>ohe_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sex_Female</th>
+<th data-quarto-table-cell-role="th">sex_Male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5514</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19777</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10781</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">860</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15795</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23654</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>26048 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>When we do one-hot encoding on this feature, we get 2 separate columns which aren’t particularly necessary.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="f8ca6e13" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>ohe <span class="op">=</span> OneHotEncoder(sparse_output<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="bu">int</span>, drop<span class="op">=</span><span class="st">"if_binary"</span>) <span class="co"># &lt;-- see here</span></span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>ohe.fit(X_train[[<span class="st">"sex"</span>]])</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>ohe_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>ohe.transform(X_train[[<span class="st">"sex"</span>]]), columns<span class="op">=</span>ohe.get_feature_names_out([<span class="st">"sex"</span>]), index<span class="op">=</span>X_train.index)</span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>ohe_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sex_Male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5514</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19777</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10781</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">860</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15795</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23654</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>26048 rows × 1 columns</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>So, for this feature with binary values, we can use an argument called <code>drop</code> within <code>OneHotEncoder</code> and set it to <code>"if_binary"</code>.</p>
+<p>Now we see that after one-hot encoding we only get a single column where the encoder has arbitrarily chosen one of the two categories based on the sorting.</p>
+<p>In this case, alphabetically it was [Female, Male] and it drops the first one.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="f307a1a9" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [<span class="st">'age'</span>, <span class="st">'fnlwgt'</span>, <span class="st">'capital.gain'</span>, </span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="st">'capital.loss'</span>, <span class="st">'hours.per.week'</span>]</span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>categorical_features <span class="op">=</span> [<span class="st">'workclass'</span>, <span class="st">'marital.status'</span>, <span class="st">'occupation'</span>, </span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>                        <span class="st">'relationship'</span>, <span class="st">'race'</span>, <span class="st">'native.country'</span>]</span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>ordinal_features <span class="op">=</span> [<span class="st">'education'</span>]</span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>binary_features <span class="op">=</span> [<span class="st">'sex'</span>]</span>
+<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a>target_column <span class="op">=</span> <span class="st">'income'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Again we must separate our binary feature from the rest.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="fa29a01d" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> make_pipeline(SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>), StandardScaler())</span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>categorical_transformer <span class="op">=</span> make_pipeline(</span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>    SimpleImputer(strategy<span class="op">=</span><span class="st">"constant"</span>, fill_value<span class="op">=</span><span class="st">"missing"</span>),</span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a>    OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>)</span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a>ordinal_transformer <span class="op">=</span> make_pipeline(</span>
+<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a>    SimpleImputer(strategy<span class="op">=</span><span class="st">"constant"</span>, fill_value<span class="op">=</span><span class="st">"missing"</span>),</span>
+<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a>    OrdinalEncoder(categories<span class="op">=</span>[education_levels], dtype<span class="op">=</span><span class="bu">int</span>,)</span>
+<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-11"><a aria-hidden="true" tabindex="-1"></a>binary_transformer <span class="op">=</span> make_pipeline(</span>
+<span id="cb29-12"><a aria-hidden="true" tabindex="-1"></a>    SimpleImputer(strategy<span class="op">=</span><span class="st">"constant"</span>, fill_value<span class="op">=</span><span class="st">"missing"</span>),</span>
+<span id="cb29-13"><a aria-hidden="true" tabindex="-1"></a>    OneHotEncoder(drop<span class="op">=</span><span class="st">"if_binary"</span>, dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb29-14"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-15"><a aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> make_column_transformer(</span>
+<span id="cb29-16"><a aria-hidden="true" tabindex="-1"></a>        (numeric_transformer, numeric_features),</span>
+<span id="cb29-17"><a aria-hidden="true" tabindex="-1"></a>        (categorical_transformer, categorical_features),</span>
+<span id="cb29-18"><a aria-hidden="true" tabindex="-1"></a>        (ordinal_transformer, ordinal_features),</span>
+<span id="cb29-19"><a aria-hidden="true" tabindex="-1"></a>        (binary_transformer, binary_features)</span>
+<span id="cb29-20"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-21"><a aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> make_pipeline(preprocessor, SVC())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>And just like we said for ordinal values, when we make our pipelines, we need to make a separate one for the binary columns and add it to our <code>make_column_transformer()</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div id="4b585f77" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(pipe, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fit_time</th>
+<th data-quarto-table-cell-role="th">score_time</th>
+<th data-quarto-table-cell-role="th">test_score</th>
+<th data-quarto-table-cell-role="th">train_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>7.925319</td>
+<td>1.518731</td>
+<td>0.850864</td>
+<td>0.853153</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>7.666570</td>
+<td>1.504457</td>
+<td>0.844530</td>
+<td>0.855792</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>7.802808</td>
+<td>1.533385</td>
+<td>0.859693</td>
+<td>0.850609</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>7.757504</td>
+<td>1.536855</td>
+<td>0.849299</td>
+<td>0.853832</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>7.810382</td>
+<td>1.527018</td>
+<td>0.854291</td>
+<td>0.853448</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><br></p>
+<div id="5859f3e9" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>fit_time       7.792516
+score_time     1.524089
+test_score     0.851735
+train_score    0.853367
+dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="one-hot-encoding-with-many-categories" class="slide level2">
+<h2>One-hot encoding with many categories</h2>
+<div id="ade23520" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>X_train[<span class="st">"native.country"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>United-States         23315
+Mexico                  512
+Philippines             165
+                      ...  
+Scotland                 10
+Honduras                  7
+Holand-Netherlands        1
+Name: native.country, Length: 41, dtype: int64</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>This may be too detailed, and the amount of data is very limited for most of these countries.</p>
+<p>Can you really learn from 11 examples?</p>
+<p>Grouping them into bigger categories such as “South America” or “Asia” or having an “other” category for rare cases could be a better solution.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="do-we-actually-want-to-use-certain-features-for-prediction">Do we actually want to use certain features for prediction?</h3>
+<div id="ace6611e" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">workclass</th>
+<th data-quarto-table-cell-role="th">fnlwgt</th>
+<th data-quarto-table-cell-role="th">education</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">capital.gain</th>
+<th data-quarto-table-cell-role="th">capital.loss</th>
+<th data-quarto-table-cell-role="th">hours.per.week</th>
+<th data-quarto-table-cell-role="th">native.country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5514</td>
+<td>26</td>
+<td>Private</td>
+<td>256263</td>
+<td>HS-grad</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>25</td>
+<td>United-States</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19777</td>
+<td>24</td>
+<td>Private</td>
+<td>170277</td>
+<td>HS-grad</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>35</td>
+<td>United-States</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10781</td>
+<td>36</td>
+<td>Private</td>
+<td>75826</td>
+<td>Bachelors</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>40</td>
+<td>United-States</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">32240</td>
+<td>22</td>
+<td>State-gov</td>
+<td>24395</td>
+<td>Some-college</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>20</td>
+<td>United-States</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9876</td>
+<td>31</td>
+<td>Local-gov</td>
+<td>356689</td>
+<td>Bachelors</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>40</td>
+<td>United-States</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 14 columns</p>
+</div>
+</div>
+</div>
+<p><br></p>
+<div id="2174b0ac" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>X_train[<span class="st">"race"</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>array(['White', 'Asian-Pac-Islander', 'Black', 'Amer-Indian-Eskimo', 'Other'], dtype=object)</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>Do you want to use <code>race</code> in prediction?</p>
+<p>Remember that the systems you build are going to be used in some applications.</p>
+<p>It’s extremely important to be mindful of the consequences of including certain features in your predictive model.</p>
+<p>Splitting <code>race</code> into 4 races and an <code>Other</code> group seems quite insensitive and problematic to say the least.</p>
+<p>Dropping the feature to avoid racial biases, would be a strong suggestion.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="lets-apply-what-we-learned" class="title-slide slide level1 center">
+<h1>Let’s apply what we learned!</h1>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: true,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '100%',
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
