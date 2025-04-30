@@ -38,6 +38,7 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M7. Assessment and Measurements**"
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.
@@ -46,7 +47,7 @@ format:
   html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px
@@ -54,7 +55,7 @@ format:
   live-html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px

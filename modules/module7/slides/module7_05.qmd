@@ -1,0 +1,378 @@
+---
+format: revealjs
+title: Precision, Recall and F1 Score
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+## Accuracy is only part of the story...
+
+```{python}
+# | include: false
+from sklearn.model_selection import train_test_split
+cc_df = pd.read_csv('data/creditcard.csv.zip', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+
+X_train_big, y_train_big = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+```
+
+```{python}
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
+pipe_tree = make_pipeline(
+    (StandardScaler()),
+    (DecisionTreeClassifier(random_state=123))
+)
+```
+
+<br>
+
+```{python}
+from sklearn.model_selection import cross_validate
+
+pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True)).mean()
+```
+
+<br>
+
+```{python}
+y_train.value_counts(normalize=True)
+```
+
+
+:::{.notes} 
+We have been using `.score` to assess our models, which returns accuracy by default. 
+
+Accuracy is misleading when we have a class imbalance.
+
+We need other metrics to assess our models.
+
+We'll discuss three commonly used metrics which are based on the confusion matrix: 
+
+- recall
+- precision
+- f1 score
+
+Note that these metrics will only help us assess our model.  
+
+Later we'll talk about a few ways to address the class imbalance problem. 
+:::
+
+---
+
+
+
+```{python}
+from sklearn.metrics import confusion_matrix
+
+pipe_tree.fit(X_train,y_train);
+predictions = pipe_tree.predict(X_valid)
+confusion_matrix(y_valid, predictions)
+```
+
+<br>
+
+```{python}
+TN, FP, FN, TP = confusion_matrix(y_valid, predictions).ravel()
+```
+
+
+:::{.notes} 
+Let's build our pipeline, and fit it. Once we've done that, we can create our confusion matrix. 
+
+This time we are going to split up the values in the matrix into the 4 quadrants we saw earlier. 
+
+- `TN` for the True Negatives
+- `FP` for the False Positives
+- `FN` for the False Negatives
+- `TP` for the True Positives 
+
+We need each of these values to explain the next measurements. 
+
+- The `.ravel()` function "flattens" or "unravels" the matrix into a 1D array which makes it easier to obtain the individual values.
+:::
+
+---
+
+## Recall 
+
+**Among all positive examples, how many did you identify?**
+
+```{python}
+# | echo: false
+# | fig-align: center
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
+
+plt.rcParams.update({'font.size': 14})
+ConfusionMatrixDisplay.from_estimator(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+![](../../../static/module7/recall.png){fig-align="center" width="35%" fig-alt="404 image"}
+
+
+:::{.notes} 
+**Recall**: how many of the actual positive examples did you identify?
+
+So, in this case, since fraud is our positive label,  we see the correctly identified labels in the bottom right quadrant and the ones that we missed in the bottom left quadrant.
+:::
+
+---
+
+
+![](../../../static/module7/recall.png){fig-align="center" width="45%" fig-alt="404 image"}
+
+
+```{python}
+confusion_matrix(y_valid, predictions)
+```
+
+<br>
+
+```{python}
+TN, FP, FN, TP = confusion_matrix(y_valid, predictions).ravel()
+```
+
+<br>
+
+```{python}
+recall = TP / (TP + FN)
+recall.round(4)
+```
+
+:::{.notes} 
+So here we take our true positives and we divide by all the positive labels in our validation set which is the predictions the model incorrectly labeled as negative (the false negatives).
+:::
+
+---
+
+
+## Precision
+
+**Among the positive examples you identified, how many were actually positive?**
+
+```{python}
+# | echo: false
+# | fig-align: center
+plt.rcParams.update({'font.size': 14})
+ConfusionMatrixDisplay.from_estimator(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+![](../../../static/module7/precision.png){fig-align="center" width="30%" fig-alt="404 image"}
+
+
+
+
+:::{.notes} 
+**Precision**:  Of the frauds we "caught", the fraction that was actually frauds.
+
+With fraud as our positive label,  we see the correctly identified fraud in the bottom right quadrant and the labels we incorrectly labeled as frauds in the top right.
+:::
+
+---
+
+
+![](../../../static/module7/precision.png){fig-align="center" width="30%" fig-alt="404 image"}
+
+
+```{python}
+confusion_matrix(y_valid, predictions)
+```
+
+<br>
+
+```{python}
+TN, FP, FN, TP = confusion_matrix(y_valid, predictions).ravel()
+```
+
+<br>
+
+```{python}
+precision = TP / (TP + FP)
+precision.round(4)
+```
+
+:::{.notes} 
+So here we take our true positives and we divide by all the positive labels that our model predicted. 
+
+Of course, we'd like to have high precision and recall but the balance depends on our domain.
+
+For credit card fraud detection, recall is really important (catching frauds), precision is less important (reducing false positives).
+:::
+
+---
+
+
+## f1
+
+**f1-score combines precision and recall to give one score.** 
+
+```{python}
+# | echo: false
+# | fig-align: center
+plt.rcParams.update({'font.size': 14})
+ConfusionMatrixDisplay.from_estimator(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+![](../../../static/module7/f1.png){fig-align="center" width="35%" fig-alt="404 image"}
+
+
+:::{.notes} 
+**f1**: The harmonic mean of precision and recall. 
+
+**f1-score combines precision and recall to give one score.** which could be used in hyperparameter optimization, for instance.
+:::
+
+---
+
+![](../../../static/module7/f1.png){fig-align="center" width="40%" fig-alt="404 image"}
+
+
+```{python}
+precision
+```
+
+<br>
+
+```{python}
+recall
+```
+
+<br>
+
+```{python}
+f1_score = (2 * precision * recall) / (precision + recall)
+f1_score
+```
+
+:::{.notes} 
+If both precision and recall go up, the f1 score will go up, so in general, we want this to be high.
+
+Sometimes we need a single score to maximize, e.g., when doing hyperparameter tuning via RandomizedSearchCV.
+
+Accuracy is often a bad choice.
+:::
+
+---
+
+## Calculate evaluation metrics by ourselves and with sklearn
+
+```{python}
+data = {}
+data["accuracy"] = [(TP + TN) / (TN + FP + FN + TP)]
+data["error"] = [(FP + FN) / (TN + FP + FN + TP)]
+data["precision"] = [ TP / (TP + FP)] 
+data["recall"] = [TP / (TP + FN)] 
+data["f1 score"] = [(2 * precision * recall) / (precision + recall)] 
+measures_df = pd.DataFrame(data, index=['ourselves'])
+```
+
+:::{.notes} 
+We can calculate all these measurements ourselves using basic math, or...
+:::
+
+---
+
+```{python}
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+```
+
+<br>
+
+```{python}
+pred_cv =  pipe_tree.predict(X_valid) 
+
+data["accuracy"].append(accuracy_score(y_valid, pred_cv))
+data["error"].append(1 - accuracy_score(y_valid, pred_cv))
+data["precision"].append(precision_score(y_valid, pred_cv, zero_division=1))
+data["recall"].append(recall_score(y_valid, pred_cv))
+data["f1 score"].append(f1_score(y_valid, pred_cv))
+
+pd.DataFrame(data, index=['ourselves', 'sklearn'])
+```
+
+
+
+:::{.notes} 
+...We can use `scikit-learn` which has functions for these metrics.
+
+See <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics" target="_blank">here</a>.
+
+The scores match. 
+:::
+
+---
+
+## Classification report 
+
+```{python}
+from sklearn.metrics import classification_report
+```
+
+<br>
+
+```{python}
+pipe_tree.classes_
+```
+
+<br>
+
+```{python}
+print(classification_report(y_valid, pipe_tree.predict(X_valid),
+        target_names=["non-fraud", "fraud"]))
+```
+
+:::{.notes} 
+There is a convenient function called `classification_report` in `sklearn` which gives the information that we described earlier.
+
+We can use `classes` to see which position each label takes so we can designate them more comprehensive labels in our report. 
+
+Note that what you consider "positive" (fraud in our case) is important when calculating precision, recall, and f1-score. 
+
+If you flip what is considered positive or negative, we'll end up with different True Positive, False Positive, True Negatives and False Negatives, and hence different precision, recall, and f1-scores. 
+
+The `support` column just shows the number of examples in each class.
+:::
+
+---
+
+![](../../../static/module7/evaluation-metrics.png){fig-align="center" width="80%" fig-alt="404 image"}
+
+
+<a href="https://raw.githubusercontent.com/UBC-MDS/introduction-machine-learning/master/static/module7/evaluation-metrics.png" target="_blank">See here for full size.</a> 
+
+:::{.notes}
+We've provided you with a "Cheat Sheet" that you can refer to. 
+
+It will be available <a href="https://raw.githubusercontent.com/UBC-MDS/introduction-machine-learning/master/static/module7/evaluation-metrics.png" target="_blank">here</a>.
+
+Accuracy is misleading when you have a class imbalance. 
+
+A confusion matrix provides a way to break down errors made by our model. 
+
+We have looked at three metrics based on the confusion matrix:    
+
+- precision
+- recall
+- f1-score
+:::
+
+
+
+# Let’s apply what we learned!

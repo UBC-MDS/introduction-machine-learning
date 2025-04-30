@@ -1,0 +1,302 @@
+---
+format: revealjs
+title: Passing Different Scoring Methods
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+housing_df = pd.read_csv("data/housing.csv")
+train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
+```
+
+<br>
+
+```{python}
+# | include: false
+train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
+                           bedrooms_per_household = train_df["total_bedrooms"]/train_df["households"],
+                           population_per_household = train_df["population"]/train_df["households"])
+                        
+test_df = test_df.assign(rooms_per_household = test_df["total_rooms"]/test_df["households"],
+                         bedrooms_per_household = test_df["total_bedrooms"]/test_df["households"],
+                         population_per_household = test_df["population"]/test_df["households"])
+                         
+train_df = train_df.drop(columns=['total_rooms', 'total_bedrooms', 'population'])  
+test_df = test_df.drop(columns=['total_rooms', 'total_bedrooms', 'population']) 
+```
+
+```{python}
+X_train = train_df.drop(columns=["median_house_value"])
+y_train = train_df["median_house_value"]
+X_test = test_df.drop(columns=["median_house_value"])
+y_test = test_df["median_house_value"]
+
+numeric_features = [ "longitude", "latitude",
+                     "housing_median_age",
+                     "households", "median_income",
+                     "rooms_per_household",
+                     "bedrooms_per_household",
+                     "population_per_household"]
+                     
+categorical_features = ["ocean_proximity"]
+
+X_train.head()
+```
+
+
+:::{.notes} 
+We now know about all these metrics; how do we implement them? 
+
+We are lucky because it's relatively easy and can be applied to both classification and regression problems. 
+
+Let's start with regression and our regression measurements. 
+
+This means bringing back our California housing dataset.
+:::
+
+---
+
+```{python}
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import make_column_transformer
+from sklearn.neighbors import KNeighborsRegressor
+
+numeric_transformer = Pipeline(
+    steps=[("imputer", SimpleImputer(strategy="median")), 
+           ("scaler", StandardScaler())]
+)
+
+categorical_transformer = Pipeline(
+    steps=[("imputer", SimpleImputer(strategy="constant", fill_value="missing")),
+           ("onehot", OneHotEncoder(handle_unknown="ignore"))]
+)
+
+preprocessor = make_column_transformer(
+(numeric_transformer, numeric_features),
+        (categorical_transformer, categorical_features), 
+    remainder='passthrough')
+
+pipe_regression = make_pipeline(preprocessor, KNeighborsRegressor())
+```
+
+
+:::{.notes} 
+We need to build our pipelines as usual. 
+:::
+
+----
+
+## Cross-validation
+
+```{python}
+from sklearn.model_selection import cross_validate
+
+pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_score=True, scoring = 'neg_root_mean_squared_error'))
+```
+
+
+:::{.notes} 
+Normally after building our pipelines, we would now either do cross-validation or hyperparameter tuning but let's start with the `cross_validate()` function. 
+
+All the possible scoring metrics that this argument accepts is available <a href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter" target="_blank">here</a>. 
+
+In this case, if we wanted the RMSE measure, we would specify `neg_mean_squared_error` and the negated value of the metric will be returned in our dataframe.
+:::
+
+---
+
+```{python}
+from sklearn.metrics import make_scorer
+```
+
+<br>
+
+```{python}
+def mape(true, pred):
+    return 100.*np.mean(np.abs((pred - true)/true))
+```
+
+<br>
+
+```{python}
+mape_scorer = make_scorer(mape)
+```
+
+<br>
+
+```{python}
+pd.DataFrame(cross_validate(
+    pipe_regression, X_train, y_train, return_train_score=True, scoring=mape_scorer))
+```
+
+
+:::{.notes}
+Sometimes they don't have the scoring measure that we want and that's ok.
+
+We can make our own using the `make_scorer` from sklearn. 
+
+We must first make our own measurement function and convert it into a format that the `scoring` argument will understand. 
+
+First, we import `make_scorer` from `Sklearn`. 
+
+Next, we can make a function calculating our desired measurement. In this case, we are making a function that has the true and predicted values as inputs and then returns the Mean Absolute percentage Error.
+
+We can turn this into something that the `scoring` argument will understand but putting our created MAPE function as an input argument in `make_scorer()`. 
+
+Now when we cross-validate, we can specify the new `mape_scorer` as our measure.
+:::
+
+---
+
+
+```{python}
+scoring={
+    "r2": "r2",
+    "mape_score": mape_scorer,
+    "neg_rmse": "neg_root_mean_squared_error",    
+    "neg_mse": "neg_mean_squared_error",    
+}
+
+pd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_score=True, scoring=scoring))
+```
+
+
+
+:::{.notes}
+We can also return many scoring measures by first making a dictionary and then specifying the dictionary in the `scoring` argument.
+:::
+
+---
+
+## What about hyperparameter tuning? 
+
+```{python}
+pipe_regression = make_pipeline(preprocessor, KNeighborsRegressor())
+
+param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
+```
+
+<br>
+
+```{python}
+from sklearn.model_selection import GridSearchCV
+
+grid_search = GridSearchCV(pipe_regression, param_grid, cv=5, return_train_score=True, n_jobs=-1, scoring= mape_scorer);
+grid_search.fit(X_train, y_train);
+``` 
+
+<br>
+
+```{python}
+grid_search.best_params_
+grid_search.best_score_
+```
+
+:::{.notes} 
+We can do exactly the same thing we saw above with `cross_validate()` but instead with `GridSearchCV` and `RandomizedSearchCV`. 
+
+Ok wait hold on, let's think about this again. 
+ 
+The way that `best_params_` works is that it selects the parameters where the scoring measure selected is the highest measure, the problem with that is MAPE is an error, and we want the parameter with the lowest value, not the highest.
+:::
+
+---
+
+```{python}
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
+```
+
+<br>
+
+```{python}
+param_grid = {"kneighborsregressor__n_neighbors": [2, 5, 50, 100]}
+
+grid_search = GridSearchCV(pipe_regression, param_grid, cv=5,
+                           return_train_score=True, verbose=1,
+                           n_jobs=-1, scoring= neg_mape_scorer)
+grid_search.fit(X_train, y_train);
+``` 
+
+<br>
+
+```{python}
+grid_search.best_params_
+grid_search.best_score_
+```
+
+
+:::{.notes} 
+We can create a new MAPE scorer by adding the argument `greater_is_better=False`.  Now our `best_params_` will return the parameters will the lowest MAPE (least amount of error). 
+
+That's better!
+:::
+
+---
+
+## Classification
+
+```{python}
+cc_df = pd.read_csv('data/creditcard.csv.zip', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+
+X_train, y_train = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+```
+
+
+:::{.notes} 
+Let's bring back our credit card data set and build our pipeline.
+:::
+
+---
+
+```{python}
+from sklearn.tree import DecisionTreeClassifier
+
+dt_model = DecisionTreeClassifier(random_state=123, class_weight='balanced')
+```
+
+<br>
+
+```{python}
+import scipy
+
+param_grid = {"max_depth": scipy.stats.randint(low=1, high=100)}
+```
+
+<br>
+
+```{python}
+from sklearn.model_selection import RandomizedSearchCV
+
+grid_search = RandomizedSearchCV(dt_model, param_grid, cv=5, return_train_score=True,
+                           verbose=1, n_jobs=-1, scoring= 'f1', n_iter = 6)
+grid_search.fit(X_train, y_train);
+```
+
+<br>
+
+```{python}
+grid_search.best_params_
+grid_search.best_score_
+```
+
+
+:::{.notes} 
+This time we are going to use `class_weight='balanced'` in our Classifier. 
+
+Now we can tune our model for the thing we care about, in this case we are specifying the `f1` score.
+:::
+
+
+# Let’s apply what we learned!

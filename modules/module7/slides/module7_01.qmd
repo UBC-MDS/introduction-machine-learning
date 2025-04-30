@@ -1,0 +1,261 @@
+---
+format: revealjs
+title: Introducing Evaluation Metrics
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+```{python}
+cc_df = pd.read_csv('data/creditcard.csv.zip', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+```
+
+<br>
+
+```{python}
+train_df.head()
+```
+
+<br>
+
+```{python}
+train_df.shape
+```
+
+
+:::{.notes} 
+Up until this point, we have been scoring our models the same way every time. 
+
+We've been using the percentage of correctly predicted examples for classification problems and the R<sup>2</sup> metric for regression problems. 
+
+To help explain why this isn't the most beneficial option, we are bringing in a new dataset. 
+
+Let's classify fraudulent and non-fraudulent transactions using a 
+ <a href="https://www.kaggle.com/mlg-ulb/creditcardfraud" target="_blank">credit card fraud detection data set</a>.
+
+We can see this is a large dataset with 199364 examples and 31 features in our training set.
+:::
+
+---
+
+```{python}
+train_df.describe(include="all", percentiles = [])
+```
+
+
+:::{.notes}
+We see that the columns are all scaled and numerical.
+
+You don't need to worry about this now. The original columns have been transformed already for confidentiality and our benefit so now there are no categorical features.
+:::
+
+----
+
+```{python}
+X_train_big, y_train_big = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+```
+
+<br>
+
+```{python}
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+```
+
+
+:::{.notes} 
+Let's separate `X` and `y` for train and test splits.
+
+It's easier to demonstrate evaluation metrics using an explicit validation set instead of using cross-validation.
+
+Our data is large enough so it shouldn't be a problem.
+:::
+
+---
+
+### Baseline
+
+```{python}
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_validate
+
+dummy = DummyClassifier(strategy="most_frequent")
+pd.DataFrame(cross_validate(dummy, X_train, y_train, return_train_score=True)).mean()
+```
+
+<br>
+
+```{python}
+train_df["Class"].value_counts(normalize=True)
+```
+
+
+:::{.notes} 
+We build a simple `DummyClassifier` model as our baseline but what is going on? We are getting 99.8% accuracy!
+
+Should we be happy with this accuracy and deploy this `DummyClassifier` model for fraud detection?
+
+If we look at the distribution of fraudulent labels to non-fraudulent labels, we can see there is an imbalance in the classes. 
+
+There are  MANY non-fraud transactions and only a tiny handful of fraud transactions.
+
+So, what would be a good accuracy here? 99.9%? 99.99%?
+
+The "fraud" class is the class that we want to spot.
+
+This module will tackle this issue.
+:::
+
+---
+
+
+```{python}
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
+pipe = make_pipeline(
+       (StandardScaler()),
+       (DecisionTreeClassifier(random_state=123))
+)
+```
+
+<br>
+
+```{python}
+pd.DataFrame(cross_validate(pipe, X_train, y_train, return_train_score=True)).mean()
+```
+
+
+:::{.notes} 
+We can make a model better than the dummy classifier now and we get similar results. 
+
+This seems slightly better than `DummyClassifier`, but can it really identify fraudulent transactions?
+
+This model will cover new tools on how to measure this. 
+:::
+
+---
+
+### What is "positive" and "negative"?
+
+```{python}
+train_df["Class"].value_counts(normalize=True)
+```
+
+
+There are two kinds of binary classification problems:
+
+- Distinguishing between two classes
+- Spotting a class (fraud transaction, spam, disease)
+
+
+:::{.notes} 
+In the case of spotting problems, the thing that we are interested in spotting is considered "positive". 
+
+In our example, we want to spot fraudulent transactions and so they are "positive". 
+:::
+
+---
+
+## Confusion Matrix 
+
+```{python}
+pipe.fit(X_train, y_train);
+```
+
+<br>
+
+```{python}
+from sklearn.metrics import  ConfusionMatrixDisplay
+```
+
+```{python}
+# | output: false
+ConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+```
+
+```{python}
+# | echo: false
+import matplotlib.pyplot as plt
+
+plt.rcParams.update({'font.size': 12})
+ConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+:::{.notes} 
+A **confusion matrix** is a table that visualizes the performance of an algorithm. It shows the possible labels and how many of each label the model predicts correctly and incorrectly. 
+
+Once we fit on our training portion, we can use the `ConfusionMatrixDisplay.from_estimator` function from sklearn. 
+
+In this case, we are looking at the validation portion only. 
+
+This results in a 2 by 2 matrix with the labels `Non fraud` and `Fraud` on each axis. 
+
+#### Careful:
+
+Scikit-learn's convention is to have the true label as the rows and the predicted label as the columns.
+
+Others do it the other way around, e.g., the confusion matrix <a href=" https://en.wikipedia.org/wiki/Confusion_matrix" target="_blank">Wikipedia article</a>.
+:::
+
+---
+
+```{python}
+# | echo: false
+# | fig-align: center
+plt.rcParams.update({'font.size': 12})
+ConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=["Non Fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+
+|   X   | predict negative | predict positive |
+|------|----------|-------|
+| negative example | True negative (TN) | False positive (FP)|
+| positive example | False negative (FN) | True positive (TP) |
+
+
+:::{.notes} 
+Remember the Fraud is considered "positive" in this case and non-fraud is considered "negative". 
+
+
+Here the 4 quadrants for this problem are explained below. These positions will change depending on what values we deem as the positive label. 
+
+- **True negative (TN)**: Examples that are negatively labeled that the model correctly predicts. This is in the top left quadrant. 
+- **False positive (FP)**: Examples that are negatively labeled that the model incorrectly predicts as positive. This is in the top right quadrant. 
+- **False negative (FN)**:  Examples that are positively labeled that the model incorrectly predicts as negative. This is in the bottom left quadrant. 
+- **True positive (TP)**:  Examples that are positively labeled that the model correctly predicted as positive This is in the bottom right quadrant.
+:::
+
+---
+
+```{python}
+from sklearn.metrics import confusion_matrix
+```
+
+<br>
+
+```{python}
+predictions = pipe.predict(X_valid)
+confusion_matrix(y_valid, predictions)
+```
+
+
+:::{.notes} 
+If you want something more numeric and simpler you can obtain a NumPy array by importing `confusion_matrix` from the sklearn library. 
+
+Here we get the predictions of the model first with `.predict()` and compare it with `y_valid` in the function `confusion_matrix()`.
+:::
+
+
+# Let’s apply what we learned!
