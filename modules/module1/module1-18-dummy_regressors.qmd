@@ -1,0 +1,169 @@
+---
+format:
+  live-html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 6.1. Exercises
+
+## Dummy Regressors
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Question 1', 
+        'When using a regression model, which of the following is not a possible return value from .score(X,y)?', 
+        {
+        '0.0': 'This is a possible value. This is expected when using a dummy classifier with a <code>mean</code> strategy.',
+        '1.0': '1.0 is the highest possible value.',
+        '-0.2': 'Negative values are a possible score when using regression classifiers.',
+        '1.5': 'Great! 1.0 is the highest possible value.'
+        },
+        '1.5',
+    );
+</script>
+
+## Dummy Regressor Scores
+
+Below are the values for `y` that were used to train  `DummyRegressor(strategy='mean')`:
+```out
+Grade
+0     75
+1     80
+2     90
+3     95
+4     85
+dtype: int64
+```
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Question 2', 
+        'What value will the model predict for every example?', 
+        {
+        '80': 'Is this the average of all the values?',
+        '90': 'Maybe try calculating the average of all the values.',
+        '85': 'Great! It will predict the average of all the values.',
+        '95': 'This is too high. Have you tried calculating the average of all the values?'
+        },
+        '85',
+    );
+</script>
+
+## Building a Dummy Regressor
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's build a baseline model by using `DummyRegressor()`. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.dummy import DummyRegressor
+
+canucks = pd.read_csv('data/canucks_subbed.csv')
+canucks
+```
+
+**Tasks:**   
+
+- Build a baseline model using the `DummyRegressor()`  and `mean` for the `strategy` argument. Save this in an object named `model`. 
+- Fit your model and then predict on the target column. 
+- What is the accuracy of the model to 2 decimal places? Save this in the object `accuracy`.
+
+```{pyodide}
+#| setup: true
+#| exercise: building_a_dummy_regressor
+
+import pandas as pd
+from sklearn.dummy import DummyRegressor
+from src.utils import assert_accuracy_almost
+
+canucks = pd.read_csv('data/canucks_subbed.csv')
+```
+
+
+```{pyodide}
+#| exercise: building_a_dummy_regressor
+# Define X and y
+X = canucks.loc[:, ['No.', 'Age', 'Height',	'Weight', 'Experience']]
+y = canucks['Salary']
+
+# Create a model
+model = ____
+
+# Fit your data 
+____
+
+# Predict the labels of X
+____
+
+# The model accuracy
+accuracy = round(____, 2)
+
+accuracy
+```
+
+```{pyodide}
+#| exercise: building_a_dummy_regressor
+#| check: true
+
+X = canucks.loc[:, ['No.', 'Age', 'Height',	'Weight', 'Experience']]
+y = canucks['Salary']
+
+model = DummyRegressor(strategy="mean")
+model.fit(X,y)
+model.predict(X)
+
+solution = round(model.score(X,y), 2)
+
+assert_accuracy_almost(solution, result)
+```
+
+:::: { .hint exercise="building_a_dummy_regressor"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `DummyRegressor(strategy='mean')`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X,y)` on your model?
+- Are you using `model.score(X,y)` to find the accuracy?
+:::
+::::
+
+:::: { .solution exercise="building_a_dummy_regressor" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = canucks.loc[:, ['No.', 'Age', 'Height',	'Weight', 'Experience']]
+y = canucks['Salary']
+
+# Create a model
+model = DummyRegressor(strategy="mean")
+
+# Fit your data 
+model.fit(X,y)
+
+# Predict the labels of X
+model.predict(X)
+
+# The model accuracy
+accuracy = round(model.score(X,y), 2)
+
+accuracy
+```
+
+:::
+::::

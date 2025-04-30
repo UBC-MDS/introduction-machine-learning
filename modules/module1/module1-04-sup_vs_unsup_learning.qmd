@@ -1,0 +1,81 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 2.1. Exercises
+
+## Supervised vs. Unsupervised Learning
+
+**Given the following scenarios, would each example be considered supervised learning or unsupervised learning?**
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Question 1', 
+        'Finding groups of similar properties in a real estate data set.', 
+        { 
+        'Supervised Learning': 'Is there a "true number" of groups of similar properties? Are the groups known and defined?',
+        'Unsupervised Learning': 'Good job! This is an unsupervised learning example.'
+        },
+        'Unsupervised Learning',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Question 2', 
+        'Predicting real estate prices based on house features (number of rooms,past sales, etc.).', 
+        { 
+        'Supervised Learning': 'Nice work! Since we have examples with known value of real estate prices, we can use this predict real estate prices for homes we don’t know the price on.',
+        'Unsupervised Learning': 'Do we have true corresponding values of what we are predicting with?'
+        },
+        'Supervised Learning',
+    );
+</script>
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'Question 3', 
+        'Detecting credit card fraud based on examples of fraudulent transactions.', 
+        { 
+        'Supervised Learning': 'Great! Since we have examples with labels of "fraudulent" or "not fraudulent", we can detect if transactions with similar features to our examples are of the same nature.',
+        'Unsupervised Learning': 'Do we have examples of the true corresponding value of what we are predicting?'
+        },
+        'Supervised Learning',
+    );
+</script>
+
+<div id='mcq4'></div> 
+<script>
+    generateQuiz(
+        'mcq4', 
+        'Question 4', 
+        'Identifying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc.', 
+        { 
+        'Supervised Learning': 'We are grouping animals together based on similarity.',
+        'Unsupervised Learning': ''
+        },
+        'Unsupervised Learning',
+    );
+</script>
+
+<div id='mcq5'></div> 
+<script>
+    generateQuiz(
+        'mcq5', 
+        'Question 5', 
+        'Grouping articles on different topics from different news sources (something like Google News app).', 
+        { 
+        'Supervised Learning': 'Here we do not have a clear "correct" answer and therefor this is an example of unsupervised learning.',
+        'Unsupervised Learning': 'Grouping is also called *clustering* which is an example of unsupervised learning.'
+        },
+        'Unsupervised Learning',
+    );
+</script>

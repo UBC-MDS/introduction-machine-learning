@@ -1,0 +1,290 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 4.1. Exercises
+
+## Terminology
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        'Terminology: Target', 
+        'Which is a synonym for <code>targets</code>?', 
+        { 
+        'Predictors': 'Not quite. You may want to have a read through of the definitions in this section.',
+        'Records': 'Not quite. You may want to have a read through of the definitions in this section.',
+        'Outputs': '',
+        'Independent variables': 'Not quite. You may want to have a read through of the definitions in this section.'
+        },
+        'Outputs',
+    );
+</script>
+
+<div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        'Terminology: Feature', 
+        'Which is a synonym for <code>feature</code>?', 
+        { 
+        'Testers': 'This, unfortunately, is not in the Machine learning vocabulary.',
+        'Input': 'Input is a synonym for features! Well done.',
+        'Examples': 'You may want to have a read through of the definitions in this section.',
+        'Row': 'You may want to have a read through of the definitions in this section.'
+        },
+        'Input',
+    );
+</script>
+
+## Candybars
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question. We have commented them so that the line won't execute and you can test your code after each step.**_
+
+### Describing a Dataset
+
+Let's make sure we understand all the components we use in a dataset for machine learning. The packages you need will be loaded for you. In this example we would be attempting to predict the country availability of candy bars, which makes the column `availability` the target.
+
+```{pyodide}
+import pandas as pd
+from sklearn.dummy import DummyClassifier
+
+candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
+```
+
+**Task:**<br>
+
+- Save the dimensions of the dataframe in an object named `candybar_dim`.<br>
+
+```{pyodide}
+#| setup: true
+#| exercise: describing_a_dataset
+
+import pandas as pd
+from src.utils import print_correct_msg
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: describing_a_dataset
+candybar_dim = candybar_df.____
+
+candybar_dim
+```
+
+
+```{pyodide}
+#| exercise: describing_a_dataset
+#| check: true
+
+assert result == candybar_df.shape, "Did you save the dimensions to candybar_dim?"
+print_correct_msg()
+```
+
+:::: { .hint exercise="describing_a_dataset"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `.shape` to find the dimensions? 
+
+:::
+::::
+
+:::: { .solution exercise="describing_a_dataset" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+```{pyodide}
+candybar_dim = candybar_df.shape
+candybar_dim
+```
+
+:::
+::::
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'Question 1', 
+        'How many features does the data have?', 
+        { 
+        '8': 'This is not the number of features.',
+        '9': '',
+        '25': 'This is not the number of features.',
+        '10': 'We don’t include the index or the target as a feature.'
+        },
+        '9',
+    );
+</script>
+
+<div id='mcq4'></div> 
+<script>
+    generateQuiz(
+        'mcq4', 
+        'Question 2', 
+        'How many examples does the data have?', 
+        { 
+        '9': 'This is the total number of columns, not the number of examples.',
+        '8': 'This is the not the number of examples.',
+        '25': '',
+        '26': 'This is the not the number of examples.'
+        },
+        '25',
+    );
+</script>
+
+<div id='mcq5'></div> 
+<script>
+    generateQuiz(
+        'mcq5', 
+        'Question 3', 
+        'Would this be considered classification or regression?', 
+        { 
+        'Classification': '',
+        'Regression': 'What would we be predicting, a numerical value or categorical?'
+        },
+        'Classification',
+    );
+</script>
+
+### Separating Our Data
+
+Let's split up our the data in the candybars dataframe into our features and target. 
+For this dataframe the features are the columns `chocolate` to `multi` and the target is the column `availability`.
+
+```{pyodide}
+import pandas as pd
+from sklearn.dummy import DummyClassifier
+
+candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
+```
+
+**Task 1:**<br>    
+
+- Save the columns `chocolate` to `multi` in an object named `X`.<br>
+
+```{pyodide}
+#| setup: true
+#| exercise: separating_our_data_1
+
+import pandas as pd
+from src.utils import print_correct_msg
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_1
+X = ____
+
+X.head()
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_1
+#| check: true
+
+X = candybar_df.loc[:, 'chocolate':'multi']
+
+assert result.shape == X.head().shape, "The dimensions of X is incorrect. Are you selcting the correct columns?"
+assert sorted(list(result.columns))[0:4] == ['caramel', 'chocolate', 'coconut', 'cookie_wafer_rice'], "The X dataframe includes the incorrect columns. Make sure you are selecting the correct columns"
+print_correct_msg()
+```
+
+:::: { .hint exercise="separating_our_data_1"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `.loc[]` to obtain the columns `chocolate` to `multi`?
+
+:::
+::::
+
+:::: { .solution exercise="separating_our_data_1" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+```{pyodide}
+X = candybar_df.loc[:, 'chocolate':'multi']
+
+X.head()
+```
+
+:::
+::::
+
+
+**Task 2:**<br>    
+
+- Since we are attempting to predict the country availability of candy bars, make the column `availability` the target and name the object `y`.<br>
+
+```{pyodide}
+#| setup: true
+#| exercise: separating_our_data_2
+
+import pandas as pd
+from src.utils import print_correct_msg
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_2
+y = ____
+
+y.head()
+```
+
+
+```{pyodide}
+#| exercise: separating_our_data_2
+#| check: true
+
+y = candybar_df['availability']
+
+assert result.shape == y.head().shape, "The dimensions of y is incorrect. Are you selcting the correct columns?"
+assert result.name == 'availability', "Your target should be availability."
+print_correct_msg()
+
+```
+
+:::: { .hint exercise="separating_our_data_2"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you select the column `availability` with single brackets?
+
+:::
+::::
+
+:::: { .solution exercise="separating_our_data_2" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+```{pyodide}
+y = candybar_df['availability']
+
+y.head()
+```
+
+:::
+::::

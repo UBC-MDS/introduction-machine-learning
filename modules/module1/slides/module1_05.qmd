@@ -1,0 +1,83 @@
+---
+format: revealjs
+title: Classification vs Regression
+title-slide-attributes:
+  data-notes: |
+    There are two main kinds of supervised learning problems based on what they are trying to predict; ***Classification*** and ***Regression***. 
+
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+## Classification vs. Regression
+
+- **Classification problem**: predicting among two or more categories, also known as classes
+    - *Example1*: Predict whether a patient has a liver disease or not
+    - *Example2*: Predict whether the letter grade of a student (A,B,C,D or F)
+
+- **Regression problem**: predicting a continuous (in other words, a number) value
+    - Example1: Predict housing prices
+    - Example2: Predict a student's score in this course's quiz2
+
+
+:::{.notes}
+ In **Classification** problems we predict target value among two or more known categories.
+
+For example:
+
+- Whether a patient has a liver disease or not (2 possible target values)
+- The letter grade of a student: A, B, C, D or F. (There are 5 categories)
+
+**Regression** predicts a continuous (typically, floating-point) value.
+
+For example:
+
+- Housing prices
+- The scores of students in this course's quiz2.
+
+:::
+
+---
+
+![](../../../static/module1/classification-vs-regression.png){fig-alt="classfication vs. regression" fig-align="center" width="90%"}
+
+
+:::{.notes} 
+Here are examples of classification and regression problems. 
+
+As we said before in a classification problem the target has discrete categories. 
+In this example, our target has only two possible values; A+ or not A+. Our goal is to predict if a student will get a value of A+ or not A+. 
+
+In Regression problems, we are predicting each student’s grade, so the target here which is quiz2 contains the actual students' score.
+:::
+
+---
+
+```{python}
+classification_df = pd.read_csv("data/quiz2-grade-toy-classification.csv")
+classification_df.head()
+```
+
+
+:::{.notes}
+We have created two toy datasets for classification and regression and this is our toy dataset for classification. 
+
+We can see in the first example, the target here is `quiz2` and contains only 2 possible values; A+ or not A+.
+:::
+
+---
+
+```{python}
+regression_df = pd.read_csv("data/quiz2-grade-toy-regression.csv")
+regression_df.head()
+```
+
+
+:::{.notes} 
+On the other hand, in the regression problem, the target column (`quiz2`) contains the actual scores so we have continuous values in our `quiz2` column. 
+:::
+
+# Let's apply what we learned!

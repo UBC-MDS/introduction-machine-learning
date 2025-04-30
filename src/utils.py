@@ -100,3 +100,8 @@ def assert_accuracy_almost(expected, actual, tolerance=0.01):
             "message": f"Expected accuracy {expected}, but got {actual}. "
             f"The difference of {diff} exceeds the tolerance of {tolerance}.",
         }
+    
+def print_correct_msg():
+    message = random.choice(["Nicely done", "Great", "Good job", "Well done"])
+    emoji = random.choice(["🍀", "🎉", "🌈", "🙌", "🚀", "🌟", "✨", "💯"])
+    return {"correct": True, "message": f"{message}! {emoji}"}
