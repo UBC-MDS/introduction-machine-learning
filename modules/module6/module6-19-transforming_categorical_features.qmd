@@ -1,0 +1,460 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 5.1. Exercises
+
+## Transforming Categorical Features
+
+Use the diagram below to answer the following questions.
+
+```
+   colour  tropical location  carbs   seed  shape        size  water_content  weight
+0      red     False   canada      6   True  round      small             84     100
+1   yellow      True   mexico     12  False   long        med             75     120
+2   orange     False    china      8   True  round      large             90    1360
+3  magenta     False    china     18   True  round      small             96     600
+4   purple     False   mexico     11  False  round      small             80       5
+5   purple     False   canada      8  False   oval        med             78      40
+6    green      True   mexico     14   True   oval        med             83     450
+7     blue     False   canada      6   True  round      large             73       5
+8    brown      True    china      8   True  round      large             80      76
+9   yellow      True   mexico      4  False   oval        med             83      65
+```
+
+<br>
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'On which column would you  use <code>OneHotEncoder(sparse_output=False, dtype=int, drop="if_binary")</code>?',
+        {
+        '<code>colour</code>': 'Is this column binary?',
+        '<code>location</code>': 'Is this column binary?',
+        '<code>seed</code>': 'Great! This column is binary!',
+        '<code>size</code>': 'Is this column binary?',
+        },
+        '<code>seed</code>',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'What model would you use ordinal encoding with?',
+        {
+        '<code>colour</code>': 'Does colour have ordinality?',
+        '<code>location</code>': 'Is location ordinal?',
+        '<code>seed</code>': 'This column contains binary values.',
+        '<code>size</code>': '',
+        },
+        '<code>size</code>',
+    );
+</script>
+
+## Categorical True or False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'It’s important to be mindful of the consequences of including certain features in your predictive model.',
+        {
+        'True': '',
+        'False': 'It’s important to remember the systems you build are going to be used in some applications.',
+        },
+        'True',
+    );
+</script>
+
+## Transforming the Fertility Dataset
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+For this question, we will be using a dataset from assignment 1. 
+
+Here is the requested citation:
+_David Gil, Jose Luis Girela, Joaquin De Juan, M. Jose Gomez-Torres, and Magnus Johnsson. Predicting seminal quality with artificial intelligence methods. Expert Systems with Applications, 39(16):12564 “ 12573, 2012_
+
+We will be making pipelines and transforming our features appropriately. 
+
+Firstly, let's take a look at our dataset and the features. 
+
+*Disclaimer: Normally we should be investing more time to fully understand the data we are analyzing. We should be checking the unique values, using `.describe()`  and `.info()` to really get an idea of our features before deciding which transformations we want to apply.* 
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.neighbors import KNeighborsClassifier
+
+# Loading in the data
+fertile_df = pd.read_csv('data/fertility.csv').dropna(subset=['diagnosis'])
+print(fertile_df.iloc[:5, :5])
+print("\n")
+print(fertile_df.iloc[:5, 5:])
+```
+
+<br>
+
+Secondly, let's split the numeric and categorical features.
+
+**Tasks:**
+
+- What are the numeric features? Add them to a list named `numeric_features`.
+- What are the binary features? Add them to a list named `binary_features`.
+- What are the ordinal features? Add them to a list named `ordinal_features`.
+- What are the rest of the categorical features? Add them to a list named `categorical_features`.
+- Order the values in `high_fevers_last_year` and name the list `fever_order`. The options are 'more than 3 months ago', 'less than 3 months ago' and 'no'.
+- Order the values in `smoking_habit` and name the list `smoking_order`. The options are 'occasional', 'daily' and 'never'.
+- Order the values in `freq_alcohol_con` and name the list `alcohol_order`. The options are 'once a week', 'hardly ever or never', 'several times a week', 'several times a day' and 'every day'.
+
+```{pyodide}
+#| setup: true
+#| exercise: split_the_features
+import numpy as np
+import pandas as pd
+from src.utils import print_correct_msg
+
+# Loading in the data
+fertile_df = pd.read_csv('data/fertility.csv').dropna(subset=['diagnosis'])
+```
+
+
+```{pyodide}
+#| exercise: split_the_features
+# Split the numeric and categorical features 
+
+# What are the numeric features? 
+# Add them to a list named numeric_features
+____ = ____
+
+# What are the binary features? 
+# Add them to a list named binary_features
+____ = ____
+
+# What are the ordinal features? 
+# Add them to a list named ordinal_features
+____ = ____
+
+# What are the rest of the categorical features? 
+# Add them to a list named categorical_features
+____ = ____
+
+# Order the values in high_fevers_last_year and name the list fever_order
+# The options are 'more than 3 months ago', 'less than 3 months ago' and 'no'
+____ = ____
+
+# Order the values in smoking_habit and name the list smoking_order
+# The options are 'occasional', 'daily' and 'never'
+____ = ____
+
+# Order the values in freq_alcohol_con and name the list alcohol_order
+# The options are 'once a week', 'hardly ever or never', 'several times a week', 
+# 'several times a day' and 'every day'
+____ = ____
+
+dict = {
+    "numeric_features": numeric_features,
+    "binary_features": binary_features,
+    "ordinal_features": ordinal_features,
+    "categorical_features": categorical_features,
+    "fever_order": fever_order,
+    "smoking_order": smoking_order,
+    "alcohol_order": alcohol_order
+}
+
+dict
+```
+
+```{pyodide}
+#| exercise: split_the_features
+#| check: true
+assert len(result["numeric_features"]) == 2, "The number of numeric features is incorrect."
+assert result["numeric_features"].sort() == ['age', 'sitting_hrs'].sort(), "Check your numeric features again."
+assert len(result["binary_features"]) == 3, "The number of binary features is incorrect."
+assert result["binary_features"].sort() == ['childish_diseases', 'accident_trauma', 'surgical_intervention'].sort(), "Check your binary features again."
+assert len(result["ordinal_features"]) == 3, "The number of ordinal features is incorrect."
+assert result["ordinal_features"].sort() == ['high_fevers_last_year', 'freq_alcohol_con', 'smoking_habit'].sort(), "Check your ordinal features again."
+assert len(result["categorical_features"]) == 1, "The number of categorical features is incorrect."
+assert result["categorical_features"] == ['season'], "Check your categorical features again."
+
+assert len(result["fever_order"]) == 3, "You should order all options in fever_order"
+assert result["fever_order"] == ['no', 'more than 3 months ago', 'less than 3 months ago'], "The fever order is incorrect."
+assert len(result["smoking_order"]) == 3, "You should order all options in smoking_order"
+assert result["smoking_order"] == ['never', 'occasional', 'daily'], "The smoking order is incorrect."
+assert len(result["alcohol_order"]) == 5, "You should order all options in alcohol_order"
+assert result["alcohol_order"] == ['hardly ever or never', 'once a week', 'several times a week', 'every day', 'several times a day'], "The alcohol order is incorrect."
+
+print_correct_msg()
+```
+
+:::: { .hint exercise="split_the_features"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you ordering the ordinal values correctly? 
+- Do you have 3 binary features?
+
+:::
+::::
+
+:::: { .solution exercise="split_the_features" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Split the numeric and categorical features 
+
+# What are the numeric features? 
+# Add them to a list named numeric_features
+numeric_features = ['age', 'sitting_hrs']
+
+# What are the binary features? 
+# Add them to a list named binary_features
+binary_features = ['childish_diseases', 'accident_trauma', 'surgical_intervention']
+
+# What are the ordinal features? 
+# Add them to a list named ordinal_features
+ordinal_features = ['high_fevers_last_year', 'freq_alcohol_con', 'smoking_habit']
+
+# What are the rest of the categorical features? 
+# Add them to a list named categorical_features
+categorical_features = ['season']
+
+# Order the values in high_fevers_last_year and name the list fever_order
+# The options are 'more than 3 months ago', 'less than 3 months ago' and 'no'
+fever_order = ['no', 'more than 3 months ago', 'less than 3 months ago']
+
+# Order the values in smoking_habit and name the list smoking_order
+# The options are 'occasional', 'daily' and 'never'
+smoking_order = ['never', 'occasional', 'daily']
+
+# Order the values in freq_alcohol_con and name the list alcohol_order
+# The options are 'once a week', 'hardly ever or never', 'several times a week', 
+# 'several times a day' and 'every day'
+alcohol_order = ['hardly ever or never', 'once a week',
+                 'several times a week', 'every day', 'several times a day']
+
+dict = {
+    "numeric_features": numeric_features,
+    "binary_features": binary_features,
+    "ordinal_features": ordinal_features,
+    "categorical_features": categorical_features,
+    "fever_order": fever_order,
+    "smoking_order": smoking_order,
+    "alcohol_order": alcohol_order
+}
+
+dict
+```
+
+:::
+::::
+
+<br>
+
+Now, we are ready to make the pipelines and transform our features.
+
+**Tasks:**
+
+- There are several pipelines already made for you. Designate `numeric_transformer` to the numerical transformer, `categorical_transformer` to the transformer that is not transforming binary or ordinal features, `binary_transformer` to the transformer of binary features, and `ordinal_transformer1`, `ordinal_transformer2` and `ordinal_transformer3` to the transformer of columns `high_fevers_last_year`, `smoking_habit` and `freq_alcohol_con` respectively. 
+- Fill in the associated gaps in the column transformer named `preprocessor`. 
+- Build a main pipeline using `KNeighborsClassifier` and name the object `main_pipe`.
+- Cross-validate and see the results.
+
+```{pyodide}
+#| setup: true
+#| exercise: transforming_the_fertility_dataset
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.neighbors import KNeighborsClassifier
+from src.utils import print_correct_msg
+
+# Loading in the data
+fertile_df = pd.read_csv('data/fertility.csv').dropna(subset=['diagnosis'])
+
+numeric_features = ['age', 'sitting_hrs']
+binary_features = ['childish_diseases', 'accident_trauma', 'surgical_intervention']
+ordinal_features = ['high_fevers_last_year', 'freq_alcohol_con', 'smoking_habit']
+categorical_features = ['season']
+fever_order = ['no', 'more than 3 months ago', 'less than 3 months ago']
+smoking_order = ['never', 'occasional', 'daily']
+alcohol_order = ['hardly ever or never', 'once a week',
+                 'several times a week', 'every day', 'several times a day']
+```
+
+
+```{pyodide}
+#| exercise: transforming_the_fertility_dataset
+# Split the dataset
+df_train, df_test = train_test_split(fertile_df, test_size=0.2, random_state=7)
+
+X_train = df_train.drop(columns='diagnosis')
+X_test = df_test.drop(columns='diagnosis')
+y_train = df_train['diagnosis']
+y_test = df_test['diagnosis']
+
+
+# Pipelines
+____ = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+
+____ = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+
+____ = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder(drop="if_binary", dtype=int)
+    )
+
+
+____ = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OrdinalEncoder(categories=[fever_order], dtype=int)
+)
+
+
+____ = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OrdinalEncoder(categories=[smoking_order], dtype=int)
+)
+
+____ = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OrdinalEncoder(categories=[alcohol_order], dtype=int)
+)
+
+# Column transformer
+preprocessor = make_column_transformer(
+        (____, numeric_features),
+        (categorical_transformer, ____),
+        (____, ['high_fevers_last_year']),
+  		(____, ['smoking_habit']),
+ 		(____, ['freq_alcohol_con']),
+        (binary_transformer, ____)
+)
+
+# Build a main pipeline using KNeighborsClassifier and name it main_pipe
+____ = ____(____, ____)
+
+# Cross validate
+scores = cross_validate(____, ____, ____, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+```{pyodide}
+#| exercise: transforming_the_fertility_dataset
+#| check: true
+assert result.shape == (5,4), "We want to view the scores in a DataFrame."
+assert "test_score" in result.columns, "There should be a column called test_score."
+assert "train_score" in result.columns, "There should be a column called train_score."
+
+assert min(result['test_score']) > 0.80 and max(result['test_score']) < 0.90, "The range of your test scores is incorrect. Check your pipelines."
+assert min(result['train_score']) > 0.85 and max(result['train_score']) < 0.90, "The range of your training scores is incorrect. Check your pipelines."
+
+print_correct_msg()
+```
+
+:::: { .hint exercise="transforming_the_fertility_dataset"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using the features you categorized above?
+- Are you naming the pipelines correctly?
+
+:::
+::::
+
+:::: { .solution exercise="transforming_the_fertility_dataset" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Split the dataset
+df_train, df_test = train_test_split(fertile_df, test_size=0.2, random_state=7)
+
+X_train = df_train.drop(columns='diagnosis')
+X_test = df_test.drop(columns='diagnosis')
+y_train = df_train['diagnosis']
+y_test = df_test['diagnosis']
+
+# Pipelines
+
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+binary_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder(drop="if_binary", dtype=int)
+    )
+
+ordinal_transformer1 = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OrdinalEncoder(categories=[fever_order], dtype=int)
+)
+
+ordinal_transformer2 = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OrdinalEncoder(categories=[smoking_order], dtype=int)
+)
+
+ordinal_transformer3 = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OrdinalEncoder(categories=[alcohol_order], dtype=int)
+)
+
+# Column transformer
+preprocessor = make_column_transformer(
+        (numeric_transformer, numeric_features),
+        (categorical_transformer, categorical_features),
+        (ordinal_transformer1, ['high_fevers_last_year']),
+  		(ordinal_transformer2, ['smoking_habit']),
+ 		(ordinal_transformer3, ['freq_alcohol_con']),
+        (binary_transformer, binary_features)
+)
+
+# Build a main pipeline using KNeighborsClassifier and name it main_pipe
+main_pipe = make_pipeline(preprocessor, KNeighborsClassifier())
+
+# Cross validate
+scores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+:::
+::::

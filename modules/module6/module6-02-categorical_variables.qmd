@@ -1,0 +1,215 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 1.1. Exercises
+
+## Categorical Variables
+
+```
+           name    colour    location    seed   shape  sweetness   water-content  weight  popularity
+0         apple       red     canada    True   round     True          84         100      popular
+1        banana    yellow     mexico   False    long     True          75         120      popular
+2    cantaloupe    orange      spain    True   round     True          90        1360      neutral
+3  dragon-fruit   magenta      china    True   round    False          96         600      not popular
+4    elderberry    purple    austria   False   round     True          80           5      not popular
+5           fig    purple     turkey   False    oval    False          78          40      neutral
+6         guava     green     mexico    True    oval     True          83         450      neutral
+7   huckleberry      blue     canada    True   round     True          73           5      not popular
+8          kiwi     brown      china    True   round     True          80          76      popular
+9         lemon    yellow     mexico   False    oval    False          83          65      popular
+
+```
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'What would be the unique values given to the categories in the <code>popularity</code> column, if we transformed it with ordinal encoding?',
+        {
+        '<code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>': 'There are multiples of some of these values',
+        '<code>[0, 1, 2]</code>': '',
+        '<code>[1, 2, 3]</code>': 'Do we start labeling at 1?',
+        '<code>[0, 1, 2, 3]</code>': 'Do we have 4 unique values?',
+        },
+        '<code>[0, 1, 2]</code>',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'Does it make sense to be doing ordinal transformations on the <code>colour</code> column?',
+        {
+        'Yes': 'Is yellow more red than green?',
+        'No': 'Good work!',
+        },
+        'No',
+    );
+</script>
+
+## True or False: Ordinal Encoding
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'Whenever we have categorical values, we should use ordinal encoding.',
+        {
+        'True': 'Do all categorical features have an order? For example, if we had fruit, is a kiwi closer to a banana than a strawberry?',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'If we include categorical values in our feature table, <code>sklearn</code> will throw an error.',
+        {
+        'True': '',
+        'False': 'Do categorical variables make sense to <code>sklearn</code>?',
+        },
+        'True',
+    );
+</script>
+
+
+## Try Ordinal Encoding Yourself!
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+We've seen our basketball dataset but have only used the features `salary`, `weight` and `height`. This time, let's look at the `country` column and transform it. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OrdinalEncoder
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+bball_df
+```
+
+**Tasks:**
+- Build an ordinal encoder that uses a `dtype` of `int` and name it `ordinal_encoder`. 
+- Fit on `X_column`, transform it and save the results in an object named `country_encoded`. 
+
+```{pyodide}
+#| setup: true
+#| exercise: try_ordinal_encoding_yourself
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OrdinalEncoder
+from src.utils import print_correct_msg
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: try_ordinal_encoding_yourself
+# Split the dataset
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+X_column = df_train[['country']]
+
+# Build the tranformer and fit on it 
+____ = ____(____)
+____.____(____);
+
+# Transform the column country
+____ = ____.____(____)
+
+# Let's see which country's correspond with each encoding value
+encoding_view = X_column.assign(country_enc=country_encoded).drop_duplicates()
+encoding_view
+```
+
+```{pyodide}
+#| exercise: try_ordinal_encoding_yourself
+#| check: true
+assert isinstance(result, pd.DataFrame), "The last line should be a dataframe."
+
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+X_column = df_train[['country']]
+
+ordinal_encoder = OrdinalEncoder(dtype=int)
+ordinal_encoder.fit(X_column);
+country_encoded = ordinal_encoder.transform(X_column)
+solution = X_column.assign(country_enc=country_encoded).drop_duplicates()
+
+assert solution.columns.to_list() == result.columns.to_list(), "Your columns should be country and country_enc."
+assert solution.shape[0] == result.shape[0], "All the countries need to be encoded once."
+assert solution.sort_values(by=["country_enc", "country"]).equals(result.sort_values(by=["country_enc", "country"])), "Check your encoding."
+print_correct_msg()
+```
+
+:::: { .hint exercise="try_ordinal_encoding_yourself"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you building `OrdinalEncoder` and using `dtype=int`?
+- Are you fitting the transformer?
+
+:::
+::::
+
+:::: { .solution exercise="try_ordinal_encoding_yourself" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Split the dataset
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+X_column = df_train[['country']]
+
+# Build the tranformer and fit on it 
+ordinal_encoder = OrdinalEncoder(dtype=int)
+ordinal_encoder.fit(X_column);
+
+# Transform the column country
+country_encoded = ordinal_encoder.transform(X_column)
+
+# Let's see which country's correspond with each encoding value
+encoding_view = X_column.assign(country_enc=country_encoded).drop_duplicates()
+encoding_view
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question',
+        'Which country corresponds with group 5?',
+        {
+        'USA': 'Maybe take a closer look?',
+        'Croatia': '',
+        'Greece': 'Maybe take a closer look?',
+        'Egypt': 'Maybe take a closer look?',
+        },
+        'Croatia',
+    );
+</script>

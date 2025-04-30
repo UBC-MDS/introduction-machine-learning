@@ -1,0 +1,271 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 4.1. Exercises
+
+## Making pipelines
+
+Use the diagram below to answer the following questions.
+
+```
+Pipeline(
+    steps=[('columntransformer',
+               ColumnTransformer(
+                  transformers=[('pipeline-1',
+                                  Pipeline(
+                                    steps=[('simpleimputer',
+                                             SimpleImputer(strategy='median')),
+                                           ('standardscaler',
+                                             StandardScaler())]),
+                      ['water_content', 'weight', 'carbs']),
+                                ('pipeline-2',
+                                  Pipeline(
+                                    steps=[('simpleimputer',
+                                             SimpleImputer(fill_value='missing',
+                                                                strategy='constant')),
+                                           ('onehotencoder',
+                                             OneHotEncoder(handle_unknown='ignore'))]),
+                      ['colour', 'location', 'seed', 'shape', 'sweetness',
+                                                   'tropical'])])),
+         ('decisiontreeclassifier', DecisionTreeClassifier())])
+                
+```  
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'How many columns are being transformed in <code>pipeline-1</code>?',
+        {
+        '0': 'Are you counting the right thing? Look above <code>pipeline-2</code>.',
+        '2': 'Are you counting the right thing? Look above <code>pipeline-2</code>.',
+        '3': 'Great! They are ` [’water_content’, ’weight’, ’carbs’]',
+        '6': 'Are you counting the columns for <code>pipeline-2</code> by accident?',
+        },
+        '3',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'Which pipeline is transforming the categorical columns?',
+        {
+        'pipeline-1': 'This is using <code>StandardScaler</code> so it is likely transforming numeric columns. Also, pipeline-2 is using <code>OneHotEncoder</code>.',
+        'pipeline-2': '',
+        },
+        'pipeline-2',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'What model is the pipeline fitting on?',
+        {
+        '<code>SVC</code>': 'This is used on numeric columns.',
+        '<code>KNeighborsClassifier</code>': '',
+        '<code>DummyClassifier</code>': 'This is only used on categorical columns.',
+        '<code>DecisionTreeClassifier</code>': '',
+        },
+        '<code>DecisionTreeClassifier</code>',
+    );
+</script>
+
+## Transforming True or False
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        '<code>Pipeline()</code> is the same as <code>make_pipeline()</code> but  <code>make_pipeline()</code> requires you to name the steps.',
+        {
+        'True': '<code>Pipeline()</code> requires you to name the steps whereas <code>make_pipeline()</code> does not.',
+        'False': 'Nailed it! It’s the other way round! <code>Pipeline()</code> requires you to name the steps.',
+        },
+        'False',
+    );
+</script>
+
+## Making Pipelines with make_pipeline()
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's try to redo exercise 13, but this time let's use `make_pipeline()` and `make_column_transformer`. 
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.neighbors import KNeighborsRegressor
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball_imp.csv').dropna(subset=['salary'])
+bball_df
+```
+
+**Tasks:**
+- For all pipelines, make sure to use `make_pipeline()` where possible.
+- Create a pipeline for the numeric features. It should have the first step as simple imputation using `strategy="median"` and the second step should be using `StandardScaler`.  Name this pipeline `numeric_transformer`. 
+- Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using `strategy="most_frequent"`. The second step should be one-hot encoding with `handle_unknown="ignore"`. Name this pipeline `categotical_transformer`. 
+- Make your column transformer named `col_transformer` by using `make_column_transformer()`and specify the transformations on `numeric_features` and `categorical_features` using the appropriate pipelines you build above. 
+- Create a main pipeline named `main_pipe` which preprocesses with `col_transformer` followed by building a `KNeighborsRegressor` model.
+- The last step is performing cross-validation using our pipeline.
+
+```{pyodide}
+#| setup: true
+#| exercise: making_pipelines_with_make_pipeline
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.neighbors import KNeighborsRegressor
+from src.utils import print_correct_msg
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball_imp.csv').dropna(subset=['salary'])
+```
+
+
+```{pyodide}
+#| exercise: making_pipelines_with_make_pipeline
+# Split the dataset
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+
+X_train = df_train[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "position", "country"]]
+X_test = df_test[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "position", "country"]]
+y_train = df_train['salary']
+y_test = df_test['salary']
+
+
+# Split the numeric and categorical features 
+numeric_features = [ "weight",
+                     "height",
+                     "draft_year",
+                     "draft_round",
+                     "draft_peak"]
+
+categorical_features = ["team", "position", "country"]
+
+# Build a numeric pipeline
+____ = ____
+
+# Build a categorical pipeline
+____ = ____
+
+# Build a column transformer
+____ = ____
+
+# Build a main pipeline
+____ = ____
+
+# Cross validate
+with_categorical_scores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(with_categorical_scores)
+```
+
+```{pyodide}
+#| exercise: making_pipelines_with_make_pipeline
+#| check: true
+assert result.shape == (5,4), "We want to view the scores in a DataFrame."
+assert "test_score" in result.columns, "There should be a column called test_score."
+assert "train_score" in result.columns, "There should be a column called train_score."
+
+assert min(result['test_score']) > 0.20 and max(result['test_score']) < 0.50, "The range of your test scores is incorrect. Are you calling the cross_validate function?"
+assert min(result['train_score']) > 0.57 and max(result['train_score']) < 0.65, "The range of your training scores is incorrect. Are you calling the cross_validate function?"
+
+print_correct_msg()
+```
+
+:::: { .hint exercise="making_pipelines_with_make_pipeline"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `SimpleImputer(strategy="median")` for numerical imputation? 
+- Are you naming your steps?
+- Are you using `SimpleImputer(strategy="most_frequent")` for categorical imputation?
+- Are you using one-hot encoding?
+- Are you  specifying `numeric_transformer` with `numeric_features` and `categorical_transformer` with `categorical_features` in `make_column_transformer`?
+- Is the first step in your main pipeline calling `col_transformer`?
+- Are you calling `main_pipe` in `cross_validate()`?
+
+:::
+::::
+
+:::: { .solution exercise="making_pipelines_with_make_pipeline" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Split the dataset
+df_train, df_test = train_test_split(bball_df, test_size=0.2, random_state=7)
+
+X_train = df_train[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "position", "country"]]
+X_test = df_test[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "position", "country"]]
+y_train = df_train['salary']
+y_test = df_test['salary']
+
+
+# Split the numeric and categorical features 
+numeric_features = [ "weight",
+                     "height",
+                     "draft_year",
+                     "draft_round",
+                     "draft_peak"]
+
+categorical_features = ["team", "position", "country"]
+
+# Build a numeric pipeline
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+# Build a categorical pipeline
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+# Build a column transformer
+col_transformer = make_column_transformer(
+    (numeric_transformer, numeric_features),
+    (categorical_transformer, categorical_features))
+
+# Build a main pipeline
+main_pipe = make_pipeline(
+    col_transformer,
+    KNeighborsRegressor())
+
+# Cross validate
+with_categorical_scores = cross_validate(main_pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(with_categorical_scores)
+```
+
+:::
+::::

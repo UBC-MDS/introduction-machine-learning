@@ -1,0 +1,225 @@
+---
+format: revealjs
+title: Text Data
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+<br>
+
+![](../../../static/module6/num_xy.png){fig-align="center" width="50%" fig-alt="404 image"}
+
+
+:::{.notes} 
+Machine Learning algorithms that we have seen so far prefer numeric and fixed-length input that looks like this. 
+
+But what if we are only given data in the form of raw text and associated labels?
+
+How can we represent such data into a fixed number of features? 
+:::
+
+---
+
+<br>
+
+![](../../../static/module6/cat_xy.png){fig-align="center" width="100%" fig-alt="404 image"}
+
+
+:::{.notes} 
+Would you be able to apply the algorithms we have seen so far on the data that looks like this?
+
+In categorical features or ordinal features, we have a fixed number of categories.
+
+In text features such as above, each feature value (i.e., each text message) is going to be different. 
+
+How do we encode these features?
+:::
+
+---
+
+## Bag of words (BOW) representation
+
+![](../../../static/module6/bag-of-words.png){fig-align="center" width="85%" fig-alt="404 image"}
+
+<a href="https://web.stanford.edu/~jurafsky/slp3/4.pdf" target="_blank">Attribution: Daniel Jurafsky & James H. Martin</a> 
+
+
+:::{.notes} 
+One way is to use a simple bag of words (BOW) representation which involves two components.
+
+- The vocabulary (all unique words in all documents) 
+- A value indicating either the presence or absence or the count of each word in the document.
+:::
+
+---
+
+## Extracting BOW features using *scikit-learn*
+
+```{python}
+X = [
+    "URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!",
+    "Lol you are always so convincing.",
+    "Nah I don't think he goes to usf, he lives around here though",
+    "URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!",
+    "Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030",
+    "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
+    
+y = ["spam", "non spam", "non spam", "spam", "spam", "non spam"]
+```
+
+
+:::{.notes} 
+Let's say we have 1 feature in our `X` dataframe consisting of the following text messages. 
+
+In our target column, we have the classification of each message as either `spam` or `non spam`.
+:::
+
+---
+
+```{python}
+from sklearn.feature_extraction.text import CountVectorizer
+
+vec = CountVectorizer()
+X_counts = vec.fit_transform(X);
+bow_df = pd.DataFrame(X_counts.toarray(), columns=sorted(vec.vocabulary_), index=X)
+bow_df
+```
+
+:::{.notes} 
+We import a tool call `CountVectorizer`. 
+
+`CountVectorizer` converts a collection of text documents to a matrix of word counts.     
+
+- Each row represents a "document" (e.g., a text message in our example). 
+- Each column represents a word in the vocabulary in the training data. 
+- Each cell represents how often the word occurs in the document. 
+    
+    
+In the NLP community, a text data set is referred to as a **corpus** (plural: corpora).
+:::
+
+---
+
+## Important hyperparameters of **CountVectorizer**
+
+- `binary`:   
+    - Whether to use absence/presence feature values or counts.
+- `max_features`:
+    - Only considers top `max_features` ordered by frequency in the corpus.
+- `max_df`:
+    - When building the vocabulary ignore terms that have a document frequency strictly higher than the given threshold.
+- `min_df`:
+    - When building the vocabulary ignore terms that have a document frequency strictly lower than the given threshold.
+- `ngram_range`:
+    - Consider word sequences in the given range.
+
+:::{.notes} 
+There are many useful and important hyperparameters of `CountVectorizer`.
+:::
+
+---
+
+## Preprocessing
+
+```python
+X
+```
+```out
+[ "URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!",
+  "Lol you are always so convincing.",
+  "Nah I don't think he goes to usf, he lives around here though",
+  "URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!",
+  "Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030",
+  "As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune"]
+```
+
+---
+
+## Preprocessing
+
+```{python}
+vec.get_feature_names_out()
+```
+
+:::{.notes}
+`CountVectorizer` is carrying out some preprocessing such as because of the default argument values.   
+
+- Converting words to lowercase (`lowercase=True`). Take a look at the word "urgent" In both cases. 
+- getting rid of punctuation and special characters (`token_pattern ='(?u)\\b\\w\\w+\\b'`)
+:::
+
+---
+
+```{python}
+from sklearn.pipeline import make_pipeline
+from sklearn.svm import SVC
+
+pipe = make_pipeline(CountVectorizer(), SVC())
+pipe.fit(X, y);
+```
+
+<br>
+
+```{python}
+pipe.predict(X)
+```
+
+<br>
+
+```{python}
+pipe.score(X,y)
+```
+
+
+:::{.notes} 
+We can use `CountVectorizer()` in a pipeline just like any other transformer. 
+
+Here we get a perfect score on the data it's seen already. How well does it do on unsceen data?
+:::
+
+---
+
+```{python}
+X_new = [
+    "Congratulations! You have been awarded $1000!",
+    "Mom, can you pick me up from soccer practice?",
+    "I'm trying to bake a cake and I forgot to put sugar in it smh. ",
+    "URGENT: please pick up your car at 2pm from servicing",
+    "Call 234950323 for a FREE consultation. It's your lucky day!" ]
+    
+y_new = ["spam", "non spam", "non spam", "non spam", "spam"]
+```
+
+<br>
+
+```{python}
+pipe.score(X_new,y_new)
+```
+
+
+:::{.notes} 
+It's not perfect but it seems to do well on this data too.
+:::
+
+---
+
+## Is this a realistic representation of text data? 
+
+Of course, this is not a great representation of language.
+
+- We are throwing out everything we know about language and losing a lot of information. 
+- It assumes that there is no syntax and compositional meaning in language.  
+
+<br>
+<br>
+<br>
+
+...But it works surprisingly well for many tasks.
+
+
+# Let’s apply what we learned!
