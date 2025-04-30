@@ -202,7 +202,7 @@
 </section>
 <section class="slide level2">
 
-<div id="e9218699" class="cell" data-execution_count="3">
+<div id="9810843b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(adult, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -322,7 +322,7 @@
 </section>
 <section class="slide level2">
 
-<div id="5c2d7981" class="cell" data-execution_count="4">
+<div id="676c65ed" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'income'</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">'income'</span>]</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -345,7 +345,7 @@
 </section>
 <section class="slide level2">
 
-<div id="deecfa1b" class="cell" data-execution_count="5">
+<div id="1d611c8f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>,</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"fnlwgt"</span>,</span>
@@ -382,14 +382,14 @@
 </section>
 <section class="slide level2">
 
-<div id="9c4dcfdc" class="cell" data-execution_count="6">
+<div id="e537c518" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
 <span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="23ffb22c" class="cell" data-execution_count="7">
+<div id="053bc4fd" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> Pipeline(</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>    steps<span class="op">=</span>[(<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)), </span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>           (<span class="st">"scaler"</span>, StandardScaler())])</span>
@@ -457,7 +457,7 @@
 </section>
 <section class="slide level2">
 
-<div id="c8de7a27" class="cell" data-execution_count="8">
+<div id="1b00df6a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> make_pipeline(SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>),</span>
@@ -495,12 +495,12 @@
 </section>
 <section id="make_column_transformer-syntax" class="slide level2">
 <h2><em>make_column_transformer</em> syntax</h2>
-<div id="b3bbe84f" class="cell" data-execution_count="9">
+<div id="7ddaf8c7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>so instead of this:</p>
-<div id="2b033dc4" class="cell" data-execution_count="10">
+<div id="a53c551f" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> ColumnTransformer(</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>    transformers<span class="op">=</span>[</span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"num"</span>, numeric_transformer, numeric_features),</span>
@@ -509,7 +509,7 @@
 </div>
 <p><br></p>
 <p>we can do this:</p>
-<div id="05550327" class="cell" data-execution_count="11">
+<div id="ae96a6c4" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> make_column_transformer(</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>    (numeric_transformer, numeric_features),</span>
 <span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>    (categorical_transformer, categorical_features))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -532,7 +532,7 @@
 <section class="slide level2">
 
 <p>So our whole thing becomes:</p>
-<div id="bd26628e" class="cell" data-execution_count="12">
+<div id="495143b7" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> make_pipeline(SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>),</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>                                    StandardScaler())</span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -573,7 +573,7 @@ Detailed traceback:
 
 <pre class="out"><code>ValueError: Found unknown categories ['Holand-Netherlands'] in column 7 during transform</code></pre>
 <p><br></p>
-<div id="021e806a" class="cell" data-execution_count="13">
+<div id="fa903c98" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>X_train[<span class="st">"native.country"</span>].value_counts().tail(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>Outlying-US(Guam-USVI-etc)    12
@@ -605,7 +605,7 @@ Name: native.country, dtype: int64</code></pre>
 </section>
 <section id="how-do-we-fix-it" class="slide level2">
 <h2>How do we fix it?</h2>
-<div id="0c53c14b" class="cell" data-execution_count="14">
+<div id="8c9e3f6c" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> make_pipeline(SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>), StandardScaler())</span>
 <span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>categorical_transformer <span class="op">=</span> make_pipeline(</span>
@@ -619,14 +619,14 @@ Name: native.country, dtype: int64</code></pre>
 <span id="cb20-11"><a aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> make_pipeline(preprocessor, SVC())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="bc53d8e8" class="cell" data-execution_count="15">
+<div id="86f5b833" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(pipe, X_train, y_train, cv<span class="op">=</span><span class="dv">5</span>, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>fit_time       8.727163
-score_time     1.635127
+<pre><code>fit_time       8.694769
+score_time     1.625674
 test_score     0.855459
 train_score    0.867974
 dtype: float64</code></pre>
@@ -657,7 +657,7 @@ dtype: float64</code></pre>
 <ul>
 <li>If it’s some fixed number of categories.</li>
 </ul>
-<div id="98f8b6b1" class="cell" data-execution_count="16">
+<div id="6798fbd9" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>all_countries <span class="op">=</span> adult[<span class="st">"native.country"</span>].unique()</span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>all_countries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -666,7 +666,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="3db42ddf" class="cell" data-execution_count="17">
+<div id="470fab28" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>ohe_cat <span class="op">=</span> OneHotEncoder(categories<span class="op">=</span>all_countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">

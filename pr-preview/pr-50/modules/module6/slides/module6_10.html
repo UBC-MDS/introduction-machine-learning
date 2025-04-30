@@ -255,11 +255,11 @@
 </section>
 <section class="slide level2">
 
-<div id="d9624543" class="cell" data-execution_count="3">
+<div id="f39aa853" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="8eb3adad" class="cell" data-execution_count="4">
+<div id="68c3a5b3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -377,7 +377,7 @@
 </section>
 <section class="slide level2">
 
-<div id="58f1222c" class="cell" data-execution_count="5">
+<div id="c3220aba" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>X_train.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>longitude                   float64
@@ -391,7 +391,7 @@ Length: 9, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="4a16cc01" class="cell" data-execution_count="6">
+<div id="3ad896cb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [ <span class="st">"longitude"</span>,</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>                     <span class="st">"latitude"</span>,</span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>                     <span class="st">"housing_median_age"</span>,</span>
@@ -419,7 +419,7 @@ Length: 9, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="9e7c2947" class="cell" data-execution_count="7">
+<div id="4a669a6e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
@@ -452,7 +452,7 @@ Length: 9, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="2e1060d4" class="cell" data-execution_count="8">
+<div id="15a263ff" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>col_transformer <span class="op">=</span> ColumnTransformer(</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>    transformers<span class="op">=</span>[</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"numeric"</span>, numeric_transformer, numeric_features),</span>
@@ -488,7 +488,7 @@ Length: 9, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="1ae37b42" class="cell" data-execution_count="9">
+<div id="1de60ebc" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>col_transformer.fit(X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <style>#sk-container-id-1 {
@@ -958,7 +958,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section class="slide level2">
 
-<div id="e85e04e5" class="cell" data-execution_count="10">
+<div id="a9be9228" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
@@ -1060,7 +1060,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p><br></p>
-<div id="5739dd2b" class="cell" data-execution_count="11">
+<div id="0bcfb364" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(X_train.columns.values)</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> x[<span class="dv">5</span>]</span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>X_train_pp <span class="op">=</span> col_transformer.transform(X_train)</span>
@@ -1180,7 +1180,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section class="slide level2">
 
-<div id="25dc152e" class="cell" data-execution_count="12">
+<div id="432dd5d0" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>onehot_cols <span class="op">=</span> col_transformer.named_transformers_[<span class="st">"categorical"</span>].named_steps[<span class="st">"onehot"</span>].get_feature_names_out(categorical_features)</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>onehot_cols</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -1188,7 +1188,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p><br></p>
-<div id="fb91d2b5" class="cell" data-execution_count="13">
+<div id="a0681944" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> numeric_features <span class="op">+</span> <span class="bu">list</span>(onehot_cols)</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1224,7 +1224,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section class="slide level2">
 
-<div id="9fbce5af" class="cell" data-execution_count="14">
+<div id="f2c6687f" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>main_pipe <span class="op">=</span> Pipeline(</span>
@@ -1233,7 +1233,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"reg"</span>, KNeighborsRegressor())])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="0c53b220" class="cell" data-execution_count="15">
+<div id="9a37decd" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>with_categorical_scores <span class="op">=</span> cross_validate(main_pipe, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
@@ -1267,36 +1267,36 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.037837</td>
-<td>0.259676</td>
+<td>0.037459</td>
+<td>0.260532</td>
 <td>0.695818</td>
 <td>0.801659</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.036804</td>
-<td>0.246942</td>
+<td>0.037820</td>
+<td>0.244566</td>
 <td>0.707483</td>
 <td>0.799575</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.037657</td>
-<td>0.252867</td>
+<td>0.036959</td>
+<td>0.251513</td>
 <td>0.713788</td>
 <td>0.795944</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.041548</td>
-<td>0.258632</td>
+<td>0.037167</td>
+<td>0.255316</td>
 <td>0.686938</td>
 <td>0.801232</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.037475</td>
-<td>0.218082</td>
+<td>0.036383</td>
+<td>0.211774</td>
 <td>0.724608</td>
 <td>0.832498</td>
 </tr>
@@ -1324,7 +1324,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section class="slide level2">
 
-<div id="b2ad421a" class="cell" data-execution_count="16">
+<div id="a433acc2" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>, StandardScaler()),</span>
@@ -1333,7 +1333,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>pipe.fit(X_train.drop(columns<span class="op">=</span>[<span class="st">'ocean_proximity'</span>]), y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="2e55e0dd" class="cell" data-execution_count="17">
+<div id="2b6f14b6" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>no_categorical_scores <span class="op">=</span> cross_validate(pipe, X_train.drop(columns<span class="op">=</span>[<span class="st">'ocean_proximity'</span>]), y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(no_categorical_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -1365,36 +1365,36 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.025117</td>
-<td>0.175978</td>
+<td>0.024891</td>
+<td>0.168380</td>
 <td>0.693883</td>
 <td>0.792395</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.025345</td>
-<td>0.162343</td>
+<td>0.025229</td>
+<td>0.159323</td>
 <td>0.685017</td>
 <td>0.789108</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.025119</td>
-<td>0.164773</td>
+<td>0.025091</td>
+<td>0.161970</td>
 <td>0.694409</td>
 <td>0.787796</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.025084</td>
-<td>0.169194</td>
+<td>0.025031</td>
+<td>0.166055</td>
 <td>0.677055</td>
 <td>0.792444</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.025054</td>
-<td>0.133654</td>
+<td>0.024641</td>
+<td>0.132224</td>
 <td>0.714494</td>
 <td>0.823421</td>
 </tr>
@@ -1420,22 +1420,22 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section class="slide level2">
 
-<div id="7afd2670" class="cell" data-execution_count="18">
+<div id="0e9597f9" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(no_categorical_scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>fit_time       0.025144
-score_time     0.161188
+<pre><code>fit_time       0.024976
+score_time     0.157590
 test_score     0.692972
 train_score    0.797033
 dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="36847bd1" class="cell" data-execution_count="19">
+<div id="f3db88f0" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(with_categorical_scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
-<pre><code>fit_time       0.038264
-score_time     0.247240
+<pre><code>fit_time       0.037158
+score_time     0.244740
 test_score     0.705727
 train_score    0.806182
 dtype: float64</code></pre>
@@ -1459,7 +1459,7 @@ dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="ef4592c0" class="cell" data-execution_count="20">
+<div id="6e89add8" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> set_config</span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>set_config(display<span class="op">=</span><span class="st">'diagram'</span>)</span>

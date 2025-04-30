@@ -267,7 +267,7 @@
 </section>
 <section class="slide level2">
 
-<div id="aa410c9e" class="cell" data-execution_count="3">
+<div id="b2bc08ed" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">16</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -387,7 +387,7 @@
 </section>
 <section class="slide level2">
 
-<div id="6a71c5fc" class="cell" data-execution_count="4">
+<div id="f52a1b62" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'Target'</span>])</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">'Target'</span>]</span>
@@ -413,7 +413,7 @@
 </section>
 <section class="slide level2">
 
-<div id="0432392b" class="cell" data-execution_count="5">
+<div id="e4d75951" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>    {<span class="st">"Predicted label"</span>: model.predict(X_test).tolist()}</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
@@ -542,7 +542,7 @@
 </section>
 <section id="predict-labels-with-associated-probability-scores-for-unseen-images" class="slide level2">
 <h2>Predict labels with associated probability scores for unseen images</h2>
-<div id="419ff208" class="cell" data-execution_count="6">
+<div id="024ec47c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> glob.glob(<span class="st">"test_images/*.*"</span>)</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> image <span class="kw">in</span> images:</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(image)</span>
@@ -579,7 +579,7 @@
 </section>
 <section class="slide level2">
 
-<div id="efd02aa4" class="cell" data-execution_count="7">
+<div id="8d592064" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> glob.glob(<span class="st">"test_images/*.*"</span>)</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> image <span class="kw">in</span> images:</span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(image)</span>
@@ -632,7 +632,7 @@
 </section>
 <section class="slide level2">
 
-<div id="feef4fbe" class="cell" data-execution_count="9">
+<div id="e590a9a3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -707,7 +707,7 @@
 </section>
 <section class="slide level2">
 
-<div id="1e3a934d" class="cell" data-execution_count="10">
+<div id="7d5450f3" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df[<span class="st">'review'</span>], train_df[<span class="st">'label'</span>]</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> test_df[<span class="st">'review'</span>], test_df[<span class="st">'label'</span>]</span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -736,7 +736,7 @@
 </section>
 <section class="slide level2">
 
-<div id="a17e025c" class="cell" data-execution_count="11">
+<div id="b2151874" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>pred_dict <span class="op">=</span> {</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"reviews"</span>: X_test[<span class="dv">0</span>:<span class="dv">4</span>],</span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"true_sentiment"</span>: y_test[<span class="dv">0</span>:<span class="dv">4</span>],</span>
@@ -835,7 +835,7 @@
 </section>
 <section class="slide level2">
 
-<div id="de58e64e" class="cell" data-execution_count="12">
+<div id="52547b57" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/kc_house_data.csv"</span>)</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -957,7 +957,7 @@
 </section>
 <section class="slide level2">
 
-<div id="ba4f7256" class="cell" data-execution_count="13">
+<div id="b2215120" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"price"</span>])</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1059,7 +1059,7 @@
 </div>
 </div>
 </div>
-<div id="4866158a" class="cell" data-execution_count="14">
+<div id="4e94eada" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">"price"</span>]</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>y_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -1071,7 +1071,7 @@
 Name: price, dtype: float64</code></pre>
 </div>
 </div>
-<div id="c9ac5a09" class="cell" data-execution_count="15">
+<div id="abbfb672" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span>[<span class="st">"price"</span>])</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> train_df[<span class="st">"price"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1091,7 +1091,7 @@ Name: price, dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="a3f534d0" class="cell" data-execution_count="16">
+<div id="30f2dba1" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBRegressor</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> XGBRegressor()</span>
@@ -1113,7 +1113,7 @@ Name: price, dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="d195ff44" class="cell" data-execution_count="17">
+<div id="c98e4d78" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>    {<span class="st">"Predicted price"</span>: model.predict(X_test[<span class="dv">0</span>:<span class="dv">4</span>]).tolist(), <span class="st">"Actual price"</span>: y_test[<span class="dv">0</span>:<span class="dv">4</span>].tolist()}</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
