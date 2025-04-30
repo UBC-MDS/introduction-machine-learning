@@ -1,0 +1,236 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 3.1. Exercises
+
+## Name that Scaling Method!
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Which scaling method will never produce negative values?',
+        {
+        'Imputation': 'This is a transformation to replace <code>NaN</code> values.',
+        'Normalization (<code>MinMaxScaler</code>)': 'Perfect!',
+        'Standardization (<code>StandardScaler</code>)': 'This method will in fact produce negative values around a mean of 0.',
+        'Both Normalization and Standardization': 'Although normalization is correct, standardization is not.',
+        },
+        'Normalization (<code>MinMaxScaler</code>)',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'Which scaling method will never produce values greater than 1?',
+        {
+        'Imputation': 'This is a transformation to replace <code>NaN</code> values.',
+        'Normalization (<code>MinMaxScaler</code>)': 'Perfect!',
+        'Standardization (<code>StandardScaler</code>)': 'This method can produce values greater than 1 depending on the standard deviation of the values.',
+        'Both Normalization and Standardization': 'Although normalization is correct, standardization can produce values greater than 1.',
+        },
+        'Normalization (<code>MinMaxScaler</code>)',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'Which scaling method will produce values where the range depends on the values in the data?',
+        {
+        'Imputation': 'This is a transformation to replace <code>NaN</code> values.',
+        'Normalization (<code>MinMaxScaler</code>)': 'The range for values that have undergone Normalization will be 1.',
+        'Standardization (<code>StandardScaler</code>)': 'This method’s range depends on the standard deviation of the data.',
+        'Both Normalization and Standardization': 'This time standardization is correct but normalization is not.',
+        },
+        'Standardization (<code>StandardScaler</code>)',
+    );
+</script>
+
+## Scaling True or False
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'Scaling is a form of transformation.',
+        {
+        'True': '',
+        'False': 'Does it transform your data?',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'Scaling will always increase your training score.',
+        {
+        'True': 'Scaling usually helps, but it is not guaranteed to increase the training score.',
+        'False': 'Great work!',
+        },
+        'False',
+    );
+</script>
+
+## Practicing Scaling
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Now that we have a basketball dataset that no longer is missing any values, let's scale the features. 
+
+First, let's scale using standardization. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+bball_df
+```
+
+**Tasks:**
+
+- Build the transformer and name it `ss_scaler`.
+- Fit and transform the data `X_train` and save the transformed feature vectors in objects named `X_train_scaled`.
+- Transform `X_test` and save it in an object named `X_test_scaled`.
+- Build a KNN classifier and name it `knn`.
+- Fit your model on the newly scaled training data.
+- Save the training score to 3 decimal places in an object named `ss_score`.
+
+```{pyodide}
+#| setup: true
+#| exercise: practicing_scaling
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from src.utils import assert_accuracy_almost
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: practicing_scaling
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Build the transformer and name it bb_scaler
+____ = ____
+
+# Fit and transform the data X_train
+# Save the transformed feature vectors in objects named X_train_scaled
+____ = ____
+
+# Transform X_test and save it in an object named X_test_scaled
+____ = ____
+
+# Build a KNN classifier and name it knn
+____ = ____
+
+# Fit your model on the newly scaled training data
+____.____
+
+# Save the training score to 3 decimal places in an object named ss_score
+____ = ____
+____
+```
+
+```{pyodide}
+#| exercise: practicing_scaling
+#| check: true
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+ss_scaler = StandardScaler()
+X_train_scaled = ss_scaler.fit_transform(X_train)
+X_test_scaled = ss_scaler.transform(X_test)
+knn = KNeighborsClassifier()
+knn.fit(X_train_scaled, y_train)
+solution = round(knn.score(X_train_scaled, y_train), 3)
+
+assert_accuracy_almost(solution, result)
+```
+
+:::: { .hint exercise="practicing_scaling"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `ss_scaler.fit_transform(X_train)`?
+- Are you using `ss_scaler.transform(X_test)`?
+- Are you using `KNeighborsClassifier()` to create your model?
+- Are you using `knn.fit(X_train_scaled, y_train)` to train your data?
+- To obtain the training score are you using `round(knn.score(X_train_scaled, y_train), 3)`?
+
+:::
+::::
+
+:::: { .solution exercise="practicing_scaling" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Build the transformer and name it ss_scaler
+ss_scaler = StandardScaler()
+
+# Fit and transform the data X_train
+# Save the transformed feature vectors in objects named X_train_scaled
+X_train_scaled = ss_scaler.fit_transform(X_train)
+
+# Transform X_test and save it in an object named X_test_scaled
+X_test_scaled = ss_scaler.transform(X_test)
+
+# Build a KNN classifier and name it knn
+knn = KNeighborsClassifier()
+
+# Fit your model on the newly scaled training data
+knn.fit(X_train_scaled, y_train)
+
+# Save the training score to 3 decimal places in an object named ss_score
+ss_score = round(knn.score(X_train_scaled, y_train), 3)
+ss_score
+```
+
+:::
+::::

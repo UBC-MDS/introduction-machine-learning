@@ -1,0 +1,104 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 1.1. Exercises
+
+## Questions on Why
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Which model will still produce meaningful predictions with different scaled column values?',
+        {
+        'Decision Trees': 'You are right! Decision Trees visit a single feature at a time, unlike 𝑘-NN models, which calculate distances using the features all together.',
+        '𝑘-NN': 'This works in a similar way to SVM, where distance is calculated and features are observed together and not independently of each other.',
+        'SVM': 'This works in a similar way to 𝑘-NN, where distance is calculated and features are observed together and not independently of each other.',
+        },
+        'Decision Trees',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Complete the following statement',
+        'Preprocessing is done ____.',
+        {
+        'To the model before training': 'It is done before training but not to the model.',
+        'To the data before training the model': '',
+        'To the model after training': 'It’s not done to the model or after training.',
+        'To the data after training the model': 'You are half right, but it’s not done after training the model.',
+        },
+        'To the data before training the model',
+    );
+</script>
+
+## Motivation True and False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'Columns with lower magnitudes compared to columns with higher magnitudes are less important when making predictions.',
+        {
+        'True': 'These types of models find examples that are most similar to the text example in the <i>training</i> set.',
+        'False': 'Great! Just because a feature has smaller values does not mean it’s less informative.',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'A model less sensitive to the scale of the data makes it more robust.',
+        {
+        'True': 'Nailed it!',
+        'False': 'Models that are more sensitive to scale can be problematic.',
+        },
+        'True',
+    );
+</script>
+
+## Preprocessing Questions
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        '<code>StandardScaler</code> is a type of what?',
+        {
+        'Converter': 'You are close but the terminology is not correct.',
+        'Categorizer': 'Not quite.',
+        'Model': 'We are not modeling with <code>StandardScaler</code> since it is <i>transforming</i> the data and not predicting on it.',
+        'Transformer': '',
+        },
+        'Transformer',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'What data does <code>StandardScaler</code> alter?',
+        {
+        'Training only': 'It definitely alters the training set but that’s not all.',
+        'Testing only': 'It does alter the test data but it doesn’t stop there.',
+        'Both training and testing': '',
+        'Nether training or testing': 'We need to scale our data though!',
+        },
+        'Both training and testing',
+    );
+</script>

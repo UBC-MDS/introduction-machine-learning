@@ -48,22 +48,20 @@ function generateQuiz(containerId, title, question, options, correctAnswers) {
         input.style.boxShadow = 'none';  // Remove brief occurances of transparent fill when clicked
         input.style.outline = 'none';  // Remove brief occurances of transparent fill when clicked
 
-        // Modify the event listener to check against an array of correct answers
         input.addEventListener('change', function () {
             messageElement.style.display = 'none';
             messageElement.style.opacity = 0;
 
-            // Check if the selected option is in the correctAnswers array
-            if (correctAnswers.includes(option)) {
+            if (correctAnswers === option) {
                 const emojis = ["🍀", "🎉", "🌈", "🚀", "🌟", "✨", "💯"];
                 const emoji = emojis[~~(Math.random() * emojis.length)];
-                messageBody.innerHTML = `<strong style="color: #F78F2E !important; font-size: 16px">Correct! &nbsp;${emoji}</strong><br>${explanation}`;
-                messageElement.style.backgroundColor = '#FEEFE1'; // Light background for content
-                messageElement.style.borderLeft = '5px solid #F78F2E'; // Left border styling
+                messageBody.innerHTML = `<strong style="color: #0BB5D4 !important; font-size: 16px">Correct! &nbsp;${emoji}</strong><br>${explanation}`;
+                messageElement.style.backgroundColor = '#E8FAFD'; // Light background for content
+                messageElement.style.borderLeft = '5px solid #0BB5D4'; // Left border styling
             } else {
-                messageBody.innerHTML = `<strong style="color: #4853A4 !important; font-size: 16px;">Incorrect</strong><br>${explanation}`;
-                messageElement.style.backgroundColor = '#E1E3F0'; // Light background for content
-                messageElement.style.borderLeft = '5px solid #4853A4'; // Left border styling
+                messageBody.innerHTML = `<strong style="color: #283791 !important; font-size: 16px;">Incorrect</strong><br>${explanation}`;
+                messageElement.style.backgroundColor = '#EAEDFA'; // Light background for content
+                messageElement.style.borderLeft = '5px solid #283791'; // Left border styling
             }
 
             messageElement.style.display = 'block';

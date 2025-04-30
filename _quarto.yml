@@ -38,6 +38,26 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**"
+        contents:
+          - href: modules/module5/module5-00-module_learning_outcomes.qmd
+          - href: modules/module5/module5-01-the_importance_of_preprocessing.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module5/module5-02-questions_on_why.qmd
+          - href: modules/module5/module5-05-case_study:_preprocessing_with_imputation.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module5/module5-06-imputation.qmd
+          - href: modules/module5/module5-09-case_study:_preprocessing_with_scaling.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module5/module5-10-name_that_scaling_method.qmd
+          - href: modules/module5/module5-13-case_study:_pipelines.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module5/module5-14-pipeline_questions.qmd
+          - href: modules/module5/module5-17-automated_hyperparameter_optimization.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module5/module5-18-exhaustive_or_randomized_grid_search.qmd
+          - href: modules/module5/module5-21-what_did_we_just_learn.qmd
+
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.
