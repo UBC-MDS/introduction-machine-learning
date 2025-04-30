@@ -202,7 +202,7 @@
 </section>
 <section class="slide level2">
 
-<div id="b0a8810c" class="cell" data-execution_count="2">
+<div id="3a0c55ef" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>regression_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-regression.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>regression_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -341,7 +341,7 @@
 </section>
 <section class="slide level2">
 
-<div id="02a47e5b" class="cell" data-execution_count="3">
+<div id="0494dda4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> regression_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -431,7 +431,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="5897ed8c" class="cell" data-execution_count="4">
+<div id="cec4c100" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> regression_df[<span class="st">"quiz2"</span>]</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>y.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -460,7 +460,7 @@ Name: quiz2, dtype: int64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="f8b6e4af" class="cell" data-execution_count="5">
+<div id="2b093301" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>depth <span class="op">=</span> <span class="dv">4</span></span>
@@ -506,7 +506,7 @@ Name: quiz2, dtype: int64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="21767f29" class="cell" data-execution_count="8">
+<div id="2b435ab9" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>X.loc[[<span class="dv">0</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -555,7 +555,7 @@ Name: quiz2, dtype: int64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="a985d1bb" class="cell" data-execution_count="9">
+<div id="246c7cf9" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>reg_model.predict(X.loc[[<span class="dv">0</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array([90.])</code></pre>
@@ -579,7 +579,7 @@ Name: quiz2, dtype: int64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="59d3b707" class="cell" data-execution_count="10">
+<div id="ae9e7dd9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>predicted_grades <span class="op">=</span> reg_model.predict(X)</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>regression_df <span class="op">=</span> regression_df.assign(predicted_quiz2 <span class="op">=</span> predicted_grades)</span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R^2 score on the training data:"</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(reg_model.score(X,y), <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -588,7 +588,7 @@ Name: quiz2, dtype: int64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="7df99377" class="cell" data-execution_count="11">
+<div id="41168adb" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>regression_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
