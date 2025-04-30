@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/4q6DXyo-V6Q?start=360&end=411&rel=0" 
+    src="https://www.youtube.com/embed/WLVv6dq1fdU" 
     title="Module 2 Video - Module Learning Outcomes"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
