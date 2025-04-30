@@ -12,7 +12,7 @@ format:
 
 <iframe
     class="video"
-    src="https://www.youtube.com/embed/4q6DXyo-V6Q?start=0&end=237&rel=0" 
+    src="https://www.youtube.com/embed/s2NqQZIHj3A" 
     title="Module 0 Video - Introduction to Machine Learning"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
