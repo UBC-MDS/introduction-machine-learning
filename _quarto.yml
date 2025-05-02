@@ -38,6 +38,29 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M2. Decision Trees**"
+        contents:
+          - href: modules/module2/module2-00-module_learning_outcomes.qmd
+          - href: modules/module2/module2-01-introducing_decision_trees.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module2/module2-02-decision_trees.qmd
+          - href: modules/module2/module2-04-building_a_decision_tree_classifier.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module2/module2-05-predicting_with_a_decision_tree.qmd
+          - href: modules/module2/module2-08-decision_trees_with_continous_features.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module2/module2-09-decision_boundaries.qmd
+          - href: modules/module2/module2-12-parameters_and_hyperparameters.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module2/module2-13-feature_splitting.qmd
+          - href: modules/module2/module2-16-decision_tree_regressor.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module2/module2-17-regression_with_decision_tree.qmd
+          - href: modules/module2/module2-19-generalization.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module2/module2-20-generalization_practice_questions.qmd
+          - href: modules/module2/module2-21-what_did_we_just_learn.qmd
+
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.

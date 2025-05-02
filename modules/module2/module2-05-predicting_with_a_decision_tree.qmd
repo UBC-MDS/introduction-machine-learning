@@ -1,0 +1,285 @@
+---
+format:
+  live-html
+---
+
+<script src='../../src/quiz.js'></script>  
+
+# 2.1. Exercises
+
+## Predicting with a Decision Tree
+
+Use the following Decision tree for the next 2 questions:  
+
+![](../../static/module2/Q3.png){fig-align="center" width="100%" fig-alt="404 image"}
+
+**Question 1**
+
+Given the features:
+ 
+```out
+    yellow  sweet  berry  long  green  Mexico  seeds
+0       0      1      0     0      1       0      1
+```
+
+<div id='mcq1'></div> 
+<script>
+    generateQuiz(
+        'mcq1', 
+        '', 
+        'What would the model predict?', 
+        { 
+        'Banana': 'Is the fruit yellow? ',
+        'Orange': 'Isn’t the fruit green?',
+        'Strawberry': 'The fruit is not a berry.',
+        'Kiwi': ''
+        },
+        'Kiwi',
+    );
+</script>
+
+**Question 2**
+
+Given the features:
+ 
+ ```out
+     yellow  sweet  berry  long  green  Mexico  seeds
+0       1      0      0     0      0       0      1
+ ```
+
+ <div id='mcq2'></div> 
+<script>
+    generateQuiz(
+        'mcq2', 
+        '', 
+        'What would the model predict?', 
+        { 
+        'Banana': 'Is the fruit long? ',
+        'Lemon': '',
+        'Starfruit': 'Is the fruit sweet?',
+        'Kiwi': 'Is the fruit yellow?'
+        },
+        'Lemon',
+    );
+</script>
+
+## Decision Trees True/False
+
+<div id='mcq3'></div> 
+<script>
+    generateQuiz(
+        'mcq3', 
+        'True or False', 
+        '<code>DecisionTreeClassifier</code> does not consider features in it’s prediction just like <code>DummyClassifier</code>.', 
+        { 
+        'True': 'What about how the predictions are made?',
+        'False': 'Decision trees make predictions based on the outcome from conditions determined by the features.'
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div> 
+<script>
+    generateQuiz(
+        'mcq4', 
+        'True or False', 
+        'We need to <code>.fit</code> our decision tree model before we call <code>.predict</code>.', 
+        { 
+        'True': '',
+        'False': 'We must always train our model on the data before prediction.'
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq5'></div> 
+<script>
+    generateQuiz(
+        'mcq5', 
+        'True or False', 
+        'Decision trees always give the correct answer for a single prediction.', 
+        { 
+        'True': 'Decision trees are not always 100% right.',
+        'False': ''
+        },
+        'False',
+    );
+</script>
+
+## Building a Decision Tree Classifier
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's build a decision tree classifier using `DecisionTreeClassifier()`. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
+```
+
+**Tasks:**
+
+- Build a model using `DecisionTreeClassifier()` and make sure to set the `random_state` argument to 1. 
+- Save this in an object named `model`. 
+- Fit your model on the objects `X` and `y`.
+- Predict on `X` and save the values in an object named `predicted`.
+
+```{pyodide}
+#| setup: true
+#| exercise: building_a_decision_tree_classifier
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from src.utils import print_correct_msg
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: building_a_decision_tree_classifier
+# Define X and y
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+# Create a model
+____ = ____
+
+# Fit your data 
+____.____
+
+# Predict the labels of X
+____ = ____.____
+
+____
+```
+
+```{pyodide}
+#| exercise: building_a_decision_tree_classifier
+#| check: true
+
+assert list(result).count('Canada') == 6, "Your predicted values are incorrect. Are you fitting the model properly?"
+assert list(result).count('Both') == 8, "Your predicted values are incorrect. Are you fitting the model properly?"
+assert list(result).count('America') == 11, "Your predicted values are incorrect. Are you fitting the model properly?"
+print_correct_msg()
+```
+
+:::: { .hint exercise="building_a_decision_tree_classifier"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `DecisionTreeClassifier(random_state=1)`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X,y)` on your model?
+
+:::
+::::
+
+:::: { .solution exercise="building_a_decision_tree_classifier" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+# Create a model
+model = DecisionTreeClassifier(random_state=1)
+
+# Fit your data 
+model.fit(X,y)
+
+# Predict the labels of X
+predicted = model.predict(X)
+
+predicted
+```
+
+:::
+::::
+
+## Compare actual and predicted values
+
+Compare the `availability` column to the `predicted` column and answer the multiple-choice questions below.
+```{pyodide}
+#| setup: true
+#| exercise: compare_decision_tree
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+pd.set_option('display.max_rows', 25)
+
+candybar_df = pd.read_csv('data/candybars.csv')
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+model = DecisionTreeClassifier(random_state=1)
+model.fit(X,y)
+predicted = model.predict(X)
+```
+
+```{pyodide}
+#| exercise: compare_decision_tree
+# Compare
+pd.concat([candybar_df.loc[:, ['candy bar', 'availability']],
+        pd.Series(predicted, name='predicted')], axis=1)
+```
+
+<div id='mcq6'></div> 
+<script>
+    generateQuiz(
+        'mcq6', 
+        'Question 1', 
+        'Which of the following candy bars did the model incorrectly predict?', 
+        { 
+        'Twix': 'Not this one.',
+        'Oh Henry': 'Great! The model predicted this one incorrectly.',
+        'Skor': 'The model predicted <code>both</code> for this example which is the correct answer.',
+        'Almond Joy': 'This candy bar was correctly predicted by the model.'
+        },
+        'Oh Henry',
+    );
+</script>
+
+<div id='mcq7'></div> 
+<script>
+    generateQuiz(
+        'mcq7', 
+        'Question 2', 
+        'What should have been the correct prediction for the candy bar above?', 
+        { 
+        'America': 'This is what the model predicted, not the true value.',
+        'Canada': 'Not quite, maybe take a closer look.',
+        'Both': ''
+        },
+        'Both',
+    );
+</script>
+
+<div id='mcq8'></div> 
+<script>
+    generateQuiz(
+        'mcq8', 
+        'Question 3', 
+        'How many in total did the model incorrectly predict?', 
+        { 
+        '1': 'There is more, take a closer look.',
+        '2': 'Maybe take a closer look, you may be missing one/some.',
+        '3': 'Maybe take a closer look, you may be missing one/some.',
+        '4': ''
+        },
+        '4',
+    );
+</script>

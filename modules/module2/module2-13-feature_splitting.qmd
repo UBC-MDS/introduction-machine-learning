@@ -1,0 +1,223 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 4.1. Exercises
+
+## Feature Splitting
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Who chooses the features that are split on at each node?',
+        {
+        'Data scientists/model builders': 'Where would we input this information?',
+        'The model': '',
+        },
+        'The model',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'What is the depth of a decision stump?',
+        {
+        '1': 'You have been paying attention! Nice work!',
+        '5': 'This depth would not be considered a stump.',
+        'Whatever you set it as': 'Decision stumps are what make up a decision tree, stumps are not a hyperparameter.',
+        },
+        '1',
+    );
+</script>
+
+## Parameter or Hyperparameter
+
+For the following statements, state if it corresponds to a Parameter or Hyperparameter.
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'The builder of the model can set them.',
+        {
+        'Parameters': 'Maybe review the notes a bit.',
+        'Hyperparameters': '',
+        },
+        'Hyperparameters',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'They get set during the training phase.',
+        {
+        'Parameters': '',
+        'Hyperparameters': 'We set hyperparameters before training but not parameters.',
+        },
+        'Parameters',
+    );
+</script>
+
+## Playing with Hyperparameters
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's build a decision tree classifier using `DecisionTreeClassifier()` but this time, let's set some different hyperparameters.
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
+```
+
+**Tasks:**     
+
+- Build a decision tree classifier and make sure to set the argument `random_state` to 1. 
+- Set the `max_depth` of the tree to 8 and the `min_samples_split` to 4. 
+- Save the model in an object named `hyper_tree`. 
+- Fit your model on the objects `X` and `y`.
+- Save the accuracy of the model rounded to 2 decimal places in a variable named `tree_score` and display it.
+
+```{pyodide}
+#| setup: true
+#| exercise: playing_with_hyperparameters
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from src.utils import assert_accuracy_almost
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+```{pyodide}
+#| exercise: playing_with_hyperparameters
+# Define X and y
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+# Create the model
+____ = ____
+
+# Fit your data 
+____.____
+
+# Score the model
+____ = ____.____
+
+____
+```
+
+```{pyodide}
+#| exercise: playing_with_hyperparameters
+#| check: true
+
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+hyper_tree = DecisionTreeClassifier(random_state=1, max_depth=8, min_samples_split=4)
+hyper_tree.fit(X,y)
+solution = round(hyper_tree.score(X, y),2)
+
+assert_accuracy_almost(solution, result)
+```
+
+:::: { .hint exercise="playing_with_hyperparameters"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `DecisionTreeClassifier(max_depth=8, min_samples_split=4, random_state=1)`?
+- Are you using the model named `hyper_tree`?
+- Are you calling `.fit(X,y)` on your model?
+- Are you using `.score(X,y)` and rounding to 2 decimal places by using `round()`?
+:::
+::::
+
+:::: { .solution exercise="playing_with_hyperparameters" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+# Creating a model
+hyper_tree = DecisionTreeClassifier(random_state=1, max_depth=8, min_samples_split=4)
+
+# Fit your data 
+hyper_tree.fit(X,y)
+
+# Score the model
+tree_score = hyper_tree.score(X, y)
+
+tree_score
+```
+
+:::
+::::
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'Will increasing the value of <code>max_depth</code> increase or decrease the accuracy of the model?',
+        {
+        'Increase': 'Increasing the depth of the tree will increase the accuracy of the model.',
+        'Decrease': 'Maybe test it out above and see what happens?',
+        'Either increase or decrease': 'Maybe test it out above and see what happens?',
+        },
+        'Increase',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'Will increasing the value of <code>min_samples_split</code> increase or decrease the accuracy of the model?',
+        {
+        'Increase': 'Maybe test it out above and see what happens?',
+        'Decrease': 'Increasing the minimum number of samples needed to split on a feature will decrease the accuracy.',
+        'Either increase or decrease': 'Maybe test it out above and see what happens?',
+        },
+        'Decrease',
+    );
+</script>
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question 3',
+        'Will increasing the value of <code>max_depth</code> and <code>min_samples_split</code> increase or decrease the accuracy of the model?',
+        {
+        'Increase': 'Are we 100% sure? Increasing <code>max_depth</code> will increase the accuracy but increasing <code>min_samples_split</code> will decrease it.',
+        'Decrease': 'Are we 100% sure? Increasing <code>max_depth</code> will increase the accuracy but increasing <code>min_samples_split</code> will decrease it.',
+        'Either increase or decrease': 'Right! It’s hard to say since increasing <code>max_depth</code> will increase the accuracy but increasing <code>min_samples_split</code> will decrease it.',
+        },
+        'Either increase or decrease',
+    );
+</script>
