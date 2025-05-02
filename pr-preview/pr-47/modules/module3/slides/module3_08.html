@@ -252,13 +252,13 @@
 </section>
 <section id="cross-validation-using-scikit-learn" class="slide level2">
 <h2>Cross-validation using scikit-learn</h2>
-<div id="b84edf06" class="cell" data-execution_count="2">
+<div id="1aae32ed" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">"country"</span>])</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"country"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="dbec8722" class="cell" data-execution_count="3">
+<div id="a8b77715" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
@@ -280,7 +280,7 @@
 </section>
 <section class="slide level2">
 
-<div id="19be806e" class="cell" data-execution_count="4">
+<div id="0d3567a8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -316,7 +316,7 @@
 </section>
 <section class="slide level2">
 
-<div id="42a2b4db" class="cell" data-execution_count="5">
+<div id="cecc756c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>cv_scores <span class="op">=</span> cross_val_score(model, X_train, y_train, cv<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>cv_scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -324,7 +324,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="87fd6bb0" class="cell" data-execution_count="6">
+<div id="07bbb605" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>cv_scores.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>0.8400735294117647</code></pre>
@@ -347,14 +347,14 @@
 </section>
 <section class="slide level2">
 
-<div id="1b984abe" class="cell" data-execution_count="7">
+<div id="05a5c5be" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(model, X_train, y_train, cv<span class="op">=</span><span class="dv">10</span>, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>{'fit_time': array([0.00173974, 0.00147915, 0.00148678, 0.00141716, 0.00141859, 0.00148201, 0.00144625, 0.00143838, 0.00163841, 0.00143266]),
- 'score_time': array([0.00120115, 0.0011363 , 0.00115418, 0.0010941 , 0.00110555, 0.0011642 , 0.0011363 , 0.00130439, 0.0012629 , 0.00108862]),
+<pre><code>{'fit_time': array([0.00185275, 0.00144076, 0.00140309, 0.00170326, 0.00138211, 0.00139332, 0.00156093, 0.00141525, 0.00139141, 0.00153542]),
+ 'score_time': array([0.00123596, 0.00108433, 0.00107527, 0.00106931, 0.00105524, 0.00106525, 0.00110483, 0.00106406, 0.0010612 , 0.00106859]),
  'test_score': array([0.76470588, 0.82352941, 0.70588235, 0.94117647, 0.82352941, 0.82352941, 0.70588235, 0.9375    , 0.9375    , 0.9375    ]),
  'train_score': array([0.91333333, 0.90666667, 0.90666667, 0.9       , 0.90666667, 0.91333333, 0.92      , 0.90066225, 0.90066225, 0.90066225])}</code></pre>
 </div>
@@ -382,17 +382,17 @@
 </section>
 <section class="slide level2">
 
-<div id="ce71478c" class="cell" data-execution_count="8">
+<div id="faf4b4b1" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>{'fit_time': array([0.00173974, 0.00147915, 0.00148678, 0.00141716, 0.00141859, 0.00148201, 0.00144625, 0.00143838, 0.00163841, 0.00143266]),
- 'score_time': array([0.00120115, 0.0011363 , 0.00115418, 0.0010941 , 0.00110555, 0.0011642 , 0.0011363 , 0.00130439, 0.0012629 , 0.00108862]),
+<pre><code>{'fit_time': array([0.00185275, 0.00144076, 0.00140309, 0.00170326, 0.00138211, 0.00139332, 0.00156093, 0.00141525, 0.00139141, 0.00153542]),
+ 'score_time': array([0.00123596, 0.00108433, 0.00107527, 0.00106931, 0.00105524, 0.00106525, 0.00110483, 0.00106406, 0.0010612 , 0.00106859]),
  'test_score': array([0.76470588, 0.82352941, 0.70588235, 0.94117647, 0.82352941, 0.82352941, 0.70588235, 0.9375    , 0.9375    , 0.9375    ]),
  'train_score': array([0.91333333, 0.90666667, 0.90666667, 0.9       , 0.90666667, 0.91333333, 0.92      , 0.90066225, 0.90066225, 0.90066225])}</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="ad5c9b22" class="cell" data-execution_count="9">
+<div id="80a69686" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -423,22 +423,22 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.001740</td>
-<td>0.001201</td>
+<td>0.001853</td>
+<td>0.001236</td>
 <td>0.764706</td>
 <td>0.913333</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.001479</td>
-<td>0.001136</td>
+<td>0.001441</td>
+<td>0.001084</td>
 <td>0.823529</td>
 <td>0.906667</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.001487</td>
-<td>0.001154</td>
+<td>0.001403</td>
+<td>0.001075</td>
 <td>0.705882</td>
 <td>0.906667</td>
 </tr>
@@ -451,22 +451,22 @@
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">7</td>
-<td>0.001438</td>
-<td>0.001304</td>
+<td>0.001415</td>
+<td>0.001064</td>
 <td>0.937500</td>
 <td>0.900662</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">8</td>
-<td>0.001638</td>
-<td>0.001263</td>
+<td>0.001391</td>
+<td>0.001061</td>
 <td>0.937500</td>
 <td>0.900662</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">9</td>
-<td>0.001433</td>
-<td>0.001089</td>
+<td>0.001535</td>
+<td>0.001069</td>
 <td>0.937500</td>
 <td>0.900662</td>
 </tr>
@@ -493,29 +493,29 @@
 </section>
 <section class="slide level2">
 
-<div id="ce50adb0" class="cell" data-execution_count="10">
+<div id="937a231d" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>fit_time       0.001498
-score_time     0.001165
+<pre><code>fit_time       0.001508
+score_time     0.001088
 test_score     0.840074
 train_score    0.906865
 dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="c1f95a0d" class="cell" data-execution_count="11">
+<div id="a79a1770" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>cross_val_score(model, X_train, y_train, cv<span class="op">=</span><span class="dv">10</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0.8400735294117647</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="39f15802" class="cell" data-execution_count="12">
+<div id="2d001931" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores).std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>fit_time       0.000107
-score_time     0.000072
+<pre><code>fit_time       0.000159
+score_time     0.000054
 test_score     0.094993
 train_score    0.006822
 dtype: float64</code></pre>

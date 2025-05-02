@@ -228,7 +228,7 @@
 </section>
 <section class="slide level2">
 
-<div id="4b950872" class="cell" data-execution_count="2">
+<div id="d1d7d9dd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">"country"</span>])</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"country"</span>]</span>
@@ -258,13 +258,8 @@
 <span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Validation score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(scores[<span class="st">"test_score"</span>].mean(), <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="out"><code>Train score: 1.0
 Validation score: 0.81</code></pre>
-<div id="130ff5b4" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 384x384 with 0 Axes&gt;</code></pre>
-</div>
 
-</div>
-<img data-src="module3_13_files/figure-revealjs/cell-4-output-2.png" class="r-stretch"><aside class="notes">
+<img data-src="module3_13_files/figure-revealjs/cell-4-output-1.png" class="r-stretch"><aside class="notes">
 <p>Using a decision tree with no specified max_depth, can help explain the phenomenon is called <strong><em>overfitting</em></strong>.</p>
 <p>Overfitting occurs when our model is overly specified to the particular training data and often leads to bad results.</p>
 <p>When our model fits the training data well and therefore the training score is high, however, the model does not generalize to the validation set as well and the validation error is much higher.</p>
@@ -286,20 +281,15 @@ Validation score: 0.81</code></pre>
 </section>
 <section id="underfitting" class="slide level2">
 <h2>Underfitting</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(model, X_train, y_train, cv<span class="op">=</span><span class="dv">10</span>, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Train score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(scores[<span class="st">"train_score"</span>].mean(), <span class="dv">2</span>)))</span>
-<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Validation score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(scores[<span class="st">"test_score"</span>].mean(), <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(model, X_train, y_train, cv<span class="op">=</span><span class="dv">10</span>, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Train score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(scores[<span class="st">"train_score"</span>].mean(), <span class="dv">2</span>)))</span>
+<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Validation score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(scores[<span class="st">"test_score"</span>].mean(), <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="out"><code>Train score: 0.83
 Validation score: 0.81</code></pre>
-<div id="ac39ca82" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 384x384 with 0 Axes&gt;</code></pre>
-</div>
 
-</div>
-<img data-src="module3_13_files/figure-revealjs/cell-5-output-2.png" class="r-stretch"><aside class="notes">
+<img data-src="module3_13_files/figure-revealjs/cell-5-output-1.png" class="r-stretch"><aside class="notes">
 <p>Underfitting is somewhat the opposite of overfitting in the sense that it occurs when the model is not complex enough.</p>
 <p>Using a decision tree with a max_depth of 1, we can explain the phenomenon.</p>
 <p>Underfitting is when our model is too simple (<code>DecisionTreeClassifier</code> with max_depth=1 or <code>DummyClassifier</code>).</p>
