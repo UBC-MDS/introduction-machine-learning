@@ -282,7 +282,7 @@
 </section>
 <section class="slide level2">
 
-<div id="8f13679d" class="cell" data-execution_count="3">
+<div id="3a725325" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>small_train_df <span class="op">=</span> cities_df.sample(<span class="dv">30</span>, random_state<span class="op">=</span><span class="dv">90</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> small_train_df.drop(columns<span class="op">=</span>[<span class="st">"country"</span>])</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> small_train_df[<span class="st">"country"</span>]</span>
@@ -348,7 +348,7 @@
 
 
 <img data-src="../../../static/module4/point.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%" alt="404 image"><p><br></p>
-<div id="2f34ded0" class="cell" data-execution_count="4">
+<div id="9afeb425" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>neigh <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">1</span>)</span>
@@ -380,7 +380,7 @@
 
 
 <img data-src="../../../static/module4/point.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%" alt="404 image"><p><br></p>
-<div id="cd01bd7f" class="cell" data-execution_count="5">
+<div id="9ec68dfd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>neigh <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>neigh.fit(X_train, y_train)<span class="op">;</span></span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>neigh.predict(one_city.drop(columns<span class="op">=</span>[<span class="st">"country"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -409,7 +409,7 @@
 
 
 <img data-src="../../../static/module4/point.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%" alt="404 image"><p><br></p>
-<div id="cb44a307" class="cell" data-execution_count="6">
+<div id="10be6768" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>neigh <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">9</span>)</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>neigh.fit(X_train, y_train)<span class="op">;</span></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>neigh.predict(one_city.drop(columns<span class="op">=</span>[<span class="st">"country"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -434,19 +434,19 @@
 </section>
 <section class="slide level2">
 
-<div id="4cea2c32" class="cell" data-execution_count="8">
+<div id="81e8ba9a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="d63f32ff" class="cell" data-execution_count="9">
+<div id="39a4c46b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>model.score(X_train,y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>1.0</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="a1741451" class="cell" data-execution_count="10">
+<div id="30415424" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>model.score(X_test,y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0.7142857142857143</code></pre>
