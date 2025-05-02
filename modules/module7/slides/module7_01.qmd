@@ -175,18 +175,16 @@ pipe.fit(X_train, y_train);
 <br>
 
 ```{python}
-from sklearn.metrics import  ConfusionMatrixDisplay
-```
-
-```{python}
 # | output: false
+from sklearn.metrics import  ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+
 ConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
 ```
 
 ```{python}
 # | echo: false
-import matplotlib.pyplot as plt
-
 plt.rcParams.update({'font.size': 12})
 ConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
 plt.show()
@@ -201,7 +199,7 @@ In this case, we are looking at the validation portion only.
 
 This results in a 2 by 2 matrix with the labels `Non fraud` and `Fraud` on each axis. 
 
-#### Careful:
+**Careful:**
 
 Scikit-learn's convention is to have the true label as the rows and the predicted label as the columns.
 
@@ -218,6 +216,7 @@ ConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=["N
 plt.show()
 ```
 
+<br>
 
 |   X   | predict negative | predict positive |
 |------|----------|-------|

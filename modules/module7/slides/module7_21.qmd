@@ -17,8 +17,6 @@ housing_df = pd.read_csv("data/housing.csv")
 train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
 ```
 
-<br>
-
 ```{python}
 # | include: false
 train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
@@ -48,7 +46,7 @@ numeric_features = [ "longitude", "latitude",
                      
 categorical_features = ["ocean_proximity"]
 
-X_train.head()
+X_train.head(3)
 ```
 
 
@@ -199,6 +197,11 @@ grid_search.fit(X_train, y_train);
 
 ```{python}
 grid_search.best_params_
+```
+
+<br>
+
+```{python}
 grid_search.best_score_
 ```
 
@@ -231,6 +234,11 @@ grid_search.fit(X_train, y_train);
 
 ```{python}
 grid_search.best_params_
+```
+
+<br>
+
+```{python}
 grid_search.best_score_
 ```
 
@@ -261,15 +269,10 @@ Let's bring back our credit card data set and build our pipeline.
 ---
 
 ```{python}
+import scipy
 from sklearn.tree import DecisionTreeClassifier
 
 dt_model = DecisionTreeClassifier(random_state=123, class_weight='balanced')
-```
-
-<br>
-
-```{python}
-import scipy
 
 param_grid = {"max_depth": scipy.stats.randint(low=1, high=100)}
 ```
@@ -288,6 +291,11 @@ grid_search.fit(X_train, y_train);
 
 ```{python}
 grid_search.best_params_
+```
+
+<br>
+
+```{python}
 grid_search.best_score_
 ```
 

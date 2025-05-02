@@ -42,7 +42,6 @@ pipe_tree = make_pipeline(
 
 ```{python}
 from sklearn.model_selection import cross_validate
-
 pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True)).mean()
 ```
 
@@ -136,6 +135,7 @@ So, in this case, since fraud is our positive label,  we see the correctly ident
 
 ![](../../../static/module7/recall.png){fig-align="center" width="45%" fig-alt="404 image"}
 
+<br>
 
 ```{python}
 confusion_matrix(y_valid, predictions)
@@ -189,6 +189,7 @@ With fraud as our positive label,  we see the correctly identified fraud in the 
 
 ![](../../../static/module7/precision.png){fig-align="center" width="30%" fig-alt="404 image"}
 
+<br>
 
 ```{python}
 confusion_matrix(y_valid, predictions)
@@ -243,6 +244,7 @@ plt.show()
 
 ![](../../../static/module7/f1.png){fig-align="center" width="40%" fig-alt="404 image"}
 
+<br>
 
 ```{python}
 precision

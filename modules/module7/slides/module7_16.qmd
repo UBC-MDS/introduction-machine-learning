@@ -17,8 +17,6 @@ housing_df = pd.read_csv("data/housing.csv")
 train_df, test_df = train_test_split(housing_df, test_size=0.1, random_state=123)
 ```
 
-<br>
-
 ```{python}
 # | include: false
 train_df = train_df.assign(rooms_per_household = train_df["total_rooms"]/train_df["households"],
@@ -48,7 +46,7 @@ numeric_features = [ "longitude", "latitude",
                      
 categorical_features = ["ocean_proximity"]
 
-X_train.head()
+X_train.head(3)
 ```
 
 
@@ -65,7 +63,9 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import make_column_transformer
 from sklearn.neighbors import KNeighborsRegressor
+```
 
+```{python}
 numeric_transformer = Pipeline(
     steps=[("imputer", SimpleImputer(strategy="median")), 
            ("scaler", StandardScaler())]
@@ -262,9 +262,9 @@ We can reverse MSE but not R<sup>2</sup> (optional).
 
 ## Root mean squared error  (RMSE)
 
-![](../../../static/module7/rmse-simp.svg){fig-align="center" width="20%" fig-alt="404 image"}
+![](../../../static/module7/rmse-simp.svg){fig-align="center" width="25%" fig-alt="404 image"}
 
-![](../../../static/module7/rmse-easy.svg){fig-align="center" width="38%" fig-alt="404 image"}
+![](../../../static/module7/rmse-easy.svg){fig-align="center" width="55%" fig-alt="404 image"}
 
 
 ```{python}
@@ -302,7 +302,7 @@ plt.plot(grid, grid, '--k');
 plt.xticks(fontsize= 12);
 plt.yticks(fontsize= 12);
 plt.xlabel("true price", fontsize=14);
-plt.ylabel("predicted price", fontsize=14)
+plt.ylabel("predicted price", fontsize=14);
 ```
 
 

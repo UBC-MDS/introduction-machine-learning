@@ -1,0 +1,312 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 1.1. Exercises
+
+## Name That Value!
+
+![](../../static/module7/Q2.png){fig-align="center" width="60%" fig-alt="404 image"}
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'How many examples did the model of this matrix correctly label as "Guard"?',
+        {
+        '19': 'This is the number of examples the model correctly predicted as <b>Forward</b>.',
+        '3': 'This is the number of examples the model predicted <b>Guard</b> when the true label was <b>Forward</b>.',
+        '4': 'This is the number of examples the model predicted <b>Forward</b> when the true label was <b>Guard</b>.',
+        '26': '',
+        },
+        '26',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'If <b>Forward</b> is the positive label, how many <i>false positive</i> values are there?',
+        {
+        '19': 'This is the number of examples of true positives.',
+        '3': 'This is the number of false negatives!',
+        '4': 'Great! This is the number of examples the model predicted <b>Forward</b> (positive) when the true label was <b>Guard</b> (negative).',
+        '26': 'This the number of true negatives.',
+        },
+        '4',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'How many examples does the model incorrectly predict?',
+        {
+        '45': 'This is the number of correctly predicted examples.',
+        '3': 'This is the number of false negatives, what about the false positives?',
+        '7': 'Great! This is the number of examples the model predicted incorrectly.',
+        '4': 'This is the number of false positives, what about the false negatives?',
+        },
+        '7',
+    );
+</script>
+
+## True or False: Confusion Matrix
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'There are scenarios where accuracy could be misleading.',
+        {
+        'True': '',
+        'False': 'It’s really important to assess your model on not just accuracy.',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'A confusion matrix will always show the predicted values as columns and the true labels as rows.',
+        {
+        'True': 'The matrix axes must be labeled because there is no uniformity to this.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+## Code a Confusion Matrix
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+We've seen our basketball dataset before and predicted using `SVC` with it before but this time we are going to have a look at how well our model does by building a confusion matrix. 
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+from sklearn.metrics import ConfusionMatrixDisplay
+
+# Loading in the data
+bball = pd.read_csv('data/bball_cm.csv')
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df
+y_train = train_df['position']
+X_test = test_df
+y_test = test_df['position']
+
+drop_features = ['full_name', 'jersey', 'b_day', 'college', 'position']
+
+numeric_features = [
+    "rating",
+    "height",
+    "weight",
+    "salary",
+    "draft_year",
+    "draft_round",
+    "draft_peak"]
+
+categorical_features = [
+    "team",
+    "country"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    ("drop", drop_features),
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+
+bball
+```
+
+**Tasks:**
+
+- Build a pipeline named `pipe_bb` that preprocesses with `preprocessor` and builds an `SVC()` model with default hyperparameters. 
+- Fit the pipeline on `X_train` and `y_train`. 
+- Next, build a confusion matrix using `plot_confusion_matrix` and calling `pipe_bb` on the **test** set. Pick any colour you like with `cmap`. You can find the colour options <a href=" https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html" target="_blank">here</a>.
+
+```{pyodide}
+#| setup: true
+#| exercise: code_a_confusion_matrix
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+from sklearn.metrics import ConfusionMatrixDisplay
+from src.utils import print_correct_msg
+
+bball = pd.read_csv('data/bball_cm.csv')
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df
+y_train = train_df['position']
+X_test = test_df
+y_test = test_df['position']
+
+drop_features = ['full_name', 'jersey', 'b_day', 'college', 'position']
+
+numeric_features = [
+    "rating",
+    "height",
+    "weight",
+    "salary",
+    "draft_year",
+    "draft_round",
+    "draft_peak"]
+
+categorical_features = [
+    "team",
+    "country"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    ("drop", drop_features),
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+```
+
+
+```{pyodide}
+#| exercise: code_a_confusion_matrix
+# Build a pipeline containing the column transformer and an SVC model
+____ = ____
+
+# Fit your pipeline on the training data
+____
+
+# Plot your confusion matrix
+____(____, ____, ____, ____)
+# Leave the following line commented out for the checking purposes. Uncomment to see the plot.
+#plt.show()
+```
+
+```{pyodide}
+#| exercise: code_a_confusion_matrix
+#| check: true
+
+pipe_bb = make_pipeline(preprocessor, SVC())
+pipe_bb.fit(X_train, y_train);
+solution = ConfusionMatrixDisplay.from_estimator(pipe_bb, X_test, y_test,
+                      cmap="PuRd");
+
+assert isinstance(result, type(solution)), "You need to plot a confusion matrix."
+assert solution.text_.shape == result.text_.shape, "The dimension of the result confusion matrix is incorrect."
+assert solution.text_[0][0].get_text() == result.text_[0][0].get_text(), "The confusion matrix has the wrong data."
+assert solution.text_[0][1].get_text() == result.text_[0][1].get_text(), "The confusion matrix has the wrong data."
+assert solution.text_[1][0].get_text() == result.text_[1][0].get_text(), "The confusion matrix has the wrong data."
+assert solution.text_[1][1].get_text() == result.text_[1][1].get_text(), "The confusion matrix has the wrong data."
+print_correct_msg()
+```
+
+:::: { .hint exercise="code_a_confusion_matrix"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `make_pipeline(preprocessor, SVC())`?
+- Are you fitting your model? 
+- Are you calling `pipe_bb`, `X_test` and `y_test` in the `ConfusionMatrixDisplay.from_estimator()` function?
+
+:::
+::::
+
+:::: { .solution exercise="code_a_confusion_matrix" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a pipeline containing the column transformer and an SVC model
+pipe_bb = make_pipeline(preprocessor, SVC())
+
+# Fit your pipeline on the training data
+pipe_bb.fit(X_train, y_train);
+
+# Plot your confusion matrix 
+ConfusionMatrixDisplay.from_estimator(pipe_bb, X_test, y_test,
+                      cmap="PuRd")
+plt.show()
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 1',
+        'How many players in the test set were correctly predicted as forward?',
+        {
+        '19': '',
+        '2': 'These are wrongly predicted.',
+        '1': 'These are wrongly predicted.',
+        '30': 'These are correctly predicted as Guards (G).',
+        },
+        '19',
+    );
+</script>
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question 2',
+        'If Guard (G) is our positive label, how many false positives are there?',
+        {
+        '19': 'These are true negatives!',
+        '2': 'You’ve picked this up quickly!',
+        '1': 'These are false negatives.',
+        '30': 'These are true positives!',
+        },
+        '2',
+    );
+</script>

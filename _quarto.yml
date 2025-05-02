@@ -39,6 +39,27 @@ website:
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
       - section: "**M7. Assessment and Measurements**"
+        contents:
+          - href: modules/module7/module7-00-module_learning_outcomes.qmd
+          - href: modules/module7/module7-01-introducing_evaluation_metrics.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module7/module7-02-name_that_value.qmd
+          - href: modules/module7/module7-05-precision_recall_and_f1_score.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module7/module7-06-lets_calculate.qmd
+          - href: modules/module7/module7-09-multi-class_measurements.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.qmd
+          - href: modules/module7/module7-13-imbalanced_datasets.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module7/module7-14-ture_or_false_unbalanced_data.qmd
+          - href: modules/module7/module7-16-regression_measurements.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module7/module7-17-name_that_measurement.qmd
+          - href: modules/module7/module7-21-passing_different_scoring_methods.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module7/module7-22-true_or_false_scoring_with_cross-validation.qmd
+          - href: modules/module7/module7-24-what_did_we_just_learn.qmd
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.

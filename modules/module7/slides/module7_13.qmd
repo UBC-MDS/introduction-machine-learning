@@ -108,6 +108,8 @@ There are two common approaches to this:
 
 ![](../../../static/module7/weights-sklearn.png){fig-align="center" width="80%" fig-alt="404 image"}
 
+<br>
+
     `class_weight: dict or ‘balanced’, default=None`
     
     Set the parameter C of class i to class_weight[i] * C for SVC. 
@@ -141,8 +143,6 @@ tree_default.fit(X_train,y_train);
 tree_100 = DecisionTreeClassifier(random_state=7, class_weight={1:100})
 tree_100.fit(X_train,y_train);
 ```
-
-<br>
 
 ```{python}
 # | echo: false
@@ -244,7 +244,7 @@ So, the default method trades off a lot of recall for a bit of precision.
 
 ### Stratified Splits
 
-![](../../../static/module7/kfolds.png){fig-align="center" width="840%" fig-alt="404 image"}
+![](../../../static/module7/kfolds.png){fig-align="center" width="84%" fig-alt="404 image"}
 
  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html" target="_blank">Attribution: Scikit Learn</a>
 
@@ -265,7 +265,7 @@ In other words, if we have 10% negative examples in total, then each fold will h
 
 ![](../../../static/module7/stratified.png){fig-align="center" width="84%" fig-alt="404 image"}
  
- <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.htmll" target="_blank">Attribution:Scikit Learn</a>
+ <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.htmll" target="_blank">Attribution: Scikit Learn</a>
 
 
 :::{.notes}

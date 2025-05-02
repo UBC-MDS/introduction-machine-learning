@@ -41,13 +41,18 @@ predictions = pipe_tree.predict(X_valid)
 # | fig-align: center
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
-
-plt.rcParams.update({'font.size': 14})
+plt.rcParams.update({'font.size': 10})
 ConfusionMatrixDisplay.from_estimator(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
 plt.show()
 ```
 
-<br>
+:::{.notes} 
+Right now, we have only seen measurements about target columns with binary values. 
+
+What happens when we have a target with more than 2 classes?
+:::
+
+---
 
 ```{python}
 from sklearn.metrics import classification_report
@@ -67,16 +72,11 @@ What happens when we have a target with more than 2 classes?
 ```{python}
 from sklearn.datasets import load_digits
 from sklearn.metrics import accuracy_score
-```
 
-<br>
-
-```{python}
 digits = load_digits()
 digits.images[-1]
 ```
 
-<br>
 
 ```{python}
 # | echo: false
@@ -160,6 +160,8 @@ What are these?
 ```{python}
 print(classification_report(y_test_digits, pred, digits=4))
 ```
+
+<br>
 
 **Macro average:** Give equal importance to all classes.  
 
