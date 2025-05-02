@@ -117,7 +117,7 @@ pd.DataFrame(scores)
 import matplotlib.pyplot as plt
 from src.model_plotting_mg import plot_classifier
 
-y_encoded_train = np.where(y_train == 'Canada', 1, 0)
+y_encoded_train = np.where(y_train == 'Canada', 0, 1)
 svm.fit(X_train, y_encoded_train);
 knn.fit(X_train, y_encoded_train);
 plt.figure(figsize=(16, 8))
@@ -216,7 +216,7 @@ If you wish to learn more on these you can reference <a href="https://scikit-lea
 
 ```{python}
 # | echo: false
-y_encoded_train = np.where(y_train == 'Canada', 1, 0)
+y_encoded_train = np.where(y_train == 'Canada', 0, 1)
 
 plt.figure(figsize=(16, 4))
 for i in range(4):
@@ -250,7 +250,7 @@ C also affects the fundamental tradeoff.
 
 ```{python }
 # | echo: false
-y_encoded_train = np.where(y_train == 'Canada', 1, 0)
+y_encoded_train = np.where(y_train == 'Canada', 0, 1)
 
 plt.figure(figsize=(16, 4))
 for i in range(4):

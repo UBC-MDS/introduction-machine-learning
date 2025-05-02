@@ -100,7 +100,7 @@ from src.model_plotting_mg import plot_classifier
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
 
-y_encoded_train = np.where(y_train == 'Canada', 1, 0)
+y_encoded_train = np.where(y_train == 'Canada', 0, 1)
 
 knn1.fit(X_train, y_encoded_train);
 plt.title("n_neighbors = 1")
