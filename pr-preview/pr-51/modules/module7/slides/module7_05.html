@@ -202,7 +202,7 @@
 </section>
 <section id="accuracy-is-only-part-of-the-story" class="slide level2">
 <h2>Accuracy is only part of the story…</h2>
-<div id="984531bc" class="cell" data-execution_count="3">
+<div id="e78aad27" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
@@ -213,19 +213,19 @@
 <span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="0b99c8da" class="cell" data-execution_count="4">
+<div id="1bbd95b2" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>fit_time       9.863044
-score_time     0.005500
+<pre><code>fit_time       9.836465
+score_time     0.005502
 test_score     0.999119
 train_score    1.000000
 dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="be117c1a" class="cell" data-execution_count="5">
+<div id="ccde0cb5" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>y_train.value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>0    0.998302
@@ -259,7 +259,7 @@ Name: Class, dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="64f92dc0" class="cell" data-execution_count="6">
+<div id="3bddcf82" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>pipe_tree.fit(X_train,y_train)<span class="op">;</span></span>
@@ -271,7 +271,7 @@ Name: Class, dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="c7964cf3" class="cell" data-execution_count="7">
+<div id="7b624a6d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>TN, FP, FN, TP <span class="op">=</span> confusion_matrix(y_valid, predictions).ravel()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
@@ -302,7 +302,7 @@ Name: Class, dtype: float64</code></pre>
 <section id="recall" class="slide level2">
 <h2>Recall</h2>
 <p><strong>Among all positive examples, how many did you identify?</strong></p>
-<div id="229f926b" class="cell" data-execution_count="8">
+<div id="63b51c71" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -335,7 +335,7 @@ Name: Class, dtype: float64</code></pre>
 
 
 <img data-src="../../../static/module7/recall.png" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%" alt="404 image"><p><br></p>
-<div id="4579b3b4" class="cell" data-execution_count="9">
+<div id="b7280fdd" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_valid, predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([[59674,    34],
@@ -343,11 +343,11 @@ Name: Class, dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="3eadbf07" class="cell" data-execution_count="10">
+<div id="2e26d01b" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>TN, FP, FN, TP <span class="op">=</span> confusion_matrix(y_valid, predictions).ravel()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="b6c08c97" class="cell" data-execution_count="11">
+<div id="b151ee9d" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP <span class="op">/</span> (TP <span class="op">+</span> FN)</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>recall.<span class="bu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -371,7 +371,7 @@ Name: Class, dtype: float64</code></pre>
 <section id="precision" class="slide level2">
 <h2>Precision</h2>
 <p><strong>Among the positive examples you identified, how many were actually positive?</strong></p>
-<div id="ec84f0d2" class="cell" data-execution_count="12">
+<div id="af272e93" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -404,7 +404,7 @@ Name: Class, dtype: float64</code></pre>
 
 
 <img data-src="../../../static/module7/precision.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%" alt="404 image"><p><br></p>
-<div id="6675a189" class="cell" data-execution_count="13">
+<div id="35b2e853" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_valid, predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array([[59674,    34],
@@ -412,11 +412,11 @@ Name: Class, dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="4d23c60a" class="cell" data-execution_count="14">
+<div id="eb246402" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>TN, FP, FN, TP <span class="op">=</span> confusion_matrix(y_valid, predictions).ravel()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="e7a4b731" class="cell" data-execution_count="15">
+<div id="fa06069c" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP <span class="op">/</span> (TP <span class="op">+</span> FP)</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>precision.<span class="bu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
@@ -442,7 +442,7 @@ Name: Class, dtype: float64</code></pre>
 <section id="f1" class="slide level2">
 <h2>f1</h2>
 <p><strong>f1-score combines precision and recall to give one score.</strong></p>
-<div id="2c5937bf" class="cell" data-execution_count="16">
+<div id="4e642a01" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -475,21 +475,21 @@ Name: Class, dtype: float64</code></pre>
 
 
 <img data-src="../../../static/module7/f1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:40.0%" alt="404 image"><p><br></p>
-<div id="5439d5c1" class="cell" data-execution_count="17">
+<div id="47605f83" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>precision</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>0.6909090909090909</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="7d6b0d86" class="cell" data-execution_count="18">
+<div id="3c5b0750" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>recall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>0.7450980392156863</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="b4214661" class="cell" data-execution_count="19">
+<div id="7f97cb7b" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>f1_score <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> precision <span class="op">*</span> recall) <span class="op">/</span> (precision <span class="op">+</span> recall)</span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>f1_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -514,7 +514,7 @@ Name: Class, dtype: float64</code></pre>
 </section>
 <section id="calculate-evaluation-metrics-by-ourselves-and-with-sklearn" class="slide level2">
 <h2>Calculate evaluation metrics by ourselves and with sklearn</h2>
-<div id="ab54b868" class="cell" data-execution_count="20">
+<div id="6331a8c7" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {}</span>
 <span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>data[<span class="st">"accuracy"</span>] <span class="op">=</span> [(TP <span class="op">+</span> TN) <span class="op">/</span> (TN <span class="op">+</span> FP <span class="op">+</span> FN <span class="op">+</span> TP)]</span>
 <span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>data[<span class="st">"error"</span>] <span class="op">=</span> [(FP <span class="op">+</span> FN) <span class="op">/</span> (TN <span class="op">+</span> FP <span class="op">+</span> FN <span class="op">+</span> TP)]</span>
@@ -539,11 +539,11 @@ Name: Class, dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="3a07d8a2" class="cell" data-execution_count="21">
+<div id="36b4b84a" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, precision_score, recall_score, f1_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="99fb7344" class="cell" data-execution_count="22">
+<div id="6bf9d319" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>pred_cv <span class="op">=</span>  pipe_tree.predict(X_valid) </span>
 <span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>data[<span class="st">"accuracy"</span>].append(accuracy_score(y_valid, pred_cv))</span>
@@ -621,18 +621,18 @@ Name: Class, dtype: float64</code></pre>
 </section>
 <section id="classification-report" class="slide level2">
 <h2>Classification report</h2>
-<div id="54e86ae8" class="cell" data-execution_count="23">
+<div id="9c0ab2e3" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="adb7f7d1" class="cell" data-execution_count="24">
+<div id="398ebb42" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>pipe_tree.classes_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>array([0, 1])</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="b3e62faa" class="cell" data-execution_count="25">
+<div id="cc5251bf" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_valid, pipe_tree.predict(X_valid),</span>
 <span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>        target_names<span class="op">=</span>[<span class="st">"non-fraud"</span>, <span class="st">"fraud"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
