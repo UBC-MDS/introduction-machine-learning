@@ -1,0 +1,452 @@
+[
+  {
+    "objectID": "modules/module9/slides/module9_00.html#you-did-it",
+    "href": "modules/module9/slides/module9_00.html#you-did-it",
+    "title": "Congratulations on completing Introduction to Machine Learning!",
+    "section": "You did it!",
+    "text": "You did it!\nWe covered a lot of ground but you managed to finished all 8 Modules. It’s important to celebrate this success."
+  },
+  {
+    "objectID": "modules/module9/slides/module9_00.html#attribution",
+    "href": "modules/module9/slides/module9_00.html#attribution",
+    "title": "Congratulations on completing Introduction to Machine Learning!",
+    "section": "Attribution",
+    "text": "Attribution\n\nMaterial from UBC’s DSCI 571: Supervised Learning I by Varada Kolhatkar.\nMaterial from UBC’s CPSC330 course by Mike Gelbart.\nMaterial originally from UBC’s CPSC340 course by  Mark Schmidt."
+  },
+  {
+    "objectID": "modules/module9/slides/module9_00.html#special-thanks",
+    "href": "modules/module9/slides/module9_00.html#special-thanks",
+    "title": "Congratulations on completing Introduction to Machine Learning!",
+    "section": "Special Thanks",
+    "text": "Special Thanks\nNot only did you put in a lot of work by completing this course, but many people did too by helping make this course possible.\nSpecial thanks must be attributed to the following individuals and organizations (in alphabetical order):\n\n Tom Beuzen\nTim Head\n\nInes Montani\nJoel Ostblom\n Tiffany Timbers\nElijah Willie\nThe Master of Data Science Program at UBC\nOur friends, family and colleagues for supporting us and cheering us on!\nAll those who gave us feedback and suggestions on how we can improve this course."
+  },
+  {
+    "objectID": "modules/module9/slides/module9_00.html#about-us",
+    "href": "modules/module9/slides/module9_00.html#about-us",
+    "title": "Congratulations on completing Introduction to Machine Learning!",
+    "section": "About Us",
+    "text": "About Us\n\nMike Gelbart\n\nWebsite: www.mikegelbart.com\nTwitter: @MikeGelbart  \n\nVarada Kolhatkar\n\nWebsite: https://kvarada.github.io/\nTwitter: @varadakolhatkar  \n\nHayley Boyce\n\nWebsite: www.hayleyfboyce.com\nTwitter: @HayleyFBoyce"
+  },
+  {
+    "objectID": "modules/module8/slides/module8_21.html#module-learning-outcomes",
+    "href": "modules/module8/slides/module8_21.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 8",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain the general intuition behind linear models.\nExplain the fit and predict paradigm of linear models.\nUse scikit-learn’s LogisticRegression classifier.\n\nUse fit, predict and predict_proba.\n\nUse coef_ to interpret the model weights.\n\nExplain the advantages and limitations of linear classifiers.\nApply scikit-learn regression model (e.g., Ridge) to regression problems.\nRelate the Ridge hyperparameter alpha to the LogisticRegression hyperparameter C."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_13.html#how-is-this-being-done",
+    "href": "modules/module8/slides/module8_13.html#how-is-this-being-done",
+    "title": "Predicting Probabilities",
+    "section": "How is this being done?",
+    "text": "How is this being done?\nFor linear regression we used something like this:\n predicted(value) = coefficientfeature1 x feature1 + coefficientfeature2 x feature2 + … + intercept \nBut this won’t work with probabilities.\nSigmoid function (optional)\n\n\nOk so we have this option but what exactly is happening behind the scenes?\nBecause probabilities MUST be between the values of 0 and 1 we need a tool that will convert the raw model’s output into a range between [0,1].\nWe currently can’t take the model’s raw output since we get values that are negative or greater than 1.\nWe need to use something called a sigmoid function which “squashes” the raw model output from any number into the range [0,1]."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_05.html#intuition-behind-linear-regression",
+    "href": "modules/module8/slides/module8_05.html#intuition-behind-linear-regression",
+    "title": "Coefficients and coef_",
+    "section": "Intuition behind linear regression",
+    "text": "Intuition behind linear regression\n\n\n\n\n\n\n\n\n\n\n\nlisting number\nNumber of Bedrooms\nNumber of Bathrooms\nSquare Footage\nAge\nPrice\n\n\n\n\n1\n5\n6\n3000\n2\n$6.39 million\n\n\n2\n1\n1\n800\n90\n$1.67 million\n\n\n3\n3\n2\n1875\n66\n$3.92 million\n\n\n\n\nUnlike with decision trees where we make predictions with rules and analogy-based models where we predict a certain class using distance to other examples, linear classifiers use coefficients (or sometimes known as “weights”) associated with features."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_05.html#components-of-a-linear-model",
+    "href": "modules/module8/slides/module8_05.html#components-of-a-linear-model",
+    "title": "Coefficients and coef_",
+    "section": "Components of a linear model",
+    "text": "Components of a linear model\n  \n predicted(price) = (coefficientbedrooms x #bedrooms) + (coefficientbathrooms x #bathrooms) + (coefficientsqfeet x #sqfeet) + (coefficientage x age) + intercept  \n\n Input features\n\n Coefficients, one per feature\n\n Bias or intercept"
+  },
+  {
+    "objectID": "modules/module8/slides/module8_05.html#interpreting-learned-coefficients",
+    "href": "modules/module8/slides/module8_05.html#interpreting-learned-coefficients",
+    "title": "Coefficients and coef_",
+    "section": "Interpreting learned coefficients",
+    "text": "Interpreting learned coefficients\n\nIn linear models:\n\nif the coefficient is +, then ↑ the feature values ↑ the prediction value.\n\nif the coefficient is -, then ↑ the feature values ↓ the prediction value.\n\nif the coefficient is 0, the feature is not used in making a prediction.\n\n\nIn linear models:\n\nif the coefficient is positive, then increasing the feature values increases the prediction value.\n\nif the coefficient is negative, then increasing the feature values decreases the prediction value.\n\nif the coefficient is zero, the feature is not used in making a prediction"
+  },
+  {
+    "objectID": "modules/module8/slides/module8_05.html#predicting",
+    "href": "modules/module8/slides/module8_05.html#predicting",
+    "title": "Coefficients and coef_",
+    "section": "Predicting",
+    "text": "Predicting\n\nX_train.iloc[0:1]\n\n\n\n\n\n\n\n\nhouse_age\ndistance_station\nnum_stores\nlatitude\nlongitude\n\n\n\n\n172\n6.6\n90.45606\n9\n24.97433\n121.5431\n\n\n\n\n\n\n\n\n\nlm.predict(X_train.iloc[0:1])\n\narray([52.35605528])\n\n\n\nLet’s take a look at a single example here.\nThe values in this are the input features.\nWe can use predict() on our features to get a prediction of 52.36."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_00.html#module-learning-outcomes",
+    "href": "modules/module8/slides/module8_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain the general intuition behind linear models.\nExplain the fit and predict paradigm of linear models.\nUse scikit-learn’s LogisticRegression classifier.\n\nUse fit, predict and predict_proba.\n\nUse coef_ to interpret the model weights.\n\nExplain the advantages and limitations of linear classifiers.\nApply scikit-learn regression model (e.g., Ridge) to regression problems.\nRelate the Ridge hyperparameter alpha to the LogisticRegression hyperparameter C."
+  },
+  {
+    "objectID": "modules/module8/module8-18-multi-class_questions.html",
+    "href": "modules/module8/module8-18-multi-class_questions.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Use the following coefficient output to answer the questions below:\n              Forward   Guard      Other\nweight      -0.031025 -0.193441  0.224466\nheight       0.227869 -1.358500  1.130631\ndraft_year  -0.017517  0.010280  0.007237\ndraft_round  0.250149  0.501243 -0.751392\ndraft_peak  -0.006979 -0.005453  0.012432\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nBringing back the Basketball dataset, we are going to take a look at how we assess the predictions from a logistic regression model.\n\n\n\n\n\n\nTasks:\n\nBuild and fit a pipeline containing the column transformer and a logistic regression model. Name this pipeline lr_pipe.\nFit your pipeline on the training data.\nPlot a confusion matrix for the test set prediction results and answer the questions below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you making your lr_pipe pipeline with make_pipeline(col_transformer,LogisticRegression())?\nAre you Fitting your pipeline on the training set with lr_pipe.fit(X_train, y_train)?\nAre you plotting your confusion matrix with plot_confusion_matrix(lr_pipe, X_test, y_test,cmap=\"PuRd\");\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-18-multi-class_questions.html#multi-class-questions",
+    "href": "modules/module8/module8-18-multi-class_questions.html#multi-class-questions",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Use the following coefficient output to answer the questions below:\n              Forward   Guard      Other\nweight      -0.031025 -0.193441  0.224466\nheight       0.227869 -1.358500  1.130631\ndraft_year  -0.017517  0.010280  0.007237\ndraft_round  0.250149  0.501243 -0.751392\ndraft_peak  -0.006979 -0.005453  0.012432",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-18-multi-class_questions.html#multi-class-revisited",
+    "href": "modules/module8/module8-18-multi-class_questions.html#multi-class-revisited",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nBringing back the Basketball dataset, we are going to take a look at how we assess the predictions from a logistic regression model.\n\n\n\n\n\n\nTasks:\n\nBuild and fit a pipeline containing the column transformer and a logistic regression model. Name this pipeline lr_pipe.\nFit your pipeline on the training data.\nPlot a confusion matrix for the test set prediction results and answer the questions below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you making your lr_pipe pipeline with make_pipeline(col_transformer,LogisticRegression())?\nAre you Fitting your pipeline on the training set with lr_pipe.fit(X_train, y_train)?\nAre you plotting your confusion matrix with plot_confusion_matrix(lr_pipe, X_test, y_test,cmap=\"PuRd\");\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-14-probabilities_and_logistic_regression.html",
+    "href": "modules/module8/module8-14-probabilities_and_logistic_regression.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "We are trying to predict if a job applicant would be hired based on some features contained in their resume.\nBelow we have the output of .predict_proba() where column 0 shows the probability the model would predict “hired” and column 1 shows the probability the model would predict “not hired”.\narray([[0.04971843, 0.95028157],\n       [0.94173513, 0.05826487],\n       [0.74133975, 0.25866025],\n       [0.13024982, 0.86975018],\n       [0.17126403, 0.82873597]])\nUse this output to answer the following questions.\n\n\n\n\nQuestion 2\n['hired', 'hired', 'hired', 'not hired', 'not hired']\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s keep working with the Pokémon dataset. This time let’s do a bit more. Let’s hyperparameter tune our C and see if we can find an example where the model is confident in its prediction.\n\n\n\n\n\n\nTasks:\n\nBuild and fit a pipeline containing the column transformer and a logistic regression model that uses the parameter class_weight=\"balanced\" and max_iter=1000(max_iter will stop a warning from occuring) . Name this pipeline pkm_pipe.\nPerform RandomizedSearchCV using the parameters specified in param_grid. Use n_iter equal to 10, 5 cross-validation folds and return the training score. Set random_state=2028 and set your scoring argument to f1. Name this object pmk_search.\nFit your pmk_search on the training data.\nWhat is the best C value? Save it in an object name pkm_best_c.\nWhat is the best f1 score? Save it in an object named pkm_best_score.\nFind the predictions of the test set using predict. Save this in an object named predicted_y.\nFind the target class probabilities of the test set using predict_proba.\nSave this in an object named proba_y.\nTake the dataframe lr_probs and sort them in descending order of the model’s confidence in predicting legendary Pokémon. Save this in an object named legend_sorted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using make_pipeline(preprocessor, LogisticRegression(class_weight=\"balanced\")) to build your pkm_pipe object?\nIn RandomizedSearchCV are you calling pkm_pipe and param_grid?\nAre you specifying n_iter=10 and scoring = 'f1'?\nAre you fitting pkm_grid on your training data?\nAre you using best_params_ to find the most optimal C value?\nAre you using best_score_ to find the best score?\nFor predicted_y, are you using pmk_search.predict(X_test)?\nFor proba_y are you using pmk_search.predict_proba(X_test)?\nAre you sorting lr_probs by prob_legend and setting ascending = False?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-14-probabilities_and_logistic_regression.html#probabilities-and-logistic-regression",
+    "href": "modules/module8/module8-14-probabilities_and_logistic_regression.html#probabilities-and-logistic-regression",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "We are trying to predict if a job applicant would be hired based on some features contained in their resume.\nBelow we have the output of .predict_proba() where column 0 shows the probability the model would predict “hired” and column 1 shows the probability the model would predict “not hired”.\narray([[0.04971843, 0.95028157],\n       [0.94173513, 0.05826487],\n       [0.74133975, 0.25866025],\n       [0.13024982, 0.86975018],\n       [0.17126403, 0.82873597]])\nUse this output to answer the following questions.\n\n\n\n\nQuestion 2\n['hired', 'hired', 'hired', 'not hired', 'not hired']",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-14-probabilities_and_logistic_regression.html#applying-predict_proba",
+    "href": "modules/module8/module8-14-probabilities_and_logistic_regression.html#applying-predict_proba",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s keep working with the Pokémon dataset. This time let’s do a bit more. Let’s hyperparameter tune our C and see if we can find an example where the model is confident in its prediction.\n\n\n\n\n\n\nTasks:\n\nBuild and fit a pipeline containing the column transformer and a logistic regression model that uses the parameter class_weight=\"balanced\" and max_iter=1000(max_iter will stop a warning from occuring) . Name this pipeline pkm_pipe.\nPerform RandomizedSearchCV using the parameters specified in param_grid. Use n_iter equal to 10, 5 cross-validation folds and return the training score. Set random_state=2028 and set your scoring argument to f1. Name this object pmk_search.\nFit your pmk_search on the training data.\nWhat is the best C value? Save it in an object name pkm_best_c.\nWhat is the best f1 score? Save it in an object named pkm_best_score.\nFind the predictions of the test set using predict. Save this in an object named predicted_y.\nFind the target class probabilities of the test set using predict_proba.\nSave this in an object named proba_y.\nTake the dataframe lr_probs and sort them in descending order of the model’s confidence in predicting legendary Pokémon. Save this in an object named legend_sorted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using make_pipeline(preprocessor, LogisticRegression(class_weight=\"balanced\")) to build your pkm_pipe object?\nIn RandomizedSearchCV are you calling pkm_pipe and param_grid?\nAre you specifying n_iter=10 and scoring = 'f1'?\nAre you fitting pkm_grid on your training data?\nAre you using best_params_ to find the most optimal C value?\nAre you using best_score_ to find the best score?\nFor predicted_y, are you using pmk_search.predict(X_test)?\nFor proba_y are you using pmk_search.predict_proba(X_test)?\nAre you sorting lr_probs by prob_legend and setting ascending = False?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-10-logistic_regression_prediction.html",
+    "href": "modules/module8/module8-10-logistic_regression_prediction.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "We have the following text, which we wish to classify as either a positive or negative movie review.\nUsing the words below (which are features in our model) with associated coefficients, answer the next 2 questions.\nThe input for the feature value is the number of times the word appears in the review.\n\n\n\nWord\nCoefficient\n\n\n\n\nexcellent\n2.2\n\n\ndisappointment\n-2.4\n\n\nflawless\n1.4\n\n\nboring\n-1.3\n\n\nunwatchable\n-1.7\n\n\n\nIntercept = 1.3\n\nQuestion 1\n\nI thought it was going to be excellent but instead, it was unwatchable and boring. \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s give a warm welcome back to our wonderful Pokémon dataset. We want to see how well our model does with logistic regression. Let’s try building a simple model with default parameters to start.\n\n\n\n\n\n\nTasks:\n\nImport the logistic regression function.\nBuild and fit a pipeline containing the column transformer and a logistic regression model and use the parameter class_weight=\"balanced\". Name this pipeline pkm_pipe.\nScore your model on the test set using the default accuracy measurement. Save this in an object named lr_scores.\nFill in the blanks below to assess the model’s feature coefficients.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you fitting your pipeline?\nAre you scoring your pipeline on the test data?\nAre you finding the coefficients using pkm_pipe['logisticregression'].coef_[0]?\nAre you using numeric_features to find your model’s feature names?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-10-logistic_regression_prediction.html#logistic-regression-prediction",
+    "href": "modules/module8/module8-10-logistic_regression_prediction.html#logistic-regression-prediction",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "We have the following text, which we wish to classify as either a positive or negative movie review.\nUsing the words below (which are features in our model) with associated coefficients, answer the next 2 questions.\nThe input for the feature value is the number of times the word appears in the review.\n\n\n\nWord\nCoefficient\n\n\n\n\nexcellent\n2.2\n\n\ndisappointment\n-2.4\n\n\nflawless\n1.4\n\n\nboring\n-1.3\n\n\nunwatchable\n-1.7\n\n\n\nIntercept = 1.3\n\nQuestion 1\n\nI thought it was going to be excellent but instead, it was unwatchable and boring.",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-10-logistic_regression_prediction.html#applying-logistic-regression",
+    "href": "modules/module8/module8-10-logistic_regression_prediction.html#applying-logistic-regression",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s give a warm welcome back to our wonderful Pokémon dataset. We want to see how well our model does with logistic regression. Let’s try building a simple model with default parameters to start.\n\n\n\n\n\n\nTasks:\n\nImport the logistic regression function.\nBuild and fit a pipeline containing the column transformer and a logistic regression model and use the parameter class_weight=\"balanced\". Name this pipeline pkm_pipe.\nScore your model on the test set using the default accuracy measurement. Save this in an object named lr_scores.\nFill in the blanks below to assess the model’s feature coefficients.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you fitting your pipeline?\nAre you scoring your pipeline on the test data?\nAre you finding the coefficients using pkm_pipe['logisticregression'].coef_[0]?\nAre you using numeric_features to find your model’s feature names?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-06-linear_model_coefficient_questions.html",
+    "href": "modules/module8/module8-06-linear_model_coefficient_questions.html",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Use the following equation to answer the questions below:\n\n predicted(backpack_weight) = 3.02 x #laptops + 0.3 x #pencils + 0.5 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nUsing the same Ridge model as we obtained last time, let’s calculate what our model would predict for a player who is 2.05m tall and weighs 93.2 kg.\n\n\n\n\n\n\nTasks:\n\nBuild and fit a Ridge model with default hyperparameters and name it ridge_bb.\nWhat are the coefficients for this model? Save these in an object named bb_coeffs.\nWhat is the intercept for this model? Save this in an object named bb_intercept.\nUsing the coefficients and intercept discovered above, calculate the model’s prediction and save the result in player_predict.\nCheck your answer using predict.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you fitting your model?\nAre you finding the coefficients using ridge_bb.coef_? print(bb_weights)\nAre you using ridge_bb.intercept_ to find your model’s intercept?\nAre you calculating your model’s predictions with bb_intercept + (bb_coeffs*player_stats).sum(axis=1)?\nYou can check your calculation using predict with ridge_bb.predict(player_stats).\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-06-linear_model_coefficient_questions.html#linear-model-coefficient-questions",
+    "href": "modules/module8/module8-06-linear_model_coefficient_questions.html#linear-model-coefficient-questions",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Use the following equation to answer the questions below:\n\n predicted(backpack_weight) = 3.02 x #laptops + 0.3 x #pencils + 0.5",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-06-linear_model_coefficient_questions.html#interpreting-ridge",
+    "href": "modules/module8/module8-06-linear_model_coefficient_questions.html#interpreting-ridge",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nUsing the same Ridge model as we obtained last time, let’s calculate what our model would predict for a player who is 2.05m tall and weighs 93.2 kg.\n\n\n\n\n\n\nTasks:\n\nBuild and fit a Ridge model with default hyperparameters and name it ridge_bb.\nWhat are the coefficients for this model? Save these in an object named bb_coeffs.\nWhat is the intercept for this model? Save this in an object named bb_intercept.\nUsing the coefficients and intercept discovered above, calculate the model’s prediction and save the result in player_predict.\nCheck your answer using predict.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you fitting your model?\nAre you finding the coefficients using ridge_bb.coef_? print(bb_weights)\nAre you using ridge_bb.intercept_ to find your model’s intercept?\nAre you calculating your model’s predictions with bb_intercept + (bb_coeffs*player_stats).sum(axis=1)?\nYou can check your calculation using predict with ridge_bb.predict(player_stats).\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-02-linear_regression_questions.html",
+    "href": "modules/module8/module8-02-linear_regression_questions.html",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nUsing our well know basketball dataset, we are going to build a model using the height feature and assess if it can help predict a player’sweight.\n\n\n\n\n\n\nTasks:\n\nCreate a MAPE scorer from the mape function that we provided. Make sure you specify in the scorer that lower numbers are better for MAPE.\nBuild a Ridge model called ridge_bb.\nUse GridSearchCV to hyperparameter tune alpha. Fill the blanks so it uses ridge_bb as an estimator and the values from param_dist.\nFit your grid search on the training data.\nWhat is the best value for alpha? Save it in an object named best_alpha.\nWhat is the best MAPE score? Save it in an object named best_mape.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you making the MAPE scorer with make_scorer(mape, greater_is_better=False)?\nAre you filling in the blank for GridSearchCV as grid_search = GridSearchCV(ridge_bb, param_dist,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)?\nAre you fitting with grid_search.fit(X_train, y_train)?\nAre you finding the best alpha as grid_search.best_params_?\nAre you finding the best score with grid_search.best_score_?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-02-linear_regression_questions.html#using-ridge",
+    "href": "modules/module8/module8-02-linear_regression_questions.html#using-ridge",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nUsing our well know basketball dataset, we are going to build a model using the height feature and assess if it can help predict a player’sweight.\n\n\n\n\n\n\nTasks:\n\nCreate a MAPE scorer from the mape function that we provided. Make sure you specify in the scorer that lower numbers are better for MAPE.\nBuild a Ridge model called ridge_bb.\nUse GridSearchCV to hyperparameter tune alpha. Fill the blanks so it uses ridge_bb as an estimator and the values from param_dist.\nFit your grid search on the training data.\nWhat is the best value for alpha? Save it in an object named best_alpha.\nWhat is the best MAPE score? Save it in an object named best_mape.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you making the MAPE scorer with make_scorer(mape, greater_is_better=False)?\nAre you filling in the blank for GridSearchCV as grid_search = GridSearchCV(ridge_bb, param_dist,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)?\nAre you fitting with grid_search.fit(X_train, y_train)?\nAre you finding the best alpha as grid_search.best_params_?\nAre you finding the best score with grid_search.best_score_?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-00-module_learning_outcomes.html",
+    "href": "modules/module8/module8-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module8/module8-01-introducing_linear_regression.html",
+    "href": "modules/module8/module8-01-introducing_linear_regression.html",
+    "title": "1. Introducing Linear Regression",
+    "section": "",
+    "text": "1. Introducing Linear Regression\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "1. Introducing Linear Regression"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-05-coefficients_and_coef_.html",
+    "href": "modules/module8/module8-05-coefficients_and_coef_.html",
+    "title": "2. Coefficients and coef_",
+    "section": "",
+    "text": "2. Coefficients and coef_\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "2. Coefficients and coef_"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-09-logistic_regression.html",
+    "href": "modules/module8/module8-09-logistic_regression.html",
+    "title": "3. Logistic Regression",
+    "section": "",
+    "text": "3. Logistic Regression\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "3. Logistic Regression"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-13-predicting_probabilities.html",
+    "href": "modules/module8/module8-13-predicting_probabilities.html",
+    "title": "4. Predicting Probabilities",
+    "section": "",
+    "text": "4. Predicting Probabilities\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "4. Predicting Probabilities"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-17-multi-class_classification.html",
+    "href": "modules/module8/module8-17-multi-class_classification.html",
+    "title": "5. Multi-class Classification",
+    "section": "",
+    "text": "5. Multi-class Classification\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "5. Multi-class Classification"
+    ]
+  },
+  {
+    "objectID": "modules/module8/module8-21-what_did_we_just_learn.html",
+    "href": "modules/module8/module8-21-what_did_we_just_learn.html",
+    "title": "6. What Did We Just Learn?",
+    "section": "",
+    "text": "6. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M8. Linear Models**",
+      "6. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module8/slides/module8_01.html#linear-regression",
+    "href": "modules/module8/slides/module8_01.html#linear-regression",
+    "title": "Introducing Linear Regression",
+    "section": "Linear Regression",
+    "text": "Linear Regression\n\ntrain_df.head()\n\n\n\n\n\n\n\n\nlength\nweight\n\n\n\n\n73\n1.489130\n10.507995\n\n\n53\n1.073233\n7.658047\n\n\n80\n1.622709\n9.748797\n\n\n49\n0.984653\n9.731572\n\n\n23\n0.484937\n3.016555\n\n\n\n\n\n\n\n\nWe’ve seen many regression models such as DecisionTreeRegressor and KNeighborsRegressor but now we have a new one that we are going to explore called linear regression.\nLinear regression is one of the most basic and popular ML/statistical techniques.\nLet’s bring back the hypothetical snake data that we saw in module 4."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_01.html#ridge",
+    "href": "modules/module8/slides/module8_01.html#ridge",
+    "title": "Introducing Linear Regression",
+    "section": "Ridge",
+    "text": "Ridge\n\nfrom sklearn.linear_model import LinearRegression\n\nLinearRegression();\n\n\n\nfrom sklearn.linear_model import Ridge\n\nrm = Ridge()\nrm.fit(X_train, y_train);\n\n\n\nrm.predict(X_train)[:5]\n\narray([10.09739051,  7.90823334, 10.80050927,  7.44197529,  4.81162144])\n\n\n\n\nrm.score(X_train, y_train)\n\n0.8125029624787177\n\n\n\nWe can import the LinearRegression model like we have for all the previous models we’ve used except we are going to instead focus on its close cousin Ridge.\nRidge is more flexible than LinearRegression and we will explain why shortly.\nWhen we import Ridge, you’ll notice that we are importing from the linear_model Sklearn library.\nRidge, has the same fit-predict paradigm as the other models we have seen.\nThat means we can fit on the training set and predict a numeric prediction.\nWe see that predict returns the predicted snake weight for our examples."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_01.html#alpha",
+    "href": "modules/module8/slides/module8_01.html#alpha",
+    "title": "Introducing Linear Regression",
+    "section": "alpha",
+    "text": "alpha\n\nrm2 = Ridge(alpha=10000)\nrm2.fit(X_train, y_train);\n\n\n\nrm2.score(X_train, y_train)\n\n0.004541128724857568\n\n\n\nRidge has hyperparameters just like the rest of the models we learned.\nThe alpha hyperparameter is what makes it more flexible than using LinearRegression.\nRemember the fundamental trade-off we spoke about in module 3?\n“As model complexity ↑, training score ↑ and training score– validation score tend to ↑”\nWell, alpha controls this fundamental trade-off!"
+  },
+  {
+    "objectID": "modules/module8/slides/module8_01.html#visualizing-linear-regression",
+    "href": "modules/module8/slides/module8_01.html#visualizing-linear-regression",
+    "title": "Introducing Linear Regression",
+    "section": "Visualizing linear regression",
+    "text": "Visualizing linear regression\n\n\nIn our data, we only have 1 feature length which helps predict our target feature weight.\nWe can use a 2D graph to plot this and our ridge regression corresponds to a line.\nIn this plot, the blue markers are the examples and our orange line is our Ridge regression line.\nIf we had an additional feature, let’s say, width, we now would have 2 features and 1 target so our ridge regression would correspond to a plan in a 3-dimensional space.\nAs we increase our features beyond 3 it becomes harder to visualize."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_09.html#setting-the-stage",
+    "href": "modules/module8/slides/module8_09.html#setting-the-stage",
+    "title": "Logistic Regression",
+    "section": "Setting the stage",
+    "text": "Setting the stage\n\nfrom sklearn.dummy import DummyClassifier\nfrom sklearn.model_selection import cross_validate\n\ndc = DummyClassifier(strategy=\"prior\")\n\nscores= pd.DataFrame(cross_validate(dc, X_train, y_train, return_train_score=True))\nscores\n\n\n\n\n\n\n\n\nfit_time\nscore_time\ntest_score\ntrain_score\n\n\n\n\n0\n0.000576\n0.000633\n0.588235\n0.601504\n\n\n1\n0.000507\n0.000529\n0.588235\n0.601504\n\n\n2\n0.000507\n0.000480\n0.606061\n0.597015\n\n\n3\n0.000480\n0.000511\n0.606061\n0.597015\n\n\n4\n0.000455\n0.000481\n0.606061\n0.597015\n\n\n\n\n\n\n\n\nAlthough we don’t always do this in the slides, we should always be building a baseline model before we do any type of meaningful modeling.\nLet’s do that before we get straight into it.\nNow we can have a better idea of how well our model performs."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_09.html#visualizing-our-model",
+    "href": "modules/module8/slides/module8_09.html#visualizing-our-model",
+    "title": "Logistic Regression",
+    "section": "Visualizing our model",
+    "text": "Visualizing our model\n\n\nWe saw that with SVMs and decision trees that we could visualize our model with decision boundaries and we can do the same thing with logistic regression.\nHere, we can see we get a line that separates our two target classes."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_09.html#coefficients",
+    "href": "modules/module8/slides/module8_09.html#coefficients",
+    "title": "Logistic Regression",
+    "section": "Coefficients",
+    "text": "Coefficients\n\nlr = LogisticRegression()\nlr.fit(X_train, y_train);\n\n\nprint(\"Model coefficients:\", lr.coef_)\nprint(\"Model intercept:\", lr.intercept_)\nModel coefficients: [[-0.04108149 -0.33683126]]\nModel intercept: [10.8869838]\n\n\ndata = {'features': X_train.columns, 'coefficients':lr.coef_[0]}\npd.DataFrame(data)\n\n\n\n\n\n\n\n\nfeatures\ncoefficients\n\n\n\n\n0\nlongitude\n-0.041084\n\n\n1\nlatitude\n-0.336831\n\n\n\n\n\n\n\n\nJust like we saw for Ridge. we can get the equation of that line and the coefficients of our latitude and longitude features using .coef_.\nIn this case, we see that both are negative coefficients.\nWe also can see that the coefficient of latitude is larger in magnitude than that of longitude.\nThis makes a lot of sense because Canada as a country lies above the USA and so we expect latitude values to contribute more to a prediction than longitude which Canada and the USA have quite similar values."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_09.html#predictions",
+    "href": "modules/module8/slides/module8_09.html#predictions",
+    "title": "Logistic Regression",
+    "section": "Predictions",
+    "text": "Predictions\n\nlr.classes_\n\narray(['Canada', 'USA'], dtype=object)\n\n\n\n\nexample = X_test.iloc[0,:]\nexample.tolist()\n\n[-64.8001, 46.098]\n\n\n\n\n(example.tolist() * lr.coef_).sum(axis=1) + lr.intercept_ \n\narray([-1.97823755])\n\n\n\n\nlr.predict([example])\n\narray(['Canada'], dtype=object)\n\n\n\nAgain, let’s take an example from our test set and calculate the outcome using our coefficients and intercept.\nWe get a value of -1.978.\nIn Ridge our prediction would be the calculated result so -1.97, but for logistic regression, we check the sign of the calculation only.\nOur threshold is 0.\n\nIf the result was positive, it predicts one class; if negative, it predicts the other.\n\nThat means everything negative corresponds to “Canada” and everything positive predicts a class of “USA”.\nIf we use predict, it gives us the same result as well!\nThese are “hard predictions” but we can also use this for something called “soft predictions” as well.\n(That’s in the next slide deck!)"
+  },
+  {
+    "objectID": "modules/module8/slides/module8_09.html#hyperparameter-c-a-new-one",
+    "href": "modules/module8/slides/module8_09.html#hyperparameter-c-a-new-one",
+    "title": "Logistic Regression",
+    "section": "Hyperparameter: C (A new one)",
+    "text": "Hyperparameter: C (A new one)\n\nscores_dict ={\n\"C\" :10.0**np.arange(-6,2,1),\n\"train_score\" : list(),\n\"cv_score\" : list(),\n}\nfor C in scores_dict['C']:\n    lr_model = LogisticRegression(C=C)\n    results = cross_validate(lr_model, X_train, y_train, return_train_score=True)\n    scores_dict['train_score'].append(results[\"train_score\"].mean())\n    scores_dict['cv_score'].append(results[\"test_score\"].mean())\n\n\npd.DataFrame(scores_dict)\n\n\n\n\n\n\n\n\nC\ntrain_score\ncv_score\n\n\n\n\n0\n0.000001\n0.598810\n0.598930\n\n\n1\n0.000010\n0.598810\n0.598930\n\n\n2\n0.000100\n0.664707\n0.658645\n\n\n...\n...\n...\n...\n\n\n5\n0.100000\n0.832320\n0.820143\n\n\n6\n1.000000\n0.832320\n0.820143\n\n\n7\n10.000000\n0.832320\n0.820143\n\n\n\n\n8 rows × 3 columns\n\n\n\n\nAt this point, you should be feeling pretty comfortable with hyperparameters.\nWe saw that Ridge has the hyperparameter alpha, well C (annoyingly) has the opposite effect on the fundamental trade-off.\nIn general, we say smaller C leads to a less complex model (whereas with Ridge, lower alpha means higher complexity).\nHigher values of C leads to more overfitting and lower values to less overfitting."
+  },
+  {
+    "objectID": "modules/module8/slides/module8_09.html#logistic-regression-with-text-data",
+    "href": "modules/module8/slides/module8_09.html#logistic-regression-with-text-data",
+    "title": "Logistic Regression",
+    "section": "Logistic regression with text data",
+    "text": "Logistic regression with text data\n\nX = [\n    \"URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!\",\n    \"Lol you are always so convincing.\",\n    \"Nah I don't think he goes to usf, he lives around here though\",\n    \"URGENT! You have won a 1 week FREE membership in our £100000 prize Jackpot!\",\n    \"Had your mobile 11 months or more? U R entitled to Update to the latest colour mobiles with camera for Free! Call The Mobile Update Co FREE on 08002986030\",\n    \"As per your request 'Melle Melle (Oru Minnaminunginte Nurungu Vettam)' has been set as your callertune for all Callers. Press *9 to copy your friends Callertune\"]\n\ny = [\"spam\", \"non spam\", \"non spam\", \"spam\", \"spam\", \"non spam\"]\n\n\nIn one of the practice problems and in the assigment, we apply logistic regression with text data.\nWe want to give you a bit of background for this.\nLet’s bring back our spam dummy data that we looked at in Module 6."
+  },
+  {
+    "objectID": "modules/module9/module9-00-congratulations.html",
+    "href": "modules/module9/module9-00-congratulations.html",
+    "title": "0. Congratulations!",
+    "section": "",
+    "text": "0. Congratulations!\n\nVideoSlides",
+    "crumbs": [
+      "**Module Closing Remarks**",
+      "0. Congratulations!"
+    ]
+  }
+]
