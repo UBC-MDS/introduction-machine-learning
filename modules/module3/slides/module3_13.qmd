@@ -69,7 +69,7 @@ import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from src.model_plotting_mg import plot_classifier
 
-y_encoded = np.where(y == 'Canada', 1, 0)
+y_encoded = np.where(y == 'Canada', 0, 1)
 
 model = DecisionTreeClassifier()
 model.fit(X, y_encoded)
@@ -112,7 +112,7 @@ Validation score: 0.81
 
 ```{python}
 # | echo: false
-y_encoded = np.where(y == 'Canada', 1, 0)
+y_encoded = np.where(y == 'Canada', 0, 1)
 
 model = DecisionTreeClassifier(max_depth=1)
 model.fit(X,y_encoded)

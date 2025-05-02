@@ -354,10 +354,10 @@ We simulate this by using our test set and here we see that our model does not d
 import matplotlib.pyplot as plt
 from src.model_plotting_mg import plot_classifier
 
-y_encoded_train = np.where(y_train == 'Canada', 1, 0)
+y_encoded_train = np.where(y_train == 'Canada', 0, 1)
 model.fit(X_train, y_encoded_train)
 
-y_encoded_test = np.where(y_test == 'Canada', 1, 0)
+y_encoded_test = np.where(y_test == 'Canada', 0, 1)
 
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
