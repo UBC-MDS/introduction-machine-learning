@@ -259,7 +259,7 @@ elif class attendance == 1 and lab3 == 1 and lab4 == 1:
 </section>
 <section class="slide level2">
 
-<div id="be3706bc" class="cell" data-execution_count="2">
+<div id="80fb345a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -333,7 +333,7 @@ elif class attendance == 1 and lab3 == 1 and lab4 == 1:
 </div>
 </div>
 <p><br></p>
-<div id="50b28320" class="cell" data-execution_count="3">
+<div id="fd34b5ac" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>X.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -403,7 +403,7 @@ elif class attendance == 1 and lab3 == 1 and lab4 == 1:
 </div>
 </div>
 <p><br></p>
-<div id="dc481e33" class="cell" data-execution_count="4">
+<div id="70732fce" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>y.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -429,7 +429,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="2101d9fe" class="cell" data-execution_count="5">
+<div id="8390b353" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>X_binary <span class="op">=</span> X.copy()</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [<span class="st">"lab1"</span>, <span class="st">"lab2"</span>, <span class="st">"lab3"</span>, <span class="st">"lab4"</span>, <span class="st">"quiz1"</span>]</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> columns:</span>
