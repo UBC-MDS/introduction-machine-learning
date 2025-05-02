@@ -59,7 +59,7 @@ Running a coding exercise for the first time could take a bit of time for everyt
 
 _**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
 
-Let's bring back the Pokémon dataset that we saw in exercise 15.
+Let's bring back the Pokémon dataset that we saw in exercise 15.  
 
 ```{pyodide}
 import pandas as pd
@@ -86,12 +86,10 @@ print(y_train.value_counts())
 We've built our pipeline and looked at the classification reports but this time we want to do cross-validation and look at the scores from cross-validation of not just accuracy, but precision and recall as well.
 
 ```{pyodide}
-import numpy as np
-import pandas as pd
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from sklearn.model_selection import train_test_split, cross_validate
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
@@ -122,13 +120,13 @@ numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardSc
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
+
+pk_df
 ```
 
 **Tasks:**
@@ -140,17 +138,16 @@ preprocessor = make_column_transformer(
 ```{pyodide}
 #| setup: true
 #| exercise: scoring_and_cross_validation
-import numpy as np
 import pandas as pd
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from sklearn.model_selection import train_test_split, cross_validate
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.svm import SVC
-from src.util.py import print_correct_msg
+from src.utils import print_correct_msg
 
 pk_df = pd.read_csv('data/pokemon.csv')
 
@@ -176,13 +173,11 @@ numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardSc
 
 categorical_transformer = make_pipeline(
     SimpleImputer(strategy="most_frequent"),
-    OneHotEncoder(handle_unknown="ignore"),
-)
+    OneHotEncoder(handle_unknown="ignore"))
 
 preprocessor = make_column_transformer(
     (numeric_transformer, numeric_features), 
-    (categorical_transformer, categorical_features)
-)
+    (categorical_transformer, categorical_features))
 ```
 
 
@@ -202,19 +197,20 @@ ____
 ```{pyodide}
 #| exercise: scoring_and_cross_validation
 #| check: true
+
 assert isinstance(result, pd.DataFrame), "Please output a dataframe."
 
-assert min(multi_scores['test_accuracy']) > 0.90 and max(multi_scores['test_accuracy']) < 0.99, "The range of your test accuracy is incorrect. Are you fitting the model properly?"
-assert min(multi_scores['train_accuracy']) > 0.96 and max(multi_scores['train_accuracy']) < 0.99, "The range of your training accuracy is incorrect. Are you fitting the model properly?"
-assert min(multi_scores['test_precision']) > 0.49 and max(multi_scores['test_precision']) < 0.85, "The range of your test precision is incorrect. Are you fitting the model properly?"
-assert min(multi_scores['train_precision']) > 0.72 and max(multi_scores['train_precision']) < 0.85, "The range of your training precision is incorrect. Are you fitting the model properly?"
-assert min(multi_scores['test_recall']) > 0.50 and max(multi_scores['test_recall']) == 1, "The range of your test recall is incorrect. Are you fitting the model properly?"
-assert min(multi_scores['train_recall']) == 1 and max(multi_scores['train_recall']) == 1, "The range of your training recall is incorrect. Are you fitting the model properly?"
+assert min(result['test_accuracy']) > 0.90 and max(result['test_accuracy']) < 0.99, "The range of your test accuracy is incorrect. Are you fitting the model properly?"
+assert min(result['train_accuracy']) > 0.96 and max(result['train_accuracy']) < 0.99, "The range of your training accuracy is incorrect. Are you fitting the model properly?"
+assert min(result['test_precision']) > 0.49 and max(result['test_precision']) < 0.85, "The range of your test precision is incorrect. Are you fitting the model properly?"
+assert min(result['train_precision']) > 0.72 and max(result['train_precision']) < 0.85, "The range of your training precision is incorrect. Are you fitting the model properly?"
+assert min(result['test_recall']) > 0.50 and max(result['test_recall']) == 1, "The range of your test recall is incorrect. Are you fitting the model properly?"
+assert min(result['train_recall']) == 1 and max(result['train_recall']) == 1, "The range of your training recall is incorrect. Are you fitting the model properly?"
 
-print_correct_msg() 
+print_correct_msg()
 ```
 
-:::: { .hint exercise="scoring_and_cross_validation"}
+:::: { .hint exercise="scoring_and_cross_validation" }
 ::: { .callout-note collapse="false"}
 
 ## Hint 1
@@ -224,7 +220,7 @@ print_correct_msg()
 - Are you calling `cross_validate` on `main_pipe`, `X_train`, and `y_train`?
 - Are you specifying `return_train_score=True` in `cross_validate`?
 - Are you saving the result in a dataframe?
-- 
+
 :::
 ::::
 
