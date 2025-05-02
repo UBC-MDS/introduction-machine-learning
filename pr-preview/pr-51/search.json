@@ -1,0 +1,491 @@
+[
+  {
+    "objectID": "modules/module7/slides/module7_24.html#module-learning-outcomes",
+    "href": "modules/module7/slides/module7_24.html#module-learning-outcomes",
+    "title": "What Did we Learn and What to Expect in Assignment 7",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain why accuracy is not always the best metric in ML.\nExplain components of a confusion matrix.\nDefine precision, recall, and f1-score and use them to evaluate different classifiers.\nIdentify whether there is class imbalance and whether you need to deal with it.\nExplain class_weight and use it to deal with data imbalance.\nAppropriately select a scoring metric given a regression problem.\nInterpret and communicate the meanings of different scoring metrics on regression problems. MSE, RMSE, R2, MAPE.\nApply different scoring functions with cross_validate and GridSearchCV and RandomizedSearchCV."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_16.html#regression-measurements",
+    "href": "modules/module7/slides/module7_16.html#regression-measurements",
+    "title": "Regression Measurements",
+    "section": "Regression measurements",
+    "text": "Regression measurements\nThe scores we are going to discuss are:\n\nmean squared error (MSE)\nR2\nroot mean squared error (RMSE)\nMAPE\n\nIf you want to see these in more detail, you can refer to the sklearn documentation."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_16.html#mean-squared-error-mse",
+    "href": "modules/module7/slides/module7_16.html#mean-squared-error-mse",
+    "title": "Regression Measurements",
+    "section": "Mean squared error (MSE)",
+    "text": "Mean squared error (MSE)\n\n\n\n\n\n\n\n\n\n\n\npredicted_y\n\narray([111740., 117380., 187700., ..., 271420., 265180.,  60860.])\n\n\n\n\nnp.mean((y_train - predicted_y)**2)\n\n2570054492.048064\n\n\n\n\nnp.mean((y_train - y_train)**2)\n\n0.0\n\n\n\nMean Squared Error is a common measure.\nWe calculate this by calculating the difference between the predicted and actual value, square it and sum all these values for every example in the data.\nPerfect predictions would have MSE=0."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_16.html#r2-quick-notes",
+    "href": "modules/module7/slides/module7_16.html#r2-quick-notes",
+    "title": "Regression Measurements",
+    "section": "R2 (quick notes)",
+    "text": "R2 (quick notes)\nKey points:\n\nThe maximum value possible is 1 which means the model has perfect predictions.\nNegative values are very bad: “worse than baseline models such asDummyRegressor”.\n\n\nfrom sklearn.metrics import r2_score\n\n\nThis is the score that sklearn uses by default when you call .score() so we’ve already seen R2 in our regression problems.\nYou can read about it here but we are going to just give you the quick notes.\nIntuition: mean squared error, but flipped where higher values mean a better measurement.\nNormalized so the max is 1.\nWhen you call fit it minimizes MSE / maximizes R2 (or something like that) by default.\nJust like in classification, this isn’t always what you want."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_16.html#root-mean-squared-error-rmse",
+    "href": "modules/module7/slides/module7_16.html#root-mean-squared-error-rmse",
+    "title": "Regression Measurements",
+    "section": "Root mean squared error (RMSE)",
+    "text": "Root mean squared error (RMSE)\n\n\n\n\n\n\n\n\n\n\n\nmean_squared_error(y_train, predicted_y)\n\n2570054492.048064\n\n\n\n\nnp.sqrt(mean_squared_error(y_train, predicted_y))\n\n50695.704867849156\n\n\n\nThe MSE we had before was in dollars2.\nA more relatable metric would be the root mean squared error, or RMSE.\nThis now has the units in dollars. Instead of 2 billion dollars squared our error measurement is around $50,000."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_16.html#mape---mean-absolute-percent-error-mape",
+    "href": "modules/module7/slides/module7_16.html#mape---mean-absolute-percent-error-mape",
+    "title": "Regression Measurements",
+    "section": "MAPE - Mean Absolute Percent Error (MAPE)",
+    "text": "MAPE - Mean Absolute Percent Error (MAPE)\n\npercent_errors = (predicted_y - y_train)/y_train * 100.\npercent_errors.head()\n\n6051     -1.637324\n20113   -14.632727\n14289    10.346855\n13665     6.713070\n14471   -10.965854\nName: median_house_value, dtype: float64\n\n\n\n\nnp.abs(percent_errors).head()\n\n6051      1.637324\n20113    14.632727\n14289    10.346855\n13665     6.713070\n14471    10.965854\nName: median_house_value, dtype: float64\n\n\n\n\n100.*np.mean(np.abs((predicted_y - y_train)/y_train))\n\n18.192997502985218\n\n\n\nSo, finding the percentage error may be handy. Can we compute something like that?\nWe can calculate a percentage error for each example. Now the errors are both positive (predict too high) and negative (predict too low).\nWe can look at the absolute percent error which now shows us how far off we were independent of direction.\nLike MSE, we can take the average over all the examples. This is called Mean Absolute Percent Error (MAPE).\nOk, this is quite interpretable. We can see that on average, we have around 18% error in our predicted median housing valuation."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_09.html#confusion-matrix-for-multi-class",
+    "href": "modules/module7/slides/module7_09.html#confusion-matrix-for-multi-class",
+    "title": "Multi-Class Measurements",
+    "section": "Confusion matrix for multi-class",
+    "text": "Confusion matrix for multi-class\n\nConfusionMatrixDisplay.from_estimator(knn, X_test_digits, y_test_digits, cmap='gray_r');\nplt.show()\n\n\n\nWe see that we can still compute a confusion matrix, for problems with more than 2 labels in the target column.\nThe diagonal values are the correctly labeled digits and the rest are the errors."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_01.html#confusion-matrix",
+    "href": "modules/module7/slides/module7_01.html#confusion-matrix",
+    "title": "Introducing Evaluation Metrics",
+    "section": "Confusion Matrix",
+    "text": "Confusion Matrix\n\npipe.fit(X_train, y_train);\n\n\n\nfrom sklearn.metrics import  ConfusionMatrixDisplay\nimport matplotlib.pyplot as plt\n\nConfusionMatrixDisplay.from_estimator(pipe, X_valid, y_valid, display_labels=[\"Non fraud\", \"Fraud\"], values_format=\"d\", cmap=\"Blues\");\nplt.show()\n\n\n\nA confusion matrix is a table that visualizes the performance of an algorithm. It shows the possible labels and how many of each label the model predicts correctly and incorrectly.\nOnce we fit on our training portion, we can use the ConfusionMatrixDisplay.from_estimator function from sklearn.\nIn this case, we are looking at the validation portion only.\nThis results in a 2 by 2 matrix with the labels Non fraud and Fraud on each axis.\nCareful:\nScikit-learn’s convention is to have the true label as the rows and the predicted label as the columns.\nOthers do it the other way around, e.g., the confusion matrix Wikipedia article."
+  },
+  {
+    "objectID": "modules/module7/module7-24-what_did_we_just_learn.html",
+    "href": "modules/module7/module7-24-what_did_we_just_learn.html",
+    "title": "7. What Did We Just Learn?",
+    "section": "",
+    "text": "7. What Did We Just Learn?\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "7. What Did We Just Learn?"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-21-passing_different_scoring_methods.html",
+    "href": "modules/module7/module7-21-passing_different_scoring_methods.html",
+    "title": "6. Passing Different Scoring Methods",
+    "section": "",
+    "text": "6. Passing Different Scoring Methods\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "6. Passing Different Scoring Methods"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-16-regression_measurements.html",
+    "href": "modules/module7/module7-16-regression_measurements.html",
+    "title": "5. Regression Measurements",
+    "section": "",
+    "text": "5. Regression Measurements\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "5. Regression Measurements"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-13-imbalanced_datasets.html",
+    "href": "modules/module7/module7-13-imbalanced_datasets.html",
+    "title": "4. Imbalanced Datasets",
+    "section": "",
+    "text": "4. Imbalanced Datasets\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "4. Imbalanced Datasets"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-09-multi-class_measurements.html",
+    "href": "modules/module7/module7-09-multi-class_measurements.html",
+    "title": "3. Multi-Class Measurements",
+    "section": "",
+    "text": "3. Multi-Class Measurements\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "3. Multi-Class Measurements"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-05-precision_recall_and_f1_score.html",
+    "href": "modules/module7/module7-05-precision_recall_and_f1_score.html",
+    "title": "2. Precision, Recall and F1 Score",
+    "section": "",
+    "text": "2. Precision, Recall and F1 Score\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "2. Precision, Recall and F1 Score"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-01-introducing_evaluation_metrics.html",
+    "href": "modules/module7/module7-01-introducing_evaluation_metrics.html",
+    "title": "1. Introducing Evaluation Metrics",
+    "section": "",
+    "text": "1. Introducing Evaluation Metrics\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "1. Introducing Evaluation Metrics"
+    ]
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "href": "modules/module1/slides/module1_01.html#prevalence-of-machine-learning-ml",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Prevalence of Machine Learning (ML)",
+    "text": "Prevalence of Machine Learning (ML)\n\n\nYou may not know it, but machine learning (ML) is all around you.\nSome examples include: - Voice assistance - Google news - Recommender systems - Face recognition - Auto completion - Stock market predictions - Character recognition - Self-driving cars - Cancer diagnosis - Drug discovery\nThe best AlphaGo player in the world is not human anymore.\nAlphaGo, a machine learning-based system from Google, is the world’s best player at the moment."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "href": "modules/module1/slides/module1_01.html#what-is-machine-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "What is Machine Learning?",
+    "text": "What is Machine Learning?\n\nA field of study that gives computers the ability to learn without being explicitly programmed.*  – Arthur Samuel (1959)\n\n\n\nWhat exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.\nArthur Samuel said that machine learning is “A field of study that gives computers the ability to learn without being explicitly programmed.”\nMachine learning is a different way to think about problem-solving. Usually, when we write a program we’re thinking logically and mathematically. Here is how a traditional program looks like. We are given input and an algorithm and we produce an output.\nInstead, in the machine learning paradigm, we’re given data and some output and our machine learning algorithm returns a program. we can use this program to predict the output for some unseen input.\nIn this paradigm, we’re making observations about an uncertain world and thinking about it statistically."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "href": "modules/module1/slides/module1_01.html#some-concrete-examples-of-supervised-learning",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Some concrete examples of supervised learning",
+    "text": "Some concrete examples of supervised learning\n \nExample 1: Predict whether a patient has a liver disease or not\nIn all the the upcoming examples, Don’t worry about the code. Just focus on the input and output in each example.\n\nBefore we start let’s look at some concrete examples of supervised machine learning.\nOur first example is predicting whether a patient has a liver disease or not.\nFor now, ignore the code and only focus on input and output."
+  },
+  {
+    "objectID": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "href": "modules/module1/slides/module1_01.html#predict-labels-with-associated-probability-scores-for-unseen-images",
+    "title": "What is Supervised Machine Learning?",
+    "section": "Predict labels with associated probability scores for unseen images",
+    "text": "Predict labels with associated probability scores for unseen images\n\nimages = glob.glob(\"test_images/*.*\")\nfor image in images:\n    img = Image.open(image)\n    img.load()\n    plt.imshow(img)\n    plt.show()\n    df = classify_image(img)\n    print(df.to_string(index=False))\n\n\n  Class  Probability\n      ox     0.869893\n  oxcart     0.065034\n  sorrel     0.028593\n gazelle     0.010053\n\n\nHere we use a machine learning model trained on millions of images and their labels.\nWe are applying our model to predict the labels of unseen images.\nIn this particular case, our unseen image is that of an ox.\nWhen we apply our trained model on this image, it gives us some predictions and their associated probability scores.\nSo in this particular case, the model predicted that the image was that of an ox with a confidence of 0.869."
+  },
+  {
+    "objectID": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "href": "modules/module1/module1-01-what_is_supervised_machine_learning.html",
+    "title": "1. What is Supervised Machine Learning?",
+    "section": "",
+    "text": "1. What is Supervised Machine Learning?\n\nVideoSlides",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "1. What is Supervised Machine Learning?"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html",
+    "href": "modules/module1/module1-03-building_a_model.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "href": "modules/module1/module1-03-building_a_model.html#building-a-model",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s start by building a baseline model using DummyClassifier() on the candybars dataset.\n\n\n\n\n\n\nTasks:\n\nBuild a baseline model using DummyClassifier() and most_frequent for the strategy argument. Save this in an object named model.\nFit your model and then predict on the target column.\nWhat is the accuracy of the model to 2 decimal places? Save this in the object accuracy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre using DummyClassifier(strategy=\"most_frequent\")?\nAre you using the model named model?\nAre you calling .fit(X,y) on your model?\nAre you using model.score(X,y) to find the accuracy?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M1. Machine Learning Terminology**",
+      "4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-00-module_learning_outcomes.html",
+    "href": "modules/module7/module7-00-module_learning_outcomes.html",
+    "title": "0. Module Learning Outcomes",
+    "section": "",
+    "text": "0. Module Learning Outcomes\n\nVideoSlides",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "0. Module Learning Outcomes"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-02-name_that_value.html",
+    "href": "modules/module7/module7-02-name_that_value.html",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe’ve seen our basketball dataset before and predicted using SVC with it before but this time we are going to have a look at how well our model does by building a confusion matrix.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline named pipe_bb that preprocesses with preprocessor and builds an SVC() model with default hyperparameters.\nFit the pipeline on X_train and y_train.\nNext, build a confusion matrix using plot_confusion_matrix and calling pipe_bb on the test set. Pick any colour you like with cmap. You can find the colour options here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using make_pipeline(preprocessor, SVC())?\nAre you fitting your model?\nAre you calling pipe_bb, X_test and y_test in the ConfusionMatrixDisplay.from_estimator() function?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-02-name_that_value.html#code-a-confusion-matrix",
+    "href": "modules/module7/module7-02-name_that_value.html#code-a-confusion-matrix",
+    "title": "1.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nWe’ve seen our basketball dataset before and predicted using SVC with it before but this time we are going to have a look at how well our model does by building a confusion matrix.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline named pipe_bb that preprocesses with preprocessor and builds an SVC() model with default hyperparameters.\nFit the pipeline on X_train and y_train.\nNext, build a confusion matrix using plot_confusion_matrix and calling pipe_bb on the test set. Pick any colour you like with cmap. You can find the colour options here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using make_pipeline(preprocessor, SVC())?\nAre you fitting your model?\nAre you calling pipe_bb, X_test and y_test in the ConfusionMatrixDisplay.from_estimator() function?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 1.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-06-lets_calculate.html",
+    "href": "modules/module7/module7-06-lets_calculate.html",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "For the next few questions, use the confusion matrix above and assume that Forward is the positive label.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s calculate some measurements from our basketball dataset from the previous question.\n\n\n\n\n\n\nTasks:\n\nImport the precision, recall, f1 and classification report libraries.\nPredict the values on X_valid using the pipe_unbalanced and the .predict() function and save the result in an object named predicted_y.\nUsing sklearn tools, calculate precision, recall and f1 scores and save them in the respective names precision, recall, and f1. Make sure you are comparing the true y_valid labels to the predicted labels. You will need to assign a positive label to the “Forward”(F) position. This can be specified in the pos_label of each function. Round each calculation to 3 decimal places.\nPrint a classification report of all the measurements comparing y_valid and predicted_y and assigning the target_names argument to [\"F\", \"G\"]. You can use the digits function to round all the calculations to 3 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the arguments y_valid, predicted_y and pos_label=\"F\" for the scoring functions?\nAre you using the arguments y_valid, predicted_y and digits=3 for the classification_report function?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-06-lets_calculate.html#lets-calculate",
+    "href": "modules/module7/module7-06-lets_calculate.html#lets-calculate",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "For the next few questions, use the confusion matrix above and assume that Forward is the positive label.",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-06-lets_calculate.html#using-sklearn-to-obtain-different-measurements",
+    "href": "modules/module7/module7-06-lets_calculate.html#using-sklearn-to-obtain-different-measurements",
+    "title": "2.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s calculate some measurements from our basketball dataset from the previous question.\n\n\n\n\n\n\nTasks:\n\nImport the precision, recall, f1 and classification report libraries.\nPredict the values on X_valid using the pipe_unbalanced and the .predict() function and save the result in an object named predicted_y.\nUsing sklearn tools, calculate precision, recall and f1 scores and save them in the respective names precision, recall, and f1. Make sure you are comparing the true y_valid labels to the predicted labels. You will need to assign a positive label to the “Forward”(F) position. This can be specified in the pos_label of each function. Round each calculation to 3 decimal places.\nPrint a classification report of all the measurements comparing y_valid and predicted_y and assigning the target_names argument to [\"F\", \"G\"]. You can use the digits function to round all the calculations to 3 decimal places.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the arguments y_valid, predicted_y and pos_label=\"F\" for the scoring functions?\nAre you using the arguments y_valid, predicted_y and digits=3 for the classification_report function?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 2.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.html",
+    "href": "modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.html",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nThis time with our basketball dataset we are predicting multiple positions, in the last one we used only “Forward” or “Guard” as our target labels and now we have 6 positions instead of 2!\n\n\n\n\n\n\nTasks:\n\nPrint a classification report of all the measurements comparing y_valid and predicted_y. You can use the digits function to round all the calculations to 3 decimal places.\nUsing zero_division=0 will suppress the warning.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the arguments y_valid, predicted_y, and digits=3 for the classification_report function?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFor the next questions use the confusion matrix above and assume that Forward is the positive label.",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.html#using-sklearn-to-obtain-different-measurements",
+    "href": "modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.html#using-sklearn-to-obtain-different-measurements",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nThis time with our basketball dataset we are predicting multiple positions, in the last one we used only “Forward” or “Guard” as our target labels and now we have 6 positions instead of 2!\n\n\n\n\n\n\nTasks:\n\nPrint a classification report of all the measurements comparing y_valid and predicted_y. You can use the digits function to round all the calculations to 3 decimal places.\nUsing zero_division=0 will suppress the warning.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the arguments y_valid, predicted_y, and digits=3 for the classification_report function?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.html#multi-class-questions",
+    "href": "modules/module7/module7-10-using_sklearn_to_obtain_different_measurements.html#multi-class-questions",
+    "title": "3.1. Exercises",
+    "section": "",
+    "text": "For the next questions use the confusion matrix above and assume that Forward is the positive label.",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 3.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-14-ture_or_false_unbalanced_data.html",
+    "href": "modules/module7/module7-14-ture_or_false_unbalanced_data.html",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s bring back the Pokémon dataset that we’ve seen a few times.\nAfter splitting and inspecting the target column we see that this dataset is fairly unbalanced.\nIn this case, our positive label is whether a Pokémon is “legendary” or not. In our dataset, a value of 1 represents a legendary Pokémon and 0 is a non-legendary one.\n\n\n\n\n\n\nLet’s see how our measurements differ when we balance our datasets.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline containing the column transformer and an SVC model with default hyperparameters. Fit this pipeline and name it pipe_unbalanced.\nPredict your values on the validation set and save them in an object named unbalanced_predicted.\nUsing sklearn tools, print a classification report comparing the validation y labels to unbalanced_predicted. Set digits=3.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you coding unbalanced_predicted as make_pipeline(preprocessor, SVC()).\nAre you fitting on the training set?\nAre you building a classification report with classification_report(y_valid, unbalanced_predicted, digits=2)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTasks:\n\nNext, build a pipeline containing the column transformer and an SVC model but this time setting class_weight=\"balanced\" in the SVM classifier. Name this pipeline in an object called pipe_balanced and fit it on the training data.\nPredict values on the validation set using pipe_balanced and save them in an object named balanced_predicted.\nPrint another classification report comparing the validation y labels to balanced_predicted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you building make_pipeline(preprocessor, SVC(class_weight=\"balanced\")) and fitting it?\nAre you predicting the values from the balanced pipeline using pipe_balanced.predict(X_valid) and naming it balanced_predicted?\nAre you building a classification report with classification_report(y_valid, balanced_predicted, digits=2)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-14-ture_or_false_unbalanced_data.html#balancing-our-data-in-action",
+    "href": "modules/module7/module7-14-ture_or_false_unbalanced_data.html#balancing-our-data-in-action",
+    "title": "4.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s bring back the Pokémon dataset that we’ve seen a few times.\nAfter splitting and inspecting the target column we see that this dataset is fairly unbalanced.\nIn this case, our positive label is whether a Pokémon is “legendary” or not. In our dataset, a value of 1 represents a legendary Pokémon and 0 is a non-legendary one.\n\n\n\n\n\n\nLet’s see how our measurements differ when we balance our datasets.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline containing the column transformer and an SVC model with default hyperparameters. Fit this pipeline and name it pipe_unbalanced.\nPredict your values on the validation set and save them in an object named unbalanced_predicted.\nUsing sklearn tools, print a classification report comparing the validation y labels to unbalanced_predicted. Set digits=3.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you coding unbalanced_predicted as make_pipeline(preprocessor, SVC()).\nAre you fitting on the training set?\nAre you building a classification report with classification_report(y_valid, unbalanced_predicted, digits=2)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTasks:\n\nNext, build a pipeline containing the column transformer and an SVC model but this time setting class_weight=\"balanced\" in the SVM classifier. Name this pipeline in an object called pipe_balanced and fit it on the training data.\nPredict values on the validation set using pipe_balanced and save them in an object named balanced_predicted.\nPrint another classification report comparing the validation y labels to balanced_predicted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you building make_pipeline(preprocessor, SVC(class_weight=\"balanced\")) and fitting it?\nAre you predicting the values from the balanced pipeline using pipe_balanced.predict(X_valid) and naming it balanced_predicted?\nAre you building a classification report with classification_report(y_valid, balanced_predicted, digits=2)?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 4.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-17-name_that_measurement.html",
+    "href": "modules/module7/module7-17-name_that_measurement.html",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Observation\nTrue Value\nPredicted Value\n\n\n\n\n0\n4\n5\n\n\n1\n12\n10\n\n\n2\n6\n9\n\n\n3\n9\n8\n\n\n4\n3\n3\n\n\n\n\n\n\n\n\n\n\nInstructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s calculate some measurements from our basketball dataset this time predicting the players’ salary. How well does our model do?\n\n\n\n\n\n\nTasks:\n\nCalculate the MSE, RMSE, Rs2, and MAP measurement by comparing the true values to what the model predicted on the validation set. Name the objects mse_calc, rmse_calc, re_calc and mape_calc respectively.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the arguments y_valid and predict_valid for your calculations?\nAre you using np.sqrt() on your mse_calc to calculate rmse_calc?\nAre you using np.mean(np.abs((predict_valid - y_valid) / y_valid)) * 100.0 to calculate mape_calc?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-17-name_that_measurement.html#calculating-by-hand",
+    "href": "modules/module7/module7-17-name_that_measurement.html#calculating-by-hand",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Observation\nTrue Value\nPredicted Value\n\n\n\n\n0\n4\n5\n\n\n1\n12\n10\n\n\n2\n6\n9\n\n\n3\n9\n8\n\n\n4\n3\n3",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-17-name_that_measurement.html#calculating-regression-measurements",
+    "href": "modules/module7/module7-17-name_that_measurement.html#calculating-regression-measurements",
+    "title": "5.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s calculate some measurements from our basketball dataset this time predicting the players’ salary. How well does our model do?\n\n\n\n\n\n\nTasks:\n\nCalculate the MSE, RMSE, Rs2, and MAP measurement by comparing the true values to what the model predicted on the validation set. Name the objects mse_calc, rmse_calc, re_calc and mape_calc respectively.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you using the arguments y_valid and predict_valid for your calculations?\nAre you using np.sqrt() on your mse_calc to calculate rmse_calc?\nAre you using np.mean(np.abs((predict_valid - y_valid) / y_valid)) * 100.0 to calculate mape_calc?\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 5.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-22-true_or_false_scoring_with_cross-validation.html",
+    "href": "modules/module7/module7-22-true_or_false_scoring_with_cross-validation.html",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s bring back the Pokémon dataset that we saw in exercise 15.\n\n\n\n\n\n\nWe’ve built our pipeline and looked at the classification reports but this time we want to do cross-validation and look at the scores from cross-validation of not just accuracy, but precision and recall as well.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline containing the column transformer and an SVC model and set class_weight=\"balanced\" in the SVM classifier. Name this pipeline main_pipe.\nPerform cross-validation using cross-validate on the training split using the scoring measures accuracy, precision and recall.\nSave the results in a dataframe named multi_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you coding main_pipe as make_pipeline(preprocessor, SVC()).\nAre you specifying scoring = ['accuracy', 'precision', 'recall'] in your cross validation function?\nAre you calling cross_validate on main_pipe, X_train, and y_train?\nAre you specifying return_train_score=True in cross_validate?\nAre you saving the result in a dataframe?\n\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/module7-22-true_or_false_scoring_with_cross-validation.html#scoring-and-cross-validation",
+    "href": "modules/module7/module7-22-true_or_false_scoring_with_cross-validation.html#scoring-and-cross-validation",
+    "title": "6.1. Exercises",
+    "section": "",
+    "text": "Instructions:\nRunning a coding exercise for the first time could take a bit of time for everything to load. Be patient, it could take a few minutes.\nWhen you see ____ in a coding exercise, replace it with what you assume to be the correct code. Run it and see if you obtain the desired output. Submit your code to validate if you were correct.\nMake sure you remove the hash (#) symbol in the coding portions of this question. We have commented them so that the line won’t execute and you can test your code after each step.\nLet’s bring back the Pokémon dataset that we saw in exercise 15.\n\n\n\n\n\n\nWe’ve built our pipeline and looked at the classification reports but this time we want to do cross-validation and look at the scores from cross-validation of not just accuracy, but precision and recall as well.\n\n\n\n\n\n\nTasks:\n\nBuild a pipeline containing the column transformer and an SVC model and set class_weight=\"balanced\" in the SVM classifier. Name this pipeline main_pipe.\nPerform cross-validation using cross-validate on the training split using the scoring measures accuracy, precision and recall.\nSave the results in a dataframe named multi_scores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint 1\n\n\n\n\n\n\nAre you coding main_pipe as make_pipeline(preprocessor, SVC()).\nAre you specifying scoring = ['accuracy', 'precision', 'recall'] in your cross validation function?\nAre you calling cross_validate on main_pipe, X_train, and y_train?\nAre you specifying return_train_score=True in cross_validate?\nAre you saving the result in a dataframe?\n\n\n\n\n\n\n\n\n\n\n\n\n\nFully worked solution:",
+    "crumbs": [
+      "**M7. Assessment and Measurements**",
+      "&nbsp;&nbsp; 6.1. Exercises"
+    ]
+  },
+  {
+    "objectID": "modules/module7/slides/module7_00.html#module-learning-outcomes",
+    "href": "modules/module7/slides/module7_00.html#module-learning-outcomes",
+    "title": "Module Learning Outcomes",
+    "section": "Module Learning Outcomes",
+    "text": "Module Learning Outcomes\nBy the end of the module, students are expected to:\n\nExplain why accuracy is not always the best metric in ML.\nExplain components of a confusion matrix.\nDefine precision, recall, and f1-score and use them to evaluate different classifiers.\nIdentify whether there is class imbalance and whether you need to deal with it.\nExplain class_weight and use it to deal with data imbalance.\nAppropriately select a scoring metric given a regression problem.\nInterpret and communicate the meanings of different scoring metrics on regression problems. MSE, RMSE, R2, MAPE.\nApply different scoring functions with cross_validate and GridSearchCV and RandomizedSearchCV."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_05.html#accuracy-is-only-part-of-the-story",
+    "href": "modules/module7/slides/module7_05.html#accuracy-is-only-part-of-the-story",
+    "title": "Precision, Recall and F1 Score",
+    "section": "Accuracy is only part of the story…",
+    "text": "Accuracy is only part of the story…\n\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.tree import DecisionTreeClassifier\n\npipe_tree = make_pipeline(\n    (StandardScaler()),\n    (DecisionTreeClassifier(random_state=123))\n)\n\n\n\nfrom sklearn.model_selection import cross_validate\npd.DataFrame(cross_validate(pipe_tree, X_train, y_train, return_train_score=True)).mean()\n\nfit_time       9.863044\nscore_time     0.005500\ntest_score     0.999119\ntrain_score    1.000000\ndtype: float64\n\n\n\n\ny_train.value_counts(normalize=True)\n\n0    0.998302\n1    0.001698\nName: Class, dtype: float64\n\n\n\nWe have been using .score to assess our models, which returns accuracy by default.\nAccuracy is misleading when we have a class imbalance.\nWe need other metrics to assess our models.\nWe’ll discuss three commonly used metrics which are based on the confusion matrix:\n\nrecall\nprecision\nf1 score\n\nNote that these metrics will only help us assess our model.\nLater we’ll talk about a few ways to address the class imbalance problem."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_05.html#recall",
+    "href": "modules/module7/slides/module7_05.html#recall",
+    "title": "Precision, Recall and F1 Score",
+    "section": "Recall",
+    "text": "Recall\nAmong all positive examples, how many did you identify?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRecall: how many of the actual positive examples did you identify?\nSo, in this case, since fraud is our positive label, we see the correctly identified labels in the bottom right quadrant and the ones that we missed in the bottom left quadrant."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_05.html#precision",
+    "href": "modules/module7/slides/module7_05.html#precision",
+    "title": "Precision, Recall and F1 Score",
+    "section": "Precision",
+    "text": "Precision\nAmong the positive examples you identified, how many were actually positive?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrecision: Of the frauds we “caught”, the fraction that was actually frauds.\nWith fraud as our positive label, we see the correctly identified fraud in the bottom right quadrant and the labels we incorrectly labeled as frauds in the top right."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_05.html#f1",
+    "href": "modules/module7/slides/module7_05.html#f1",
+    "title": "Precision, Recall and F1 Score",
+    "section": "f1",
+    "text": "f1\nf1-score combines precision and recall to give one score.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nf1: The harmonic mean of precision and recall.\nf1-score combines precision and recall to give one score. which could be used in hyperparameter optimization, for instance."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_05.html#calculate-evaluation-metrics-by-ourselves-and-with-sklearn",
+    "href": "modules/module7/slides/module7_05.html#calculate-evaluation-metrics-by-ourselves-and-with-sklearn",
+    "title": "Precision, Recall and F1 Score",
+    "section": "Calculate evaluation metrics by ourselves and with sklearn",
+    "text": "Calculate evaluation metrics by ourselves and with sklearn\n\ndata = {}\ndata[\"accuracy\"] = [(TP + TN) / (TN + FP + FN + TP)]\ndata[\"error\"] = [(FP + FN) / (TN + FP + FN + TP)]\ndata[\"precision\"] = [ TP / (TP + FP)] \ndata[\"recall\"] = [TP / (TP + FN)] \ndata[\"f1 score\"] = [(2 * precision * recall) / (precision + recall)] \nmeasures_df = pd.DataFrame(data, index=['ourselves'])\n\n\nWe can calculate all these measurements ourselves using basic math, or…"
+  },
+  {
+    "objectID": "modules/module7/slides/module7_05.html#classification-report",
+    "href": "modules/module7/slides/module7_05.html#classification-report",
+    "title": "Precision, Recall and F1 Score",
+    "section": "Classification report",
+    "text": "Classification report\n\nfrom sklearn.metrics import classification_report\n\n\n\npipe_tree.classes_\n\narray([0, 1])\n\n\n\n\nprint(classification_report(y_valid, pipe_tree.predict(X_valid),\n        target_names=[\"non-fraud\", \"fraud\"]))\n\n              precision    recall  f1-score   support\n\n   non-fraud       1.00      1.00      1.00     59708\n       fraud       0.69      0.75      0.72       102\n\n    accuracy                           1.00     59810\n   macro avg       0.85      0.87      0.86     59810\nweighted avg       1.00      1.00      1.00     59810\n\n\n\n\nThere is a convenient function called classification_report in sklearn which gives the information that we described earlier.\nWe can use classes to see which position each label takes so we can designate them more comprehensive labels in our report.\nNote that what you consider “positive” (fraud in our case) is important when calculating precision, recall, and f1-score.\nIf you flip what is considered positive or negative, we’ll end up with different True Positive, False Positive, True Negatives and False Negatives, and hence different precision, recall, and f1-scores.\nThe support column just shows the number of examples in each class."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#class-imbalance-in-training-sets",
+    "href": "modules/module7/slides/module7_13.html#class-imbalance-in-training-sets",
+    "title": "Imbalanced Datasets",
+    "section": "Class imbalance in training sets",
+    "text": "Class imbalance in training sets\n\nX_train.head()\n\n\n\n\n\n\n\n\nTime\nV1\nV2\nV3\n...\nV26\nV27\nV28\nAmount\n\n\n\n\n121775\n76314.0\n1.505415\n-0.546326\n-0.518913\n...\n0.022535\n-0.017247\n-0.010005\n20.00\n\n\n128746\n78823.0\n-0.735559\n0.459686\n2.093094\n...\n-0.597624\n-0.285776\n-0.258780\n12.99\n\n\n59776\n48998.0\n1.217941\n0.783337\n-0.070014\n...\n-0.352676\n0.041878\n0.057699\n1.00\n\n\n282774\n171138.0\n2.024211\n-0.586693\n-2.554675\n...\n0.214823\n-0.008147\n-0.068130\n10.00\n\n\n268042\n163035.0\n-0.151161\n1.067465\n-0.771064\n...\n-0.209491\n0.213933\n0.233276\n36.26\n\n\n\n\n5 rows × 30 columns\n\n\n\n\n\ny_train.value_counts('Class')\n\n0    0.998237\n1    0.001763\nName: Class, dtype: float64\n\n\n\nA class imbalance typically refers to having many more examples of one class than another in one’s training set.\nWe’ve seen this in our fraud dataset where our class target column had many more non-fraud than fraud examples.\nReal-world data is often imbalanced and can be seen in scenarios such as:\n\nAd clicking data (Only around ~0.01% of ads are clicked.)\nSpam classification datasets."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#addressing-class-imbalance",
+    "href": "modules/module7/slides/module7_13.html#addressing-class-imbalance",
+    "title": "Imbalanced Datasets",
+    "section": "Addressing class imbalance",
+    "text": "Addressing class imbalance\nA very important question to ask yourself:\n“Why do I have a class imbalance?”\n\nIs it because one class is much rarer than the other?\nIs it because of my data collection methods?\n\nBut, if you answer “no” to both of these, it may be fine to just ignore the class imbalance.\n\nA very important question to ask yourself: “Why do I have a class imbalance?”\n\nIs it because one class is much rarer than the other?\n\nIf it’s just because one is rarer than the other, you need to ask whether you care about False positives or False negatives more than the other.\n\n\nIs it because of my data collection methods?\n\nIf it’s the data collection, then that means your test and training data come from different distributions!\n\n\nBut, if you answer “no” to both of these, it may be fine to just ignore the class imbalance."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#handling-imbalance",
+    "href": "modules/module7/slides/module7_13.html#handling-imbalance",
+    "title": "Imbalanced Datasets",
+    "section": "Handling imbalance",
+    "text": "Handling imbalance\nThere are two common approaches to this:\n\nChanging the training procedure\nChanging the data (not in this course)\n\nUndersampling\nOversampling\n\n\n\nCan we change the model itself so that it considers the errors that are important to us?\nThere are two common approaches to this:\n\nChanging the training procedure\nChanging the data (not in this course)\n\nUndersampling\nOversampling"
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#changing-the-training-procedure-class_weight",
+    "href": "modules/module7/slides/module7_13.html#changing-the-training-procedure-class_weight",
+    "title": "Imbalanced Datasets",
+    "section": "Changing the training procedure: class_weight",
+    "text": "Changing the training procedure: class_weight\n\n\n`class_weight: dict or ‘balanced’, default=None`\n\nSet the parameter C of class i to class_weight[i] * C for SVC. \nIf not given, all classes are supposed to have weight one. \nThe “balanced” mode uses the values of y to automatically adjust weights inversely proportional to class frequencies in \nthe input data as n_samples / (n_classes * np.bincount(y))\n\nMost sklearn classifiers have a parameter called class_weight.\nThis allows you to specify that one class is more important than another.\nFor example, maybe a false negative is 10x more problematic than a false positive.\nSo, if you look for example, in the documentation for the SVM classifier, we see class_weight as a parameter."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#class_weightbalanced",
+    "href": "modules/module7/slides/module7_13.html#class_weightbalanced",
+    "title": "Imbalanced Datasets",
+    "section": "class_weight=“balanced”",
+    "text": "class_weight=“balanced”\n\ntree_balanced =DecisionTreeClassifier(random_state=7, class_weight=\"balanced\")\ntree_balanced.fit(X_train,y_train);\n\n\n\nWe can also set class_weight=\"balanced\".\nThis sets the weights so that the classes are “equal”.\nWe have reduced false negatives but we have many more false positives now!"
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#are-we-doing-better-with-class_weightbalanced",
+    "href": "modules/module7/slides/module7_13.html#are-we-doing-better-with-class_weightbalanced",
+    "title": "Imbalanced Datasets",
+    "section": "Are we doing better with class_weight=“balanced”?",
+    "text": "Are we doing better with class_weight=“balanced”?\n\ntree_default.score(X_valid, y_valid)\n\n0.9989968232737001\n\n\n\n\ntree_balanced.score(X_valid, y_valid)\n\n0.99879618792844\n\n\n\nChanging the class weight will generally reduce accuracy.\nThe original model was trying to maximize accuracy. Now you’re telling it to do something different.\nBut that’s ok since accuracy isn’t the only metric that matters.\nLet’s explain why this happens.\nSince there are so many more negative examples than positive, false positives affect accuracy much more than false negatives.\nThus, precision matters a lot more than recall.\nSo, the default method trades off a lot of recall for a bit of precision."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_13.html#is-stratifying-a-good-idea",
+    "href": "modules/module7/slides/module7_13.html#is-stratifying-a-good-idea",
+    "title": "Imbalanced Datasets",
+    "section": "Is stratifying a good idea?",
+    "text": "Is stratifying a good idea?\nYes and no:\n\nNo longer a random sample.\nIt can be especially useful in multi-class situations.\n\nBut in general, these are difficult questions to answer.\n\nWell, it’s no longer a random sample, which is probably theoretically bad, but not that big of a deal and If you have many examples, it shouldn’t matter as much.\nIt can be especially useful in multi-class situations, say if you have one class with very few cases.\nIn general, these are difficult questions to answer."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_21.html#cross-validation",
+    "href": "modules/module7/slides/module7_21.html#cross-validation",
+    "title": "Passing Different Scoring Methods",
+    "section": "Cross-validation",
+    "text": "Cross-validation\n\nfrom sklearn.model_selection import cross_validate\n\npd.DataFrame(cross_validate(pipe_regression, X_train, y_train, return_train_score=True, scoring = 'neg_root_mean_squared_error'))\n\n\n\n\n\n\n\n\nfit_time\nscore_time\ntest_score\ntrain_score\n\n\n\n\n0\n0.041468\n0.263701\n-62462.584290\n-51440.540539\n\n\n1\n0.037840\n0.248649\n-63437.715015\n-51263.979666\n\n\n2\n0.037468\n0.257294\n-62613.202523\n-51758.817852\n\n\n3\n0.039150\n0.260394\n-64204.295214\n-51343.743586\n\n\n4\n0.038005\n0.216142\n-59217.838633\n-47325.157312\n\n\n\n\n\n\n\n\nNormally after building our pipelines, we would now either do cross-validation or hyperparameter tuning but let’s start with the cross_validate() function.\nAll the possible scoring metrics that this argument accepts is available here.\nIn this case, if we wanted the RMSE measure, we would specify neg_mean_squared_error and the negated value of the metric will be returned in our dataframe."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_21.html#what-about-hyperparameter-tuning",
+    "href": "modules/module7/slides/module7_21.html#what-about-hyperparameter-tuning",
+    "title": "Passing Different Scoring Methods",
+    "section": "What about hyperparameter tuning?",
+    "text": "What about hyperparameter tuning?\n\npipe_regression = make_pipeline(preprocessor, KNeighborsRegressor())\n\nparam_grid = {\"kneighborsregressor__n_neighbors\": [2, 5, 50, 100]}\n\n\n\nfrom sklearn.model_selection import GridSearchCV\n\ngrid_search = GridSearchCV(pipe_regression, param_grid, cv=5, return_train_score=True, n_jobs=-1, scoring= mape_scorer);\ngrid_search.fit(X_train, y_train);\n\n\n\ngrid_search.best_params_\n\n{'kneighborsregressor__n_neighbors': 100}\n\n\n\n\ngrid_search.best_score_\n\n24.63336199650092\n\n\n\nWe can do exactly the same thing we saw above with cross_validate() but instead with GridSearchCV and RandomizedSearchCV.\nOk wait hold on, let’s think about this again.\nThe way that best_params_ works is that it selects the parameters where the scoring measure selected is the highest measure, the problem with that is MAPE is an error, and we want the parameter with the lowest value, not the highest."
+  },
+  {
+    "objectID": "modules/module7/slides/module7_21.html#classification",
+    "href": "modules/module7/slides/module7_21.html#classification",
+    "title": "Passing Different Scoring Methods",
+    "section": "Classification",
+    "text": "Classification\n\ncc_df = pd.read_csv('data/creditcard.csv.zip', encoding='latin-1')\ntrain_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)\n\nX_train, y_train = train_df.drop(columns=[\"Class\"]), train_df[\"Class\"]\nX_test, y_test = test_df.drop(columns=[\"Class\"]), test_df[\"Class\"]\n\n\nLet’s bring back our credit card data set and build our pipeline."
+  }
+]
