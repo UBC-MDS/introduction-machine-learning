@@ -17,7 +17,7 @@ format: live-html
         {
         '<code>beta</code>': 'What comes before Beta?',
         '<code>alpha</code>': 'Super!',
-        '<code>a</code>': 'Closer but not quiet.',
+        '<code>a</code>': 'Close but not quiet.',
         '<code>alpheba</code>': 'Any chance you have seen the musical Wicked? This is a name, not a hyperparameter.',
         },
         '<code>alpha</code>',

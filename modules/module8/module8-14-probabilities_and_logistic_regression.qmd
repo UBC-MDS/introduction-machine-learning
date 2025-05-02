@@ -417,7 +417,7 @@ legend_sorted
         'Which of the following Pokémon is the model confident in classifying it as  "not legendary"?',
         {
         'Uxie': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
-        'Zygarde': '',
+        'Zygarde': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
         'Mandibuzz': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
         'Diglett': '',
         },
