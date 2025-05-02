@@ -38,6 +38,28 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M8. Linear Models**"
+        contents:
+          - href: modules/module8/module8-00-module_learning_outcomes.qmd
+          - href: modules/module8/module8-01-introducing_linear_regression.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module8/module8-02-linear_regression_questions.qmd
+          - href: modules/module8/module8-05-coefficients_and_coef_.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module8/module8-06-linear_model_coefficient_questions.qmd
+          - href: modules/module8/module8-09-logistic_regression.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module8/module8-10-logistic_regression_prediction.qmd
+          - href: modules/module8/module8-13-predicting_probabilities.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module8/module8-14-probabilities_and_logistic_regression.qmd
+          - href: modules/module8/module8-17-multi-class_classification.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module8/module8-18-multi-class_questions.qmd
+          - href: modules/module8/module8-21-what_did_we_just_learn.qmd
+      - section: "**Module Closing Remarks**"
+        contents:
+          - href: modules/module9/module9-00-congratulations.qmd
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.
@@ -46,7 +68,7 @@ format:
   html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px
@@ -54,7 +76,7 @@ format:
   live-html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px

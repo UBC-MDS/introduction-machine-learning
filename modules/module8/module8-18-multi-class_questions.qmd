@@ -1,0 +1,321 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 5.1. Exercises
+
+## Multi-Class Questions
+
+Use the following coefficient output to answer the questions below: 
+
+```out
+              Forward   Guard      Other
+weight      -0.031025 -0.193441  0.224466
+height       0.227869 -1.358500  1.130631
+draft_year  -0.017517  0.010280  0.007237
+draft_round  0.250149  0.501243 -0.751392
+draft_peak  -0.006979 -0.005453  0.012432
+
+```
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'For which feature does increasing its value always push the prediction away from the <code>Other</code> class??',
+        {
+        '<code>weight</code>': 'Try looking at the <code>Other</code> column.',
+        '<code>height</code>': 'Try looking at the <code>Other</code> column.',
+        '<code>draft_year</code>': 'Try looking at the <code>Other</code> column.',
+        '<code>draft_round</code>': '',
+        '<code>draft_peak</code>': 'Try looking at the <code>Other</code> column.',
+        },
+        '<code>draft_round</code>',
+    );
+</script>
+
+## True or False: Coefficients
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 1',
+        'Decision trees use coefficients for multi-class problems.',
+        {
+        'True': 'I think you might be confusing decision trees with SVMs and Linear models...',
+        'False': 'Cool!',
+        },
+        'False',
+    );
+</script>
+
+## Multi Class Revisited
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Bringing back the Basketball dataset, we are going to take a look at how we assess the predictions from a logistic regression model. 
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import ConfusionMatrixDisplay
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+bball = bball.replace({'F-G': 'Other', 'F-C': 'Other', 'G-F': 'Other', 'C-F': 'Other', 'C': 'Other'})
+df_train, df_test = train_test_split(bball, test_size=0.2, random_state=1)
+
+
+X_train = df_train[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "salary", "country"]]
+X_test = df_test[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "salary", "country"]]
+y_train = df_train['position']
+y_test = df_test['position']
+
+# Split the numeric and categorical features 
+numeric_features = [ "weight",
+                     "height",
+                     "draft_year",
+                     "draft_round",
+                     "draft_peak"]
+
+categorical_features = ["team", "country"]
+
+bball
+```
+
+**Tasks:**
+
+- Build and fit a pipeline containing the column transformer and a logistic regression model. Name this pipeline `lr_pipe`.
+- Fit your pipeline on the training data.
+- Plot a confusion matrix for the test set prediction results and answer the questions below. 
+
+```{pyodide}
+#| setup: true
+#| exercise: multi_class_revised
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import ConfusionMatrixDisplay
+from src.utils import print_correct_msg
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+bball = bball.replace({'F-G': 'Other', 'F-C': 'Other', 'G-F': 'Other', 'C-F': 'Other', 'C': 'Other'})
+df_train, df_test = train_test_split(bball, test_size=0.2, random_state=1)
+
+
+X_train = df_train[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "salary", "country"]]
+X_test = df_test[["weight", "height", "draft_year", "draft_round",
+                     "draft_peak", "team", "salary", "country"]]
+y_train = df_train['position']
+y_test = df_test['position']
+
+# Split the numeric and categorical features 
+numeric_features = [ "weight",
+                     "height",
+                     "draft_year",
+                     "draft_round",
+                     "draft_peak"]
+
+categorical_features = ["team", "country"]
+```
+
+
+```{pyodide}
+#| exercise: multi_class_revised
+# Build a numeric pipeline
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"))
+
+# Build a categorical pipeline
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+
+# Build a numeric pipeline
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+# Build a categorical pipeline
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+# Build a categorical transformer
+col_transformer = make_column_transformer(
+    (numeric_transformer, numeric_features),
+    (categorical_transformer, categorical_features))
+
+# Build a main pipeline
+____ = ____
+
+# Fit your pipeline on the training set
+____.____
+
+# Plot your confusion matrix on your test set 
+____
+# Leave the following line commented out for the checking purposes. Uncomment to see the plot.
+#plt.show()
+```
+
+```{pyodide}
+#| exercise: multi_class_revised
+#| check: true
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"))
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+col_transformer = make_column_transformer(
+    (numeric_transformer, numeric_features),
+    (categorical_transformer, categorical_features))
+lr_pipe = make_pipeline(
+    col_transformer,
+    LogisticRegression())
+lr_pipe.fit(X_train, y_train)
+
+solution = ConfusionMatrixDisplay.from_estimator(lr_pipe, X_test, y_test,
+                      cmap="PuRd")
+
+assert isinstance(result, type(solution)), "You need to plot a confusion matrix."
+assert solution.text_.shape == result.text_.shape, "The dimension of the result confusion matrix is incorrect."
+for x in range(0,3):
+    for y in range(0,3):
+        assert solution.text_[x][y].get_text() == result.text_[x][y].get_text(), "The confusion matrix has the wrong data."
+
+print_correct_msg()
+```
+
+:::: { .hint exercise="multi_class_revised"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you making your `lr_pipe` pipeline with `make_pipeline(col_transformer,LogisticRegression())`?
+- Are you Fitting your pipeline on the training set with `lr_pipe.fit(X_train, y_train)`?
+- Are you plotting your confusion matrix with `plot_confusion_matrix(lr_pipe, X_test, y_test,cmap="PuRd");`
+
+:::
+::::
+
+:::: { .solution exercise="multi_class_revised" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a numeric pipeline
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"))
+
+# Build a categorical pipeline
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+
+# Build a numeric pipeline
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+# Build a categorical pipeline
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+# Build a categorical transformer
+col_transformer = make_column_transformer(
+    (numeric_transformer, numeric_features),
+    (categorical_transformer, categorical_features))
+
+# Build a main pipeline
+lr_pipe = make_pipeline(
+    col_transformer,
+    LogisticRegression())
+
+# Fit your pipeline on the training set
+lr_pipe.fit(X_train, y_train)
+
+# Plot your confusion matrix on your test set 
+ConfusionMatrixDisplay.from_estimator(lr_pipe, X_test, y_test,
+                      cmap="PuRd")
+plt.show()
+```
+
+:::
+::::
+
+
+<br>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'Calculate the recall if <code>Other</code> is considered the positive label?',
+        {
+        '11/19': 'You are doing TP/ (TP+FP)',
+        '8/19': 'This is FP/ (TP+FP)',
+        '11/74': 'This is TP / (TP + TN + FP + FN)',
+        '11/18': '',
+        },
+        '11/18',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'If <code>F</code> (forward) is the positive class, how many examples in the dataset are negative (true negative values)?',
+        {
+        '50': '',
+        '32': 'This is the number of examples labeled <code>G</code>.',
+        '18': 'This is the number of examples labeled <code>Other</code>.',
+        '25': 'This is the total number of incorrect predictions not negative classes.',
+        },
+        '50',
+    );
+</script>

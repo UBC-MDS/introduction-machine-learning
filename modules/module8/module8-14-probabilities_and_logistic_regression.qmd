@@ -1,0 +1,426 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 4.1. Exercises
+
+## Probabilities and Logistic Regression
+
+
+We are trying to predict if a job applicant would be hired based on some features contained in their resume. 
+
+Below we have the output of `.predict_proba()` where column 0 shows the probability the model would predict "hired" and column 1 shows the probability the model would predict "not hired".
+
+
+```out
+array([[0.04971843, 0.95028157],
+       [0.94173513, 0.05826487],
+       [0.74133975, 0.25866025],
+       [0.13024982, 0.86975018],
+       [0.17126403, 0.82873597]])
+```
+
+Use this output to answer the following questions.
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'If we had used <code>.predict()</code> for these examples instead of <code>.predict_proba()</code>, how many of the examples would the model have predicted "hired"?',
+        {
+        '5': 'This is the total number of examples.',
+        '3': 'This is the number of "not hired" examples.',
+        '2': '',
+        '0': 'Some examples would have been predicted as "hired". How many of these examples have values >0.5 in the 0 column?',
+        },
+        '2',
+    );
+</script>
+
+
+**Question 2**
+
+```out
+['hired', 'hired', 'hired', 'not hired', 'not hired']
+```
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        '',
+        'If the true class labels are above, how many examples would the model have correctly predicted with <code>predict()</code>?',
+        {
+        '5': 'The model didn’t get them all right. Take a closer look.',
+        '4': '',
+        '1': 'This is the number of incorrectly predicted examples.',
+        '0': 'The model did better than 0 right!',
+        },
+        '4',
+    );
+</script>
+
+## True or False: predict_proba
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        '<code>predict</code> returns the positive class if the predicted probability of the positive class is greater than 0.5.',
+        {
+        'True': '',
+        'False': 'Logistic regression’s <code>predict</code> works by predicting the class which the highest probability (aka; greater than 0.5).',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'In logistic regression, a function is applied to convert the raw model output into probabilities.',
+        {
+        'True': 'Great! It’s the sigmoid function!',
+        'False': 'We need to transform the raw model output so that it lies between the values of 0 and 1 somehow!',
+        },
+        'True',
+    );
+</script>
+
+
+## Applying predict_proba
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's keep working with the Pokémon dataset. This time let's do a bit more. Let's hyperparameter tune our `C` and see if we can find an example where the model is confident in its prediction.
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+import scipy
+from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import precision_score, recall_score, f1_score, classification_report
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['legendary'])
+y_train_big = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+
+numeric_features = ["deck_no",  
+                    "attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt",
+                    "total_bs"]
+
+categorical_features = ["type"]
+
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"), 
+    StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features))
+    
+param_grid = {"logisticregression__C": scipy.stats.uniform(0, 100)}
+
+pk_df
+```
+
+**Tasks:**
+
+- Build and fit a pipeline containing the column transformer and a logistic regression model that uses the parameter `class_weight="balanced"` and `max_iter=1000`(`max_iter` will stop a warning from occuring) . Name this pipeline `pkm_pipe`.
+- Perform `RandomizedSearchCV` using the parameters specified in `param_grid`. Use `n_iter` equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pmk_search`.
+- Fit your `pmk_search` on the training data.
+- What is the best `C` value? Save it in an object name `pkm_best_c`.
+- What is the best f1 score? Save it in an object named `pkm_best_score`.
+- Find the predictions of the test set using `predict`. Save this in an object named `predicted_y`.
+- Find the target class probabilities of the test set using `predict_proba`. 
+- Save this in an object named `proba_y`.
+- Take the dataframe `lr_probs` and sort them in descending order of the model's confidence in predicting legendary Pokémon. Save this in an object named `legend_sorted`. 
+
+```{pyodide}
+#| setup: true
+#| exercise: applying_predict_proba
+import numpy as np
+import pandas as pd
+import scipy
+from sklearn.model_selection import train_test_split, cross_validate, RandomizedSearchCV
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import precision_score, recall_score, f1_score, classification_report
+from src.utils import print_correct_msg
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['legendary'])
+y_train_big = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+
+numeric_features = ["deck_no",  
+                    "attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt",
+                    "total_bs"]
+
+categorical_features = ["type"]
+
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"), 
+    StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features))
+    
+param_grid = {"logisticregression__C": scipy.stats.uniform(0, 100)}
+
+```
+
+
+```{pyodide}
+#| exercise: applying_predict_proba
+# Build a pipeline containing the column transformer and a Logistic Regression model
+# use the parameter class_weight="balanced" and set max_iter=1000
+# Name this pipeline pkm_pipe
+____ = ____
+
+# Perform RandomizedSearchCV using the parameters specified in param_grid
+# Use n_iter equal to 10, 5 cross-validation folds and return the training score. 
+# Name this object pmk_search
+____ = ____(____, ____, n_jobs=-1, cv=5,
+             return_train_score=True, ____=____,
+            ____ = ____, random_state=2028)
+
+# Train your pmk_search on the training data
+____.____
+
+# What is the best C value? Save it in an object name pkm_best_c
+____= ____['logisticregression__C']
+print("Best C value:", pkm_best_c)
+
+# What is the best f1 score? Save it in an object named pkm_best_score
+____ = ____
+print("Best f1 score:", pkm_best_score)
+
+# Find the predictions of the test set using predict. 
+# Save this in an object named predicted_y
+____ = ____
+
+# Find the target class probabilities of the test set using predict_proba. 
+# Save this in an object named proba_y
+____ = ____
+
+# This next part has been done for you
+lr_probs = pd.DataFrame({
+             "Pokemon": test_df['name'],
+             "true y":y_test, 
+             "pred y": predicted_y.tolist(),
+             "prob_legend": proba_y[:, 1].tolist()})
+             
+# Take the dataframe lr_probs and sort them in descending order of the models confidence
+# in predicting legendary pokemon
+# Save this in an object named legend_sorted       
+____ = ____
+____
+```
+
+```{pyodide}
+#| exercise: applying_predict_proba
+#| check: true
+assert isinstance(result, pd.DataFrame), "Make sure legend_sorted is a sorted dataframe."
+assert list(result["pred y"]).count(0) == 137, "Your predicted_y values are incorrect. Are you predicting on the test data?"
+assert list(result['Pokemon'])[0:5] == ['Lugia', 'Zygarde', 'Cresselia', 'Deoxys', 'Uxie'], "Make sure you are sorting the legend dataframe."
+assert [round(x, 2) for x in list(result["prob_legend"])[30:33]] == [0.12, 0.09, 0.08], "Your predicted probability values are incorrect. Are you predicting on the test data?"
+print_correct_msg()
+```
+
+:::: { .hint exercise="applying_predict_proba"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `make_pipeline(preprocessor, LogisticRegression(class_weight="balanced"))` to build your `pkm_pipe` object?
+- In `RandomizedSearchCV` are you calling `pkm_pipe` and `param_grid`?
+- Are you specifying `n_iter=10` and `scoring = 'f1'`? 
+- Are you fitting `pkm_grid` on your training data?
+- Are you using `best_params_` to find the most optimal `C` value?
+- Are you using `best_score_` to find the best score?
+- For `predicted_y`, are you using `pmk_search.predict(X_test)`? 
+- For  `proba_y` are you using `pmk_search.predict_proba(X_test)`?
+- Are you sorting `lr_probs` by `prob_legend` and setting `ascending = False`?
+
+:::
+::::
+
+:::: { .solution exercise="applying_predict_proba" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a pipeline containing the column transformer and a Logistic Regression model
+# use the parameter class_weight="balanced" and set max_iter=1000
+# Name this pipeline pkm_pipe
+pkm_pipe = make_pipeline(preprocessor, LogisticRegression(class_weight="balanced", max_iter=1000))
+
+# Perform RandomizedSearchCV using the parameters specified in param_grid
+# Use n_iter equal to 10, 5 cross-validation folds and return the training score. 
+# Name this object pmk_search
+pmk_search = RandomizedSearchCV(pkm_pipe, param_grid,
+                                n_jobs=-1, cv=5, return_train_score=True,
+                                 n_iter=10, scoring = 'f1', random_state=2028)
+
+# Train your pmk_search on the training data
+pmk_search.fit(X_train, y_train)
+
+# What is the best C value? Save it in an object name pkm_best_c
+pkm_best_c= pmk_search.best_params_['logisticregression__C']
+print("Best C value:", pkm_best_c)
+
+# What is the best f1 score? Save it in an object named pkm_best_score
+pkm_best_score = pmk_search.best_score_
+print("Best f1 score:", pkm_best_score)
+
+# Find the predictions of the test set using predict. 
+# Save this in an object named predicted_y
+predicted_y = pmk_search.predict(X_test)
+
+# Find the target class probabilities of the test set using predict_proba. 
+# Save this in an object named proba_y
+proba_y = pmk_search.predict_proba(X_test)
+
+# This next part has been done for you
+lr_probs = pd.DataFrame({
+             "Pokemon": test_df['name'],
+             "true y":y_test, 
+             "pred y": predicted_y.tolist(),
+             "prob_legend": proba_y[:, 1].tolist()})
+             
+# Take the dataframe lr_probs and sort them in descending order of the models confidence
+# in predicting legendary pokemon
+# Save this in an object named legend_sorted       
+legend_sorted = lr_probs.sort_values(by='prob_legend', ascending=False)
+legend_sorted
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'Which option is the closest to your Best C value?',
+        {
+        '33.47': 'Your model’s value for the best C is incorrect. Are you scoring correctly?',
+        '48.26': 'Your model’s value for the best C is incorrect. Are you scoring correctly?',
+        '68.16': '',
+        '82.75': 'Your model’s value for the best C is incorrect. Are you scoring correctly?',
+        },
+        '68.16',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'Which option is the closest to your Best f1 score?',
+        {
+        '0.44': 'Your model’s f1 score is incorrect. Are you scoring correctly?',
+        '0.58': 'Your model’s f1 score is incorrect. Are you scoring correctly?',
+        '0.67': '',
+        '0.70': 'Your model’s f1 score is incorrect. Are you scoring correctly?',
+        },
+        '0.67',
+    );
+</script>
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question 3',
+        'Which of the following Pokémon is the model confident in classifying it as "legendary"?',
+        {
+        'Cubchoo': 'Are you sorting <code>lr_probs</code> in descending order and looking at the top of the dataframe?',
+        'Lugia': '',
+        'Skitty': 'Are you sorting <code>lr_probs</code> in descending order and looking at the top of the dataframe?',
+        'Starmie': 'Are you sorting <code>lr_probs</code> in descending order and looking at the top of the dataframe?',
+        },
+        'Lugia',
+    );
+</script>
+
+<div id='mcq8'></div>
+<script>
+    generateQuiz(
+        'mcq8',
+        'Question 4',
+        'Which of the following Pokémon is the model confident in classifying it as  "not legendary"?',
+        {
+        'Uxie': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
+        'Zygarde': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
+        'Mandibuzz': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
+        'Diglett': '',
+        },
+        'Diglett',
+    );
+</script>
