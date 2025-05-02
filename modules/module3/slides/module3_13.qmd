@@ -73,10 +73,8 @@ y_encoded = np.where(y == 'Canada', 1, 0)
 
 model = DecisionTreeClassifier()
 model.fit(X, y_encoded)
-plt.figure(figsize=(4, 4))
 plot_classifier(X.to_numpy(), y_encoded, model)
-plt.title("Decision tree with no max_depth")
-plt.show()
+plt.title("Decision tree with no max_depth");
 ```
 
 :::{.notes} 
@@ -118,11 +116,8 @@ y_encoded = np.where(y == 'Canada', 1, 0)
 
 model = DecisionTreeClassifier(max_depth=1)
 model.fit(X,y_encoded)
-plt.figure(figsize=(4, 4))
 plot_classifier(X.to_numpy(), y_encoded, model)
-plt.title("Decision tree with max_depth=1")
-
-plt.show()
+plt.title("Decision tree with max_depth=1");
 ```
 
 :::{.notes} 
