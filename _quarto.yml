@@ -38,6 +38,31 @@ website:
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
           - href: modules/module1/module1-03-building_a_model.qmd
+      - section: "**M4.Similarity-Based Approaches to Supervised Learning**"
+        contents:
+          - href: modules/module4/module4-00-module_learning_outcomes.qmd
+          - href: modules/module4/module4-01-terminology.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module4/module4-02-dimension_questions.qmd
+          - href: modules/module4/module4-04-distances.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module4/module4-05-calculating_distances.qmd
+          - href: modules/module4/module4-09-finding_the_nearest_neighbour.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module4/module4-10-finding_neighbours_questions.qmd
+          - href: modules/module4/module4-13-𝑘-nearest_neighbours_(𝑘-nns)_classifier.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module4/module4-14-classifying_examples_by_hand.qmd
+          - href: modules/module4/module4-17-choosing_𝑘_(n_neighbors).qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module4/module4-18-choosing_k_for_your_model.qmd
+          - href: modules/module4/module4-21-𝑘_-nearest_neighbours_regressor.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module4/module4-22-regression_questions.qmd
+          - href: modules/module4/module4-24-support_vector_machines_(svms)_with_rbf_kernel.qmd
+          - text: '&nbsp;&nbsp; 7.1. Exercises'
+            href: modules/module4/module4-25-testing_your_svm_rbf_knowledge.qmd
+          - href: modules/module4/module4-28-what_did_we_just_learn.qmd      
 
 # Since we are declaring options for two formats here (html and revealjs)
 # each qmd file needs to include a yaml block including which format to use for that file.
@@ -46,7 +71,7 @@ format:
   html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px
@@ -54,7 +79,7 @@ format:
   live-html:
     callout-icon: false
     theme: [united, styles.scss]
-    linkcolor: '#F78F2E'
+    linkcolor: '#283791'
     highlight-style: atom-one
     grid:
       sidebar-width: 350px
