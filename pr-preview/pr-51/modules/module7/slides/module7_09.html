@@ -217,7 +217,7 @@
 </section>
 <section class="slide level2">
 
-<div id="aec4ff14" class="cell" data-execution_count="4">
+<div id="978bb4ff" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_valid, pipe_tree.predict(X_valid),</span>
@@ -251,7 +251,7 @@ weighted avg       1.00      1.00      1.00     59810
 </section>
 <section class="slide level2">
 
-<div id="b64fa456" class="cell" data-execution_count="5">
+<div id="b9b0722c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -287,7 +287,7 @@ weighted avg       1.00      1.00      1.00     59810
 </section>
 <section class="slide level2">
 
-<div id="e983f8a9" class="cell" data-execution_count="7">
+<div id="89497f8b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>X_train_digits, X_test_digits, y_train_digits, y_test_digits <span class="op">=</span> train_test_split(</span>
@@ -320,7 +320,7 @@ weighted avg       1.00      1.00      1.00     59810
 </section>
 <section id="confusion-matrix-for-multi-class" class="slide level2">
 <h2>Confusion matrix for multi-class</h2>
-<div id="d49eef8c" class="cell" data-execution_count="8">
+<div id="2e095def" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>ConfusionMatrixDisplay.from_estimator(knn, X_test_digits, y_test_digits, cmap<span class="op">=</span><span class="st">'gray_r'</span>)<span class="op">;</span></span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
@@ -342,7 +342,7 @@ weighted avg       1.00      1.00      1.00     59810
 </section>
 <section class="slide level2">
 
-<div id="79cb3715" class="cell" data-execution_count="9">
+<div id="7e5827e9" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test_digits, pred, digits<span class="op">=</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
@@ -384,7 +384,7 @@ weighted avg     0.9805    0.9800    0.9799       450
 <section class="slide level2">
 
 <h3 id="macro-average-vs-weighted-average">Macro average vs weighted average</h3>
-<div id="7083e7cb" class="cell" data-execution_count="10">
+<div id="776c3c48" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test_digits, pred, digits<span class="op">=</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
