@@ -1,0 +1,376 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 5.1. Exercises
+
+## Name That Measurement!
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Which measurement will have units which are the square values of the target column units?',
+        {
+        'MSE': '',
+        'R<sup>2</sup>': 'This won’t have any units',
+        'RMSE': 'This will have the same units are the target column',
+        'MAPE': 'This is a percentage.',
+        },
+        'MSE',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'For which of the following is it possible to have negative values?',
+        {
+        'MSE': 'The lowest value here is 0!',
+        'R<sup>2</sup>': '',
+        'RMSE': 'The lowest value here is 0!',
+        'MAPE': 'You cannot have a negative MAPE.',
+        },
+        'R<sup>2</sup>',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'Which measurement is expressed as a percentage?',
+        {
+        'MSE': 'Not quite.',
+        'R<sup>2</sup>': 'This will be a decimal and have a maximum value of 1.0.',
+        'RMSE': 'This is the square root of MSE and does not have relative values.',
+        'MAPE': 'Go you!',
+        },
+        'MAPE',
+    );
+</script>
+
+## True or False: Regression Measurements
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'We can still use recall and precision for regression problems but now we have other measurements we can use as well.',
+        {
+        'True': 'We cannot use precision and recall anymore.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'A lower RMSE value indicates a better fit.',
+        {
+        'True': 'Good job!',
+        'False': 'Since this is an error measurement, we want a model that is resulting in less error.',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 3',
+        'In regression problems, calculating R<sup>2</sup> using <code>r2_score()</code> and <code>.score()</code> (with default values) will produce the same results.',
+        {
+        'True': '',
+        'False': '<code>.score()</code> by default uses the R<sup>2</sup> measure.',
+        },
+        'True',
+    );
+</script>
+
+## Calculating "by hand"
+
+|Observation | True Value | Predicted Value |
+|------------|------------|-----------------|
+|0           | 4          | 5               |
+|1           | 12         | 10              |
+|2           | 6          | 9               |
+|3           | 9          | 8               |
+|4           | 3          | 3               |
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question 1',
+        'Calculate the MSE from the values given above.',
+        {
+        '15': 'Don’t forget to divide by the number of samples!',
+        '8': 'You need to sum up the <i>squared</i> differences. Not just the difference.',
+        '3': '',
+        '0': 'This would be mean we perfectly predicted all the samples which we did not do in this case.',
+        },
+        '3',
+    );
+</script>
+
+## Calculating Regression Measurements
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's calculate some measurements from our basketball dataset this time predicting the players' salary. How well does our model do?
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVR
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'salary'])
+y_train_big = train_df['salary']
+X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'salary'])
+y_test = test_df['salary']
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+numeric_features = [
+    "height",
+    "weight",
+    "draft_year",
+    "draft_round",
+    "draft_peak"]
+
+categorical_features = [
+    "team",
+    "country",
+    "position"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+
+bball
+```
+
+**Tasks:**
+
+- Calculate the MSE, RMSE, Rs<up>2</sup>, and MAP measurement by comparing the true values to what the model predicted on the validation set. Name the objects `mse_calc`, `rmse_calc`, `re_calc` and `mape_calc` respectively. 
+
+```{pyodide}
+#| setup: true
+#| exercise: calculating_regression_measurements
+import numpy as np
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVR
+from sklearn.metrics import mean_squared_error, r2_score
+from src.utils import assert_accuracy_almost
+
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'salary'])
+y_train_big = train_df['salary']
+X_test = test_df.drop(columns=['full_name', 'jersey', 'b_day', 'college', 'salary'])
+y_test = test_df['salary']
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+numeric_features = [
+    "height",
+    "weight",
+    "draft_year",
+    "draft_round",
+    "draft_peak"]
+
+categorical_features = [
+    "team",
+    "country",
+    "position"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features))
+```
+
+
+```{pyodide}
+#| exercise: calculating_regression_measurements
+# Build a pipeline containing the column transformer and an SVR model
+pipe_bb = make_pipeline(preprocessor, SVR())
+
+# Fit your pipeline on the training data
+pipe_bb.fit(X_train, y_train);
+
+# Using your model, find the predicted values of the validation set
+# Save them in an object named predict_valid
+predict_valid = pipe_bb.predict(X_valid)
+
+# Calculate the MSE and save the result in an object named mse_calc
+____ = ____
+
+# Calculate the RMSE and save the result in an object named rmse_calc
+____ = ____
+
+# Calculate the R^2 and save the result in an object named r2_calc
+____ = ____
+
+# Calculate the MAPE and save the result in an object named mape_calc
+____ = ____
+
+dict = {
+    "MSE": mse_calc,
+    "RMSE": rmse_calc,
+    "R2": r2_calc,
+    "MAPE": mape_calc
+}
+dict
+```
+
+```{pyodide}
+#| exercise: calculating_regression_measurements
+#| check: true
+
+pipe_bb = make_pipeline(preprocessor, SVR())
+pipe_bb.fit(X_train, y_train);
+predict_valid = pipe_bb.predict(X_valid)
+
+mse_calc = mean_squared_error(y_valid, predict_valid)
+rmse_calc = np.sqrt(mean_squared_error(y_valid, predict_valid))
+r2_calc = r2_score(y_valid, predict_valid)
+mape_calc = np.mean(np.abs((predict_valid - y_valid) / y_valid)) * 100.0
+
+solution = {
+    "MSE": mse_calc,
+    "RMSE": rmse_calc,
+    "R2": r2_calc,
+    "MAPE": mape_calc
+}
+
+assert list(solution.keys()) == list(result.keys()), "Have you calculated all the required measurements?"
+assert_accuracy_almost(list(solution.values()), list(result.values()))
+```
+
+:::: { .hint exercise="calculating_regression_measurements" }
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using the arguments `y_valid` and `predict_valid` for your calculations?
+- Are you using `np.sqrt()` on your `mse_calc` to calculate `rmse_calc`?
+- Are you using `np.mean(np.abs((predict_valid - y_valid) / y_valid)) * 100.0` to calculate `mape_calc`?
+
+:::
+::::
+
+:::: { .solution exercise="calculating_regression_measurements" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a pipeline containing the column transformer and an SVR model
+pipe_bb = make_pipeline(preprocessor, SVR())
+
+# Fit your pipeline on the training data
+pipe_bb.fit(X_train, y_train);
+
+# Using your model, find the predicted values of the validation set
+# Save them in an object named predict_valid
+predict_valid = pipe_bb.predict(X_valid)
+
+# Calculate the MSE and save the result in an object named mse_calc
+mse_calc = mean_squared_error(y_valid, predict_valid)
+
+# Calculate the RMSE and save the result in an object named rmse_calc
+rmse_calc = np.sqrt(mean_squared_error(y_valid, predict_valid))
+
+# Calculate the R^2 and save the result in an object named r2_calc
+r2_calc = r2_score(y_valid, predict_valid)
+
+# Calculate the MAPE and save the result in an object named mape_calc
+mape_calc = np.mean(np.abs((predict_valid - y_valid) / y_valid)) * 100.0
+
+dict = {
+    "MSE": mse_calc,
+    "RMSE": rmse_calc,
+    "R2": r2_calc,
+    "MAPE": mape_calc
+}
+dict
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq8'></div>
+<script>
+    generateQuiz(
+        'mcq8',
+        'Question',
+        'Would you deploy this model?',
+        {
+        'Yes': 'Are you sure? These measurements are not looking good at all.',
+        'No': 'This model does worse than a DummyRegressor!',
+        },
+        'No',
+    );
+</script>

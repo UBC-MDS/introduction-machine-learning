@@ -1,0 +1,249 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 6.1. Exercises
+
+## True or False: Scoring with Cross-Validation
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'The <code>scoring</code> argument only accepts <code>str</code> inputs.',
+        {
+        'True': 'What about multiple scoring measures?',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'We are limited to the scoring measures offered from sklearn.',
+        {
+        'True': 'We can use <code>make_scorer()</code> and use our own calculation.',
+        'False': 'Good job!',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'If we specify the scoring method in <code>GridSearchCV</code> and <code>RandomizedSearchCV</code>, <code>best_param_</code>  will return the parameters with the highest specified measure.',
+        {
+        'True': 'Cool!',
+        'False': 'According to the source code, <code>best_param_</code> will return the parameter with the highest-scoring mean validation measure. This is why it’s important to be mindful of if you are using an error measure or an accuracy one.',
+        },
+        'True',
+    );
+</script>
+
+## Scoring and Cross Validation
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's bring back the Pokémon dataset that we saw in exercise 15.  
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['legendary'])
+y_train_big = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+
+print(y_train.value_counts())
+```
+
+We've built our pipeline and looked at the classification reports but this time we want to do cross-validation and look at the scores from cross-validation of not just accuracy, but precision and recall as well.
+
+```{pyodide}
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train = train_df.drop(columns=['legendary'])
+y_train = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+numeric_features = ["deck_no",  
+                    "attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt",
+                    "total_bs"]
+
+categorical_features = ["type"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features))
+
+pk_df
+```
+
+**Tasks:**
+
+- Build a pipeline containing the column transformer and an SVC model and set `class_weight="balanced"` in the SVM classifier. Name this pipeline `main_pipe`.
+- Perform cross-validation using `cross-validate` on the training split using the scoring measures accuracy, precision and recall.
+- Save the results in a dataframe named `multi_scores`.
+
+```{pyodide}
+#| setup: true
+#| exercise: scoring_and_cross_validation
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+from src.utils import print_correct_msg
+
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train = train_df.drop(columns=['legendary'])
+y_train = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+numeric_features = ["deck_no",  
+                    "attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt",
+                    "total_bs"]
+
+categorical_features = ["type"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features))
+```
+
+
+```{pyodide}
+#| exercise: scoring_and_cross_validation
+# Build a pipeline containing the column transformer and an SVC model
+# Use the parameter class_weight="balanced"
+# Name this pipeline main_pipe
+____ = ____
+
+# Perform cross validation on the training split using the scoring measures accuracy, precision and recall 
+# Save the results in a dataframe named multi_scores
+____ = ____
+____
+```
+
+```{pyodide}
+#| exercise: scoring_and_cross_validation
+#| check: true
+
+assert isinstance(result, pd.DataFrame), "Please output a dataframe."
+
+assert min(result['test_accuracy']) > 0.90 and max(result['test_accuracy']) < 0.99, "The range of your test accuracy is incorrect. Are you fitting the model properly?"
+assert min(result['train_accuracy']) > 0.96 and max(result['train_accuracy']) < 0.99, "The range of your training accuracy is incorrect. Are you fitting the model properly?"
+assert min(result['test_precision']) > 0.49 and max(result['test_precision']) < 0.85, "The range of your test precision is incorrect. Are you fitting the model properly?"
+assert min(result['train_precision']) > 0.72 and max(result['train_precision']) < 0.85, "The range of your training precision is incorrect. Are you fitting the model properly?"
+assert min(result['test_recall']) > 0.50 and max(result['test_recall']) == 1, "The range of your test recall is incorrect. Are you fitting the model properly?"
+assert min(result['train_recall']) == 1 and max(result['train_recall']) == 1, "The range of your training recall is incorrect. Are you fitting the model properly?"
+
+print_correct_msg()
+```
+
+:::: { .hint exercise="scoring_and_cross_validation" }
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you coding `main_pipe` as `make_pipeline(preprocessor, SVC())`. 
+- Are you specifying `scoring = ['accuracy', 'precision', 'recall']` in your cross validation function? 
+- Are you calling `cross_validate` on `main_pipe`, `X_train`, and `y_train`?
+- Are you specifying `return_train_score=True` in `cross_validate`?
+- Are you saving the result in a dataframe?
+
+:::
+::::
+
+:::: { .solution exercise="scoring_and_cross_validation" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a pipeline containing the column transformer and an SVC model
+# Use the parameter class_weight="balanced"
+# Name this pipeline main_pipe
+main_pipe = make_pipeline(preprocessor, SVC(class_weight="balanced"))
+
+# Perform cross validation on the training split using the scoring measures accuracy, precision and recall 
+# Save the results in a dataframe named multi_scores
+multi_scores = pd.DataFrame(cross_validate(main_pipe,
+                                           X_train,
+                                           y_train,
+                                           return_train_score=True,
+                                           scoring = ['accuracy', 'precision', 'recall']))
+multi_scores
+```
+
+:::
+::::
