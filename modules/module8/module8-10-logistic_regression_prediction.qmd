@@ -1,0 +1,270 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 3.1. Exercises
+
+## Logistic Regression Prediction
+
+We have the following text, which we wish to classify as either a positive or negative movie review. 
+
+Using the words below (which are features in our model) with associated coefficients, answer the next 2 questions. 
+
+The input for the feature value is the number of times the word appears in the review. 
+
+
+|   Word            | Coefficient | 
+|--------------------|-------------|
+|excellent           | 2.2         | 
+|disappointment      | -2.4        |
+|flawless            | 1.4         |
+|boring              | -1.3        |
+|unwatchable         | -1.7        |
+
+Intercept = 1.3
+
+<br>
+
+**Question 1**
+
+<center><em>I thought it was going to be excellent but instead, it was unwatchable and boring. </em></center>
+
+<br>
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        '',
+        'What value do you calculate after using the weights in the model above for the above review? The input feature value would be the number of times the word appears in the review (like `CountVectorizer`).',
+        {
+        '0.5': '',
+        '-0.8': 'Are you forgetting the intercept?',
+        '-2.1': 'Are you subtracting the intercept?',
+        '-0.5': 'Are you mixing up the sign?',
+        },
+        '0.5',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'Would the model classify this review as a positive or negative review?',
+        {
+        'Positive review': 'It’s a positive value so the model would classify it as a positive review.',
+        'Negative review': 'The model can’t see what we see. It’s calculating a value based on the weights and the intercept which results in a positive value.',
+        },
+        'Positive review',
+    );
+</script>
+
+## True or False: Logistic Regression
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'Increasing logistic regression’s <code>C</code> hyperparameter increases the model’s complexity.',
+        {
+        'True': 'You are correct!',
+        'False': 'Are you mixing this up with <code>Ridge</code>’s <code>alpha</code> hyperparameter?',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'Unlike with <code>Ridge</code> regression, coefficients are not interpretable with logistic regression.',
+        {
+        'True': 'Coefficients explain how a model got to a certain prediction and how much it contributes to a classification.',
+        'False': 'Got it!',
+        },
+        'False',
+    );
+</script>
+
+## Applying Logistic Regression
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's give a warm welcome back to our wonderful Pokémon dataset. We want to see how well our model does with logistic regression. Let's try building a simple model with default parameters to start. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train = train_df.drop(columns=['legendary'])
+y_train = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+
+numeric_features = ["attack",
+                    "defense",
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt"]
+
+drop_features = ["type", "deck_no", "gen", "name", "total_bs"]
+
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+preprocessor = make_column_transformer(
+    ("drop", drop_features),
+    (numeric_transformer, numeric_features))
+
+pk_df
+```
+
+**Tasks:**
+
+- Import the logistic regression function. 
+- Build and fit a pipeline containing the column transformer and a logistic regression model and use the parameter `class_weight="balanced"`. Name this pipeline `pkm_pipe`.
+- Score your model on the test set using the default accuracy measurement. Save this in an object named `lr_scores`.
+- Fill in the blanks below to assess the model's feature coefficients.
+
+```{pyodide}
+#| setup: true
+#| exercise: applying_logistic_regression
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.linear_model import LogisticRegression
+from src.utils import assert_accuracy_almost
+
+# Loading in the data
+pk_df = pd.read_csv('data/pokemon.csv')
+
+train_df, test_df = train_test_split(pk_df, test_size=0.2, random_state=1)
+
+X_train = train_df.drop(columns=['legendary'])
+y_train = train_df['legendary']
+X_test = test_df.drop(columns=['legendary'])
+y_test = test_df['legendary']
+
+
+numeric_features = ["attack",
+                    "defense" ,
+                    "sp_attack",
+                    "sp_defense",
+                    "speed",
+                    "capture_rt"]
+
+drop_features = ["type", "deck_no", "gen", "name", "total_bs"]
+
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler())
+
+preprocessor = make_column_transformer(
+    ("drop", drop_features),
+    (numeric_transformer, numeric_features))
+
+```
+
+
+```{pyodide}
+#| exercise: applying_logistic_regression
+# Build a pipeline containing the column transformer and a Logistic Regression model
+# use the parameter class_weight="balanced"
+# Name this pipeline pkm_pipe
+____ = ____
+
+# Fit your pipeline on the training data
+____;
+
+# Score your model on the test set 
+# Save this in an object named lr_scores
+____ = ____
+print("logistic Regression Test Score:", lr_scores)
+
+# Fill in the blanks below to asses the model's feature coefficients. 
+pkm_coefs = pd.DataFrame({'features':____, 'coefficients':____['logisticregression'].____[0]})
+pkm_coefs
+```
+
+```{pyodide}
+#| exercise: applying_logistic_regression
+#| check: true
+
+assert isinstance(result, pd.DataFrame), "We need a dataframe."
+
+pkm_pipe = make_pipeline(preprocessor, LogisticRegression(class_weight="balanced"))
+pkm_pipe.fit(X_train, y_train);
+lr_scores = pkm_pipe.score(X_test, y_test)
+solution = pd.DataFrame({'features':numeric_features, 'coefficients':pkm_pipe['logisticregression'].coef_[0]})
+
+assert solution["features"].to_list() == result["features"].to_list(), "The features column should be the numeric_features."
+assert_accuracy_almost(solution["coefficients"].to_list(), result["coefficients"].to_list())
+```
+
+:::: { .hint exercise="applying_logistic_regression"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you fitting your pipeline?
+- Are you scoring your pipeline on the test data?
+- Are you finding the coefficients using `pkm_pipe['logisticregression'].coef_[0]`?
+- Are you using `numeric_features` to find your model's feature names?
+
+:::
+::::
+
+:::: { .solution exercise="applying_logistic_regression" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a pipeline containing the column transformer and a Logistic Regression model
+# use the parameter class_weight="balanced"
+# Name this pipeline pkm_pipe
+pkm_pipe = make_pipeline(preprocessor, LogisticRegression(class_weight="balanced"))
+
+# Fit your pipeline on the training data
+pkm_pipe.fit(X_train, y_train);
+
+# Score your model on the test set 
+# Save this in an object named lr_scores
+lr_scores = pkm_pipe.score(X_test, y_test)
+print("logistic Regression Test Score:", lr_scores)
+
+# Fill in the blanks below to asses the model's feature coefficients. 
+pkm_coefs = pd.DataFrame({'features':numeric_features, 'coefficients':pkm_pipe['logisticregression'].coef_[0]})
+pkm_coefs
+```
+
+:::
+::::

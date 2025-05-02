@@ -1,0 +1,196 @@
+---
+format: revealjs
+title: Introducing Linear Regression
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+## Linear Regression
+
+```{python}
+# | include: false
+from sklearn.model_selection import train_test_split
+
+np.random.seed(7)
+n = 100
+X_1 = np.linspace(0,2,n) + np.random.randn(n)*0.01
+X = pd.DataFrame(X_1[:,None], columns=['length'])
+
+y = abs(np.random.randn(n,1))*3 + X_1[:,None]*5 + .2
+y = pd.DataFrame(y, columns=['weight'])
+snakes_df = pd.concat([X,y], axis=1)
+
+train_df, test_df = train_test_split(snakes_df, test_size=0.2, random_state=77)
+
+X_train = train_df[['length']]
+y_train = train_df['weight']
+X_test = test_df[['length']]
+y_test = test_df['weight']
+```
+
+```{python}
+train_df.head()
+```
+
+
+
+:::{.notes} 
+We've seen many regression models such as `DecisionTreeRegressor` and `KNeighborsRegressor` but now we have a new one that we are going to explore called  **linear regression**. 
+
+Linear regression is one of the most basic and popular ML/statistical techniques.
+
+Let's bring back the hypothetical snake data that we saw in module 4.
+:::
+
+---
+
+## Ridge
+
+```{python}
+from sklearn.linear_model import LinearRegression
+
+LinearRegression();
+```
+
+<br>
+
+```{python}
+from sklearn.linear_model import Ridge
+
+rm = Ridge()
+rm.fit(X_train, y_train);
+```
+
+<br>
+
+```{python}
+rm.predict(X_train)[:5]
+```
+
+<br>
+
+```{python}
+rm.score(X_train, y_train)
+```
+
+
+:::{.notes} 
+We can import the `LinearRegression` model like we have for all the previous models we've used except we are going to instead focus on its close cousin `Ridge`. 
+
+`Ridge` is more flexible than `LinearRegression` and we will explain why shortly. 
+
+When we import `Ridge`, you'll notice that we are importing from the `linear_model` Sklearn library. 
+
+`Ridge`, has the same fit-predict paradigm as the other models we have seen. 
+
+That means we can `fit` on the training set and `predict` a numeric prediction. 
+
+
+We see that `predict` returns the predicted snake weight for our examples.
+:::
+
+---
+
+## *alpha*
+
+```{python}
+rm2 = Ridge(alpha=10000)
+rm2.fit(X_train, y_train);
+```
+
+<br>
+
+```{python}
+rm2.score(X_train, y_train)
+```
+
+
+:::{.notes}
+Ridge has hyperparameters just like the rest of the models we learned. 
+
+The `alpha` hyperparameter is what makes it more flexible than using `LinearRegression`. 
+
+Remember the fundamental trade-off we spoke about in module 3?
+
+**"As model complexity ↑, training score ↑ and training score– validation score tend to ↑"**
+
+Well, `alpha` controls this fundamental trade-off!
+:::
+
+---
+
+```{python }
+from sklearn.model_selection import cross_validate
+
+scores_dict ={
+"alpha" :10.0**np.arange(-2,6,1),
+"train_scores" : list(),
+"cv_scores" : list(),
+}
+for alpha in scores_dict['alpha']:
+    ridge_model = Ridge(alpha=alpha)
+    results = cross_validate(ridge_model, X_train, y_train, return_train_score=True)
+    scores_dict['train_scores'].append(results["train_score"].mean())
+    scores_dict['cv_scores'].append(results["test_score"].mean())
+```
+
+<br>
+
+```{python}
+pd.DataFrame(scores_dict)
+```
+
+
+:::{.notes} 
+As we increase `alpha`, we are decreasing our model complexity which means our training score is lower and we are more likely to underfit. 
+
+If we decrease `alpha`, our model complexity is increasing and consequentially our training score is increasing. Our chances of overfitting are going up.
+:::
+
+---
+
+## Visualizing linear regression
+
+```{python}
+# | include: false
+
+source = pd.DataFrame(data= {'length':  X_train['length'],
+                             'weight':  y_train,
+                             'predicted': rm.predict(X_train)})
+chart1 = alt.Chart(source, width=500, height=300).mark_circle().encode(
+x = alt.X('length:Q', title= "Length"), 
+y = alt.Y('weight:Q', title= "Weight"))
+chart2 = alt.Chart(source, width=500, height=300).mark_line(color= 'orange').encode(
+x = alt.X('length:Q', title= "Length"), 
+y = alt.Y('predicted:Q', title = "Weight"))
+
+chart3 = chart1 + chart2
+```
+
+```{python}
+# | include: false
+chart3.save('static/module8/snakes_m8.png')
+```
+
+![](../../../static/module8/snakes_m8.png){fig-align="center" fig-alt="404 image" width="90%"}
+
+:::{.notes}
+In our data, we only have 1 feature `length` which helps predict our target feature `weight`. 
+
+We can use a 2D graph to plot this and our ridge regression corresponds to a line. 
+
+In this plot, the blue markers are the examples and our orange line is our Ridge regression line. 
+
+
+If we had an additional feature, let's say, `width`, we now would have 2 features and 1 target so our ridge regression would correspond to a plan in a 3-dimensional space. 
+
+As we increase our features beyond 3 it becomes harder to visualize. 
+:::
+
+
+# Let’s apply what we learned!

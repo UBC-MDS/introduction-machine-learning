@@ -1,0 +1,258 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 1.1. Exercises
+
+## Linear Regression Questions
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Which of the following is a well known <code>Ridge</code> hyperparameter?',
+        {
+        '<code>beta</code>': 'What comes before Beta?',
+        '<code>alpha</code>': 'Super!',
+        '<code>a</code>': 'Closer but not quiet.',
+        '<code>alpheba</code>': 'Any chance you have seen the musical Wicked? This is a name, not a hyperparameter.',
+        },
+        '<code>alpha</code>',
+    );
+</script>
+
+## True or False: Ridge
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 1',
+        'Ridge is a regression modeling approach.',
+        {
+        'True': 'You got it.',
+        'False': 'It’s not a classification approach however you can use it with classification (this is outside the scope of this course).',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 2',
+        'Increasing <code>alpha</code> increases model complexity.',
+        {
+        'True': 'I think you are thinking of <code>gamma</code> or <code>C</code> for <code>SVM</code>. If we increase <code>alpha</code>, we decrease complexity.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 3',
+        '<code>Ridge</code> can be used with datasets that have multiple features?',
+        {
+        'True': '',
+        'False': 'We can use it for many features!',
+        },
+        'True',
+    );
+</script>
+
+## Using Ridge
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Using our well know basketball dataset, we are going to build a model using the `height` feature and assess if it can help predict a player's` weight`.
+
+```{pyodide}
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import Ridge
+from sklearn.metrics import make_scorer
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df[['height']]
+y_train = train_df['weight']
+X_test = test_df[['height']]
+y_test = test_df['weight']
+
+bball
+```
+
+**Tasks:**
+
+- Create a MAPE scorer from the `mape` function that we provided. Make sure you specify in the scorer that lower numbers are better for MAPE. 
+- Build a Ridge model called `ridge_bb`.
+- Use `GridSearchCV` to hyperparameter tune `alpha`. Fill the blanks so it uses `ridge_bb` as an estimator and the values from `param_dist`.
+- Fit your grid search on the training data.
+- What is the best value for `alpha`? Save it in an object named `best_alpha`.
+- What is the best MAPE score? Save it in an object named `best_mape`.
+
+```{pyodide}
+#| setup: true
+#| exercise: using_ridge
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import Ridge
+from sklearn.metrics import make_scorer
+from src.utils import assert_accuracy_almost
+
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df[['height']]
+y_train = train_df['weight']
+X_test = test_df[['height']]
+y_test = test_df['weight']
+
+```
+
+
+```{pyodide}
+#| exercise: using_ridge
+## Define mape function 
+def mape(true, pred):
+    return 100.*np.mean(np.abs((pred - true) / true))
+
+## Create a mape scorer where lower number are better 
+neg_mape_scorer = ____(____, ____=____)
+
+# Create a set of values for alpha
+param_dist = {
+    "alpha": [0.1, 1, 10, 100, 1000, 10000]}
+
+# Build a Ridge model called ridge_bb
+____ = ____
+
+## Use GridSearchCV to hyperparameter tune. 
+grid_search = GridSearchCV(
+    ____, ____, cv=5,
+     n_jobs=-1,
+    ____=____)
+
+# Fit your grid search on the training data
+____.____(X_train, y_train)
+
+# What is the best value for alpha?
+# Save it in an object named best_alpha
+____ = ____
+
+# What is the best MAPE score?
+# Save it in an object named best_mape
+____ = ____
+
+dict = {
+    "best_alpha": best_alpha["alpha"],
+    "best_mape": best_mape
+}
+dict
+```
+
+```{pyodide}
+#| exercise: using_ridge
+#| check: true
+def mape(true, pred):
+    return 100.*np.mean(np.abs((pred - true) / true))
+
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
+param_dist = {
+    "alpha": [0.1, 1, 10, 100, 1000, 10000]}
+
+ridge_bb = Ridge()
+grid_search = GridSearchCV(
+    ridge_bb, param_dist, cv=5,
+    n_jobs=-1,
+    scoring=neg_mape_scorer)
+grid_search.fit(X_train, y_train)
+
+best_alpha = grid_search.best_params_
+best_mape = grid_search.best_score_
+
+assert list(result.keys()) == ["best_alpha", "best_mape"], "Please use the provided dict."
+assert_accuracy_almost([best_alpha["alpha"], best_mape], list(result.values()))
+```
+
+:::: { .hint exercise="using_ridge"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you making the MAPE scorer with `make_scorer(mape, greater_is_better=False)`?
+- Are you filling in the blank for `GridSearchCV` as  `grid_search = GridSearchCV(ridge_bb, param_dist,cv=5, n_jobs=1, random_state=123, scoring=neg_mape_scorer)`?
+- Are you fitting with `grid_search.fit(X_train, y_train)`?
+- Are you finding the best alpha as `grid_search.best_params_`? 
+- Are you finding the best score with `grid_search.best_score_`? 
+
+:::
+::::
+
+:::: { .solution exercise="using_ridge" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+## Define mape function 
+def mape(true, pred):
+    return 100.*np.mean(np.abs((pred - true) / true))
+
+## Create a mape scorer where lower number are better 
+neg_mape_scorer = make_scorer(mape, greater_is_better=False)
+
+# Create a set of values for alpha
+param_dist = {
+    "alpha": [0.1, 1, 10, 100, 1000, 10000]}
+
+# Build a Ridge model called ridge_bb
+ridge_bb = Ridge()
+
+## Use GridSearchCV to hyperparameter tune. 
+grid_search = GridSearchCV(
+    ridge_bb, param_dist, cv=5,
+    n_jobs=-1,
+    scoring=neg_mape_scorer)
+
+# Fit your grid search on the training data
+grid_search.fit(X_train, y_train)
+
+# What is the best value for alpha?
+# Save it in an object named best_alpha
+best_alpha = grid_search.best_params_
+
+# What is the best MAPE score?
+# Save it in an object named best_mape
+best_mape = grid_search.best_score_
+
+dict = {
+    "best_alpha": best_alpha["alpha"],
+    "best_mape": best_mape
+}
+dict
+```
+
+:::
+::::

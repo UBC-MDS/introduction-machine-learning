@@ -85,6 +85,11 @@ code {
     font-size: 12px;
 }
 
+.reveal.show-notes .speaker-notes li {
+    border-radius: 2px;
+    font-size: 12px;
+}
+
 .reveal.show-notes .speaker-notes code {
     /* The ubuntu mono font is quite small */
     font-size: 1.2em;
@@ -161,4 +166,9 @@ span.tok-variableName {
 .sidebar .section-title,
 .sidebar .sidebar-item-container a {
     color: #ffffff !important;
+}
+
+.sk-container,
+.sk-toggleable__label {
+    font-size:0.6em
 }
