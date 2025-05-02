@@ -202,7 +202,7 @@
 </section>
 <section id="class-imbalance-in-training-sets" class="slide level2">
 <h2>Class imbalance in training sets</h2>
-<div id="5539dead" class="cell" data-execution_count="3">
+<div id="2da4ab4a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -304,7 +304,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="a33d92a0" class="cell" data-execution_count="4">
+<div id="c1ca5cbb" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>y_train.value_counts(<span class="st">'Class'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>0    0.998237
@@ -430,14 +430,14 @@ the input data as n_samples / (n_classes * np.bincount(y))</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="8414b0d2" class="cell" data-execution_count="5">
+<div id="e9b73445" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>tree_default<span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">7</span>)</span>
 <span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>tree_default.fit(X_train,y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="5bb63c75" class="cell" data-execution_count="6">
+<div id="2af72955" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>tree_100 <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">7</span>, class_weight<span class="op">=</span>{<span class="dv">1</span>:<span class="dv">100</span>})</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>tree_100.fit(X_train,y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -462,7 +462,7 @@ the input data as n_samples / (n_classes * np.bincount(y))</code></pre>
 </section>
 <section id="class_weightbalanced" class="slide level2">
 <h2>class_weight=“balanced”</h2>
-<div id="c38a68ed" class="cell" data-execution_count="8">
+<div id="98531be4" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>tree_balanced <span class="op">=</span>DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">7</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>)</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>tree_balanced.fit(X_train,y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -485,14 +485,14 @@ the input data as n_samples / (n_classes * np.bincount(y))</code></pre>
 </section>
 <section id="are-we-doing-better-with-class_weightbalanced" class="slide level2">
 <h2>Are we doing better with <em>class_weight=“balanced”</em>?</h2>
-<div id="da5c8b3a" class="cell" data-execution_count="10">
+<div id="c1ea0c5c" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>tree_default.score(X_valid, y_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0.9989968232737001</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="58762af7" class="cell" data-execution_count="11">
+<div id="d0dfe65e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>tree_balanced.score(X_valid, y_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0.99879618792844</code></pre>
