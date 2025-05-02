@@ -94,7 +94,6 @@ from src.model_plotting_mg import plot_classifier
 y_encoded = np.where(y == 'A+', 1, 0)
 model.fit(X_subset, y_encoded)
 
-plt.figure(figsize=(4, 4))
 plot_classifier(X_subset.to_numpy(), y_encoded, model, ticks=True, lims=(70,101,70,101))
 plt.xticks(fontsize= 20)
 plt.yticks(fontsize= 20)
@@ -144,7 +143,6 @@ Our score here has increased from 71.4% to 81%.
 # | fig-align: left
 model.fit(X_subset, y_encoded)
 
-plt.figure(figsize=(4, 4))
 plot_classifier(X_subset.to_numpy(), y_encoded, model, ticks=True, lims=(70,101,70,101))
 plt.xticks(fontsize= 20)
 plt.yticks(fontsize= 20)
@@ -195,7 +193,6 @@ model.score(X_subset, y)
 # | fig-align: left
 model.fit(X_subset, y_encoded)
 
-plt.figure(figsize=(4, 4))
 plot_classifier(X_subset.to_numpy(), y_encoded, model, ticks=True, lims=(70,101,70,101))
 plt.xticks(fontsize= 20)
 plt.yticks(fontsize= 20)
@@ -250,7 +247,6 @@ model.score(X_subset, y)
 # | fig-align: left
 model.fit(X_subset, y_encoded)
 
-plt.figure(figsize=(4, 4))
 plot_classifier(X_subset.to_numpy(), y_encoded, model, ticks=True, lims=(70,101,70,101))
 plt.xticks(fontsize= 20)
 plt.yticks(fontsize= 20)
