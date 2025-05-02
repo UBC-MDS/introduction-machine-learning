@@ -1,0 +1,237 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 4.1. Exercises
+
+## Is it Overfitting or Underfitting?
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'If our train accuracy is much higher than our test accuracy, is our model overfitting or underfitting?',
+        {
+        'Overfitting': '',
+        'Underfitting': 'Underfitting would occur if our training accuracy was low.',
+        },
+        'Overfitting',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'If our train accuracy and our test accuracy are both low and relatively similar in value, is our model overfitting or underfitting?',
+        {
+        'Overfitting': 'Since our train accuracy is still quite low, this would not be overfitting.',
+        'Underfitting': '',
+        },
+        'Underfitting',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'If our model is using a Dummy Classifier for a classification problem with the <code>strategy=most_frequent</code>, is our model more likely overfitting or underfitting?',
+        {
+        'Overfitting': 'We are using a model that isn’t complex and could be improved, this may be pointing to underfitting.',
+        'Underfitting': '',
+        },
+        'Underfitting',
+    );
+</script>
+
+## Overfitting and Underfitting True or False
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'All models will either overfit or underfit.',
+        {
+        'True': 'Not all models will overfit or underfit.',
+        'False': 'Nailed it!',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'More "complicated" models are more likely to overfit than "simple" ones.',
+        {
+        'True': '',
+        'False': 'As we add complexity to our model, it is more likely to overfit.',
+        },
+        'True',
+    );
+</script>
+
+## Overfitting/Underfitting in Action!
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's examine our validation scores and training scores a bit more carefully and assess if our model is underfitting or overfitting.
+
+This time we are looking at a new data set that contains the basketball players in the NBA. We are only going to use the players with a position of Guard (G) or Forward (F).  We will be using features height, weight and salary to try to predict the player's position, Guard or Forward.  
+
+Let's take a quick look at it before diving in. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split, cross_validate
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+
+bball_df.head()
+```
+
+**Tasks:**
+
+- Cross-validate using `cross_validate()` on the objects `X_train` and `y_train` making sure to specify 10 folds and `return_train_score=True`.
+- Convert the scores into a dataframe and save it in an object named `scores_df`.
+- Calculate the mean value of each column and save this in an object named `mean_scores`. 
+- Answer the question below.
+
+```{pyodide}
+#| setup: true
+#| exercise: overfitting_underfitting_in_action
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split, cross_validate
+from src.utils import assert_accuracy_almost
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: overfitting_underfitting_in_action
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=31)
+
+# Create a model
+model = DecisionTreeClassifier()
+
+# Cross validate 
+____ = ____
+
+# Covert scores into a dataframe
+____ = ____
+
+# Calculate the mean value of each column
+____ = ____
+
+# Display each score mean value 
+# Remember that in this case "test_score" is actually "validation" score
+
+____
+```
+
+```{pyodide}
+#| exercise: overfitting_underfitting_in_action
+#| check: true
+
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=31)
+model = DecisionTreeClassifier()
+scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+scores_df = pd.DataFrame(scores)
+solution = scores_df.mean()
+
+assert_accuracy_almost(solution.to_numpy()[2:].round(3), result.to_numpy()[2:].round(3), tolerance=0.02)
+```
+
+:::: { .hint exercise="overfitting_underfitting_in_action"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you cross-validating using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)` on your model?
+- Are you saving your dataframe using `pd.DataFrame(scores)`?
+- Are you using `.mean()` to calculate the mean of each column in `scores_df`?
+
+:::
+::::
+
+:::: { .solution exercise="overfitting_underfitting_in_action" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=31)
+
+# Create a model
+model = DecisionTreeClassifier()
+
+# Cross validate
+scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+
+# Covert scores into a dataframe
+scores_df = pd.DataFrame(scores)
+
+# Calculate the mean value of each column
+mean_scores = scores_df.mean()
+
+# Display each score mean value 
+# Remember that in this case "test_score" is actually "validation" score
+
+mean_scores
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question',
+        'Is this model overfitting or underfitting?',
+        {
+        'Overfitting': '',
+        'Underfitting': 'Is the training score higher or lower?',
+        },
+        'Overfitting',
+    );
+</script>

@@ -1,0 +1,461 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 5.1. Exercises
+
+## Quick Questions on Tradeoff and Golden Rule
+
+**Question 1**
+
+![](../../static/module3/Q16_2.png){fig-align="center" width="80%" fig-alt="404 image"}
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        '',
+        'If we are hyperparameter tuning, which depth would you select for this model given the graph above?',
+        {
+        '1': 'Where is the cross-validation score the highest?',
+        '4': 'Where is the cross-validation score the highest?',
+        '6': '',
+        '19': 'Where is the cross-validation score the highest?',
+        },
+        '6',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2 - Fill in the Blank:',
+        'The ______________ data cannot influence the training phase in any way.',
+        {
+        'Training': 'This actually must be used in the training phase.',
+        'Test': '',
+        },
+        'Test',
+    );
+</script>
+
+## Training and Testing Questions
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'The fundamental tradeoff of ML states that as model complexity increases ...',
+        {
+        'Test score decreases.': 'Actually the test score is not taken into consideration here.',
+        'Train score decreases.': 'Quite the oposite in fact!',
+        'Train score increases.': '',
+        'Test score increases.': 'Try not to think about the the test score here.',
+        },
+        'Train score increases.',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'In supervised learning, the training score is _________ higher than the validation score.',
+        {
+        'Always': 'Although this is the case often, validation score can be higher.',
+        'Ususally': 'Nice work! Sometimes and often but not always!',
+        'Sometimes': 'Maybe a bit more than sometimes.',
+        'Never': 'We’ve seen cases where this true!',
+        },
+        'Ususally',
+    );
+</script>
+
+## Picking your Hyperparameter Part 1
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's take a look at the basketball dataset we saw in exercise 16. We will again be using features height, weight and salary and a target column `position`..  This time , however, let's cross-validate on different values for max_depth so we can set this hyperparameter and build a final model that best generalizes on our test set. 
+
+```{pyodide}
+import pandas as pd
+import altair as alt
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split, cross_validate
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+
+bball_df.head()
+```
+
+First let's see which hyperparameter is the most optimal. 
+
+**Tasks:**
+
+- Fill in the code below. 
+- We are first loading in our `bball.csv` dataset and assigning our features to `X` and our target `position` to an object named `y`. 
+- Fill in the code so that it split the dataset into `X_train`, `X_test`, `y_train`, `y_test`. Make sure to use a 20% test set and a `random_state=33` so we can verify you solution.
+- Next, fill in the code so that a `for` loop does the following:
+
+  1. iterates over the values 1-20.
+    - Builds a decision tree classifier with a `max_depth` equal to each iteration.
+    - Uses `cross_validate` on the model with a `cv=10` and `return_train_score=True`.
+    - Appends the depth value to the `depth` list in the dictionary `results_dict`.
+    - Appends the `test_score` to the `mean_cv_score` list in the dictionary. 
+    - Appends the `train_score` to the `mean_train_score` list in the dictionary. 
+- We have given you code that wrangles this dictionary and transforms it into a state ready for plotting.
+- Finish off by filling in the blank to create a line graph that plots the train and validation scores for each depth value. 
+(Note: we have edited the limits of the y-axis so it's easier to read)
+
+```{pyodide}
+#| setup: true
+#| exercise: picking_your_hyperparameter_1
+import pandas as pd
+import altair as alt
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split, cross_validate
+from src.utils import assert_accuracy_almost
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: picking_your_hyperparameter_1
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = ____(
+    ____, ____, ____, ____)
+
+results_dict = {"depth": [], "mean_train_score": [], "mean_cv_score": []}
+
+# Create a for loop and fill in the blanks
+for depth in range(1,20):
+    model = ____(____=depth)
+    scores = cross_validate(____, ____, y_train,____, ____)
+    results_dict["depth"].append(depth)
+    results_dict["mean_cv_score"].____(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
+
+# Wrangles the data into a form suitable for plotting 
+results_df = pd.DataFrame(results_dict).melt(id_vars=['depth'],
+                                             value_vars=['mean_train_score',
+                                                         'mean_cv_score'], 
+                                             var_name='split',
+                                             value_name='score')
+
+# Create a chart that plots depth vs score
+chart1 = alt.Chart(____).____().encode(
+         alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
+         ____('____:Q', scale=alt.Scale(domain=[.80, 1.00])), 
+         alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
+                                                     'mean_cv_score'],
+                                             range=['teal', 'gold'])))
+chart1
+```
+
+```{pyodide}
+#| exercise: picking_your_hyperparameter_1
+#| check: true
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+results_dict = {"depth": [], "mean_train_score": [], "mean_cv_score": []}
+for depth in range(1,20):
+    model = DecisionTreeClassifier(max_depth=depth)
+    scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["depth"].append(depth)
+    results_dict["mean_cv_score"].append(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
+
+results_df = pd.DataFrame(results_dict).melt(id_vars=['depth'],
+                                             value_vars=['mean_train_score',
+                                                         'mean_cv_score'], 
+                                             var_name='split',
+                                             value_name='score')
+
+solution = alt.Chart(results_df).mark_line().encode(
+         alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
+         alt.Y('score:Q', scale=alt.Scale(domain=[.80, 1.00])), 
+         alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
+                                                     'mean_cv_score'],
+                                             range=['teal', 'gold'])))
+
+solution_dict = solution.to_dict()
+result_dict = result.to_dict()
+
+# check if it is a line graph
+assert solution_dict["mark"]["type"] == result_dict["mark"]["type"]
+
+# Select data points to compare
+data_name_res = result_dict["data"]["name"]
+data_name_sol = solution_dict["data"]["name"]
+
+datasets_res = result_dict["datasets"][data_name_res]
+datasets_sol = solution_dict["datasets"][data_name_sol]
+
+assert len(datasets_res) == len(datasets_sol)
+
+res = []
+sol = []
+
+def get_score(index, datasets_sol, datasets_res, sol, res):
+    sol.append(datasets_sol[index].get("score"))
+    res.append(datasets_res[index].get("score"))
+    sol.append(datasets_sol[index+19].get("score"))
+    res.append(datasets_res[index+19].get("score"))
+
+get_score(0, datasets_sol, datasets_res, sol, res)
+get_score(4, datasets_sol, datasets_res, sol, res)
+get_score(8, datasets_sol, datasets_res, sol, res)
+get_score(12, datasets_sol, datasets_res, sol, res)
+get_score(18, datasets_sol, datasets_res, sol, res)
+
+# setting a larger tolerance due to the fluctuating mean_cv_score
+assert_accuracy_almost(sol, res, 0.03)
+```
+
+:::: { .hint exercise="picking_your_hyperparameter_1"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `train_test_split()` to split the data?
+- Are you splitting with either `test_size=0.2` or `train_size=0.8`? 
+- Are you setting your `random_state=33` inside `train_test_split()`?
+- Are you using `DecisionTreeClassifier(max_depth=depth)` to build the model?
+- Are you using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)`?
+- Are you using `alt.Chart(results_df).mark_line()` to create your plot?
+
+:::
+::::
+
+:::: { .solution exercise="picking_your_hyperparameter_1" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+results_dict = {"depth": [], "mean_train_score": [], "mean_cv_score": []}
+
+# Create a for loop and fill in the blanks
+for depth in range(1,20):
+    model = DecisionTreeClassifier(max_depth=depth)
+    scores = cross_validate(model, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["depth"].append(depth)
+    results_dict["mean_cv_score"].append(scores["test_score"].mean())
+    results_dict["mean_train_score"].append(scores["train_score"].mean())
+
+# Wrangles the data into a form suitable for plotting 
+results_df = pd.DataFrame(results_dict).melt(id_vars=['depth'],
+                                             value_vars=['mean_train_score',
+                                                         'mean_cv_score'], 
+                                             var_name='split',
+                                             value_name='score')
+
+# Create a chart that plots depth vs score
+chart1 = alt.Chart(results_df).mark_line().encode(
+         alt.X('depth:Q', axis=alt.Axis(title="Tree Depth")),
+         alt.Y('score:Q', scale=alt.Scale(domain=[.80, 1.00])), 
+         alt.Color('split:N', scale=alt.Scale(domain=['mean_train_score',
+                                                     'mean_cv_score'],
+                                             range=['teal', 'gold'])))
+chart1
+```
+
+::::
+:::
+
+<br>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'To which depth would you set your <code>max_depth</code> hyperparameter?',
+        {
+        '1': 'There are other depth values that have a higher cross-validation score that at this value.',
+        '4': 'Nice work. This is where the score is at the highest for the validation set.',
+        '8': 'Are you sure this is the depth with the highest cross-validation score possible?',
+        '17': 'Are you sure this is the depth with the highest cross-validation score possible?',
+        },
+        '4',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'Are we obeying the golden rule of machine learing?',
+        {
+        'Yes': 'Yes, the test data have not influenced the training in anyway!',
+        'No': 'Have we touched the test data yet?',
+        },
+        'Yes',
+    );
+</script>
+
+
+## Picking your Hyperparameter Part 2
+
+Now that we have found a suitable value for `max_depth` let's build a new model and let this hyperparameter value. How well does your model do on the test data?
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+
+bball_df.head()
+```
+
+**Tasks:**
+
+- Build a model using `DecisionTreeClassifier()` using the optimal `max_depth`. 
+- Save this in an object named `model`. 
+- Fit your model on the objects `X_train` and `y_train`.
+- Evaluate the test score of the model using `.score()` on `X_test` and `y_test` and save the values in an object named `test_score` rounded to 4 decimal places.
+
+```{pyodide}
+#| setup: true
+#| exercise: picking_your_hyperparameter_2
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from src.utils import assert_accuracy_almost
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: picking_your_hyperparameter_2
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Create a model
+____ = ____
+
+# Fit your data 
+____.____
+
+# Score the model on the test set 
+____ = ____.____
+
+____
+```
+
+```{pyodide}
+#| exercise: picking_your_hyperparameter_2
+#| check: true
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+model = DecisionTreeClassifier(max_depth=4)
+model.fit(X_train,y_train)
+solution = round(model.score(X_test, y_test), 4)
+
+assert_accuracy_almost(solution, result, 0.001)
+```
+
+:::: { .hint exercise="picking_your_hyperparameter_2"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `DecisionTreeClassifier(max_depth=4)`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X_train, y_train)` on your model?
+- Are you scoring your model using `model.score(X_test, y_test)`?
+- Are you rounding to 4 decimal places?
+- Are you calculating `test_score` as  `round(model.score(X_test, y_test), 4)`
+
+:::
+::::
+
+:::: { .solution exercise="picking_your_hyperparameter_2" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Create a model
+model = DecisionTreeClassifier(max_depth=4)
+
+# Fit your data 
+model.fit(X_train,y_train)
+
+# Score the model on the test set 
+test_score = round(model.score(X_test, y_test), 4)
+
+test_score
+```
+
+::::
+:::
+
+<br>
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question',
+        'Is the test score comparable with the cross-validation score that we obtained in the first part?',
+        {
+        'Yes': '',
+        'No': 'Maybe look closer.',
+        },
+        'Yes',
+    );
+</script>

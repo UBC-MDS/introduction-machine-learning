@@ -1,0 +1,29 @@
+---
+format:
+  html:
+    page-layout: full
+---
+
+# 1. Splitting Data
+
+::: {.panel-tabset .nav-pills}
+
+## Video
+
+<iframe
+    class="video"
+    src="https://www.youtube.com/embed/eIgYVRnAcuc?start=4857&end=5691&rel=0" 
+    title="Module 3 Video - Splitting Data"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+></iframe>
+
+## Slides
+
+<iframe
+    class="slide-deck"
+    src="slides/module3_01.html"
+></iframe>
+
+:::

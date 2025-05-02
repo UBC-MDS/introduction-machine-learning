@@ -1,0 +1,357 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 3.1. Exercises
+
+## Cross Validation Questions
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'We carry out cross-validation to avoid reusing the same validation set again and again. Let’s say you do a 10-fold cross-validation on 1000 examples. For each fold, how many examples do you train on?',
+        {
+        '1000': 'Remember that we leave a portion of the examples out to validate on.',
+        '100': 'This is how many examples are in 1 fold but not necessarily trained on.',
+        '900': '',
+        '10': 'This is the number of folds, not examples.',
+        },
+        '900',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'With a 10-fold cross-validation, you split 1000 examples into 10-folds. For each fold, when you are done, you add up the accuracies from each fold and divide by what?',
+        {
+        '1000': 'This is the number of examples. We would get a very low score if we divided by this.',
+        '100': 'This is how many examples are in 1 fold.',
+        '900': 'This is the number of examples we are training on.',
+        '10': '',
+        },
+        '10',
+    );
+</script>
+
+**Question 3**
+
+```out
+array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
+```
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        '',
+        'Given this output of <code>cross_val_score()</code>, what was the value of 𝑘?',
+        {
+        '0': 'There must have been some positive value for k.',
+        '1': 'How many items are there in the array?',
+        '4': 'Great work!',
+        '8': 'Not this time!',
+        },
+        '4',
+    );
+</script>
+
+## Cross Validation True or False
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        '𝑘-fold cross-validation calls fit 𝑘 times and predict 𝑘 times.',
+        {
+        'True': 'Fit and predict are both called k times!',
+        'False': 'How many times are fit and predict called on 1 fold - cross-validation?',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'The goal of cross-validation is to obtain a better estimate of test score than just using a single validation set.',
+        {
+        'True': '',
+        'False': 'We use cross validation to estimate our test score better.',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 3',
+        'The main disadvantage of using a large 𝑘 in cross-validation is running time.',
+        {
+        'True': '',
+        'False': 'Since we need to train multiple times and predict multiple times, it can be very time-consuming.',
+        },
+        'True',
+    );
+</script>
+
+<br>
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+
+## Cross Validation in Action
+
+Let's use `cross_val_score()` on a Pokémon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+
+# Loading in the data
+pokemon = pd.read_csv('data/pokemon.csv')
+pokemon
+```
+
+**Tasks:** 
+
+- Split the `X` and `y` dataframes into 4 objects: `X_train`, `X_test`, `y_train`, `y_test`. 
+- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=33` (the random state here is for testing purposes so we all get the same split). 
+- Build a model using `DecisionTreeClassifier()`. 
+- Save this in an object named `model`. 
+- Cross-validate using `cross_val_score()` on the objects `X_train` and `y_train` and with 6 folds (`cv=6`) and save these scores in an object named `cv_scores`. 
+
+
+```{pyodide}
+#| setup: true
+#| exercise: cross_validation_in_action
+
+import pandas as pd
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from src.utils import assert_accuracy_almost
+
+pokemon = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: cross_validation_in_action
+# Define X and y
+X = pokemon.loc[:, 'attack':'capture_rt']
+y = pokemon['legendary']
+
+# Split the dataset
+____, ____, ____, ____ = ____(
+    ____, ____, test_size=____, random_state=33)
+
+# Create a model
+____ = ____
+
+# Cross validate
+____ = ____
+____
+```
+
+```{pyodide}
+#| exercise: cross_validation_in_action
+#| check: true
+X = pokemon.loc[:, 'attack':'capture_rt']
+y = pokemon['legendary']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+model = DecisionTreeClassifier()
+solution = cross_val_score(model, X_train, y_train, cv=6)
+
+assert isinstance(result, np.ndarray), "Make sure you are doing cross validation scoring using the 'cross_val_score' function."
+assert solution.size == result.size, "Make sure you are doing 6-fold cross validation."
+assert_accuracy_almost(round(sum(solution)/solution.size,3), round(sum(result)/result.size,3), tolerance=0.015)
+```
+
+:::: { .hint exercise="cross_validation_in_action"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=33)`? 
+- Are using `DecisionTreeClassifier()`?
+- Are you using the model named `model`?
+- Are you cross-validating using `cross_val_score(model, X_train, y_train, cv=6)` on your model?
+
+:::
+::::
+
+:::: { .solution exercise="cross_validation_in_action" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = pokemon.loc[:, 'attack':'capture_rt']
+y = pokemon['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+model = DecisionTreeClassifier()
+
+# Cross validate
+cv_scores = cross_val_score(model, X_train, y_train, cv=6)
+cv_scores
+```
+
+:::
+::::
+
+<br>
+
+## Cross Validation in Action again!
+
+Let's use `cross_validate()` on our Pokémon dataset that we saw in the previous exercises.  
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_validate
+
+# Loading in the data
+pokemon = pd.read_csv('data/pokemon.csv')
+pokemon
+```
+
+**Tasks:**
+
+- Build a model using `DecisionTreeClassifier()`. 
+- Save this in an object named `model`. 
+- Cross-validate using `cross_validate()` on the objects `X_train` and `y_train` making sure to specify 10 folds and `return_train_score=True`.
+- Convert the scores into a dataframe and save it in an object named `scores_df`.
+- Calculate the mean value of each column and save this in an object named `mean_scores`. 
+
+
+```{pyodide}
+#| setup: true
+#| exercise: cross_validation_in_action_again
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_validate
+from src.utils import assert_accuracy_almost
+
+pokemon = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: cross_validation_in_action_again
+X = pokemon.loc[:, 'speed':'capture_rt']
+y = pokemon['legendary']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Create a model
+____ = ____
+
+# Cross validate
+____ = ____
+
+# Convert scores into a dataframe
+____ = ____
+
+# Calculate the mean value of each column
+____ = ____
+
+# Display each score mean value
+____
+```
+
+```{pyodide}
+#| exercise: cross_validation_in_action_again
+#| check: true
+
+assert isinstance(result, pd.Series), "Have you converted scores into a dataframe and calculated the mean value of each column?"
+assert len(result.to_numpy()) == 4, "Have you converted scores into a dataframe and calculated the mean value of each column?"
+
+X = pokemon.loc[:, 'speed':'capture_rt']
+y = pokemon['legendary']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+model = DecisionTreeClassifier()
+scores = cross_validate(model, X, y, cv=10, return_train_score=True)
+scores_df = pd.DataFrame(scores)
+solution = scores_df.mean()
+
+assert_accuracy_almost(solution.to_numpy()[2:], result.to_numpy()[2:])
+```
+
+:::: { .hint exercise="cross_validation_in_action_again"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are using `DecisionTreeClassifier()`?
+- Are you using the model named `model`?
+- Are you cross-validating using `cross_validate(model, X_train, y_train, cv=10, return_train_score=True)` on your model?
+- Are you saving your dataframe using `pd.DataFrame(scores)`?
+- Are you using `.mean()` to calculate the mean of each column in `scores_df`?
+
+:::
+::::
+
+:::: { .solution exercise="cross_validation_in_action_again" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+X = pokemon.loc[:, 'speed':'capture_rt']
+y = pokemon['legendary']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Create a model
+model = DecisionTreeClassifier()
+
+# Cross validate
+scores = cross_validate(model, X, y, cv=10, return_train_score=True)
+
+# Convert scores into a dataframe
+scores_df = pd.DataFrame(scores)
+
+# Calculate the mean value of each column
+mean_scores = scores_df.mean()
+
+# Display each score mean value
+mean_scores
+```
+
+:::
+::::

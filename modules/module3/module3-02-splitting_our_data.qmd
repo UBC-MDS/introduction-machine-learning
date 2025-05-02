@@ -1,0 +1,239 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 1.1. Exercises
+
+## Splitting our data
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'What are the 2 main groups we split our data into?',
+        {
+        'Training and predicting data': 'One of these may be right.',
+        'Practice and testing data': 'One of these may be right.',
+        'Training and testing data': '',
+        'Fitting and predicting data': 'These are not the "official" names.',
+        },
+        'Training and testing data',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'When do we split our data?',
+        {
+        'At the very beginning, before we explore our data.': '',
+        'After we explore our data, but before we make our model.': 'We must split our data before we do anything else.',
+        'After we train our model.': 'This is a little too late.',
+        'After we make any predictions.': 'It’s a better idea to do it as soon as possible.',
+        },
+        'At the very beginning, before we explore our data.',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'Why do we split our data?',
+        {
+        'To increase our training accuracy.': 'Not quite.',
+        'To help us generalize our model better.': 'Getting warmer but not quite.',
+        'To decreasing training time.': 'Not quite but this may be a side effect.',
+        'To help us assess how well our model generalizes.': '',
+        },
+        'To help us assess how well our model generalizes.',
+    );
+</script>
+
+## Decision Tree Outcome
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'If you don’t set <code>random_state</code>, splitting your data will be randomized and you will get different results each time.',
+        {
+        'True': '',
+        'False': '<code>train_test_split()</code> splits the given data in a randomized manner.',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 2',
+        'When using <code>train_test_split()</code>, you must specify both <code>test_size</code> and <code>train_size</code>.',
+        {
+        'True': 'You only need to specify one of these arguments.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+## Splitting Data in Action
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Let's split our data using `train_test_split()` on our candy bars dataset.
+
+```{pyodide}
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+
+# Loading in the data
+candybar_df = pd.read_csv('data/candybars.csv')
+candybar_df
+```
+
+**Tasks:**
+
+- Split the `X` and `y` dataframes into 4 objects: `X_train`, `X_test`, `y_train`, `y_test`. 
+- Make the test set 0.2 (or the train set 0.8) and make sure to use `random_state=7`. 
+- Build a model using `DecisionTreeClassifier()`. 
+- Save this in an object named `model`. 
+- Fit your model on the objects `X_train` and `y_train`.
+- Evaluate the accuracy of the model using `.score()` on `X_train` and `y_train` save the values in an object named `train_score`.
+- Repeat the above action but this time evaluate the accuracy of the model using `.score()` on `X_test` and `y_test` (which the model has never seen before) and save the values in an object named `test_score`. 
+
+
+```{pyodide}
+#| setup: true
+#| exercise: splitting_data_in_action
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from src.utils import assert_accuracy_almost
+
+candybar_df = pd.read_csv('data/candybars.csv')
+```
+
+
+```{pyodide}
+#| exercise: splitting_data_in_action
+# Define X and y
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+# Split the dataset
+____, ____, ____, ____ = ____(
+    ____, ____, ____, ____)
+
+# Create a model
+____ = ____
+
+# Fit your data 
+____.____
+
+# Score the model
+____ = ____.score(____, ____)
+____ = ____.score(____, ____)
+
+dict = {
+  "train": round(train_score, 2),
+  "test": round(test_score, 2)
+}
+dict
+```
+
+```{pyodide}
+#| exercise: splitting_data_in_action
+#| check: true
+
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+model = DecisionTreeClassifier()
+model.fit(X_train,y_train)
+train_score = model.score(X_train, y_train)
+test_score = model.score(X_test, y_test)
+
+assert_accuracy_almost([train_score, test_score], list(result.values()))
+```
+
+:::: { .hint exercise="splitting_data_in_action"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)`? 
+- Are using `DecisionTreeClassifier()`?
+- Are you using the model named `model`?
+- Are you calling `.fit(X_train, y_train)` on your model?
+- Are you scoring your model using `model.score(X_train, y_train)` and `model.score(X_test, y_test)`?
+:::
+::::
+
+:::: { .solution exercise="splitting_data_in_action" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = candybar_df.loc[:, 'chocolate':'multi']
+y = candybar_df['availability']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Create a model
+model = DecisionTreeClassifier()
+
+# Fit your data 
+model.fit(X_train,y_train)
+
+# Score the model
+train_score = model.score(X_train, y_train)
+test_score = model.score(X_test, y_test)
+
+dict = {
+  "train": round(train_score, 2),
+  "test": round(test_score, 2)
+}
+dict
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question',
+        'On which split does the decision tree perform better?',
+        {
+        'Training Data': '',
+        'Testing Data': 'Maybe take a closer look?',
+        },
+        'Training Data',
+    );
+</script>
