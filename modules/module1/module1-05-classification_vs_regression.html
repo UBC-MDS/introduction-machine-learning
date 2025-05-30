@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>module1-02-is_it_machine_learning – Introduction to Machine Learning</title>
+<title>module1-05-classification_vs_regression – Introduction to Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../modules/module1/module1-03-types_of_machine_learning.html" rel="next">
-<link href="../../modules/module1/module1-01-what_is_supervised_machine_learning.html" rel="prev">
+<link href="../../modules/module1/module1-06-classification_vs_regression.html" rel="next">
+<link href="../../modules/module1/module1-04-sup_vs_unsup_learning.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -92,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
@@ -159,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/module1/module1-02-is_it_machine_learning.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../modules/module1/module1-02-is_it_machine_learning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">&nbsp;&nbsp; 1.1. Exercises</span></a>
   </div>
 </li>
@@ -177,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/module1/module1-05-classification_vs_regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../../modules/module1/module1-05-classification_vs_regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3. Classification vs.&nbsp;Regression</span></a>
   </div>
 </li>
@@ -238,64 +238,28 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
-<script src="../../src/quiz.js"></script>
-<section id="exercises" class="level1">
-<h1>1.1. Exercises</h1>
-<section id="is-it-machine-learning" class="level2">
-<h2 class="anchored" data-anchor-id="is-it-machine-learning">Is it Machine Learning?</h2>
-<div id="mcq1">
-
+<section id="classification-vs.-regression" class="level1">
+<h1>3. Classification vs.&nbsp;Regression</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Video</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Slides</a></li></ul>
+<div class="tab-content nav-pills">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<iframe class="video" src="https://www.youtube.com/embed/eIgYVRnAcuc?start=765&amp;end=906&amp;rel=0" title="Module 1 Video - Classification vs. Regression" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
 </div>
-<script>
-    generateQuiz(
-        'mcq1', 
-        'True or False: The following is an example of machine learning?', 
-        'Diagnosing cancer from magnetic resonance imaging', 
-        { 
-        'True': '',
-        'False': 'Machine Learning can be used to attempt to diagnose cancer.'
-        },
-        'True',
-    );
-</script>
-<div id="mcq2">
-
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<iframe class="slide-deck" src="slides/module1_05.html">
+</iframe>
 </div>
-<script>
-    generateQuiz(
-        'mcq2',
-        'True or False: The following is an example of machine learning?',
-        'Classifying images containing animals',
-        {
-        'True': '',
-        'False': 'If you look at example 2, in the slides you’ll see the code we used to do this.'
-        },
-        'True',
-    );
-</script>
-<div id="mcq3">
-
 </div>
-<script>
-    generateQuiz(
-        'mcq3',
-        'True or False: The following is an example of machine learning?',
-        'Blowing out a candle',
-        {
-        'True': 'No quite sure how this would work, but never say never! Technology is progressing everyday.',
-        'False': 'I don’t think we can use machine learning quite yet to do this. Maybe one day we will be able to! Who knows.'
-        },
-        'False',
-    );
-</script>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -698,15 +662,15 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-<nav class="page-navigation">
+<nav class="page-navigation column-page-right">
   <div class="nav-page nav-page-previous">
-      <a href="../../modules/module1/module1-01-what_is_supervised_machine_learning.html" class="pagination-link" aria-label="1. What is Supervised Machine Learning?">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. What is Supervised Machine Learning?</span>
+      <a href="../../modules/module1/module1-04-sup_vs_unsup_learning.html" class="pagination-link" aria-label="&amp;nbsp;&amp;nbsp; 2.1. Exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">&nbsp;&nbsp; 2.1. Exercises</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../modules/module1/module1-03-types_of_machine_learning.html" class="pagination-link" aria-label="2. Types of Machine Learning">
-        <span class="nav-page-text">2. Types of Machine Learning</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../modules/module1/module1-06-classification_vs_regression.html" class="pagination-link" aria-label="&amp;nbsp;&amp;nbsp; 3.1. Exercises">
+        <span class="nav-page-text">&nbsp;&nbsp; 3.1. Exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

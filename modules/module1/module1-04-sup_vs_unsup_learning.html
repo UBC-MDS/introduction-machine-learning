@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>module1-02-is_it_machine_learning – Introduction to Machine Learning</title>
+<title>module1-04-sup_vs_unsup_learning – Introduction to Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../modules/module1/module1-03-types_of_machine_learning.html" rel="next">
-<link href="../../modules/module1/module1-01-what_is_supervised_machine_learning.html" rel="prev">
+<link href="../../modules/module1/module1-05-classification_vs_regression.html" rel="next">
+<link href="../../modules/module1/module1-03-types_of_machine_learning.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -159,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/module1/module1-02-is_it_machine_learning.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../modules/module1/module1-02-is_it_machine_learning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">&nbsp;&nbsp; 1.1. Exercises</span></a>
   </div>
 </li>
@@ -171,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/module1/module1-04-sup_vs_unsup_learning.html" class="sidebar-item-text sidebar-link">
+  <a href="../../modules/module1/module1-04-sup_vs_unsup_learning.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">&nbsp;&nbsp; 2.1. Exercises</span></a>
   </div>
 </li>
@@ -245,22 +245,23 @@ ul.task-list li input[type="checkbox"] {
 
 <script src="../../src/quiz.js"></script>
 <section id="exercises" class="level1">
-<h1>1.1. Exercises</h1>
-<section id="is-it-machine-learning" class="level2">
-<h2 class="anchored" data-anchor-id="is-it-machine-learning">Is it Machine Learning?</h2>
+<h1>2.1. Exercises</h1>
+<section id="supervised-vs.-unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="supervised-vs.-unsupervised-learning">Supervised vs.&nbsp;Unsupervised Learning</h2>
+<p><strong>Given the following scenarios, would each example be considered supervised learning or unsupervised learning?</strong></p>
 <div id="mcq1">
 
 </div>
 <script>
     generateQuiz(
         'mcq1', 
-        'True or False: The following is an example of machine learning?', 
-        'Diagnosing cancer from magnetic resonance imaging', 
+        'Question 1', 
+        'Finding groups of similar properties in a real estate data set.', 
         { 
-        'True': '',
-        'False': 'Machine Learning can be used to attempt to diagnose cancer.'
+        'Supervised Learning': 'Is there a "true number" of groups of similar properties? Are the groups known and defined?',
+        'Unsupervised Learning': 'Good job! This is an unsupervised learning example.'
         },
-        'True',
+        'Unsupervised Learning',
     );
 </script>
 <div id="mcq2">
@@ -268,14 +269,14 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <script>
     generateQuiz(
-        'mcq2',
-        'True or False: The following is an example of machine learning?',
-        'Classifying images containing animals',
-        {
-        'True': '',
-        'False': 'If you look at example 2, in the slides you’ll see the code we used to do this.'
+        'mcq2', 
+        'Question 2', 
+        'Predicting real estate prices based on house features (number of rooms,past sales, etc.).', 
+        { 
+        'Supervised Learning': 'Nice work! Since we have examples with known value of real estate prices, we can use this predict real estate prices for homes we don’t know the price on.',
+        'Unsupervised Learning': 'Do we have true corresponding values of what we are predicting with?'
         },
-        'True',
+        'Supervised Learning',
     );
 </script>
 <div id="mcq3">
@@ -283,14 +284,44 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <script>
     generateQuiz(
-        'mcq3',
-        'True or False: The following is an example of machine learning?',
-        'Blowing out a candle',
-        {
-        'True': 'No quite sure how this would work, but never say never! Technology is progressing everyday.',
-        'False': 'I don’t think we can use machine learning quite yet to do this. Maybe one day we will be able to! Who knows.'
+        'mcq3', 
+        'Question 3', 
+        'Detecting credit card fraud based on examples of fraudulent transactions.', 
+        { 
+        'Supervised Learning': 'Great! Since we have examples with labels of "fraudulent" or "not fraudulent", we can detect if transactions with similar features to our examples are of the same nature.',
+        'Unsupervised Learning': 'Do we have examples of the true corresponding value of what we are predicting?'
         },
-        'False',
+        'Supervised Learning',
+    );
+</script>
+<div id="mcq4">
+
+</div>
+<script>
+    generateQuiz(
+        'mcq4', 
+        'Question 4', 
+        'Identifying groups of animals given features such as "number of legs", "wings/no wings", "fur/no fur", etc.', 
+        { 
+        'Supervised Learning': 'We are grouping animals together based on similarity.',
+        'Unsupervised Learning': ''
+        },
+        'Unsupervised Learning',
+    );
+</script>
+<div id="mcq5">
+
+</div>
+<script>
+    generateQuiz(
+        'mcq5', 
+        'Question 5', 
+        'Grouping articles on different topics from different news sources (something like Google News app).', 
+        { 
+        'Supervised Learning': 'Here we do not have a clear "correct" answer and therefor this is an example of unsupervised learning.',
+        'Unsupervised Learning': 'Grouping is also called *clustering* which is an example of unsupervised learning.'
+        },
+        'Unsupervised Learning',
     );
 </script>
 
@@ -700,13 +731,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../modules/module1/module1-01-what_is_supervised_machine_learning.html" class="pagination-link" aria-label="1. What is Supervised Machine Learning?">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. What is Supervised Machine Learning?</span>
+      <a href="../../modules/module1/module1-03-types_of_machine_learning.html" class="pagination-link" aria-label="2. Types of Machine Learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2. Types of Machine Learning</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../modules/module1/module1-03-types_of_machine_learning.html" class="pagination-link" aria-label="2. Types of Machine Learning">
-        <span class="nav-page-text">2. Types of Machine Learning</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../modules/module1/module1-05-classification_vs_regression.html" class="pagination-link" aria-label="3. Classification vs. Regression">
+        <span class="nav-page-text">3. Classification vs.&nbsp;Regression</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
