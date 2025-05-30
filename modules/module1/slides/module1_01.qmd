@@ -17,17 +17,18 @@ title-slide-attributes:
 :::{.notes}
 You may not know it, but machine learning  (ML) is all around you. 
 
-Some examples include:<br><br>
-- Voice assistance<br>
-- Google news<br>
-- Recommender systems<br>
-- Face recognition<br>
-- Auto completion<br>
-- Stock market predictions<br>
-- Character recognition<br>
-- Self-driving cars<br>
-- Cancer diagnosis<br>
-- Drug discovery<br><br>
+Some examples include:
+
+- Voice assistance
+- Google news
+- Recommender systems
+- Face recognition
+- Auto completion
+- Stock market predictions
+- Character recognition
+- Self-driving cars
+- Cancer diagnosis
+- Drug discovery
 
 The best AlphaGo player in the world is not human anymore. 
 
@@ -156,7 +157,8 @@ Our second example is predicting the label of a given image.
 
 ##  Predict labels with associated probability scores for unseen images  
 
-```{python eval=FALSE}
+```{python}
+# | output: false
 images = glob.glob("test_images/*.*")
 for image in images:
     img = Image.open(image)
@@ -193,7 +195,8 @@ So in this particular case, the model predicted that the image was that of an ox
 ---
 
 
-```{python eval=FALSE}
+```{python}
+# | output: false
 images = glob.glob("test_images/*.*")
 for image in images:
     img = Image.open(image)
@@ -246,7 +249,7 @@ imdb_df = imdb_df[imdb_df["label"].str.startswith(("pos", "neg"))]
 train_df, test_df = train_test_split(imdb_df, test_size=0.10, random_state=12)
 ```
 
-```{python eval=FALSE}
+```{python}
 train_df.head()
 ```
 
