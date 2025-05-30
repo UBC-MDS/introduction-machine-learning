@@ -17,6 +17,7 @@ dependencies:
     - jupyter
     - quarto
     - pip
+    - python-graphviz
 
 # from PIL import Image
 # from scipy.stats import randint
