@@ -32,12 +32,101 @@ website:
     style: 'docked'
     background: 'primary'
     contents:
+      - section: "**M0. Welcome to Introduction to Machine Learning**"
+        contents:
+          - text: '0. Welcome!'
+            href: modules/index.qmd
+          - href: modules/module0/module0-01-introduction_to_machine_learning.qmd
+          - text: '&nbsp;&nbsp; 1.1. Prerequisite confirmation'
+            href: modules/module0/module0-02-prerequisite_confirmation.qmd
       - section: "**M1. Machine Learning Terminology**"
         contents:
+          - href: modules/module1/module1-00-module_learning_outcomes.qmd
           - href: modules/module1/module1-01-what_is_supervised_machine_learning.qmd
           - text: '&nbsp;&nbsp; 1.1. Exercises'
             href: modules/module1/module1-02-is_it_machine_learning.qmd
-          - href: modules/module1/module1-03-building_a_model.qmd
+          - href: modules/module1/module1-03-types_of_machine_learning.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module1/module1-04-sup_vs_unsup_learning.qmd
+          - href: modules/module1/module1-05-classification_vs_regression.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module1/module1-06-classification_vs_regression.qmd
+          - href: modules/module1/module1-08-tabular_data_and_terminology.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module1/module1-09-terminology.qmd
+          - href: modules/module1/module1-13-baselines_training_a_model.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module1/module1-14-building_a_model.qmd
+          - href: modules/module1/module1-17-baselines_dummy_regression.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module1/module1-18-dummy_regressors.qmd
+          - href: modules/module1/module1-21-what_did_we_just_learn.qmd
+      - section: "**M2. Decision Trees**"
+        contents:
+          - href: modules/module2/module2-00-module_learning_outcomes.qmd
+          - href: modules/module2/module2-01-introducing_decision_trees.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module2/module2-02-decision_trees.qmd
+          - href: modules/module2/module2-04-building_a_decision_tree_classifier.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module2/module2-05-predicting_with_a_decision_tree.qmd
+          - href: modules/module2/module2-08-decision_trees_with_continous_features.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module2/module2-09-decision_boundaries.qmd
+          - href: modules/module2/module2-12-parameters_and_hyperparameters.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module2/module2-13-feature_splitting.qmd
+          - href: modules/module2/module2-16-decision_tree_regressor.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module2/module2-17-regression_with_decision_tree.qmd
+          - href: modules/module2/module2-19-generalization.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module2/module2-20-generalization_practice_questions.qmd
+          - href: modules/module2/module2-21-what_did_we_just_learn.qmd
+      - section: "**M3. Splitting, Cross-Validation and the Fundamental Tradeoff**"
+        contents:
+          - href: modules/module3/module3-00-module_learning_outcomes.qmd
+          - href: modules/module3/module3-01-splitting_data.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module3/module3-02-splitting_our_data.qmd
+          - href: modules/module3/module3-05-train_validation_and_test_split.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module3/module3-06-name_that_split.qmd
+          - href: modules/module3/module3-08-cross_validation.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module3/module3-09-cross_validation_questions.qmd
+          - href: modules/module3/module3-13-underfitting_and_overfitting.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module3/module3-14-is_it_overfitting_or_underfitting.qmd
+          - href: modules/module3/module3-17-fundamental_tradeoff_and_the_golden_rule.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module3/module3-18-quick_questions_on_tradeoff_and_golden_rule.qmd
+          - href: modules/module3/module3-21-what_did_we_just_learn.qmd
+      - section: "**M4.Similarity-Based Approaches to Supervised Learning**"
+        contents:
+          - href: modules/module4/module4-00-module_learning_outcomes.qmd
+          - href: modules/module4/module4-01-terminology.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module4/module4-02-dimension_questions.qmd
+          - href: modules/module4/module4-04-distances.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module4/module4-05-calculating_distances.qmd
+          - href: modules/module4/module4-09-finding_the_nearest_neighbour.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module4/module4-10-finding_neighbours_questions.qmd
+          - href: modules/module4/module4-13-𝑘-nearest_neighbours_(𝑘-nns)_classifier.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module4/module4-14-classifying_examples_by_hand.qmd
+          - href: modules/module4/module4-17-choosing_𝑘_(n_neighbors).qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module4/module4-18-choosing_k_for_your_model.qmd
+          - href: modules/module4/module4-21-𝑘_-nearest_neighbours_regressor.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module4/module4-22-regression_questions.qmd
+          - href: modules/module4/module4-24-support_vector_machines_(svms)_with_rbf_kernel.qmd
+          - text: '&nbsp;&nbsp; 7.1. Exercises'
+            href: modules/module4/module4-25-testing_your_svm_rbf_knowledge.qmd
+          - href: modules/module4/module4-28-what_did_we_just_learn.qmd    
       - section: "**M6. Preprocessing Categorical Variables**"
         contents:
           - href: modules/module6/module6-00-module_learning_outcomes.qmd
