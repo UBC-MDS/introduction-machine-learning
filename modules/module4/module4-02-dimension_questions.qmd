@@ -1,0 +1,102 @@
+---
+format: html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 1.1. Exercises
+
+## Dimension Questions
+
+Use the following dataframe named `garden` to answer the next two questions. 
+
+```out
+               
+       seeds   shape  sweetness   water-content      weight    fruit_veg
+0      1        0        35          84               100        fruit
+1      0        0        23          75               120        fruit
+2      1        1        15          90              1360         veg
+3      1        1         7          96               600         veg
+4      0        0        37          80                 5        fruit
+5      0        0        45          78                40        fruit  
+6      1        0        27          83               450         veg
+7      1        1        18          73                 5         veg
+8      1        1        32          80                76         veg
+9      0        0        40          83                65        fruit
+```
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'We are trying to predict if each example is either a fruit or a vegetable. What would be the dimension of feature vectors in this problem?',
+        {
+        '1': 'Have you tried counting the columns in <code>garden</code> that are not the <code>target</code>?',
+        '5': 'Fantastic!',
+        '6': 'Are you including the target column <code>fruit_veg</code>? Or maybe you included the index?',
+        '7': 'You may be including the index and target column <code>fruit_veg</code>.',
+        },
+        '5',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'Which of the following would be the feature vector for example 0.',
+        {
+        '<code>array([1,  0, 1, 1, 0, 0, 1, 1, 1, 0])</code>': 'This is the values from the first column not values for the feature vector of example 0.',
+        '<code>array([fruit,  fruit, veg, veg, fruit, fruit, veg, veg, veg, fruit])</code>': 'This is only containing the values of the target.',
+        '<code>array([1, 0, 35, 84, 100])</code>': '',
+        '<code>array([1, 0, 35, 84, 100,  fruit])</code>': 'Close but you have the target value in the feature vector.',
+        },
+        '<code>array([1, 0, 35, 84, 100])</code>',
+    );
+</script>
+
+## True and False Terminology
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'Analogy-based models find examples from the test set that are most similar to the test example we are predicting.',
+        {
+        'True': 'These types of models find examples that are most similar to the text example in the training set.',
+        'False': 'Great! They are finding examples in the training set, most similar to the test example.',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'Feature vectors can only be of length 3 since we cannot visualize past that.',
+        {
+        'True': 'Feature vectors have no max value.',
+        'False': '',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 3',
+        'A dataset with 10 dimensions is considered low dimensional.',
+        {
+        'True': 'Well done!',
+        'False': 'Dimensions up to 1000 are considered "low".',
+        },
+        'True',
+    );
+</script>

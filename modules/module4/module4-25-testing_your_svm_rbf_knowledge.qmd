@@ -1,0 +1,190 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 7.1. Exercises
+
+## Testing your SVM RBF  Knowledge
+
+These two boundary plots were made using SVM with an RBF kernel and the other with K-Nearest Neighbours. 
+
+![](../../static/module4/Q25.png){fig-align="center" width="90%" fig-alt="404 image"}
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Which plot more likely visualizes the boundaries of the SVM model?',
+        {
+        'Left': 'Which plot has smoother boundaries?',
+        'Right': '',
+        },
+        'Right',
+    );
+</script>
+
+
+## SVM True or False
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 1',
+        'In Scikit Learn’s SVC classifier, large values of gamma tend to result in higher training score but probably lower validation score.',
+        {
+        'True': 'Great work!',
+        'False': 'As we increase gamma, since our model is becoming more complex, our training score should increase. Since the model is more specific to the training data, the test score may decrease.',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 2',
+        'If we increase both <code>gamma</code> and <code>C</code>, we can’t be certain if the model becomes more complex our less complex.',
+        {
+        'True': 'Increasing both <code>C</code> and <code>gamma</code> makes the model more complex in both cases so the model will be increasing in complexity.',
+        'False': 'Great work.',
+        },
+        'False',
+    );
+</script>
+
+## Predicting with an SVM Classifier
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+We've used K-Nearest Neighbours to classify Pokémon from the Pokémon dataset so now let's try to do the same thing with an RBF kernel!
+
+```{pyodide}
+import pandas as pd
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+
+# Loading in the data
+pokemon_df = pd.read_csv('data/pokemon.csv')
+pokemon_df
+```
+
+**Tasks:**
+
+- Create an `SVM` model with `gamma` equal to 0.1 and `C` equal to 10 then name the model `model`.
+- Train your model on `X_train` and `y_train` (Hint: you may want to use `.to_numpy()`).
+- Score your model on the training set using `.score()` and save it in an object named `train_score`.
+- Score your model on the test set using `.score()` and save it in an object named `test_score`.
+
+```{pyodide}
+#| setup: true
+#| exercise: predicting_with_an_svm_classifier
+import pandas as pd
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from src.utils import assert_accuracy_almost
+
+pokemon_df = pd.read_csv('data/pokemon.csv')
+```
+
+
+```{pyodide}
+#| exercise: predicting_with_an_svm_classifier
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+____ = ____
+
+# Fit your data 
+____
+
+# Score the model on the test set 
+____ = ____
+
+____
+```
+
+```{pyodide}
+#| exercise: predicting_with_an_svm_classifier
+#| check: true
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+model = SVC(gamma=0.1, C=10)
+model.fit(X_train,y_train)
+assert_accuracy_almost(round(model.score(X_test, y_test), 4), result)
+```
+
+:::: { .hint exercise="predicting_with_an_svm_classifier"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using ` SVM(gamma=0.1, C=10)`?
+- Are you using `model.fit(X_train, y_train)`?
+- Are you using `model.score(X_test, y_test)` to find the test score?
+
+:::
+::::
+
+:::: { .solution exercise="predicting_with_an_svm_classifier" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = pokemon_df.drop(columns = ['deck_no', 'name','total_bs', 'type', 'legendary'])
+y = pokemon_df['legendary']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=33)
+
+# Create a model
+model = SVC(gamma=0.1, C=10)
+
+# Fit your data 
+model.fit(X_train,y_train)
+
+# Score the model on the test set 
+test_score = round(model.score(X_test, y_test), 4)
+
+test_score
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 1',
+        'Does this model give similar results to 𝑘-NN?',
+        {
+        'Yes': 'We got around .9 with 𝑘-NN as well!',
+        'No': 'We got a score around 0.9 with 𝑘-NN .',
+        },
+        'Yes',
+    );
+</script>
