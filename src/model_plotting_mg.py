@@ -62,6 +62,7 @@ def plot_contours(ax, clf, xx, yy, proba=False, transformation=None, **params):
 def plot_classifier(X, y, clf, ax=None, ticks=False, proba=False, lims=None, transformation=None, show_data=True, gray_photocopy=False, proba_showtitle=True, **kwargs): # assumes classifier "clf" is already fit
     X0, X1 = X[:, 0], X[:, 1]
     xx, yy = make_meshgrid(X0, X1, lims=lims)
+
     if ax is None:
         plt.figure()
         ax = plt.gca()
@@ -87,7 +88,7 @@ def plot_classifier(X, y, clf, ax=None, ticks=False, proba=False, lims=None, tra
         if proba_showtitle:
             cbar.ax.set_ylabel('probability of red $\Delta$ class', fontsize=20, rotation=270, labelpad=30)
         cbar.ax.tick_params(labelsize=14)
-    
+
     if show_data:
         #ax.scatter(X0, X1, c=y, cmap=plt.cm.coolwarm, s=30, edgecolors='k', linewidth=1)
         labels = np.unique(y)
