@@ -57,13 +57,13 @@ function generateQuiz(containerId, title, question, options, correctAnswers) {
             if (correctAnswers.includes(option)) {
                 const emojis = ["🍀", "🎉", "🌈", "🚀", "🌟", "✨", "💯"];
                 const emoji = emojis[~~(Math.random() * emojis.length)];
-                messageBody.innerHTML = `<strong style="color: #F78F2E !important; font-size: 16px">Correct! &nbsp;${emoji}</strong><br>${explanation}`;
-                messageElement.style.backgroundColor = '#FEEFE1'; // Light background for content
-                messageElement.style.borderLeft = '5px solid #F78F2E'; // Left border styling
+                messageBody.innerHTML = `<strong style="color: #0BB5D4 !important; font-size: 16px">Correct! &nbsp;${emoji}</strong><br>${explanation}`;
+                messageElement.style.backgroundColor = '#E8FAFD'; // Light background for content
+                messageElement.style.borderLeft = '5px solid #0BB5D4'; // Left border styling
             } else {
-                messageBody.innerHTML = `<strong style="color: #4853A4 !important; font-size: 16px;">Incorrect</strong><br>${explanation}`;
-                messageElement.style.backgroundColor = '#E1E3F0'; // Light background for content
-                messageElement.style.borderLeft = '5px solid #4853A4'; // Left border styling
+                messageBody.innerHTML = `<strong style="color: #283791 !important; font-size: 16px;">Incorrect</strong><br>${explanation}`;
+                messageElement.style.backgroundColor = '#EAEDFA'; // Light background for content
+                messageElement.style.borderLeft = '5px solid #283791'; // Left border styling
             }
 
             messageElement.style.display = 'block';
