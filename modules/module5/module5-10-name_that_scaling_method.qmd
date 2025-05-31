@@ -168,6 +168,8 @@ ____
 ```{pyodide}
 #| exercise: practicing_scaling
 #| check: true
+assert len(str(result).split(".")[1]) == 3, "Please round your answer to 3 decimal places."
+
 X = bball_df.loc[:, ['height', 'weight', 'salary']]
 y = bball_df['position']
 X_train, X_test, y_train, y_test = train_test_split(

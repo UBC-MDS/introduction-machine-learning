@@ -97,7 +97,7 @@ format: html
         'Training only': 'It definitely alters the training set but that’s not all.',
         'Testing only': 'It does alter the test data but it doesn’t stop there.',
         'Both training and testing': '',
-        'Nether training or testing': 'We need to scale our data though!',
+        'Neither training or testing': 'We need to scale our data though!',
         },
         'Both training and testing',
     );

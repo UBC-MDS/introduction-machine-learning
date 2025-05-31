@@ -76,9 +76,7 @@ We are going to concentrate on the two named `MinMaxScaler` and `StandardScaler`
 
 &nbsp;
 
-There are all sorts of articles on this: see
-<a href="http://www.dataminingblog.com/standardization-vs-normalization/" target="_blank">here</a>
-and <a href="https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc" target="_blank">here</a>.
+There are all sorts of articles on this. Such as <a href="https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc" target="_blank">here</a>.
  
 :::{.notes}
 In terms of terminology, **Normalization** is the term we use when we use the `MinMaxScaler()` function and **Standardization** with `StandardScaler()` which we saw before. 

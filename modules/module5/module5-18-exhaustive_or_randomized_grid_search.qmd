@@ -23,12 +23,27 @@ format: live-html
     );
 </script>
 
-## Hyperparameter Quick Questions
-
 <div id='mcq2'></div>
 <script>
     generateQuiz(
         'mcq2',
+        'Question 2',
+        'Which one gives you fine-grained control over the amount of time spent searching?',
+        {
+        'Exhaustive Grid Search (<code>GridSearchCV</code>)': 'Randomized grid search picks the best result more often than not and we get control over the amount of interations that occur.',
+        'Randomized Grid Search (<code>RandomizedSearchCV</code>)': '',
+        'Both are relatively fast': 'Randomize grid search can be much faster than exhaustive grid search since we can pick the amount of interations that occur.',
+        },
+        'Randomized Grid Search (<code>RandomizedSearchCV</code>)',
+    );
+</script>
+
+## Hyperparameter Quick Questions
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
         'Question 1',
         'If I want to search for the most optimal hyperparameter values among 3 different hyperparameters each with 3 different values how many trials of cross-validation would be needed?',
         {
@@ -41,10 +56,10 @@ format: live-html
     );
 </script>
 
-<div id='mcq3'></div>
+<div id='mcq4'></div>
 <script>
     generateQuiz(
-        'mcq3',
+        'mcq4',
         'Question 2',
         'Automated hyperparameter optimization can only be used for multiple hyperparameters.',
         {
@@ -233,10 +248,10 @@ bb_test_score
 
 <br>
 
-<div id='mcq4'></div>
+<div id='mcq5'></div>
 <script>
     generateQuiz(
-        'mcq4',
+        'mcq5',
         'Question 1',
         'How many times is a model trained in the problem above?',
         {
@@ -249,10 +264,10 @@ bb_test_score
     );
 </script>
 
-<div id='mcq5'></div>
+<div id='mcq6'></div>
 <script>
     generateQuiz(
-        'mcq5',
+        'mcq6',
         'Question 2',
         'What was the optimal value for the hyperparameter <code>weights</code>?',
         {
@@ -263,10 +278,10 @@ bb_test_score
     );
 </script>
 
-<div id='mcq6'></div>
+<div id='mcq7'></div>
 <script>
     generateQuiz(
-        'mcq6',
+        'mcq7',
         'Question 3',
         'What is the optimal value for the hyperparameter <code>n_neighbors</code>?',
         {

@@ -190,7 +190,8 @@ Now that we've identified the columns with missing values, let's use `SimpleImpu
 from sklearn.impute import SimpleImputer
 ```
 
-**Tasks:**   
+**Tasks:**
+
 - Import the necessary library.
 - Using `SimpleImputer`, replace the null values in the training and testing dataset with the median value in each column.
 - Save your transformed data in objects named `train_X_imp` and `test_X_imp` respectively. 
@@ -282,6 +283,9 @@ X_train_imp_df = pd.DataFrame(X_train_imp, columns = X_train.columns, index = X_
 
 # Check if your training set still has missing values 
 X_train_imp_df.info()
+
+# For checking purposes, please keep the following line
+# X_train_imp_df
 ```
 
 :::
