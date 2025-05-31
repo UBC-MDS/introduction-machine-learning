@@ -288,7 +288,7 @@ Test score:  0.89</code></pre>
 </tbody>
 </table>
 <p>&nbsp;</p>
-<p>There are all sorts of articles on this: see <a href="http://www.dataminingblog.com/standardization-vs-normalization/" target="_blank">here</a> and <a href="https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc" target="_blank">here</a>.</p>
+<p>There are all sorts of articles on this. Such as <a href="https://medium.com/@rrfd/standardize-or-normalize-examples-in-python-e3f174b65dfc" target="_blank">here</a>.</p>
 <aside class="notes">
 <p>In terms of terminology, <strong>Normalization</strong> is the term we use when we use the <code>MinMaxScaler()</code> function and <strong>Standardization</strong> with <code>StandardScaler()</code> which we saw before.</p>
 <p>Normalization converts all the values so they lie between the values 0 and 1. Standardization will set the sample mean to 0 and distribute the values around the mean with a standard deviation of 1.</p>
@@ -306,7 +306,7 @@ Test score:  0.89</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="7281df59" class="cell" data-execution_count="3">
+<div id="44d00b35" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(X_train_imp, columns<span class="op">=</span>X_train.columns, index<span class="op">=</span>X_train.index).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -401,7 +401,7 @@ Test score:  0.89</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="a59e168d" class="cell" data-execution_count="4">
+<div id="9100368e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
@@ -521,7 +521,7 @@ Test score:  0.89</code></pre>
 <section class="slide level2">
 
 <p><strong>Unscaled data</strong></p>
-<div id="6cc8fd13" class="cell" data-execution_count="5">
+<div id="46062b9c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
@@ -533,7 +533,7 @@ Test score:  0.89</code></pre>
 0.32</code></pre>
 <p><br></p>
 <p><strong>Scaled data</strong></p>
-<div id="54e8a959" class="cell" data-execution_count="6">
+<div id="32e0efcf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_scaled, y_train)<span class="op">;</span></span>
 <span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(knn.score(X_train_scaled, y_train), <span class="dv">3</span>))</span>
@@ -558,7 +558,7 @@ Test score:  0.89</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="c0c3de22" class="cell" data-execution_count="7">
+<div id="949e5a69" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
@@ -678,7 +678,7 @@ Test score:  0.89</code></pre>
 <section class="slide level2">
 
 <p><strong>Unscaled data</strong></p>
-<div id="5ccdf441" class="cell" data-execution_count="8">
+<div id="c5602a85" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_imp, y_train)<span class="op">;</span></span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(knn.score(X_train_imp, y_train), <span class="dv">3</span>))</span>
@@ -688,7 +688,7 @@ Test score:  0.89</code></pre>
 0.32</code></pre>
 <p><br></p>
 <p><strong>Scaled data</strong></p>
-<div id="f980f0c1" class="cell" data-execution_count="9">
+<div id="bfa0f6c8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_scaled, y_train)<span class="op">;</span></span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(knn.score(X_train_scaled, y_train), <span class="dv">3</span>))</span>

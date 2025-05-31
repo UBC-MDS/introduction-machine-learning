@@ -636,15 +636,31 @@ ul.task-list li input[type="checkbox"] {
         'Exhaustive Grid Search (<code>GridSearchCV</code>)',
     );
 </script>
-</section>
-<section id="hyperparameter-quick-questions" class="level2">
-<h2 class="anchored" data-anchor-id="hyperparameter-quick-questions">Hyperparameter Quick Questions</h2>
 <div id="mcq2">
 
 </div>
 <script>
     generateQuiz(
         'mcq2',
+        'Question 2',
+        'Which one gives you fine-grained control over the amount of time spent searching?',
+        {
+        'Exhaustive Grid Search (<code>GridSearchCV</code>)': 'Randomized grid search picks the best result more often than not and we get control over the amount of interations that occur.',
+        'Randomized Grid Search (<code>RandomizedSearchCV</code>)': '',
+        'Both are relatively fast': 'Randomize grid search can be much faster than exhaustive grid search since we can pick the amount of interations that occur.',
+        },
+        'Randomized Grid Search (<code>RandomizedSearchCV</code>)',
+    );
+</script>
+</section>
+<section id="hyperparameter-quick-questions" class="level2">
+<h2 class="anchored" data-anchor-id="hyperparameter-quick-questions">Hyperparameter Quick Questions</h2>
+<div id="mcq3">
+
+</div>
+<script>
+    generateQuiz(
+        'mcq3',
         'Question 1',
         'If I want to search for the most optimal hyperparameter values among 3 different hyperparameters each with 3 different values how many trials of cross-validation would be needed?',
         {
@@ -656,12 +672,12 @@ ul.task-list li input[type="checkbox"] {
         '27',
     );
 </script>
-<div id="mcq3">
+<div id="mcq4">
 
 </div>
 <script>
     generateQuiz(
-        'mcq3',
+        'mcq4',
         'Question 2',
         'Automated hyperparameter optimization can only be used for multiple hyperparameters.',
         {
@@ -757,12 +773,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEZWZpbmUgWCBhbmQgeVxu
 </div>
 </div>
 <p><br></p>
-<div id="mcq4">
+<div id="mcq5">
 
 </div>
 <script>
     generateQuiz(
-        'mcq4',
+        'mcq5',
         'Question 1',
         'How many times is a model trained in the problem above?',
         {
@@ -774,12 +790,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEZWZpbmUgWCBhbmQgeVxu
         '140',
     );
 </script>
-<div id="mcq5">
+<div id="mcq6">
 
 </div>
 <script>
     generateQuiz(
-        'mcq5',
+        'mcq6',
         'Question 2',
         'What was the optimal value for the hyperparameter <code>weights</code>?',
         {
@@ -789,12 +805,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBEZWZpbmUgWCBhbmQgeVxu
         'uniform',
     );
 </script>
-<div id="mcq6">
+<div id="mcq7">
 
 </div>
 <script>
     generateQuiz(
-        'mcq6',
+        'mcq7',
         'Question 3',
         'What is the optimal value for the hyperparameter <code>n_neighbors</code>?',
         {

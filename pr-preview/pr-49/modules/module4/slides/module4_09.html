@@ -203,7 +203,7 @@
 </section>
 <section class="slide level2">
 
-<div id="4b1f132a" class="cell" data-execution_count="2">
+<div id="df5a4188" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -258,7 +258,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="79e5f3e9" class="cell" data-execution_count="4">
+<div id="2753946c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> euclidean_distances</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>dists <span class="op">=</span> euclidean_distances(train_df[[<span class="st">"latitude"</span>, <span class="st">"longitude"</span>]])</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>dists</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -271,7 +271,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="0c31cf0a" class="cell" data-execution_count="5">
+<div id="dca5d618" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>dists.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>(167, 167)</code></pre>
@@ -295,7 +295,7 @@
 </section>
 <section class="slide level2">
 
-<div id="f521bbc4" class="cell" data-execution_count="6">
+<div id="5477fb58" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(dists).loc[:<span class="dv">5</span>,:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -387,7 +387,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="18c67131" class="cell" data-execution_count="7">
+<div id="97a2e8f3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>np.fill_diagonal(dists, np.inf)</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(dists).loc[:<span class="dv">5</span>,:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -498,7 +498,7 @@
 <section class="slide level2">
 
 <p>Feature vector for city 0:</p>
-<div id="ad8f8331" class="cell" data-execution_count="8">
+<div id="6e64a7ff" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>train_df.iloc[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>longitude   -76.4813
@@ -509,7 +509,7 @@ Name: 160, dtype: object</code></pre>
 </div>
 <p><br></p>
 <p>Distances from city 0 to 5 other cities:</p>
-<div id="26d417ff" class="cell" data-execution_count="9">
+<div id="84a3fed3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>dists[<span class="dv">0</span>][:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([        inf,  4.92866046, 10.47586257,  3.40229467,  9.04600003])</code></pre>
@@ -536,7 +536,7 @@ Name: 160, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="ec93cfd7" class="cell" data-execution_count="10">
+<div id="a25eacdd" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>train_df.iloc[[<span class="dv">0</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
@@ -577,14 +577,14 @@ Name: 160, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="b5d9ab5b" class="cell" data-execution_count="11">
+<div id="8def0b0f" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>np.argmin(dists[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>157</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="477857da" class="cell" data-execution_count="12">
+<div id="8d0f73fb" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>train_df.iloc[[<span class="dv">157</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
@@ -625,7 +625,7 @@ Name: 160, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="d82c8123" class="cell" data-execution_count="13">
+<div id="865f0fce" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>dists[<span class="dv">0</span>][<span class="dv">157</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>0.18047839205805613</code></pre>
@@ -650,7 +650,7 @@ Name: 160, dtype: object</code></pre>
 </section>
 <section id="finding-the-distances-to-a-query-point" class="slide level2">
 <h2>Finding the distances to a query point</h2>
-<div id="2e869ba2" class="cell" data-execution_count="14">
+<div id="da9430ef" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>query_point <span class="op">=</span> [[<span class="op">-</span><span class="dv">80</span>, <span class="dv">25</span>]]</span>
 <span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>dists <span class="op">=</span> euclidean_distances(train_df[[<span class="st">"longitude"</span>, <span class="st">"latitude"</span>]], query_point)</span>
@@ -665,7 +665,7 @@ Name: 160, dtype: object</code></pre>
 </div>
 <p><br></p>
 <p>We can find the city closest to the query point (-80, 25) using:</p>
-<div id="b1249851" class="cell" data-execution_count="15">
+<div id="039b2c67" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>np.argmin(dists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>147</code></pre>
@@ -673,7 +673,7 @@ Name: 160, dtype: object</code></pre>
 </div>
 <p><br></p>
 <p>The distance between the query point and closest city is:</p>
-<div id="d1ee9813" class="cell" data-execution_count="16">
+<div id="ea950fcd" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>dists[np.argmin(dists)].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>3.8383922936564634</code></pre>
@@ -704,7 +704,7 @@ Name: 160, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="a545793f" class="cell" data-execution_count="17">
+<div id="eeb8d5bf" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
 <span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>nn <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>nn.fit(train_df[[<span class="st">'longitude'</span>, <span class="st">'latitude'</span>]])<span class="op">;</span></span>
@@ -732,7 +732,7 @@ Name: 160, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="7080dd75" class="cell" data-execution_count="18">
+<div id="d0be23ae" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>pokemon_df <span class="op">=</span> pd.read_csv(<span class="st">"data/pokemon.csv"</span>)</span>
 <span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pokemon_df.drop(columns <span class="op">=</span> [<span class="st">'deck_no'</span>, <span class="st">'name'</span>,<span class="st">'total_bs'</span>, <span class="st">'type'</span>, <span class="st">'legendary'</span>])</span>
 <span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pokemon_df[[<span class="st">'legendary'</span>]]</span>
@@ -841,7 +841,7 @@ Name: 160, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="690f1435" class="cell" data-execution_count="19">
+<div id="69bc9730" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>dists <span class="op">=</span> euclidean_distances(X_train[:<span class="dv">3</span>])</span>
 <span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>dists</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -851,14 +851,14 @@ Name: 160, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="21a0250c" class="cell" data-execution_count="20">
+<div id="5fc3d50e" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>dists[<span class="dv">0</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>226.54138694728607</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="e25e575f" class="cell" data-execution_count="21">
+<div id="f873f8eb" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>nn <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>nn.fit(X_train)<span class="op">;</span></span>
 <span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>nn.kneighbors(X_test.iloc[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -867,7 +867,7 @@ Name: 160, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="eed1dd2d" class="cell" data-execution_count="22">
+<div id="b523a00f" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>X_test.to_numpy().shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>(161, 7)</code></pre>
@@ -890,7 +890,7 @@ Name: 160, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="2c2e468d" class="cell" data-execution_count="23">
+<div id="da096bcb" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>nn <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>nn.fit(X_train)<span class="op">;</span></span>
 <span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a>nn.kneighbors(X_test.iloc[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -899,20 +899,20 @@ Name: 160, dtype: object</code></pre>
 array=[605  55  55  85  55  30 255 335   5].
 Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.</code></pre>
 <p><br></p>
-<div id="1852cd10" class="cell" data-execution_count="24">
+<div id="e4b00e5b" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>X_test.iloc[<span class="dv">1</span>].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>(7,)</code></pre>
 </div>
 </div>
-<div id="8aa8ec25" class="cell" data-execution_count="25">
+<div id="bff71322" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>X_test.iloc[[<span class="dv">1</span>]].shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>(1, 7)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="510580f8" class="cell" data-execution_count="26">
+<div id="3440ee3d" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>nn <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>nn.fit(X_train)<span class="op">;</span></span>
 <span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a>nn.kneighbors(X_test.iloc[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
