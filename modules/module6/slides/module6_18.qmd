@@ -1,0 +1,386 @@
+---
+format: revealjs
+title: "Handeling Categorical Features: Binary, Ordinal and More"
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+## Returning to ordinal encoding
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+adult = pd.read_csv('data/adult.csv')
+adult = adult.replace("?", np.NaN)
+train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
+X_train = train_df.drop(columns=['income'])
+y_train = train_df['income']
+X_test = test_df.drop(columns=['income'])
+y_test = test_df['income']
+
+numeric_features = ["age", "fnlwgt", "education.num", "capital.gain",
+                    "capital.loss", "hours.per.week"]
+
+categorical_features = ["workclass", "education", "marital.status", 
+                        "occupation", "relationship", "race", 
+                        "sex", "native.country"]
+```
+
+```{python}
+train_df[categorical_features].head(3)
+```
+
+:::{.notes} 
+Taking where we left off with our adult census data, it's a good idea to take a look at the categorical features we specified in more detail. 
+
+Some of the categorical features are truly categorical, meaning that there is no ordinality among values. 
+:::
+
+---
+
+```{python}
+train_df["education"].unique()
+```
+
+<br>
+
+```{python}
+from sklearn.preprocessing import OrdinalEncoder
+
+oe = OrdinalEncoder(dtype=int)
+oe.fit(X_train[["education"]]);
+ed_transformed = oe.transform(X_train[["education"]])
+ed_transformed = pd.DataFrame(data=ed_transformed, columns=["education_enc"], index=X_train.index)
+ed_transformed.head()
+```
+
+<br>
+
+```{python}
+ed_transformed['education_enc'].unique()
+```
+
+
+
+:::{.notes}  
+But what about the `education` column? 
+
+Here there is actually an order in the values and it might help to encode this column using `OrdinalEncoder`
+
+- Example: Masters > 10th    
+
+
+Let's use `OrdinalEncoder` and see what happens. 
+
+We fit and then transform the `education` column. 
+
+We now see that we have given each education category a value.
+:::
+
+---
+
+```{python}
+oe.categories_[-1]
+```
+
+<br>
+
+```{python}
+pd.DataFrame(data=np.arange(len(oe.categories_[0])), columns=["transformed"], index=oe.categories_[0]).head(10)
+```
+
+:::{.notes} 
+But which integer value corresponds to each education category?
+
+`OrdinalEncoder` has encoded the categories by alphabetically sorting them and then assigning integers to them in that order.
+
+Is this what we want? 
+:::
+
+---
+
+```{python}
+train_df["education"].unique()
+```
+
+<br>
+
+```{python}
+education_levels = ['Preschool', '1st-4th', '5th-6th', '7th-8th', 
+                    '9th', '10th', '11th', '12th', 'HS-grad',
+                    'Prof-school', 'Assoc-voc', 'Assoc-acdm', 
+                    'Some-college', 'Bachelors', 'Masters', 'Doctorate']
+```
+
+<br>
+
+```{python}
+assert set(education_levels) == set(train_df["education"].unique())
+```
+
+:::{.notes} 
+Instead, let's order them manually.
+
+We can use the set datatype that we learned in Programming in Python for Data Science to make sure that each has been accounted for.
+:::
+
+---
+
+
+```{python}
+oe = OrdinalEncoder(categories=[education_levels], dtype=int)
+oe.fit(X_train[["education"]]);
+ed_transformed = oe.transform(X_train[["education"]])
+ed_transformed = pd.DataFrame(data=ed_transformed, columns=["education_enc"], index=X_train.index)
+oe.categories_
+```
+
+<br>
+
+```{python}
+pd.DataFrame(data=np.arange(len(oe.categories_[0])), columns=["transformed"], index=oe.categories_[0]).head(10)
+```
+
+
+:::{.notes} 
+Ah! That looks better.
+:::
+
+---
+
+```{python}
+numeric_features = ['age', 'fnlwgt', 'capital.gain', 
+                    'capital.loss', 'hours.per.week']
+categorical_features = ['workclass', 'marital.status', 'occupation', 
+                        'relationship', 'race', 'sex', 'native.country']
+ordinal_features = ['education']
+target_column = 'income'
+```
+
+
+:::{.notes} 
+So now when we are separating our columns into their respective feature types.
+:::
+
+---
+
+```{python}
+from sklearn.pipeline import make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import make_column_transformer
+from sklearn.svm import SVC
+```
+
+```{python}
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder(handle_unknown="ignore")
+)
+
+ordinal_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OrdinalEncoder(categories=[education_levels], dtype=int,)
+)
+
+preprocessor = make_column_transformer(
+        (numeric_transformer, numeric_features),
+        (categorical_transformer, categorical_features),
+        (ordinal_transformer, ordinal_features)
+)
+pipe = make_pipeline(preprocessor, SVC())
+```
+
+
+:::{.notes} 
+This means that we need to make a separate pipeline for our ordinal columns. We then specify this transformation in or `make_column_transformer()` function.
+:::
+
+---
+
+```{python}
+from sklearn.model_selection import cross_validate
+
+scores = cross_validate(pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores).mean()
+```
+
+
+:::{.notes} 
+This then produces new scores.
+:::
+
+---
+
+## Binary Features
+
+```{python}
+X_train.head()
+```
+
+<br>
+
+```{python}
+X_train['sex'].unique()
+```
+
+
+:::{.notes} 
+Let's take another look at our columns. 
+
+If we look at the values for `sex`, they were collected in a binary way. 
+
+Note that this representation reflects how the data were collected and is not meant to imply that, for example, gender is binary.
+:::
+
+---
+
+```{python}
+ohe = OneHotEncoder(sparse_output=False, dtype=int)
+ohe.fit(X_train[["sex"]])
+
+ohe_df = pd.DataFrame(data=ohe.transform(X_train[["sex"]]), columns=ohe.get_feature_names_out(["sex"]), index=X_train.index)
+ohe_df
+```
+
+
+:::{.notes} 
+When we do one-hot encoding on this feature, we get 2 separate columns which aren't particularly necessary.
+:::
+
+---
+
+
+```{python}
+ohe = OneHotEncoder(sparse_output=False, dtype=int, drop="if_binary") # <-- see here
+ohe.fit(X_train[["sex"]])
+
+ohe_df = pd.DataFrame(data=ohe.transform(X_train[["sex"]]), columns=ohe.get_feature_names_out(["sex"]), index=X_train.index)
+ohe_df
+```
+
+
+:::{.notes} 
+So, for this feature with binary values, we can use an argument called `drop` within `OneHotEncoder` and set it to `"if_binary"`.
+
+Now we see that after one-hot encoding we only get a single column where the encoder has arbitrarily chosen one of the two categories based on the sorting.
+
+In this case, alphabetically it was [Female, Male] and it drops the first one.
+:::
+
+---
+
+```{python}
+numeric_features = ['age', 'fnlwgt', 'capital.gain', 
+                    'capital.loss', 'hours.per.week']
+categorical_features = ['workclass', 'marital.status', 'occupation', 
+                        'relationship', 'race', 'native.country']
+ordinal_features = ['education']
+binary_features = ['sex']
+target_column = 'income'
+```
+
+
+:::{.notes} 
+Again we must separate our binary feature from the rest.
+:::
+
+---
+
+```{python}
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder(handle_unknown="ignore")
+)
+ordinal_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OrdinalEncoder(categories=[education_levels], dtype=int,)
+)
+binary_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder(drop="if_binary", dtype=int)
+    )
+preprocessor = make_column_transformer(
+        (numeric_transformer, numeric_features),
+        (categorical_transformer, categorical_features),
+        (ordinal_transformer, ordinal_features),
+        (binary_transformer, binary_features)
+)
+pipe = make_pipeline(preprocessor, SVC())
+```
+
+
+
+:::{.notes} 
+And just like we said for ordinal values,  when we make our pipelines, we need to make a separate one for the binary columns and add it to our `make_column_transformer()`.
+:::
+
+---
+
+```{python}
+scores = cross_validate(pipe, X_train, y_train, return_train_score=True)
+pd.DataFrame(scores)
+```
+
+<br>
+
+```{python}
+pd.DataFrame(scores).mean()
+```
+
+
+---
+
+## One-hot encoding with many categories
+
+```{python}
+X_train["native.country"].value_counts()
+```
+
+
+:::{.notes} 
+This may be too detailed, and the amount of data is very limited for most of these countries.
+
+Can you really learn from 11 examples?
+
+Grouping them into bigger categories such as "South America" or "Asia" or having an "other" category for rare cases could be a better solution.
+:::
+
+---
+
+### Do we actually want to use certain features for prediction?
+
+```{python}
+X_train.head()
+```
+
+<br>
+
+```{python}
+X_train["race"].unique()
+```
+
+
+:::{.notes} 
+Do you want to use `race` in prediction?
+
+Remember that the systems you build are going to be used in some applications. 
+
+It's extremely important to be mindful of the consequences of including certain features in your predictive model. 
+
+Splitting `race` into 4 races and an `Other` group seems quite insensitive and problematic to say the least. 
+
+Dropping the feature to avoid racial biases, would be a strong suggestion. 
+:::
+
+
+# Let’s apply what we learned!

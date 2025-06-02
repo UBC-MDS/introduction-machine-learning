@@ -1,0 +1,364 @@
+---
+format: revealjs
+title: Make - Pipelines & Column Transformers
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+```{python}
+# | include: false
+adult = pd.read_csv('data/adult.csv')
+adult = adult.replace("?", np.NaN)
+```
+
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+train_df, test_df = train_test_split(adult, test_size=0.2, random_state=42)
+train_df.head()
+```
+
+:::{.notes} 
+Remember our adult census data from assignment 5? Well, we are bringing back a more complete version of it. 
+:::
+
+---
+
+```{python}
+X_train = train_df.drop(columns=['income'])
+y_train = train_df['income']
+
+X_test = test_df.drop(columns=['income'])
+y_test = test_df['income']
+```
+
+
+:::{.notes} 
+Remember, we are trying to predict if a row is classified with an income `<=50K` or `>50K`.
+:::
+
+---
+
+```{python}
+numeric_features = [
+    "age",
+    "fnlwgt",
+    "education.num",
+    "capital.gain",
+    "capital.loss",
+    "hours.per.week"
+]
+
+categorical_features = [
+    "workclass",
+    "education",
+    "marital.status",
+    "occupation",
+    "relationship",
+    "sex",
+    "native.country"
+]
+```
+
+:::{.notes} 
+In the last slide deck, we split our features into numeric and categorical features which we will do again for this data.
+
+We can also add a new type of feature called `passthrough_features` these features are the ones that are omitted from being used in our model.
+:::
+
+---
+
+```{python}
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.svm import SVC
+```
+
+```{python}
+numeric_transformer = Pipeline(
+    steps=[("imputer", SimpleImputer(strategy="median")), 
+           ("scaler", StandardScaler())])
+
+categorical_transformer = Pipeline(
+    steps=[
+        ("imputer", SimpleImputer(strategy="constant", fill_value="missing")),
+        ("onehot", OneHotEncoder())])
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ("num", numeric_transformer, numeric_features),
+        ("cat", categorical_transformer, categorical_features)] )
+
+pipe = Pipeline(
+    steps=[
+        ("preprocessor", preprocessor),
+        ("clf", SVC())])
+```
+
+
+:::{.notes} 
+We defined transformations on the numeric and categorical features, on a column transformer, and on a pipeline.
+
+You'll also notice that we can specify  `remainder="passthrough"`  in our pipeline.
+
+This seems great but it seems quite a lot. 
+
+Well, luckily there is another method and tool that is helpful in making our life easier. 
+
+It's call `make_pipeline()`.
+:::
+
+---
+
+### *make_pipeline* syntax
+
+```python
+model_pipeline = Pipeline(
+    steps=[
+        ("scaling", StandardScaler()),
+        ("clf", SVC())])
+```
+
+<br>
+
+```python
+model_pipeline = make_pipeline(
+            StandardScaler(), SVC())
+```
+<br>
+
+```python
+model_pipeline
+```
+
+```out
+Pipeline(steps=[('standardscaler', StandardScaler()), ('svc', SVC())])
+```
+
+:::{.notes} 
+`make_pipeline()` is a shorthand for the `Pipeline()` constructor and does not permit, naming the steps.
+
+Instead, their names will be set to the lowercase of their types automatically.
+:::
+
+---
+
+```{python}
+from sklearn.pipeline import make_pipeline
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"),
+                                    StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder()
+)
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ("num", numeric_transformer, numeric_features),
+        ("cat", categorical_transformer, categorical_features)
+    ]
+)
+
+pipe = make_pipeline(preprocessor, SVC())
+```
+
+
+:::{.notes} 
+Let's create our numeric and categoric pipelines for this data using `make_pipeline` instead of `Pipeline()`. 
+
+Look how much less effort our pipeline took!
+
+Our `ColumnTransformer` may still have the same syntax but guess what?! We have a solution for that too!
+:::
+
+---
+
+
+## *make_column_transformer* syntax
+
+
+```{python}
+from sklearn.compose import make_column_transformer
+```
+
+<br>
+
+so instead of this:
+
+```{python}
+preprocessor = ColumnTransformer(
+    transformers=[
+        ("num", numeric_transformer, numeric_features),
+        ("cat", categorical_transformer, categorical_features) ]
+)
+```
+
+<br>
+
+we can do this:
+
+```{python}
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features),
+    (categorical_transformer, categorical_features))
+```
+
+:::{.notes} 
+Just like `make_pipeline()`,  we can make our column transformer with `make_column_transformer()`.
+
+This eliminates the need to designate names for the numeric and categorical transformations.
+:::
+
+---
+
+So our whole thing becomes:
+
+```{python}
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"),
+                                    StandardScaler())
+
+categorical_transformer = make_pipeline(
+                SimpleImputer(strategy="constant", fill_value="missing"),
+                OneHotEncoder())
+                
+preprocessor = make_column_transformer(
+               (numeric_transformer, numeric_features), 
+               (categorical_transformer, categorical_features))
+               
+pipe = make_pipeline(preprocessor, SVC())
+```
+
+```python
+scores = cross_validate(pipe, X_train, y_train, cv=5, return_train_score=True)
+```
+
+```out
+ValueError: Found unknown categories ['Holand-Netherlands'] in column 7 during transform
+
+Detailed traceback: 
+  File "<string>", line 1, in <module>
+  File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "/usr/local/lib/python3.8/site-packages/sklearn/model_selection/_validation.py", line 242, in cross_validate
+```
+
+
+:::{.notes} 
+Looks nice but it looks like we have a problem with this dataset. 
+
+What's going on here??
+:::
+
+---
+
+```out
+ValueError: Found unknown categories ['Holand-Netherlands'] in column 7 during transform
+```
+
+<br>
+
+```{python}
+X_train["native.country"].value_counts().tail(5)
+```
+
+
+:::{.notes} 
+Let's look at the error message:
+
+`Found unknown categories ['Holand-Netherlands'] in column 7 during transform`.
+
+This is an issue with our `OneHotEncoder` transformation. 
+
+There is only one instance of category `Holand-Netherlands`.
+
+During cross-validation, this is getting put into the validation split.
+
+By default, `OneHotEncoder` throws an error because you might want to know about this.
+:::
+
+---
+
+## How do we fix it? 
+
+
+```{python}
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="constant", fill_value="missing"),
+    OneHotEncoder(handle_unknown="ignore"))
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features))
+
+pipe = make_pipeline(preprocessor, SVC())
+```
+
+<br>
+
+```{python}
+from sklearn.model_selection import cross_validate
+
+scores = cross_validate(pipe, X_train, y_train, cv=5, return_train_score=True)
+pd.DataFrame(scores).mean()
+```
+
+
+:::{.notes} 
+Simplest fix: Pass `handle_unknown="ignore"` argument to `OneHotEncoder`.   
+
+It creates a row with all zeros. 
+
+Do you want this behaviour though? 
+
+In that case, "Holland" or "Mars" or "Hogwarts" would all be treated the same.
+
+Are you expecting to get many unknown categories? Do you want to be able to distinguish between them?
+
+With this approach, all unknown categories will be represented with all zeros.
+:::
+
+---
+
+### Cases where it's OK to break the golden rule 
+
+- If it's some fixed number of categories.
+
+
+```{python}
+all_countries = adult["native.country"].unique()
+all_countries
+```
+
+<br>
+
+```{python}
+ohe_cat = OneHotEncoder(categories=all_countries)
+```
+
+
+:::{.notes} 
+Are there any cases where it's OK to break the golden rule?
+
+- If it's some fixed number of categories.
+
+For example, if the categories are provinces/territories of Canada, we know the possible values and we can just specify them.
+
+If we know the categories, this might be a reasonable time to "violate the Golden Rule" (look at the test set) and just hard-code all the categories.
+
+This syntax allows you to pre-define the categories.
+:::
+
+
+# Let’s apply what we learned!
