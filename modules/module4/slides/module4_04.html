@@ -94,7 +94,7 @@
     code span.vs { color: #da4453; } /* VerbatimString */
     code span.wa { color: #da4453; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-8eed4ab78b5c89545952e6f4e7833611.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-b43e02337fd334b562421b13f3cbe725.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -236,7 +236,7 @@
 </section>
 <section class="slide level2">
 
-<div id="2f0ac42d" class="cell" data-execution_count="2">
+<div id="f19ae8a4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -319,7 +319,7 @@
 </section>
 <section class="slide level2">
 
-<div id="b86f18cf" class="cell" data-execution_count="3">
+<div id="bbe713d3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>cities_viz <span class="op">=</span> alt.Chart(train_df, width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">300</span>).mark_circle(size<span class="op">=</span><span class="dv">20</span>, opacity<span class="op">=</span><span class="fl">0.6</span>).encode(</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'longitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="op">-</span><span class="dv">140</span>, <span class="op">-</span><span class="dv">40</span>])),</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'latitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">60</span>])),</span>
@@ -345,7 +345,7 @@
 </section>
 <section class="slide level2">
 
-<div id="0e95b854" class="cell" data-execution_count="5">
+<div id="6682435b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>two_cities <span class="op">=</span> cities_df.sample(<span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>).drop(columns<span class="op">=</span>[<span class="st">"country"</span>])</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>two_cities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -409,7 +409,7 @@
 </section>
 <section id="how-do-we-calculate-the-distance-between-the-two-cities" class="slide level2">
 <h2>How do we calculate the distance between the two cities?</h2>
-<div id="4c1a1cae" class="cell" data-execution_count="6">
+<div id="e1338526" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>two_cities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -453,7 +453,7 @@
 </div>
 </div>
 <p><br> Subtract the two cities:</p>
-<div id="59f03922" class="cell" data-execution_count="7">
+<div id="2cb0e62c" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>two_cities.iloc[<span class="dv">1</span>] <span class="op">-</span> two_cities.iloc[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>longitude   -13.2789
@@ -462,7 +462,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p><br> Square the differences:</p>
-<div id="adf8c601" class="cell" data-execution_count="8">
+<div id="25559a97" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>(two_cities.iloc[<span class="dv">1</span>] <span class="op">-</span> two_cities.iloc[<span class="dv">0</span>])<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>longitude    176.329185
@@ -490,14 +490,14 @@ dtype: float64</code></pre>
 <section class="slide level2">
 
 <p>Sum them up:</p>
-<div id="7528ea63" class="cell" data-execution_count="9">
+<div id="069d5c76" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>((two_cities.iloc[<span class="dv">1</span>] <span class="op">-</span> two_cities.iloc[<span class="dv">0</span>])<span class="op">**</span><span class="dv">2</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>179.28724121999983</code></pre>
 </div>
 </div>
 <p><br> And then take the square root:</p>
-<div id="a83da77a" class="cell" data-execution_count="10">
+<div id="b12192d8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>((two_cities.iloc[<span class="dv">1</span>] <span class="op">-</span> two_cities.iloc[<span class="dv">0</span>])<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>13.389818565611703</code></pre>
@@ -521,14 +521,14 @@ dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="97941ad4" class="cell" data-execution_count="11">
+<div id="ad71efe9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>((two_cities.iloc[<span class="dv">1</span>] <span class="op">-</span> two_cities.iloc[<span class="dv">0</span>])<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>13.389818565611703</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="2c26d1ab" class="cell" data-execution_count="12">
+<div id="6050a408" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> euclidean_distances</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>euclidean_distances(two_cities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
