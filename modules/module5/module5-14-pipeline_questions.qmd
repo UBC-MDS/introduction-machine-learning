@@ -1,0 +1,210 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 4.1. Exercises
+
+## Pipeline Questions
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Which of the following steps cannot be used in a pipeline?',
+        {
+        'Scaling': 'We show an example of this in the slides.',
+        'Model building': 'We specify the model in the pipeline as the final step.',
+        'Imputation': 'This is a transformation that can be added as a starting step in a pipeline.',
+        'Data splitting': 'We need to split our data into the training and testing splits <i>before</i> putting it into a pipeline.',
+        },
+        'Data splitting',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'Why can’t we fit and transform the training and test data together?',
+        {
+        'Because it would take a lot of time.': 'Think back to Module 3...',
+        'It’s violating the golden rule.': 'Perfect!',
+        'It would result in an error.': 'It wouldn’t result in an error and would still execute (if your code was correct).',
+        'It would cause your model to underfit.': 'Think of why we cannot mix the data together...',
+        },
+        'It’s violating the golden rule.',
+    );
+</script>
+
+## Pipeline True or False
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'We have to be careful of the order we put each transformation and model in a pipeline.',
+        {
+        'True': '',
+        'False': 'We need to make sure that the steps we would use outside a pipeline are reflected within it.',
+        },
+        'True',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'Pipelines will fit and transform on both the training and validation folds during cross-validation.',
+        {
+        'True': 'Using a <code>Pipeline</code> takes care of applying the <code>fit_transform</code> on the train portion and only <code>transform</code> on the validation portion in each fold.',
+        'False': 'Great work!',
+        },
+        'False',
+    );
+</script>
+
+## Applying Pipelines
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Using our trusty basketball let's impute, scale and fit a model using a pipeline to see the results. 
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
+# Loading in the data
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+bball_df
+```
+
+**Tasks:**
+
+- Build a pipeline named `bb_pipe` it should impute using `SimpleImputer` and a "median" strategy, scale using `StandardScaler` and build a `KNeighborsClassifier`.
+- Cross-validate on `bb_pipe` using `X_train` and `y_train` and save the results in an object named `cross_scores`.
+- Transform `cross_scores` to a dataframe, take the mean of each column and save the result in an object named mean_scores.
+
+```{pyodide}
+#| setup: true
+#| exercise: applying_pipelines
+import pandas as pd
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from src.utils import assert_accuracy_almost
+
+bball_df = pd.read_csv('data/bball.csv')
+bball_df = bball_df[(bball_df['position'] =='G') | (bball_df['position'] =='F')]
+```
+
+
+```{pyodide}
+#| exercise: applying_pipelines
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Build a pipeline named bb_pipe
+____ = ____(steps=[____])
+
+# Cross-validate on the pipeline steps using X_train and y_train
+# Save the results in an object named cross_scores
+____ = ____
+
+# Transform cross_scores to a dataframe and take the mean of each column
+# Save the result in an object named mean_scores
+____ = ____
+____
+```
+
+```{pyodide}
+#| exercise: applying_pipelines
+#| check: true
+assert isinstance(result, pd.Series), "Have you converted scores into a dataframe and calculated the mean value of each column?"
+assert len(result.to_numpy()) == 4, "Have you converted scores into a dataframe and calculated the mean value of each column?"
+
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+bb_pipe = Pipeline(
+            steps=[("imputer", SimpleImputer(strategy="median")),
+                   ("scaler", StandardScaler()),
+                   ("knn", KNeighborsClassifier())])
+cross_scores = cross_validate(bb_pipe, X_train, y_train, return_train_score=True)
+
+solution = pd.DataFrame(cross_scores).mean()
+
+assert_accuracy_almost(solution.to_numpy()[2:], result.to_numpy()[2:])
+```
+
+:::: { .hint exercise="applying_pipelines"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using `SimpleImputer(strategy="median")` as the first step in the pipeline?
+- Are you using `StandardScaler()` as a second step in the pipeline?
+- Are you using `KNeighborsClassifier()` as the third step in the pipeline?
+- Are you using `cross_validate(bb_pipe, X_train, y_train, return_train_score=True)` to cross-validate?
+- Are you using `pd.DataFrame(cross_scores).mean()` to see your results?
+
+:::
+::::
+
+:::: { .solution exercise="applying_pipelines" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Define X and y
+X = bball_df.loc[:, ['height', 'weight', 'salary']]
+y = bball_df['position']
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=7)
+
+# Build a pipeline named bb_pipe
+bb_pipe = Pipeline(
+            steps=[("imputer", SimpleImputer(strategy="median")),
+                   ("scaler", StandardScaler()),
+                   ("knn", KNeighborsClassifier())])
+
+# Cross-validate on the pipeline steps using X_train and y_train
+# Save the results in an object named cross_scores
+cross_scores = cross_validate(bb_pipe, X_train, y_train, return_train_score=True)
+
+# Transform cross_scores to a dataframe and take the mean of each column
+# Save the result in an object named mean_scores
+mean_scores = pd.DataFrame(cross_scores).mean()
+mean_scores
+```
+
+:::
+::::
