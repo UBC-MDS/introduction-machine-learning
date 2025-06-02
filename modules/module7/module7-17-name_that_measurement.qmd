@@ -120,7 +120,7 @@ format: live-html
         '15': 'Don’t forget to divide by the number of samples!',
         '8': 'You need to sum up the <i>squared</i> differences. Not just the difference.',
         '3': '',
-        '0': 'This would be mean we perfectly predicted all the samples which we did not do in this case.',
+        '0': 'This would mean we perfectly predicted all the samples which we did not do in this case.',
         },
         '3',
     );
