@@ -107,6 +107,7 @@ bball_df
 ```
 
 **Tasks:**
+
 - Build an ordinal encoder that uses a `dtype` of `int` and name it `ordinal_encoder`. 
 - Fit on `X_column`, transform it and save the results in an object named `country_encoded`. 
 

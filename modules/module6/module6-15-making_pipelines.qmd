@@ -123,6 +123,7 @@ bball_df
 ```
 
 **Tasks:**
+
 - For all pipelines, make sure to use `make_pipeline()` where possible.
 - Create a pipeline for the numeric features. It should have the first step as simple imputation using `strategy="median"` and the second step should be using `StandardScaler`.  Name this pipeline `numeric_transformer`. 
 - Create a pipeline for the categorical features. It should also have 2 steps. The first is imputation using `strategy="most_frequent"`. The second step should be one-hot encoding with `handle_unknown="ignore"`. Name this pipeline `categotical_transformer`. 
