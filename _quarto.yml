@@ -126,7 +126,48 @@ website:
           - href: modules/module4/module4-24-support_vector_machines_(svms)_with_rbf_kernel.qmd
           - text: '&nbsp;&nbsp; 7.1. Exercises'
             href: modules/module4/module4-25-testing_your_svm_rbf_knowledge.qmd
-          - href: modules/module4/module4-28-what_did_we_just_learn.qmd    
+          - href: modules/module4/module4-28-what_did_we_just_learn.qmd
+      - section: "**M5. Preprocessing Numerical Features, Pipelines and Hyperparameter Optimization**"
+        contents:
+          - href: modules/module5/module5-00-module_learning_outcomes.qmd
+          - href: modules/module5/module5-01-the_importance_of_preprocessing.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module5/module5-02-questions_on_why.qmd
+          - href: modules/module5/module5-05-case_study:_preprocessing_with_imputation.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module5/module5-06-imputation.qmd
+          - href: modules/module5/module5-09-case_study:_preprocessing_with_scaling.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module5/module5-10-name_that_scaling_method.qmd
+          - href: modules/module5/module5-13-case_study:_pipelines.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module5/module5-14-pipeline_questions.qmd
+          - href: modules/module5/module5-17-automated_hyperparameter_optimization.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module5/module5-18-exhaustive_or_randomized_grid_search.qmd
+          - href: modules/module5/module5-21-what_did_we_just_learn.qmd
+      - section: "**M6. Preprocessing Categorical Variables**"
+        contents:
+          - href: modules/module6/module6-00-module_learning_outcomes.qmd
+          - href: modules/module6/module6-01-categorical_variables:_ordinal_encoding.qmd
+          - text: '&nbsp;&nbsp; 1.1. Exercises'
+            href: modules/module6/module6-02-categorical_variables.qmd
+          - href: modules/module6/module6-05-categorical_variables:_one-hot_encoding.qmd
+          - text: '&nbsp;&nbsp; 2.1. Exercises'
+            href: modules/module6/module6-06-one-hot_encoding_questions.qmd
+          - href: modules/module6/module6-10-columntransformer.qmd
+          - text: '&nbsp;&nbsp; 3.1. Exercises'
+            href: modules/module6/module6-11-transforming_columns_with_columntransformer.qmd
+          - href: modules/module6/module6-14-make_-_pipelines_column_transformers.qmd
+          - text: '&nbsp;&nbsp; 4.1. Exercises'
+            href: modules/module6/module6-15-making_pipelines.qmd
+          - href: modules/module6/module6-18-handeling_categorical_features:_binary_ordinal_and_more.qmd
+          - text: '&nbsp;&nbsp; 5.1. Exercises'
+            href: modules/module6/module6-19-transforming_categorical_features.qmd
+          - href: modules/module6/module6-22-text_data.qmd
+          - text: '&nbsp;&nbsp; 6.1. Exercises'
+            href: modules/module6/module6-23-text_data_questions.qmd
+          - href: modules/module6/module6-26-what_did_we_just_learn.qmd
       - section: "**M7. Assessment and Measurements**"
         contents:
           - href: modules/module7/module7-00-module_learning_outcomes.qmd
