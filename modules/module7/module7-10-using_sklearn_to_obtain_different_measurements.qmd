@@ -1,0 +1,343 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 3.1. Exercises
+
+## Using Sklearn to Obtain Different Measurements
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+This time with our basketball dataset we are predicting multiple positions, in the last one we used only "Forward" or "Guard" as our target labels and now we have 6 positions instead of 2!
+
+```{pyodide}
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['full_name', 'jersey',
+                                     'b_day', 'college', 'position'])
+y_train_big = train_df['position']
+X_test = test_df.drop(columns=['full_name', 'jersey',
+                               'b_day', 'college', 'position'])
+y_test = test_df['position']
+
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+numeric_features = [
+    "rating",
+    "height",
+    "weight",
+    "salary",
+    "draft_year",
+    "draft_round",
+    "draft_peak"]
+
+categorical_features = [
+    "team",
+    "country"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+
+bball
+```
+
+**Tasks:**
+
+- Print a classification report of all the measurements comparing `y_valid` and `predicted_y`. You can use the `digits` function to round all the calculations to 3 decimal places.
+- Using `zero_division=0` will suppress the warning. 
+
+```{pyodide}
+#| setup: true
+#| exercise: using_sklearn_to_obtain_different_measurements2
+import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report
+from src.utils import assert_accuracy_almost
+
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train_big = train_df.drop(columns=['full_name', 'jersey',
+                                     'b_day', 'college', 'position'])
+y_train_big = train_df['position']
+X_test = test_df.drop(columns=['full_name', 'jersey',
+                               'b_day', 'college', 'position'])
+y_test = test_df['position']
+
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+numeric_features = [
+    "rating",
+    "height",
+    "weight",
+    "salary",
+    "draft_year",
+    "draft_round",
+    "draft_peak"]
+
+categorical_features = [
+    "team",
+    "country"]
+
+numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
+
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy="most_frequent"),
+    OneHotEncoder(handle_unknown="ignore"),
+)
+
+preprocessor = make_column_transformer(
+    (numeric_transformer, numeric_features), 
+    (categorical_transformer, categorical_features)
+)
+```
+
+
+```{pyodide}
+#| exercise: using_sklearn_to_obtain_different_measurements2
+# Build a pipeline containing the column transformer and an SVC model
+pipe_bb = make_pipeline(preprocessor, SVC())
+
+# Fit your pipeline on the training data
+pipe_bb.fit(X_train, y_train);
+
+# Predict your values on the validation set
+# Save them in an object named predicted_y
+____ = ____
+
+# Using sklearn tools, obtain a classification_report
+# Use the code below for checking purposes, and do not use print.
+# To obtain a more readable version of the report, remove output_dict=true and call print.
+____(____, ____, ____, ____, output_dict=true)
+```
+
+```{pyodide}
+#| exercise: using_sklearn_to_obtain_different_measurements2
+#| check: true
+
+assert result is not None, "Please do not use print statements for the checking purposes."
+assert isinstance(result, dict), "Please output a dict for the checking purposes."
+
+pipe_bb = make_pipeline(preprocessor, SVC())
+pipe_bb.fit(X_train, y_train);
+predicted_y = pipe_bb.predict(X_valid)
+solution = classification_report(y_valid, predicted_y, digits=3, zero_division=0, output_dict=True)
+
+assert list(solution.keys()) == list(result.keys()), "Have you called classification_report with the correct arguments?"
+assert list(solution["G"].keys()) == list(result["G"].keys()), "Have you called classification_report with the correct arguments?"
+assert_accuracy_almost(list(solution["G"].values()), list(result["G"].values()))
+```
+
+:::: { .hint exercise="using_sklearn_to_obtain_different_measurements2"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you using the arguments `y_valid`, `predicted_y`,  and `digits=3` for the `classification_report` function?
+
+:::
+::::
+
+:::: { .solution exercise="using_sklearn_to_obtain_different_measurements2" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a pipeline containing the column transformer and an SVC model
+pipe_bb = make_pipeline(preprocessor, SVC())
+
+# Fit your pipeline on the training data
+pipe_bb.fit(X_train, y_train);
+
+# Predict your values on the validation set
+# Save them in an object named predicted_y
+predicted_y = pipe_bb.predict(X_valid)
+
+# Using sklearn tools, print a classification_report
+print(classification_report(y_valid, predicted_y, digits=3, zero_division=0))
+#classification_report(y_valid, predicted_y, digits=3, zero_division=0, output_dict=True) # for checking purposes
+```
+
+:::
+::::
+
+<br>
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'Using <code>G</code> as the positive label, what is the precision?',
+        {
+        '0.788': '',
+        '0.897': 'Are you looking at precision?',
+        '0.875': 'Are you looking at the wrong label for the positive class?',
+        '0.778': 'Are you looking at the wrong label for the positive class?',
+        },
+        '0.788',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'What is the recall of the model when we use <code>C</code> as the positive label?',
+        {
+        '0.00': 'Not this time.',
+        '0.778': '',
+        '0.875': 'Are you looking at recall?',
+        '0.897': 'Are you looking at the right positive label?',
+        },
+        '0.778',
+    );
+</script>
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 3',
+        'What is the weighted average precision measurement?',
+        {
+        '0.371': 'This is the macro average precision',
+        '0.419': 'This is the macro average recall',
+        '0.555': '',
+        '0.678': 'This is the weighted average recall.',
+        },
+        '0.555',
+    );
+</script>
+
+## Multi-class Questions
+
+![](../../static/module7/multi-classQ.png){fig-align="center" width="60%" fig-alt="404 image"}
+
+For the next questions use the confusion matrix above and assume that **Forward** is the positive label. 
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'How many examples did the model correctly predict?',
+        {
+        '23': 'The correctly predicted examples are on the diagonal.',
+        '38': 'The correctly predicted examples are on the diagonal.',
+        '52': 'Got it!',
+        '19': 'The correctly predicted examples are on the diagonal.',
+        },
+        '52',
+    );
+</script>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 3',
+        'How many examples were incorrectly labeled as <code>G</code>?',
+        {
+        '0': 'Look at the entire <code>G</code> column and disregard the correctly labeled (19) <code>G</code> examples.',
+        '1': 'Look at the entire <code>G</code> column and disregard the correctly labeled (19) <code>G</code> examples.',
+        '2': 'Look at the entire <code>G</code> column and disregard the correctly labeled (19) <code>G</code> examples.',
+        '3': 'Nice! 2 of these were incorrectly labeled as <code>G</code> when they should have been <code>F</code> and one should have been <code>G-F</code>.',
+        },
+        '3',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 4',
+        'How many <code>F-C</code> labels were in the data?',
+        {
+        '0': 'Are you looking at all the values in the <code>F-C</code> row and adding them up?',
+        '1': 'Are you looking at all the values in the <code>F-C</code> row and adding them up?',
+        '5': 'Are you looking at all the values in the <code>F-C</code> row and adding them up?',
+        '6': 'Nice! 5 examples were incorrectly labeled as <code>F</code> and 1 labeled incorrectly as <code>C</code>.',
+        },
+        '6',
+    );
+</script>
+
+## True or False: Measurements
+
+<div id='mcq7'></div>
+<script>
+    generateQuiz(
+        'mcq7',
+        'Question 1',
+        'The weighted average gives equal importance to all classes.',
+        {
+        'True': 'It’s the macro average that does this.',
+        'False': 'Killing it!',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq8'></div>
+<script>
+    generateQuiz(
+        'mcq8',
+        'Question 2',
+        'Using 1 target label as the positive class will make all other target labels negative.',
+        {
+        'True': 'Good job!',
+        'False': 'Classes are classified as binary for these measurements; either the target "positive" label or not.',
+        },
+        'True',
+    );
+</script>
