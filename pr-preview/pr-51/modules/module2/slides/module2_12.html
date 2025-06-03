@@ -231,7 +231,7 @@
 </section>
 <section class="slide level2">
 
-<div id="50c92a66" class="cell" data-execution_count="2">
+<div id="8c573ea5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -327,7 +327,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="382f30a6" class="cell" data-execution_count="3">
+<div id="02350f7b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -348,7 +348,7 @@
 </section>
 <section class="slide level2">
 
-<div id="89b733f5" class="cell" data-execution_count="4">
+<div id="e8958b60" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">1</span>)  </span>
@@ -376,7 +376,7 @@
 </section>
 <section class="slide level2">
 
-<div id="203752aa" class="cell" data-execution_count="6">
+<div id="2f4e1657" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">2</span>)  </span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>model2.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -397,7 +397,7 @@
 </section>
 <section class="slide level2">
 
-<div id="95aaa9c6" class="cell" data-execution_count="8">
+<div id="7de6a299" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>model3 <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">3</span>)  </span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>model3.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -418,28 +418,28 @@
 </section>
 <section class="slide level2">
 
-<div id="45a0e1a6" class="cell" data-execution_count="10">
+<div id="baf90f0e" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>model.score(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0.7619047619047619</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="b9cd7f0e" class="cell" data-execution_count="11">
+<div id="b9c7b065" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>model2.score(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0.8571428571428571</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="f6a1ba9c" class="cell" data-execution_count="12">
+<div id="cc2dc13d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>model3.score(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>0.9523809523809523</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="0ec8d9bf" class="cell" data-execution_count="13">
+<div id="a114b5cc" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>model4 <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">5</span>)  </span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>model4.fit(X, y)</span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>model4.score(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -469,7 +469,7 @@
 </section>
 <section class="slide level2">
 
-<div id="031a1b17" class="cell" data-execution_count="14">
+<div id="a96f6383" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>model5 <span class="op">=</span> DecisionTreeClassifier(min_samples_split<span class="op">=</span><span class="dv">2</span>)  </span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>model5.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -513,7 +513,7 @@
 </section>
 <section class="slide level2">
 
-<div id="579cd9ac" class="cell" data-execution_count="16">
+<div id="46b215b6" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>model5.score(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>1.0</code></pre>
@@ -536,7 +536,7 @@
 </section>
 <section class="slide level2">
 
-<div id="f6c32ae9" class="cell" data-execution_count="17">
+<div id="ea460473" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>model6 <span class="op">=</span> DecisionTreeClassifier(min_samples_split<span class="op">=</span><span class="dv">4</span>) </span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>model6.fit(X, y)</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>model6.score(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -564,7 +564,7 @@
 </section>
 <section class="slide level2">
 
-<div id="fad77814" class="cell" data-execution_count="19">
+<div id="06147db2" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>model7 <span class="op">=</span> DecisionTreeClassifier(min_samples_split<span class="op">=</span><span class="dv">10</span>) </span>
 <span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>model7.fit(X, y)</span>
 <span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>model7.score(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
