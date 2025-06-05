@@ -203,7 +203,7 @@
 </section>
 <section id="linear-regression" class="slide level2">
 <h2>Linear Regression</h2>
-<div id="f39b43d1" class="cell" data-execution_count="3">
+<div id="8fea6a10" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -279,27 +279,27 @@
 </section>
 <section id="ridge" class="slide level2">
 <h2>Ridge</h2>
-<div id="deaf0e4f" class="cell" data-execution_count="4">
+<div id="ea7e01dd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>LinearRegression()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="4fd88cff" class="cell" data-execution_count="5">
+<div id="dced8c53" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>rm <span class="op">=</span> Ridge()</span>
 <span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>rm.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="e80dfa5c" class="cell" data-execution_count="6">
+<div id="49d4fc32" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>rm.predict(X_train)[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([10.09739051,  7.90823334, 10.80050927,  7.44197529,  4.81162144])</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="e2d28001" class="cell" data-execution_count="7">
+<div id="996e939e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>rm.score(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>0.8125029624787177</code></pre>
@@ -326,12 +326,12 @@
 </section>
 <section id="alpha" class="slide level2">
 <h2><em>alpha</em></h2>
-<div id="083b1344" class="cell" data-execution_count="8">
+<div id="790a0fc5" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>rm2 <span class="op">=</span> Ridge(alpha<span class="op">=</span><span class="dv">10000</span>)</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>rm2.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="2508796e" class="cell" data-execution_count="9">
+<div id="33ea0cf1" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>rm2.score(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>0.004541128724857568</code></pre>
@@ -357,7 +357,7 @@
 </section>
 <section class="slide level2">
 
-<div id="d68e647b" class="cell" data-execution_count="10">
+<div id="c3079986" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>scores_dict <span class="op">=</span>{</span>
@@ -372,7 +372,7 @@
 <span id="cb11-12"><a aria-hidden="true" tabindex="-1"></a>    scores_dict[<span class="st">'cv_scores'</span>].append(results[<span class="st">"test_score"</span>].mean())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="5b9e16b2" class="cell" data-execution_count="11">
+<div id="cf8661e8" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores_dict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
