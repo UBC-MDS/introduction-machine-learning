@@ -1,0 +1,182 @@
+---
+format: revealjs
+title: Multi-Class Measurements
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+```{python}
+# | include: false
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
+cc_df = pd.read_csv('data/creditcard.csv.zip', encoding='latin-1')
+train_df, test_df = train_test_split(cc_df, test_size=0.3, random_state=111)
+
+X_train_big, y_train_big = train_df.drop(columns=["Class"]), train_df["Class"]
+X_test, y_test = test_df.drop(columns=["Class"]), test_df["Class"]
+
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_big, 
+                                                      y_train_big, 
+                                                      test_size=0.3, 
+                                                      random_state=123)
+                                                      
+pipe_tree = make_pipeline(
+    (StandardScaler()),
+    (DecisionTreeClassifier(random_state=123))
+)
+pipe_tree.fit(X_train,y_train);
+predictions = pipe_tree.predict(X_valid)
+```
+
+```{python}
+# | echo: false
+# | fig-align: center
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
+plt.rcParams.update({'font.size': 10})
+ConfusionMatrixDisplay.from_estimator(pipe_tree, X_valid, y_valid, display_labels=["Non fraud", "Fraud"], values_format="d", cmap="Blues");
+plt.show()
+```
+
+:::{.notes} 
+Right now, we have only seen measurements about target columns with binary values. 
+
+What happens when we have a target with more than 2 classes?
+:::
+
+---
+
+```{python}
+from sklearn.metrics import classification_report
+
+print(classification_report(y_valid, pipe_tree.predict(X_valid),
+        target_names=["non-fraud", "fraud"]))
+```
+
+:::{.notes} 
+Right now, we have only seen measurements about target columns with binary values. 
+
+What happens when we have a target with more than 2 classes?
+:::
+
+---
+
+```{python}
+from sklearn.datasets import load_digits
+from sklearn.metrics import accuracy_score
+
+digits = load_digits()
+digits.images[-1]
+```
+
+
+```{python}
+# | echo: false
+plt.figure(1, figsize=(3, 3))
+plt.imshow(digits.images[-1], cmap=plt.cm.gray_r, interpolation='nearest')
+plt.show()
+```
+
+
+:::{.notes} 
+This time we are going to look at a dataset of images.
+
+In this case, each image is a hand-written digit (0-9). 
+
+The data for a single image is represented by a matrix that is shaped  8 by 8. This corresponds to each pixel of the image.
+:::
+
+---
+
+```{python}
+from sklearn.neighbors import KNeighborsClassifier
+
+X_train_digits, X_test_digits, y_train_digits, y_test_digits = train_test_split(
+    digits['data'] / 16., digits['target'], random_state=0)
+    
+knn = KNeighborsClassifier().fit(X_train_digits, y_train_digits)
+pred = knn.predict(X_test_digits)
+print("Accuracy: ", round(accuracy_score(y_test_digits, pred), 4))
+```
+
+
+:::{.notes} 
+We are going to do the same thing we've always done and predict the digit by splitting our data. 
+
+In this case, our `X` is the column `data` and our target is the column `target`. 
+
+We use a `KNeighborsClassifier` to fit and predict our accuracy using `accuracy_score()`. 
+
+Here we get an accuracy of 98%. 
+
+But what does this mean for our metrics?
+:::
+
+---
+
+## Confusion matrix for multi-class
+
+```{python fig.width = 8, fig.height = 6,  out.width = '55%'}
+ConfusionMatrixDisplay.from_estimator(knn, X_test_digits, y_test_digits, cmap='gray_r');
+plt.show()
+```
+
+
+:::{.notes} 
+We see that we can still compute a confusion matrix, for problems with more than 2 labels in the target column. 
+
+The diagonal values are the correctly labeled digits and the rest are the errors. 
+:::
+
+---
+
+```{python}
+print(classification_report(y_test_digits, pred, digits=4))
+```
+
+
+:::{.notes} 
+This time, we have different precision and recall values depending on which digit we specify as our "positive" label. 
+
+Again the `support` column on the right shows the number of examples of each digit. 
+
+What about this `macro avg` and `weight avg` we see on the bottom? 
+
+What are these?
+:::
+
+---
+
+### Macro average vs weighted average
+
+```{python}
+print(classification_report(y_test_digits, pred, digits=4))
+```
+
+<br>
+
+**Macro average:** Give equal importance to all classes.  
+
+**Weighted average:** Weighted by the number of samples in each class and divide by the total number of samples.     
+
+
+:::{.notes} 
+We saw them before when we were using binary-class problems but these metrics are more useful when predicting multiple classes. 
+
+**Macro average** is useful when you want to give equal importance to all classes irrespective of the number of instances in each class.
+
+**Weighted average** gives equal importance to all examples. So, when you care about the overall score and do not care about the score on a specific class, you could use it.
+
+Which one is relevant, depends upon whether you think each class should have the same weight or each sample should have the same weight. 
+:::
+
+
+# Let’s apply what we learned!
