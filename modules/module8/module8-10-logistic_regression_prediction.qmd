@@ -146,7 +146,6 @@ pk_df
 
 **Tasks:**
 
-- Import the logistic regression function. 
 - Build and fit a pipeline containing the column transformer and a logistic regression model and use the parameter `class_weight="balanced"`. Name this pipeline `pkm_pipe`.
 - Score your model on the test set using the default accuracy measurement. Save this in an object named `lr_scores`.
 - Fill in the blanks below to assess the model's feature coefficients.
@@ -268,3 +267,37 @@ pkm_coefs
 
 :::
 ::::
+
+<br>
+
+<div id='mcq5'></div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'Which feature contributes the most in predicting if an example is legendary or not?',
+        {
+        '<code>attack</code>': 'Which feature has the greatest magnitude?',
+        '<code>defense</code>': 'This feature has the highest magnitude!',
+        '<code>sp_attack</code>': 'Which feature has the greatest magnitude?',
+        '<code>sp_defense</code>': 'Which feature has the greatest magnitude?',
+        '<code>speed</code>': 'Which feature has the greatest magnitude?',
+        '<code>capture_rt</code>': 'Which feature has the greatest magnitude?',
+        },
+        '<code>defense</code>',
+    );
+</script>
+
+<div id='mcq6'></div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'As the capture rate value increases, will the model more likely predict a legendary or not legendary?',
+        {
+        'Legendary': 'Did you look at the sign of the coefficient?',
+        'Not Legendary': '',
+        },
+        'Not Legendary',
+    );
+</script>

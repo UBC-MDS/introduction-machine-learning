@@ -216,7 +216,7 @@ lr_pipe.fit(X_train, y_train)
 solution = ConfusionMatrixDisplay.from_estimator(lr_pipe, X_test, y_test,
                       cmap="PuRd")
 
-assert isinstance(result, type(solution)), "You need to plot a confusion matrix."
+assert isinstance(result, type(solution)), "If you are displaying a confusion matrix, please comment out plt.show() for checking purposes."
 assert solution.text_.shape == result.text_.shape, "The dimension of the result confusion matrix is incorrect."
 for x in range(0,3):
     for y in range(0,3):
@@ -293,7 +293,7 @@ plt.show()
     generateQuiz(
         'mcq3',
         'Question 1',
-        'Calculate the recall if <code>Other</code> is considered the positive label?',
+        'Calculate the recall if <code>Other</code> is considered the positive label? <i>Remember: Recall = TP/(TP+FN)</i>',
         {
         '11/19': 'You are doing TP/ (TP+FP)',
         '8/19': 'This is FP/ (TP+FP)',
