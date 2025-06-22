@@ -6,8 +6,8 @@
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-f428fda71a3abb5b1b9c21151da8fd61.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <title>Introduction to Machine Learning – Baselines: Training a Model using Scikit-learn</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -245,7 +245,7 @@
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
-<div id="b16f2c9d" class="cell" data-execution_count="2">
+<div id="3afb844c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>classification_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>classification_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -359,7 +359,7 @@
 <section id="create-𝑋-and-𝑦" class="slide level2">
 <h2>1. Create 𝑋 and 𝑦</h2>
 <p>𝑋 → Feature vectors <br> 𝑦 → Target</p>
-<div id="799e424f" class="cell" data-execution_count="3">
+<div id="5065b157" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> classification_df.drop(columns<span class="op">=</span>[<span class="st">"quiz2"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> classification_df[<span class="st">"quiz2"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -386,7 +386,7 @@
 <li><code>import</code> the appropriate classifier.</li>
 <li>Create an object of the classifier.</li>
 </ul>
-<div id="4a02d93d" class="cell" data-execution_count="4">
+<div id="ebe502e2" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>dummy_clf <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -412,7 +412,7 @@
 </section>
 <section id="fit-the-classifier" class="slide level2">
 <h2>3. Fit the classifier</h2>
-<div id="f12b34e8" class="cell" data-execution_count="5">
+<div id="46c4e206" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>dummy_clf.fit(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
@@ -434,7 +434,7 @@
 <h2>4. Predict the target of given examples</h2>
 <p>We can predict the target of examples by calling <code>predict</code> on the classifier object.</p>
 <p>Let’s see what it predicts for a single observation first:<br></p>
-<div id="793459b8" class="cell" data-execution_count="6">
+<div id="20816a3d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>single_obs <span class="op">=</span> X.loc[[<span class="dv">0</span>]]</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>single_obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -484,7 +484,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="482a688d" class="cell" data-execution_count="7">
+<div id="e341bb6f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>dummy_clf.predict(single_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array(['not A+'], dtype='&lt;U6')</code></pre>
@@ -507,7 +507,7 @@
 </section>
 <section class="slide level2">
 
-<div id="03449ddd" class="cell" data-execution_count="8">
+<div id="a52a62c3" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -617,7 +617,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="8d410eea" class="cell" data-execution_count="9">
+<div id="cdd70913" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>dummy_clf.predict(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array(['not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+', 'not A+'], dtype='&lt;U6')</code></pre>
@@ -655,14 +655,14 @@
 <p><img data-src="../../../static/module1/error.gif" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
-<div id="45c67938" class="cell" data-execution_count="10">
+<div id="0c9d4cef" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The accuracy of the model on the training data:"</span>, (<span class="bu">round</span>(dummy_clf.score(X, y), <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The accuracy of the model on the training data: 0.524</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="301880c7" class="cell" data-execution_count="11">
+<div id="0c65f880" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The error of the model on the training data:"</span>, (<span class="bu">round</span>(<span class="dv">1</span> <span class="op">-</span> dummy_clf.score(X, y), <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The error of the model on the training data: 0.476</code></pre>
