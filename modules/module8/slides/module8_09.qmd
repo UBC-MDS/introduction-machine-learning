@@ -161,8 +161,8 @@ print("Model intercept:", lr.intercept_)
 ```
 
 ```out
-Model coefficients: [[-0.04108149 -0.33683126]]
-Model intercept: [10.8869838]
+Model coefficients: [[-0.04108378 -0.33683087]]
+Model intercept: [10.886759]
 ```
 <br>
 
