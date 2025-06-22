@@ -6,8 +6,8 @@
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-f428fda71a3abb5b1b9c21151da8fd61.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <title>Introduction to Machine Learning – Categorical Variables: Ordinal Encoding</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -203,7 +203,7 @@
 </section>
 <section id="remember-our-case-study-with-the-california-housing-dataset" class="slide level2">
 <h2>Remember our case study with the California housing dataset?</h2>
-<div id="4a135696" class="cell" data-execution_count="3">
+<div id="ad4874fc" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -305,7 +305,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="ace41240" class="cell" data-execution_count="4">
+<div id="518a83e2" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"median_house_value"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">"median_house_value"</span>]</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -332,7 +332,7 @@
 </section>
 <section class="slide level2">
 
-<div id="04e07710" class="cell" data-execution_count="5">
+<div id="15556974" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
@@ -350,12 +350,14 @@ could not convert string to float: 'INLAND'
 
 Detailed traceback: 
   File "&lt;string&gt;", line 1, in &lt;module&gt;
-  File "/usr/local/lib/python3.8/site-packages/sklearn/pipeline.py", line 330, in fit
-    Xt = self._fit(X, y, **fit_params_steps)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/pipeline.py", line 292, in _fit
-    X, fitted_transformer = fit_transform_one_cached(
-  File "/usr/local/lib/python3.8/site-packages/joblib/memory.py", line 352, in __call__
-    return self.func(*args, **kwargs)</code></pre>
+  File "/usr/local/lib/python3.12/site-packages/sklearn/base.py", line 1363, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/sklearn/pipeline.py", line 653, in fit
+    Xt = self._fit(X, y, routed_params, raw_params=params)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/sklearn/pipeline.py", line 587, in _fit
+    X, fitted_transformer = fit_transform_one_cached(</code></pre>
 <aside class="notes">
 <p>Let’s first see what happens when we try to apply a 𝑘-NN model on our data and preprocess it for imputation and scaling.</p>
 <p>Oh no. That’s not good. We get a <code>ValueError</code> output.</p>
@@ -408,7 +410,7 @@ Detailed traceback:
 </section>
 <section id="ordinal-encoding" class="slide level2">
 <h2>Ordinal encoding</h2>
-<div id="6fe05e52" class="cell" data-execution_count="7">
+<div id="eab75ff5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>X_toy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -496,7 +498,7 @@ Detailed traceback:
 </div>
 </div>
 </div>
-<div id="8b10a704" class="cell" data-execution_count="8">
+<div id="61b93b7b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(X_toy[<span class="st">'rating'</span>].value_counts()).rename(columns<span class="op">=</span>{<span class="st">'rating'</span>: <span class="st">'frequency'</span>}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -517,7 +519,7 @@ Detailed traceback:
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">rating</th>
 <th data-quarto-table-cell-role="th">Good</th>
 <th data-quarto-table-cell-role="th">Neutral</th>
 <th data-quarto-table-cell-role="th">Bad</th>
@@ -525,7 +527,7 @@ Detailed traceback:
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">frequency</td>
+<td data-quarto-table-cell-role="th">count</td>
 <td>7</td>
 <td>4</td>
 <td>3</td>
@@ -553,7 +555,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="dbf46141" class="cell" data-execution_count="9">
+<div id="ff48d070" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OrdinalEncoder</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(dtype<span class="op">=</span><span class="bu">int</span>)</span>
@@ -597,7 +599,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="1e0d4d9c" class="cell" data-execution_count="10">
+<div id="90130ced" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>encoding_view <span class="op">=</span> X_toy.assign(rating_enc<span class="op">=</span>X_toy_ord)</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>encoding_view</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -719,11 +721,11 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="b85954e9" class="cell" data-execution_count="11">
+<div id="aaaa346d" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>ratings_order <span class="op">=</span> [<span class="st">'Bad'</span>, <span class="st">'Neutral'</span>, <span class="st">'Good'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="5fe9a425" class="cell" data-execution_count="12">
+<div id="d86c6eb1" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(categories <span class="op">=</span> [ratings_order], dtype<span class="op">=</span><span class="bu">int</span>)</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>oe.fit(X_toy)<span class="op">;</span></span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>X_toy_ord <span class="op">=</span> oe.transform(X_toy)</span>
@@ -762,7 +764,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="0a691cd4" class="cell" data-execution_count="13">
+<div id="2010c4d0" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>encoding_view <span class="op">=</span> X_toy.assign(rating_enc<span class="op">=</span>X_toy_ord)</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>encoding_view</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -882,7 +884,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="0c11ae37" class="cell" data-execution_count="15">
+<div id="67d082df" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>X_toy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
@@ -970,7 +972,7 @@ Detailed traceback:
 </div>
 </div>
 </div>
-<div id="d88e538d" class="cell" data-execution_count="16">
+<div id="29b13841" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(X_toy[<span class="st">'language'</span>].value_counts()).rename(columns<span class="op">=</span>{<span class="st">'language'</span>: <span class="st">'frequency'</span>}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
@@ -991,7 +993,7 @@ Detailed traceback:
 <table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">language</th>
 <th data-quarto-table-cell-role="th">English</th>
 <th data-quarto-table-cell-role="th">Mandarin</th>
 <th data-quarto-table-cell-role="th">Vietnamese</th>
@@ -1002,7 +1004,7 @@ Detailed traceback:
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">frequency</td>
+<td data-quarto-table-cell-role="th">count</td>
 <td>5</td>
 <td>4</td>
 <td>2</td>
@@ -1032,7 +1034,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="1529cd44" class="cell" data-execution_count="17">
+<div id="f9d95d1a" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OrdinalEncoder</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(dtype<span class="op">=</span><span class="bu">int</span>)</span>

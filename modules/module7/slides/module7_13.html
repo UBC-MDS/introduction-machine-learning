@@ -6,8 +6,8 @@
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-f428fda71a3abb5b1b9c21151da8fd61.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.31">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <title>Introduction to Machine Learning – Imbalanced Datasets</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -203,7 +203,7 @@
 </section>
 <section id="class-imbalance-in-training-sets" class="slide level2">
 <h2>Class imbalance in training sets</h2>
-<div id="7a449691" class="cell" data-execution_count="3">
+<div id="1b8447aa" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -305,12 +305,13 @@
 </div>
 </div>
 <p><br></p>
-<div id="cb9e1392" class="cell" data-execution_count="4">
+<div id="60bb580b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>y_train.value_counts(<span class="st">'Class'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>0    0.998237
+<pre><code>Class
+0    0.998237
 1    0.001763
-Name: Class, dtype: float64</code></pre>
+Name: proportion, dtype: float64</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -431,14 +432,14 @@ the input data as n_samples / (n_classes * np.bincount(y))</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="c75d0fb8" class="cell" data-execution_count="5">
+<div id="a1f38c29" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>tree_default<span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">7</span>)</span>
 <span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>tree_default.fit(X_train,y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="4c72205f" class="cell" data-execution_count="6">
+<div id="596a41e5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>tree_100 <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">7</span>, class_weight<span class="op">=</span>{<span class="dv">1</span>:<span class="dv">100</span>})</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>tree_100.fit(X_train,y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -463,7 +464,7 @@ the input data as n_samples / (n_classes * np.bincount(y))</code></pre>
 </section>
 <section id="class_weightbalanced" class="slide level2">
 <h2>class_weight=“balanced”</h2>
-<div id="a4b815ce" class="cell" data-execution_count="8">
+<div id="9c0691a9" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>tree_balanced <span class="op">=</span>DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">7</span>, class_weight<span class="op">=</span><span class="st">"balanced"</span>)</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>tree_balanced.fit(X_train,y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -486,14 +487,14 @@ the input data as n_samples / (n_classes * np.bincount(y))</code></pre>
 </section>
 <section id="are-we-doing-better-with-class_weightbalanced" class="slide level2">
 <h2>Are we doing better with <em>class_weight=“balanced”</em>?</h2>
-<div id="8467768b" class="cell" data-execution_count="10">
+<div id="6b93f341" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>tree_default.score(X_valid, y_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0.9989968232737001</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="67042bff" class="cell" data-execution_count="11">
+<div id="0cb9c299" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>tree_balanced.score(X_valid, y_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0.99879618792844</code></pre>
