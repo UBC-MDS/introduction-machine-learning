@@ -13,7 +13,7 @@ title-slide-attributes:
 ```{python}
 # | include: false
 adult = pd.read_csv('data/adult.csv')
-adult = adult.replace("?", np.NaN)
+adult = adult.replace("?", np.nan)
 ```
 
 
