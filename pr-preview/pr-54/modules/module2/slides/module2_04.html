@@ -221,12 +221,12 @@
 </section>
 <section class="slide level2">
 
-<div id="fc905d08" class="cell" data-execution_count="2">
+<div id="a9597b5e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0a813c49" class="cell" data-execution_count="4">
+<div id="56b6b51d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>new_example</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -280,12 +280,10 @@
 
 Detailed traceback: 
   File "&lt;string&gt;", line 1, in &lt;module&gt;
-  File "/usr/local/lib/python3.8/site-packages/sklearn/tree/_classes.py", line 426, in predict
+  File "/usr/local/lib/python3.12/site-packages/sklearn/tree/_classes.py", line 529, in predict
     check_is_fitted(self)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 72, in inner_f
-    return f(**kwargs)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 1019, in check_is_fitted
-    raise NotFittedError(msg % {'name': type(estimator).__name__})</code></pre>
+  File "/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py", line 1754, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})</code></pre>
 <aside class="notes">
 <p>We can use the same steps we used when building a baseline model, to build a decision tree model with <code>scikit-learn</code>.</p>
 <p>Recall that <code>scikit-learn</code> uses the term <code>fit</code> for training or learning and uses <code>predict</code> for prediction.</p>
@@ -307,7 +305,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="e2f0c3ca" class="cell" data-execution_count="7">
+<div id="24b2d2f6" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>X_binary.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -396,7 +394,7 @@ Detailed traceback:
 </div>
 </div>
 <p><br></p>
-<div id="44827b8b" class="cell" data-execution_count="8">
+<div id="c8b2b6d9" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>y.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>0        A+
@@ -408,7 +406,7 @@ Name: quiz2, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="9510ee8f" class="cell" data-execution_count="9">
+<div id="f0e85d57" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>model.fit(X_binary, y)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
@@ -448,7 +446,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="52c35e3c" class="cell" data-execution_count="11">
+<div id="6db4a690" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>new_example</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
@@ -516,14 +514,14 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="7166db61" class="cell" data-execution_count="12">
+<div id="2f15732e" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>(model.predict(new_example)[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>'not A+'</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="8bc8875f" class="cell" data-execution_count="13">
+<div id="ea087bad" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>model.score(X_binary, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>0.9047619047619048</code></pre>
@@ -546,7 +544,7 @@ Name: quiz2, dtype: object</code></pre>
 </section>
 <section id="how-does-predict-work" class="slide level2">
 <h2>How does predict work?</h2>
-<div id="13fa95c2" class="cell" data-execution_count="15">
+<div id="7d65b16d" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>observation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
