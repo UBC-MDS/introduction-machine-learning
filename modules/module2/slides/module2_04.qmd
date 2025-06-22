@@ -47,12 +47,10 @@ NotFittedError: This DecisionTreeClassifier instance is not fitted yet. Call 'fi
 
 Detailed traceback: 
   File "<string>", line 1, in <module>
-  File "/usr/local/lib/python3.8/site-packages/sklearn/tree/_classes.py", line 426, in predict
+  File "/usr/local/lib/python3.12/site-packages/sklearn/tree/_classes.py", line 529, in predict
     check_is_fitted(self)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 72, in inner_f
-    return f(**kwargs)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/utils/validation.py", line 1019, in check_is_fitted
-    raise NotFittedError(msg % {'name': type(estimator).__name__})
+  File "/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py", line 1754, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
 ```
 
 :::{.notes} 

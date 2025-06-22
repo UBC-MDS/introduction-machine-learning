@@ -259,7 +259,7 @@ imputer.fit(X_train)
 X_train_imp = imputer.transform(X_train)
 scaler.fit(X_train_imp)
 X_train_imp_scaled = scaler.transform(X_train_imp)
-knn.fit(X_train_imp_scaled)
+knn.fit(X_train_imp_scaled, y_train)
 ```
 
 

@@ -97,12 +97,14 @@ could not convert string to float: 'INLAND'
 
 Detailed traceback: 
   File "<string>", line 1, in <module>
-  File "/usr/local/lib/python3.8/site-packages/sklearn/pipeline.py", line 330, in fit
-    Xt = self._fit(X, y, **fit_params_steps)
-  File "/usr/local/lib/python3.8/site-packages/sklearn/pipeline.py", line 292, in _fit
+  File "/usr/local/lib/python3.12/site-packages/sklearn/base.py", line 1363, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/sklearn/pipeline.py", line 653, in fit
+    Xt = self._fit(X, y, routed_params, raw_params=params)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/sklearn/pipeline.py", line 587, in _fit
     X, fitted_transformer = fit_transform_one_cached(
-  File "/usr/local/lib/python3.8/site-packages/joblib/memory.py", line 352, in __call__
-    return self.func(*args, **kwargs)
 ```
 
 
