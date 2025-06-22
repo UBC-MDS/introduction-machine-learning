@@ -203,13 +203,13 @@
 </section>
 <section class="slide level2">
 
-<div id="475f552c" class="cell" data-execution_count="2">
+<div id="90a808d3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>housing_df <span class="op">=</span> pd.read_csv(<span class="st">"data/housing.csv"</span>)</span>
 <span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(housing_df, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3d082ab5" class="cell" data-execution_count="4">
+<div id="ba4998c3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"median_house_value"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">"median_house_value"</span>]</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span>[<span class="st">"median_house_value"</span>])</span>
@@ -316,14 +316,14 @@
 </section>
 <section class="slide level2">
 
-<div id="1ff09239" class="cell" data-execution_count="5">
+<div id="e0e22a77" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline, make_pipeline</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder, StandardScaler</span>
 <span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer</span>
 <span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e6ce98e8" class="cell" data-execution_count="6">
+<div id="c2f66c6a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> Pipeline(</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>    steps<span class="op">=</span>[(<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)), </span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>           (<span class="st">"scaler"</span>, StandardScaler())]</span>
@@ -358,11 +358,11 @@
 </section>
 <section class="slide level2">
 
-<div id="9bec384d" class="cell" data-execution_count="7">
+<div id="26cf3e90" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>predicted_y <span class="op">=</span> pipe.predict(X_train) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="942e6b06" class="cell" data-execution_count="8">
+<div id="0c9ce671" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>predicted_y <span class="op">==</span> y_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>6051     False
@@ -376,14 +376,14 @@ Name: median_house_value, Length: 18576, dtype: bool</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="a4c64426" class="cell" data-execution_count="9">
+<div id="df37d2f4" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>y_train.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([113600., 137500., 170100., ..., 286200., 412500.,  59300.], shape=(18576,))</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="d5b67f1f" class="cell" data-execution_count="10">
+<div id="09a77aca" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>predicted_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array([111740., 117380., 187700., ..., 271420., 265180.,  60860.], shape=(18576,))</code></pre>
@@ -427,21 +427,21 @@ Name: median_house_value, Length: 18576, dtype: bool</code></pre>
 <p><img data-src="../../../static/module7/mse-easy.svg" class="quarto-figure quarto-figure-center" style="width:38.0%" alt="404 image"></p>
 </figure>
 </div>
-<div id="dc4650ae" class="cell" data-execution_count="11">
+<div id="adbbe402" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>predicted_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([111740., 117380., 187700., ..., 271420., 265180.,  60860.], shape=(18576,))</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="c79a8579" class="cell" data-execution_count="12">
+<div id="229ce2ae" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>np.mean((y_train <span class="op">-</span> predicted_y)<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>np.float64(2570054492.048064)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="f95f11b2" class="cell" data-execution_count="13">
+<div id="c5b41316" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>np.mean((y_train <span class="op">-</span> y_train)<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>np.float64(0.0)</code></pre>
@@ -465,11 +465,11 @@ Name: median_house_value, Length: 18576, dtype: bool</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="9aed6326" class="cell" data-execution_count="14">
+<div id="98e91b9b" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="ec199a61" class="cell" data-execution_count="15">
+<div id="fdbbdac4" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_train, predicted_y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>2570054492.048064</code></pre>
@@ -503,7 +503,7 @@ Name: median_house_value, Length: 18576, dtype: bool</code></pre>
 <li>The maximum value possible is 1 which means the model has perfect predictions.</li>
 <li>Negative values are very bad: “worse than baseline models such as<code>DummyRegressor</code>”.</li>
 </ul>
-<div id="d8d0f30a" class="cell" data-execution_count="16">
+<div id="1dc978c1" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
@@ -562,14 +562,14 @@ Name: median_house_value, Length: 18576, dtype: bool</code></pre>
 <p><img data-src="../../../static/module7/rmse-easy.svg" class="quarto-figure quarto-figure-center" style="width:55.0%" alt="404 image"></p>
 </figure>
 </div>
-<div id="fd0a6c53" class="cell" data-execution_count="17">
+<div id="774ad730" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>mean_squared_error(y_train, predicted_y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>2570054492.048064</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="b2c00a37" class="cell" data-execution_count="18">
+<div id="590abcfe" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>np.sqrt(mean_squared_error(y_train, predicted_y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>np.float64(50695.704867849156)</code></pre>
@@ -616,7 +616,7 @@ Name: median_house_value, Length: 18576, dtype: bool</code></pre>
 </section>
 <section id="mape---mean-absolute-percent-error-mape" class="slide level2">
 <h2>MAPE - Mean Absolute Percent Error (MAPE)</h2>
-<div id="7230c4b5" class="cell" data-execution_count="20">
+<div id="6f6f0773" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>percent_errors <span class="op">=</span> (predicted_y <span class="op">-</span> y_train)<span class="op">/</span>y_train <span class="op">*</span> <span class="fl">100.</span></span>
 <span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>percent_errors.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
@@ -629,7 +629,7 @@ Name: median_house_value, dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="ebc4e11d" class="cell" data-execution_count="21">
+<div id="fe41e0c8" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>np.<span class="bu">abs</span>(percent_errors).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>6051      1.637324
@@ -641,7 +641,7 @@ Name: median_house_value, dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="beaabbf8" class="cell" data-execution_count="22">
+<div id="1d2066ae" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="fl">100.</span><span class="op">*</span>np.mean(np.<span class="bu">abs</span>((predicted_y <span class="op">-</span> y_train)<span class="op">/</span>y_train))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>np.float64(18.19299750298522)</code></pre>

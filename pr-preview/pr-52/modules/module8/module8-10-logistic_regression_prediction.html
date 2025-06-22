@@ -1033,7 +1033,6 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHBhbmRhcyBhcyBw
 </div>
 <p><strong>Tasks:</strong></p>
 <ul>
-<li>Import the logistic regression function.</li>
 <li>Build and fit a pipeline containing the column transformer and a logistic regression model and use the parameter <code>class_weight="balanced"</code>. Name this pipeline <code>pkm_pipe</code>.</li>
 <li>Score your model on the test set using the default accuracy measurement. Save this in an object named <code>lr_scores</code>.</li>
 <li>Fill in the blanks below to assess the model’s feature coefficients.</li>
@@ -1100,6 +1099,41 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBCdWlsZCBhIHBpcGVsaW5l
 </div>
 </div>
 </div>
+<p><br></p>
+<div id="mcq5">
+
+</div>
+<script>
+    generateQuiz(
+        'mcq5',
+        'Question 1',
+        'Which feature contributes the most in predicting if an example is legendary or not?',
+        {
+        '<code>attack</code>': 'Which feature has the greatest magnitude?',
+        '<code>defense</code>': 'This feature has the highest magnitude!',
+        '<code>sp_attack</code>': 'Which feature has the greatest magnitude?',
+        '<code>sp_defense</code>': 'Which feature has the greatest magnitude?',
+        '<code>speed</code>': 'Which feature has the greatest magnitude?',
+        '<code>capture_rt</code>': 'Which feature has the greatest magnitude?',
+        },
+        '<code>defense</code>',
+    );
+</script>
+<div id="mcq6">
+
+</div>
+<script>
+    generateQuiz(
+        'mcq6',
+        'Question 2',
+        'As the capture rate value increases, will the model more likely predict a legendary or not legendary?',
+        {
+        'Legendary': 'Did you look at the sign of the coefficient?',
+        'Not Legendary': '',
+        },
+        'Not Legendary',
+    );
+</script>
 
 
 <script type="pyodide-data">
