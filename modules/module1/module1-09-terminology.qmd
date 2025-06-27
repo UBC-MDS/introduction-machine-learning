@@ -55,7 +55,6 @@ Let's make sure we understand all the components we use in a dataset for machine
 
 ```{pyodide}
 import pandas as pd
-from sklearn.dummy import DummyClassifier
 
 candybar_df = pd.read_csv('data/candybars.csv')
 candybar_df
@@ -70,6 +69,7 @@ candybar_df
 #| exercise: describing_a_dataset
 
 import pandas as pd
+from sklearn.dummy import DummyClassifier
 from src.utils import print_correct_msg
 
 candybar_df = pd.read_csv('data/candybars.csv')
@@ -167,7 +167,6 @@ For this dataframe the features are the columns `chocolate` to `multi` and the t
 
 ```{pyodide}
 import pandas as pd
-from sklearn.dummy import DummyClassifier
 
 candybar_df = pd.read_csv('data/candybars.csv')
 candybar_df
@@ -182,6 +181,7 @@ candybar_df
 #| exercise: separating_our_data_1
 
 import pandas as pd
+from sklearn.dummy import DummyClassifier
 from src.utils import print_correct_msg
 
 candybar_df = pd.read_csv('data/candybars.csv')
