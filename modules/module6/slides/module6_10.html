@@ -256,11 +256,11 @@
 </section>
 <section class="slide level2">
 
-<div id="81f33718" class="cell" data-execution_count="3">
+<div id="77b7de93" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="e3515f8c" class="cell" data-execution_count="4">
+<div id="bc80fae9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -378,7 +378,7 @@
 </section>
 <section class="slide level2">
 
-<div id="b9851d16" class="cell" data-execution_count="5">
+<div id="ec9623fb" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>X_train.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>longitude                   float64
@@ -392,7 +392,7 @@ Length: 9, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="e1ae62ee" class="cell" data-execution_count="6">
+<div id="f3a9d64c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [ <span class="st">"longitude"</span>,</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>                     <span class="st">"latitude"</span>,</span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>                     <span class="st">"housing_median_age"</span>,</span>
@@ -420,7 +420,7 @@ Length: 9, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="a9aa65f9" class="cell" data-execution_count="7">
+<div id="a523b667" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
@@ -453,7 +453,7 @@ Length: 9, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="b47d15c2" class="cell" data-execution_count="8">
+<div id="a3dde8fa" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>col_transformer <span class="op">=</span> ColumnTransformer(</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>    transformers<span class="op">=</span>[</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"numeric"</span>, numeric_transformer, numeric_features),</span>
@@ -489,7 +489,7 @@ Length: 9, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="78b67a28" class="cell" data-execution_count="9">
+<div id="e088e33a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>col_transformer.fit(X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <style>#sk-container-id-1 {
@@ -1262,7 +1262,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section class="slide level2">
 
-<div id="ddf9900d" class="cell" data-execution_count="10">
+<div id="d8107c5e" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
@@ -1364,7 +1364,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <p><br></p>
-<div id="49dfc860" class="cell" data-execution_count="11">
+<div id="431ee1f3" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(X_train.columns.values)</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> x[<span class="dv">5</span>]</span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>X_train_pp <span class="op">=</span> col_transformer.transform(X_train)</span>
@@ -1484,7 +1484,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section class="slide level2">
 
-<div id="b5cd8d44" class="cell" data-execution_count="12">
+<div id="7109a0a0" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>onehot_cols <span class="op">=</span> col_transformer.named_transformers_[<span class="st">"categorical"</span>].named_steps[<span class="st">"onehot"</span>].get_feature_names_out(categorical_features)</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>onehot_cols</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -1492,7 +1492,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <p><br></p>
-<div id="4039ea18" class="cell" data-execution_count="13">
+<div id="d7fa25fb" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> numeric_features <span class="op">+</span> <span class="bu">list</span>(onehot_cols)</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1528,7 +1528,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section class="slide level2">
 
-<div id="6f644c75" class="cell" data-execution_count="14">
+<div id="2d5af2bf" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>main_pipe <span class="op">=</span> Pipeline(</span>
@@ -1537,7 +1537,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"reg"</span>, KNeighborsRegressor())])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="7c10aedc" class="cell" data-execution_count="15">
+<div id="9337c9b4" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>with_categorical_scores <span class="op">=</span> cross_validate(main_pipe, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
@@ -1571,36 +1571,36 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.031060</td>
-<td>0.262552</td>
+<td>0.031197</td>
+<td>0.256757</td>
 <td>0.695818</td>
 <td>0.801659</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.030622</td>
-<td>0.246984</td>
+<td>0.029896</td>
+<td>0.243858</td>
 <td>0.707483</td>
 <td>0.799575</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.030710</td>
-<td>0.254186</td>
+<td>0.030316</td>
+<td>0.251332</td>
 <td>0.713788</td>
 <td>0.795944</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.030371</td>
-<td>0.256749</td>
+<td>0.029690</td>
+<td>0.256070</td>
 <td>0.686938</td>
 <td>0.801232</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.030540</td>
-<td>0.213956</td>
+<td>0.029767</td>
+<td>0.210953</td>
 <td>0.724608</td>
 <td>0.832498</td>
 </tr>
@@ -1628,7 +1628,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section class="slide level2">
 
-<div id="c6ddf126" class="cell" data-execution_count="16">
+<div id="131c9fb0" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>, StandardScaler()),</span>
@@ -1637,7 +1637,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>pipe.fit(X_train.drop(columns<span class="op">=</span>[<span class="st">'ocean_proximity'</span>]), y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="12135be9" class="cell" data-execution_count="17">
+<div id="377ce7cd" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>no_categorical_scores <span class="op">=</span> cross_validate(pipe, X_train.drop(columns<span class="op">=</span>[<span class="st">'ocean_proximity'</span>]), y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(no_categorical_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -1669,36 +1669,36 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.018799</td>
-<td>0.170211</td>
+<td>0.018894</td>
+<td>0.169527</td>
 <td>0.693883</td>
 <td>0.792395</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.019269</td>
-<td>0.161085</td>
+<td>0.018594</td>
+<td>0.160191</td>
 <td>0.685017</td>
 <td>0.789108</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.019075</td>
-<td>0.163933</td>
+<td>0.018705</td>
+<td>0.163131</td>
 <td>0.694409</td>
 <td>0.787796</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.019009</td>
-<td>0.168048</td>
+<td>0.018316</td>
+<td>0.167135</td>
 <td>0.677055</td>
 <td>0.792444</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.018890</td>
-<td>0.134139</td>
+<td>0.018663</td>
+<td>0.134018</td>
 <td>0.714494</td>
 <td>0.823421</td>
 </tr>
@@ -1724,22 +1724,22 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section class="slide level2">
 
-<div id="ec32e8f9" class="cell" data-execution_count="18">
+<div id="f359a095" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(no_categorical_scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>fit_time       0.019008
-score_time     0.159483
+<pre><code>fit_time       0.018634
+score_time     0.158800
 test_score     0.692972
 train_score    0.797033
 dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="a99b9964" class="cell" data-execution_count="19">
+<div id="bf66fddf" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(with_categorical_scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
-<pre><code>fit_time       0.030661
-score_time     0.246885
+<pre><code>fit_time       0.030173
+score_time     0.243794
 test_score     0.705727
 train_score    0.806182
 dtype: float64</code></pre>
@@ -1763,7 +1763,7 @@ dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="458d8923" class="cell" data-execution_count="20">
+<div id="7ff26933" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> set_config</span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>set_config(display<span class="op">=</span><span class="st">'diagram'</span>)</span>

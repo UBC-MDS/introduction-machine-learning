@@ -206,7 +206,7 @@
 </section>
 <section class="slide level2">
 
-<div id="4e916f99" class="cell" data-execution_count="2">
+<div id="3e881746" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
@@ -215,14 +215,14 @@
 <span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split( X, y, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="ec98adc5" class="cell" data-execution_count="3">
+<div id="6a10b80f" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train.to_numpy())<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="f99c72cd" class="cell" data-execution_count="4">
+<div id="380498d9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>model.score(X_train,y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>1.0</code></pre>
@@ -247,7 +247,7 @@
 </section>
 <section class="slide level2">
 
-<div id="f2048f5f" class="cell" data-execution_count="5">
+<div id="5509766e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">1</span></span>
@@ -283,36 +283,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.001677</td>
-<td>0.004263</td>
+<td>0.001558</td>
+<td>0.002742</td>
 <td>0.710526</td>
 <td>1.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.001273</td>
-<td>0.002852</td>
+<td>0.001407</td>
+<td>0.001857</td>
 <td>0.684211</td>
 <td>1.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.001224</td>
-<td>0.002831</td>
+<td>0.001177</td>
+<td>0.001814</td>
 <td>0.842105</td>
 <td>1.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.001261</td>
-<td>0.002824</td>
+<td>0.001200</td>
+<td>0.001836</td>
 <td>0.702703</td>
 <td>1.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.001221</td>
-<td>0.002836</td>
+<td>0.001188</td>
+<td>0.001816</td>
 <td>0.837838</td>
 <td>1.0</td>
 </tr>
@@ -323,7 +323,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="e436e0a8" class="cell" data-execution_count="6">
+<div id="36a43be9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>knn100 <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span>k)</span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(knn100, X_train, y_train, return_train_score <span class="op">=</span> <span class="va">True</span>)</span>
@@ -357,36 +357,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.001377</td>
-<td>0.031464</td>
+<td>0.001306</td>
+<td>0.059558</td>
 <td>0.605263</td>
 <td>0.600000</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.001321</td>
-<td>0.003438</td>
+<td>0.001168</td>
+<td>0.002317</td>
 <td>0.605263</td>
 <td>0.600000</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.001135</td>
-<td>0.003133</td>
+<td>0.001113</td>
+<td>0.002146</td>
 <td>0.605263</td>
 <td>0.600000</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.001120</td>
-<td>0.003098</td>
+<td>0.001200</td>
+<td>0.002138</td>
 <td>0.594595</td>
 <td>0.602649</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.001109</td>
-<td>0.003084</td>
+<td>0.001104</td>
+<td>0.002087</td>
 <td>0.594595</td>
 <td>0.602649</td>
 </tr>
@@ -438,7 +438,7 @@
 </section>
 <section id="how-to-choose-n_neighbors" class="slide level2">
 <h2>How to choose <code>n_neighbors</code>?</h2>
-<div id="4148c892" class="cell" data-execution_count="8">
+<div id="697629ec" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>results_dict <span class="op">=</span> {<span class="st">"n_neighbors"</span>: <span class="bu">list</span>(), <span class="st">"mean_train_score"</span>: <span class="bu">list</span>(), <span class="st">"mean_cv_score"</span>: <span class="bu">list</span>()}</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">50</span>,<span class="dv">5</span>):</span>
@@ -564,7 +564,7 @@
 </section>
 <section class="slide level2">
 
-<div id="51b1063b" class="cell" data-execution_count="11">
+<div id="cbd3cf92" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>sorted_results_df <span class="op">=</span> results_df.sort_values(<span class="st">"mean_cv_score"</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>sorted_results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -643,7 +643,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="ca583d64" class="cell" data-execution_count="12">
+<div id="efd105fb" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>best_k <span class="op">=</span> sorted_results_df.iloc[<span class="dv">0</span>,<span class="dv">0</span>]</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>best_k</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -667,7 +667,7 @@
 </section>
 <section class="slide level2">
 
-<div id="b41222d0" class="cell" data-execution_count="13">
+<div id="eccfe6e6" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span>best_k)</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train, y_train)<span class="op">;</span></span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test accuracy:"</span>, <span class="bu">round</span>(knn.score(X_test, y_test), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
