@@ -1,0 +1,276 @@
+---
+format: revealjs
+title: Predicting Probabilities
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+cities_df = pd.read_csv("data/canada_usa_cities.csv")
+train_df, test_df = train_test_split(cities_df, test_size=0.2, random_state=123)
+X_train, y_train = train_df.drop(columns=["country"], axis=1), train_df["country"]
+X_test, y_test = test_df.drop(columns=["country"], axis=1), test_df["country"]
+
+train_df.head()
+```
+
+<br>
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression()
+lr.fit(X_train, y_train);
+```
+
+<br>
+
+```{python}
+lr.predict(X_test[:1])
+```
+
+:::{.notes} 
+In the last slide deck, we saw that we can make "hard predictions" with logistic regression using `predict` but logistic regression also can make something called "soft predictions".
+:::
+
+---
+
+```{python}
+lr.predict(X_test[:1])
+```
+
+<br>
+
+```{python}
+lr.predict_proba(X_test[:1])
+```
+
+
+:::{.notes} 
+"Soft predictions" are when instead of predicting a specific class, the model returns a probability for each class.
+
+We use `predict_proba` instead of `predict` for this. 
+
+This now returns an array with a probability of how confident the model is for each target class. 
+
+We can see that the model is 87.8% sure that example 1 is class 0 ("Canada") and 12.15% confident that example 1 is class 0 ("USA"). 
+
+`predict` works by predicting the class with the highest probability.
+:::
+
+---
+
+## How is this being done?
+
+For linear regression we used something like this: 
+
+<font size="4"><em> predicted(value) = coefficient<sub>feature1</sub> x feature1 + coefficient<sub>feature2</sub> x feature2 + ... + intercept </em></font>
+
+But this won't work with probabilities. 
+
+### **Sigmoid function** (optional)
+
+```{python}
+# | echo: false
+# | fig-align: center
+import matplotlib.pyplot as plt
+
+sigmoid = lambda x: 1/(1+np.exp(-x))
+raw_model_output = np.linspace(-8,8,1000)
+plt.plot(raw_model_output, sigmoid(raw_model_output));
+plt.plot([0,0],[0,0.5], '--k')
+plt.plot([-8,0],[0.5,0.5], '--k')
+plt.xticks(fontsize= 16);
+plt.yticks(fontsize= 16);
+plt.xlabel("raw model output", fontsize=16); plt.ylabel("predicted probability", fontsize=16);plt.title("The sigmoid function", fontsize=18);
+```
+
+
+:::{.notes} 
+Ok so we have this option but what exactly is happening behind the scenes?
+
+Because probabilities MUST be between the values of 0 and 1 we need a tool that will convert the raw model's output into a range between [0,1].
+
+We currently can't take the model's raw output since  we get values that are negative or greater than 1. 
+
+We need to use something called a **sigmoid function** which "squashes" the raw model output from any number into the range [0,1].
+:::
+
+---
+
+```{python}
+predict_y = lr.predict(X_train)
+predict_y[-5:]
+```
+
+<br>
+
+```{python}
+y_proba = lr.predict_proba(X_train)
+y_proba[-5:]
+```
+
+
+:::{.notes} 
+If we now compare `predict` with `predict_proba` we can see how `predict` made a prediction based on the probabilities.
+:::
+
+---
+
+```{python}
+data_dict = {"y":y_train, 
+             "pred y": predict_y.tolist(),
+             "probabilities": y_proba.tolist()}
+pd.DataFrame(data_dict).tail(10)
+```
+
+
+:::{.notes}
+Let's take a look and compare them to the actual correct labels. 
+
+We can see that the first example was incorrectly predicted as "Canada" instead of "USA" but we also see that the model was not extremely confident in this prediction. It was 69.8% confident. 
+
+For the rest of this selection, the model corrected predicted each city but the model was more confident in some than others.
+:::
+
+---
+
+<br>
+
+```{python}
+# | echo: false
+# | fig-align: center
+from src.model_plotting_mg import plot_classifier
+
+y_encoded_train = np.where(y_train == 'Canada', 0, 1)
+lr.fit(X_train, y_encoded_train)
+
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1);
+plot_classifier(X_train[-10:].to_numpy(), y_encoded_train[-10:], lr, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("longitude", fontsize=14)
+plt.title("Logistic regression - predict", fontsize=16)
+plt.subplot(1, 2, 2);
+plot_classifier(X_train[-10:].to_numpy(), y_encoded_train[-10:], lr, proba=True, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("longitude", fontsize=14)
+plt.title("Logistic regression - predict_proba", fontsize=16);
+```
+
+:::{.notes} 
+When we use `predict`,  we get a decision boundary with either blue or red, a colour for each class. 
+
+With probabilities using `predict_proba`, we can see that the model is less confident the closer the observations are to the decision boundary.
+:::
+
+---
+
+```{python}
+lr_targets = pd.DataFrame({"y":y_train,
+                           "pred y": predict_y.tolist(),
+                           "probability_canada": y_proba[:,0].tolist()})
+lr_targets.head(3)
+```
+
+<br>
+
+```{python}
+lr_targets.sort_values(by='probability_canada')
+```
+
+
+:::{.notes} 
+Let's find some examples where the model is pretty confident in it's predictions.
+
+This time, when we make our dataframe, we are only bringing in the probability of predicting "Canada". This is because if we are 10 percent confident a prediction is "Canada", the model is 90% confident in "USA".
+
+Here we can see both extremes. 
+
+We are 99.345% (1- 0.006547) confident that city 37 is "USA" and 96.19% confident that city 1 is "Canada". 
+
+The model got the first example right, but the second one, it didn't.
+
+Let's plot this and see why.
+:::
+
+---
+
+```{python}
+X_train.loc[[1,37]]
+```
+
+<br>
+
+```{python}
+# | echo: false
+# | fig-align: center
+plot_classifier(X_train.loc[[1,37]].to_numpy(), [y_encoded_train[1], y_encoded_train[37]], lr, proba=True, ax=plt.gca(), ticks=True,  lims=(-140,-55,25,60))
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("longitude", fontsize=14)
+plt.title("Logistic regression - certain predictions", fontsize=16);
+```
+
+
+:::{.notes} 
+Both points are "USA" cities but we can now see why the model was so confident in both examples.
+
+The "USA" city it got wrong is likely in Alaska but the model doesn't know that and predicts more so on how close and on which side it lies to the decision boundary. 
+:::
+
+---
+
+```{python}
+lr_targets = pd.DataFrame({"y":y_train,
+                           "pred y": predict_y.tolist(),
+                           "prob_difference": (abs(y_proba[:,0] - y_proba[:,1])).tolist()})
+lr_targets.sort_values(by="prob_difference").head()
+```
+
+
+:::{.notes} 
+Let's now find an example where the model is less certain on its prediction. 
+
+We can do this by finding the absolute value of the difference between the two probabilities. 
+
+The smaller the value, the more uncertain the model is. 
+
+Here we can see that city 61 and 54 have the model pretty stumped. 
+
+Let's plot them and see why.
+:::
+
+---
+
+```{python}
+X_train.loc[[61, 54]]
+```
+
+```{python}
+# | echo: false
+# | fig-align: center
+plot_classifier(X_train.loc[[61, 54]].to_numpy(), [y_encoded_train[61], y_encoded_train[54]], lr, proba=True, ax=plt.gca(), ticks=True,  lims=(-115,-55,25,60))
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("latitude", fontsize=14); plt.ylabel("longitude", fontsize=14)
+plt.title("Logistic regression - uncertain prediction", fontsize=16);
+```
+
+:::{.notes} 
+When we plot the cities with the decision boundary,  we get a clear answer.
+
+The cities lie almost completely on the boundary, this makes the model very divided on how to classify them.
+:::
+
+
+# Let’s apply what we learned!

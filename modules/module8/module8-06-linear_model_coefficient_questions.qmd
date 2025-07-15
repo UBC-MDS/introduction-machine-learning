@@ -1,0 +1,246 @@
+---
+format: live-html
+---
+
+<script src='../../src/quiz.js'></script>
+
+# 2.1. Exercises
+
+## Linear Model Coefficient Questions
+
+Use the following equation to answer the questions below: 
+
+<center><font size="5"><em> predicted(backpack_weight) =  3.02 x #laptops + 0.3 x #pencils + 0.5 </em></font></center>
+
+<br>
+
+<div id='mcq1'></div>
+<script>
+    generateQuiz(
+        'mcq1',
+        'Question 1',
+        'What is our intercept value?',
+        {
+        '3.02': 'This is the laptop coefficient.',
+        '0.3': 'This is the pencil coefficient.',
+        '0.5': 'Nailed it! This is the intercept.',
+        '0': 'Not 0 this time!',
+        },
+        '0.5',
+    );
+</script>
+
+<div id='mcq2'></div>
+<script>
+    generateQuiz(
+        'mcq2',
+        'Question 2',
+        'If I had 2 laptops and 3 pencils in my backpack, what weight would my model predict for my backpack?',
+        {
+        '6.94': 'You are missing the intercept value.',
+        '7.44': '',
+        '10.16': 'Are you calculating for 3 laptops and 2 pencils?',
+        '4.42': 'I think you forgot a laptop!',
+        },
+        '7.44',
+    );
+</script>
+
+## True or False: Coefficients
+
+<div id='mcq3'></div>
+<script>
+    generateQuiz(
+        'mcq3',
+        'Question 1',
+        'With <code>Ridge</code>, we learn one coefficient per training example.',
+        {
+        'True': 'It’s actually one coefficient per column feature!',
+        'False': 'You got it. It’s one coefficient per feature!',
+        },
+        'False',
+    );
+</script>
+
+<div id='mcq4'></div>
+<script>
+    generateQuiz(
+        'mcq4',
+        'Question 2',
+        'Coefficients can help us interpret our model.',
+        {
+        'True': '',
+        'False': 'Coefficients actually explain how the model got to a certain prediction.',
+        },
+        'True',
+    );
+</script>
+
+## Interpreting Ridge
+
+**Instructions:**    
+Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
+
+**When you see `____` in a coding exercise, replace it with what you assume to be the correct code.  Run it and see if you obtain the desired output.  Submit your code to validate if you were correct.**
+
+_**Make sure you remove the hash (`#`) symbol in the coding portions of this question.  We have commented them so that the line won't execute and you can test your code after each step.**_
+
+Using the same Ridge model as we obtained last time, let's calculate what our model would predict for a player who is 2.05m tall and weighs 93.2 kg.
+
+```{pyodide}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge
+
+# Loading in the data
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df[['height', 'weight']]
+y_train = train_df['salary']
+X_test = test_df[['height', 'weight']]
+y_test = test_df['salary']
+
+player_stats = pd.DataFrame([[2.05,93.2]], columns =['height', 'weight'])
+
+bball
+```
+
+**Tasks:**
+
+- Build and fit a `Ridge` model with default hyperparameters and name it `ridge_bb`. 
+- What are the coefficients for this model? Save these in an object named `bb_coeffs`.
+- What is the intercept for this model? Save this in an object named `bb_intercept`.
+- Using the coefficients and intercept discovered above, calculate the model's prediction and save the result in `player_predict`.
+- Check your answer using `predict`. 
+
+```{pyodide}
+#| setup: true
+#| exercise: interpreting_ridge
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge
+from src.utils import assert_accuracy_almost
+
+bball = pd.read_csv('data/bball.csv')
+bball = bball[(bball['draft_year'] != 'Undrafted') & (bball['draft_round'] != 'Undrafted') & (bball['draft_peak'] != 'Undrafted')]
+
+train_df, test_df = train_test_split(bball, test_size=0.2, random_state=1)
+
+X_train = train_df[['height', 'weight']]
+y_train = train_df['salary']
+X_test = test_df[['height', 'weight']]
+y_test = test_df['salary']
+
+player_stats = pd.DataFrame([[2.05,93.2]], columns =['height', 'weight'])
+```
+
+
+```{pyodide}
+#| exercise: interpreting_ridge
+# Build a Ridge model called ridge_bb
+____ = ____
+
+# Fit your model on the training data
+____
+
+# What are the coefficients for this model?
+# Save these in an object named bb_coeffs
+____ = ____
+
+# What is the intercept for this model? 
+# Save this in an object named bb_intercept
+____ = ____
+
+# Using the weights and intercept discovered above, 
+# calculate the models's prediction
+# Save it in an object named player_predict
+____ = ____
+
+# Check your answer using predict
+print(____)
+
+dict = {
+    "bb_coeffs": bb_coeffs,
+    "bb_intercept": bb_intercept,
+    "player_predict": player_predict
+}
+dict
+```
+
+```{pyodide}
+#| exercise: interpreting_ridge
+#| check: true
+
+ridge_bb = Ridge()
+ridge_bb.fit(X_train, y_train)
+
+bb_coeffs = ridge_bb.coef_
+bb_intercept = ridge_bb.intercept_
+player_predict = (bb_coeffs*player_stats).sum(axis=1) + bb_intercept
+
+solution = {
+    "bb_coeffs": bb_coeffs,
+    "bb_intercept": bb_intercept,
+    "player_predict": player_predict[0]
+}
+
+assert list(solution.keys()) == list(result.keys()), "Please return a dict with three required key value pairs."
+assert_accuracy_almost([solution["bb_coeffs"][0], solution["bb_coeffs"][1], solution["bb_intercept"], solution["player_predict"]], [result["bb_coeffs"][0], result["bb_coeffs"][1], result["bb_intercept"], result["player_predict"]])
+```
+
+:::: { .hint exercise="interpreting_ridge"}
+::: { .callout-note collapse="false"}
+
+## Hint 1
+
+- Are you fitting your model?
+- Are you finding the coefficients using `ridge_bb.coef_`?
+print(bb_weights)
+- Are you using `ridge_bb.intercept_` to find your model's intercept?
+- Are you calculating your model's predictions with `bb_intercept + (bb_coeffs*player_stats).sum(axis=1)`?
+- You can check your calculation using `predict` with `ridge_bb.predict(player_stats)`.
+
+:::
+::::
+
+:::: { .solution exercise="interpreting_ridge" }
+::: { .callout-tip collapse="false"}
+
+## Fully worked solution:
+
+```{pyodide}
+# Build a Ridge model called ridge_bb
+ridge_bb = Ridge()
+
+# Fit your grid search on the training data
+ridge_bb.fit(X_train, y_train)
+
+# What are the coefficients for this model?
+# Save these in an object named bb_coeffs
+bb_coeffs = ridge_bb.coef_
+
+# What is the intercept for this model? 
+# Save this in an object named bb_intercept
+bb_intercept = ridge_bb.intercept_
+
+# Using the weights and intercept discovered above, 
+# calculate the models's prediction
+# Save it in an object named player_predict
+player_predict = (bb_coeffs*player_stats).sum(axis=1) + bb_intercept
+
+# Check your answer using predict
+print(ridge_bb.predict(player_stats))
+
+dict = {
+    "bb_coeffs": bb_coeffs,
+    "bb_intercept": bb_intercept,
+    "player_predict": player_predict[0]
+}
+dict
+```
+
+:::
+::::

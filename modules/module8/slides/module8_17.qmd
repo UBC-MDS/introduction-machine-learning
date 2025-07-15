@@ -1,0 +1,218 @@
+---
+format: revealjs
+title: Multi-class Classification
+title-slide-attributes:
+  data-notes: |
+---
+
+```{python}
+#  | echo: false
+%run src/utils.py
+```
+
+```{python}
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
+data = datasets.load_wine()
+X = pd.DataFrame(data['data'], columns=data["feature_names"])
+y = data['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=2021)
+
+X_train.head()
+```
+
+<br>
+
+```{python}
+y_train[:5]
+```
+
+
+:::{.notes} 
+The classification problems we have looked at so far in this module have had binary labels (2 possible labels).
+
+But we've seen that target labels are not restricted to this.
+
+Often we will have classification problems where we have multiple labels such as this wine dataset we are going to use.
+
+Here we have 3 classes for our target: 0, 1, 2 (maybe red, white and rose?).
+:::
+
+---
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression(max_iter=10000)
+lr.fit(X_train, y_train);
+lr.predict(X_test[:5])
+```
+
+<br>
+
+```{python}
+lr.coef_
+```
+
+<br>
+
+```{python}
+lr.coef_.shape
+```
+
+
+:::{.notes} 
+For some models, like decision trees, we don't have to think about anything differently at all, but for our linear classifier, on the other hand, things are a bit different. 
+
+Let's make a Logistic Regression here and look at the coefficients. (Ignore the `max_iter` for now. You can look into it <a href="https://medium.com/analytics-vidhya/a-complete-understanding-of-how-the-logistic-regression-can-perform-classification-a8e951d31c76" target="_blank">here</a> if you like)
+
+What is going on here?
+:::
+
+---
+
+```{python}
+lr_coefs = pd.DataFrame(data=lr.coef_.T, index=X_train.columns, columns=lr.classes_)
+lr_coefs
+```
+
+
+:::{.notes} 
+What's happening here is that we have one coefficient per feature *per class*.
+
+The interpretation is that these coefficients contributes to the predicting a certain class. 
+
+The specific interpretation depends on the way the logistic regression is implementing multi-class.
+:::
+
+---
+
+```{python}
+lr.predict_proba(X_test)[:5]
+```
+
+<br>
+
+```{python}
+lr.predict_proba(X_test[:5]).sum(axis=1)
+```
+
+
+:::{.notes} 
+If we look at the output of `predict_proba` you'll also see that there is a probability for each class and each row adds up to 1 as we would expect (total probability = 1).
+:::
+
+---
+
+```{python}
+from sklearn.metrics import confusion_matrix
+
+confusion_matrix(y_test, lr.predict(X_test))
+```
+
+```python
+ConfusionMatrixDisplay.from_estimator(lr, X_test, y_test, display_labels=lr.classes_, cmap='Blues', values_format='d');
+```
+
+```{python}
+# | echo: false
+# | fig-align: center
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
+
+plt.rcParams.update({'font.size': 16})
+ConfusionMatrixDisplay.from_estimator(lr, X_test, y_test, display_labels=lr.classes_, cmap='Blues', values_format='d');
+plt.show()
+```
+
+
+:::{.notes}
+As we saw in Module 7, we can still create confusion matrices but now they are greater than a 2 X 2 grid. 
+
+We have 3 classes for this data, so our confusion matrix is 3 X 3.
+:::
+
+---
+
+```{python}
+from sklearn.metrics import classification_report
+
+print(classification_report(y_test, lr.predict(X_test)))
+```
+
+:::{.notes} 
+Precision, recall, etc. don't apply directly but like we said before, if we pick one of the classes as positive, and consider the rest to be negative, then we can.
+:::
+
+---
+
+```{python}
+x_train_2d = X_train[['alcohol', 'malic_acid']]
+x_train_2d.head(3)
+```
+
+```{python}
+# | echo: false
+# | fig-align: center
+from src.model_plotting_mg import plot_classifier
+
+lr_2d = LogisticRegression()
+lr_2d.fit(x_train_2d, y_train);
+plot_classifier(x_train_2d.to_numpy(), y_train, lr_2d,  ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 18);
+plt.yticks(fontsize= 18);
+plt.xlabel("alcohol", fontsize=18); plt.ylabel("malic_acid", fontsize=18)
+plt.title("Logistic Regression - Multi Class", fontsize=20);
+```
+
+
+:::{.notes} 
+We can also make plots shoulding the decision boundaries, but this time, it will show more classes.
+
+For us to be able to plot this we need to select 2 features so we are picking `alcohol` and `malic_acid`. 
+
+In this plot, the colours are inconsistent with the shapes. 
+- The red triangles correspond to the light blue predictions.
+- The black X's correspond to the red predictions/
+- The blue circles (correctly) correspond to the blue circles.
+:::
+
+---
+
+```{python}
+# | echo: false
+# | fig-align: center
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+
+plt.figure(figsize=(16, 8))
+plt.subplot(1, 2, 1);
+rf_2f = DecisionTreeClassifier();
+rf_2f.fit(X_train.iloc[:,:2], y_train);
+plot_classifier(x_train_2d.to_numpy(), y_train, rf_2f, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("alcohol", fontsize=14); plt.ylabel("malic_acid", fontsize=14)
+plt.title("Decision Tree - Multi Class", fontsize=16)
+plt.subplot(1, 2, 2);
+svm_2f = SVC(gamma=2, C=100)
+svm_2f.fit(X_train.iloc[:,:2], y_train);
+
+plot_classifier(x_train_2d.to_numpy(), y_train, svm_2f, ax=plt.gca(), ticks=True)
+plt.xticks(fontsize= 14);
+plt.yticks(fontsize= 14);
+plt.xlabel("alcohol", fontsize=14); plt.ylabel("malic_acid", fontsize=14)
+plt.title("SVM - Multi Class", fontsize=16);
+```
+
+
+:::{.notes} 
+We can plot multi-class problems with other classifiers too. 
+
+Here we can see the boundaries of the decision tree classifier as well as SVM with an RBF kernel. 
+:::
+
+
+
+# Let’s apply what we learned!
