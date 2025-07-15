@@ -419,8 +419,8 @@ legend_sorted
         'Uxie': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
         'Zygarde': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
         'Mandibuzz': 'Are you sorting <code>lr_probs</code> in descending order and looking at the bottom of the dataframe?',
-        'Diglett': '',
+        'Slakoth': '',
         },
-        'Diglett',
+        'Slakoth',
     );
 </script>

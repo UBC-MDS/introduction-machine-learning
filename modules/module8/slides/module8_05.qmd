@@ -50,6 +50,8 @@ Consider the following listing (example):
 
 &nbsp;&nbsp;
 
+<br>
+
 <font size="4"><em> predicted(price) = coefficient<sub>bedrooms</sub> x #bedrooms + coefficient<sub>bathrooms</sub> x #bathrooms + coefficient<sub>sqfeet</sub> x #sqfeet + coefficient<sub>age</sub> x age + intercept </em></font>
 
 
