@@ -203,7 +203,7 @@
 </section>
 <section class="slide level2">
 
-<div id="84fd5814" class="cell" data-execution_count="3">
+<div id="7bf392e2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>X_train_scaled.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -298,7 +298,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="eae26fc4" class="cell" data-execution_count="4">
+<div id="4e5f9e86" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
@@ -325,7 +325,7 @@
 </section>
 <section id="how-to-carry-out-cross-validation" class="slide level2">
 <h2>How to carry out cross-validation?</h2>
-<div id="1da5e600" class="cell" data-execution_count="5">
+<div id="2fc4bcb0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
@@ -360,36 +360,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.018162</td>
-<td>0.168164</td>
+<td>0.011424</td>
+<td>0.168953</td>
 <td>0.696373</td>
 <td>0.794236</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.011369</td>
-<td>0.150022</td>
+<td>0.011486</td>
+<td>0.150982</td>
 <td>0.684447</td>
 <td>0.791467</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.011237</td>
-<td>0.162910</td>
+<td>0.011450</td>
+<td>0.163835</td>
 <td>0.695532</td>
 <td>0.789436</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.011192</td>
-<td>0.165517</td>
+<td>0.011299</td>
+<td>0.166601</td>
 <td>0.679478</td>
 <td>0.793243</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.011056</td>
-<td>0.100803</td>
+<td>0.011395</td>
+<td>0.102084</td>
 <td>0.680657</td>
 <td>0.794820</td>
 </tr>
@@ -425,20 +425,20 @@
 </section>
 <section id="bad-methodology-1-scaling-the-data-separately" class="slide level2">
 <h2>Bad methodology 1: Scaling the data separately</h2>
-<div id="7feff25e" class="cell" data-execution_count="6">
+<div id="9fe278f8" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()<span class="op">;</span></span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>scaler.fit(X_train_imp)<span class="op">;</span></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.transform(X_train_imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="1a4075ff" class="cell" data-execution_count="7">
+<div id="fd39fcbf" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a separate object for scaling test data - Not a good idea.</span></span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()<span class="op">;</span></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>scaler.fit(X_test_imp)<span class="op">;</span> <span class="co"># Calling fit on the test data - Yikes! </span></span>
 <span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test_imp) <span class="co"># Transforming the test data using the scaler fit on test data ... Bad! </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="3ca60edc" class="cell" data-execution_count="8">
+<div id="7fcd29ca" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(X_train_scaled, y_train)<span class="op">;</span></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Training score: "</span>, <span class="bu">round</span>(knn.score(X_train_scaled, y_train), <span class="dv">2</span>))</span>
@@ -471,14 +471,14 @@ Test score:  0.7</code></pre>
 </section>
 <section id="bad-methodology-2-scaling-the-data-together" class="slide level2">
 <h2>Bad methodology 2: Scaling the data together</h2>
-<div id="69fd1aac" class="cell" data-execution_count="9">
+<div id="97588c83" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>X_train_imp.shape, X_test_imp.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>((18576, 8), (2064, 8))</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="9a1c383e" class="cell" data-execution_count="10">
+<div id="8dc00fbe" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Join the train and test sets back together</span></span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>X_train_imp_df <span class="op">=</span> pd.DataFrame(X_train_imp,columns<span class="op">=</span>X_train.columns, index<span class="op">=</span>X_train.index)</span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>X_test_imp_df <span class="op">=</span> pd.DataFrame(X_test_imp,columns<span class="op">=</span>X_test.columns, index<span class="op">=</span>X_test.index)</span>
@@ -489,7 +489,7 @@ Test score:  0.7</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="5f10bc72" class="cell" data-execution_count="11">
+<div id="f5f864b3" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>scaler.fit(XX)<span class="op">;</span></span>
 <span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>XX_scaled <span class="op">=</span> scaler.transform(XX) </span>
@@ -516,7 +516,7 @@ Test score:  0.7</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="ded5398f" class="cell" data-execution_count="12">
+<div id="ecb434ff" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>knn.fit(XX_train, y_train)<span class="op">;</span></span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train score: '</span>, (<span class="bu">round</span>(knn.score(XX_train, y_train), <span class="dv">2</span>))) <span class="co"># Misleading score</span></span>
@@ -562,7 +562,7 @@ Test score:  0.71</code></pre>
 </section>
 <section id="lets-see-it-in-action" class="slide level2">
 <h2>Let’s see it in action</h2>
-<div id="753d0612" class="cell" data-execution_count="13">
+<div id="d450c042" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([</span>
@@ -592,7 +592,7 @@ Test score:  0.71</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="21b8ed08" class="cell" data-execution_count="14">
+<div id="06897b64" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>pipe.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
@@ -626,7 +626,7 @@ Test score:  0.71</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="82b98fa8" class="cell" data-execution_count="15">
+<div id="6a1bf18f" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>pipe.predict(X_train) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>array([126500., 117380., 187700., ..., 259500., 308120.,  60860.], shape=(18576,))</code></pre>
@@ -681,7 +681,7 @@ Test score:  0.71</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="4af7643e" class="cell" data-execution_count="16">
+<div id="95d5e17a" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>scores_processed <span class="op">=</span> cross_validate(pipe, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores_processed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -713,36 +713,36 @@ Test score:  0.71</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.019314</td>
-<td>0.165271</td>
+<td>0.029673</td>
+<td>0.172213</td>
 <td>0.693883</td>
 <td>0.792395</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.018553</td>
-<td>0.159292</td>
+<td>0.019235</td>
+<td>0.162671</td>
 <td>0.685017</td>
 <td>0.789108</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.018440</td>
-<td>0.163770</td>
+<td>0.019423</td>
+<td>0.164089</td>
 <td>0.694409</td>
 <td>0.787796</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.018264</td>
-<td>0.166863</td>
+<td>0.019384</td>
+<td>0.169496</td>
 <td>0.677055</td>
 <td>0.792444</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.018515</td>
-<td>0.133704</td>
+<td>0.018933</td>
+<td>0.134593</td>
 <td>0.714494</td>
 <td>0.823421</td>
 </tr>
@@ -772,26 +772,26 @@ Test score:  0.71</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="d933333f" class="cell" data-execution_count="17">
+<div id="6658d762" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores_processed).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>fit_time       0.018617
-score_time     0.157780
+<pre><code>fit_time       0.021329
+score_time     0.160612
 test_score     0.692972
 train_score    0.797033
 dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="686dc2e8" class="cell" data-execution_count="18">
+<div id="89079d55" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyRegressor</span>
 <span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>dummy <span class="op">=</span> DummyRegressor(strategy<span class="op">=</span><span class="st">"median"</span>)</span>
 <span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(dummy, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>fit_time       0.001110
-score_time     0.000460
+<pre><code>fit_time       0.001129
+score_time     0.000467
 test_score    -0.055115
 train_score   -0.054611
 dtype: float64</code></pre>
