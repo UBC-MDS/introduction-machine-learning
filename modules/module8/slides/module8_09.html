@@ -203,7 +203,7 @@
 </section>
 <section class="slide level2">
 
-<div id="c7a0a006" class="cell" data-execution_count="2">
+<div id="73adf34a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
@@ -293,7 +293,7 @@
 </section>
 <section id="setting-the-stage" class="slide level2">
 <h2>Setting the stage</h2>
-<div id="8b4345de" class="cell" data-execution_count="3">
+<div id="605bf249" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -330,36 +330,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.001872</td>
-<td>0.000744</td>
+<td>0.000890</td>
+<td>0.000751</td>
 <td>0.588235</td>
 <td>0.601504</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.000543</td>
-<td>0.000573</td>
+<td>0.000541</td>
+<td>0.000606</td>
 <td>0.588235</td>
 <td>0.601504</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.000498</td>
-<td>0.000565</td>
+<td>0.000477</td>
+<td>0.000592</td>
 <td>0.606061</td>
 <td>0.597015</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.000481</td>
-<td>0.000557</td>
+<td>0.000499</td>
+<td>0.000538</td>
 <td>0.606061</td>
 <td>0.597015</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.000465</td>
-<td>0.000579</td>
+<td>0.000474</td>
+<td>0.000531</td>
 <td>0.606061</td>
 <td>0.597015</td>
 </tr>
@@ -387,11 +387,11 @@
 </section>
 <section class="slide level2">
 
-<div id="d0c309e0" class="cell" data-execution_count="4">
+<div id="ac104201" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="0898d582" class="cell" data-execution_count="5">
+<div id="1cdd07d3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LogisticRegression()</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> pd.DataFrame(cross_validate(lr, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>))</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -424,36 +424,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.007061</td>
-<td>0.001411</td>
+<td>0.006804</td>
+<td>0.001235</td>
 <td>0.852941</td>
 <td>0.827068</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.004092</td>
-<td>0.001170</td>
+<td>0.004030</td>
+<td>0.001209</td>
 <td>0.823529</td>
 <td>0.827068</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.003700</td>
-<td>0.001151</td>
+<td>0.003651</td>
+<td>0.001127</td>
 <td>0.696970</td>
 <td>0.858209</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.003771</td>
-<td>0.001115</td>
+<td>0.003673</td>
+<td>0.001149</td>
 <td>0.787879</td>
 <td>0.843284</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.003958</td>
-<td>0.001145</td>
+<td>0.003752</td>
+<td>0.001095</td>
 <td>0.939394</td>
 <td>0.805970</td>
 </tr>
@@ -517,7 +517,7 @@
 </section>
 <section id="coefficients" class="slide level2">
 <h2>Coefficients</h2>
-<div id="01422961" class="cell" data-execution_count="8">
+<div id="3013b0fa" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LogisticRegression()</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>lr.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -527,7 +527,7 @@
 <pre class="out"><code>Model coefficients: [[-0.04108378 -0.33683087]]
 Model intercept: [10.886759]</code></pre>
 <p><br></p>
-<div id="54f4917f" class="cell" data-execution_count="9">
+<div id="f95fc66c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {<span class="st">'features'</span>: X_train.columns, <span class="st">'coefficients'</span>:lr.coef_[<span class="dv">0</span>]}</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -590,14 +590,14 @@ Model intercept: [10.886759]</code></pre>
 </section>
 <section id="predictions" class="slide level2">
 <h2>Predictions</h2>
-<div id="6fed46ef" class="cell" data-execution_count="10">
+<div id="6fba5547" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>lr.classes_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array(['Canada', 'USA'], dtype=object)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="868b4d40" class="cell" data-execution_count="11">
+<div id="9fc4bbe1" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>example <span class="op">=</span> X_test.iloc[<span class="dv">0</span>,:]</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>example.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -605,14 +605,14 @@ Model intercept: [10.886759]</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="31bee643" class="cell" data-execution_count="12">
+<div id="a5c5bca1" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>(example.tolist() <span class="op">*</span> lr.coef_).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">+</span> lr.intercept_ </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>array([-1.97823755])</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="4e2352bf" class="cell" data-execution_count="13">
+<div id="e3183de4" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>lr.predict([example])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array(['Canada'], dtype=object)</code></pre>
@@ -644,7 +644,7 @@ Model intercept: [10.886759]</code></pre>
 </section>
 <section id="hyperparameter-c-a-new-one" class="slide level2">
 <h2>Hyperparameter: C (A new one)</h2>
-<div id="e59b6093" class="cell" data-execution_count="14">
+<div id="4b67c099" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>scores_dict <span class="op">=</span>{</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a><span class="st">"C"</span> :<span class="fl">10.0</span><span class="op">**</span>np.arange(<span class="op">-</span><span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">1</span>),</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a><span class="st">"train_score"</span> : <span class="bu">list</span>(),</span>
@@ -656,7 +656,7 @@ Model intercept: [10.886759]</code></pre>
 <span id="cb17-9"><a aria-hidden="true" tabindex="-1"></a>    scores_dict[<span class="st">'train_score'</span>].append(results[<span class="st">"train_score"</span>].mean())</span>
 <span id="cb17-10"><a aria-hidden="true" tabindex="-1"></a>    scores_dict[<span class="st">'cv_score'</span>].append(results[<span class="st">"test_score"</span>].mean())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c608e20b" class="cell" data-execution_count="15">
+<div id="c8879f33" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores_dict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
@@ -752,7 +752,7 @@ Model intercept: [10.886759]</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="f4b5033c" class="cell" data-execution_count="17">
+<div id="6bb1f678" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
 <span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
 <span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -767,14 +767,14 @@ Model intercept: [10.886759]</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="f2ba088e" class="cell" data-execution_count="18">
+<div id="bf956feb" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>{'C': np.float64(39.79816953348588)}</code></pre>
+<pre><code>{'C': np.float64(96.36892555260427)}</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="e0114cbb" class="cell" data-execution_count="19">
+<div id="c17e3f3f" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.best_score_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>np.float64(0.8201426024955436)</code></pre>
@@ -797,7 +797,7 @@ Model intercept: [10.886759]</code></pre>
 </section>
 <section id="logistic-regression-with-text-data" class="slide level2">
 <h2>Logistic regression with text data</h2>
-<div id="6fccf636" class="cell" data-execution_count="20">
+<div id="c0f602e0" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [</span>
 <span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"URGENT!! As a valued network customer you have been selected to receive a £900 prize reward!"</span>,</span>
 <span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lol you are always so convincing."</span>,</span>
@@ -826,7 +826,7 @@ Model intercept: [10.886759]</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="5111a1c9" class="cell" data-execution_count="21">
+<div id="8200d2d8" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>vec <span class="op">=</span> CountVectorizer()</span>
 <span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>X_transformed <span class="op">=</span> vec.fit_transform(X)<span class="op">;</span></span>
 <span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>bow_df <span class="op">=</span> pd.DataFrame(X_transformed.toarray(), columns<span class="op">=</span><span class="bu">sorted</span>(vec.vocabulary_), index<span class="op">=</span>X)</span>
@@ -958,12 +958,12 @@ Model intercept: [10.886759]</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="95efb8f8" class="cell" data-execution_count="22">
+<div id="cfb12d1f" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>lr_text_model <span class="op">=</span> LogisticRegression()</span>
 <span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>lr_text_model.fit(X_transformed, y)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="b3c77648" class="cell" data-execution_count="23">
+<div id="570a786b" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'feature'</span>: vec.get_feature_names_out(),</span>
 <span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>              <span class="st">'coefficient'</span>: lr_text_model.coef_[<span class="dv">0</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">

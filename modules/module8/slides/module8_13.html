@@ -203,7 +203,7 @@
 </section>
 <section class="slide level2">
 
-<div id="35ba103f" class="cell" data-execution_count="2">
+<div id="c3ad718f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
@@ -275,14 +275,14 @@
 </div>
 </div>
 <p><br></p>
-<div id="2e0a3380" class="cell" data-execution_count="3">
+<div id="edb8d5ba" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LogisticRegression()</span>
 <span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>lr.fit(X_train, y_train)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="3f130fb9" class="cell" data-execution_count="4">
+<div id="ce63783f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>lr.predict(X_test[:<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>array(['Canada'], dtype=object)</code></pre>
@@ -304,14 +304,14 @@
 </section>
 <section class="slide level2">
 
-<div id="e8c91d28" class="cell" data-execution_count="5">
+<div id="9e87771c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>lr.predict(X_test[:<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array(['Canada'], dtype=object)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="3f343753" class="cell" data-execution_count="6">
+<div id="f527bf19" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>lr.predict_proba(X_test[:<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([[0.87849316, 0.12150684]])</code></pre>
@@ -361,7 +361,7 @@
 </section>
 <section class="slide level2">
 
-<div id="93ee719a" class="cell" data-execution_count="8">
+<div id="d7f482a7" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>predict_y <span class="op">=</span> lr.predict(X_train)</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>predict_y[<span class="op">-</span><span class="dv">5</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -369,7 +369,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="2119ada9" class="cell" data-execution_count="9">
+<div id="d3f8dfd1" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>y_proba <span class="op">=</span> lr.predict_proba(X_train)</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>y_proba[<span class="op">-</span><span class="dv">5</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -396,7 +396,7 @@
 </section>
 <section class="slide level2">
 
-<div id="cbc7de63" class="cell" data-execution_count="10">
+<div id="73b205d8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>data_dict <span class="op">=</span> {<span class="st">"y"</span>:y_train, </span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>             <span class="st">"pred y"</span>: predict_y.tolist(),</span>
 <span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="st">"probabilities"</span>: y_proba.tolist()}</span>
@@ -513,7 +513,7 @@
 </section>
 <section class="slide level2">
 
-<div id="246b332e" class="cell" data-execution_count="12">
+<div id="4f303e41" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>lr_targets <span class="op">=</span> pd.DataFrame({<span class="st">"y"</span>:y_train,</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>                           <span class="st">"pred y"</span>: predict_y.tolist(),</span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>                           <span class="st">"probability_canada"</span>: y_proba[:,<span class="dv">0</span>].tolist()})</span>
@@ -569,7 +569,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="e4dc56ce" class="cell" data-execution_count="13">
+<div id="c4ef5786" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>lr_targets.sort_values(by<span class="op">=</span><span class="st">'probability_canada'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
@@ -667,7 +667,7 @@
 </section>
 <section class="slide level2">
 
-<div id="dae1d200" class="cell" data-execution_count="14">
+<div id="69b2cdaa" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>X_train.loc[[<span class="dv">1</span>,<span class="dv">37</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
@@ -729,7 +729,7 @@
 </section>
 <section class="slide level2">
 
-<div id="b4b3b4da" class="cell" data-execution_count="16">
+<div id="7535b26d" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>lr_targets <span class="op">=</span> pd.DataFrame({<span class="st">"y"</span>:y_train,</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>                           <span class="st">"pred y"</span>: predict_y.tolist(),</span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>                           <span class="st">"prob_difference"</span>: (<span class="bu">abs</span>(y_proba[:,<span class="dv">0</span>] <span class="op">-</span> y_proba[:,<span class="dv">1</span>])).tolist()})</span>
@@ -816,7 +816,7 @@
 </section>
 <section class="slide level2">
 
-<div id="43a02385" class="cell" data-execution_count="17">
+<div id="d46fa1d1" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>X_train.loc[[<span class="dv">61</span>, <span class="dv">54</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>

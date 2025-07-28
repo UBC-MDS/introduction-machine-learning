@@ -203,7 +203,7 @@
 </section>
 <section class="slide level2">
 
-<div id="54fa0957" class="cell" data-execution_count="2">
+<div id="a2870b9f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -270,7 +270,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="612c9a46" class="cell" data-execution_count="3">
+<div id="1c2f874e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'country'</span>]), train_df[<span class="st">'country'</span>]</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span>[<span class="st">'country'</span>]), test_df[<span class="st">'country'</span>]</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -349,7 +349,7 @@
 </section>
 <section class="slide level2">
 
-<div id="9a83ce2d" class="cell" data-execution_count="4">
+<div id="ee9d2159" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>cities_plot <span class="op">=</span> alt.Chart(train_df).mark_circle(size<span class="op">=</span><span class="dv">20</span>, opacity<span class="op">=</span><span class="fl">0.6</span>).encode(</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'longitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="op">-</span><span class="dv">140</span>, <span class="op">-</span><span class="dv">40</span>])),</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'latitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">60</span>])),</span>
@@ -374,7 +374,7 @@
 </section>
 <section class="slide level2">
 
-<div id="7d965375" class="cell" data-execution_count="6">
+<div id="288de58c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -410,36 +410,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.002187</td>
-<td>0.001478</td>
+<td>0.002052</td>
+<td>0.001359</td>
 <td>0.823529</td>
 <td>0.842105</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.001705</td>
-<td>0.001225</td>
+<td>0.001710</td>
+<td>0.001243</td>
 <td>0.823529</td>
 <td>0.842105</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.001623</td>
-<td>0.001218</td>
+<td>0.001563</td>
+<td>0.001232</td>
 <td>0.727273</td>
 <td>0.858209</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.001586</td>
-<td>0.001174</td>
+<td>0.001610</td>
+<td>0.001224</td>
 <td>0.787879</td>
 <td>0.843284</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.001605</td>
-<td>0.001184</td>
+<td>0.001622</td>
+<td>0.001224</td>
 <td>0.939394</td>
 <td>0.805970</td>
 </tr>
@@ -450,7 +450,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="aa8def5a" class="cell" data-execution_count="7">
+<div id="4a5234c5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>svm_cv_score <span class="op">=</span> scores[<span class="st">'test_score'</span>].mean()</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>svm_cv_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -477,7 +477,7 @@
 </section>
 <section class="slide level2">
 
-<div id="0d685027" class="cell" data-execution_count="8">
+<div id="9efec077" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'country'</span>]), train_df[<span class="st">'country'</span>]</span>
@@ -500,7 +500,7 @@
 </section>
 <section id="svms" class="slide level2">
 <h2>SVMs</h2>
-<div id="c09fb8b5" class="cell" data-execution_count="11">
+<div id="c6ff1341" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_validate(knn, X_train, y_train, return_train_score<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -533,36 +533,36 @@
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0.001679</td>
-<td>0.002836</td>
+<td>0.001723</td>
+<td>0.002471</td>
 <td>0.852941</td>
 <td>0.849624</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>0.001507</td>
-<td>0.002051</td>
+<td>0.001339</td>
+<td>0.002270</td>
 <td>0.764706</td>
 <td>0.834586</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>0.001248</td>
-<td>0.001907</td>
+<td>0.001268</td>
+<td>0.001994</td>
 <td>0.727273</td>
 <td>0.850746</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>0.001203</td>
-<td>0.001886</td>
+<td>0.001254</td>
+<td>0.001927</td>
 <td>0.787879</td>
 <td>0.858209</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>0.001271</td>
-<td>0.001902</td>
+<td>0.001261</td>
+<td>0.001939</td>
 <td>0.878788</td>
 <td>0.813433</td>
 </tr>
@@ -573,7 +573,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="0606e46f" class="cell" data-execution_count="12">
+<div id="b05edee1" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>knn_cv_score <span class="op">=</span> scores[<span class="st">'test_score'</span>].mean().<span class="bu">round</span>(<span class="dv">3</span>)</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>knn_cv_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -581,7 +581,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="d8e0462f" class="cell" data-execution_count="13">
+<div id="66751c78" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>svm_cv_score.<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>np.float64(0.82)</code></pre>
@@ -610,7 +610,7 @@
 </section>
 <section id="svm-regressor" class="slide level2">
 <h2>SVM Regressor</h2>
-<div id="cc0ef8b3" class="cell" data-execution_count="14">
+<div id="f99f8333" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">

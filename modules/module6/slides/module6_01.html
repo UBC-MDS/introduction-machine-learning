@@ -203,7 +203,7 @@
 </section>
 <section id="remember-our-case-study-with-the-california-housing-dataset" class="slide level2">
 <h2>Remember our case study with the California housing dataset?</h2>
-<div id="58c893e9" class="cell" data-execution_count="3">
+<div id="94485540" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -305,7 +305,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="1b2ffe72" class="cell" data-execution_count="4">
+<div id="19d67b0c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"median_house_value"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">"median_house_value"</span>]</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -332,7 +332,7 @@
 </section>
 <section class="slide level2">
 
-<div id="36d83884" class="cell" data-execution_count="5">
+<div id="86bbae9b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
@@ -410,7 +410,7 @@ Detailed traceback:
 </section>
 <section id="ordinal-encoding" class="slide level2">
 <h2>Ordinal encoding</h2>
-<div id="f1a578dd" class="cell" data-execution_count="7">
+<div id="afc7b338" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>X_toy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -498,7 +498,7 @@ Detailed traceback:
 </div>
 </div>
 </div>
-<div id="a2cf941e" class="cell" data-execution_count="8">
+<div id="a66bde4e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(X_toy[<span class="st">'rating'</span>].value_counts()).rename(columns<span class="op">=</span>{<span class="st">'rating'</span>: <span class="st">'frequency'</span>}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -555,7 +555,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="0cc3dfab" class="cell" data-execution_count="9">
+<div id="9a0bdb21" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OrdinalEncoder</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(dtype<span class="op">=</span><span class="bu">int</span>)</span>
@@ -599,7 +599,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="95c666e1" class="cell" data-execution_count="10">
+<div id="c4817d20" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>encoding_view <span class="op">=</span> X_toy.assign(rating_enc<span class="op">=</span>X_toy_ord)</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>encoding_view</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -721,11 +721,11 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="7f465191" class="cell" data-execution_count="11">
+<div id="399b109d" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>ratings_order <span class="op">=</span> [<span class="st">'Bad'</span>, <span class="st">'Neutral'</span>, <span class="st">'Good'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-<div id="8c8440b4" class="cell" data-execution_count="12">
+<div id="83b9af08" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(categories <span class="op">=</span> [ratings_order], dtype<span class="op">=</span><span class="bu">int</span>)</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>oe.fit(X_toy)<span class="op">;</span></span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>X_toy_ord <span class="op">=</span> oe.transform(X_toy)</span>
@@ -764,7 +764,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="268a1f94" class="cell" data-execution_count="13">
+<div id="0124b5a4" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>encoding_view <span class="op">=</span> X_toy.assign(rating_enc<span class="op">=</span>X_toy_ord)</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>encoding_view</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -884,7 +884,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="e0c3cb62" class="cell" data-execution_count="15">
+<div id="9aac3351" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>X_toy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
@@ -972,7 +972,7 @@ Detailed traceback:
 </div>
 </div>
 </div>
-<div id="22ec1832" class="cell" data-execution_count="16">
+<div id="279aae3d" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>pd.DataFrame(X_toy[<span class="st">'language'</span>].value_counts()).rename(columns<span class="op">=</span>{<span class="st">'language'</span>: <span class="st">'frequency'</span>}).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
@@ -1034,7 +1034,7 @@ Detailed traceback:
 </section>
 <section class="slide level2">
 
-<div id="79c4dba0" class="cell" data-execution_count="17">
+<div id="427fa3b3" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OrdinalEncoder</span>
 <span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>oe <span class="op">=</span> OrdinalEncoder(dtype<span class="op">=</span><span class="bu">int</span>)</span>
