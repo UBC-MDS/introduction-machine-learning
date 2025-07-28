@@ -334,7 +334,7 @@
 </section>
 <section class="slide level2">
 
-<div id="122868c8" class="cell" data-execution_count="2">
+<div id="5c98d953" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>housing_df <span class="op">=</span> pd.read_csv(<span class="st">"data/real_estate.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(housing_df, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +419,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="95394018" class="cell" data-execution_count="3">
+<div id="61a78337" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df.drop(columns <span class="op">=</span>[<span class="st">'price'</span>]), train_df[<span class="st">'price'</span>]</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> test_df.drop(columns <span class="op">=</span>[<span class="st">'price'</span>]), test_df[<span class="st">'price'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -439,7 +439,7 @@
 </section>
 <section class="slide level2">
 
-<div id="95293bfb" class="cell" data-execution_count="4">
+<div id="fe158044" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> Ridge()</span>
@@ -451,7 +451,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="e1b09fa8" class="cell" data-execution_count="5">
+<div id="0f6f58ed" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>lm.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([-2.43214368e-01, -5.33723544e-03,  1.25878207e+00,  8.92353624e+00, -1.34523313e+00])</code></pre>
@@ -476,7 +476,7 @@
 </section>
 <section class="slide level2">
 
-<div id="269b3113" class="cell" data-execution_count="6">
+<div id="4c82bc10" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>ridge_coeffs <span class="op">=</span> lm.coef_</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>ridge_coeffs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -484,7 +484,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="3e02635a" class="cell" data-execution_count="7">
+<div id="6dedf261" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>words_coeffs_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>ridge_coeffs, index<span class="op">=</span>X_train.columns, columns<span class="op">=</span>[<span class="st">'Coefficients'</span>])</span>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>words_coeffs_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -559,7 +559,7 @@
 </section>
 <section class="slide level2">
 
-<div id="54be3b38" class="cell" data-execution_count="8">
+<div id="e532a9dd" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>words_coeffs_df.<span class="bu">abs</span>().sort_values(by<span class="op">=</span><span class="st">'Coefficients'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -661,7 +661,7 @@
 </section>
 <section id="predicting" class="slide level2">
 <h2>Predicting</h2>
-<div id="9a0d353d" class="cell" data-execution_count="9">
+<div id="209b5125" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>X_train.iloc[<span class="dv">0</span>:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -706,7 +706,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="27c64352" class="cell" data-execution_count="10">
+<div id="5c1d73f9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>lm.predict(X_train.iloc[<span class="dv">0</span>:<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array([52.35605528])</code></pre>
@@ -730,7 +730,7 @@
 </section>
 <section class="slide level2">
 
-<div id="69405e55" class="cell" data-execution_count="11">
+<div id="2f811dd6" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>words_coeffs_df.T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
@@ -775,7 +775,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="37e70f30" class="cell" data-execution_count="12">
+<div id="24c62e3a" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>X_train.iloc[<span class="dv">0</span>:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
@@ -820,7 +820,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="584b6ad0" class="cell" data-execution_count="13">
+<div id="e62c5d61" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>intercept <span class="op">=</span> lm.intercept_</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>intercept</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -847,7 +847,7 @@
 <font size="3"><em> predicted(price) = coefficient<sub>house_age</sub> x house_age + coefficient<sub>distance_station</sub> x distance_station + coefficient<sub>num_stores</sub> x num_stores + coefficient<sub>latitude</sub> x latitude + coefficient<sub>longitude</sub> x longitude + intercept </em></font>
 </center>
 <p><br></p>
-<div id="7a583d80" class="cell" data-execution_count="14">
+<div id="6511f029" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>(ridge_coeffs <span class="op">*</span> X_train.iloc[<span class="dv">0</span>:<span class="dv">1</span>]).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">+</span> intercept </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>172    52.356055
@@ -855,7 +855,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="f8276947" class="cell" data-execution_count="15">
+<div id="9a1dc3a3" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>lm.predict(X_train.iloc[<span class="dv">0</span>:<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>array([52.35605528])</code></pre>

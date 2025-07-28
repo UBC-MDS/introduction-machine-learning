@@ -290,7 +290,7 @@
 </section>
 <section class="slide level2">
 
-<div id="c1debfab" class="cell" data-execution_count="2">
+<div id="116381e6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -376,7 +376,7 @@
 </section>
 <section class="slide level2">
 
-<div id="a9ff22ba" class="cell" data-execution_count="3">
+<div id="ff213016" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>cities_plot <span class="op">=</span> alt.Chart(train_df).mark_circle(size<span class="op">=</span><span class="dv">20</span>, opacity<span class="op">=</span><span class="fl">0.6</span>).encode(</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'longitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="op">-</span><span class="dv">140</span>, <span class="op">-</span><span class="dv">40</span>])),</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'latitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">60</span>])),</span>
@@ -402,7 +402,7 @@
 </section>
 <section id="dimensions" class="slide level2">
 <h2>Dimensions</h2>
-<div id="3e9b2cd0" class="cell" data-execution_count="5">
+<div id="9889a348" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>grades_df <span class="op">=</span> pd.read_csv(<span class="st">"data/quiz2-grade-toy-classification.csv"</span>)</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>grades_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -498,7 +498,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="8dc2ace7" class="cell" data-execution_count="6">
+<div id="505dbe51" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> grades_df.drop(columns<span class="op">=</span>[<span class="st">'quiz2'</span>])</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>X.shape[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -556,7 +556,7 @@
 <section id="feature-vectors" class="slide level2">
 <h2>Feature vectors</h2>
 <p><strong>Feature vector</strong>: a vector composed of feature values associated with an example.</p>
-<div id="77e45e3c" class="cell" data-execution_count="7">
+<div id="3f43eda1" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>train_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -621,14 +621,14 @@
 </div>
 </div>
 <p><br> An example feature vector from the cities dataset:</p>
-<div id="9eff1659" class="cell" data-execution_count="8">
+<div id="1cdd7870" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>train_df.drop(columns<span class="op">=</span>[<span class="st">"country"</span>]).iloc[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">2</span>).to_numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>array([-76.48,  44.23])</code></pre>
 </div>
 </div>
 <p><br> An example feature vector from the grading dataset:</p>
-<div id="41fbb010" class="cell" data-execution_count="9">
+<div id="50ec806c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>grades_df.drop(columns<span class="op">=</span>[<span class="st">'quiz2'</span>]).iloc[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">2</span>).to_numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([ 1,  1, 92, 93, 84, 91, 92])</code></pre>
