@@ -118,7 +118,7 @@ _**Make sure you remove the hash (`#`) symbol in the coding portions of this que
 
 ## Cross Validation in Action
 
-Let's use `cross_val_score()` on a Pokémon dataset that we've used before in <a href="https://prog-learn.mds.ubc.ca/" target="_blank">Programming in Python for Data Science</a>.
+Let's use `cross_val_score()` on a Pokémon dataset that we've used before in <a href="https://ubc-mds.github.io/programming-in-python-for-data-science/" target="_blank">Programming in Python for Data Science</a>.
 
 ```{pyodide}
 import pandas as pd

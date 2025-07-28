@@ -18,10 +18,10 @@ During the course, you will work with powerful Python libraries made for data-sc
 This course covers the data science perspective on the introductory concepts in machine learning, with a focus on making predictions. It covers how to build different models such as K-NN, decision trees and linear classifiers as well as important concepts such as data splitting and fundamental rules and laws. In addition, this course will teach you how to evaluate models properly and question their validity all while streamlining the process with pipelines.
 
 ## Prerequisites
-- [Programming in Python for Data Science](https://prog-learn.mds.ubc.ca/)
+- [Programming in Python for Data Science](https://ubc-mds.github.io/programming-in-python-for-data-science/)
 
 ## Content
-We are using an interactive platform that contains a series of slide decks accompanied by multiple-choice questions and interactive coding exercises to apply what you learned during the module: [https://ml-learn.mds.ubc.ca/](https://ml-learn.mds.ubc.ca/). We recommend using Chrome, Firefox or Safari to complete the content as other browsers are incompatible with the content platform. 
+We are using an interactive platform that contains a series of slide decks accompanied by multiple-choice questions and interactive coding exercises to apply what you learned during the module: [https://ubc-mds.github.io/introduction-machine-learning](https://ubc-mds.github.io/introduction-machine-learning). We recommend using Chrome, Firefox or Safari to complete the content as other browsers are incompatible with the content platform. 
 
 ## Course Software Platforms
 Students will write code and perform their analysis using the [Python Programming Language](https://www.python.org/doc/essays/blurb/). Assignments as well as the final project analysis will be done using [Jupyter Notebooks](http://jupyter.org/).

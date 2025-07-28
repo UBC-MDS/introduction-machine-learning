@@ -96,7 +96,7 @@ First, let's take a look at if and/or where we are missing any values.
 **Tasks:**
 
 - Use `.describe()` or `.info()` to find if there are any values missing from the dataset. 
-- Using some of the skills we learned in the previous <a href="https://prog-learn.mds.ubc.ca/en/module8" target="_blank">course</a> find the number of rows that contains missing values and save the total number of examples with missing values in an object named `num_nan`.       
+- Using some of the skills we learned in the previous <a href="https://ubc-mds.github.io/programming-in-python-for-data-science/en/module8" target="_blank">course</a> find the number of rows that contains missing values and save the total number of examples with missing values in an object named `num_nan`.       
 *Hint: `.any(axis=1)` may come in handy here.* 
 
 ```{pyodide}

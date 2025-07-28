@@ -36,7 +36,7 @@ We recommend having a solid understanding in coding in Python. If you feel confi
 
 <opt text="I have not and I have little Python coding background.">
 
-Please take the course <a href="https://prog-learn.mds.ubc.ca/" target="_blank">**Programming in Python for Data Science**</a>  before proceeding onto Module 1.
+Please take the course <a href="https://ubc-mds.github.io/programming-in-python-for-data-science/" target="_blank">**Programming in Python for Data Science**</a>  before proceeding onto Module 1.
 
 </opt>
 </choice>
