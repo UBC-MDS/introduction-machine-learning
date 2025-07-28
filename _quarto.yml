@@ -25,8 +25,6 @@ pyodide:
 website:
   page-navigation: true
   bread-crumbs: false
-  repo-url: https://github.com/UBC-MDS/introduction-machine-learning
-  repo-actions: [issue]
   sidebar:
     collapse-level: 1
     logo: static/logo.svg
