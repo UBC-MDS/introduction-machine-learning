@@ -42,7 +42,7 @@ For example:
 
 ---
 
-![](../../../static/module1/classification-vs-regression.png){fig-alt="classfication vs. regression" fig-align="center" width="90%"}
+![](../../../static/module1/classification-vs-regression.png){fig-alt="classification vs. regression" fig-align="center" width="90%"}
 
 
 :::{.notes} 

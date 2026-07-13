@@ -16,7 +16,7 @@ title-slide-attributes:
 
 Baseline model:                   
 
-**Averge target value**: always predicts the mean of the training set.
+**Average target value**: always predicts the mean of the training set.
 
 
 
@@ -46,10 +46,10 @@ As a reminder, the task here is to protect our `quiz2` score.
 
 ---
 
-## 1. Create  𝑋  and  𝑦
+## 1. Create  X  and  y
 
-𝑋  → Feature vectors <br>
-𝑦  → Target
+X  → Feature vectors <br>
+y  → Target
 
 ```{python}
 X = classification_df.drop(columns=["quiz2"])
@@ -58,7 +58,7 @@ y = classification_df["quiz2"]
 
 
 :::{.notes}
-Just like before, we separate our data into the feature table and the target, also known as 𝑋 and 𝑦. 
+Just like before, we separate our data into the feature table and the target, also known as X and y. 
 :::
 
 ---

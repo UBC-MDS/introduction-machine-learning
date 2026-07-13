@@ -62,8 +62,7 @@ In this particular case, our unseen data contains the emoticons of a cat and a d
 ---
 
 
-```{python}
-#| output: false
+```python
 from PIL import Image
 from src.toy_classifier import classify_image
 
@@ -86,8 +85,15 @@ We can apply this morning on unseen images, in this particular case, our unseen 
 
 ![](../../../static/module1/alpaca.jpg){fig-alt="This image is in /static" width="20%"}
 
-```{python}
+```python
 classify_image(img, 3)
+```
+
+```out
+Class, Probability
+llama, 0.72
+Eskimo dog, husky, 0.06
+Norwich terrier, 0.05
 ```
 
 :::{.notes}
@@ -131,8 +137,8 @@ There are several machine learning libraries available to use but for this cours
 
 ## What we know so far...
 
-- In supervised learning, we are given a set of observations (𝑋) and their corresponding targets 𝑦 and we wish to find a model function that relates 𝑋 to 𝑦.
-- In unsupervised learning, we are given a set of observations (𝑋) and we wish to group similar things together in 𝑋. 
+- In supervised learning, we are given a set of observations (X) and their corresponding targets y and we wish to find a model function that relates X to y.
+- In unsupervised learning, we are given a set of observations (X) and we wish to group similar things together in X. 
 
 :::{.notes}
 

@@ -73,7 +73,7 @@ format: html
         'Question 5', 
         'Grouping articles on different topics from different news sources (something like Google News app).', 
         { 
-        'Supervised Learning': 'Here we do not have a clear "correct" answer and therefor this is an example of unsupervised learning.',
+        'Supervised Learning': 'Here we do not have a clear "correct" answer and therefore this is an example of unsupervised learning.',
         'Unsupervised Learning': 'Grouping is also called *clustering* which is an example of unsupervised learning.'
         },
         'Unsupervised Learning',

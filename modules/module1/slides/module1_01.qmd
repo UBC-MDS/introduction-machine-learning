@@ -40,7 +40,7 @@ AlphaGo, a machine learning-based system from Google, is the world's best player
 * A field of study that gives computers the ability to learn without being explicitly programmed.*
 <br>      -- Arthur Samuel (1959)
 
-![](../../../static/module1/traditional-programming-vs-ML.png){fig-alt="Traditionak Programming vs ML" fig-align="center" width="75%"}
+![](../../../static/module1/traditional-programming-vs-ML.png){fig-alt="Traditional Programming vs ML" fig-align="center" width="75%"}
 
 :::{.notes}
 What exactly is machine learning? There is no clear consensus on the definition of machine learning. But here is a popular definition by Artur Samuel who was one of the pioneers of machine learning and artificial intelligence.

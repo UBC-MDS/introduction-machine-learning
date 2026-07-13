@@ -66,10 +66,10 @@ In this dataset, we have 7 features with our target column being `quiz2` which h
 
 ---
 
-## 1. Create  𝑋  and  𝑦
+## 1. Create  X  and  y
 
-𝑋  → Feature vectors <br>
-𝑦  → Target
+X  → Feature vectors <br>
+y  → Target
 
 ```{python}
 X = classification_df.drop(columns=["quiz2"])
@@ -80,12 +80,12 @@ y = classification_df["quiz2"]
 :::{.notes}
 Whenever we build models, there are several important steps involved. 
 
-Our first step in building our model is splitting up our tabular data into the features and the target, also known as 𝑋 and 𝑦. 
+Our first step in building our model is splitting up our tabular data into the features and the target, also known as X and y. 
 
-𝑋 is all of our features in our data, which we also call our ***feature table***. <br>
-𝑦 is our target, which is what we are predicting.
+X is all of our features in our data, which we also call our ***feature table***. <br>
+y is our target, which is what we are predicting.
 
-For this problem, all the columns in our dataframe except `quiz2` make up our 𝑋 and the `quiz2` column, which is our target make up our 𝑦. 
+For this problem, all the columns in our dataframe except `quiz2` make up our X and the `quiz2` column, which is our target make up our y. 
 :::
 
 ---
@@ -191,7 +191,7 @@ In the classification setting, `.score()` gives the accuracy of the model, i.e.,
 
 ![](../../../static/module1/predit_total.gif){fig-align="center"}
 
-Sometimes you will also see people reporting error, which is usually  1−𝑎𝑐𝑐𝑢𝑟𝑎𝑐𝑦 
+Sometimes you will also see people reporting error, which is usually  1−accuracy 
 
 ![](../../../static/module1/error.gif){fig-align="center"}
 
@@ -226,7 +226,7 @@ We could also say the error is 0.476.
 
 The general pattern when we build ML models using `sklearn`: 
 
-1. Creating your 𝑋 and 𝑦 objects 
+1. Creating your X and y objects 
 2. `clf = DummyClassifier()` &rarr; create a model (here we are naming it `clf`)  
 3. `clf.fit(X, y)` &rarr; train the model 
 4. `clf.score(X, y)` &rarr; assess the model
@@ -235,7 +235,7 @@ The general pattern when we build ML models using `sklearn`:
 :::{.notes}
 To summarize, here are the steps we follow when building machine learning models using `sklearn`.
 
-1. Create our 𝑋 and 𝑦 objects
+1. Create our X and y objects
 2. Create our model object ( in this case, we created a dummy classifier)
 3. Fit our model
 4. Assess our model

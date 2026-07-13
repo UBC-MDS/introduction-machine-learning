@@ -80,9 +80,9 @@ In this scenario, what would a `DummyClassifier(strategy='most_frequent')` model
         '', 
         { 
         'Forward': '',
-        'Defense': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occuring value.',
-        'Goalie': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occuring value.',
-        'Player': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occuring value.',
+        'Defense': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occurring value.',
+        'Goalie': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occurring value.',
+        'Player': 'We are using the strategy <code>most_frequent</code> which predicts the most frequently occurring value.',
         },
         'Forward',
     );
