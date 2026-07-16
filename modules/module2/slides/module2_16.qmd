@@ -25,9 +25,9 @@ Instead of using Gini (which we briefly mentioned this in previous slides), we c
 
 `scikit-learn` supports regression using decision trees with `DecisionTreeRegressor()` and the `.fit()` and `.predict()` paradigm that is similar to classification.
 
-Just like when we talked about the baseline Dummy regressor, `.score()` for regression returns somethings called an <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" target="_blank"> 𝑅2 </a>.    
+Just like when we talked about the baseline Dummy regressor, `.score()` for regression returns somethings called an <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" target="_blank"> R2 </a>.    
 
-The maximum 𝑅2 is 1 for perfect predictions. 
+The maximum R2 is 1 for perfect predictions. 
 
 It can be negative which is very bad (worse than DummyRegressor). 
 :::
@@ -160,9 +160,9 @@ We can compare the predicted value versus the true quiz2 grade in this dataframe
 
 This is confirmed when we see that the score is 1.0. 
 
-We talked in Module 1 about how we use a measurement called 𝑅2 to measure the score of regression models. An 𝑅2 score of 1.0, means the model perfectly predicts the outcome of every observation.
+We talked in Module 1 about how we use a measurement called R2 to measure the score of regression models. An R2 score of 1.0, means the model perfectly predicts the outcome of every observation.
 
-This is quite different from what we were getting with a Dummy Classifier which had an 𝑅2 value of 0.
+This is quite different from what we were getting with a Dummy Classifier which had an R2 value of 0.
 :::
 
 

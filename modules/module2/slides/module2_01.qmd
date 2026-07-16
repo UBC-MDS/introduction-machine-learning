@@ -91,7 +91,7 @@ y.head(3)
 
 
 :::{.notes}
-Let's take our 𝑋 and 𝑦 from our `quiz2` data that we had before.
+Let's take our X and y from our `quiz2` data that we had before.
 :::
 
 ---
@@ -134,7 +134,7 @@ The decision tree models use an algorithm that derives such rules from data in a
 ![](../../../static/module2/lingo_tree.png){fig-align="center" width="85%" fig-alt="404 image"}
 
 :::{.notes}
-Before we go forward with learning about decision tree classifiers and reggressors we need to understand the structure of a decision tree.
+Before we go forward with learning about decision tree classifiers and regressors we need to understand the structure of a decision tree.
 Here is the key terminology that you will have to know:
 
 - **Root**: Where we start making our conditions.

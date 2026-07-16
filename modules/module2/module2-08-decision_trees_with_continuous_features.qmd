@@ -1,4 +1,6 @@
 ---
+aliases:
+  - "module2-08-decision_trees_with_continous_features.html"
 format:
   html:
     page-layout: full
