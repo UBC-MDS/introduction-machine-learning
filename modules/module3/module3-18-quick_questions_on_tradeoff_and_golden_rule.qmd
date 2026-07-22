@@ -52,7 +52,7 @@ format: live-html
         'The fundamental tradeoff of ML states that as model complexity increases ...',
         {
         'Test score decreases.': 'Actually the test score is not taken into consideration here.',
-        'Train score decreases.': 'Quite the oposite in fact!',
+        'Train score decreases.': 'Quite the opposite in fact!',
         'Train score increases.': '',
         'Test score increases.': 'Try not to think about the the test score here.',
         },
@@ -68,11 +68,11 @@ format: live-html
         'In supervised learning, the training score is _________ higher than the validation score.',
         {
         'Always': 'Although this is the case often, validation score can be higher.',
-        'Ususally': 'Nice work! Sometimes and often but not always!',
+        'Usually': 'Nice work! Sometimes and often but not always!',
         'Sometimes': 'Maybe a bit more than sometimes.',
         'Never': 'We’ve seen cases where this true!',
         },
-        'Ususally',
+        'Usually',
     );
 </script>
 
@@ -316,7 +316,7 @@ chart1
     generateQuiz(
         'mcq6',
         'Question 2',
-        'Are we obeying the golden rule of machine learing?',
+        'Are we obeying the golden rule of machine learning?',
         {
         'Yes': 'Yes, the test data have not influenced the training in anyway!',
         'No': 'Have we touched the test data yet?',

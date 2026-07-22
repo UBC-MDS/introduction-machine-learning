@@ -31,12 +31,12 @@ It would be nice to have more data on which to train and validate.
 ## So what do we do? 
 
 
-### 𝑘-fold cross-validation
+### k-fold cross-validation
 
 ![](../../../static/module3/cross-validation.png){fig-align="center" width="100%" fig-alt="404 image"}
 
 :::{.notes} 
-Here we will introduce something called **cross-validation** or ***𝑘-fold cross-validation*** which attempts to get the best of both worlds. 
+Here we will introduce something called **cross-validation** or ***k-fold cross-validation*** which attempts to get the best of both worlds. 
 
 We still have the test set here at the bottom locked away that we will not touch until the end. 
 
@@ -44,7 +44,7 @@ Instead of splitting our training set and simply chopping it into train and vali
 
 Doing this could lead to us either being lucky or unlucky with the splitting, causing extremely accurate or very poor scores. 
 
-Cross-validation consists of splitting the data into k-folds ( 𝑘>2, often 𝑘=10 ). In the picture below 𝑘=4.
+Cross-validation consists of splitting the data into k-folds ( k>2, often k=10 ). In the picture below k=4.
 
 Each "fold" gets a turn at being the validation set. And the other folds are used as the training set. 
 
@@ -52,8 +52,8 @@ Then we use a new fold as the validation set and the rest now become the trainin
 
 This is repeated until every fold has an opportunity to act as the validation set. 
 
-Each round will produce a score so after 𝑘-fold cross-validation, it will produce 𝑘 scores. 
-We usually average over the 𝑘 results. 
+Each round will produce a score so after k-fold cross-validation, it will produce k scores. 
+We usually average over the k results. 
 
 It's better to notice the variation in the scores across folds.  
 

@@ -51,7 +51,7 @@ array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
     generateQuiz(
         'mcq3',
         '',
-        'Given this output of <code>cross_val_score()</code>, what was the value of 𝑘?',
+        'Given this output of <code>cross_val_score()</code>, what was the value of k?',
         {
         '0': 'There must have been some positive value for k.',
         '1': 'How many items are there in the array?',
@@ -69,7 +69,7 @@ array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
     generateQuiz(
         'mcq4',
         'Question 1',
-        '𝑘-fold cross-validation calls fit 𝑘 times and predict 𝑘 times.',
+        'k-fold cross-validation calls fit k times and predict k times.',
         {
         'True': 'Fit and predict are both called k times!',
         'False': 'How many times are fit and predict called on 1 fold - cross-validation?',
@@ -97,7 +97,7 @@ array([0.80952381, 0.80952381, 0.85714286, 0.85714286])
     generateQuiz(
         'mcq6',
         'Question 3',
-        'The main disadvantage of using a large 𝑘 in cross-validation is running time.',
+        'The main disadvantage of using a large k in cross-validation is running time.',
         {
         'True': '',
         'False': 'Since we need to train multiple times and predict multiple times, it can be very time-consuming.',
