@@ -131,7 +131,7 @@ plot_classifier(X_train.to_numpy(), y_encoded_train, knn, ax=plt.gca())
 
 
 :::{.notes} 
-If we plot over the support vector machine classifier along with the 𝑘-Nearest Neighbours classifier, we can see that the support vector machine classifier is a smoothed version of the 𝑘-Nearest Neighbours classifier. 
+If we plot over the support vector machine classifier along with the k-Nearest Neighbours classifier, we can see that the support vector machine classifier is a smoothed version of the k-Nearest Neighbours classifier. 
 :::
 
 ---
@@ -158,16 +158,16 @@ svm_cv_score.round(3)
 ```
 
 :::{.notes} 
-Superficially, support vector machines are very similar to 𝑘-Nearest Neighbours.
+Superficially, support vector machines are very similar to k-Nearest Neighbours.
 
 A test example is positive if on average it looks more like positive examples it is negative if on average it looks more like negative examples.
 
-The primary difference between 𝑘-NNs and SVMs is that:
+The primary difference between k-NNs and SVMs is that:
 
-- Unlike 𝑘-NNs, SVMs only remember the key examples (support vectors). 
-- When it comes to predicting a query point, we only consider the key examples from the data, and only calculate the distance to these key examples. This makes it more efficient than 𝑘-NN. 
+- Unlike k-NNs, SVMs only remember the key examples (support vectors). 
+- When it comes to predicting a query point, we only consider the key examples from the data, and only calculate the distance to these key examples. This makes it more efficient than k-NN. 
 
-If we compare the scores from the 𝑘-NN model using `n_neighbors=5` and the scores from the SVM model we get similar results, however, the SVM model seems to do slightly better than the 𝑘-NN model. 
+If we compare the scores from the k-NN model using `n_neighbors=5` and the scores from the SVM model we get similar results, however, the SVM model seems to do slightly better than the k-NN model. 
 :::
 
 ---

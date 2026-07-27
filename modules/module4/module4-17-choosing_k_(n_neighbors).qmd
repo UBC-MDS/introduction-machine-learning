@@ -1,10 +1,12 @@
 ---
+aliases:
+  - "module4-17-choosing_𝑘_(n_neighbors).html"
 format:
   html:
     page-layout: full
 ---
 
-# 5. Choosing 𝑘 (n_neighbors)
+# 5. Choosing k (n_neighbors)
 
 ::: {.panel-tabset .nav-pills}
 
@@ -13,7 +15,7 @@ format:
 <iframe
     class="video"
     src="https://www.youtube.com/embed/aBpgJh0ikoA?start=1289&end=1766&rel=0" 
-    title="Module 4 Video - Choosing 𝑘 (n_neighbors)"
+    title="Module 4 Video - Choosing k (n_neighbors)"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen

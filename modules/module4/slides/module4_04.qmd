@@ -41,7 +41,7 @@ A common way to calculate the distance between two points in high dimensional sp
 
 The formula to calculate Euclidean distance is shown. 
 
-Given two vectors or two features vectors, in our case, we are assuming we have two feature vectors named 𝑢 and 𝑣. 
+Given two vectors or two features vectors, in our case, we are assuming we have two feature vectors named u and v. 
 
 The Euclidean distance between them is defined by the square root of the summation of the squared element-wise differences between these two factors (A mouthful, we know, we will look at the steps in the next few slides).
 :::

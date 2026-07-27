@@ -1,10 +1,12 @@
 ---
+aliases:
+  - "module4-13-𝑘-nearest_neighbours_(𝑘-nns)_classifier.html"
 format:
   html:
     page-layout: full
 ---
 
-# 4. 𝑘-Nearest Neighbours (𝑘-NNs) Classifier
+# 4. k-Nearest Neighbours (k-NNs) Classifier
 
 ::: {.panel-tabset .nav-pills}
 
@@ -13,7 +15,7 @@ format:
 <iframe
     class="video"
     src="https://www.youtube.com/embed/aBpgJh0ikoA?start=1031&end=1286&rel=0" 
-    title="Module 4 Video - 𝑘-Nearest Neighbours (𝑘-NNs) Classifier"
+    title="Module 4 Video - k-Nearest Neighbours (k-NNs) Classifier"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen

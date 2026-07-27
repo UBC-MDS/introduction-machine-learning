@@ -1,6 +1,6 @@
 ---
 format: revealjs
-title: 𝑘-Nearest Neighbours (𝑘-NNs) Classifier
+title: k-Nearest Neighbours (k-NNs) Classifier
 title-slide-attributes:
   data-notes: |
     Now that we have learned how to find similar examples, how can we use this idea in a predictive model?

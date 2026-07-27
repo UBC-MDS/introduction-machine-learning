@@ -21,7 +21,7 @@ Consider this toy dataset:
     generateQuiz(
         'mcq1',
         '',
-        'If  𝑘=1 , what would you predict for the above query point?',
+        'If  k=1 , what would you predict for the above query point?',
         {
         '0': 'The point (2, 2) is the closest to (0, 0).',
         '1': 'Right, the point (2, 2) is the closest to (0, 0) and it is categorized as 1.',
@@ -38,7 +38,7 @@ Consider this toy dataset:
     generateQuiz(
         'mcq2',
         '',
-        'If  𝑘=3 , what would you predict for the above query point?',
+        'If  k=3 , what would you predict for the above query point?',
         {
         '0': '',
         '1': 'The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0). Which label is more occurring?',
@@ -47,7 +47,7 @@ Consider this toy dataset:
     );
 </script>
 
-## 𝑘-NN Classifiers True or False
+## k-NN Classifiers True or False
 
 <div id='mcq3'></div>
 <script>
@@ -82,9 +82,9 @@ Consider this toy dataset:
     generateQuiz(
         'mcq5',
         'Question 3',
-        'Similar to decision trees, 𝑘-NNs finds a small set of good features.',
+        'Similar to decision trees, k-NNs finds a small set of good features.',
         {
-        'True': '𝑘-NNs use all the features!',
+        'True': 'k-NNs use all the features!',
         'False': 'Great work!',
         },
         'False',
@@ -92,7 +92,7 @@ Consider this toy dataset:
 </script>
 
 
-## Predicting with a 𝑘-NN-Classifier
+## Predicting with a k-NN-Classifier
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 

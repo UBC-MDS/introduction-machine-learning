@@ -1,6 +1,6 @@
 ---
 format: revealjs
-title: Choosing 𝑘 (n_neighbors)
+title: Choosing k (n_neighbors)
 title-slide-attributes:
   data-notes: |
     We saw that the prediction of over query pointing changes with different values for the `n_neighbors` argument.
@@ -73,7 +73,7 @@ pd.DataFrame(scores)
 ```
 
 :::{.notes} 
-Let's carry out cross-validation with 𝑘=1. 
+Let's carry out cross-validation with k=1. 
 
 These are our cross-validation results. 
 
@@ -83,7 +83,7 @@ Our validation score for each fold is much lower than the training score.
 
 The gap between the training and validation sets seems to be high and so it is likely that our model is overfitting. 
 
-Let’s seen now what happens when 𝑘=100. 
+Let’s seen now what happens when k=100. 
 
 Now, we see that our training scores are much lower and our validation scores are also lower. 
 
@@ -117,7 +117,7 @@ plot_classifier(X_train.to_numpy(), y_encoded_train, knn100, ax=plt.gca(), ticks
 ```
 
 :::{.notes} 
-If we plot these two models with 𝑘=1 on the left and 𝑘=100 on the right. 
+If we plot these two models with k=1 on the left and k=100 on the right. 
 
 The left plot shows a much more complex model where it is much more specific and attempts to get every example correct. 
 
@@ -145,13 +145,13 @@ results_df
 
 
 :::{.notes} 
-In our toy problem with 𝑘=1, we saw the model was overfitting yet when 𝑘=100, the model was underfitting. 
+In our toy problem with k=1, we saw the model was overfitting yet when k=100, the model was underfitting. 
 
-So, the question is how do we pick 𝑘?
+So, the question is how do we pick k?
 
 - The answer lies in hyperparameter optimization. 
 
-Here we are looping over different values of 𝑘 ( `n_neighbors`) and performing cross-validation on each one. 
+Here we are looping over different values of k ( `n_neighbors`) and performing cross-validation on each one. 
 :::
 
 ---
@@ -235,7 +235,7 @@ This is surprising and could be due to having a small dataset.
 
 <br> 
 
-- 𝑘 -NN usually works well when the number of dimensions is small.
+- k -NN usually works well when the number of dimensions is small.
 
 <br>
 <br>
@@ -248,13 +248,13 @@ This is surprising and could be due to having a small dataset.
 :::{.notes}
 In the previous module, we discussed one of the most important problems in machine learning which was overfitting the second most important problem in machine learning is the ***curse of dimensionality***.
 
-This problem affects most models but this problem is especially bad for 𝑘-NN. 
+This problem affects most models but this problem is especially bad for k-NN. 
 
-𝑘-NN works well then the number of dimensions is small but things fall apart fairly quickly as the number of dimensions goes up. 
+k-NN works well then the number of dimensions is small but things fall apart fairly quickly as the number of dimensions goes up. 
 
-If there are many irrelevant features, 𝑘-NN is hopelessly confused because all of them contribute to finding similarities between examples. 
+If there are many irrelevant features, k-NN is hopelessly confused because all of them contribute to finding similarities between examples. 
 
-With enough irrelevant features, the accidental similarity between features wipe out any meaningful similarity and 𝑘-NN becomes is no better than random guessing.
+With enough irrelevant features, the accidental similarity between features wipe out any meaningful similarity and k-NN becomes is no better than random guessing.
 :::
 
 ---

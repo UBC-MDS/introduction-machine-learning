@@ -180,10 +180,10 @@ test_score
     generateQuiz(
         'mcq4',
         'Question 1',
-        'Does this model give similar results to 𝑘-NN?',
+        'Does this model give similar results to k-NN?',
         {
-        'Yes': 'We got around .9 with 𝑘-NN as well!',
-        'No': 'We got a score around 0.9 with 𝑘-NN .',
+        'Yes': 'We got around .9 with k-NN as well!',
+        'No': 'We got a score around 0.9 with k-NN .',
         },
         'Yes',
     );

@@ -1,10 +1,12 @@
 ---
+aliases:
+  - "module4-21-𝑘_-nearest_neighbours_regressor.html"
 format:
   html:
     page-layout: full
 ---
 
-# 6. 𝑘 -Nearest Neighbours Regressor
+# 6. k -Nearest Neighbours Regressor
 
 ::: {.panel-tabset .nav-pills}
 
@@ -13,7 +15,7 @@ format:
 <iframe
     class="video"
     src="https://www.youtube.com/embed/aBpgJh0ikoA?start=1772&end=2113&rel=0" 
-    title="Module 4 Video - 𝑘 -Nearest Neighbours Regressor"
+    title="Module 4 Video - k -Nearest Neighbours Regressor"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen

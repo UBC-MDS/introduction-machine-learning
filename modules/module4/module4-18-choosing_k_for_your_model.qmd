@@ -6,7 +6,7 @@ format: live-html
 
 # 5.1. Exercises
 
-## Choosing 𝑘 for Your Model
+## Choosing k for Your Model
 
 Consider this graph:
 
@@ -34,7 +34,7 @@ Consider this graph:
     generateQuiz(
         'mcq2',
         'Question 2',
-        'At what value of  𝑘 is the largest gap between the train and validation score?',
+        'At what value of  k is the largest gap between the train and validation score?',
         {
         '1': 'Training score is much higher than the validation score here!',
         '4': 'Are there values where the validation score is lower?',
@@ -45,14 +45,14 @@ Consider this graph:
     );
 </script>
 
-## Curse of Dimensionality and Choosing 𝑘 True or False
+## Curse of Dimensionality and Choosing k True or False
 
 <div id='mcq3'></div>
 <script>
     generateQuiz(
         'mcq3',
         'Question 1',
-        'With  𝑘 -NN, setting the hyperparameter  𝑘  to larger values typically increase training score.',
+        'With  k -NN, setting the hyperparameter  k  to larger values typically increase training score.',
         {
         'True': 'Have you tried it out? It could be a good idea to see this in action!',
         'False': 'Great work!',
@@ -66,7 +66,7 @@ Consider this graph:
     generateQuiz(
         'mcq4',
         'Question 2',
-        '𝑘 -NN may perform poorly in high-dimensional space (say, d > 100).',
+        'k -NN may perform poorly in high-dimensional space (say, d > 100).',
         {
         'True': 'Nice work.',
         'False': 'Having more features in some cases is less helpful to the model.',
@@ -105,7 +105,7 @@ Fill in the code for  a `for` loop that does the following:
 - iterates over the values 1-50 in increments of 5.
 - Builds a  `KNeighborsClassifier` model with `n_neighbors` equal to each iteration.
 - Uses `cross_validate` on the model with a `cv=10` and `return_train_score=True`.
-- Appends the 𝑘 value to the `n_neighbors` list in the dictionary `results_dict`.
+- Appends the k value to the `n_neighbors` list in the dictionary `results_dict`.
 - Appends the `test_score` to the `mean_cv_score` list in the dictionary. 
 - Appends the `train_score` to the `mean_train_score` list in the dictionary. 
 

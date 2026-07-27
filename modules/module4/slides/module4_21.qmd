@@ -1,6 +1,6 @@
 ---
 format: revealjs
-title: 𝑘 -Nearest Neighbours Regressor
+title: k -Nearest Neighbours Regressor
 title-slide-attributes:
   data-notes: |
 ---
@@ -10,7 +10,7 @@ title-slide-attributes:
 %run src/utils.py
 ```
 
-## Regression with 𝑘-nearest neighbours ( 𝑘 -NNs)
+## Regression with k-nearest neighbours ( k -NNs)
 
 ```{python}
 np.random.seed(0)
@@ -31,9 +31,9 @@ y.head()
 
 
 :::{.notes} 
-We can use the 𝑘-nearest neighbour algorithm on regression problems as well.
+We can use the k-nearest neighbour algorithm on regression problems as well.
 
- In 𝑘-nearest neighbour regression, we take the average of 𝑘-nearest neighbours instead of majority vote.
+ In k-nearest neighbour regression, we take the average of k-nearest neighbours instead of majority vote.
 
  Let's look at an example. Here we are creating some synthetic data with fifty examples and only one feature. 
 
@@ -101,7 +101,7 @@ knnr.score( X_train, y_train)
 
 
 :::{.notes} 
-Now let's try the 𝑘-nearest neighbours regressor on this data. 
+Now let's try the k-nearest neighbours regressor on this data. 
 
 In this case, we import `KNeighborsRegressor` instead of `KNeighborsClassifier`.  
 
@@ -186,7 +186,7 @@ plt.ylabel("weight",fontsize= 16);
 :::{.notes} 
  Now let's try `n_neighbors=10`.
 
-Again, we are creating our `KNeighborsRegressor` object with `n_neighbors=10` and ` `n_neighbors=10`=’uniform’` which means all of our examples have equal contribution to the prediction.
+Again, we are creating our `KNeighborsRegressor` object with `n_neighbors=10` and `weights='uniform'` which means all of our examples have equal contribution to the prediction.
 
 We fit our regressor and score it. Now we can see we are getting a lower score over the training set. Our score decreased from 1.0 when to had `n_neighbors=1` to now having a score of 0.932.  
 
@@ -234,14 +234,14 @@ Plotting it shows that the model is trying to predict every model correctly. Thi
 
 ---
 
-## Pros and Cons of 𝑘 -Nearest Neighbours
+## Pros and Cons of k -Nearest Neighbours
 
 <br>
 
 ### Pros:
 
 - Easy to understand, interpret.
-- Simply hyperparameter 𝑘 (`n_neighbors`) controlling the fundamental tradeoff.
+- Simply hyperparameter k (`n_neighbors`) controlling the fundamental tradeoff.
 - Can learn very complex functions given enough data.
 - Lazy learning: Takes no time to `fit`
 
@@ -259,10 +259,10 @@ Let's talk about some pros and cons.
 Advantages include:
 
 - Easy to understand and interpret.
-- Simply hyperparameter 𝑘 (`n_neighbors`) controlling the fundamental trade-off.
-    - lower 𝑘 is likely producing an overfit model and higher 𝑘 is likely producing an underfit model. 
+- Simply hyperparameter k (`n_neighbors`) controlling the fundamental trade-off.
+    - lower k is likely producing an overfit model and higher k is likely producing an underfit model. 
 - Given the simplicity of this algorithm, it can surprisingly learn very complex functions given enough data. 
-- 𝑘-Nearest Neighbours we don't really do anything during the fit phase. 
+- k-Nearest Neighbours we don't really do anything during the fit phase. 
 
 Some disadvantages often include:
 

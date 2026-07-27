@@ -22,7 +22,7 @@ Consider this toy dataset:
     generateQuiz(
         'mcq1',
         '',
-        'If  𝑘=3 , what would you predict for the above point if we were doing regression rather than classification?',
+        'If  k=3 , what would you predict for the above point if we were doing regression rather than classification?',
         {
         '0': 'The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0) and so we must take the average of all the values.',
         '1': 'The points (2, 2), (5, 2) and (4, 3) are the closest to (0, 0) and so we must take the average of all the values.',
@@ -38,9 +38,9 @@ Consider this toy dataset:
     generateQuiz(
         'mcq2',
         'True or False',
-        '𝑘-NN Regression can only be done in a 1-dimensional space.',
+        'k-NN Regression can only be done in a 1-dimensional space.',
         {
-        'True': '𝑘-NN can be done with just as many dimensions as classification',
+        'True': 'k-NN can be done with just as many dimensions as classification',
         'False': 'Nice work.',
         },
         'False',
@@ -48,7 +48,7 @@ Consider this toy dataset:
 </script>
 
 
-## Building a 𝑘-NN-Regressor
+## Building a k-NN-Regressor
 
 **Instructions:**    
 Running a coding exercise for the first time could take a bit of time for everything to load.  Be patient, it could take a few minutes. 
