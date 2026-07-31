@@ -12,7 +12,7 @@ title-slide-attributes:
 
 ### So far ...
  
-- Models: Decision trees, 𝑘-NNs, SVMs with RBF kernel.
+- Models: Decision trees, k-NNs, SVMs with RBF kernel.
 - Fundamentals: Train-validation-test split, cross-validation, the fundamental tradeoff, the golden rule.
  
 <br>
@@ -27,7 +27,7 @@ title-slide-attributes:
 :::{.notes}
 So far we have seen:   
  
-- Three ML models (decision trees, 𝑘-NNs, SVMs with RBF kernel)
+- Three ML models (decision trees, k-NNs, SVMs with RBF kernel)
 - ML fundamentals (train-validation-test split, cross-validation, the fundamental trade-off, the golden rule)
  
 Are we ready to do machine learning on real-world datasets?
@@ -67,7 +67,7 @@ X_train.head(3)
 :::{.notes}
 In module 3, we used a portion of the basketball dataset to predict a player's position using `DecisionTreeClassifier`.
  
-Can we use a 𝑘-NN classifier for this task?
+Can we use a k-NN classifier for this task?
  
 We are going to attempt to predict a player’s position (whether a particular player is a point guard ('G') or a forward ('F')).
 
@@ -104,7 +104,7 @@ print('Mean validation score', scores['test_score'].mean().round(2))
 First, let's see what scores we get if we simply predict the most occurring position in the dataset using our dummy classifier.
 
 We get a score of 0.57. 
-Now if we build our 𝑘-NN classifier we determine that it gets an even *worse* score of 0.50! 
+Now if we build our k-NN classifier we determine that it gets an even *worse* score of 0.50! 
 
 Dummy classifiers are supposed to be a baseline and so why is it getting a better score than a model that is actually doing machine learning? What’s going on?
 :::
@@ -283,11 +283,11 @@ Test score:  0.89
 ```
  
 :::{.notes}
-Let's check whether scaling makes any difference for 𝑘-NNs.
+Let's check whether scaling makes any difference for k-NNs.
  
-The scores with scaled data are now much better compared to the unscaled data in the case of 𝑘-NNs.
+The scores with scaled data are now much better compared to the unscaled data in the case of k-NNs.
 
-We can see now that 𝑘-NN is doing better than the Dummy Classifier when we scaled our features. 
+We can see now that k-NN is doing better than the Dummy Classifier when we scaled our features. 
  
 We are not carrying out cross-validation here for a reason that we'll look into soon.
  

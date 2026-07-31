@@ -44,7 +44,7 @@ We've seen why scaling is important when we were using our basketball dataset in
  
 In this section, we are going to dive a little deeper into the process and the transformer options. 
 
-We had our basketball dataset and we saw the training and testing scores before scaling with 𝑘-NN and we saw how these results improved when we scaled our features.
+We had our basketball dataset and we saw the training and testing scores before scaling with k-NN and we saw how these results improved when we scaled our features.
 :::
 
 ---
@@ -69,7 +69,7 @@ We are going to concentrate on the two named `MinMaxScaler` and `StandardScaler`
 
 ---
 
-| Approach | What it does | How to update 𝑋 (but see below!) | sklearn implementation |
+| Approach | What it does | How to update X (but see below!) | sklearn implementation |
 |---------|------------|-----------------------|----------------|
 | Normalization | sets range to [0,1]   | `X -= np.min(X, axis=0)`<br>`X /= np.max(X, axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html" target="_blank">`MinMaxScaler()`</a> |
 | Standardization | sets sample mean to 0, s.d. to 1   | `X -= np.mean(X, axis=0)`<br>`X /=  np.std(X, axis=0)` | <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" target="_blank">`StandardScaler()`</a>|  

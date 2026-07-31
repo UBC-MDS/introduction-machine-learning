@@ -331,9 +331,9 @@ pd.DataFrame(scores_processed)
 :::{.notes} 
 Remember what cross-validation does - it calls `fit` and `score`.
 
-Now we're calling fit on the pipeline, not just the 𝑘-NN regressor.
+Now we're calling fit on the pipeline, not just the k-NN regressor.
 
-So, the transformers and the 𝑘-NN model are refits again on each fold.
+So, the transformers and the k-NN model are refits again on each fold.
 
 The pipeline applies the `fit_transform` on the train portion of the data and only `transform` on the validation portion in each fold.   
 

@@ -15,9 +15,9 @@ format: html
         'Question 1',
         'Which model will still produce meaningful predictions with different scaled column values?',
         {
-        'Decision Trees': 'You are right! Decision Trees visit a single feature at a time, unlike 𝑘-NN models, which calculate distances using the features all together.',
-        '𝑘-NN': 'This works in a similar way to SVM, where distance is calculated and features are observed together and not independently of each other.',
-        'SVM': 'This works in a similar way to 𝑘-NN, where distance is calculated and features are observed together and not independently of each other.',
+        'Decision Trees': 'You are right! Decision Trees visit a single feature at a time, unlike k-NN models, which calculate distances using the features all together.',
+        'k-NN': 'This works in a similar way to SVM, where distance is calculated and features are observed together and not independently of each other.',
+        'SVM': 'This works in a similar way to k-NN, where distance is calculated and features are observed together and not independently of each other.',
         },
         'Decision Trees',
     );

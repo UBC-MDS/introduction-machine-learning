@@ -1,4 +1,6 @@
 ---
+aliases:
+  - "module5-09-case_study:_preprocessing_with_scaling.html"
 format:
   html:
     page-layout: full

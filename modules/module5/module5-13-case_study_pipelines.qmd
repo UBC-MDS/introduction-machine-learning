@@ -1,4 +1,6 @@
 ---
+aliases:
+  - "module5-13-case_study:_pipelines.html"
 format:
   html:
     page-layout: full

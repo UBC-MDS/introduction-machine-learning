@@ -30,9 +30,9 @@ format: live-html
         'Question 2',
         'Which one gives you fine-grained control over the amount of time spent searching?',
         {
-        'Exhaustive Grid Search (<code>GridSearchCV</code>)': 'Randomized grid search picks the best result more often than not and we get control over the amount of interations that occur.',
+        'Exhaustive Grid Search (<code>GridSearchCV</code>)': 'Randomized grid search picks the best result more often than not and we get control over the amount of iterations that occur.',
         'Randomized Grid Search (<code>RandomizedSearchCV</code>)': '',
-        'Both are relatively fast': 'Randomize grid search can be much faster than exhaustive grid search since we can pick the amount of interations that occur.',
+        'Both are relatively fast': 'Randomized grid search can be much faster than exhaustive grid search since we can pick the amount of iterations that occur.',
         },
         'Randomized Grid Search (<code>RandomizedSearchCV</code>)',
     );

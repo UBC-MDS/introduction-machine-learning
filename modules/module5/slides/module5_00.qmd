@@ -3,7 +3,7 @@ format: revealjs
 title: Module Learning Outcomes
 title-slide-attributes:
   data-notes: |
-    This module will introduce you to 𝑘-nearest neighbours and SVM's with an RBF kernel and how to calculate the Euclidean distance between points.
+    This module will introduce you to k-nearest neighbours and SVM's with an RBF kernel and how to calculate the Euclidean distance between points.
 ---
 
 ```{python}
