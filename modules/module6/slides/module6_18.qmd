@@ -1,6 +1,6 @@
 ---
 format: revealjs
-title: "Handeling Categorical Features: Binary, Ordinal and More"
+title: "Handling Categorical Features: Binary, Ordinal and More"
 title-slide-attributes:
   data-notes: |
 ---

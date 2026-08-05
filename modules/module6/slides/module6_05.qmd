@@ -159,7 +159,7 @@ Before we would transform one original column into one transformed column but in
 
 One-hot encoding creates new binary columns to represent our categories.
 
-If we have 𝑐 categories in our column, we create 𝑐 new binary columns to represent those categories.    
+If we have c categories in our column, we create c new binary columns to represent those categories.    
 - Example: Imagine a language column which has the information on whether you 
 
 - We can use sklearn's <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank">`OneHotEncoder`</a>

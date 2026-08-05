@@ -179,7 +179,7 @@ pipe.score(X,y)
 :::{.notes} 
 We can use `CountVectorizer()` in a pipeline just like any other transformer. 
 
-Here we get a perfect score on the data it's seen already. How well does it do on unsceen data?
+Here we get a perfect score on the data it's seen already. How well does it do on unseen data?
 :::
 
 ---

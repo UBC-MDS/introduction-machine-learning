@@ -1,4 +1,6 @@
 ---
+aliases:
+  - "module6-05-categorical_variables:_one-hot_encoding.html"
 format:
   html:
     page-layout: full

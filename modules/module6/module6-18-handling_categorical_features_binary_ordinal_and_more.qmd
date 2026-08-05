@@ -1,10 +1,12 @@
 ---
+aliases:
+  - "module6-18-handeling_categorical_features:_binary_ordinal_and_more.html"
 format:
   html:
     page-layout: full
 ---
 
-# 5. Handeling Categorical Features: Binary, Ordinal and More
+# 5. Handling Categorical Features: Binary, Ordinal and More
 
 ::: {.panel-tabset .nav-pills}
 
@@ -13,7 +15,7 @@ format:
 <iframe
     class="video"
     src="https://www.youtube.com/embed/lEcJULloczk?start=2525&end=3290&rel=0" 
-    title="Module 6 Video - Handeling Categorical Features: Binary, Ordinal and More"
+    title="Module 6 Video - Handling Categorical Features: Binary, Ordinal and More"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen

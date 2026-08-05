@@ -1,4 +1,6 @@
 ---
+aliases:
+  - "module6-01-categorical_variables:_ordinal_encoding.html"
 format:
   html:
     page-layout: full

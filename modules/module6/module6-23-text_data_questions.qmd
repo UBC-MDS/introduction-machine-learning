@@ -112,7 +112,7 @@ tweets_df
 
 **Tasks:**
 
-- Split the dataset into the feature table `X` and the target value `y`. `X` will be the single column `text` from the dataset wheras `target` will be your `y`. 
+- Split the dataset into the feature table `X` and the target value `y`. `X` will be the single column `text` from the dataset whereas `target` will be your `y`. 
 - Split your data into your training and testing data using a text size of 20% and a random state of 7. 
 - Make a pipeline with `CountVectorizer` as the first step and `SVC()` as the second. Name the pipeline `pipe`. 
 - Perform RandomizedSearchCV using the parameters specified in `param_grid` and name the search `tweet_search`.

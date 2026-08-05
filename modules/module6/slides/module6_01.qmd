@@ -109,7 +109,7 @@ Detailed traceback:
 
 
 :::{.notes} 
-Let's first see what happens when we try to apply a 𝑘-NN model on our data and preprocess it for imputation and scaling.
+Let's first see what happens when we try to apply a k-NN model on our data and preprocess it for imputation and scaling.
 
 Oh no. That's not good. We get a `ValueError` output. 
 
