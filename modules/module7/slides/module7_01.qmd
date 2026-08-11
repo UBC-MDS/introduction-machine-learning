@@ -203,7 +203,7 @@ This results in a 2 by 2 matrix with the labels `Non fraud` and `Fraud` on each 
 
 Scikit-learn's convention is to have the true label as the rows and the predicted label as the columns.
 
-Others do it the other way around, e.g., the confusion matrix <a href=" https://en.wikipedia.org/wiki/Confusion_matrix" target="_blank">Wikipedia article</a>.
+Others do it the other way around, e.g., the confusion matrix <a href="https://en.wikipedia.org/wiki/Confusion_matrix" target="_blank">Wikipedia article</a>.
 :::
 
 ---

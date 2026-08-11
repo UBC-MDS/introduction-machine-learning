@@ -110,7 +110,7 @@ There are two common approaches to this:
 
 <br>
 
-    `class_weight: dict or ‘balanced’, default=None`
+    `class_weight: dict or 'balanced', default=None`
     
     Set the parameter C of class i to class_weight[i] * C for SVC. 
     If not given, all classes are supposed to have weight one. 
@@ -265,7 +265,7 @@ In other words, if we have 10% negative examples in total, then each fold will h
 
 ![](../../../static/module7/stratified.png){fig-align="center" width="84%" fig-alt="404 image"}
  
- <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.htmll" target="_blank">Attribution: Scikit Learn</a>
+ <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">Attribution: Scikit Learn</a>
 
 
 :::{.notes}
