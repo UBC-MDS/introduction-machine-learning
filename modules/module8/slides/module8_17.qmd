@@ -168,7 +168,7 @@ plt.title("Logistic Regression - Multi Class", fontsize=20);
 
 
 :::{.notes} 
-We can also make plots shoulding the decision boundaries, but this time, it will show more classes.
+We can also make plots showing the decision boundaries, but this time, it will show more classes.
 
 For us to be able to plot this we need to select 2 features so we are picking `alcohol` and `malic_acid`. 
 

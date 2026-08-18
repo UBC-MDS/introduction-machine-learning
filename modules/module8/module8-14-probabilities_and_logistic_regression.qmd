@@ -162,7 +162,7 @@ pk_df
 
 **Tasks:**
 
-- Build and fit a pipeline containing the column transformer and a logistic regression model that uses the parameter `class_weight="balanced"` and `max_iter=1000`(`max_iter` will stop a warning from occuring) . Name this pipeline `pkm_pipe`.
+- Build and fit a pipeline containing the column transformer and a logistic regression model that uses the parameter `class_weight="balanced"` and `max_iter=1000`(`max_iter` will stop a warning from occurring) . Name this pipeline `pkm_pipe`.
 - Perform `RandomizedSearchCV` using the parameters specified in `param_grid`. Use `n_iter` equal to 10, 5 cross-validation folds and return the training score.  Set `random_state=2028` and set your scoring argument to `f1`.  Name this object `pmk_search`.
 - Fit your `pmk_search` on the training data.
 - What is the best `C` value? Save it in an object name `pkm_best_c`.

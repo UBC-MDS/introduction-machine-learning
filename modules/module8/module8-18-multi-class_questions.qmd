@@ -232,7 +232,7 @@ print_correct_msg()
 
 - Are you making your `lr_pipe` pipeline with `make_pipeline(col_transformer,LogisticRegression())`?
 - Are you Fitting your pipeline on the training set with `lr_pipe.fit(X_train, y_train)`?
-- Are you plotting your confusion matrix with `plot_confusion_matrix(lr_pipe, X_test, y_test,cmap="PuRd");`
+- Are you plotting your confusion matrix with `ConfusionMatrixDisplay.from_estimator(lr_pipe, X_test, y_test, cmap="PuRd");`
 
 :::
 ::::

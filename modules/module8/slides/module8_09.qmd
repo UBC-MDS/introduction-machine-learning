@@ -331,7 +331,7 @@ y = ["spam", "non spam", "non spam", "spam", "spam", "non spam"]
 
 
 :::{.notes} 
-In one of the practice problems and in the assigment, we apply logistic regression with text data.
+In one of the practice problems and in the assignment, we apply logistic regression with text data.
 
 We want to give you a bit of background for this.
 
