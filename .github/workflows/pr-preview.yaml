@@ -9,6 +9,7 @@ on:
       - closed
     branches:
       - 'main'
+      - 'develop'
 
 concurrency: preview-${{ github.ref }}
 
