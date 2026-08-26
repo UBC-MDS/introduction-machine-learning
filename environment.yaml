@@ -4,27 +4,13 @@ channels:
     - defaults
 dependencies:
     - python>=3.11,<3.13
-    - altair-all=5.5.*
+    - altair-all=5.5.*    # charts; slide decks call chart.save() to PNG, which needs vl-convert
     - pandas=2.2.*
-    - pillow
-    - scipy
     - scikit-learn
-    - graphviz
-    - matplotlib
-    - pytorch
-    - torchvision
-    - xgboost
-    - jupyter
+    - scipy               # imported by Module 5, 7 and 8 slides
+    - matplotlib          # decision boundaries (src/model_plotting_mg.py) and confusion matrices
+    - graphviz            # Graphviz binaries for src/display_tree.py
+    - python-graphviz     # Python bindings for Graphviz
+    - xgboost             # Module 1 opening slides
+    - jupyter             # Quarto executes the slide decks through a Jupyter kernel
     - quarto
-    - pip
-    - python-graphviz
-
-# from PIL import Image
-# from scipy.stats import randint
-# from sklearn.tree import export_graphviz
-# from torchvision import transforms
-# import graphviz
-# import matplotlib.pyplot as plt
-# import pandas as pd
-# import scipy
-# import torch
