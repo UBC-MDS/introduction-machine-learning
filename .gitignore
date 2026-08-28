@@ -41,3 +41,6 @@ venv/
 .DS_Store
 ._*
 Thumbs.db
+
+# Stale dataset index, removed in the 2026 pass (recoverable from git history)
+data/dataset_list.md
