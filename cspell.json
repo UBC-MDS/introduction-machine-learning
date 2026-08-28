@@ -1,0 +1,166 @@
+{
+  "version": "0.2",
+  "language": "en-CA,en",
+  "files": [
+    "modules/**/*.qmd",
+    "_quarto.yml",
+    "README.md",
+    "CLAUDE.md"
+  ],
+  "ignorePaths": [
+    "_site/**",
+    ".quarto/**",
+    "data/**",
+    "static/**",
+    "_extensions/**",
+    "node_modules/**"
+  ],
+  "overrides": [
+    {
+      "filename": "**/*.qmd",
+      "languageId": "markdown"
+    }
+  ],
+  "patterns": [
+    {
+      "name": "fenced_code",
+      "pattern": "/^\\s*(`{3,}|~{3,})[\\s\\S]*?^\\s*\\1/gm"
+    },
+    {
+      "name": "inline_code",
+      "pattern": "/`[^`\\n]+`/g"
+    },
+    {
+      "name": "html_code",
+      "pattern": "/<code>[\\s\\S]*?<\\/code>/gi"
+    },
+    {
+      "name": "math_display",
+      "pattern": "/\\$\\$[\\s\\S]*?\\$\\$/g"
+    },
+    {
+      "name": "math_inline",
+      "pattern": "/\\$[^$\\n]+\\$/g"
+    },
+    {
+      "name": "html_attr",
+      "pattern": "/\\b(?:src|href|class|id|allow|style|width|height)=(?:\"[^\"]*\"|'[^']*')/g"
+    },
+    {
+      "name": "html_tag",
+      "pattern": "/<\\/?[a-zA-Z][a-zA-Z0-9-]*/g"
+    },
+    {
+      "name": "yaml_path",
+      "pattern": "/^\\s*-?\\s*(?:href|logo|src|aliases|format):.*$/gm"
+    },
+    {
+      "name": "quarto_attr",
+      "pattern": "/\\{[.#][^}\\n]*\\}/g"
+    },
+    {
+      "name": "alias_entry",
+      "pattern": "/^\\s*-\\s*\"[^\"]*\\.html\"\\s*$/gm"
+    }
+  ],
+  "ignoreRegExpList": [
+    "fenced_code",
+    "inline_code",
+    "html_code",
+    "math_display",
+    "math_inline",
+    "html_attr",
+    "html_tag",
+    "yaml_path",
+    "quarto_attr",
+    "Urls",
+    "Email",
+    "alias_entry"
+  ],
+  "words": [
+    "Artur",
+    "Beuzen",
+    "binarize",
+    "Boyce",
+    "candybars",
+    "coef",
+    "colwidths",
+    "countvectorizer",
+    "CPSC",
+    "Cubchoo",
+    "dataframe",
+    "dataframes",
+    "DSCI",
+    "dtype",
+    "dtypes",
+    "figalt",
+    "Gelbart",
+    "Gini",
+    "Girela",
+    "Graphviz",
+    "Hayley",
+    "hayleyfboyce",
+    "Herta",
+    "hyperparameter",
+    "hyperparameters",
+    "Johnsson",
+    "Jurafsky",
+    "Kaggle",
+    "Katyanna",
+    "kernelspec",
+    "Kolhatkar",
+    "linkcolor",
+    "Lugia",
+    "Luís",
+    "Magnus",
+    "mainfont",
+    "Mandibuzz",
+    "MAPE",
+    "matplotlib",
+    "Mengxin",
+    "micromamba",
+    "mikegelbart",
+    "monobackgroundcolor",
+    "monofont",
+    "Montani",
+    "nbsp",
+    "nord",
+    "numpy",
+    "ordinality",
+    "ordinally",
+    "Ostblom",
+    "overfit",
+    "overfitting",
+    "pagetitle",
+    "proba",
+    "pyodide",
+    "Quach",
+    "revealjs",
+    "RMSE",
+    "Rokem",
+    "scikit",
+    "Simonite",
+    "Skitty",
+    "sklearn",
+    "Skor",
+    "Slakoth",
+    "Snoodle",
+    "sovereignlimits",
+    "sqfeet",
+    "Starmie",
+    "tabset",
+    "Torgo",
+    "Twix",
+    "underfit",
+    "underfitting",
+    "Undersampling",
+    "Uxie",
+    "Varada",
+    "varadakolhatkar",
+    "Vectorizer",
+    "Vidana",
+    "watchlist",
+    "Zhao",
+    "Zygarde"
+  ]
+}
