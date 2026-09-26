@@ -206,7 +206,7 @@
 </section>
 <section class="slide level2">
 
-<div id="86e43a62" class="cell" data-execution_count="2">
+<div id="b587557e" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -316,7 +316,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="750d8cef" class="cell" data-execution_count="3">
+<div id="98cf7e31" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>y_train[:<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>array([0, 1, 2, 2, 0])</code></pre>
@@ -341,7 +341,7 @@
 </section>
 <section class="slide level2">
 
-<div id="bd94f667" class="cell" data-execution_count="4">
+<div id="40ff8c9c" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
@@ -352,7 +352,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="9ab08a8c" class="cell" data-execution_count="5">
+<div id="ff9a8e62" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>lr.coef_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([[ 0.52616755,  0.43513205,  0.38076982, -0.05013891, -0.02594189,  0.54314344,  0.87391878, -0.00717993, -0.089076  ,  0.21384518,  0.03174936,  0.61581655,  0.01098811],
@@ -361,7 +361,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="e5e66bc9" class="cell" data-execution_count="6">
+<div id="3e6aae7a" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>lr.coef_.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>(3, 13)</code></pre>
@@ -385,7 +385,7 @@
 </section>
 <section class="slide level2">
 
-<div id="e98c1d35" class="cell" data-execution_count="7">
+<div id="0c58d78a" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>lr_coefs <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>lr.coef_.T, index<span class="op">=</span>X_train.columns, columns<span class="op">=</span>lr.classes_)</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>lr_coefs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -481,7 +481,7 @@
 </section>
 <section class="slide level2">
 
-<div id="37a17f4c" class="cell" data-execution_count="8">
+<div id="f7c71285" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>lr.predict_proba(X_test)[:<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>array([[9.95215902e-01, 4.05367764e-03, 7.30420860e-04],
@@ -492,7 +492,7 @@
 </div>
 </div>
 <p><br></p>
-<div id="182bad98" class="cell" data-execution_count="9">
+<div id="3e92745c" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>lr.predict_proba(X_test[:<span class="dv">5</span>]).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([1., 1., 1., 1., 1.])</code></pre>
@@ -514,7 +514,7 @@
 </section>
 <section class="slide level2">
 
-<div id="73176665" class="cell" data-execution_count="10">
+<div id="9976c7b8" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_test, lr.predict(X_test))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -525,7 +525,7 @@
 </div>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>ConfusionMatrixDisplay.from_estimator(lr, X_test, y_test, display_labels<span class="op">=</span>lr.classes_, cmap<span class="op">=</span><span class="st">'Blues'</span>, values_format<span class="op">=</span><span class="st">'d'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="91a8ccf0" class="cell" data-execution_count="11">
+<div id="749324d5" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -551,7 +551,7 @@
 </section>
 <section class="slide level2">
 
-<div id="d7298cc3" class="cell" data-execution_count="12">
+<div id="fd89367d" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
 <span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, lr.predict(X_test)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -584,7 +584,7 @@ weighted avg       0.96      0.96      0.96        45
 </section>
 <section class="slide level2">
 
-<div id="f514aad0" class="cell" data-execution_count="13">
+<div id="c5c99be0" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>x_train_2d <span class="op">=</span> X_train[[<span class="st">'alcohol'</span>, <span class="st">'malic_acid'</span>]]</span>
 <span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>x_train_2d.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -633,7 +633,7 @@ weighted avg       0.96      0.96      0.96        45
 </div>
 </div>
 </div>
-<div id="6138ee63" class="cell" data-execution_count="14">
+<div id="fef331a4" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -660,7 +660,7 @@ weighted avg       0.96      0.96      0.96        45
 </section>
 <section class="slide level2">
 
-<div id="a673033c" class="cell" data-execution_count="15">
+<div id="c2a37350" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

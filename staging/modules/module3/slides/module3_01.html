@@ -297,7 +297,7 @@
 </section>
 <section class="slide level2">
 
-<div id="2edc5fce" class="cell" data-execution_count="2">
+<div id="916c3486" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>cities_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -391,7 +391,7 @@
 </section>
 <section class="slide level2">
 
-<div id="4e541bda" class="cell" data-execution_count="3">
+<div id="35b888de" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> cities_df.drop(columns<span class="op">=</span>[<span class="st">"country"</span>])</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>X</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -478,7 +478,7 @@
 </section>
 <section class="slide level2">
 
-<div id="9857d3a6" class="cell" data-execution_count="4">
+<div id="010af4e3" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> cities_df[<span class="st">"country"</span>]</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -508,14 +508,14 @@ Name: country, Length: 209, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="48a121ef" class="cell" data-execution_count="5">
+<div id="fa22843f" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset</span></span>
 <span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
 <span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="fbb641df" class="cell" data-execution_count="6">
+<div id="ac6ed3d9" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>X_train.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -587,7 +587,7 @@ Name: country, Length: 209, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="869facd9" class="cell" data-execution_count="7">
+<div id="b6aa28b9" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>X_test.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -636,7 +636,7 @@ Name: country, Length: 209, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="dc4c60e5" class="cell" data-execution_count="8">
+<div id="b4e19691" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>y_train.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>160    Canada
@@ -646,7 +646,7 @@ Name: country, dtype: object</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="ff021606" class="cell" data-execution_count="9">
+<div id="837ea0fc" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>y_test.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>172    Canada
@@ -674,7 +674,7 @@ Name: country, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="25447027" class="cell" data-execution_count="10">
+<div id="b18599d4" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>shape_dict <span class="op">=</span> {<span class="st">"Data portion"</span>: [<span class="st">"X"</span>, <span class="st">"y"</span>, <span class="st">"X_train"</span>, <span class="st">"y_train"</span>, <span class="st">"X_test"</span>, <span class="st">"y_test"</span>],</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"Shape"</span>: [X.shape, y.shape,</span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>              X_train.shape, y_train.shape,</span>
@@ -764,7 +764,7 @@ Name: country, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="c235a937" class="cell" data-execution_count="11">
+<div id="2b11b7f5" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size <span class="op">=</span> <span class="fl">0.2</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"country"</span>]), train_df[<span class="st">"country"</span>]</span>
@@ -853,7 +853,7 @@ Name: country, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="9949666f" class="cell" data-execution_count="12">
+<div id="88c1c0f8" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>chart_cities <span class="op">=</span> alt.Chart(train_df).mark_circle(size<span class="op">=</span><span class="dv">20</span>, opacity<span class="op">=</span><span class="fl">0.6</span>).encode(</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'longitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="op">-</span><span class="dv">140</span>, <span class="op">-</span><span class="dv">40</span>])),</span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'latitude:Q'</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">60</span>])),</span>
@@ -879,7 +879,7 @@ Name: country, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="13847ea6" class="cell" data-execution_count="14">
+<div id="ae8ce7fb" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DecisionTreeClassifier()</span>
@@ -962,12 +962,12 @@ Name: country, dtype: object</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="250b6107" class="cell" data-execution_count="18">
+<div id="98e4b5f7" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Train score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(model.score(X_train, y_train), <span class="dv">2</span>)))</span>
 <span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test score: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">round</span>(model.score(X_test, y_test), <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Train score: 1.0
-Test score: 0.74</code></pre>
+Test score: 0.71</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -988,7 +988,7 @@ Test score: 0.74</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="01e8affa" class="cell" data-execution_count="19">
+<div id="dd37bf47" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1023,10 +1023,10 @@ Test score: 0.74</code></pre>
 <section class="slide level2">
 
 <h3 id="test_size-and-train_size-arguments"><em>test_size</em> and <em>train_size</em> arguments</h3>
-<div id="d2bfea5e" class="cell" data-execution_count="20">
+<div id="5fb5eb81" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size <span class="op">=</span> <span class="fl">0.2</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="248bc07d" class="cell" data-execution_count="21">
+<div id="6744f10e" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>shape_dict2 <span class="op">=</span> {<span class="st">"Data portion"</span>: [<span class="st">"cities_df"</span>, <span class="st">"train_df"</span>, <span class="st">"test_df"</span>],</span>
 <span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"Shape"</span>: [cities_df.shape, train_df.shape,</span>
 <span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>              test_df.shape]}</span>
@@ -1102,14 +1102,14 @@ Test score: 0.74</code></pre>
 <section class="slide level2">
 
 <h3 id="random_state-argument"><em>random_state</em> argument</h3>
-<div id="d7556f1f" class="cell" data-execution_count="22">
+<div id="37479ae9" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>train_df_rs5, test_df_rs5 <span class="op">=</span> train_test_split(cities_df, test_size <span class="op">=</span> <span class="fl">0.2</span>, random_state <span class="op">=</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="972e2e50" class="cell" data-execution_count="23">
+<div id="dec9149d" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>train_df_rs7, test_df_rs7 <span class="op">=</span> train_test_split(cities_df, test_size <span class="op">=</span> <span class="fl">0.2</span>, random_state <span class="op">=</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="45e034fb" class="cell" data-execution_count="24">
+<div id="e2a99c46" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>train_df_rs5.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
@@ -1162,7 +1162,7 @@ Test score: 0.74</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="df6231f2" class="cell" data-execution_count="25">
+<div id="938e433a" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>train_df_rs7.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <div>

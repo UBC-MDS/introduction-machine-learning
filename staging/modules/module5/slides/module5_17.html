@@ -305,7 +305,7 @@
 </section>
 <section id="bring-in-the-data" class="slide level2">
 <h2>Bring in the data</h2>
-<div id="f9d1d3e3" class="cell" data-execution_count="2">
+<div id="3e449470" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>cities_df <span class="op">=</span> pd.read_csv(<span class="st">"data/canada_usa_cities.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(cities_df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">'country'</span>]), train_df[<span class="st">'country'</span>]</span>
@@ -383,7 +383,7 @@
 </section>
 <section id="exhaustive-grid-search" class="slide level2">
 <h2>Exhaustive grid search</h2>
-<div id="3ebdd57d" class="cell" data-execution_count="3">
+<div id="d10f18ca" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
@@ -391,14 +391,14 @@
 <span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="48355a74" class="cell" data-execution_count="4">
+<div id="6128ba62" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>svc <span class="op">=</span> SVC()</span>
 <span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(svc, param_grid, verbose<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="dfbc599b" class="cell" data-execution_count="5">
+<div id="5d78b853" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 5 folds for each of 4 candidates, totalling 20 fits</code></pre>
@@ -430,19 +430,19 @@
 </section>
 <section class="slide level2">
 
-<div id="61473520" class="cell" data-execution_count="6">
+<div id="49d7c943" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"gamma"</span>: [<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="dv">10</span>, <span class="dv">100</span>],</span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"C"</span>: [<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="dv">10</span>, <span class="dv">100</span>]</span>
 <span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="8a774804" class="cell" data-execution_count="7">
+<div id="1ead8b41" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>svc <span class="op">=</span> SVC()</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(svc, param_grid, cv<span class="op">=</span> <span class="dv">5</span>, verbose<span class="op">=</span><span class="dv">1</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="4a5a8a27" class="cell" data-execution_count="8">
+<div id="f68deee2" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 5 folds for each of 16 candidates, totalling 80 fits</code></pre>
@@ -476,7 +476,7 @@
 </section>
 <section class="slide level2">
 
-<div id="2be82a67" class="cell" data-execution_count="9">
+<div id="4bc86db6" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -487,14 +487,14 @@
 <span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>        (<span class="st">"svc"</span>, SVC())])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="729b4a08" class="cell" data-execution_count="10">
+<div id="c2af7e75" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"svc__gamma"</span>: [<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="dv">10</span>, <span class="dv">100</span>],</span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"svc__C"</span>: [<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="dv">10</span>, <span class="dv">100</span>]</span>
 <span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="5559f864" class="cell" data-execution_count="11">
+<div id="dc727fb2" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(pipe, param_grid, cv<span class="op">=</span><span class="dv">5</span>, return_train_score<span class="op">=</span><span class="va">True</span>, verbose<span class="op">=</span><span class="dv">1</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -523,7 +523,7 @@
 </section>
 <section class="slide level2">
 
-<div id="0cc6fb7d" class="cell" data-execution_count="12">
+<div id="00d6e7e4" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"svc__gamma"</span>: [<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="dv">10</span>, <span class="dv">100</span>],</span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"svc__C"</span>: [<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="dv">10</span>, <span class="dv">100</span>]}</span>
@@ -539,7 +539,7 @@
         compute average score
 pick hyperparameters with the best score</code></pre>
 <p><br></p>
-<div id="96bc0e4f" class="cell" data-execution_count="13">
+<div id="0fb8856e" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 5 folds for each of 16 candidates, totalling 80 fits</code></pre>
@@ -589,14 +589,14 @@ pick hyperparameters with the best score</code></pre>
 </section>
 <section id="now-what" class="slide level2">
 <h2>Now what?</h2>
-<div id="edb9b140" class="cell" data-execution_count="14">
+<div id="bb05dc4a" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>{'svc__C': 10, 'svc__gamma': 1.0}</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="496dd689" class="cell" data-execution_count="15">
+<div id="25f69a49" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.best_score_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>np.float64(0.8208556149732621)</code></pre>
@@ -619,7 +619,7 @@ pick hyperparameters with the best score</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="67609411" class="cell" data-execution_count="16">
+<div id="2a563a36" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>best_model <span class="op">=</span> grid_search.best_estimator_</span>
 <span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>best_model.fit(X_train, y_train)</span>
@@ -630,7 +630,7 @@ pick hyperparameters with the best score</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="8b193e94" class="cell" data-execution_count="17">
+<div id="eed4560c" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.score(X_test, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>0.8333333333333334</code></pre>
@@ -654,7 +654,7 @@ pick hyperparameters with the best score</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="bb9d9518" class="cell" data-execution_count="18">
+<div id="a044b96b" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>best_model.predict(X_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>array(['Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'USA', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'Canada', 'USA', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'USA', 'Canada', 'Canada',
@@ -662,7 +662,7 @@ pick hyperparameters with the best score</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="cd05c736" class="cell" data-execution_count="19">
+<div id="d8343d00" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.predict(X_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>array(['Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'USA', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'Canada', 'USA', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'Canada', 'Canada', 'Canada', 'Canada', 'Canada', 'USA', 'USA', 'Canada', 'Canada',
@@ -717,7 +717,7 @@ pick hyperparameters with the best score</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="fbb87e37" class="cell" data-execution_count="20">
+<div id="e942df4c" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
 <span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
@@ -726,7 +726,7 @@ pick hyperparameters with the best score</code></pre>
 <span id="cb30-6"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="471887c3" class="cell" data-execution_count="21">
+<div id="4664e2ee" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>random_search <span class="op">=</span> RandomizedSearchCV(pipe, param_grid, cv<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="dv">1</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>, n_iter<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>random_search.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -734,7 +734,7 @@ pick hyperparameters with the best score</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="7fe94dbd" class="cell" data-execution_count="22">
+<div id="4e81b59f" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>random_search.score(X_test, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>0.8333333333333334</code></pre>
@@ -762,7 +762,7 @@ pick hyperparameters with the best score</code></pre>
 </section>
 <section id="extra-optional-slide" class="slide level2">
 <h2>Extra (optional slide)</h2>
-<div id="fd845881" class="cell" data-execution_count="23">
+<div id="8baa57d5" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
 <span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
@@ -770,24 +770,24 @@ pick hyperparameters with the best score</code></pre>
 <span id="cb35-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"svc__gamma"</span>: scipy.stats.uniform(<span class="dv">0</span>, <span class="dv">100</span>)}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
-<div id="5b3ec3ba" class="cell" data-execution_count="24">
+<div id="a7ad22b7" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>random_gs <span class="op">=</span> RandomizedSearchCV(pipe, param_grid, n_jobs<span class="op">=-</span><span class="dv">1</span>, cv<span class="op">=</span><span class="dv">10</span>, return_train_score<span class="op">=</span><span class="va">True</span>, n_iter<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>random_gs.fit(X_train, y_train)<span class="op">;</span></span>
 <span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>random_gs.best_params_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>{'svc__C': np.float64(2.6732425994985154),
- 'svc__gamma': np.float64(6.358326146849224)}</code></pre>
+<pre><code>{'svc__C': np.float64(2.5536626646453287),
+ 'svc__gamma': np.float64(3.9726012055715687)}</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="5ae9f23a" class="cell" data-execution_count="25">
+<div id="99c19ea9" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>random_gs.best_score_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
-<pre><code>np.float64(0.8106617647058825)</code></pre>
+<pre><code>np.float64(0.8047794117647058)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="35402e4c" class="cell" data-execution_count="26">
+<div id="de3cdd51" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a>random_gs.score(X_test, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>0.8095238095238095</code></pre>
@@ -810,14 +810,14 @@ pick hyperparameters with the best score</code></pre>
 </section>
 <section id="how-different-do-they-score" class="slide level2">
 <h2>How different do they score?</h2>
-<div id="d5b49fa4" class="cell" data-execution_count="27">
+<div id="0fd0df0a" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a>grid_search.score(X_test, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>0.8333333333333334</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="f1908ec0" class="cell" data-execution_count="28">
+<div id="86b6d562" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a>random_search.score(X_test, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>0.8333333333333334</code></pre>
