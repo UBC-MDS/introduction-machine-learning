@@ -206,7 +206,7 @@
 </section>
 <section id="case-study-california-housing-prices" class="slide level2">
 <h2>Case study: California housing prices</h2>
-<div id="873ad327" class="cell" data-execution_count="2">
+<div id="409ea256" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>housing_df <span class="op">=</span> pd.read_csv(<span class="st">"data/housing.csv"</span>)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(housing_df, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -332,7 +332,7 @@
 </section>
 <section class="slide level2">
 
-<div id="d98c13ed" class="cell" data-execution_count="3">
+<div id="d5a447f0" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>train_df <span class="op">=</span> train_df.assign(rooms_per_household <span class="op">=</span> train_df[<span class="st">"total_rooms"</span>]<span class="op">/</span>train_df[<span class="st">"households"</span>],</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>                           bedrooms_per_household <span class="op">=</span> train_df[<span class="st">"total_bedrooms"</span>]<span class="op">/</span>train_df[<span class="st">"households"</span>],</span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>                           population_per_household <span class="op">=</span> train_df[<span class="st">"population"</span>]<span class="op">/</span>train_df[<span class="st">"households"</span>])</span>
@@ -462,7 +462,7 @@
 </section>
 <section id="exploratory-data-analysis-eda" class="slide level2">
 <h2>Exploratory Data Analysis (EDA)</h2>
-<div id="39149c50" class="cell" data-execution_count="4">
+<div id="d1ad7c7f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>train_df.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -501,7 +501,7 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="7a663ef0" class="cell" data-execution_count="5">
+<div id="ef567f34" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>train_df.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -627,7 +627,7 @@ memory usage: 1.6+ MB</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="c87253f9" class="cell" data-execution_count="6">
+<div id="efda7549" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>train_df[<span class="st">"bedrooms_per_household"</span>].isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>np.int64(185)</code></pre>
@@ -649,7 +649,7 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section id="what-happens" class="slide level2">
 <h2>What happens?</h2>
-<div id="1ee23dfb" class="cell" data-execution_count="7">
+<div id="274a79b7" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df.drop(columns<span class="op">=</span>[<span class="st">"median_house_value"</span>, <span class="st">"ocean_proximity"</span>])</span>
 <span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_df[<span class="st">"median_house_value"</span>]</span>
 <span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -684,21 +684,21 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section id="dropping" class="slide level2">
 <h2>Dropping</h2>
-<div id="3b8c02ae" class="cell" data-execution_count="8">
+<div id="2706f47f" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>train_df[<span class="st">"bedrooms_per_household"</span>].isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>np.int64(185)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="1b07766c" class="cell" data-execution_count="9">
+<div id="8e2ac368" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>X_train.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(18576, 8)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="538fb43c" class="cell" data-execution_count="10">
+<div id="29697182" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>X_train_no_nan <span class="op">=</span> X_train.dropna()</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>y_train_no_nan <span class="op">=</span> y_train.dropna()</span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a></span>
@@ -727,14 +727,14 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section id="dropping-a-column" class="slide level2">
 <h2>Dropping a column</h2>
-<div id="b69a47f4" class="cell" data-execution_count="11">
+<div id="b6a283f0" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>X_train.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>(18576, 8)</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="f1477efc" class="cell" data-execution_count="12">
+<div id="75625305" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>X_train_no_col <span class="op">=</span> X_train.dropna(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>X_train_no_col.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -762,7 +762,7 @@ memory usage: 1.6+ MB</code></pre>
 <section id="imputation" class="slide level2">
 <h2>Imputation</h2>
 <p><strong>Imputation</strong>: Imputation means inventing values for the missing data.</p>
-<div id="65ea1c58" class="cell" data-execution_count="13">
+<div id="9d327c8d" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can impute missing values in:</p>
@@ -787,7 +787,7 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="35c6dd8c" class="cell" data-execution_count="14">
+<div id="968e3a27" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>X_train.sort_values(<span class="st">'bedrooms_per_household'</span>).tail(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
@@ -921,7 +921,7 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="103eb368" class="cell" data-execution_count="15">
+<div id="c3a8c622" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>imputer <span class="op">=</span> SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)</span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>imputer.fit(X_train)<span class="op">;</span></span>
 <span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>X_train_imp <span class="op">=</span> imputer.transform(X_train)</span>
@@ -958,7 +958,7 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="9fce149f" class="cell" data-execution_count="16">
+<div id="c18761ed" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>X_train_imp_df <span class="op">=</span> pd.DataFrame(X_train_imp, columns <span class="op">=</span> X_train.columns, index <span class="op">=</span> X_train.index)</span>
 <span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>X_train_imp_df.loc[[<span class="dv">7763</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -1010,7 +1010,7 @@ memory usage: 1.6+ MB</code></pre>
 </div>
 </div>
 <p><br></p>
-<div id="a220578e" class="cell" data-execution_count="17">
+<div id="cd62d7ca" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>X_train.loc[[<span class="dv">7763</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
@@ -1078,7 +1078,7 @@ memory usage: 1.6+ MB</code></pre>
 </section>
 <section class="slide level2">
 
-<div id="91a5f2b4" class="cell" data-execution_count="18">
+<div id="7d372fbd" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
 <span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>knn <span class="op">=</span> KNeighborsRegressor()</span>
